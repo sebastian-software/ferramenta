@@ -1,0 +1,64 @@
+# Reusable release workflow for Rust crates in the Ferramenta family.
+#
+# Call with `secrets: inherit` so CARGO_REGISTRY_TOKEN (and optionally
+# RELEASE_PLEASE_TOKEN) reach this workflow. The caller job needs:
+#   permissions:
+#     contents: write
+#     issues: write
+#     pull-requests: write
+#
+# Usage:
+#   jobs:
+#     release:
+#       uses: sebastian-software/ferramenta/.github/workflows/release-rust.yml@main
+#       secrets: inherit
+
+name: Release (Rust crate)
+
+on:
+  workflow_call:
+    inputs:
+      crate-dir:
+        description: Directory of the crate to publish (contains Cargo.toml)
+        type: string
+        default: '.'
+      rust-toolchain:
+        description: Rust toolchain used for publishing
+        type: string
+        default: stable
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+  publish-crate:
+    needs: release-please
+    # `releases_created` (plural) is emitted for both root and nested
+    # manifest packages; the singular `release_created` only exists for
+    # root packages and silently skips publishing otherwise.
+    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.crate-dir }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ inputs.rust-toolchain }}
+
+      - name: Publish to crates.io
+        run: cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

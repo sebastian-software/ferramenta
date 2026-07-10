@@ -1,0 +1,189 @@
+# Reusable release workflow for Node packages with a native Rust core
+# (napi addon), publishing multi-platform binaries to npm via Trusted
+# Publishing (OIDC — no token secret).
+#
+# Call with `secrets: inherit`. The caller job needs:
+#   permissions:
+#     contents: write
+#     issues: write
+#     pull-requests: write
+#     id-token: write
+#
+# Usage:
+#   jobs:
+#     release:
+#       uses: sebastian-software/ferramenta/.github/workflows/release-node-native.yml@main
+#       with:
+#         workspace-dir: node
+#         package-dir: node/ferriki
+#         addon-name: ferriki
+#         smoke-script: >-
+#           import('./ferriki/index.mjs').then(async (m) => { ... })
+#       secrets: inherit
+
+name: Release (Node package with native core)
+
+on:
+  workflow_call:
+    inputs:
+      workspace-dir:
+        description: pnpm workspace root (contains package.json + lockfile)
+        type: string
+        default: node
+      package-dir:
+        description: Directory of the publishable package
+        type: string
+        required: true
+      addon-name:
+        description: Basename of the native addon (dist/<name>.<target>.node)
+        type: string
+        required: true
+      node-version:
+        description: Node.js version for the publish job
+        type: string
+        default: '24'
+      smoke-script:
+        description: Optional ESM snippet run from the workspace dir after the native build
+        type: string
+        default: ''
+      force-publish:
+        description: Build and publish even without a new release (backfill a missed publish)
+        type: boolean
+        default: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+  build-native:
+    needs: release-please
+    # `releases_created` (plural) covers nested manifest packages; the
+    # singular `release_created` is only set for root packages and made
+    # earlier setups skip publishing silently.
+    if: ${{ needs.release-please.outputs.releases_created == 'true' || inputs.force-publish }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.workspace-dir }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux-x64
+          - os: ubuntu-24.04-arm
+            target: linux-arm64
+          - os: macos-latest
+            target: darwin-arm64
+          - os: macos-13
+            target: darwin-x64
+          - os: windows-latest
+            target: win32-x64
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          package_json_file: ${{ inputs.workspace-dir }}/package.json
+
+      - name: Set node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22.x
+
+      - name: Set Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build native addon
+        run: pnpm run build:native
+
+      - name: Smoke test package import
+        if: ${{ inputs.smoke-script != '' }}
+        run: node --input-type=module -e "${{ inputs.smoke-script }}"
+
+      - name: Upload platform binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.target }}
+          path: ${{ inputs.package-dir }}/dist/${{ inputs.addon-name }}.${{ matrix.target }}.node
+          if-no-files-found: error
+
+  publish-npm:
+    needs:
+      - release-please
+      - build-native
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: ${{ inputs.workspace-dir }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          package_json_file: ${{ inputs.workspace-dir }}/package.json
+
+      - name: Set node
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ inputs.node-version }}
+          registry-url: https://registry.npmjs.org
+
+      - name: Set Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build native addon and package assets
+        run: pnpm run build:native
+
+      - name: Collect platform binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: native-*
+          merge-multiple: true
+          path: ${{ inputs.package-dir }}/dist
+
+      - name: Verify platform binaries
+        shell: bash
+        run: |
+          pkg_dir="${GITHUB_WORKSPACE}/${{ inputs.package-dir }}"
+          count="$(ls "$pkg_dir"/dist/${{ inputs.addon-name }}.*.node | wc -l)"
+          ls -la "$pkg_dir"/dist/${{ inputs.addon-name }}.*.node
+          if [ "$count" -lt 5 ]; then
+            echo "Expected 5 platform binaries, found $count" >&2
+            exit 1
+          fi
+
+      # npm trusted publishing (OIDC) via id-token: write; no token secret.
+      - name: Publish to npm
+        run: pnpm run publish:ci
