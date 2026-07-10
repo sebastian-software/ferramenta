@@ -7,11 +7,11 @@ import {
   ArdoHeaderActions,
   ArdoSocialLink,
 } from "ardo/ui"
-import { FamilyLinks } from "@ferramenta/ardo-family"
+import { FamilyLinks } from "@ferramenta/ardo-config"
 import config from "virtual:ardo/config"
 import type { MetaFunction } from "react-router"
 import "ardo/ui/styles.css"
-import "@ferramenta/ardo-family/theme.css"
+import "@ferramenta/ardo-config/theme.css"
 
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },

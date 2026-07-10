@@ -1,8 +1,8 @@
-# @ferramenta/ardo-family
+# @ferramenta/ardo-config
 
-Shared [Ardo](https://github.com/sebastian-software/ardo) theme and family
-navigation for the [Ferramenta](https://ferramenta.dev) docs sites — one
-look and feel, cross-linked.
+Shared [Ardo](https://github.com/sebastian-software/ardo) configuration for the
+[Ferramenta](https://ferramenta.dev) sites: one theme, one project registry,
+and cross-site navigation.
 
 > **Status:** consumed via `workspace:*` by ferramenta.dev. npm publishing
 > under the `@ferramenta` scope is prepared but pending scope creation.
@@ -10,14 +10,14 @@ look and feel, cross-linked.
 ## Usage in an Ardo site
 
 ```sh
-pnpm add @ferramenta/ardo-family
+pnpm add @ferramenta/ardo-config
 ```
 
 In `app/root.tsx`:
 
 ```tsx
-import { FamilyLinks } from "@ferramenta/ardo-family"
-import "@ferramenta/ardo-family/theme.css"
+import { FamilyLinks } from "@ferramenta/ardo-config"
+import "@ferramenta/ardo-config/theme.css"
 
 // inside the Ardo footer (or anywhere in the chrome):
 <ArdoFooter

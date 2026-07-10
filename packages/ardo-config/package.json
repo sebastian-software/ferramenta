@@ -1,12 +1,12 @@
 {
-  "name": "@ferramenta/ardo-family",
+  "name": "@ferramenta/ardo-config",
   "version": "0.1.0",
-  "description": "Shared Ardo theme and family navigation for the Ferramenta docs sites",
+  "description": "Shared Ardo config, theme, and family navigation for Ferramenta sites",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/sebastian-software/ferramenta.git",
-    "directory": "packages/ardo-family"
+    "directory": "packages/ardo-config"
   },
   "type": "module",
   "main": "./dist/index.js",
