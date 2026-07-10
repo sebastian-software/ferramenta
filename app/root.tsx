@@ -7,9 +7,11 @@ import {
   ArdoHeaderActions,
   ArdoSocialLink,
 } from "ardo/ui"
+import { FamilyLinks } from "@ferramenta/ardo-family"
 import config from "virtual:ardo/config"
 import type { MetaFunction } from "react-router"
 import "ardo/ui/styles.css"
+import "@ferramenta/ardo-family/theme.css"
 
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },
@@ -37,7 +39,7 @@ export default function Root() {
 
       <ArdoFooter
         sponsor={{ text: "Sebastian Software", link: "https://oss.sebastian-software.com" }}
-        message="Released under the MIT License."
+        message={<FamilyLinks label="Ferramenta" />}
         copyright={`Copyright ${new Date().getFullYear()} Sebastian Software GmbH`}
       />
     </ArdoRoot>

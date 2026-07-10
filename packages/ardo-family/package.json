@@ -1,0 +1,33 @@
+{
+  "name": "@ferramenta/ardo-family",
+  "version": "0.1.0",
+  "description": "Shared Ardo theme and family navigation for the Ferramenta docs sites",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebastian-software/ferramenta.git",
+    "directory": "packages/ardo-family"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./theme.css": "./theme.css"
+  },
+  "files": ["dist", "theme.css", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0 <20.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.13",
+    "typescript": "^5.9.3"
+  }
+}

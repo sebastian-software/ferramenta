@@ -1,0 +1,52 @@
+/*
+ * Ferramenta family theme for Ardo sites.
+ * Amber/copper brand instead of Ardo's default green — the shared
+ * look across ferramenta.dev and all package docs sites.
+ */
+
+:root {
+  --ardo-color-brand: oklch(0.55 0.16 55);
+  --ardo-color-brandLight: oklch(0.65 0.16 55);
+  --ardo-color-brandDark: oklch(0.45 0.18 55);
+  --ardo-color-brandSubtle: oklch(0.96 0.03 55);
+  --ardo-color-brandGradient: linear-gradient(135deg, oklch(0.55 0.16 55) 0%, oklch(0.50 0.14 40) 100%);
+}
+
+.dark {
+  --ardo-color-brand: oklch(0.72 0.16 65);
+  --ardo-color-brandLight: oklch(0.82 0.14 65);
+  --ardo-color-brandDark: oklch(0.62 0.18 60);
+  --ardo-color-brandSubtle: oklch(0.22 0.04 55);
+  --ardo-color-brandGradient: linear-gradient(135deg, oklch(0.72 0.16 65) 0%, oklch(0.65 0.14 50) 100%);
+}
+
+/* Family navigation (FamilyLinks component) */
+
+.ferramenta-family {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.ferramenta-family-label {
+  color: var(--ardo-color-text, inherit);
+  opacity: 0.6;
+}
+
+.ferramenta-family a {
+  color: var(--ardo-color-brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ferramenta-family a:hover {
+  text-decoration: underline;
+}
+
+.ferramenta-family a[aria-current="true"] {
+  color: inherit;
+  opacity: 0.7;
+  pointer-events: none;
+}

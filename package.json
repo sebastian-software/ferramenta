@@ -6,7 +6,7 @@
   "packageManager": "pnpm@11.10.0",
   "scripts": {
     "dev": "react-router dev",
-    "build": "react-router build",
+    "build": "pnpm --filter @ferramenta/ardo-family build && react-router build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -15,7 +15,8 @@
     "lucide-react": "^1.23.0",
     "react": "*",
     "react-dom": "*",
-    "react-router": "^8.0.1"
+    "react-router": "^8.0.1",
+    "@ferramenta/ardo-family": "workspace:*"
   },
   "devDependencies": {
     "@react-router/dev": "^8.0.1",
