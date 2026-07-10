@@ -3,3 +3,7 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+# First-party package — no supply-chain cooldown for our own releases
+minimumReleaseAgeExclude:
+  - ardo
