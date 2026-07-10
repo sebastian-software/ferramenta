@@ -1,52 +1,45 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
-import { Layout as ArdoLayout, Header, Footer, SocialLink } from "ardo/ui"
-import { ArdoProvider } from "ardo/runtime"
+import {
+  ArdoErrorBoundary,
+  ArdoRootLayout,
+  ArdoRoot,
+  ArdoFooter,
+  ArdoHeader,
+  ArdoHeaderActions,
+  ArdoSocialLink,
+} from "ardo/ui"
 import config from "virtual:ardo/config"
-import sidebar from "virtual:ardo/sidebar"
+import type { MetaFunction } from "react-router"
 import "ardo/ui/styles.css"
 
+export const meta: MetaFunction = () => [
+  { title: "Ferramenta — Rust-native developer tools" },
+  {
+    name: "description",
+    content:
+      "A family of Rust-native developer tools by Sebastian Software: ferroni, ferriki, ferromark and more — with the APIs you already know.",
+  },
+]
+
 export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body suppressHydrationWarning>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  )
+  return <ArdoRootLayout>{children}</ArdoRootLayout>
 }
+
+export const ErrorBoundary = ArdoErrorBoundary
 
 export default function Root() {
   return (
-    <ArdoProvider config={config} sidebar={sidebar}>
-      <ArdoLayout
-        className="ardo-layout ardo-home"
-        header={
-          <Header
-            title="Ferramenta"
-            search={false}
-            actions={<SocialLink href="https://github.com/sebastian-software" icon="github" />}
-          />
-        }
-        footer={
-          <Footer
-            message={[
-              "Rust-native tools by <a href='https://oss.sebastian-software.com'>Sebastian Software</a>",
-              "Built with <a href='https://github.com/sebastian-software/ardo'>Ardo</a>",
-            ].join(" &middot; ")}
-            copyright={`Copyright &copy; ${new Date().getFullYear()} Sebastian Software GmbH`}
-          />
-        }
-      >
-        <Outlet />
-      </ArdoLayout>
-    </ArdoProvider>
+    <ArdoRoot config={config} className="ardo-home">
+      <ArdoHeader title="Ferramenta" search={false}>
+        <ArdoHeaderActions>
+          <ArdoSocialLink href="https://github.com/sebastian-software" icon="github" />
+        </ArdoHeaderActions>
+      </ArdoHeader>
+
+      <ArdoFooter
+        sponsor={{ text: "Sebastian Software", link: "https://oss.sebastian-software.com" }}
+        message="Released under the MIT License."
+        copyright={`Copyright ${new Date().getFullYear()} Sebastian Software GmbH`}
+      />
+    </ArdoRoot>
   )
 }

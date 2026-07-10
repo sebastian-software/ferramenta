@@ -10,14 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ardo": "^2.1.1",
+    "ardo": "^4.1.0",
     "isbot": "*",
+    "lucide-react": "^1.23.0",
     "react": "*",
     "react-dom": "*",
-    "react-router": "^7.13.0"
+    "react-router": "^8.0.1"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.13.0",
+    "@react-router/dev": "^8.0.1",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "typescript": "^5.9.3",
