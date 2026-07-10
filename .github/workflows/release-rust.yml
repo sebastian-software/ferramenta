@@ -26,6 +26,14 @@ on:
         description: Rust toolchain used for publishing
         type: string
         default: stable
+      config-file:
+        description: release-please config file
+        type: string
+        default: release-please-config.json
+      manifest-file:
+        description: release-please manifest file
+        type: string
+        default: .release-please-manifest.json
 
 jobs:
   release-please:
@@ -37,6 +45,8 @@ jobs:
         id: release
         uses: googleapis/release-please-action@v4
         with:
+          config-file: ${{ inputs.config-file }}
+          manifest-file: ${{ inputs.manifest-file }}
           token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
   publish-crate:
