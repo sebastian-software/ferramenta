@@ -40,6 +40,9 @@ pnpm dev      # local dev server
 pnpm build    # static build into build/client
 ```
 
+Release automation conventions are documented in
+[One product release with Release Please](docs/release-please-product-releases.md).
+
 ## License
 
 [MIT](./LICENSE)
