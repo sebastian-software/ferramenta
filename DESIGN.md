@@ -102,7 +102,8 @@ padding ≡ 14 (mod 28).
 - **Why section**: rust pull-quote (display) with an explicit `Written by` author block in the
   same column, plus prose and goal list (square rust bullets). User-approved addition on top of
   the comp.
-- **Partners**: logos on `--paper` carrier plates, mono link line, hairline column divider.
+- **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
+  mono link line, and hairline column divider.
 - **Closing action**: a flat, ruled return to tool comparison before partner provenance; no new
   material carrier.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).

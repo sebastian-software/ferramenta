@@ -225,7 +225,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .pgrid { margin-top: 1.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 0; }
 .pgrid a { text-decoration: none; display: grid; gap: 0.9rem; align-content: start; padding-right: 3rem; }
 .pgrid a + a { border-left: 1px solid var(--line); padding-left: 3rem; padding-right: 0; }
-.pgrid img { height: 2.6rem; width: auto; justify-self: start; background: var(--paper); padding: 0.55rem 0.85rem; box-sizing: content-box; }
+.pgrid img { height: 2.6rem; width: auto; justify-self: start; background: var(--paper); border: 1px solid var(--line); padding: 0.55rem 0.85rem; box-sizing: content-box; }
 .pgrid p { color: var(--ink-soft); font-size: 0.97rem; max-width: 44ch; }
 .pgrid .plink { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.85rem; color: var(--rust); }
 .pgrid a:hover .plink { color: var(--rust-deep); }
