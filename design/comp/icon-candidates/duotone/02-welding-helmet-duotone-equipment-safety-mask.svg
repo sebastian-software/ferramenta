@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Equipment-Safety-Mask--Streamline-Ultimate" height="24" width="24">
+  <desc>
+    Equipment Safety Mask Streamline Icon: https://streamlinehq.com
+  </desc>
+  <defs></defs>
+  <title>equipment-safety-mask</title>
+  <path d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M12 18.69a9.5 9.5 0 0 1 -9.5 -9.5V14a9.5 9.5 0 0 0 19 0V9.19a9.5 9.5 0 0 1 -9.5 9.5Z" fill="#9feaff" stroke-width="1"></path>
+  <path d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+  <path d="M6.5 4.5h11s1 0 1 1v6s0 1 -1 1h-11s-1 0 -1 -1v-6s0 -1 1 -1" fill="#9feaff" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M7.5 6.5h9v4h-9Z" fill="#9feaff" stroke-width="1"></path>
+  <path d="m7.5 6.5 0 4 0.975 0 4 -4 -4.975 0z" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M7.5 6.5h9v4h-9Z" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+</svg>

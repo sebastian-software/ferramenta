@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Measure-Ruler--Streamline-Ultimate" height="24" width="24">
+  <desc>
+    Measure Ruler Streamline Icon: https://streamlinehq.com
+  </desc>
+  <defs></defs>
+  <title>measure-ruler</title>
+  <path d="m23.354 4.969 -3.308 -3.308a0.5 0.5 0 0 0 -0.707 0l-1.768 1.768A10 10 0 0 0 3.429 17.571l-1.768 1.768a0.5 0.5 0 0 0 0 0.707l3.308 3.308a0.5 0.5 0 0 0 0.707 0L23.354 5.676a0.5 0.5 0 0 0 0 -0.707Zm-17.1 9.774a6 6 0 0 1 8.486 -8.486Z" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M23.354 4.969 21.2 2.811a0.5 0.5 0 0 1 0 0.707L3.518 21.2a0.5 0.5 0 0 1 -0.707 0l-1.15 -1.15 3.308 3.308a0.5 0.5 0 0 0 0.707 0L23.354 5.676a0.5 0.5 0 0 0 0 -0.707Z" fill="#9feaff" stroke-width="1"></path>
+  <path d="m23.354 4.969 -3.308 -3.308a0.5 0.5 0 0 0 -0.707 0l-1.768 1.768A10 10 0 0 0 3.429 17.571l-1.768 1.768a0.5 0.5 0 0 0 0 0.707l3.308 3.308a0.5 0.5 0 0 0 0.707 0L23.354 5.676a0.5 0.5 0 0 0 0 -0.707Zm-17.1 9.774a6 6 0 0 1 8.486 -8.486Z" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m7.09 21.939 -1.768 -1.767" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M9.211 19.818 7.444 18.05" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m11.333 17.697 -1.768 -1.768" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m13.454 15.575 -1.768 -1.767" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m15.575 13.454 -1.767 -1.768" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m17.697 11.333 -1.768 -1.768" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M19.818 9.211 18.05 7.444" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="m21.939 7.09 -1.767 -1.768" fill="none" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+</svg>

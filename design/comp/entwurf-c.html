@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf C · Schmiede — ferramenta</title>
+<style>
+@font-face { font-family: "Space Grotesk"; src: url("fonts/spacegrotesk-500.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Big Shoulders"; src: url("fonts/bigshoulders-600.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/chakrapetch-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/chakrapetch-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  --display: "Big Shoulders";
+  --disp-weight: 800;
+  --disp-track: 0;
+  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --bg: oklch(0.975 0.005 80);
+  --bg-dim: oklch(0.945 0.008 78);
+  --ink: oklch(0.21 0.014 45);
+  --ink-soft: oklch(0.42 0.018 48);
+  --rust: oklch(0.5 0.132 38);
+  --rust-deep: oklch(0.41 0.115 36);
+  --rust-tint: oklch(0.5 0.13 38 / 0.1);
+  --ember: oklch(0.68 0.175 52);
+  --line: oklch(0.86 0.014 70);
+  --line-heavy: oklch(0.28 0.016 48);
+  --on-rust: oklch(0.985 0.004 85);
+  --iron: oklch(0.235 0.014 45);
+  --iron-2: oklch(0.29 0.016 45);
+  --iron-ink: oklch(0.95 0.008 78);
+  --iron-soft: oklch(0.72 0.015 65);
+  --iron-line: oklch(0.38 0.018 48);
+  --grid-line: oklch(0.5 0.02 55 / 0.12);
+  --paper: oklch(0.985 0.004 85);
+  --plate-rim-hi: oklch(0.72 0.035 60);
+  --plate-rim-lo: oklch(0.46 0.045 45);
+  --plate-face-hi: oklch(0.93 0.025 62);
+  --plate-face-lo: oklch(0.81 0.045 52);
+  --plate-sheen: oklch(1 0 0 / 0.3);
+  --plate-brush: oklch(1 0 0 / 0.07);
+  --plate-shadow: oklch(0.3 0.03 45 / 0.3);
+  --hook-dark: oklch(0.38 0.025 45); --hook-light: oklch(0.9 0.015 65 / 0.85); --hook-hole: oklch(0.28 0.02 45 / 0.85);
+}
+:root[data-theme="dark"] { --hook-dark: oklch(0.62 0.02 50); --hook-light: oklch(0.95 0.01 65 / 0.9); --hook-hole: oklch(0.12 0.01 45); --plate-rim-hi: oklch(0.45 0.035 50); --plate-rim-lo: oklch(0.2 0.02 45); --plate-face-hi: oklch(0.42 0.035 48); --plate-face-lo: oklch(0.29 0.03 45); --plate-sheen: oklch(1 0 0 / 0.1); --plate-brush: oklch(1 0 0 / 0.05); --plate-shadow: oklch(0.05 0.01 45 / 0.55); --bg: oklch(0.195 0.008 48); --bg-dim: oklch(0.23 0.011 48); --ink: oklch(0.94 0.006 80); --ink-soft: oklch(0.71 0.012 70); --rust: oklch(0.69 0.14 45); --rust-deep: oklch(0.6 0.125 42); --rust-tint: oklch(0.69 0.14 45 / 0.13); --ember: oklch(0.75 0.16 55); --line: oklch(0.31 0.012 50); --line-heavy: oklch(0.85 0.01 70); --on-rust: oklch(0.15 0.01 50); --iron: oklch(0.16 0.01 45); --iron-2: oklch(0.21 0.012 45); --iron-ink: oklch(0.95 0.008 78); --iron-soft: oklch(0.7 0.015 65); --iron-line: oklch(0.33 0.015 48); --grid-line: oklch(0.7 0.02 55 / 0.1); }
+
+/* Duotone-Marken */
+:root { --duo0: oklch(0.985 0.004 85); --duo1: oklch(0.93 0.035 50); --duo2: oklch(0.8 0.095 48); --duoink: oklch(0.36 0.075 38); }
+:root[data-theme="dark"] { --duo0: oklch(0.93 0.012 70); --duo1: oklch(0.31 0.045 42); --duo2: oklch(0.54 0.11 45); --duoink: oklch(0.89 0.035 55); }
+.mark path { stroke-linecap: square; stroke-linejoin: miter; }
+.markplate { display: grid; place-items: center; position: relative; background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo)); clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%); filter: drop-shadow(0 2px 3px var(--plate-shadow)); }
+.markplate::before { content: ""; position: absolute; inset: 2px; clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
+  background:
+    linear-gradient(115deg, var(--plate-sheen), transparent 46%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo)); }
+.markplate svg { position: relative; }
+.board .markplate { width: 76px; height: 76px; }
+.hook { position: absolute; top: -3.4px; left: 50%; translate: -50% 0; width: 24px; height: 28px; z-index: 2; pointer-events: none; }
+.board a:hover .hook { translate: -50% 0; }
+.flyout .markplate { width: 38px; height: 38px; flex: none; }
+.flyout .markplate svg { width: 24px; height: 24px; }
+header .lockup, footer .lockup, .flyout { --duo0: oklch(0.93 0.012 70); --duo1: oklch(0.31 0.045 42); --duo2: oklch(0.54 0.11 45); --duoink: oklch(0.89 0.035 55); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --duo0: oklch(0.93 0.012 70); --duo1: oklch(0.31 0.045 42); --duo2: oklch(0.54 0.11 45); --duoink: oklch(0.89 0.035 55); --bg: oklch(0.195 0.008 48); --bg-dim: oklch(0.23 0.011 48); --ink: oklch(0.94 0.006 80); --ink-soft: oklch(0.71 0.012 70); --rust: oklch(0.69 0.14 45); --rust-deep: oklch(0.6 0.125 42); --rust-tint: oklch(0.69 0.14 45 / 0.13); --ember: oklch(0.75 0.16 55); --line: oklch(0.31 0.012 50); --line-heavy: oklch(0.85 0.01 70); --on-rust: oklch(0.15 0.01 50); --iron: oklch(0.16 0.01 45); --iron-2: oklch(0.21 0.012 45); --iron-ink: oklch(0.95 0.008 78); --iron-soft: oklch(0.7 0.015 65); --iron-line: oklch(0.33 0.015 48); --grid-line: oklch(0.7 0.02 55 / 0.1); }
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { background:
+    radial-gradient(140% 90% at 50% 12%, transparent 55%, oklch(0.3 0.03 45 / 0.06)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
+    var(--bg);
+  color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+.wrap { max-width: 80rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+.icon { stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter; }
+.icon .fillbit { fill: currentColor; stroke: none; }
+h1, h2, h3 { font-family: var(--display), var(--body); font-weight: var(--disp-weight); letter-spacing: var(--disp-track); line-height: 0.98; text-wrap: balance; }
+.chamfer { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%); }
+
+/* Header — iron bar */
+header { position: sticky; top: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"), linear-gradient(var(--iron), var(--iron)); color: var(--iron-ink); z-index: 50; border-bottom: 2px solid var(--rust); }
+.bar { display: flex; align-items: center; gap: 1.5rem; height: 4rem; }
+.lockup { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; font-family: var(--display), var(--body); font-weight: var(--disp-weight); font-size: 1.6rem; letter-spacing: 0.02em; }
+.lockup svg { color: var(--ember); }
+nav.site { margin-left: auto; display: flex; align-items: center; gap: 1.25rem; }
+details.switcher { position: relative; }
+details.switcher summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.95rem; padding: 0.4rem 0.2rem; }
+details.switcher summary::-webkit-details-marker { display: none; }
+details.switcher[open] summary svg.chev { transform: scaleY(-1); }
+.flyout { position: absolute; right: 0; top: calc(100% + 0.85rem); background: var(--iron); border: 1px solid var(--iron-line); border-top: 2px solid var(--rust); min-width: 21rem; padding: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.125rem; box-shadow: 0 18px 44px -16px oklch(0.1 0.01 45 / 0.55); }
+.flyout a { display: flex; gap: 0.6rem; align-items: center; text-decoration: none; padding: 0.55rem 0.6rem; font-size: 0.92rem; }
+.flyout a:hover { background: var(--iron-2); color: var(--ember); }
+.flyout a svg { flex: none; color: var(--ember); }
+.flyout a small { display: block; color: var(--iron-soft); font-size: 0.78rem; }
+.flyout a b { font-family: var(--display), var(--body); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; }
+.ghlink { display: flex; align-items: center; }
+.ghlink svg { fill: currentColor; }
+
+/* Hero — forge floor */
+.hero { position: relative; overflow: hidden; }
+
+.hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(52rem 26rem at 88% 112%, oklch(0.68 0.175 52 / 0.16), transparent 62%); pointer-events: none; }
+.hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; padding-block: clamp(3.5rem, 7vw, 6rem); }
+.hero h1 { font-size: clamp(3.4rem, 9vw, 6rem); text-transform: uppercase; max-width: 12ch; }
+.hero h1 em { font-style: normal; color: var(--rust); }
+.hero p.lede { margin-top: 1.6rem; max-width: 50ch; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--ink-soft); }
+.cta-row { margin-top: 2.5rem; display: flex; gap: 0.9rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-family: var(--display), var(--body); font-weight: var(--disp-weight); letter-spacing: 0.04em; text-transform: uppercase; font-size: 1.05rem; padding: 0.85rem 1.5rem; border: 1px solid transparent; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+.btn.primary { background: var(--rust); color: var(--on-rust); }
+.btn.primary:hover { background: var(--rust-deep); }
+.btn.ghost { border-color: var(--line-heavy); }
+.btn.ghost:hover { border-color: var(--rust); color: var(--rust); }
+.btn .icon { stroke-width: 2; }
+
+/* Pegboard — tools hang free */
+.board { border: 2px solid var(--line-heavy); background:
+    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
+    linear-gradient(var(--bg-dim), var(--bg-dim)); padding: 42px; width: fit-content; margin-inline: auto; }
+.board-grid { display: grid; grid-template-columns: repeat(3, 112px); column-gap: 28px; grid-auto-rows: 140px; row-gap: 28px; }
+.board a { display: grid; justify-items: center; align-content: start; gap: 0.55rem; padding-top: 21px; position: relative; width: 112px; text-decoration: none; font-family: var(--display), var(--body); font-weight: 700; font-size: 1rem; letter-spacing: 0.03em; transition: color 0.15s; }
+
+.board a:hover { color: var(--rust); }
+.board svg { width: 46px; height: 46px; color: var(--rust); }
+.board a:last-child { grid-column: 2; }
+
+/* Sections — open ledger */
+section { padding-top: clamp(3.5rem, 7vw, 5.5rem); }
+section > .wrap > h2 { font-size: clamp(2.3rem, 4.6vw, 3.4rem); text-transform: uppercase; border-bottom: 3px solid var(--line-heavy); padding-bottom: 0.6rem; }
+section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
+.ledger { margin-top: 1.5rem; display: grid; }
+.row { display: grid; grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) 1fr 11.5rem 2rem; gap: 1.5rem; align-items: center; padding: 1.6rem 0.25rem; text-decoration: none; border-bottom: 1px solid var(--line); transition: background 0.15s; }
+.row:hover { background: var(--bg-dim); }
+.row:hover .go { color: var(--rust); transform: translateX(4px); }
+.row .num { font-family: var(--display), var(--body); font-weight: var(--disp-weight); font-size: 1.9rem; color: var(--ink-soft); text-align: center; align-self: start; padding-top: 0.2rem; }
+.row .plate { width: 4.6rem; height: 4.6rem; display: grid; place-items: center; align-self: start; position: relative; background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo)); clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%); filter: drop-shadow(0 2px 3px var(--plate-shadow)); }
+.row .plate::before { content: ""; position: absolute; inset: 2px; clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
+  background:
+    linear-gradient(115deg, var(--plate-sheen), transparent 46%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo)); }
+.row .plate svg { position: relative; }
+.row .plate svg { width: 44px; height: 44px; }
+.row .who b { display: block; font-family: var(--display), var(--body); font-weight: var(--disp-weight); font-size: 2rem; letter-spacing: 0.02em; line-height: 1; }
+.row .who .sub { display: block; margin-top: 0.35rem; font-size: 1.08rem; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.row .proof { color: var(--ink-soft); font-size: 0.95rem; max-width: 46ch; }
+.row .meta { font-family: var(--mono); font-size: 0.82rem; text-align: right; color: var(--ink-soft); }
+.row .meta b { color: var(--ink); font-weight: 600; }
+.row .meta .st { display: inline-block; margin-top: 0.45rem; padding: 0.16rem 0.6rem; background: var(--bg-dim); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
+.row:hover .meta .st { background: var(--rust-tint); }
+.row .meta .st.stable { color: var(--on-rust); background: var(--rust); }
+.row:hover .meta .st.stable { background: var(--rust); }
+.row .go { color: var(--line); transition: color 0.15s, transform 0.15s; }
+@media (max-width: 64rem) {
+  .row { grid-template-columns: 3.8rem 1fr 2rem; row-gap: 0.8rem; }
+  .row .num { display: none; }
+  .row .plate { width: 3.8rem; height: 3.8rem; }
+  .row .plate svg { width: 32px; height: 32px; }
+  .row .proof, .row .meta { grid-column: 2; text-align: left; }
+  .row .go { grid-row: 1; grid-column: 3; }
+}
+
+/* Beliefs — iron band */
+.ironband { margin-top: clamp(4rem, 8vw, 6.5rem); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"), linear-gradient(var(--iron), var(--iron)); color: var(--iron-ink); padding-block: clamp(3.5rem, 7vw, 5.5rem); border-top: 3px solid var(--rust); }
+.ironband h2 { font-size: clamp(2.3rem, 4.6vw, 3.4rem); text-transform: uppercase; }
+.beliefs { margin-top: 2.5rem; display: grid; gap: 0; border-top: 1px solid var(--iron-line); }
+.beliefs > div { display: grid; grid-template-columns: minmax(11rem, 22rem) 1fr; gap: 1rem 3rem; padding-block: 1.6rem; border-bottom: 1px solid var(--iron-line); align-items: start; }
+.beliefs h3 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); text-transform: uppercase; color: var(--ember); line-height: 1; }
+.beliefs p { color: var(--iron-soft); max-width: 62ch; }
+@media (max-width: 46rem) { .beliefs > div { grid-template-columns: 1fr; gap: 0.5rem; } .hero .wrap { grid-template-columns: 1fr; } .board-grid { grid-template-columns: repeat(2, 112px); } .board a:last-child { grid-column: auto; } }
+
+/* Partners — from the same workshop */
+.partners { padding-top: clamp(3.5rem, 7vw, 5.5rem); }
+.partners h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); text-transform: uppercase; }
+.pgrid { margin-top: 1.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 0; }
+.pgrid a { text-decoration: none; display: grid; gap: 0.9rem; align-content: start; padding-right: 3rem; }
+.pgrid a + a { border-left: 1px solid var(--line); padding-left: 3rem; padding-right: 0; }
+.pgrid img { height: 2.6rem; width: auto; justify-self: start; background: var(--paper); padding: 0.55rem 0.85rem; box-sizing: content-box; }
+.pgrid p { color: var(--ink-soft); font-size: 0.97rem; max-width: 44ch; }
+.pgrid .plink { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.85rem; color: var(--rust); }
+.pgrid a:hover .plink { color: var(--rust-deep); }
+.pgrid a:hover .plink .icon { transform: translateX(3px); }
+.pgrid .plink .icon { transition: transform 0.15s; }
+@media (max-width: 46rem) { .pgrid { grid-template-columns: 1fr; } .pgrid a { padding-right: 0; } .pgrid a + a { border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 2.2rem; } }
+
+/* Footer — steel plate */
+footer { margin-top: clamp(3.5rem, 7vw, 5.5rem); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"), linear-gradient(var(--iron), var(--iron)); color: var(--iron-ink); border-top: 3px solid var(--rust); padding-block: 3rem 6.5rem; }
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; }
+.foot .lockup { font-size: 1.3rem; }
+.foot .lockup svg { color: var(--ember); }
+.foot p { margin-top: 0.9rem; color: var(--iron-soft); font-size: 0.92rem; max-width: 34ch; }
+.foot h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--body); font-weight: 600; color: var(--iron-soft); }
+.foot ul { list-style: none; padding: 0; margin-top: 0.9rem; display: grid; gap: 0.45rem; }
+.foot a { text-decoration: none; font-size: 0.95rem; }
+.foot a:hover { color: var(--ember); }
+@media (max-width: 46rem) { .foot { grid-template-columns: 1fr; } }
+
+/* Meta control (not part of the design) */
+.meta-ctl { position: fixed; bottom: 1rem; right: 1rem; z-index: 90; background: oklch(0.22 0.01 50 / 0.92); color: oklch(0.95 0 0); backdrop-filter: blur(6px); font-family: var(--mono); font-size: 0.72rem; padding: 0.5rem 0.65rem; border-radius: 6px; display: grid; gap: 0.4rem; }
+.meta-ctl .grp { display: flex; gap: 0.3rem; align-items: center; }
+.meta-ctl span.lbl { opacity: 0.55; width: 3.4rem; }
+.meta-ctl a, .meta-ctl button { font: inherit; color: inherit; background: oklch(1 0 0 / 0.08); border: 1px solid oklch(1 0 0 / 0.15); padding: 0.2rem 0.5rem; text-decoration: none; cursor: pointer; border-radius: 3px; }
+.meta-ctl .on { background: oklch(0.66 0.165 50 / 0.85); border-color: transparent; color: oklch(0.13 0.01 50); }
+.meta-ctl.min .grp:not(.head) { display: none; }
+.meta-ctl #ctlMin { min-width: 1.7rem; }
+</style>
+</head>
+<body>
+<!--
+THESIS: The forge itself: iron bands top and bottom, poster-scale type, the family hanging free on one big pegboard. Refuses politeness AND the box-grid habit: structure comes from scale, weight, and a few heavy rules — not from outlined containers.
+OWN-WORLD (v2): Light shop floor between two dark iron bands. Rust as structural color; blueprint grid + ember glow in the hero; chamfered primary action; uppercase condensed display. Icons redrawn in a Streamline-Sharp-adjacent voice: 24-grid, 1.5 stroke, square caps, more mechanical detail, zero radius. Boxes removed: tools hang free on the board, ledger rows separated by hairlines only, chips are tinted stamps.
+STORY: A developer lands, gets the poster claim, sees the tool wall, reads the numbered chain with a clear "what it is" subheader per tool, checks proof, leaves for a repo — and notices the wider workshop (OSS + consulting) on the way out.
+FIRST VIEWPORT: Iron header; huge uppercase headline left; pegboard with all seven marks right; chamfered rust action.
+FORM: Chosen direction (C of 3), iteration v2 on user feedback: fewer boxes/lines, finer icons, bigger subheaders, partner band.
+FINISH: Direction comp for user approval; finish review + DESIGN.md land with the reference build.
+-->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-ferramenta" viewBox="0 0 24 24"><path d="M1.5 7.747h21s1 0 1 1v12s0 1 -1 1h-21s-1 0 -1 -1v-12s0 -1 1 -1" fill="var(--duo1)" stroke-width="1"></path> <path d="M0.5 12.747h23v3H0.5Z" fill="var(--duo2)" stroke-width="1"></path> <path d="m0.5 12.747 10 0" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path> <path d="m13.5 12.747 10 0" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path> <path d="M13.5 14.247a1.5 1.5 0 0 1 -3 0v-2.5h3Z" fill="var(--duo2)" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M8 7.747a4 4 0 0 1 8 0" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path> <path d="M1.5 7.747h21s1 0 1 1v12s0 1 -1 1h-21s-1 0 -1 -1v-12s0 -1 1 -1" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path></symbol>
+    <symbol id="i-ferroni" viewBox="0 0 24 24"><path d="M8.5 16.5h2a2 2 0 0 1 2 2c0 3.064 -4.53 1 -4.966 4.436a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.448 -3.369 -4.969 -1.424 -4.969 -4.435a2 2 0 0 1 2 -2h2a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1h-14Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M12.223 19.547c-0.98 1.519 -4.318 0.465 -4.689 3.389a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.377 -2.865 -3.694 -1.9 -4.681 -3.391a29.738 29.738 0 0 0 -6.561 0Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M8.5 16.5h2a2 2 0 0 1 2 2c0 3.064 -4.53 1 -4.966 4.436a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.448 -3.369 -4.969 -1.424 -4.969 -4.435a2 2 0 0 1 2 -2h2a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1h-14Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M1.5 10.5a1 1 0 0 0 -0.98 1.2 6 6 0 0 0 5.88 4.8h2.1v-6Z" fill="var(--duo0)" stroke-width="1"></path> <path d="M1.12 10.586a0.98 0.98 0 0 0 -0.393 0.281 1 1 0 0 0 -0.207 0.833 6 6 0 0 0 5.88 4.8h2.1v-2.727H6.4a5.98 5.98 0 0 1 -5.28 -3.187Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M1.5 10.5a1 1 0 0 0 -0.98 1.2 6 6 0 0 0 5.88 4.8h2.1v-6Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m0.5 4.5 12 0" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M13.5 0.5h4s1 0 1 1v6s0 1 -1 1h-4s-1 0 -1 -1v-6s0 -1 1 -1" fill="var(--duo1)" stroke-width="1"></path> <path d="M15.5 7.5v-6a1 1 0 0 1 1 -1h-3a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h3a1 1 0 0 1 -1 -1Z" fill="var(--duo0)" stroke-width="1"></path> <path d="M13.5 0.5h4s1 0 1 1v6s0 1 -1 1h-4s-1 0 -1 -1v-6s0 -1 1 -1" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferriki" viewBox="0 0 24 24"><path d="M10.747 0.884a0.5 0.5 0 0 0 -0.679 0.669C11.883 5.1 11.69 9.959 9.205 12.7a6.568 6.568 0 0 1 -1.5 -3.029c-5.9 4.225 -2.789 13.5 4.5 13.5 10.47 0.004 9.073 -16.706 -1.458 -22.287Z" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="var(--duo2)" stroke-width="1"></path> <path d="M12.705 14.175c0.99 1.763 -1.512 4.294 -3 3.944a2.494 2.494 0 0 0 2.454 2.056c3.624 0 3.229 -5 0.546 -6Z" fill="var(--duo2)" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferromark" viewBox="0 0 24 24"><path d="M22.5 20.5v2a1 1 0 0 1 -1 1h-19a1 1 0 0 1 -1 -1v-2" fill="var(--duo1)" stroke-width="1"></path> <path d="M23.5 18.5v1a1 1 0 0 1 -1 1h-21a1 1 0 0 1 -1 -1v-1a2 2 0 0 1 2 -2c12.91 0 5 -8.87 5 -11.54 0 -5.96 9 -5.95 9 0 0 2.64 -7.88 11.54 5 11.54a2 2 0 0 1 2 2Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M21.5 16.5a17.665 17.665 0 0 1 -3.516 -0.307 14.393 14.393 0 0 1 -11.964 0 17.809 17.809 0 0 1 -3.52 0.3 2 2 0 0 0 -2 2v1a1 1 0 0 0 1 1h21a1 1 0 0 0 1 -1v-1a2 2 0 0 0 -2 -1.993Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M22.5 20.5v2a1 1 0 0 1 -1 1h-19a1 1 0 0 1 -1 -1v-2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M23.5 18.5v1a1 1 0 0 1 -1 1h-21a1 1 0 0 1 -1 -1v-1a2 2 0 0 1 2 -2c12.91 0 5 -8.87 5 -11.54 0 -5.96 9 -5.95 9 0 0 2.64 -7.88 11.54 5 11.54a2 2 0 0 1 2 2Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferrolex" viewBox="0 0 24 24"><path d="M23.5 3.5h-22a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h17Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M1.5 3.5a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h4.239l7 -7Z" fill="var(--duo0)" stroke-width="1"></path> <path d="M18.5 19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1v-16l-5 7Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M22.5 18h-3a1 1 0 0 1 -1 -1v2.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1V17a1 1 0 0 1 -1 1Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M18.5 19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1v-16l-5 7Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M23.5 3.5h-22a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h17Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m3.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m6.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m9.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m12.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m15.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m18.5 3.5 0 2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m4.5 10.5 0 -2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m7.5 10.5 0 -2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m10.5 10.5 0 -2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m13.5 10.5 0 -2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m16.5 10.5 0 -2" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M2.75 6.75A0.25 0.25 0 1 1 2.5 7a0.25 0.25 0 0 1 0.25 -0.25" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferrocat" viewBox="0 0 24 24"><path d="M20.5 22.5a1 1 0 0 1 -1 1h-15a1 1 0 0 1 -1 -1v-21a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M19.5 0.5h-15a1 1 0 0 0 -1 1v2.775a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1V1.5a1 1 0 0 0 -1 -1Z" fill="var(--duo0)" stroke-width="1"></path> <path d="M20.5 22.5a1 1 0 0 1 -1 1h-15a1 1 0 0 1 -1 -1v-21a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M18.5 6.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M18.5 13.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M18.5 20.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M10.5 4.5h3" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M10.5 11.5h3" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M10.5 18.5h3" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M18.5 6.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M18.5 13.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M18.5 20.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferrovia" viewBox="0 0 24 24"><path d="M0 14a4 4 0 1 0 8 0 4 4 0 1 0 -8 0" fill="var(--duo2)" stroke-width="1"></path> <path d="m12.68 14.617 -5.094 4.87A1 1 0 0 0 8 21.17l3.042 0.889a1 1 0 0 0 1.225 -0.632l1.923 -5.537" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="var(--duo1)" stroke-width="1"></path> <path d="M12.769 12.382a2 2 0 0 0 0.429 2.8l0.806 0.592a2 2 0 0 0 2.8 -0.429l0.591 -0.807 -4.03 -2.958Z" fill="var(--duo2)" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m20.46 1.901 -7.099 9.674 4.03 2.958L23.5 6.21l-3.04 -4.309z" fill="var(--duo2)" stroke-width="1"></path> <path d="M21.903 3.946 20.46 1.901l-7.099 9.674 1.952 1.433 6.59 -9.062z" fill="var(--duo1)" stroke-width="1"></path> <path d="M4.735 18.274a4.177 4.177 0 0 0 1.7 -5.657 3.341 3.341 0 0 0 -4.526 -1.358A2.673 2.673 0 0 0 0.82 14.88a2.138 2.138 0 0 0 2.9 0.868 1.71 1.71 0 0 0 0.695 -2.317" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="m20.46 1.901 -7.099 9.674 4.03 2.958L23.5 6.21" fill="none" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path></symbol>
+    <symbol id="i-ferrugo" viewBox="0 0 24 24"><path d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z" fill="var(--duo1)" stroke-width="1"></path> <path d="M12 18.69a9.5 9.5 0 0 1 -9.5 -9.5V14a9.5 9.5 0 0 0 19 0V9.19a9.5 9.5 0 0 1 -9.5 9.5Z" fill="var(--duo2)" stroke-width="1"></path> <path d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path> <path d="M6.5 4.5h11s1 0 1 1v6s0 1 -1 1h-11s-1 0 -1 -1v-6s0 -1 1 -1" fill="var(--duo2)" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path> <path d="M7.5 6.5h9v4h-9Z" fill="var(--duo2)" stroke-width="1"></path> <path d="m7.5 6.5 0 4 0.975 0 4 -4 -4.975 0z" fill="var(--duo1)" stroke-width="1"></path> <path d="M7.5 6.5h9v4h-9Z" stroke="var(--duoink)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path></symbol>
+    <symbol id="i-hook" viewBox="0 0 24 28"><ellipse cx="12" cy="3.4" rx="2.7" ry="3" fill="var(--hook-hole)"/><path d="M12 4 V17.6" stroke="var(--hook-dark)" stroke-width="3.2" fill="none"/><path d="M11.4 4.6 V17" stroke="var(--hook-light)" stroke-width="1.1" fill="none"/><circle cx="12" cy="21" r="3.1" fill="none" stroke="var(--hook-dark)" stroke-width="2.8"/><path d="M9.4 19.8 a3.4 3.4 0 0 1 3.8 -1.9" fill="none" stroke="var(--hook-light)" stroke-width="1.1"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6.5 9.25 L12 14.75 L17.5 9.25"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12 h15.25"/><path d="M13.5 5.75 L19.75 12 L13.5 18.25"/></symbol>
+    <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="lockup" href="#"><svg width="26" height="26" class="mark" aria-hidden="true"><use href="#i-ferramenta"/></svg>FERRAMENTA</a>
+    <nav class="site" aria-label="Site">
+      <details class="switcher">
+        <summary aria-label="All tools">Tools <svg class="chev icon" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <div class="flyout">
+          <a href="#pipeline"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferroni"/></svg></span><span><b>FERRONI</b><small>regex engine</small></span></a>
+          <a href="#pipeline"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferriki"/></svg></span><span><b>FERRIKI</b><small>syntax highlighting</small></span></a>
+          <a href="#pipeline"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferromark"/></svg></span><span><b>FERROMARK</b><small>markdown</small></span></a>
+          <a href="#language"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferrolex"/></svg></span><span><b>FERROLEX</b><small>spell checking</small></span></a>
+          <a href="#language"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferrocat"/></svg></span><span><b>FERROCAT</b><small>translation catalogs</small></span></a>
+          <a href="#workbench"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferrovia"/></svg></span><span><b>FERROVIA</b><small>svg optimizer</small></span></a>
+          <a href="#workbench"><span class="markplate"><svg width="24" height="24" class="mark" aria-hidden="true"><use href="#i-ferrugo"/></svg></span><span><b>FERRUGO</b><small>pdf previews</small></span></a>
+        </div>
+      </details>
+      <a class="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-github"/></svg></a>
+      <button class="ghlink" id="themeBtn" aria-label="Toggle color scheme" style="background:none;border:none;cursor:pointer;color:inherit;padding:0.25rem"><svg width="20" height="20" viewBox="0 0 24 24" class="icon" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><path class="fillbit" d="M20 4v16H4z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Heavy industry <em>for the web.</em></h1>
+        <p class="lede">Ferramenta — Italian for hardware store — is a family of Rust-native tools that keep the APIs you already know. Held to the originals by differential testing, and built to outrun them.</p>
+        <div class="cta-row">
+          <a class="btn primary chamfer" href="#pipeline">Browse the tools <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn ghost" href="https://github.com/sebastian-software">GitHub</a>
+        </div>
+      </div>
+      <div class="board" aria-label="The tool family">
+        <div class="board-grid">
+          <a href="#pipeline"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferroni"/></svg></span>FERRONI</a>
+          <a href="#pipeline"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferriki"/></svg></span>FERRIKI</a>
+          <a href="#pipeline"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferromark"/></svg></span>FERROMARK</a>
+          <a href="#language"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferrolex"/></svg></span>FERROLEX</a>
+          <a href="#language"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferrocat"/></svg></span>FERROCAT</a>
+          <a href="#workbench"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferrovia"/></svg></span>FERROVIA</a>
+          <a href="#workbench"><svg class="hook" aria-hidden="true"><use href="#i-hook"/></svg><span class="markplate"><svg class="mark" aria-hidden="true"><use href="#i-ferrugo"/></svg></span>FERRUGO</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="pipeline">
+    <div class="wrap">
+      <h2>The content pipeline</h2>
+      <p class="intro">Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Each stage is a drop-in for the tool it replaces.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferroni">
+          <span class="num">1</span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferroni"/></svg></span>
+          <span class="who"><b>FERRONI</b><span class="sub">Oniguruma-compatible regex engine</span></span>
+          <span class="proof">2,083 tests, 100% C parity, no C toolchain — the engine behind TextMate grammars, in pure Rust.</span>
+          <span class="meta"><b>v1.3.0</b> · crates.io<br><span class="st stable">stable</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferriki">
+          <span class="num">2</span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferriki"/></svg></span>
+          <span class="who"><b>FERRIKI</b><span class="sub">Shiki-compatible syntax highlighting</span></span>
+          <span class="proof">codeToHtml, codeToTokens, codeToHast — the Shiki API on a Rust core, verified against the mirrored Shiki test suite.</span>
+          <span class="meta"><b>v0.2.0</b><br><span class="st">alpha</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferromark">
+          <span class="num">3</span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferromark"/></svg></span>
+          <span class="who"><b>FERROMARK</b><span class="sub">Markdown to HTML, CommonMark &amp; GFM</span></span>
+          <span class="proof">100% CommonMark, every GFM extension, sanitized by default — at ~280 MiB/s, faster than pulldown-cmark and md4c.</span>
+          <span class="meta"><b>v0.7.0</b> · crates.io + npm<br><span class="st">beta</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="language">
+    <div class="wrap">
+      <h2>The language workshop</h2>
+      <p class="intro">Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferrolex">
+          <span class="num"></span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferrolex"/></svg></span>
+          <span class="who"><b>FERROLEX</b><span class="sub">Spell checking for text and code</span></span>
+          <span class="proof">Hunspell-compatible dictionaries, deterministic suggestions — scored differentially against the Hunspell oracle.</span>
+          <span class="meta"><b>v0.2.0</b><br><span class="st">alpha</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://ferrocat.dev">
+          <span class="num"></span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferrocat"/></svg></span>
+          <span class="who"><b>FERROCAT</b><span class="sub">Translation catalog engine</span></span>
+          <span class="proof">PO, FCL and ICU MessageFormat with release-ready QA — and AI-translation-native metadata that keeps human fixes locked.</span>
+          <span class="meta"><b>v3.4.2</b> · crates.io<br><span class="st stable">stable</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="workbench">
+    <div class="wrap">
+      <h2>On the workbench</h2>
+      <p class="intro">Two more tools taking shape — early, but built to the same standard.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferrovia">
+          <span class="num"></span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferrovia"/></svg></span>
+          <span class="who"><b>FERROVIA</b><span class="sub">SVGO-compatible SVG optimizer</span></span>
+          <span class="proof">Aiming for byte-level parity with svgo 4 — verified against a pinned oracle.</span>
+          <span class="meta"><b>0.1.0</b><br><span class="st">early</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferrugo">
+          <span class="num"></span>
+          <span class="plate"><svg class="mark" aria-hidden="true"><use href="#i-ferrugo"/></svg></span>
+          <span class="who"><b>FERRUGO</b><span class="sub">PDF previews for untrusted files</span></span>
+          <span class="proof">Bounded rendering: memory and time budgets, no PDFium in the production path.</span>
+          <span class="meta"><b>v0.5.0</b> · crates.io<br><span class="st">early</span></span>
+          <svg class="go icon" width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ironband">
+    <div class="wrap">
+      <h2>Held to the originals</h2>
+      <div class="beliefs">
+        <div>
+          <h3>Proven, not promised</h3>
+          <p>Compatibility is enforced, not advertised. Differential suites run every tool against the original — the Hunspell oracle, the mirrored Shiki tests, svgo byte for byte, Oniguruma's own C library.</p>
+        </div>
+        <div>
+          <h3>Open standards first</h3>
+          <p>CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on — never on formats only we control.</p>
+        </div>
+        <div>
+          <h3>Known APIs</h3>
+          <p>Drop-in by design: the same options, the same output. Adopting a Ferramenta tool is a swap, not a migration.</p>
+        </div>
+        <div>
+          <h3>Safe defaults</h3>
+          <p>Rust cores without a C toolchain. Sanitized output, bounded memory and time — production behavior out of the box, not after configuration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="partners">
+    <div class="wrap">
+      <h2>From the same workshop</h2>
+      <div class="pgrid">
+        <a href="https://oss.sebastian-software.com">
+          <img src="logos/sebastian-software.svg" alt="Sebastian Software">
+          <p>Sixteen production-grade open-source projects across four languages — the wider workshop this family comes from.</p>
+          <span class="plink">oss.sebastian-software.com <svg width="16" height="16" class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+        <a href="https://sebastian-consulting.com">
+          <img src="logos/sebastian-consulting.svg" alt="Sebastian Consulting">
+          <p>The people behind the tools, for hire: consulting for integration, support, and long-term maintenance.</p>
+          <span class="plink">sebastian-consulting.com <svg width="16" height="16" class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="lockup" href="#"><svg width="22" height="22" class="mark" aria-hidden="true"><use href="#i-ferramenta"/></svg>FERRAMENTA</a>
+      <p>Rust-native developer tools by Sebastian Software. Open source, openly verified.</p>
+    </div>
+    <div>
+      <h3>Pipeline</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferroni">ferroni</a></li>
+        <li><a href="https://github.com/sebastian-software/ferriki">ferriki</a></li>
+        <li><a href="https://github.com/sebastian-software/ferromark">ferromark</a></li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Language</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferrolex">ferrolex</a></li>
+        <li><a href="https://ferrocat.dev">ferrocat</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Workbench</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferrovia">ferrovia</a></li>
+        <li><a href="https://github.com/sebastian-software/ferrugo">ferrugo</a></li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Company</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software">GitHub</a></li>
+        <li><a href="https://oss.sebastian-software.com">Open Source</a></li>
+        <li><a href="https://sebastian-consulting.com">Consulting</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<aside class="meta-ctl" aria-label="Entwurf-Steuerung">
+  <div class="grp head"><span class="lbl" style="width:auto;flex:1">Steuerung</span><button id="ctlMin" aria-label="Steuerleiste ein-/ausklappen">–</button></div>
+  <div class="grp"><span class="lbl">Entwurf</span><a href="entwurf-a.html">A</a><a href="entwurf-b.html">B</a><a class="on" href="entwurf-c.html">C</a></div>
+  <div class="grp"><span class="lbl">Display</span><button data-font="Space Grotesk">Grotesk</button><button data-font="Big Shoulders">Shoulders</button><button data-font="Chakra Petch">Chakra</button></div>
+  <div class="grp"><span class="lbl">Theme</span><button id="thLight">Hell</button><button id="thDark">Dunkel</button><button id="thAuto">Auto</button></div>
+</aside>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var DEFAULT_FONT = "Big Shoulders";
+  var fontMeta = {
+    "Space Grotesk": { w: 700, track: "-0.02em" },
+    "Big Shoulders": { w: 800, track: "0" },
+    "Chakra Petch":  { w: 700, track: "-0.01em" }
+  };
+  function applyFont(f) {
+    var m = fontMeta[f] || fontMeta[DEFAULT_FONT];
+    root.style.setProperty("--display", '"' + f + '"');
+    root.style.setProperty("--disp-weight", m.w);
+    root.style.setProperty("--disp-track", m.track);
+    document.querySelectorAll(".meta-ctl [data-font]").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.font === f);
+    });
+  }
+  function applyTheme(t) {
+    if (t === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
+    ["Light", "Dark", "Auto"].forEach(function (n) {
+      document.getElementById("th" + n).classList.toggle("on", n.toLowerCase() === t);
+    });
+  }
+  var storedFont = null, storedTheme = null;
+  try { storedFont = localStorage.getItem("fam-font"); storedTheme = localStorage.getItem("fam-theme"); } catch (e) {}
+  applyFont(storedFont || DEFAULT_FONT);
+  applyTheme(storedTheme || "auto");
+  document.querySelectorAll(".meta-ctl [data-font]").forEach(function (b) {
+    b.addEventListener("click", function () { try { localStorage.setItem("fam-font", b.dataset.font); } catch (e) {} applyFont(b.dataset.font); });
+  });
+  [["thLight", "light"], ["thDark", "dark"], ["thAuto", "auto"]].forEach(function (p) {
+    document.getElementById(p[0]).addEventListener("click", function () { try { localStorage.setItem("fam-theme", p[1]); } catch (e) {} applyTheme(p[1]); });
+  });
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    try { localStorage.setItem("fam-theme", next); } catch (e) {}
+    applyTheme(next);
+  });
+  var ctl = document.querySelector(".meta-ctl");
+  var ctlBtn = document.getElementById("ctlMin");
+  function setMin(min) { ctl.classList.toggle("min", min); ctlBtn.textContent = min ? "+" : "–"; }
+  setMin(window.innerWidth < 700);
+  ctlBtn.addEventListener("click", function () { setMin(!ctl.classList.contains("min")); });
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll("details.switcher[open]").forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute("open");
+    });
+  });
+})();
+</script>
+</body>
+</html>

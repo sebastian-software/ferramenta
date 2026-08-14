@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Office-Stamp-Document--Streamline-Ultimate" height="24" width="24">
+  <desc>
+    Office Stamp Document Streamline Icon: https://streamlinehq.com
+  </desc>
+  <defs></defs>
+  <path d="M6.5 23.5v-22a1 1 0 0 1 1 -1h10l6 6v16a1 1 0 0 1 -1 1Z" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M20.551 3.551 17.5 0.5h-10a1 1 0 0 0 -1 1v16.1Z" fill="#ffffff" stroke-width="1"></path>
+  <path d="M6.5 6.5v-5a1 1 0 0 1 1 -1h10l6 6v16a1 1 0 0 1 -1 1h-7" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+  <path d="M17.5 0.5v5a1 1 0 0 0 1 1h5Z" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M1.5 20.5h12v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1Z" fill="#9feaff" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M10.5 17.5a2 2 0 0 1 -2 -1.943h0a2 2 0 0 1 0.8 -1.657 3 3 0 1 0 -3.6 0 2.012 2.012 0 0 1 0.8 1.656h0a2 2 0 0 1 -2 1.944h-2a2 2 0 0 0 -2 2 1 1 0 0 0 1 1h12a1 1 0 0 0 1 -1 2 2 0 0 0 -2 -2Z" fill="#9feaff" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M21 10.5h-8" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+  <path d="M21 18.5h-4" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+  <path d="M21 14.5h-6.5" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+</svg>

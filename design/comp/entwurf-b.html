@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf B · Werkbank — ferramenta</title>
+<style>
+@font-face { font-family: "Space Grotesk"; src: url("fonts/spacegrotesk-500.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Big Shoulders"; src: url("fonts/bigshoulders-600.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/chakrapetch-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/chakrapetch-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  --display: "Chakra Petch";
+  --disp-weight: 700;
+  --disp-track: -0.01em;
+  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --bg: oklch(0.982 0.005 82);
+  --bg-dim: oklch(0.958 0.008 80);
+  --ink: oklch(0.225 0.014 45);
+  --ink-soft: oklch(0.44 0.018 48);
+  --rust: oklch(0.5 0.13 38);
+  --rust-deep: oklch(0.42 0.115 36);
+  --rust-tint: oklch(0.5 0.13 38 / 0.09);
+  --ember: oklch(0.67 0.17 52);
+  --line: oklch(0.88 0.013 72);
+  --line-strong: oklch(0.7 0.02 58);
+  --on-rust: oklch(0.985 0.004 85);
+  --oxide: oklch(0.31 0.055 38);
+  --oxide-ink: oklch(0.95 0.012 75);
+  --oxide-soft: oklch(0.79 0.035 55);
+  --oxide-line: oklch(0.42 0.055 40);
+  --glow: oklch(0.67 0.17 52 / 0.13);
+}
+:root[data-theme="dark"] { --bg: oklch(0.2 0.008 50); --bg-dim: oklch(0.24 0.012 48); --ink: oklch(0.94 0.006 80); --ink-soft: oklch(0.72 0.012 70); --rust: oklch(0.69 0.135 45); --rust-deep: oklch(0.6 0.125 42); --rust-tint: oklch(0.69 0.135 45 / 0.13); --ember: oklch(0.75 0.16 55); --line: oklch(0.31 0.012 50); --line-strong: oklch(0.44 0.016 50); --on-rust: oklch(0.15 0.01 50); --oxide: oklch(0.26 0.045 38); --oxide-ink: oklch(0.95 0.012 75); --oxide-soft: oklch(0.77 0.035 55); --oxide-line: oklch(0.37 0.05 40); --glow: oklch(0.7 0.16 52 / 0.1); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: oklch(0.2 0.008 50); --bg-dim: oklch(0.24 0.012 48); --ink: oklch(0.94 0.006 80); --ink-soft: oklch(0.72 0.012 70); --rust: oklch(0.69 0.135 45); --rust-deep: oklch(0.6 0.125 42); --rust-tint: oklch(0.69 0.135 45 / 0.13); --ember: oklch(0.75 0.16 55); --line: oklch(0.31 0.012 50); --line-strong: oklch(0.44 0.016 50); --on-rust: oklch(0.15 0.01 50); --oxide: oklch(0.26 0.045 38); --oxide-ink: oklch(0.95 0.012 75); --oxide-soft: oklch(0.77 0.035 55); --oxide-line: oklch(0.37 0.05 40); --glow: oklch(0.7 0.16 52 / 0.1); }
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+.wrap { max-width: 78rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+.icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: square; stroke-linejoin: miter; }
+.icon .fillbit { fill: currentColor; stroke: none; }
+h1, h2, h3 { font-family: var(--display), var(--body); font-weight: var(--disp-weight); letter-spacing: var(--disp-track); line-height: 1.05; text-wrap: balance; }
+
+/* Ruler divider — the machinist's rule */
+.rule { height: 14px; margin-top: clamp(4rem, 8vw, 6.5rem); border-top: 1px solid var(--line-strong);
+  background:
+    repeating-linear-gradient(90deg, var(--line-strong) 0 1px, transparent 1px 48px) top/100% 14px no-repeat,
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px) top/100% 7px no-repeat;
+}
+
+/* Header */
+header { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 50; }
+.bar { display: flex; align-items: center; gap: 1.5rem; height: 4rem; }
+.lockup { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-family: var(--display), var(--body); font-weight: var(--disp-weight); font-size: 1.35rem; }
+.lockup svg { color: var(--rust); }
+nav.site { margin-left: auto; display: flex; align-items: center; gap: 1.25rem; }
+details.switcher { position: relative; }
+details.switcher summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.95rem; padding: 0.4rem 0.2rem; }
+details.switcher summary::-webkit-details-marker { display: none; }
+details.switcher[open] summary svg.chev { transform: scaleY(-1); }
+.flyout { position: absolute; right: 0; top: calc(100% + 0.7rem); background: var(--bg); border: 1px solid var(--line-strong); min-width: 21rem; padding: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.125rem; box-shadow: 0 14px 36px -14px oklch(0.2 0.02 50 / 0.3); }
+.flyout a { display: flex; gap: 0.6rem; align-items: center; text-decoration: none; padding: 0.55rem 0.6rem; font-size: 0.92rem; }
+.flyout a:hover { background: var(--rust-tint); color: var(--rust); }
+.flyout a svg { flex: none; color: var(--rust); }
+.flyout a small { display: block; color: var(--ink-soft); font-size: 0.78rem; }
+.flyout a b { font-family: var(--display), var(--body); font-weight: 600; }
+.ghlink { display: flex; align-items: center; }
+.ghlink svg { fill: currentColor; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60rem 30rem at 12% 108%, var(--glow), transparent 65%); pointer-events: none; }
+.hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding-block: clamp(4rem, 8vw, 7rem); }
+.hero h1 { font-size: clamp(2.9rem, 6.4vw, 5.1rem); max-width: 15ch; }
+.hero h1 em { font-style: normal; color: var(--rust); }
+.hero p.lede { margin-top: 1.5rem; max-width: 52ch; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--ink-soft); }
+.cta-row { margin-top: 2.4rem; display: flex; gap: 0.9rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-weight: 600; font-size: 1rem; padding: 0.8rem 1.4rem; border: 1px solid transparent; transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s; }
+.btn.primary { background: var(--rust); color: var(--on-rust); }
+.btn.primary:hover { background: var(--rust-deep); }
+.btn.ghost { border-color: var(--line-strong); }
+.btn.ghost:hover { border-color: var(--rust); color: var(--rust); }
+
+/* Pegboard */
+.board { border: 1px solid var(--line-strong); background:
+    radial-gradient(oklch(0.5 0.02 60 / 0.28) 1.1px, transparent 1.2px) 12px 12px / 24px 24px,
+    linear-gradient(var(--bg-dim), var(--bg-dim)); padding: 1.4rem; box-shadow: 0 18px 40px -22px oklch(0.25 0.03 45 / 0.4); }
+.board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.board a { display: grid; justify-items: center; gap: 0.5rem; padding: 1rem 0.4rem 0.8rem; text-decoration: none; font-family: var(--display), var(--body); font-weight: 600; font-size: 0.82rem; background: var(--bg); border: 1px solid var(--line); transition: border-color 0.15s, color 0.15s, translate 0.15s; position: relative; }
+.board a::before { content: ""; position: absolute; top: -5px; left: 50%; translate: -50% 0; width: 7px; height: 7px; background: var(--bg); border: 1px solid var(--line-strong); }
+.board a:hover { border-color: var(--rust); color: var(--rust); translate: 0 -2px; }
+.board svg { width: 30px; height: 30px; color: var(--rust); }
+.board a:last-child { grid-column: 2; }
+
+/* Sections / ledger */
+section .wrap > h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); padding-top: clamp(2.5rem, 4vw, 3.5rem); }
+section .intro { margin-top: 0.9rem; color: var(--ink-soft); max-width: 62ch; }
+.ledger { margin-top: 2.5rem; display: grid; gap: 0.75rem; }
+.row { display: grid; grid-template-columns: 4.6rem 15rem 1fr 11.5rem 2rem; gap: 1.4rem; align-items: center; padding: 1.2rem 1.4rem 1.2rem 1rem; text-decoration: none; border: 1px solid var(--line); background: var(--bg); transition: border-color 0.15s, background 0.15s; position: relative; }
+.row:hover { border-color: var(--rust); }
+.row:hover .go { color: var(--rust); transform: translateX(3px); }
+.row .plate { width: 4.6rem; height: 4.6rem; display: grid; place-items: center; background: var(--rust-tint); }
+.row .plate svg { width: 38px; height: 38px; color: var(--rust); }
+.row .who b { display: block; font-family: var(--display), var(--body); font-weight: var(--disp-weight); font-size: 1.4rem; }
+.row .who span { color: var(--ink-soft); font-size: 0.92rem; }
+.row .proof { color: var(--ink-soft); font-size: 0.95rem; max-width: 46ch; }
+.row .meta { font-family: var(--mono); font-size: 0.82rem; text-align: right; color: var(--ink-soft); }
+.row .meta b { color: var(--ink); font-weight: 600; }
+.row .meta .st { display: inline-block; margin-top: 0.4rem; padding: 0.12rem 0.55rem; border: 1px solid var(--line-strong); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.row .meta .st.stable { color: var(--on-rust); background: var(--rust); border-color: var(--rust); }
+.row .go { color: var(--line-strong); transition: color 0.15s, transform 0.15s; }
+.row .num { position: absolute; top: -1px; left: -1px; width: 1.7rem; height: 1.7rem; display: grid; place-items: center; background: var(--rust); color: var(--on-rust); font-family: var(--mono); font-size: 0.8rem; font-weight: 700; }
+@media (max-width: 64rem) { .row { grid-template-columns: 3.4rem 1fr 2rem; } .row .plate { width: 3.4rem; height: 3.4rem; } .row .plate svg { width: 28px; height: 28px; } .row .proof, .row .meta { grid-column: 2; text-align: left; } .row .go { grid-row: 1; grid-column: 3; } }
+
+/* Oxide band */
+.oxide { margin-top: clamp(4.5rem, 9vw, 7rem); background: var(--oxide); color: var(--oxide-ink); padding-block: clamp(3.5rem, 7vw, 5.5rem); border-block: 1px solid var(--oxide-line); }
+.oxide h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+.oxide .beliefs { margin-top: 2.75rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 4rem; }
+.oxide .beliefs h3 { font-size: 1.25rem; color: var(--ember); }
+.oxide .beliefs p { margin-top: 0.7rem; color: var(--oxide-soft); }
+.oxide .beliefs div { border-top: 1px solid var(--oxide-line); padding-top: 1.2rem; }
+@media (max-width: 46rem) { .oxide .beliefs { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Footer */
+footer { border-top: 1px solid var(--line-strong); padding-block: 3rem 6.5rem; margin-top: 0; }
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; }
+.foot .lockup { font-size: 1.15rem; }
+.foot p { margin-top: 0.9rem; color: var(--ink-soft); font-size: 0.92rem; max-width: 34ch; }
+.foot h3 { font-size: 0.8rem; letter-spacing: 0.07em; text-transform: uppercase; font-family: var(--body); font-weight: 600; color: var(--ink-soft); }
+.foot ul { list-style: none; padding: 0; margin-top: 0.9rem; display: grid; gap: 0.45rem; }
+.foot a { text-decoration: none; font-size: 0.95rem; }
+.foot a:hover { color: var(--rust); }
+@media (max-width: 46rem) { .foot { grid-template-columns: 1fr; } .hero .wrap { grid-template-columns: 1fr; } .board { max-width: 26rem; } }
+
+/* Meta control */
+.meta-ctl { position: fixed; bottom: 1rem; right: 1rem; z-index: 90; background: oklch(0.22 0.01 50 / 0.92); color: oklch(0.95 0 0); backdrop-filter: blur(6px); font-family: var(--mono); font-size: 0.72rem; padding: 0.5rem 0.65rem; border-radius: 6px; display: grid; gap: 0.4rem; }
+.meta-ctl .grp { display: flex; gap: 0.3rem; align-items: center; }
+.meta-ctl span.lbl { opacity: 0.55; width: 3.4rem; }
+.meta-ctl a, .meta-ctl button { font: inherit; color: inherit; background: oklch(1 0 0 / 0.08); border: 1px solid oklch(1 0 0 / 0.15); padding: 0.2rem 0.5rem; text-decoration: none; cursor: pointer; border-radius: 3px; }
+.meta-ctl .on { background: oklch(0.66 0.165 50 / 0.85); border-color: transparent; color: oklch(0.13 0.01 50); }
+.meta-ctl.min .grp:not(.head) { display: none; }
+.meta-ctl #ctlMin { min-width: 1.7rem; }
+</style>
+</head>
+<body>
+<!--
+THESIS: The workbench in use: the family hangs on a real pegboard beside the words, sections are separated by a machinist's rule, and the shared beliefs sit on an oxidized steel band. Refuses the flat marketing page: the workshop is present, but tidy.
+OWN-WORLD: Warm light ground, rust committed at page scale (numbered plates, tinted icon blocks, one full oxide band), ember glow low in the hero like a forge two rooms away. Angular strokes, zero radius, ruler dividers. Display face on all headings; mono for measures.
+STORY: A developer lands, sees the family literally hanging as tools, reads the chain 1-2-3, checks the proof column, and leaves via a tool row or GitHub trusting the differential-testing claim.
+FIRST VIEWPORT: Two columns — display headline + lede + actions left, bordered pegboard panel with all seven marks hanging right. Primary action solid rust, bottom-left ember glow.
+FORM: Intensity draft B of 3 (middle). Brief-pinned direction — no concept roll; drafts are the comp round.
+FINISH: Direction comp for user selection; finish review + DESIGN.md land with the reference build.
+-->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-ferramenta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><rect class="fillbit" x="6.2" y="6.2" width="1.7" height="1.7"/><rect class="fillbit" x="11.15" y="6.2" width="1.7" height="1.7"/><rect class="fillbit" x="16.1" y="6.2" width="1.7" height="1.7"/><rect class="fillbit" x="6.2" y="11.15" width="1.7" height="1.7"/><rect class="fillbit" x="16.1" y="11.15" width="1.7" height="1.7"/><rect class="fillbit" x="6.2" y="16.1" width="1.7" height="1.7"/><path d="M12 9v5h4v-3"/></symbol>
+    <symbol id="i-ferroni" viewBox="0 0 24 24"><path d="M8 6h13v4h-4l-1 4 4 4v2H9v-2l4-4-1-4H8l-6-2z"/></symbol>
+    <symbol id="i-ferriki" viewBox="0 0 24 24"><path d="M10 2h4v6h-4z"/><path d="M14 4h3"/><path d="M10 8l2 3 2-3"/><path d="M12 11l4 5-4 6-4-6z"/><path d="M12 14.5l1.6 1.7-1.6 2.6-1.6-2.6z"/></symbol>
+    <symbol id="i-ferromark" viewBox="0 0 24 24"><path d="M9 2h6v4l-2 2v4l-1 3-1-3V8L9 6z"/><path d="M4 19h16"/><path d="M10 19l2-2 2 2"/><path d="M6.5 12.5l2 2"/><path d="M17.5 12.5l-2 2"/></symbol>
+    <symbol id="i-ferrolex" viewBox="0 0 24 24"><path d="M2 5h20v3H2z"/><path d="M4 8v10h2v-6"/><path d="M11 8v10h2v-6"/><path d="M10 8h4v-3"/><path d="M16 8v2.5M18.5 8v2.5M21 8v2.5" stroke-width="1.5"/></symbol>
+    <symbol id="i-ferrocat" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M12 3v18M3 9h18M3 15h18"/><path d="M6 6h3M15 6h3M6 12h3M15 12h3M6 18h3M15 18h3" stroke-width="1.5"/></symbol>
+    <symbol id="i-ferrovia" viewBox="0 0 24 24"><path d="M4 19L14 4l3.4 2.3L7.4 21.3z"/><path d="M7.4 14.7l3 2M9.4 11.7l3 2M11.4 8.7l3 2" stroke-width="1.5"/></symbol>
+    <symbol id="i-ferrugo" viewBox="0 0 24 24"><path d="M6 3h12l2 3v10l-3 5H7l-3-5V6z"/><rect x="7" y="9.5" width="10" height="3.5"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13 5.5L19.5 12 13 18.5"/></symbol>
+    <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="lockup" href="#"><svg width="26" height="26" class="icon" aria-hidden="true"><use href="#i-ferramenta"/></svg>ferramenta</a>
+    <nav class="site" aria-label="Site">
+      <details class="switcher">
+        <summary aria-label="All tools">Tools <svg class="chev icon" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <div class="flyout">
+          <a href="#pipeline"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferroni"/></svg><span><b>ferroni</b><small>regex engine</small></span></a>
+          <a href="#pipeline"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferriki"/></svg><span><b>ferriki</b><small>syntax highlighting</small></span></a>
+          <a href="#pipeline"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferromark"/></svg><span><b>ferromark</b><small>markdown</small></span></a>
+          <a href="#language"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferrolex"/></svg><span><b>ferrolex</b><small>spell checking</small></span></a>
+          <a href="#language"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferrocat"/></svg><span><b>ferrocat</b><small>translation catalogs</small></span></a>
+          <a href="#workbench"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferrovia"/></svg><span><b>ferrovia</b><small>svg optimizer</small></span></a>
+          <a href="#workbench"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferrugo"/></svg><span><b>ferrugo</b><small>pdf previews</small></span></a>
+        </div>
+      </details>
+      <a class="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-github"/></svg></a>
+      <button class="ghlink" id="themeBtn" aria-label="Toggle color scheme" style="background:none;border:none;cursor:pointer;color:inherit;padding:0.25rem"><svg width="20" height="20" viewBox="0 0 24 24" class="icon" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><path class="fillbit" d="M20 4v16H4z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Reforged <em>in Rust.</em></h1>
+        <p class="lede">Ferramenta — Italian for hardware store — is a family of Rust-native tools that keep the APIs you already know. Held to the originals by differential testing, and built to outrun them.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#pipeline">Browse the tools <svg width="17" height="17" class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn ghost" href="https://github.com/sebastian-software">GitHub</a>
+        </div>
+      </div>
+      <div class="board" aria-label="The tool family">
+        <div class="board-grid">
+          <a href="#pipeline"><svg class="icon" aria-hidden="true"><use href="#i-ferroni"/></svg>ferroni</a>
+          <a href="#pipeline"><svg class="icon" aria-hidden="true"><use href="#i-ferriki"/></svg>ferriki</a>
+          <a href="#pipeline"><svg class="icon" aria-hidden="true"><use href="#i-ferromark"/></svg>ferromark</a>
+          <a href="#language"><svg class="icon" aria-hidden="true"><use href="#i-ferrolex"/></svg>ferrolex</a>
+          <a href="#language"><svg class="icon" aria-hidden="true"><use href="#i-ferrocat"/></svg>ferrocat</a>
+          <a href="#workbench"><svg class="icon" aria-hidden="true"><use href="#i-ferrovia"/></svg>ferrovia</a>
+          <a href="#workbench"><svg class="icon" aria-hidden="true"><use href="#i-ferrugo"/></svg>ferrugo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule" role="presentation"></div>
+
+  <section id="pipeline">
+    <div class="wrap">
+      <h2>The content pipeline</h2>
+      <p class="intro">Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Each stage is a drop-in for the tool it replaces.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferroni">
+          <span class="num">1</span>
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferroni"/></svg></span>
+          <span class="who"><b>ferroni</b><span>Oniguruma-compatible regex engine</span></span>
+          <span class="proof">2,083 tests, 100% C parity, no C toolchain — the engine behind TextMate grammars, in pure Rust.</span>
+          <span class="meta"><b>v1.3.0</b> · crates.io<br><span class="st stable">stable</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferriki">
+          <span class="num">2</span>
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferriki"/></svg></span>
+          <span class="who"><b>ferriki</b><span>Shiki-compatible syntax highlighting</span></span>
+          <span class="proof">codeToHtml, codeToTokens, codeToHast — the Shiki API on a Rust core, verified against the mirrored Shiki test suite.</span>
+          <span class="meta"><b>v0.2.0</b><br><span class="st">alpha</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferromark">
+          <span class="num">3</span>
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferromark"/></svg></span>
+          <span class="who"><b>ferromark</b><span>Markdown to HTML</span></span>
+          <span class="proof">100% CommonMark, every GFM extension, sanitized by default — at ~280 MiB/s, faster than pulldown-cmark and md4c.</span>
+          <span class="meta"><b>v0.7.0</b> · crates.io + npm<br><span class="st">beta</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" role="presentation"></div>
+
+  <section id="language">
+    <div class="wrap">
+      <h2>The language workshop</h2>
+      <p class="intro">Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferrolex">
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferrolex"/></svg></span>
+          <span class="who"><b>ferrolex</b><span>Spell checking for text and code</span></span>
+          <span class="proof">Hunspell-compatible dictionaries, deterministic suggestions — scored differentially against the Hunspell oracle.</span>
+          <span class="meta"><b>v0.2.0</b><br><span class="st">alpha</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://ferrocat.dev">
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferrocat"/></svg></span>
+          <span class="who"><b>ferrocat</b><span>Translation catalog engine</span></span>
+          <span class="proof">PO, FCL and ICU MessageFormat with release-ready QA — and AI-translation-native metadata that keeps human fixes locked.</span>
+          <span class="meta"><b>v3.4.2</b> · crates.io<br><span class="st stable">stable</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" role="presentation"></div>
+
+  <section id="workbench">
+    <div class="wrap">
+      <h2>On the workbench</h2>
+      <p class="intro">Two more tools taking shape — early, but built to the same standard.</p>
+      <div class="ledger">
+        <a class="row" href="https://github.com/sebastian-software/ferrovia">
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferrovia"/></svg></span>
+          <span class="who"><b>ferrovia</b><span>SVG optimizer</span></span>
+          <span class="proof">SVGO-compatible, aiming for byte-level parity with svgo 4 — verified against a pinned oracle.</span>
+          <span class="meta"><b>0.1.0</b><br><span class="st">early</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://github.com/sebastian-software/ferrugo">
+          <span class="plate"><svg class="icon" aria-hidden="true"><use href="#i-ferrugo"/></svg></span>
+          <span class="who"><b>ferrugo</b><span>PDF previews</span></span>
+          <span class="proof">Bounded rendering for untrusted files: memory and time budgets, no PDFium in the production path.</span>
+          <span class="meta"><b>v0.5.0</b> · crates.io<br><span class="st">early</span></span>
+          <svg class="go icon" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="oxide">
+    <div class="wrap">
+      <h2>Held to the originals</h2>
+      <div class="beliefs">
+        <div>
+          <h3>Proven, not promised</h3>
+          <p>Compatibility is enforced, not advertised. Differential suites run every tool against the original — the Hunspell oracle, the mirrored Shiki tests, svgo byte for byte, Oniguruma's own C library.</p>
+        </div>
+        <div>
+          <h3>Open standards first</h3>
+          <p>CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on — never on formats only we control.</p>
+        </div>
+        <div>
+          <h3>The APIs you already know</h3>
+          <p>Drop-in by design: the same options, the same output. Adopting a Ferramenta tool is a swap, not a migration.</p>
+        </div>
+        <div>
+          <h3>Native speed, safe defaults</h3>
+          <p>Rust cores without a C toolchain. Sanitized output, bounded memory and time — production behavior out of the box, not after configuration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot" style="padding-top:3rem">
+    <div>
+      <a class="lockup" href="#"><svg width="22" height="22" class="icon" aria-hidden="true"><use href="#i-ferramenta"/></svg>ferramenta</a>
+      <p>Rust-native developer tools by Sebastian Software. Open source, openly verified.</p>
+    </div>
+    <div>
+      <h3>Pipeline</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferroni">ferroni</a></li>
+        <li><a href="https://github.com/sebastian-software/ferriki">ferriki</a></li>
+        <li><a href="https://github.com/sebastian-software/ferromark">ferromark</a></li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Language</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferrolex">ferrolex</a></li>
+        <li><a href="https://ferrocat.dev">ferrocat</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Workbench</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software/ferrovia">ferrovia</a></li>
+        <li><a href="https://github.com/sebastian-software/ferrugo">ferrugo</a></li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Family</h3>
+      <ul>
+        <li><a href="https://github.com/sebastian-software">GitHub</a></li>
+        <li><a href="https://ferramenta.dev">ferramenta.dev</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<aside class="meta-ctl" aria-label="Entwurf-Steuerung">
+  <div class="grp head"><span class="lbl" style="width:auto;flex:1">Steuerung</span><button id="ctlMin" aria-label="Steuerleiste ein-/ausklappen">–</button></div>
+  <div class="grp"><span class="lbl">Entwurf</span><a href="entwurf-a.html">A</a><a class="on" href="entwurf-b.html">B</a><a href="entwurf-c.html">C</a></div>
+  <div class="grp"><span class="lbl">Display</span><button data-font="Space Grotesk">Grotesk</button><button data-font="Big Shoulders">Shoulders</button><button data-font="Chakra Petch">Chakra</button></div>
+  <div class="grp"><span class="lbl">Theme</span><button id="thLight">Hell</button><button id="thDark">Dunkel</button><button id="thAuto">Auto</button></div>
+</aside>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var DEFAULT_FONT = "Chakra Petch";
+  var fontMeta = {
+    "Space Grotesk": { w: 700, track: "-0.02em" },
+    "Big Shoulders": { w: 800, track: "0" },
+    "Chakra Petch":  { w: 700, track: "-0.01em" }
+  };
+  function applyFont(f) {
+    var m = fontMeta[f] || fontMeta[DEFAULT_FONT];
+    root.style.setProperty("--display", '"' + f + '"');
+    root.style.setProperty("--disp-weight", m.w);
+    root.style.setProperty("--disp-track", m.track);
+    document.querySelectorAll(".meta-ctl [data-font]").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.font === f);
+    });
+  }
+  function applyTheme(t) {
+    if (t === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
+    ["Light", "Dark", "Auto"].forEach(function (n) {
+      document.getElementById("th" + n).classList.toggle("on", n.toLowerCase() === t);
+    });
+  }
+  var storedFont = null, storedTheme = null;
+  try { storedFont = localStorage.getItem("fam-font"); storedTheme = localStorage.getItem("fam-theme"); } catch (e) {}
+  applyFont(storedFont || DEFAULT_FONT);
+  applyTheme(storedTheme || "auto");
+  document.querySelectorAll(".meta-ctl [data-font]").forEach(function (b) {
+    b.addEventListener("click", function () { try { localStorage.setItem("fam-font", b.dataset.font); } catch (e) {} applyFont(b.dataset.font); });
+  });
+  [["thLight", "light"], ["thDark", "dark"], ["thAuto", "auto"]].forEach(function (p) {
+    document.getElementById(p[0]).addEventListener("click", function () { try { localStorage.setItem("fam-theme", p[1]); } catch (e) {} applyTheme(p[1]); });
+  });
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    try { localStorage.setItem("fam-theme", next); } catch (e) {}
+    applyTheme(next);
+  });
+  var ctl = document.querySelector(".meta-ctl");
+  var ctlBtn = document.getElementById("ctlMin");
+  function setMin(min) { ctl.classList.toggle("min", min); ctlBtn.textContent = min ? "+" : "\u2013"; }
+  setMin(window.innerWidth < 700);
+  ctlBtn.addEventListener("click", function () { setMin(!ctl.classList.contains("min")); });
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll("details.switcher[open]").forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute("open");
+    });
+  });
+})();
+</script>
+</body>
+</html>

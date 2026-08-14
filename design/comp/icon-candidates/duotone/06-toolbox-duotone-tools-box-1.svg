@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Tools-Box-1--Streamline-Ultimate" height="24" width="24">
+  <desc>
+    Tools Box 1 Streamline Icon: https://streamlinehq.com
+  </desc>
+  <defs></defs>
+  <title>tools-box-1</title>
+  <path d="M3.5 6h17s3 0 3 3v10s0 3 -3 3h-17s-3 0 -3 -3V9s0 -3 3 -3" fill="#9feaff" stroke-width="1"></path>
+  <path d="M8.5 6V4a2.005 2.005 0 0 1 2 -2h3a2.005 2.005 0 0 1 2 2v2" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+  <path d="M16.766 14.408a0.5 0.5 0 0 1 -0.012 -0.769l0.606 -0.519a0.5 0.5 0 0 1 0.325 -0.12h1.3a0.5 0.5 0 0 0 0.4 -0.8 2.98 2.98 0 0 0 -5.2 0.8H9.816A2.989 2.989 0 0 0 7 11a3.078 3.078 0 0 0 -2.319 1.182 0.5 0.5 0 0 0 0.386 0.818h1.248a0.5 0.5 0 0 1 0.325 0.12l0.606 0.519a0.5 0.5 0 0 1 -0.012 0.769l-0.6 0.481a0.5 0.5 0 0 1 -0.31 0.111H5.067a0.5 0.5 0 0 0 -0.386 0.818A3.078 3.078 0 0 0 7 17a2.989 2.989 0 0 0 2.816 -2h4.368a2.979 2.979 0 0 0 5.2 0.8 0.5 0.5 0 0 0 -0.4 -0.8h-1.308a0.5 0.5 0 0 1 -0.313 -0.111Z" fill="#9feaff" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+  <path d="M20.5 6h-17a3.009 3.009 0 0 0 -3 3v3.243a3.009 3.009 0 0 1 3 -3h17a3.009 3.009 0 0 1 3 3V9a3.009 3.009 0 0 0 -3 -3Z" fill="#dff9ff" stroke-width="1"></path>
+  <path d="M3.5 6h17s3 0 3 3v10s0 3 -3 3h-17s-3 0 -3 -3V9s0 -3 3 -3" stroke="#00303e" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1"></path>
+</svg>
