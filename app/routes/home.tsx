@@ -14,22 +14,22 @@ export const meta: MetaFunction = () => [
   {
     name: "description",
     content:
-      "Ferramenta is a family of Rust-native developer tools that keep the APIs you already know — held to the originals by differential testing, and built to outrun them.",
+      "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.",
   },
 ]
 
 const beliefs = [
   {
     heading: "Proven, not promised",
-    text: "Compatibility is enforced, not advertised. Differential suites run every tool against the original — the Hunspell oracle, the mirrored Shiki tests, svgo byte for byte, Oniguruma's own C library.",
+    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference — from Hunspell and Shiki to SVGO and Oniguruma. Claims stay tied to current evidence and maturity.",
   },
   {
     heading: "Open standards first",
     text: "CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on — never on formats only we control.",
   },
   {
-    heading: "Known APIs",
-    text: "Drop-in by design: the same options, the same output. Adopting a Ferramenta tool is a swap, not a migration.",
+    heading: "Familiar contracts",
+    text: "Compatibility is earned tool by tool. Stable projects can be adopted against familiar contracts; alpha and early tools show the standard they are working toward.",
   },
   {
     heading: "Safe defaults",
@@ -48,10 +48,21 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
         <b>{tool.name}</b>
         <span className="sub">{tool.job}</span>
       </span>
-      <span className="proof">{tool.proof}</span>
+      <span className="proof">
+        <span className="proof-story">{tool.proof}</span>
+        <span className="proof-facts">
+          <span>
+            <b>{tool.compat ? "Contract" : "Purpose"}</b>
+            {tool.compat ?? tool.job}
+          </span>
+          <span>
+            <b>Evidence</b>
+            {tool.evidence}
+          </span>
+        </span>
+      </span>
       <span className="meta">
         <b>v{tool.version}</b>
-        {tool.registries ? <> · {tool.registries}</> : null}
         <br />
         <span className={tool.status === "stable" ? "st stable" : "st"}>{tool.status}</span>
       </span>
@@ -83,9 +94,10 @@ export default function HomePage() {
                 Heavy industry <em>for the web.</em>
               </h1>
               <p className="lede">
-                Ferramenta — Italian for hardware store — is a family of Rust-native tools that
-                keep the APIs you already know. No mechanical ports: each tool is re-engineered in
-                Rust, held to its original by differential testing, and built to outrun it.
+                Ferramenta — Italian for hardware store — is a family of Rust-native tools built
+                around standards and APIs developers already know. Each project is re-engineered
+                in Rust; where an established predecessor exists, compatibility is checked
+                differentially and performance is measured in the open.
               </p>
               <div className="cta-row">
                 <a className="btn primary chamfer" href="#pipeline">
@@ -106,7 +118,10 @@ export default function HomePage() {
                     <span className="markplate">
                       <Mark name={tool.name} />
                     </span>
-                    {tool.name}
+                    <span className="board-copy">
+                      <b>{tool.name}</b>
+                      <small>{tool.shortJob}</small>
+                    </span>
                   </a>
                 ))}
               </div>
@@ -149,8 +164,8 @@ export default function HomePage() {
           <div className="wrap">
             <h2>On the workbench</h2>
             <p className="intro">
-              Two more tools taking shape — early, but cut from the same steel: verified against
-              their originals from the first commit.
+              Two more tools taking shape — early, cut from the same steel, and explicit about
+              what is proven now and what is still on the bench.
             </p>
             <div className="ledger">
               {workbench.map((tool) => (
@@ -162,7 +177,7 @@ export default function HomePage() {
 
         <div className="ironband">
           <div className="wrap">
-            <h2>Held to the originals</h2>
+            <h2>What earns the stamp</h2>
             <div className="beliefs">
               {beliefs.map((belief) => (
                 <div key={belief.heading}>
@@ -197,12 +212,14 @@ export default function HomePage() {
                 </p>
                 <ul className="goals">
                   <li>
-                    <b>Stable everywhere.</b> Every tool earns a stable, differentially proven
-                    API — ferroni and ferrocat carry theirs, the rest are on the anvil.
+                    <b>Stable through evidence.</b> Every tool earns stability through evidence
+                    appropriate to its contract — ferroni and ferrocat are stable today; the rest
+                    keep their maturity visible.
                   </li>
                   <li>
-                    <b>Match, then outrun.</b> Same output as the tool each one replaces,
-                    benchmarked in the open — never a compatibility asterisk.
+                    <b>Match before outrun.</b> Where there is a predecessor contract,
+                    compatibility comes first and performance claims follow published benchmarks
+                    — never a compatibility asterisk.
                   </li>
                   <li>
                     <b>One chain, all Rust.</b> Markdown with highlighted code, end to end —
@@ -215,9 +232,29 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="next-step">
+          <div className="wrap">
+            <h2>Choose a tool. Check the proof.</h2>
+            <div className="next-grid">
+              <p>
+                Start with the job you need, then compare its contract, evidence, and maturity in
+                the ledger. Every project is open source; early work is labeled early.
+              </p>
+              <div className="cta-row">
+                <a className="btn primary chamfer" href="#pipeline">
+                  Compare the tools <Mark name="arrow" className="icon" size={18} />
+                </a>
+                <a className="btn ghost" href="https://github.com/sebastian-software">
+                  View all source
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="partners">
           <div className="wrap">
-            <h2>From the same workshop</h2>
+            <h2>The wider workshop</h2>
             <div className="pgrid">
               <a href="https://oss.sebastian-software.com">
                 <img src={softwareLogo} alt="Sebastian Software" />

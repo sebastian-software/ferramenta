@@ -9,10 +9,14 @@ export interface FamilyTool {
     name: string;
     /** One-line job description — the subheader under the tool name */
     job: string;
+    /** Terse job label for constrained family navigation surfaces */
+    shortJob: string;
     /** Which established API/contract it stays compatible with */
     compat?: string;
     /** Proof sentence: verifiable facts, no marketing claims */
     proof: string;
+    /** Compact, verifiable evidence for the family overview */
+    evidence: string;
     /** Latest released version (plain semver, no "v" prefix) */
     version: string;
     /** Maturity, shown as a stamp next to the version */

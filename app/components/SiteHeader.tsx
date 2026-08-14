@@ -3,16 +3,6 @@ import { ArdoThemeToggle } from "ardo/ui"
 import { family } from "@ferramenta/ardo-config"
 import { Mark } from "./Marks"
 
-const shortJob: Record<string, string> = {
-  ferroni: "regex engine",
-  ferriki: "syntax highlighting",
-  ferromark: "markdown",
-  ferrolex: "spell checking",
-  ferrocat: "translation catalogs",
-  ferrovia: "svg optimizer",
-  ferrugo: "pdf previews",
-}
-
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
 export function SiteHeader() {
   const switcherRef = useRef<HTMLDetailsElement>(null)
@@ -24,8 +14,19 @@ export function SiteHeader() {
         switcher.removeAttribute("open")
       }
     }
+    function closeOnEscape(event: KeyboardEvent) {
+      const switcher = switcherRef.current
+      if (event.key === "Escape" && switcher?.open) {
+        switcher.removeAttribute("open")
+        switcher.querySelector<HTMLElement>("summary")?.focus()
+      }
+    }
     document.addEventListener("click", closeOnOutsideClick)
-    return () => document.removeEventListener("click", closeOnOutsideClick)
+    document.addEventListener("keydown", closeOnEscape)
+    return () => {
+      document.removeEventListener("click", closeOnOutsideClick)
+      document.removeEventListener("keydown", closeOnEscape)
+    }
   }, [])
 
   return (
@@ -33,7 +34,7 @@ export function SiteHeader() {
       <div className="wrap bar">
         <a className="lockup" href="/">
           <Mark name="ferramenta" size={26} />
-          ferramenta
+          <span>ferramenta</span>
         </a>
         <nav className="site" aria-label="Site">
           <details className="switcher" ref={switcherRef}>
@@ -48,7 +49,7 @@ export function SiteHeader() {
                   </span>
                   <span>
                     <b>{tool.name}</b>
-                    <small>{shortJob[tool.name] ?? tool.job}</small>
+                    <small>{tool.shortJob}</small>
                   </span>
                 </a>
               ))}

@@ -85,12 +85,16 @@ padding ≡ 14 (mod 28).
 - **SiteHeader**: sticky iron bar, 2px rust bottom rule; lockup (mark + uppercase wordmark),
   `<details>` Tools flyout (7 tools, mini-plates, short jobs), GitHub, `ArdoThemeToggle`.
 - **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`;
-  big display digits only where sequence is real (pipeline 1-2-3); status stamps are tinted
+  big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
+  register, followed by compact `Contract`/`Purpose` and `Evidence` facts from the registry;
+  visible metadata is deliberately limited to version and maturity. Status stamps are tinted
   fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
 - **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows.
 - **Why section**: rust pull-quote (display) + prose + goal list (square rust bullets) +
   mono signature. User-approved addition on top of the comp.
 - **Partners**: logos on `--paper` carrier plates, mono link line, hairline column divider.
+- **Closing action**: a flat, ruled return to tool comparison before partner provenance; no new
+  material carrier.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
 - **Buttons**: `.btn.primary` rust with single chamfered corner (`.chamfer` clip-path);
   `.btn.ghost` 1px heavy outline. Uppercase display type.
