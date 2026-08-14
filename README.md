@@ -32,7 +32,15 @@ More tools in the store:
 ## This repository
 
 The site is built with [Ardo](https://github.com/sebastian-software/ardo) and deployed to
-GitHub Pages on every push to `main`.
+GitHub Pages on every push to `main`. The family registry
+([packages/ardo-config/src/family.ts](packages/ardo-config/src/family.ts)) is the single
+source of truth for tool names, jobs, versions, and links; the approved design comp lives
+in [design/comp/](design/comp/). Icon and font assets carry their own terms — see
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+Working on this repo (human or agent)? Start with [AGENTS.md](AGENTS.md); durable
+decisions and their rationale live in [docs/adr/](docs/adr/README.md), the design system
+in [DESIGN.md](DESIGN.md), and product truth in [PRODUCT.md](PRODUCT.md).
 
 ```sh
 pnpm install
