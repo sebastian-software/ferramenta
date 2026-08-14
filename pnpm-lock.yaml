@@ -17,9 +17,6 @@ importers:
       isbot:
         specifier: '*'
         version: 5.2.0
-      lucide-react:
-        specifier: ^1.23.0
-        version: 1.23.0(react@19.2.7)
       react:
         specifier: '*'
         version: 19.2.7
@@ -3345,6 +3342,7 @@ snapshots:
   lucide-react@1.23.0(react@19.2.7):
     dependencies:
       react: 19.2.7
+    optional: true
 
   lunr@2.3.9: {}
 

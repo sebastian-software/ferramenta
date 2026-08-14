@@ -12,7 +12,6 @@
   "dependencies": {
     "ardo": "^4.1.0",
     "isbot": "*",
-    "lucide-react": "^1.23.0",
     "react": "*",
     "react-dom": "*",
     "react-router": "^8.0.1",
