@@ -79,7 +79,13 @@ body { background:
     var(--bg);
   color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--focus, var(--ember)); outline-offset: 2px; }
+.ferramenta-site :where([id]) { scroll-margin-top: 6rem; }
+:root { --focus: var(--rust); }
+:root.dark { --focus: var(--ember); }
+.site-header, .site-footer, .ironband, .flyout { --focus: var(--ember); }
+.skip-link { position: absolute; left: -200vw; top: 0; z-index: 100; background: var(--iron); color: var(--iron-ink); padding: 0.6rem 1.1rem; font-weight: 600; text-decoration: none; }
+.skip-link:focus-visible { left: 0; }
 .wrap { max-width: 80rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
 .icon { stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter; }
 .icon .fillbit { fill: currentColor; stroke: none; }
@@ -126,15 +132,16 @@ details.switcher[open] summary svg.chev { transform: scaleY(-1); }
 .board { --fastener-inset: 8px; position: relative; border: 2px solid var(--line-heavy); background:
     radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
     linear-gradient(var(--bg-dim), var(--bg-dim)); padding: 42px; width: fit-content; margin-inline: auto; }
-.board-grid { display: grid; grid-template-columns: repeat(3, 112px); column-gap: 28px; grid-auto-rows: 140px; row-gap: 28px; }
+.board-grid { display: grid; row-gap: 28px; }
+.board-group-label { height: 28px; display: flex; align-items: center; font-family: var(--display), var(--body); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
+.board-row { display: grid; grid-template-columns: repeat(3, 112px); column-gap: 28px; grid-auto-rows: 140px; row-gap: 28px; }
 .board a { display: grid; justify-items: center; align-content: start; gap: 0.55rem; padding-top: 21px; position: relative; width: 112px; text-decoration: none; transition: color 0.15s; }
 
 .board a:hover { color: var(--rust); }
 .board .markplate svg { width: 46px; height: 46px; color: var(--rust); }
-.board a:last-child { grid-column: 2; }
 .board-copy { display: grid; justify-items: center; text-align: center; line-height: 1.05; }
 .board-copy b { font-family: var(--display), var(--body); font-weight: 700; font-size: 1rem; letter-spacing: 0.03em; text-transform: uppercase; }
-.board-copy small { margin-top: 0.18rem; color: var(--ink-soft); font-family: var(--body); font-size: 0.66rem; letter-spacing: 0; line-height: 1.15; text-transform: none; }
+.board-copy small { margin-top: 0.18rem; color: var(--ink-soft); font-family: var(--body); font-size: 0.75rem; letter-spacing: 0; line-height: 1.15; text-transform: none; }
 .board a:hover .board-copy small { color: var(--rust); }
 
 /* Sections — open ledger */
@@ -145,7 +152,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .pipeline-assembly::before { content: ""; position: absolute; inset: 5px; z-index: -1; border: 1px solid var(--plate-rim-lo); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); pointer-events: none; }
 .assembly-flow { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(6.5rem, 0.8fr) minmax(1.5rem, 0.4fr) repeat(3, minmax(7rem, 1fr) minmax(1.5rem, 0.4fr)) minmax(6.5rem, 0.8fr); align-items: center; }
 .assembly-terminal { display: grid; gap: 0.25rem; line-height: 1.15; }
-.assembly-terminal small { color: var(--rust); font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.assembly-terminal small { color: var(--rust); font-family: var(--mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .assembly-terminal b { max-width: 9rem; font-size: 0.88rem; font-weight: 650; }
 .assembly-output { text-align: right; justify-items: end; }
 .assembly-stage { display: grid; justify-items: center; align-content: start; gap: 0.4rem; position: relative; min-width: 0; text-align: center; }
@@ -154,7 +161,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .assembly-stage .markplate svg { width: 2.35rem; height: 2.35rem; color: var(--rust); }
 .assembly-copy { display: grid; justify-items: center; line-height: 1.05; min-width: 0; }
 .assembly-copy b { font-family: var(--display), var(--body); font-size: 1.15rem; font-weight: var(--disp-weight); letter-spacing: 0.02em; text-transform: uppercase; }
-.assembly-copy small { margin-top: 0.22rem; color: var(--ink-soft); font-size: 0.68rem; line-height: 1.2; }
+.assembly-copy small { margin-top: 0.22rem; color: var(--ink-soft); font-size: 0.75rem; line-height: 1.2; }
 .assembly-connector { width: 100%; height: 1.5rem; color: var(--rust); stroke-width: 1.5; }
 .ledger { margin-top: 1.5rem; display: grid; }
 .row { display: grid; grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) 1fr 8rem 2rem; gap: 1.5rem; align-items: center; padding: 1.6rem 0.25rem; text-decoration: none; border-bottom: 1px solid var(--line); transition: background 0.15s; }
@@ -176,14 +183,14 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .proof-story, .proof-facts { display: block; }
 .proof-facts { margin-top: 0.65rem; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; color: var(--ink); font-size: 0.78rem; line-height: 1.35; }
 .proof-facts > span { display: inline; }
-.proof-facts b { margin-right: 0.35rem; color: var(--rust); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.proof-facts b { margin-right: 0.35rem; color: var(--rust); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .row .meta { font-family: var(--mono); font-size: 0.82rem; text-align: right; color: var(--ink-soft); }
 .row .meta b { color: var(--ink); font-weight: 600; }
-.row .meta .st { display: inline-block; margin-top: 0.45rem; padding: 0.16rem 0.6rem; background: var(--bg-dim); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
+.row .meta .st { display: inline-block; margin-top: 0.45rem; padding: 0.16rem 0.6rem; background: var(--bg-dim); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
 .row:hover .meta .st { background: var(--rust-tint); }
 .row .meta .st.stable { color: var(--on-rust); background: var(--rust); }
 .row:hover .meta .st.stable { background: var(--rust); }
-.row .go { color: var(--line); transition: color 0.15s, transform 0.15s; }
+.row .go { color: var(--ink-soft); transition: color 0.15s, transform 0.15s; }
 @media (max-width: 64rem) {
   .assembly-flow { grid-template-columns: minmax(5.5rem, 0.8fr) minmax(1rem, 0.3fr) repeat(3, minmax(6rem, 1fr) minmax(1rem, 0.3fr)) minmax(5.5rem, 0.8fr); }
   .row { grid-template-columns: 3.8rem 1fr 2rem; row-gap: 0.8rem; }
@@ -211,7 +218,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .beliefs > div { display: grid; grid-template-columns: minmax(11rem, 22rem) 1fr; gap: 1rem 3rem; padding-block: 1.6rem; border-bottom: 1px solid var(--iron-line); align-items: start; }
 .beliefs h3 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); text-transform: uppercase; color: var(--ember); line-height: 1; }
 .beliefs p { color: var(--iron-soft); max-width: 62ch; }
-@media (max-width: 46rem) { .beliefs > div { grid-template-columns: 1fr; gap: 0.5rem; } .hero .wrap { grid-template-columns: 1fr; } .board { padding: 14px; } .board-grid { grid-template-columns: repeat(2, 112px); } .board a:last-child { grid-column: 1 / -1; justify-self: start; margin-left: 56px; }
+@media (max-width: 46rem) { .beliefs > div { grid-template-columns: 1fr; gap: 0.5rem; } .hero .wrap { grid-template-columns: 1fr; } .board { padding: 14px; } .board-row { grid-template-columns: repeat(2, 112px); }
   .bar { gap: 0.5rem; } .lockup { font-size: 1.2rem; } nav.site { gap: 0.25rem; }
   details.switcher { position: static; }
   .flyout { left: 0; right: 0; top: calc(100% + 2px); width: auto; min-width: 0; max-height: calc(100vh - 5rem); overflow-y: auto; }
@@ -221,7 +228,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 
 /* Partners — from the same workshop */
 .partners { padding-top: clamp(3.5rem, 7vw, 5.5rem); }
-.partners h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); text-transform: uppercase; }
+.partners .wrap > h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); text-transform: uppercase; }
 .pgrid { margin-top: 1.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 0; }
 .pgrid a { text-decoration: none; display: grid; gap: 0.9rem; align-content: start; padding-right: 3rem; }
 .pgrid a + a { border-left: 1px solid var(--line); padding-left: 3rem; padding-right: 0; }
@@ -267,7 +274,7 @@ footer.site-footer { margin-top: clamp(3.5rem, 7vw, 5.5rem); background: url("da
 .why-lead { display: grid; gap: 2rem; align-content: start; }
 .why-pull { font-family: var(--display), var(--body); font-weight: var(--disp-weight); text-transform: uppercase; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.02; color: var(--rust); }
 .why-author { display: grid; max-width: 18rem; padding-top: 1rem; border-top: 1px solid var(--line); line-height: 1.2; }
-.why-author span { color: var(--rust); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.why-author span { color: var(--rust); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .why-author b { margin-top: 0.35rem; font-family: var(--display), var(--body); font-size: 1.5rem; font-weight: var(--disp-weight); letter-spacing: 0.02em; line-height: 1; text-transform: uppercase; }
 .why-author small { margin-top: 0.3rem; color: var(--ink-soft); font-size: 0.88rem; }
 .why-body p { color: var(--ink-soft); max-width: 62ch; }
@@ -280,7 +287,11 @@ footer.site-footer { margin-top: clamp(3.5rem, 7vw, 5.5rem); background: url("da
 
 /* Schmale Screens: ToolRow stapelt, Pfeil entfaellt */
 @media (max-width: 40rem) {
-  .row { grid-template-columns: 3.8rem 1fr; }
-  .row .go { display: none; }
+  .row { grid-template-columns: 3.8rem 1fr 1.5rem; }
   .row .proof, .row .meta { grid-column: 1 / -1; }
 }
+
+/* Flyout-Gruppen + Footer-Legal (Critique-Runde 2) */
+.flygroup + .flygroup { margin-top: 0.4rem; }
+.flygroup > small { display: block; padding: 0.35rem 0.6rem 0.15rem; font-family: var(--display), var(--body); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iron-soft); }
+.foot-legal { grid-column: 1 / -1; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--iron-line); color: var(--iron-soft); font-size: 0.85rem; }

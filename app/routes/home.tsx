@@ -10,13 +10,18 @@ import consultingLogo from "../assets/logos/sebastian-consulting.svg"
 /** Fully custom shell: disable Ardo's default header/footer for this route. */
 export const handle = { chrome: false }
 
+const description =
+  "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist."
+
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },
-  {
-    name: "description",
-    content:
-      "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.",
-  },
+  { name: "description", content: description },
+  { property: "og:title", content: "Ferramenta — Rust-native developer tools" },
+  { property: "og:description", content: description },
+  { property: "og:type", content: "website" },
+  { property: "og:url", content: "https://ferramenta.dev/" },
+  { property: "og:image", content: "https://ferramenta.dev/social.png" },
+  { name: "twitter:card", content: "summary_large_image" },
 ]
 
 const beliefs = [
@@ -64,10 +69,12 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       <span className="proof">
         <span className="proof-story">{tool.proof}</span>
         <span className="proof-facts">
-          <span>
-            <b>{tool.compat ? "Contract" : "Purpose"}</b>
-            {tool.compat ?? tool.job}
-          </span>
+          {tool.compat ? (
+            <span>
+              <b>Contract</b>
+              {tool.compat}
+            </span>
+          ) : null}
           <span>
             <b>Evidence</b>
             {tool.evidence}
@@ -76,6 +83,7 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       </span>
       <span className="meta">
         <b>v{tool.version}</b>
+        {tool.registries ? <> · {tool.registries}</> : null}
         <br />
         <span className={tool.status === "stable" ? "st stable" : "st"}>{tool.status}</span>
       </span>
@@ -123,20 +131,18 @@ function PipelineAssembly({ tools }: { tools: FamilyTool[] }) {
 
 export default function HomePage() {
   const { pipeline, language, workbench } = familyGroups()
-  const board = [...pipeline, ...language, ...workbench]
+  const boardGroups = [
+    { label: "Pipeline", tools: pipeline },
+    { label: "Language", tools: language },
+    { label: "Workbench", tools: workbench },
+  ]
 
   return (
     <>
-      <script
-        type="application/x-design-contract"
-        dangerouslySetInnerHTML={{
-          __html:
-            "THESIS: hardware-store family site, tools on one pegboard. OWN-WORLD: brushed steel, iron bands, rust, duotone marks on octagon plates with hooks, Big Shoulders uppercase. COMP: design/comp/entwurf-c.html + user-approved why-section",
-        }}
-      />
+      <a className="skip-link" href="#main">Skip to content</a>
       <MarkDefs />
       <SiteHeader />
-      <div className="page-main">
+      <div className="page-main" id="main">
         <div className="hero">
           <div className="wrap">
             <div>
@@ -153,7 +159,7 @@ export default function HomePage() {
                 <a className="btn primary chamfer" href="#pipeline">
                   Browse the tools <Mark name="arrow" className="icon" size={18} />
                 </a>
-                <a className="btn ghost" href="https://github.com/sebastian-software">
+                <a className="btn ghost" href="https://github.com/orgs/sebastian-software/repositories?q=ferr">
                   GitHub
                 </a>
               </div>
@@ -161,19 +167,26 @@ export default function HomePage() {
             <div className="board" aria-label="The tool family">
               <Fasteners />
               <div className="board-grid">
-                {board.map((tool) => (
-                  <a key={tool.name} href={tool.docs ?? tool.repo}>
-                    <svg className="hook" aria-hidden="true">
-                      <use href="#i-hook" />
-                    </svg>
-                    <span className="markplate">
-                      <Mark name={tool.name} />
-                    </span>
-                    <span className="board-copy">
-                      <b>{tool.name}</b>
-                      <small>{tool.shortJob}</small>
-                    </span>
-                  </a>
+                {boardGroups.map((group) => (
+                  <div className="board-group" key={group.label}>
+                    <small className="board-group-label">{group.label}</small>
+                    <div className="board-row">
+                      {group.tools.map((tool) => (
+                        <a key={tool.name} href={tool.docs ?? tool.repo}>
+                          <svg className="hook" aria-hidden="true">
+                            <use href="#i-hook" />
+                          </svg>
+                          <span className="markplate">
+                            <Mark name={tool.name} />
+                          </span>
+                          <span className="board-copy">
+                            <b>{tool.name}</b>
+                            <small>{tool.shortJob}</small>
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -302,7 +315,7 @@ export default function HomePage() {
                 <a className="btn primary chamfer" href="#pipeline">
                   Compare the tools <Mark name="arrow" className="icon" size={18} />
                 </a>
-                <a className="btn ghost" href="https://github.com/sebastian-software">
+                <a className="btn ghost" href="https://github.com/orgs/sebastian-software/repositories?q=ferr">
                   View all source
                 </a>
               </div>

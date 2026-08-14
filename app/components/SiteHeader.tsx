@@ -1,11 +1,17 @@
 import { useEffect, useRef } from "react"
 import { ArdoThemeToggle } from "ardo/ui"
-import { family } from "@ferramenta/ardo-config"
+import { familyGroups } from "@ferramenta/ardo-config"
 import { Mark } from "./Marks"
 
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
 export function SiteHeader() {
   const switcherRef = useRef<HTMLDetailsElement>(null)
+  const { pipeline, language, workbench } = familyGroups()
+  const flyoutGroups = [
+    { label: "Pipeline", tools: pipeline },
+    { label: "Language", tools: language },
+    { label: "Workbench", tools: workbench },
+  ]
 
   useEffect(() => {
     function closeOnOutsideClick(event: MouseEvent) {
@@ -42,16 +48,21 @@ export function SiteHeader() {
               Tools <Mark name="chev" className="chev icon" size={16} />
             </summary>
             <div className="flyout">
-              {family.map((tool) => (
-                <a key={tool.name} href={tool.docs ?? tool.repo}>
-                  <span className="markplate">
-                    <Mark name={tool.name} size={24} />
-                  </span>
-                  <span>
-                    <b>{tool.name}</b>
-                    <small>{tool.shortJob}</small>
-                  </span>
-                </a>
+              {flyoutGroups.map((group) => (
+                <div className="flygroup" key={group.label}>
+                  <small>{group.label}</small>
+                  {group.tools.map((tool) => (
+                    <a key={tool.name} href={tool.docs ?? tool.repo}>
+                      <span className="markplate">
+                        <Mark name={tool.name} size={24} />
+                      </span>
+                      <span>
+                        <b>{tool.name}</b>
+                        <small>{tool.shortJob}</small>
+                      </span>
+                    </a>
+                  ))}
+                </div>
               ))}
             </div>
           </details>

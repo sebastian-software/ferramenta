@@ -55,6 +55,9 @@ export function SiteFooter() {
             </li>
           </ul>
         </div>
+        <p className="foot-legal">
+          This site is MIT-licensed; each tool states its own license in its repository.
+        </p>
       </div>
     </footer>
   )

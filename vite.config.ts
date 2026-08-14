@@ -11,6 +11,11 @@ export default defineConfig({
       description:
         "Rust-native developer tools that keep the APIs you already know — held to the originals by differential testing.",
       siteUrl: "https://ferramenta.dev",
+      metadata: {
+        image: "/social.png",
+        ogType: "website",
+        twitterCard: "summary_large_image",
+      },
 
       // Toolbox mark (duotone, baked brand colors) — also the favicon source
       brand: {

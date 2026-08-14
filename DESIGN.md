@@ -67,6 +67,10 @@ fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay f
 
 ## The 28px module (pegboard)
 
+The board renders the family's real groups (Pipeline 3 / Language 2 / Workbench 2), each
+row headed by a stamped 28px-tall group label — label rows and 28px gaps keep every hook
+hole on the wall grid (verified 0.0px offsets, desktop and mobile).
+
 The board's hole grid is a 28px tile (`background-size: 28px 28px`, dots offset 14px).
 Everything on the board is a multiple: padding 42px (desktop) / 14px (mobile), cells
 112×140px, gaps 28px → every hook hole lands exactly on a wall hole (verified 0.0px
@@ -87,11 +91,11 @@ padding ≡ 14 (mod 28).
 ## Components
 
 - **SiteHeader**: sticky iron bar, 2px rust bottom rule; lockup (mark + uppercase wordmark),
-  `<details>` Tools flyout (7 tools, mini-plates, short jobs), GitHub, `ArdoThemeToggle`.
+  `<details>` Tools flyout (grouped Pipeline/Language/Workbench, mini-plates, short jobs), GitHub, `ArdoThemeToggle`. A skip link precedes the header.
 - **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`;
   big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
   register, followed by compact `Contract`/`Purpose` and `Evidence` facts from the registry;
-  visible metadata is deliberately limited to version and maturity. Status stamps are tinted
+  visible metadata is version, registry availability, and maturity — deeper evidence stays with each repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
 - **Pipeline assembly**: a flat dependency drawing above the pipeline ledger, using the existing
   project plates and line-style arrows to show the regex foundation → ferroni → ferriki →
@@ -133,7 +137,15 @@ padding ≡ 14 (mod 28).
 
 ## Motion & accessibility
 
-- One authored moment: board items lift 2px on hover (color shift to rust); arrows slide 3-4px
+- One authored moment: board items shift to rust on hover (no positional lift — plates stay on their hooks); arrows slide 3-4px
   on row hover. `prefers-reduced-motion` disables transitions globally.
-- Focus: 2px `--ember` outline, offset 2px. Contrast held in both themes (soft text ≥ 4.5:1).
+- Focus: 2px `--focus` outline, offset 2px — rust on the light shop floor, ember on iron surfaces and in dark mode (≥3:1 everywhere). Contrast held in both themes (soft text ≥ 4.5:1).
 - The page must never scroll horizontally; wide content scrolls in its own container.
+
+## Sharing & minimum sizes
+
+- Social card: `public/social.png` (1200×630), rendered headless from the world (iron ground,
+  pegboard strip with all seven marks); wired via Ardo `metadata` + route-level og/twitter tags.
+- Minimum UI text size on the page: 12px (0.75rem) — board/assembly sublabels, fact labels,
+  stamps. Nothing below.
+- Footer carries a one-line license note (site MIT; tool licenses live in their repositories).
