@@ -39,7 +39,9 @@ surfaces — tinted tokens only.
 - **Display**: Big Shoulders (variable, self-hosted `app/assets/fonts/big-shoulders.woff2`,
   weight 800, uppercase, `line-height 0.98`). All headings, tool names, buttons, board labels.
   H1 `clamp(3.4rem, 9vw, 6rem)`; section H2 `clamp(2.3rem, 4.6vw, 3.4rem)` with a 3px
-  `--line-heavy` bottom rule.
+  `--line-heavy` bottom rule. The 36KB WOFF2 is preloaded from the root route and uses
+  `font-display: block`: display copy waits briefly instead of rendering a fallback and swapping;
+  body copy remains immediately visible in the system stack.
 - **Body**: `system-ui` stack, 1.0625rem, line-height 1.6.
 - **Mono**: system mono stack (`ui-monospace…`), only for measured values: versions,
   registries, partner URLs, the signature. Never as a "technical" costume.
@@ -57,9 +59,11 @@ All CSS/SVG, no image assets; every layer theme-aware:
    gradient; `drop-shadow` (offset+blur — never zero-offset halos).
 4. **Hooks**: shared `#i-hook` symbol — wall-hole ellipse, wire with highlight edge, eyelet
    ring gripping the plate edge.
+5. **Functional hardware**: slotted steel fasteners anchor the pegboard and the pipeline's
+   chamfered metal chassis. The chassis uses the plate ramp and brush lines at panel scale.
 
-The plates and hooks are the only "physical" objects; everything else stays flat. Do not
-extend the material to buttons or cards.
+Material is limited to the environment, project plates and hooks, and mechanically necessary
+fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay flat.
 
 ## The 28px module (pegboard)
 
@@ -89,9 +93,15 @@ padding ≡ 14 (mod 28).
   register, followed by compact `Contract`/`Purpose` and `Evidence` facts from the registry;
   visible metadata is deliberately limited to version and maturity. Status stamps are tinted
   fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
+- **Pipeline assembly**: a flat dependency drawing above the pipeline ledger, using the existing
+  project plates and line-style arrows to show the regex foundation → ferroni → ferriki →
+  ferromark → Markdown application. It is horizontal on wide screens and vertical on narrow ones.
+  A chamfered, four-screw steel chassis makes the chain feel like one assembled machine without
+  turning its stages into separate cards. The nearby prose remains its complete text alternative.
 - **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows.
-- **Why section**: rust pull-quote (display) + prose + goal list (square rust bullets) +
-  mono signature. User-approved addition on top of the comp.
+- **Why section**: rust pull-quote (display) with an explicit `Written by` author block in the
+  same column, plus prose and goal list (square rust bullets). User-approved addition on top of
+  the comp.
 - **Partners**: logos on `--paper` carrier plates, mono link line, hairline column divider.
 - **Closing action**: a flat, ruled return to tool comparison before partner provenance; no new
   material carrier.

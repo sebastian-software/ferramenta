@@ -3,7 +3,7 @@
  * (design/comp/entwurf-c.html). Dark mode keys off Ardo's `.dark` class
  * on <html> (ArdoRootLayout theme bootstrap).
  */
-@font-face { font-family: "Big Shoulders"; src: url("../assets/fonts/big-shoulders.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Big Shoulders"; src: url("../assets/fonts/big-shoulders.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
 
 :root {
   --display: "Big Shoulders";
@@ -53,6 +53,12 @@
     repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
     linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo)); }
 .markplate svg { position: relative; }
+.fastener { position: absolute; width: 12px; height: 12px; z-index: 3; pointer-events: none; border: 1px solid var(--plate-rim-lo); border-radius: 50%; background: linear-gradient(145deg, var(--plate-rim-hi), var(--plate-rim-lo)); box-shadow: inset 1px 1px 1px var(--plate-sheen), inset -1px -1px 1px var(--plate-shadow), 0 1px 2px var(--plate-shadow); }
+.fastener::after { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; height: 1px; background: var(--line-heavy); transform: translateY(-50%) rotate(-20deg); }
+.fastener[data-position="tl"] { top: var(--fastener-inset); left: var(--fastener-inset); }
+.fastener[data-position="tr"] { top: var(--fastener-inset); right: var(--fastener-inset); }
+.fastener[data-position="br"] { right: var(--fastener-inset); bottom: var(--fastener-inset); }
+.fastener[data-position="bl"] { bottom: var(--fastener-inset); left: var(--fastener-inset); }
 .board .markplate { width: 76px; height: 76px; }
 .hook { position: absolute; top: -3.4px; left: 50%; translate: -50% 0; width: 24px; height: 28px; z-index: 2; pointer-events: none; }
 .board a:hover .hook { translate: -50% 0; }
@@ -117,7 +123,7 @@ details.switcher[open] summary svg.chev { transform: scaleY(-1); }
 .btn .icon { stroke-width: 2; }
 
 /* Pegboard — tools hang free */
-.board { border: 2px solid var(--line-heavy); background:
+.board { --fastener-inset: 8px; position: relative; border: 2px solid var(--line-heavy); background:
     radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
     linear-gradient(var(--bg-dim), var(--bg-dim)); padding: 42px; width: fit-content; margin-inline: auto; }
 .board-grid { display: grid; grid-template-columns: repeat(3, 112px); column-gap: 28px; grid-auto-rows: 140px; row-gap: 28px; }
@@ -135,6 +141,21 @@ details.switcher[open] summary svg.chev { transform: scaleY(-1); }
 section { padding-top: clamp(3.5rem, 7vw, 5.5rem); }
 section > .wrap > h2 { font-size: clamp(2.3rem, 4.6vw, 3.4rem); text-transform: uppercase; border-bottom: 3px solid var(--line-heavy); padding-bottom: 0.6rem; }
 section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
+.pipeline-assembly { --fastener-inset: 8px; position: relative; isolation: isolate; margin-top: 2rem; padding: 2.25rem clamp(1.75rem, 4vw, 3rem) 2rem; border: 2px solid var(--plate-rim-lo); background: linear-gradient(115deg, var(--plate-sheen), transparent 38%), repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 4px), linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo)); clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px); filter: drop-shadow(0 8px 12px var(--plate-shadow)); }
+.pipeline-assembly::before { content: ""; position: absolute; inset: 5px; z-index: -1; border: 1px solid var(--plate-rim-lo); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); pointer-events: none; }
+.assembly-flow { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(6.5rem, 0.8fr) minmax(1.5rem, 0.4fr) repeat(3, minmax(7rem, 1fr) minmax(1.5rem, 0.4fr)) minmax(6.5rem, 0.8fr); align-items: center; }
+.assembly-terminal { display: grid; gap: 0.25rem; line-height: 1.15; }
+.assembly-terminal small { color: var(--rust); font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.assembly-terminal b { max-width: 9rem; font-size: 0.88rem; font-weight: 650; }
+.assembly-output { text-align: right; justify-items: end; }
+.assembly-stage { display: grid; justify-items: center; align-content: start; gap: 0.4rem; position: relative; min-width: 0; text-align: center; }
+.assembly-step { font-family: var(--display), var(--body); font-size: 1.25rem; font-weight: var(--disp-weight); line-height: 1; color: var(--rust); }
+.assembly-stage .markplate { width: 4rem; height: 4rem; }
+.assembly-stage .markplate svg { width: 2.35rem; height: 2.35rem; color: var(--rust); }
+.assembly-copy { display: grid; justify-items: center; line-height: 1.05; min-width: 0; }
+.assembly-copy b { font-family: var(--display), var(--body); font-size: 1.15rem; font-weight: var(--disp-weight); letter-spacing: 0.02em; text-transform: uppercase; }
+.assembly-copy small { margin-top: 0.22rem; color: var(--ink-soft); font-size: 0.68rem; line-height: 1.2; }
+.assembly-connector { width: 100%; height: 1.5rem; color: var(--rust); stroke-width: 1.5; }
 .ledger { margin-top: 1.5rem; display: grid; }
 .row { display: grid; grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) 1fr 8rem 2rem; gap: 1.5rem; align-items: center; padding: 1.6rem 0.25rem; text-decoration: none; border-bottom: 1px solid var(--line); transition: background 0.15s; }
 .row:hover { background: var(--bg-dim); }
@@ -164,12 +185,23 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 .row:hover .meta .st.stable { background: var(--rust); }
 .row .go { color: var(--line); transition: color 0.15s, transform 0.15s; }
 @media (max-width: 64rem) {
+  .assembly-flow { grid-template-columns: minmax(5.5rem, 0.8fr) minmax(1rem, 0.3fr) repeat(3, minmax(6rem, 1fr) minmax(1rem, 0.3fr)) minmax(5.5rem, 0.8fr); }
   .row { grid-template-columns: 3.8rem 1fr 2rem; row-gap: 0.8rem; }
   .row .num { display: none; }
   .row .plate { width: 3.8rem; height: 3.8rem; }
   .row .plate svg { width: 32px; height: 32px; }
   .row .proof, .row .meta { grid-column: 2; text-align: left; }
   .row .go { grid-row: 1; grid-column: 3; }
+}
+@media (max-width: 46rem) {
+  .pipeline-assembly { padding: 2rem 1.5rem; }
+  .assembly-flow { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .assembly-terminal, .assembly-output { justify-items: center; text-align: center; }
+  .assembly-terminal b { max-width: none; }
+  .assembly-stage { grid-template-columns: auto auto; column-gap: 0.8rem; align-items: center; text-align: left; }
+  .assembly-step { grid-column: 1 / -1; justify-self: center; }
+  .assembly-copy { justify-items: start; }
+  .assembly-connector { width: 2rem; height: 2rem; transform: rotate(90deg); }
 }
 
 /* Beliefs — iron band */
@@ -232,14 +264,18 @@ footer.site-footer { margin-top: clamp(3.5rem, 7vw, 5.5rem); background: url("da
 
 /* Why — the personal note between the principles and the partner band */
 .why-grid { margin-top: 2.25rem; display: grid; grid-template-columns: minmax(14rem, 24rem) 1fr; gap: 2rem 4rem; align-items: start; }
+.why-lead { display: grid; gap: 2rem; align-content: start; }
 .why-pull { font-family: var(--display), var(--body); font-weight: var(--disp-weight); text-transform: uppercase; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.02; color: var(--rust); }
+.why-author { display: grid; max-width: 18rem; padding-top: 1rem; border-top: 1px solid var(--line); line-height: 1.2; }
+.why-author span { color: var(--rust); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.why-author b { margin-top: 0.35rem; font-family: var(--display), var(--body); font-size: 1.5rem; font-weight: var(--disp-weight); letter-spacing: 0.02em; line-height: 1; text-transform: uppercase; }
+.why-author small { margin-top: 0.3rem; color: var(--ink-soft); font-size: 0.88rem; }
 .why-body p { color: var(--ink-soft); max-width: 62ch; }
 .why-body p + p { margin-top: 1rem; }
 .goals { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: 0.9rem; }
 .goals li { padding-left: 1.15rem; position: relative; color: var(--ink-soft); max-width: 62ch; }
 .goals li::before { content: ""; position: absolute; left: 0; top: 0.42em; width: 0.55em; height: 0.55em; background: var(--rust); }
 .goals b { color: var(--ink); }
-.why-sign { margin-top: 1.8rem; font-family: var(--mono); font-size: 0.9rem; color: var(--ink); }
 @media (max-width: 46rem) { .why-grid { grid-template-columns: 1fr; } }
 
 /* Schmale Screens: ToolRow stapelt, Pfeil entfaellt */

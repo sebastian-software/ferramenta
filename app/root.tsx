@@ -1,9 +1,20 @@
 import { ArdoErrorBoundary, ArdoRootLayout, ArdoRoot } from "ardo/ui"
 import config from "virtual:ardo/config"
-import type { MetaFunction } from "react-router"
+import type { LinksFunction, MetaFunction } from "react-router"
+import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url"
 import "ardo/ui/styles.css"
 import "@ferramenta/ardo-config/theme.css"
 import "./styles/site.css"
+
+export const links: LinksFunction = () => [
+  {
+    rel: "preload",
+    href: bigShouldersFont,
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  },
+]
 
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },

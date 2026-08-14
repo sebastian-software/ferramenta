@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import type { MetaFunction } from "react-router"
 import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config"
 import { Mark, MarkDefs } from "../components/Marks"
@@ -37,6 +38,18 @@ const beliefs = [
   },
 ]
 
+const fastenerPositions = ["tl", "tr", "br", "bl"] as const
+
+function Fasteners() {
+  return (
+    <>
+      {fastenerPositions.map((position) => (
+        <span key={position} className="fastener" data-position={position} aria-hidden="true" />
+      ))}
+    </>
+  )
+}
+
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
   return (
     <a className="row" href={tool.docs ?? tool.repo}>
@@ -68,6 +81,43 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       </span>
       <Mark name="arrow" className="go icon" size={22} />
     </a>
+  )
+}
+
+function PipelineAssembly({ tools }: { tools: FamilyTool[] }) {
+  return (
+    <figure
+      className="pipeline-assembly"
+      aria-label="Dependency assembly: ferroni provides the regex foundation for ferriki, and ferriki feeds highlighting into ferromark."
+    >
+      <Fasteners />
+      <div className="assembly-flow">
+        <span className="assembly-terminal">
+          <small>Foundation</small>
+          <b>Regex behavior</b>
+        </span>
+        <Mark name="arrow" className="assembly-connector icon" />
+        {tools.map((tool, index) => (
+          <Fragment key={tool.name}>
+            <span className="assembly-stage">
+              <span className="assembly-step">{String(index + 1).padStart(2, "0")}</span>
+              <span className="markplate">
+                <Mark name={tool.name} />
+              </span>
+              <span className="assembly-copy">
+                <b>{tool.name}</b>
+                <small>{tool.shortJob}</small>
+              </span>
+            </span>
+            <Mark name="arrow" className="assembly-connector icon" />
+          </Fragment>
+        ))}
+        <span className="assembly-terminal assembly-output">
+          <small>Application</small>
+          <b>Markdown → highlighted HTML</b>
+        </span>
+      </div>
+    </figure>
   )
 }
 
@@ -109,6 +159,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="board" aria-label="The tool family">
+              <Fasteners />
               <div className="board-grid">
                 {board.map((tool) => (
                   <a key={tool.name} href={tool.docs ?? tool.repo}>
@@ -135,8 +186,9 @@ export default function HomePage() {
             <p className="intro">
               Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a
               Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to
-              end in Rust, and each stage is a drop-in for the tool it replaces.
+              end in Rust, with each stage measured against the contract it succeeds.
             </p>
+            <PipelineAssembly tools={pipeline} />
             <div className="ledger">
               {pipeline.map((tool, index) => (
                 <ToolRow key={tool.name} tool={tool} step={index + 1} />
@@ -193,9 +245,16 @@ export default function HomePage() {
           <div className="wrap">
             <h2>Why this store exists</h2>
             <div className="why-grid">
-              <p className="why-pull">
-                We&rsquo;ve been handed good tools all our lives. Time to forge some back.
-              </p>
+              <div className="why-lead">
+                <p className="why-pull">
+                  We&rsquo;ve been handed good tools all our lives. Time to forge some back.
+                </p>
+                <footer className="why-author">
+                  <span>Written by</span>
+                  <b>Sebastian Werner</b>
+                  <small>Sebastian Software</small>
+                </footer>
+              </div>
               <div className="why-body">
                 <p>
                   Open source shaped our careers — from leading qooxdoo at 1&amp;1 more than a
@@ -226,7 +285,6 @@ export default function HomePage() {
                     regex, highlighting, rendering — without a C toolchain or a JS runtime.
                   </li>
                 </ul>
-                <p className="why-sign">— Sebastian Werner, Sebastian Software</p>
               </div>
             </div>
           </div>
