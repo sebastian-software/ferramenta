@@ -81,7 +81,9 @@ padding ≡ 14 (mod 28).
 
 - **Project marks**: duotone, 24-grid, derived from Streamline (Duotone set) — recolored to
   the `--duo*` ramp, caps/joins forced square/miter. One motif per tool (toolbox, anvil+hammer,
-  flame, stamp, corner ruler, drawer cabinet, carving chisel, welding helmet). Sprite:
+  flame, stamp, corner ruler, drawer cabinet, carving chisel, welding helmet, and a horseshoe
+  magnet drawn in-house for ferralk). Marks for tools that join later are appended to the
+  sprite in the same construction: 24 grid, two fills plus a 1px outline, square caps. Sprite:
   [app/components/mark-defs.ts](app/components/mark-defs.ts), mounted once via `<MarkDefs/>`;
   class `mark`. **License**: Streamline property, not MIT — see THIRD-PARTY-NOTICES.md.
 - **Chrome icons** (chevron, arrow, GitHub, hook): line style, 1.5/24, square caps, class `icon`.

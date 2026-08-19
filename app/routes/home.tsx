@@ -229,8 +229,8 @@ export default function HomePage() {
           <div className="wrap">
             <h2>On the workbench</h2>
             <p className="intro">
-              Two more tools taking shape — early, cut from the same steel, and explicit about
-              what is proven now and what is still on the bench.
+              Three more tools taking shape — early, cut from the same steel, and explicit
+              about what is proven now and what is still on the bench.
             </p>
             <div className="ledger">
               {workbench.map((tool) => (

@@ -24,6 +24,7 @@ More tools in the store:
 
 | Tool | Job |
 | --- | --- |
+| [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
 | [ferrocat](https://github.com/sebastian-software/ferrocat) | Translation catalog engine (PO, FCL, ICU MessageFormat) |
 | [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell, dictionary, and brand validation |

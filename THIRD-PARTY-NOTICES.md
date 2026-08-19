@@ -5,7 +5,7 @@ The following bundled assets carry their own terms and are **not** covered by th
 
 ## Streamline icons
 
-The Ferramenta project marks (toolbox, anvil, flame, stamp, corner ruler, drawer
+Most Ferramenta project marks (toolbox, anvil, flame, stamp, corner ruler, drawer
 cabinet, carving chisel, welding helmet — in `app/components/mark-defs.ts`,
 `app/assets/brand/` and `design/comp/`) are derived from icons by
 [Streamline](https://streamlinehq.com) (Duotone and Ultimate sets), adapted in
@@ -15,6 +15,9 @@ These icon assets remain the property of Streamline Design Inc. and may be used
 only in the context of the Ferramenta open-source projects. They may not be
 extracted, redistributed, or reused as standalone assets. Fewer than 100
 Streamline-derived icons are used per project.
+
+The ferralk mark (horseshoe magnet) is our own drawing in the same construction and
+carries no Streamline claim; it is covered by this repository's MIT license.
 
 ## Big Shoulders (font)
 

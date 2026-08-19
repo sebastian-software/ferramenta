@@ -89,6 +89,17 @@ export const family = [
         repo: "https://github.com/sebastian-software/ferrovia",
     },
     {
+        name: "ferralk",
+        job: "Glob matching and parallel filesystem walking",
+        shortJob: "glob matching",
+        proof: "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
+        evidence: "Frozen zlob reference · ahead of globset and fast-glob",
+        version: "0.1.2",
+        status: "early",
+        registry: "crates.io",
+        repo: "https://github.com/sebastian-software/ferralk",
+    },
+    {
         name: "ferrugo",
         job: "PDF previews for untrusted files",
         shortJob: "pdf previews",

@@ -23,7 +23,7 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 - Family registry (all named equally; subfamilies exist):
   - Content pipeline: **ferroni** (Oniguruma-compatible regex engine, v1.3.0, crates.io, most stable) → **ferriki** (Shiki-compatible syntax highlighting, v0.2.0, alpha) → **ferromark** (CommonMark/GFM Markdown→HTML, v0.7.0, crates.io + npm, beta)
   - Language: **ferrolex** (spell-checking engine, Hunspell-compatible, v0.2.0, alpha, very active) + **ferrocat** (translation catalog engine: PO/FCL/ICU, v3.4.2, crates.io, most mature)
-  - Solo: **ferrovia** (SVGO-compatible SVG optimizer, 0.1.0, WIP) and **ferrugo** (PDF preview engine, v0.5.0, crates.io) — both early stage, sites deferred.
+  - Workbench (solo tools): **ferralk** (byte-first glob matching + parallel filesystem walking, v0.1.2, git-pinned, checked against a frozen zlob reference), **ferrovia** (SVGO-compatible SVG optimizer, 0.1.0, WIP) and **ferrugo** (PDF preview engine, v0.5.0, crates.io) — all early stage, sites deferred.
 - Each project site lives in its own repo under `homepage/`, built on Ardo (in-house React-Router/SSG docs framework, v4.2), deployed to GitHub Pages. URLs: GitHub Pages now, own domains over time (ferramenta.dev and ferrocat.dev already live).
 - This repo holds the family overview site plus the shared package `@ferramenta/family` (rename of `@ferramenta/ardo-config`): design tokens, finished components (header with project switcher, footer, ProjectLogo, family registry), custom logo SVGs, bundled display font.
 
@@ -39,7 +39,7 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 - Light & clean base with rust/terracotta accent; ember-glow gradient reserved for hero moments; full dark mode. (User-pinned.)
 - Angular form language throughout ("sharp" aesthetic: hard corners, square caps, miter joins).
 - Typography: system-ui for body and docs text; a bold, industrial display face for headlines (Space Grotesk is the user-named lead candidate; final pick via direction drafts); system mono stack for code. Only the display font is bundled.
-- Custom project symbols (one per tool, metalwork metaphor, MIT-clean, drawn in-house): ferramenta = pegboard, ferroni = anvil, ferriki = welding torch, ferromark = metal punch, ferrolex = caliper, ferrocat = parts-drawer cabinet, ferrovia = file, ferrugo = welding mask.
+- Custom project symbols (one per tool, metalwork metaphor, MIT-clean, drawn in-house): ferramenta = pegboard, ferroni = anvil, ferriki = welding torch, ferromark = metal punch, ferrolex = caliper, ferrocat = parts-drawer cabinet, ferrovia = file, ferrugo = welding mask, ferralk = horseshoe magnet (drawn in-house, MIT-clean).
 - Logo lockup: project icon + lowercase wordmark in the brand display face, identical rules for every project.
 - Shared header carries a family-wide project switcher on every site.
 - Overview page: all 7 tools listed equally, grouped by subfamily; philosophy section carries the positioning above.
