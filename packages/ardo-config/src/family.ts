@@ -19,14 +19,13 @@ export interface FamilyTool {
   proof: string
   /** Compact, verifiable evidence for the family overview */
   evidence: string
-  /** Latest released version (plain semver, no "v" prefix) */
+  /** Fallback version (plain semver). The site prefers the live registry value;
+   *  this only renders when the build could not reach crates.io or npm. */
   version: string
   /** Maturity, shown as a stamp next to the version */
   status: FamilyStatus
   /** Registry where the package is published */
   registry: "crates.io" | "npm"
-  /** Human-readable registry availability, e.g. "crates.io + npm"; empty = not yet published */
-  registries?: string
   /** GitHub repository URL */
   repo: string
   /** Docs/homepage site, once it exists */
@@ -51,7 +50,6 @@ export const family: FamilyTool[] = [
     version: "1.3.0",
     status: "stable",
     registry: "crates.io",
-    registries: "crates.io",
     repo: "https://github.com/sebastian-software/ferroni",
     docs: "https://sebastian-software.github.io/ferroni/",
     pipeline: true,
@@ -81,7 +79,6 @@ export const family: FamilyTool[] = [
     version: "0.7.0",
     status: "beta",
     registry: "crates.io",
-    registries: "crates.io + npm",
     repo: "https://github.com/sebastian-software/ferromark",
     docs: "https://sebastian-software.github.io/ferromark/",
     pipeline: true,
@@ -107,11 +104,10 @@ export const family: FamilyTool[] = [
     compat: "PO / ICU MessageFormat",
     proof:
       "gettext taught software to speak in catalogs. ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
-    evidence: "v3.4.2 · stable on crates.io",
+    evidence: "Three-way merges · release audits · integrity lock",
     version: "3.4.2",
     status: "stable",
     registry: "crates.io",
-    registries: "crates.io",
     repo: "https://github.com/sebastian-software/ferrocat",
     docs: "https://ferrocat.dev",
     subFamily: "palamedes",
@@ -136,7 +132,7 @@ export const family: FamilyTool[] = [
     proof:
       "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
     evidence: "Frozen zlob reference · ahead of globset and fast-glob",
-    version: "0.1.2",
+    version: "0.5.2",
     status: "early",
     registry: "crates.io",
     repo: "https://github.com/sebastian-software/ferralk",
@@ -151,7 +147,6 @@ export const family: FamilyTool[] = [
     version: "0.5.0",
     status: "early",
     registry: "crates.io",
-    registries: "crates.io",
     repo: "https://github.com/sebastian-software/ferrugo",
   },
 ]

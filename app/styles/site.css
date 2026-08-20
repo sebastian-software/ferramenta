@@ -242,7 +242,7 @@ section .intro { margin-top: 1rem; color: var(--ink-soft); max-width: 62ch; }
 
 /* Closing action — return the visitor to the family before provenance */
 .next-grid { margin-top: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem 4rem; align-items: center; }
-.next-grid > p { max-width: 58ch; color: var(--ink-soft); font-size: 1.08rem; }
+.next-grid > p, .next-copy > p { max-width: 58ch; color: var(--ink-soft); font-size: 1.08rem; }
 .next-grid .cta-row { margin-top: 0; justify-content: flex-end; }
 @media (max-width: 54rem) { .next-grid { grid-template-columns: 1fr; } .next-grid .cta-row { justify-content: flex-start; } }
 
@@ -295,3 +295,13 @@ footer.site-footer { margin-top: clamp(3.5rem, 7vw, 5.5rem); background: url("da
 .flygroup + .flygroup { margin-top: 0.4rem; }
 .flygroup > small { display: block; padding: 0.35rem 0.6rem 0.15rem; font-family: var(--display), var(--body); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iron-soft); }
 .foot-legal { grid-column: 1 / -1; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--iron-line); color: var(--iron-soft); font-size: 0.85rem; }
+
+/* Registry facts: platform pairs and the family tally (live at build time) */
+.row .meta .platforms { display: flex; flex-direction: column; align-items: flex-end; gap: 0.15rem; margin-top: 0.3rem; }
+.row .meta .platform { display: inline-flex; align-items: center; gap: 0.3rem; font-family: var(--body); font-size: 0.75rem; color: var(--ink-soft); }
+.row .meta .platform .icon { flex: none; color: var(--rust); }
+.next-step .tally { margin-top: 0.8rem; font-size: 0.95rem; color: var(--ink-soft); }
+.next-step .tally b { font-family: var(--mono); font-size: 1.05rem; color: var(--ink); font-weight: 700; }
+@media (max-width: 64rem) {
+  .row .meta .platforms { flex-direction: row; align-items: center; gap: 0.9rem; }
+}

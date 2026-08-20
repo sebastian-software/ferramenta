@@ -15,6 +15,7 @@ pnpm install        # pnpm 11 workspace
 pnpm dev            # dev server on :5173
 pnpm build          # builds the workspace package (tsc), then the site (prerender to build/client)
 pnpm preview        # serves the production build on :4173
+pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
 There is no test suite yet; `pnpm build` (TypeScript, prerender, Ardo's link
@@ -27,6 +28,7 @@ check) is the gate. CI deploys `main` to GitHub Pages (`.github/workflows/deploy
 | `app/routes/home.tsx` | The single page (custom shell: renders its own header/footer) |
 | `app/components/` | `SiteHeader`, `SiteFooter`, `Marks` (+ `mark-defs.ts`, auto-extracted SVG sprite) |
 | `app/styles/site.css` | The whole visual system, ported from the approved comp |
+| `scripts/refresh-registry-stats.mjs` | Build-time fetch of versions + downloads → `app/data/registry-stats.json` |
 | `packages/ardo-config/` | `@ferramenta/ardo-config` → future `@ferramenta/family`. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
 | `design/comp/` | Approved design comp (`entwurf-c.html`) + icon candidates + fonts |
 | `docs/adr/` | Decision records — **read before changing direction**, they are constraints |
@@ -36,8 +38,12 @@ check) is the gate. CI deploys `main` to GitHub Pages (`.github/workflows/deploy
 
 ## Rules
 
-- Tool facts (names, versions, proofs, links) come from `family.ts` — never
-  hardcode them in components. Update the registry, everything re-renders.
+- Tool facts (names, jobs, proofs, links) come from `family.ts` — never hardcode
+  them in components. Update the registry, everything re-renders.
+- Versions and download counts are **live** (ADR-0006): `pnpm stats:refresh`
+  writes `app/data/registry-stats.json` from crates.io and npm, and a nightly
+  workflow keeps it current. The `version` in `family.ts` is only the offline
+  fallback, and evidence strings must never repeat a version number.
 - Site copy follows the successor register (ADR-0004): honor the original →
   state the succession → give the why. No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.

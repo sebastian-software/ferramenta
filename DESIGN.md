@@ -97,7 +97,10 @@ padding ≡ 14 (mod 28).
 - **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`;
   big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
   register, followed by compact `Contract`/`Purpose` and `Evidence` facts from the registry;
-  visible metadata is version, registry availability, and maturity — deeper evidence stays with each repository (owner boundary). Status stamps are tinted
+  visible metadata is the live version, registry availability as icon-plus-label pairs
+  (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
+  and maturity. Download counts ride in the fact row; deeper evidence stays with each
+  repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
 - **Pipeline assembly**: a flat dependency drawing above the pipeline ledger, using the existing
   project plates and line-style arrows to show the regex foundation → ferroni → ferriki →
@@ -111,7 +114,8 @@ padding ≡ 14 (mod 28).
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
 - **Closing action**: a flat, ruled return to tool comparison before partner provenance; no new
-  material carrier.
+  material carrier. It carries the family download tally — a mono number in running text,
+  never a metric tile.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
 - **Buttons**: `.btn.primary` rust with single chamfered corner (`.chamfer` clip-path);
   `.btn.ghost` 1px heavy outline. Uppercase display type.

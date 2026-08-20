@@ -17,14 +17,13 @@ export interface FamilyTool {
     proof: string;
     /** Compact, verifiable evidence for the family overview */
     evidence: string;
-    /** Latest released version (plain semver, no "v" prefix) */
+    /** Fallback version (plain semver). The site prefers the live registry value;
+     *  this only renders when the build could not reach crates.io or npm. */
     version: string;
     /** Maturity, shown as a stamp next to the version */
     status: FamilyStatus;
     /** Registry where the package is published */
     registry: "crates.io" | "npm";
-    /** Human-readable registry availability, e.g. "crates.io + npm"; empty = not yet published */
-    registries?: string;
     /** GitHub repository URL */
     repo: string;
     /** Docs/homepage site, once it exists */

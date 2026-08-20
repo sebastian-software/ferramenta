@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import type { MetaFunction } from "react-router"
 import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config"
+import registryStats from "../data/registry-stats.json"
 import { Mark, MarkDefs } from "../components/Marks"
 import { SiteHeader } from "../components/SiteHeader"
 import { SiteFooter } from "../components/SiteFooter"
@@ -43,6 +44,35 @@ const beliefs = [
   },
 ]
 
+type RegistryStat = {
+  crates: { version: string; downloads: number; recentDownloads: number; updated: string | null } | null
+  npm: { version: string; lastMonth: number; placeholder: boolean } | null
+}
+
+const stats = registryStats.tools as Record<string, RegistryStat | undefined>
+const formatCount = (value: number) => value.toLocaleString("en-US")
+
+/**
+ * Live registry facts, baked in at build time (scripts/refresh-registry-stats.mjs).
+ * The registry entry keeps a fallback version so an offline build still renders.
+ */
+function toolFacts(tool: FamilyTool) {
+  const stat = stats[tool.name]
+  const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null
+  return {
+    version: stat?.crates?.version ?? adapter?.version ?? tool.version,
+    crateDownloads: stat?.crates?.downloads ?? 0,
+    onCrates: Boolean(stat?.crates),
+    adapter: Boolean(adapter),
+  }
+}
+
+/** Family-wide crates.io downloads — one honest aggregate, not per-tool bragging. */
+const familyDownloads = Object.values(stats).reduce(
+  (total, stat) => total + (stat?.crates?.downloads ?? 0),
+  0,
+)
+
 const fastenerPositions = ["tl", "tr", "br", "bl"] as const
 
 function Fasteners() {
@@ -56,6 +86,7 @@ function Fasteners() {
 }
 
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
+  const facts = toolFacts(tool)
   return (
     <a className="row" href={tool.docs ?? tool.repo}>
       <span className="num">{step ?? ""}</span>
@@ -79,12 +110,31 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
             <b>Evidence</b>
             {tool.evidence}
           </span>
+          {facts.onCrates ? (
+            <span>
+              <b>Downloads</b>
+              {formatCount(facts.crateDownloads)} on crates.io
+            </span>
+          ) : null}
         </span>
       </span>
       <span className="meta">
-        <b>v{tool.version}</b>
-        {tool.registries ? <> · {tool.registries}</> : null}
-        <br />
+        <b>v{facts.version}</b>
+        <span className="platforms">
+          {facts.onCrates ? (
+            <span className="platform">
+              <Mark name="crate" className="icon" size={15} />
+              crates.io
+            </span>
+          ) : null}
+          {facts.adapter ? (
+            <span className="platform">
+              <Mark name="adapter" className="icon" size={15} />
+              npm
+            </span>
+          ) : null}
+          {!facts.onCrates && !facts.adapter ? <span className="platform">git only</span> : null}
+        </span>
         <span className={tool.status === "stable" ? "st stable" : "st"}>{tool.status}</span>
       </span>
       <Mark name="arrow" className="go icon" size={22} />
@@ -307,10 +357,16 @@ export default function HomePage() {
           <div className="wrap">
             <h2>Choose a tool. Check the proof.</h2>
             <div className="next-grid">
-              <p>
-                Start with the job you need, then compare its contract, evidence, and maturity in
-                the ledger. Every project is open source; early work is labeled early.
-              </p>
+              <div className="next-copy">
+                <p>
+                  Start with the job you need, then compare its contract, evidence, and maturity in
+                  the ledger. Every project is open source; early work is labeled early.
+                </p>
+                <p className="tally">
+                  <b>{formatCount(familyDownloads)}</b> downloads on crates.io across the published
+                  crates, counted at build time.
+                </p>
+              </div>
               <div className="cta-row">
                 <a className="btn primary chamfer" href="#pipeline">
                   Compare the tools <Mark name="arrow" className="icon" size={18} />

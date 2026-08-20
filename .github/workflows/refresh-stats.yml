@@ -1,0 +1,45 @@
+# Keeps the versions and download counts on ferramenta.dev current.
+#
+# The site is static, so registry facts are baked in at build time. This job
+# refreshes them once a day and commits only when something actually moved —
+# that push then triggers the normal Pages deploy.
+name: Refresh registry stats
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'refresh-stats'
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Fetch versions and download counts
+        run: node scripts/refresh-registry-stats.mjs
+
+      - name: Commit when the numbers moved
+        run: |
+          if git diff --quiet -- app/data/registry-stats.json; then
+            echo "Registry facts unchanged — nothing to deploy."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/data/registry-stats.json
+          git commit -m "chore(stats): refresh registry versions and downloads"
+          git push

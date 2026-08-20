@@ -12,6 +12,7 @@ in [DESIGN.md](../../DESIGN.md), [PRODUCT.md](../../PRODUCT.md), and the code.
 | [0003](0003-design-direction-schmiede.md) | Design direction "Schmiede" with a bounded material layer | superseded by 0005 |
 | [0004](0004-successor-copy-register.md) | The successor register for family copy | accepted |
 | [0005](0005-functional-hardware-material-boundary.md) | Extend "Schmiede" with functional chassis and fasteners | accepted |
+| [0006](0006-registry-facts-at-build-time.md) | Registry facts fetched at build time, not badges | accepted |
 
 Earlier implementation specs (a different artifact: task-scoped designs, not
 durable decisions) live in [docs/superpowers/specs/](../superpowers/specs/).
