@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T09:26:00Z",
+  "generatedAt": "2026-09-02T08:48:28Z",
   "tools": {
     "ferroni": {
       "crates": {
@@ -17,8 +17,8 @@
     "ferromark": {
       "crates": {
         "version": "0.7.0",
-        "downloads": 4387,
-        "recentDownloads": 3930,
+        "downloads": 4830,
+        "recentDownloads": 4370,
         "updated": "2026-07-27"
       },
       "npm": {
@@ -34,8 +34,8 @@
     "ferrocat": {
       "crates": {
         "version": "3.4.2",
-        "downloads": 6916,
-        "recentDownloads": 6348,
+        "downloads": 7356,
+        "recentDownloads": 6789,
         "updated": "2026-08-06"
       },
       "npm": {
@@ -50,10 +50,10 @@
     },
     "ferralk": {
       "crates": {
-        "version": "0.9.3",
-        "downloads": 415,
-        "recentDownloads": 415,
-        "updated": "2026-09-01"
+        "version": "0.11.0",
+        "downloads": 675,
+        "recentDownloads": 675,
+        "updated": "2026-09-02"
       },
       "npm": null
     },
