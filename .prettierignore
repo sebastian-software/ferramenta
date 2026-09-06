@@ -1,0 +1,7 @@
+# oxfmt auto-discovers this file (see the standards changes/0005 note): it is
+# the sanctioned place for repo-specific formatter ignores, because
+# `.oxfmtrc.json` is managed by @sebastian-software/standards.
+
+# Ardo rewrites the route manifest on every build, so the formatter and the
+# generator would fight over it forever.
+app/routes.ts
