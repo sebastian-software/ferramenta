@@ -18,12 +18,14 @@ pnpm preview        # serves the production build on :4173
 pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
 pnpm format         # oxfmt --write .   (pnpm format:check in CI)
 pnpm typecheck      # react-router typegen && tsc --noEmit
-pnpm agent:check    # lint + format:check + typecheck + build — run this before pushing
+pnpm test           # node --test plus the README family-block contract
+pnpm agent:check    # lint + format:check + typecheck + build + test — run this before pushing
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
-There is no test suite yet; `pnpm build` (TypeScript, prerender, Ardo's link
-check) is the gate. `.github/workflows/ci.yml` runs that gate on every pull
+`pnpm build` (TypeScript, prerender, Ardo's link check) is the main gate;
+`pnpm test` adds the registry-ownership unit tests and the README family-block
+contract. `.github/workflows/ci.yml` runs that gate on every pull
 request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
@@ -35,6 +37,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | `app/styles/site.css`                | The whole visual system, ported from the approved comp                                                                                                                     |
 | `scripts/refresh-registry-stats.mjs` | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                  |
 | `packages/ardo-config/`              | `@ferramenta/ardo-config` → future `@ferramenta/family`. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
+| `packages/ardo-config/bin/`          | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                |
 | `design/comp/`                       | Approved design comp (`entwurf-c.html`) + icon candidates + fonts                                                                                                          |
 | `docs/adr/`                          | Decision records — **read before changing direction**, they are constraints                                                                                                |
 | `PRODUCT.md` / `DESIGN.md`           | Product truth / design system (tokens, materials, module rules)                                                                                                            |
@@ -44,7 +47,10 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 ## Rules
 
 - Tool facts (names, jobs, proofs, links) come from `family.ts` — never hardcode
-  them in components. Update the registry, everything re-renders.
+  them in components. Update the registry, everything re-renders. That includes
+  the README family block: it is generated (`pnpm readme:write`) and checked
+  (`pnpm readme:check`, part of `pnpm test`), never hand-edited between the
+  `<!-- ferramenta-family -->` markers.
 - Versions and download counts are **live** (ADR-0006): `pnpm stats:refresh`
   writes `app/data/registry-stats.json` from crates.io and npm, and a nightly
   workflow keeps it current. The `version` in `family.ts` is only the offline
