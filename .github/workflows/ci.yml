@@ -34,13 +34,15 @@ jobs:
       - run: pnpm run --if-present test
 
       # `packages/family/dist` is committed (ADR-0007): git consumers install it
-      # as it is. The build above regenerates it, so a diff here means a commit
-      # shipped stale build output.
+      # as it is. The build above regenerates it, so anything changed, added or
+      # removed in that directory — untracked files included — means a commit
+      # shipped build output that does not match its sources.
       - name: The committed package build output is current
-        run: git diff --exit-code -- packages/family/dist
+        run: node scripts/check-committed-dist.mjs
 
-      # Installs the packed package into a scratch project and imports both
-      # entry points the way a sibling site does.
+      # Installs the package into a scratch project twice — the packed tarball
+      # and the tracked files at HEAD — and imports both entry points the way a
+      # sibling site does.
       - run: pnpm run verify:package
 
       # minimum-release-age=0 mirrors the apply invocation in renovate-config/standards.json:

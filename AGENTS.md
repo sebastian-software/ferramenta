@@ -19,7 +19,7 @@ pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
 pnpm format         # oxfmt --write .   (pnpm format:check in CI)
 pnpm typecheck      # react-router typegen && tsc --noEmit
 pnpm test           # node --test plus the README family-block contract
-pnpm verify:package # packs @ferramenta/family, installs it in a scratch project, imports both entries
+pnpm verify:package # installs @ferramenta/family in a scratch project (npm tarball + tracked files at HEAD)
 pnpm agent:check    # lint + format:check + typecheck + build + test — run this before pushing
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
@@ -57,7 +57,8 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
   package straight from Git, and pnpm 12 will not build a git dependency without
   a per-SHA allowlist entry. Rebuild it (`pnpm build:package`) and commit it in
   the same change as the source; CI fails on a stale `dist`, and
-  `pnpm verify:package` proves the consumer path.
+  `pnpm verify:package` proves the consumer path (`node
+scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - Tool facts (names, jobs, proofs, links) come from `family.ts` — never hardcode
   them in components. Update the registry, everything re-renders. That includes
   the README family block: it is generated (`pnpm readme:write`) and checked

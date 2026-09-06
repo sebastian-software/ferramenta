@@ -41,12 +41,18 @@ needs no allowlist entry at all.
 
 Two things keep that honest:
 
-- **CI fails on stale output.** `pnpm build` regenerates `dist`; the next step is
-  `git diff --exit-code -- packages/family/dist`. A commit that edits `src`
-  without rebuilding cannot land.
-- **CI proves the consumer path.** `pnpm verify:package` packs the package,
-  installs the tarball into a scratch project that knows nothing about this
-  workspace, and imports both entry points in a bare Node process.
+- **CI fails on stale output.** `pnpm build` regenerates `dist`; the next step,
+  `node scripts/check-committed-dist.mjs`, fails on anything changed, added or
+  removed in that directory — untracked files included, because a new source
+  module builds a new output file that `git diff` alone would wave through. The
+  guard has its own test on throwaway repositories.
+- **CI proves the consumer routes.** `pnpm verify:package` installs the package
+  into a scratch project twice — the packed npm tarball, and the files
+  `git archive HEAD` carries, which is exactly what codeload serves for a pinned
+  commit — and imports both entry points in a bare Node process. It cannot
+  resolve `github:…#<sha>` for a commit that does not exist yet, so the pinned
+  install itself is verified by hand once per pin bump, with the command in the
+  package README.
 
 The package also drops its Ardo dependency: `SiteHeader` takes the theme toggle
 as a `themeToggle` slot instead of importing `ardo/ui`. That removes the esbuild
@@ -73,3 +79,4 @@ the slot, and every Ardo sibling does the same one-liner.
 - [ADR-0001](0001-decentralized-homepages-with-shared-family-package.md) — the shared package this one keeps installable
 - [packages/family/README.md](../../packages/family/README.md) — the consumer steps
 - [scripts/verify-package-consumers.mjs](../../scripts/verify-package-consumers.mjs) — the check that proves them
+- [scripts/check-committed-dist.mjs](../../scripts/check-committed-dist.mjs) — the guard that keeps the committed output current

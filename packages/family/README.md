@@ -31,9 +31,20 @@ That is the whole Git contract: **no `allowBuilds` entry, no
 `onlyBuiltDependencies`, no build step of your own.** The package ships its
 `dist/` in Git and runs no `prepare` script, because pnpm 12 refuses a
 git-hosted package's build unless the consumer allow-lists it by a key that
-contains the pinned SHA — which would break on every pin bump (ADR-0007). CI
-here packs the package, installs it into a scratch project and imports both
-entry points, so this path stays proven rather than assumed.
+contains the pinned SHA — which would break on every pin bump (ADR-0007).
+
+What keeps that honest: `pnpm verify:package` installs the package into a
+scratch project twice — the packed npm tarball, and the files `git archive HEAD`
+carries, which is what codeload serves for a pinned commit — and imports both
+entry points in a bare Node process. CI runs it on every commit. It cannot
+resolve `github:…#<sha>` for a commit that does not exist yet, so the pinned
+install itself is checked by hand once per pin bump:
+
+```sh
+cd "$(mktemp -d)" && echo '{"name":"pin-check","private":true,"type":"module"}' > package.json
+pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" react react-dom
+node -e 'import("@ferramenta/family").then((m) => console.log(typeof m.SiteHeader))'
+```
 
 Two things to know:
 
