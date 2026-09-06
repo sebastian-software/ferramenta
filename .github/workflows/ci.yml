@@ -33,6 +33,16 @@ jobs:
 
       - run: pnpm run --if-present test
 
+      # `packages/family/dist` is committed (ADR-0007): git consumers install it
+      # as it is. The build above regenerates it, so a diff here means a commit
+      # shipped stale build output.
+      - name: The committed package build output is current
+        run: git diff --exit-code -- packages/family/dist
+
+      # Installs the packed package into a scratch project and imports both
+      # entry points the way a sibling site does.
+      - run: pnpm run verify:package
+
       # minimum-release-age=0 mirrors the apply invocation in renovate-config/standards.json:
       # pnpm 11 defaults minimumReleaseAge to 1440 (24h), so without the bypass `check`
       # resolves the newest standards older than a day while the stamp was written by apply

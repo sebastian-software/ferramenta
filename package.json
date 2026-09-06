@@ -18,6 +18,7 @@
     "readme:check": "node packages/family/bin/family-readme.mjs --check README.md",
     "readme:write": "node packages/family/bin/family-readme.mjs --write README.md",
     "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check",
+    "verify:package": "node scripts/verify-package-consumers.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs"
   },
