@@ -3,6 +3,7 @@
   "ignorePaths": [".standards/"],
   "words": [
     "ardo",
+    "dalo",
     "diffable",
     "entwurf",
     "ferralk",
@@ -18,6 +19,7 @@
     "lockfile",
     "oxfmt",
     "oxlint",
+    "packument",
     "palamedes",
     "pnpm",
     "repometa",

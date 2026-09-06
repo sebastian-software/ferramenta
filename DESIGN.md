@@ -67,7 +67,7 @@ fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay f
 
 ## The 28px module (pegboard)
 
-The board renders the family's real groups (Pipeline 3 / Language 2 / Workbench 2), each
+The board renders the family's real groups (Pipeline 3 / Language 3 / Workbench 3), each
 row headed by a stamped 28px-tall group label — label rows and 28px gaps keep every hook
 hole on the wall grid (verified 0.0px offsets, desktop and mobile).
 
@@ -81,8 +81,9 @@ padding ≡ 14 (mod 28).
 
 - **Project marks**: duotone, 24-grid, derived from Streamline (Duotone set) — recolored to
   the `--duo*` ramp, caps/joins forced square/miter. One motif per tool (toolbox, anvil+hammer,
-  flame, stamp, corner ruler, drawer cabinet, carving chisel, welding helmet, and a horseshoe
-  magnet drawn in-house for ferralk). Marks for tools that join later are appended to the
+  flame, stamp, corner ruler, drawer cabinet, carving chisel, welding helmet, plus two drawn
+  in-house: a horseshoe magnet for ferralk and type slugs in a composing stick for palamedes).
+  Marks for tools that join later are appended to the
   sprite in the same construction: 24 grid, two fills plus a 1px outline, square caps. Sprite:
   [app/components/mark-defs.ts](app/components/mark-defs.ts), mounted once via `<MarkDefs/>`;
   class `mark`. **License**: Streamline property, not MIT — see THIRD-PARTY-NOTICES.md.
@@ -96,10 +97,13 @@ padding ≡ 14 (mod 28).
   `<details>` Tools flyout (grouped Pipeline/Language/Workbench, mini-plates, short jobs), GitHub, `ArdoThemeToggle`. A skip link precedes the header.
 - **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`;
   big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
-  register, followed by compact `Contract`/`Purpose` and `Evidence` facts from the registry;
+  register, followed by compact `Contract` and `Evidence` facts from the registry;
   visible metadata is the live version, registry availability as icon-plus-label pairs
   (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
-  and maturity. Download counts ride in the fact row; deeper evidence stays with each
+  and maturity. Members with `role: "application"` (palamedes) are products the family
+  carries, not libraries it publishes: they show no `Contract` fact — the engines they run on
+  are named in `Evidence` — and no registry-availability pair, because the row leads to the
+  product's own site rather than to a crate or an adapter. Download counts ride in the fact row; deeper evidence stays with each
   repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
 - **Pipeline assembly**: a flat dependency drawing above the pipeline ledger, using the existing
@@ -151,7 +155,8 @@ padding ≡ 14 (mod 28).
 ## Sharing & minimum sizes
 
 - Social card: `public/social.png` (1200×630), rendered headless from the world (iron ground,
-  pegboard strip with all seven marks); wired via Ardo `metadata` + route-level og/twitter tags.
+  pegboard strip with the marks that existed when it was rendered); wired via Ardo `metadata` +
+  route-level og/twitter tags. Re-render it when the board's line-up changes.
 - Minimum UI text size on the page: 12px (0.75rem) — board/assembly sublabels, fact labels,
   stamps. Nothing below.
 - Footer carries a one-line license note (site MIT; tool licenses live in their repositories).

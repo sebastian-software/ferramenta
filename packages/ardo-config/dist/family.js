@@ -2,6 +2,10 @@
  * Single source of truth for the Ferramenta family.
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
+ *
+ * Membership rule (ADR-0001 amendment, 2026-09-06): a member is a family
+ * engine, or a product built on family engines. Developer tools that share
+ * neither — dalo, agent-bridge — belong to the company line, not here.
  */
 export const FAMILY_SITE = "https://ferramenta.dev";
 export const family = [
@@ -12,12 +16,11 @@ export const family = [
         compat: "Oniguruma / vscode-oniguruma",
         proof: "Oniguruma made TextMate grammars portable across editors. ferroni keeps its behavior in pure Rust, removing the C toolchain from the regex engine.",
         evidence: "2,083 tests · 100% C parity",
-        version: "1.3.0",
+        version: "1.3.2",
         status: "stable",
-        registry: "crates.io",
+        group: "pipeline",
         repo: "https://github.com/sebastian-software/ferroni",
         docs: "https://sebastian-software.github.io/ferroni/",
-        pipeline: true,
     },
     {
         name: "ferriki",
@@ -28,9 +31,8 @@ export const family = [
         evidence: "Mirrored Shiki test suite",
         version: "0.2.0",
         status: "alpha",
-        registry: "npm",
+        group: "pipeline",
         repo: "https://github.com/sebastian-software/ferriki",
-        pipeline: true,
     },
     {
         name: "ferromark",
@@ -38,13 +40,12 @@ export const family = [
         shortJob: "markdown",
         compat: "CommonMark / GFM",
         proof: "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
-        evidence: "≈260–280 MiB/s · ahead of pulldown-cmark and md4c",
+        evidence: "248–268 MiB/s on Apple M1 Pro, September 2026 · 9–11% ahead of pulldown-cmark",
         version: "0.7.0",
         status: "beta",
-        registry: "crates.io",
+        group: "pipeline",
         repo: "https://github.com/sebastian-software/ferromark",
         docs: "https://sebastian-software.github.io/ferromark/",
-        pipeline: true,
     },
     {
         name: "ferrolex",
@@ -55,9 +56,8 @@ export const family = [
         evidence: "Hunspell oracle · deterministic suggestion scoring",
         version: "0.2.0",
         status: "alpha",
-        registry: "crates.io",
+        group: "language",
         repo: "https://github.com/sebastian-software/ferrolex",
-        subFamily: "palamedes",
     },
     {
         name: "ferrocat",
@@ -68,10 +68,22 @@ export const family = [
         evidence: "Three-way merges · release audits · integrity lock",
         version: "3.4.2",
         status: "stable",
-        registry: "crates.io",
+        group: "language",
         repo: "https://github.com/sebastian-software/ferrocat",
         docs: "https://ferrocat.dev",
-        subFamily: "palamedes",
+    },
+    {
+        name: "palamedes",
+        job: "Internationalization for TypeScript applications",
+        shortJob: "i18n toolchain",
+        proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
+        evidence: "Built on ferrocat, ferromark, and ferralk",
+        version: "1.23.0",
+        status: "stable",
+        group: "language",
+        role: "application",
+        repo: "https://github.com/sebastian-software/palamedes",
+        docs: "https://palamedes.dev",
     },
     {
         name: "ferrovia",
@@ -82,7 +94,7 @@ export const family = [
         evidence: "Byte-for-byte SVGO oracle · in progress",
         version: "0.1.0",
         status: "early",
-        registry: "crates.io",
+        group: "workbench",
         repo: "https://github.com/sebastian-software/ferrovia",
     },
     {
@@ -91,9 +103,9 @@ export const family = [
         shortJob: "glob matching",
         proof: "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
         evidence: "Frozen zlob reference · ahead of globset and fast-glob",
-        version: "0.5.2",
+        version: "0.12.0",
         status: "early",
-        registry: "crates.io",
+        group: "workbench",
         repo: "https://github.com/sebastian-software/ferralk",
     },
     {
@@ -104,14 +116,19 @@ export const family = [
         evidence: "Bounded memory and time · no PDFium",
         version: "0.5.0",
         status: "early",
-        registry: "crates.io",
+        group: "workbench",
         repo: "https://github.com/sebastian-software/ferrugo",
     },
 ];
+/** True for members the family builds *with*, false for products it carries. */
+export function isEngine(tool) {
+    return (tool.role ?? "engine") === "engine";
+}
 /** The three display groups of the overview page, in order. */
 export function familyGroups() {
-    const pipeline = family.filter((tool) => tool.pipeline);
-    const language = family.filter((tool) => tool.subFamily === "palamedes");
-    const workbench = family.filter((tool) => !tool.pipeline && tool.subFamily !== "palamedes");
-    return { pipeline, language, workbench };
+    return {
+        pipeline: family.filter((tool) => tool.group === "pipeline"),
+        language: family.filter((tool) => tool.group === "language"),
+        workbench: family.filter((tool) => tool.group === "workbench"),
+    };
 }

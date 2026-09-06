@@ -3,6 +3,8 @@
 - Status: accepted
 - Date: 2026-08-14
 - Deciders: Sebastian Werner
+- Amended: 2026-09-06 — membership rule and corrected repository count, see
+  [Amendment 2026-09-06](#amendment-2026-09-06)
 
 ## Context
 
@@ -59,6 +61,30 @@ every site change into a ferramenta-repo change.
   ferrolex; ferrovia and ferrugo follow when they leave early stage.
 - Existing ferrocat.dev docs and the ferromark homepage are reskinned onto the
   shared base, not rewritten.
+
+## Amendment 2026-09-06
+
+Accepted records are immutable in their decision; this amendment records what
+the decision covers, it does not change it.
+
+**Membership rule.** A member of the Ferramenta family is a family engine, or a
+product built on family engines. Nothing else joins the registry: developer
+tools from the same workshop that share neither — dalo, agent-bridge — stay a
+separate line under oss.sebastian-software.com and are not rendered on
+ferramenta.dev.
+
+**Count.** The family spans ten repositories as of 2026-09: ferramenta plus
+nine tools — eight engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
+ferrovia, ferralk, ferrugo) and one application (palamedes, built on ferrocat,
+ferromark and ferralk). The "eight repositories (ferramenta plus seven tools)"
+in the context above is the count as it stood when this record was written; it
+was already one short when ferralk joined, and is superseded by this line.
+
+**Roles.** `role: "application"` marks a member the family carries rather than
+one the family builds with. Applications succeed a predecessor in the same
+successor register (ADR-0004) but carry no compatibility contract of their own,
+so the overview page renders no `Contract` fact for them and names the engines
+they run on in the evidence instead.
 
 ## Validation and review triggers
 

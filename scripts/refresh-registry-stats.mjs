@@ -5,6 +5,11 @@
  * Hard-coded facts stay out of the page: family.ts keeps a fallback version so
  * the build survives an offline or rate-limited registry, but a successful run
  * always wins. Run via `pnpm stats:refresh` (and nightly in CI).
+ *
+ * A family name is not proof of family ownership: both registries hand out
+ * names first come, first served. Every hit is therefore checked against the
+ * accounts below, and a package owned by someone else is treated as absent
+ * rather than rendered as ours.
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -14,17 +19,52 @@ const OUT = join(here, "..", "app", "data", "registry-stats.json");
 const FAMILY = join(here, "..", "packages", "ardo-config", "src", "family.ts");
 const UA = "ferramenta.dev stats refresh (https://github.com/sebastian-software/ferramenta)";
 
+/** crates.io and npm accounts that publish for Sebastian Software. */
+const ORG_ACCOUNTS = new Set(["fastner", "sebastian-software", "swernerx"]);
+/** crates.io team owners are logins of the form `github:<org>:<team>`. */
+const ORG_TEAM_PREFIX = "github:sebastian-software:";
+
+/** True when at least one owner login belongs to the organization. */
+function ownedByOrg(logins) {
+  return logins.some((login) => {
+    const id = login.toLowerCase();
+    return ORG_ACCOUNTS.has(id) || id.startsWith(ORG_TEAM_PREFIX);
+  });
+}
+
+/** Reports and rejects a name that is published by someone outside the org. */
+function isOurs(registry, name, logins) {
+  if (ownedByOrg(logins)) return true;
+  console.warn(`  ${registry}/${name} is published by ${logins.join(", ") || "unknown"} — skipped`);
+  return false;
+}
+
+/** Owner logins of a crate — crates.io lists users and teams under /owners. */
+async function crateOwners(name) {
+  const owners = await json(`https://crates.io/api/v1/crates/${name}/owners`);
+  return (owners?.users ?? []).map((owner) => owner.login ?? "");
+}
+
+/** Maintainer logins of an npm package, from the packument. */
+function npmMaintainers(meta) {
+  return (meta.maintainers ?? []).map((maintainer) => maintainer.name ?? "");
+}
+
 async function json(url) {
   const res = await fetch(url, { headers: { "user-agent": UA, accept: "application/json" } });
   if (!res.ok) return null;
   return res.json();
 }
 
-/** crates.io: canonical version plus all-time and 90-day downloads. */
+/**
+ * crates.io: canonical version plus all-time and 90-day downloads, but only
+ * for a crate the organization actually owns (`/owners` lists users and teams).
+ */
 async function crates(name) {
   const data = await json(`https://crates.io/api/v1/crates/${name}`);
   const crate = data?.crate;
   if (!crate) return null;
+  if (!isOurs("crates.io", name, await crateOwners(name))) return null;
   return {
     version: crate.max_stable_version ?? crate.max_version,
     downloads: crate.downloads ?? 0,
@@ -35,13 +75,15 @@ async function crates(name) {
 
 /**
  * npm: only count a package we actually publish. The downloads endpoint answers
- * for unpublished names too, so dist-tags.latest is the ownership gate, and a
- * reserved-name placeholder is not a usable adapter.
+ * for unpublished names too, so a published version plus an organization
+ * maintainer is the gate, and a reserved-name placeholder is not a usable
+ * adapter.
  */
 async function npm(name) {
   const meta = await json(`https://registry.npmjs.org/${name}`);
   const version = meta?.["dist-tags"]?.latest;
   if (!version) return null;
+  if (!isOurs("npm", name, npmMaintainers(meta))) return null;
   const description = meta.versions?.[version]?.description ?? "";
   const placeholder = /reserved/i.test(description);
   const point = await json(`https://api.npmjs.org/downloads/point/last-month/${name}`);
