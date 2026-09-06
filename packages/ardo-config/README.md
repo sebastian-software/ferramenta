@@ -71,22 +71,33 @@ The `@ferramenta` npm scope does not exist yet, so consume the package straight
 from Git. `pnpm dlx` accepts a ref and a subdirectory:
 
 ```sh
-pnpm dlx "github:sebastian-software/ferramenta#main&path:/packages/ardo-config" \
+pnpm dlx "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/ardo-config" \
   --current ferrocat --write README.md
 ```
 
-Verified from a scratch directory with pnpm 12. Two things to know:
+Three things to know:
 
-- The `&path:` part is required; without it pnpm installs the site, not the
-  package.
-- The generator reads `src/family.ts` — the declared source of truth, so an
-  edit is picked up without rebuilding — which needs **Node >= 22.18** (native
-  type stripping). `dist/family.js` is the fallback for older Node, and then a
-  build has to come first:
+- **The `&path:` part is required.** Without it pnpm installs the site, not the
+  package, and there is no `ferramenta-readme` binary to run.
+- **Pin a commit SHA, not `main`.** A branch ref works, but a CI job that
+  resolves `main` re-runs against whatever landed since — the README block it
+  blesses today is not the one it blessed yesterday. Bump the pin when the
+  registry changes; the block is generated, so the diff shows exactly what
+  moved.
+- **Node >= 22.13 is the floor.** The generator reads `src/family.ts`, the
+  declared source of truth, so an edit to the registry is picked up without a
+  build. Node itself refuses to strip types from a file under `node_modules`,
+  which is where an installed package lives, so the generator strips them with
+  `module.stripTypeScriptTypes` (Node >= 22.13) and imports the JavaScript
+  through a `data:` URL. In a checkout — this repository, or a `git clone` —
+  Node strips the types on import instead (>= 22.18).
 
-  ```sh
-  git clone --depth 1 https://github.com/sebastian-software/ferramenta.git
-  pnpm --dir ferramenta/packages/ardo-config install
-  pnpm --dir ferramenta/packages/ardo-config build
-  node ferramenta/packages/ardo-config/bin/family-readme.mjs --current ferrocat --write README.md
-  ```
+On older Node, build the package first and run it from the checkout; the
+generator falls back to `dist/family.js`:
+
+```sh
+git clone --depth 1 https://github.com/sebastian-software/ferramenta.git
+pnpm --dir ferramenta/packages/ardo-config install
+pnpm --dir ferramenta/packages/ardo-config build
+node ferramenta/packages/ardo-config/bin/family-readme.mjs --current ferrocat --write README.md
+```
