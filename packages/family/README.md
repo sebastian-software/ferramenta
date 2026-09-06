@@ -10,24 +10,54 @@ switcher, footer), the project marks, the design tokens, and the display face.
 
 ## Requirements
 
-|         |                                                                                                |
-| ------- | ---------------------------------------------------------------------------------------------- |
-| React   | `>=19.0.0 <20.0.0` (peer)                                                                      |
-| Ardo    | `>=4.2.0` (peer) — the floor every family site is moving to                                    |
-| Node    | >= 22.13 for the `ferramenta-readme` generator; the components have no Node floor of their own |
-| Bundler | anything that resolves package exports and imports CSS (Vite, as Ardo uses)                    |
+|         |                                                                                                                                       |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| React   | `>=19.0.0 <20.0.0` (peer)                                                                                                             |
+| Ardo    | not required — an Ardo site passes `<ArdoThemeToggle />` into the header's `themeToggle` slot (the family sites are on the 4.2 floor) |
+| Node    | >= 22.13 for the `ferramenta-readme` generator; the components have no Node floor of their own                                        |
+| Bundler | for the chrome, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `@ferramenta/family/registry` needs none |
 
 ## Install
 
 ```sh
-pnpm add @ferramenta/family        # once the scope exists
-pnpm add github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family
+# Once the @ferramenta scope exists:
+pnpm add @ferramenta/family
+
+# Until then — from Git, pinned to a commit SHA:
+pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family"
 ```
+
+That is the whole Git contract: **no `allowBuilds` entry, no
+`onlyBuiltDependencies`, no build step of your own.** The package ships its
+`dist/` in Git and runs no `prepare` script, because pnpm 12 refuses a
+git-hosted package's build unless the consumer allow-lists it by a key that
+contains the pinned SHA — which would break on every pin bump (ADR-0007).
+
+What keeps that honest: `pnpm verify:package` installs the package into a
+scratch project twice — the packed npm tarball, and the files `git archive HEAD`
+carries, which is what codeload serves for a pinned commit — and imports both
+entry points in a bare Node process. CI runs it on every commit. It cannot
+resolve `github:…#<sha>` for a commit that does not exist yet, so the pinned
+install itself is checked by hand once per pin bump:
+
+```sh
+cd "$(mktemp -d)" && echo '{"name":"pin-check","private":true,"type":"module"}' > package.json
+pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" react react-dom
+node -e 'import("@ferramenta/family").then((m) => console.log(typeof m.SiteHeader))'
+```
+
+Two things to know:
+
+- **The `&path:` part is required.** Without it you install the site, not the
+  package.
+- **Pin a commit SHA, not `main`,** so a CI run resolves the same code twice.
+  Bump the pin when the registry changes.
 
 ## The chrome
 
 ```tsx
 import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
+import { ArdoThemeToggle } from "ardo/ui";
 
 import "@ferramenta/family/tokens.css";
 import "@ferramenta/family/fonts.css";
@@ -40,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <MarkDefs />
-      <SiteHeader current="ferroni" />
+      <SiteHeader current="ferroni" themeToggle={<ArdoThemeToggle />} />
       <main>{children}</main>
       <SiteFooter current="ferroni" />
     </>
@@ -50,10 +80,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 - **`MarkDefs`** mounts the SVG sprite once per page. Without it every mark is
   empty: `Mark` only references symbols.
-- **`SiteHeader`** — `current?: string`. Name the family member this site
-  belongs to and the switcher marks that entry `aria-current="page"`, while the
-  lockup links to ferramenta.dev instead of this site's root. Leave it out on
-  the family site itself. The theme toggle is Ardo's `ArdoThemeToggle`.
+- **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`. Name the
+  family member this site belongs to and the switcher marks that entry
+  `aria-current="page"`, while the lockup links to ferramenta.dev instead of
+  this site's root; leave it out on the family site itself. `themeToggle` is a
+  slot at the end of the bar: an Ardo site passes `<ArdoThemeToggle />`, a site
+  on something else passes its own control or nothing. The package does not
+  import `ardo/ui` — that module only loads inside a bundler, and the theme
+  switch belongs to the site's framework (ADR-0007).
 - **`SiteFooter`** — `current?: string` (de-emphasizes the site's own entry),
   `line?: "family" | "company"`, `legal?: ReactNode`. `line="company"` drops the
   family columns and keeps the company links: it is for the tools that share the

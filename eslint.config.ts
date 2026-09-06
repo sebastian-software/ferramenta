@@ -41,7 +41,8 @@ config.push(
   {
     // Tests build their fixtures under `mkdtemp`; the rule is about paths that
     // reach the filesystem from untrusted input, which a temp directory is not.
-    files: ["**/test/**/*.mjs"],
+    // Both layouts: package tests in `test/`, script tests beside their script.
+    files: ["**/test/**/*.mjs", "**/*.test.mjs"],
     rules: { "security/detect-non-literal-fs-filename": "off" },
   },
 );

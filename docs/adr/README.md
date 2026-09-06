@@ -13,6 +13,7 @@ in [DESIGN.md](../../DESIGN.md), [PRODUCT.md](../../PRODUCT.md), and the code.
 | [0004](0004-successor-copy-register.md)                            | The successor register for family copy                                 | accepted                     |
 | [0005](0005-functional-hardware-material-boundary.md)              | Extend "Schmiede" with functional chassis and fasteners                | accepted                     |
 | [0006](0006-registry-facts-at-build-time.md)                       | Registry facts fetched at build time, not badges                       | accepted                     |
+| [0007](0007-committed-package-build-output-for-git-consumers.md)   | The family package ships its build output in Git                       | accepted                     |
 
 **Who is in the family.** A member is a family engine, or a product built on
 family engines. Tools from the same workshop that share neither belong to the
