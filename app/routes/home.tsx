@@ -1,6 +1,6 @@
 import type { MetaFunction } from "react-router";
 
-import { familyGroups, type FamilyTool, isEngine } from "@ferramenta/ardo-config";
+import { familyGroups, type FamilyTool, isEngine } from "@ferramenta/family";
 import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";

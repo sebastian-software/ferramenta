@@ -61,5 +61,5 @@ a tool has no meaningful predecessor to honor.
 
 ## References
 
-- [packages/ardo-config/src/family.ts](../../packages/ardo-config/src/family.ts) — the proof texts under this register
+- [packages/family/src/family.ts](../../packages/family/src/family.ts) — the proof texts under this register
 - [PRODUCT.md](../../PRODUCT.md) — positioning and evidence inventory

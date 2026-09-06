@@ -5,7 +5,7 @@ import config from "virtual:ardo/config";
 
 import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url";
 import "ardo/ui/styles.css";
-import "@ferramenta/ardo-config/theme.css";
+import "@ferramenta/family/theme.css";
 
 import "./styles/site.css";
 

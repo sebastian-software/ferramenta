@@ -1,4 +1,4 @@
-import { familyGroups } from "@ferramenta/ardo-config";
+import { familyGroups } from "@ferramenta/family";
 
 import { Mark } from "./Marks";
 

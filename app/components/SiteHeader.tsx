@@ -1,4 +1,4 @@
-import { familyGroups } from "@ferramenta/ardo-config";
+import { familyGroups } from "@ferramenta/family";
 import { ArdoThemeToggle } from "ardo/ui";
 import { useEffect, useRef } from "react";
 

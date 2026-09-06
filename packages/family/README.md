@@ -1,4 +1,4 @@
-# @ferramenta/ardo-config
+# @ferramenta/family
 
 Shared [Ardo](https://github.com/sebastian-software/ardo) configuration for the
 [Ferramenta](https://ferramenta.dev) sites: one theme, one project registry,
@@ -10,14 +10,14 @@ and cross-site navigation.
 ## Usage in an Ardo site
 
 ```sh
-pnpm add @ferramenta/ardo-config
+pnpm add @ferramenta/family
 ```
 
 In `app/root.tsx`:
 
 ```tsx
-import { FamilyLinks } from "@ferramenta/ardo-config";
-import "@ferramenta/ardo-config/theme.css";
+import { FamilyLinks } from "@ferramenta/family";
+import "@ferramenta/family/theme.css";
 
 // inside the Ardo footer (or anywhere in the chrome):
 <ArdoFooter
@@ -71,7 +71,7 @@ The `@ferramenta` npm scope does not exist yet, so consume the package straight
 from Git. `pnpm dlx` accepts a ref and a subdirectory:
 
 ```sh
-pnpm dlx "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/ardo-config" \
+pnpm dlx "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" \
   --current ferrocat --write README.md
 ```
 
@@ -97,7 +97,7 @@ generator falls back to `dist/family.js`:
 
 ```sh
 git clone --depth 1 https://github.com/sebastian-software/ferramenta.git
-pnpm --dir ferramenta/packages/ardo-config install
-pnpm --dir ferramenta/packages/ardo-config build
-node ferramenta/packages/ardo-config/bin/family-readme.mjs --current ferrocat --write README.md
+pnpm --dir ferramenta/packages/family install
+pnpm --dir ferramenta/packages/family build
+node ferramenta/packages/family/bin/family-readme.mjs --current ferrocat --write README.md
 ```

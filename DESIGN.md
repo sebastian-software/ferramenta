@@ -126,7 +126,7 @@ padding ≡ 14 (mod 28).
 
 ## Content rules
 
-- The family registry ([packages/ardo-config/src/family.ts](packages/ardo-config/src/family.ts))
+- The family registry ([packages/family/src/family.ts](packages/family/src/family.ts))
   is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
 - Proof column carries only verifiable facts (test counts, parity, benchmarks). No invented
   social proof, stars, or testimonials.

@@ -46,7 +46,7 @@ This project is part of [Ferramenta](https://ferramenta.dev) — the family of R
 
 The site is built with [Ardo](https://github.com/sebastian-software/ardo) and deployed to
 GitHub Pages on every push to `main`. The family registry
-([packages/ardo-config/src/family.ts](packages/ardo-config/src/family.ts)) is the single
+([packages/family/src/family.ts](packages/family/src/family.ts)) is the single
 source of truth for tool names, jobs, versions, and links; the approved design comp lives
 in [design/comp/](design/comp/). Icon and font assets carry their own terms — see
 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
