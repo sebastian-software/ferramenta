@@ -16,6 +16,14 @@
     // service resolves them, not type-checked (checkJs stays off).
     "allowJs": true
   },
-  "include": ["app/**/*", "scripts/**/*.mjs", "*.ts", "*.config.ts"],
+  "include": [
+    "app/**/*",
+    "packages/*/bin/**/*.mjs",
+    "packages/*/lib/**/*.mjs",
+    "packages/*/test/**/*.mjs",
+    "scripts/**/*.mjs",
+    "*.ts",
+    "*.config.ts"
+  ],
   "exclude": ["node_modules", "build"]
 }

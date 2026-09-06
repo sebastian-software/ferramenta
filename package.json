@@ -13,7 +13,9 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "test": "node --test \"scripts/**/*.test.mjs\"",
+    "readme:check": "node packages/ardo-config/bin/family-readme.mjs --check README.md",
+    "readme:write": "node packages/ardo-config/bin/family-readme.mjs --write README.md",
+    "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs"
   },

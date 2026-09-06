@@ -10,25 +10,37 @@ the APIs the web ecosystem already knows.
 
 _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
-## The family
+<!-- ferramenta-family:start -->
 
-The content pipeline:
+## The Ferramenta family
 
-| Tool                                                         | Job                 | Compatible with              | Registry  |
-| ------------------------------------------------------------ | ------------------- | ---------------------------- | --------- |
-| [ferroni](https://github.com/sebastian-software/ferroni)     | Regex engine        | Oniguruma / vscode-oniguruma | crates.io |
-| [ferriki](https://github.com/sebastian-software/ferriki)     | Syntax highlighting | Shiki                        | npm       |
-| [ferromark](https://github.com/sebastian-software/ferromark) | Markdown → HTML     | CommonMark / GFM             | crates.io |
+This project is part of [Ferramenta](https://ferramenta.dev) — the family of Rust-native developer tools by [Sebastian Software](https://oss.sebastian-software.com) that keep the APIs the ecosystem already knows.
 
-More tools in the store:
+**The content pipeline**
 
-| Tool                                                       | Job                                                     |
-| ---------------------------------------------------------- | ------------------------------------------------------- |
-| [ferralk](https://github.com/sebastian-software/ferralk)   | Glob matching and parallel filesystem walking           |
-| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer                           |
-| [ferrocat](https://github.com/sebastian-software/ferrocat) | Translation catalog engine (PO, FCL, ICU MessageFormat) |
-| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell, dictionary, and brand validation                 |
-| [ferrugo](https://github.com/sebastian-software/ferrugo)   | Rust-native PDF previews                                |
+| Tool                                                         | Job                                  |
+| ------------------------------------------------------------ | ------------------------------------ |
+| [ferroni](https://sebastian-software.github.io/ferroni/)     | Oniguruma-compatible regex engine    |
+| [ferriki](https://github.com/sebastian-software/ferriki)     | Shiki-compatible syntax highlighting |
+| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML — CommonMark & GFM  |
+
+**The language workshop**
+
+| Tool                                                       | Job                                              |
+| ---------------------------------------------------------- | ------------------------------------------------ |
+| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code                 |
+| [ferrocat](https://ferrocat.dev)                           | Translation catalog engine                       |
+| [palamedes](https://palamedes.dev)                         | Internationalization for TypeScript applications |
+
+**On the workbench**
+
+| Tool                                                       | Job                                           |
+| ---------------------------------------------------------- | --------------------------------------------- |
+| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer                 |
+| [ferralk](https://github.com/sebastian-software/ferralk)   | Glob matching and parallel filesystem walking |
+| [ferrugo](https://github.com/sebastian-software/ferrugo)   | PDF previews for untrusted files              |
+
+<!-- ferramenta-family:end -->
 
 ## This repository
 
