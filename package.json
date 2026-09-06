@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "pnpm --filter @ferramenta/ardo-config build && react-router build",
+    "build": "pnpm build:package && react-router build",
+    "build:package": "pnpm --filter @ferramenta/ardo-config build",
+    "prepare": "pnpm build:package",
     "preview": "vite preview",
     "lint": "pnpm lint:oxlint && pnpm lint:eslint",
     "lint:eslint": "eslint . --max-warnings=0",

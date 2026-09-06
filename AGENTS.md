@@ -11,7 +11,7 @@ developer tools by Sebastian Software; this repo itself is TypeScript/React.
 ## Commands
 
 ```sh
-pnpm install        # pnpm 11 workspace
+pnpm install        # pnpm 11 workspace; `prepare` builds the workspace package
 pnpm dev            # dev server on :5173
 pnpm build          # builds the workspace package (tsc), then the site (prerender to build/client)
 pnpm preview        # serves the production build on :4173
