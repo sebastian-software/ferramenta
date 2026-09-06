@@ -11,6 +11,9 @@
  * it so the two marker sections never fight.
  */
 
+import { readFile } from "node:fs/promises";
+import * as nodeModule from "node:module";
+
 export const START = "<!-- ferramenta-family:start -->";
 export const END = "<!-- ferramenta-family:end -->";
 export const BRANDING_START = "<!-- sebastian-software-branding:start -->";
@@ -22,25 +25,84 @@ const GROUP_LABELS = {
   workbench: "On the workbench",
 };
 
+/** Imports a module URL as it is on disk. */
+const importModule = (url) => import(url.href);
+
 /**
- * Candidates in the order they are tried. `src/family.ts` is the declared
- * source of truth (ADR-0001) and must win: `dist` is build output, so
- * preferring it would let `--write` emit and `--check` bless a registry that
- * is one edit out of date whenever someone changes `family.ts` without
- * rebuilding first. Node strips the type annotations (>= 22.18); `dist` is the
- * fallback for older Node, after
- * `pnpm --filter @ferramenta/ardo-config build`.
+ * Runs `run` with experimental warnings muted.
+ *
+ * `stripTypeScriptTypes` is flagged experimental, and a warning line on stderr
+ * every time a sibling runs `--check` in CI is noise, not a signal. The swap is
+ * deliberately narrow: it wraps one synchronous call, restores the original
+ * hook afterwards, and lets every other warning through.
  */
-const REGISTRY_SOURCES = ["../src/family.ts", "../dist/family.js"];
+function withoutExperimentalWarning(run) {
+  const emitWarning = process.emitWarning;
+  process.emitWarning = (warning, ...rest) => {
+    const type = typeof rest[0] === "string" ? rest[0] : rest[0]?.type;
+    if (type !== "ExperimentalWarning") emitWarning.call(process, warning, ...rest);
+  };
+  try {
+    return run();
+  } finally {
+    process.emitWarning = emitWarning;
+  }
+}
+
+/**
+ * Strips the type annotations here instead of letting Node do it, and imports
+ * the JavaScript through a `data:` URL — a URL with no `node_modules` in it.
+ */
+async function importWithTypesStripped(url) {
+  const { stripTypeScriptTypes } = nodeModule;
+  if (typeof stripTypeScriptTypes !== "function") {
+    throw new TypeError("module.stripTypeScriptTypes needs Node >= 22.13");
+  }
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the URL is this module's own sibling file, resolved from import.meta.url
+  const source = await readFile(url, "utf8");
+  const javascript = withoutExperimentalWarning(() => stripTypeScriptTypes(source));
+  return import(`data:text/javascript;base64,${Buffer.from(javascript).toString("base64")}`);
+}
+
+/**
+ * How the registry is loaded, in the order the candidates are tried.
+ *
+ * `src/family.ts` is the declared source of truth (ADR-0001) and must win:
+ * `dist` is build output, so preferring it would let `--write` emit and
+ * `--check` bless a registry that is one edit out of date whenever someone
+ * changes `family.ts` without rebuilding first.
+ *
+ * There are two ways to read that source because Node refuses to strip types
+ * from any file under `node_modules` — which is exactly where every consumer
+ * outside this repository runs the generator from:
+ *
+ * 1. import the file and let Node strip the types (Node >= 22.18, this
+ *    repository and any checkout),
+ * 2. strip the types here and import the result through a `data:` URL
+ *    (Node >= 22.13, the installed-package case),
+ * 3. `dist/family.js`, the last fallback for older Node, after a build.
+ *
+ * A `data:` module cannot resolve relative specifiers, so `src/family.ts` stays
+ * import-free; a test guards that.
+ */
+const REGISTRY_SOURCES = [
+  { specifier: "../src/family.ts", load: importModule },
+  {
+    specifier: "../src/family.ts",
+    label: "../src/family.ts (types stripped here)",
+    load: importWithTypesStripped,
+  },
+  { specifier: "../dist/family.js", load: importModule },
+];
 
 /** The registry. `base` exists so the tests can point at a fixture package. */
 export async function loadRegistry(base = import.meta.url) {
   const errors = [];
-  for (const candidate of REGISTRY_SOURCES) {
+  for (const { specifier, label, load } of REGISTRY_SOURCES) {
     try {
-      return await import(new URL(candidate, base).href);
+      return await load(new URL(specifier, base));
     } catch (error) {
-      errors.push(`${candidate}: ${error.message}`);
+      errors.push(`${label ?? specifier}: ${error.message}`);
     }
   }
   throw new Error(`cannot load the family registry\n  ${errors.join("\n  ")}`);

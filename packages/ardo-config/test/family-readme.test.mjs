@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -174,4 +174,53 @@ test("the build output is the fallback when the source cannot be loaded", async 
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test("the registry loads when the package sits under node_modules", async () => {
+  // The regression this guards: Node refuses to strip types from a file under
+  // `node_modules`, and that is where every consumer outside this repository
+  // installs the package — so the generator has to strip the types itself.
+  const root = await mkdtemp(join(tmpdir(), "family-registry-"));
+  const installed = join(root, "node_modules", "@ferramenta", "family");
+  try {
+    await mkdir(join(installed, "src"), { recursive: true });
+    await mkdir(join(installed, "lib"), { recursive: true });
+    await writeFile(
+      join(installed, "src", "family.ts"),
+      [
+        'export const FAMILY_SITE = "https://ferramenta.dev";',
+        "export type Tool = { name: string };",
+        'export const family: Tool[] = [{ name: "installed-from-source" }];',
+        "export function familyGroups(): Record<string, Tool[]> {",
+        "  return { pipeline: family, language: [], workbench: [] };",
+        "}",
+        "",
+      ].join("\n"),
+    );
+    const loaded = await loadRegistry(
+      pathToFileURL(join(installed, "lib", "family-readme.mjs")).href,
+    );
+    assert.deepEqual(
+      loaded.family.map((tool) => tool.name),
+      ["installed-from-source"],
+    );
+    assert.deepEqual(Object.keys(loaded.familyGroups()), ["pipeline", "language", "workbench"]);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("the registry source stays import-free so it loads through a data: URL", async () => {
+  // A `data:` module has no base URL, so anything that resolves another module
+  // — a side-effect import, a re-export, `import()`, `require()` — breaks
+  // exactly the node_modules case the test above covers.
+  const source = await readFile(new URL("../src/family.ts", import.meta.url), "utf8");
+  const forbidden = [
+    ["a static import", /^[ \t]*import[\s"'({*]/mu],
+    ["a module specifier", /\bfrom[ \t]+["']/u],
+    ["a dynamic import", /\bimport[ \t]*\(/u],
+    ["a require call", /\brequire[ \t]*\(/u],
+  ];
+  const found = forbidden.filter(([, pattern]) => pattern.test(source)).map(([label]) => label);
+  assert.deepEqual(found, [], "src/family.ts must not resolve another module");
 });
