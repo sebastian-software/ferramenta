@@ -1,5 +1,5 @@
-import { defineConfig } from "vite"
-import { ardo } from "ardo/vite"
+import { ardo } from "ardo/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   // Ardo uses lucide-react internally; bundle it during prerender so module
@@ -29,4 +29,4 @@ export default defineConfig({
       githubPages: false,
     }),
   ],
-})
+});

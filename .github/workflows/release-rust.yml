@@ -21,7 +21,7 @@ on:
       crate-dir:
         description: Directory of the crate to publish (contains Cargo.toml)
         type: string
-        default: '.'
+        default: "."
       rust-toolchain:
         description: Rust toolchain used for publishing
         type: string

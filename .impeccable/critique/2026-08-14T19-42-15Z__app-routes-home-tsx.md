@@ -8,25 +8,26 @@ p1_count: 2
 timestamp: 2026-08-14T19-42-15Z
 slug: app-routes-home-tsx
 ---
+
 Method: dual-agent (A: critique_design · B: critique_detector)
 
 # Ferramenta homepage critique
 
 ## Design Health Score
 
-| # | Heuristic | Score | Key issue |
-|---|---|---:|---|
-| 1 | Visibility of System Status | 3/4 | Menu, hover, focus, and theme states give feedback; external link destinations are not signaled before navigation. |
-| 2 | Match Between System and Real World | 4/4 | The hardware-store metaphor and developer-tool language fit the product exceptionally well. |
-| 3 | User Control and Freedom | 3/4 | Navigation is simple, but the mobile Tools flyout puts part of the choice surface off-canvas. |
-| 4 | Consistency and Standards | 4/4 | Marks, plates, typography, rust rules, status stamps, and grouping form a coherent system. |
-| 5 | Error Prevention | 3/4 | Maturity and registry labels reduce adoption mistakes; identical-looking tool links can lead to different destination types. |
-| 6 | Recognition Rather Than Recall | 3/4 | Detailed rows expose useful context, while the pegboard and flyout ask visitors to compare seven unfamiliar Ferr* names at once. |
-| 7 | Flexibility and Efficiency of Use | n/a | This Persuade surface has no repeated workflow requiring accelerators or customization. |
-| 8 | Aesthetic and Minimalist Design | 3/4 | The visual system is disciplined, but long proof paragraphs and an approximately 8,129px mobile journey dilute the opening. |
-| 9 | Error Recognition and Recovery | 3/4 | Browser navigation provides recovery, but external destinations have no authored failure or destination cue. |
-| 10 | Help and Documentation | n/a | The overview routes visitors to project sites; contextual task help is outside this landing page's job. |
-| **Total** |  | **26/32** | **Good — an unusually strong foundation with one major responsive defect and proof-architecture gaps.** |
+| #         | Heuristic                           |     Score | Key issue                                                                                                                        |
+| --------- | ----------------------------------- | --------: | -------------------------------------------------------------------------------------------------------------------------------- |
+| 1         | Visibility of System Status         |       3/4 | Menu, hover, focus, and theme states give feedback; external link destinations are not signaled before navigation.               |
+| 2         | Match Between System and Real World |       4/4 | The hardware-store metaphor and developer-tool language fit the product exceptionally well.                                      |
+| 3         | User Control and Freedom            |       3/4 | Navigation is simple, but the mobile Tools flyout puts part of the choice surface off-canvas.                                    |
+| 4         | Consistency and Standards           |       4/4 | Marks, plates, typography, rust rules, status stamps, and grouping form a coherent system.                                       |
+| 5         | Error Prevention                    |       3/4 | Maturity and registry labels reduce adoption mistakes; identical-looking tool links can lead to different destination types.     |
+| 6         | Recognition Rather Than Recall      |       3/4 | Detailed rows expose useful context, while the pegboard and flyout ask visitors to compare seven unfamiliar Ferr* names at once. |
+| 7         | Flexibility and Efficiency of Use   |       n/a | This Persuade surface has no repeated workflow requiring accelerators or customization.                                          |
+| 8         | Aesthetic and Minimalist Design     |       3/4 | The visual system is disciplined, but long proof paragraphs and an approximately 8,129px mobile journey dilute the opening.      |
+| 9         | Error Recognition and Recovery      |       3/4 | Browser navigation provides recovery, but external destinations have no authored failure or destination cue.                     |
+| 10        | Help and Documentation              |       n/a | The overview routes visitors to project sites; contextual task help is outside this landing page's job.                          |
+| **Total** |                                     | **26/32** | **Good — an unusually strong foundation with one major responsive defect and proof-architecture gaps.**                          |
 
 ## Design Specificity Verdict
 

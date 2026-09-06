@@ -1,9 +1,10 @@
-import { familyGroups } from "@ferramenta/ardo-config"
-import { Mark } from "./Marks"
+import { familyGroups } from "@ferramenta/ardo-config";
+
+import { Mark } from "./Marks";
 
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
 export function SiteFooter() {
-  const { pipeline, language, workbench } = familyGroups()
+  const { pipeline, language, workbench } = familyGroups();
 
   return (
     <footer className="site-footer">
@@ -60,5 +61,5 @@ export function SiteFooter() {
         </p>
       </div>
     </footer>
-  )
+  );
 }

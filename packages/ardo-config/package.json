@@ -8,6 +8,11 @@
     "url": "https://github.com/sebastian-software/ferramenta.git",
     "directory": "packages/ardo-config"
   },
+  "files": [
+    "dist",
+    "theme.css",
+    "README.md"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,16 +23,15 @@
     },
     "./theme.css": "./theme.css"
   },
-  "files": ["dist", "theme.css", "README.md"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepublishOnly": "pnpm run build"
   },
-  "peerDependencies": {
-    "react": ">=19.0.0 <20.0.0"
-  },
   "devDependencies": {
     "@types/react": "^19.2.13",
     "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0 <20.0.0"
   }
 }
