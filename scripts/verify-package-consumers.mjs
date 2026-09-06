@@ -38,7 +38,7 @@ const REQUIRED_FILES = [
   "fonts/big-shoulders.woff2",
 ];
 
-/** Packs the package and returns the tarball's specifier and its file list. */
+/** Packs the package into the scratch directory and returns its specifier. */
 function packTarball(scratch) {
   run("pnpm", ["pack", "--pack-destination", scratch], packageDirectory);
   // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
@@ -71,47 +71,63 @@ function exportTrackedFiles(scratch) {
   return "file:./packages/family";
 }
 
-/** Installs one specifier into a fresh project and imports both entry points. */
-function checkConsumer(scratch, label, specifier) {
-  console.log(`\n${label}: installing ${specifier}`);
-  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
-  writeFileSync(
-    join(scratch, "package.json"),
-    `${JSON.stringify(
-      {
-        name: "family-consumer-check",
-        private: true,
-        type: "module",
-        dependencies: {
-          "@ferramenta/family": specifier,
-          react: "^19.2.7",
-          "react-dom": "^19.2.7",
+/**
+ * Installs one route into a scratch project of its own and imports both entry
+ * points.
+ *
+ * Each route gets a fresh directory. Sharing one meant the second install found
+ * the first route's `pnpm-lock.yaml`, and installs are frozen by default in CI,
+ * so it failed with ERR_PNPM_OUTDATED_LOCKFILE instead of checking anything.
+ * Nothing here passes `--no-frozen-lockfile` either: a fresh project has no
+ * lockfile to freeze, and the check should run under the same install rules CI
+ * uses.
+ */
+function checkConsumer(label, prepare) {
+  const scratch = mkdtempSync(join(tmpdir(), "family-consumer-"));
+  try {
+    const specifier = prepare(scratch);
+    console.log(`\n${label}: installing ${specifier} in ${scratch}`);
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
+    writeFileSync(
+      join(scratch, "package.json"),
+      `${JSON.stringify(
+        {
+          name: "family-consumer-check",
+          private: true,
+          type: "module",
+          dependencies: {
+            "@ferramenta/family": specifier,
+            react: "^19.2.7",
+            "react-dom": "^19.2.7",
+          },
         },
-      },
-      null,
-      2,
-    )}\n`,
-  );
-  run("pnpm", ["install", "--ignore-workspace"], scratch);
-  copyFileSync(new URL("consumer-check.mjs", import.meta.url), join(scratch, "check.mjs"));
-  process.stdout.write(run("node", ["check.mjs"], scratch));
+        null,
+        2,
+      )}\n`,
+    );
+    run("pnpm", ["install", "--ignore-workspace"], scratch);
+    copyFileSync(new URL("consumer-check.mjs", import.meta.url), join(scratch, "check.mjs"));
+    process.stdout.write(run("node", ["check.mjs"], scratch));
 
-  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
-  writeFileSync(join(scratch, "README.md"), "# consumer\n\nA thing.\n");
-  const binary = join(scratch, "node_modules", "@ferramenta", "family", "bin", "family-readme.mjs");
-  run("node", [binary, "--current", "ferralk", "--write", "README.md"], scratch);
-  process.stdout.write(
-    run("node", [binary, "--current", "ferralk", "--check", "README.md"], scratch),
-  );
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
+    writeFileSync(join(scratch, "README.md"), "# consumer\n\nA thing.\n");
+    const binary = join(
+      scratch,
+      "node_modules",
+      "@ferramenta",
+      "family",
+      "bin",
+      "family-readme.mjs",
+    );
+    run("node", [binary, "--current", "ferralk", "--write", "README.md"], scratch);
+    process.stdout.write(
+      run("node", [binary, "--current", "ferralk", "--check", "README.md"], scratch),
+    );
+  } finally {
+    rmSync(scratch, { force: true, recursive: true });
+  }
 }
 
-const scratch = mkdtempSync(join(tmpdir(), "family-consumer-"));
-try {
-  console.log(`scratch project: ${scratch}`);
-  checkConsumer(scratch, "npm route (packed tarball)", packTarball(scratch));
-  rmSync(join(scratch, "node_modules"), { force: true, recursive: true });
-  checkConsumer(scratch, "git route (tracked files at HEAD)", exportTrackedFiles(scratch));
-  console.log("\nboth consumer routes passed");
-} finally {
-  rmSync(scratch, { force: true, recursive: true });
-}
+checkConsumer("npm route (packed tarball)", packTarball);
+checkConsumer("git route (tracked files at HEAD)", exportTrackedFiles);
+console.log("\nboth consumer routes passed");
