@@ -428,3 +428,12 @@ details.switcher[open] summary svg.chev {
   color: var(--iron-soft);
   font-size: 0.85rem;
 }
+
+/*
+ * The legal line spans every column, so the 34ch measure `.foot p` sets for the
+ * lockup's paragraph would wrap a long one into a narrow strip. Two classes,
+ * because `.foot p` is one element selector stronger than `.foot-legal` alone.
+ */
+.foot .foot-legal {
+  max-width: none;
+}

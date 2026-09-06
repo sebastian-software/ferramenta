@@ -19,6 +19,13 @@ export type SiteHeaderProps = {
    */
   themeToggle?: ReactNode;
   /**
+   * Rendered in the family navigation just before `themeToggle`, for the
+   * controls a docs site keeps in the bar — search, a section menu. Its own
+   * slot so those do not have to ride in `themeToggle` and blur what that slot
+   * means.
+   */
+  actions?: ReactNode;
+  /**
    * Rendered between the lockup and the family navigation, for a site that has
    * navigation of its own to put in the bar. It supplies its own element; the
    * bar is a flex row and the family navigation stays pushed to the end.
@@ -34,7 +41,13 @@ export type SiteHeaderProps = {
 };
 
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export function SiteHeader({ as = "header", current, nav, themeToggle }: SiteHeaderProps = {}) {
+export function SiteHeader({
+  actions,
+  as = "header",
+  current,
+  nav,
+  themeToggle,
+}: SiteHeaderProps = {}) {
   const Root: ElementType = as;
 
   return (
@@ -52,6 +65,7 @@ export function SiteHeader({ as = "header", current, nav, themeToggle }: SiteHea
               <use href="#i-github" />
             </svg>
           </a>
+          {actions}
           {themeToggle}
         </nav>
       </div>

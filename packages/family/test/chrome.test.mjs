@@ -70,6 +70,24 @@ test("the switcher takes a trigger label, a start alignment and host classes", (
   assert.ok(html.includes('aria-label="All tools"'), "the accessible name stays");
 });
 
+test("the docs-site slots keep search and navigation out of the toggle slot", () => {
+  const html = render(family.SiteHeader, {
+    actions: createElement("form", { className: "docs-search" }),
+    nav: createElement("nav", { "aria-label": "Docs" }),
+    themeToggle: createElement("button", { className: "ardo-theme-toggle", type: "button" }),
+  });
+  assert.ok(html.includes('<nav aria-label="Docs">'), "the nav slot renders");
+  assert.ok(
+    html.indexOf('aria-label="Docs"') < html.indexOf('<nav class="site"'),
+    "before the bar",
+  );
+  assert.ok(
+    html.indexOf('class="docs-search"') < html.indexOf('class="ardo-theme-toggle"'),
+    "actions come before the theme toggle",
+  );
+  assert.ok(!render(family.SiteHeader).includes("<form"), "and nothing without them");
+});
+
 test("`as` drops the landmark element for a host that provides its own", () => {
   const header = render(family.SiteHeader, { as: "div", current: "ferroni" });
   assert.match(header, /^<div class="site-header">/u);
@@ -96,6 +114,10 @@ test("the chrome CSS carries the duotone set outside the header and footer", asy
   assert.ok(
     css.slice(selectors, declaration).includes(".on-iron"),
     "there is no standalone duotone wrapper class",
+  );
+  assert.ok(
+    css.slice(css.indexOf(".foot-legal")).includes(".foot .foot-legal"),
+    "the legal line is still clamped to the 34ch measure `.foot p` sets",
   );
   assert.match(
     css,

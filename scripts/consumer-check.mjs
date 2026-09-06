@@ -61,6 +61,17 @@ expect(
   "the shipped chrome.css has no standalone duotone wrapper class",
 );
 
+// The docs-site slots: search and a section menu go in `actions`, not in the
+// theme-toggle slot.
+const slotted = render(SiteHeader, {
+  actions: createElement("form", { className: "docs-search" }),
+  themeToggle: createElement("button", { className: "toggle", type: "button" }),
+});
+expect(
+  slotted.indexOf('class="docs-search"') < slotted.indexOf('class="toggle"'),
+  "`actions` did not render before `themeToggle`",
+);
+
 // A host that already owns the landmark renders the chrome as a plain element.
 expect(
   render(SiteHeader, { as: "div", current: family[0].name }).startsWith(

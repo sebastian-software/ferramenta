@@ -81,16 +81,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 - **`MarkDefs`** mounts the SVG sprite once per page. Without it every mark is
   empty: `Mark` only references symbols.
 - **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`,
-  `nav?: ReactNode`, `as?: "header" | "div"`. Name the family member this site
+  `actions?: ReactNode`, `nav?: ReactNode`, `as?: "header" | "div"`. Name the
+  family member this site
   belongs to and the switcher marks that entry `aria-current="page"`, while the
   lockup links to ferramenta.dev instead of this site's root; leave it out on
   the family site itself. `themeToggle` is a slot at the end of the bar: an Ardo
   site passes `<ArdoThemeToggle />`, a site on something else passes its own
   control or nothing. The package does not import `ardo/ui` — that module only
   loads inside a bundler, and the theme switch belongs to the site's framework
-  (ADR-0007). `nav` is a second slot, between the lockup and the family
-  navigation, for a site with navigation of its own to put in the bar; it
-  supplies its own element.
+  (ADR-0007). `actions` and `nav` are two more slots — the first just before
+  the theme toggle for a docs site's search or section menu, the second between
+  the lockup and the family navigation for a site's own navigation. Both take
+  the site's own elements.
 - **`SiteFooter`** — `current?: string` (de-emphasizes the site's own entry),
   `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`.
   `line="company"` drops the family columns and keeps the company links: it is
@@ -112,12 +114,75 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 ## Ardo docs sites
 
-Ardo 4.2's `ArdoRoot` matches its chrome slots by component identity
-(`child.type === ArdoHeader`), so anything else passed as a child becomes the
-page _content_. A docs site therefore cannot swap `ArdoHeader` for `SiteHeader`
-without losing Ardo's navigation, search and sidebar drawer. It takes the two
-pieces that do fit instead: the switcher inside `ArdoHeaderActions`, and the
-family footer inside `ArdoFooter`.
+There are two ways in, and they differ in how much of the family chrome the
+site ends up wearing.
+
+### The whole chrome, outside `ArdoRoot` (preferred)
+
+Ardo reads `handle = { chrome: false }` from every route match and then renders
+neither its own header nor its own footer. The family header and footer go
+outside `ArdoRoot`, in the site's own root component, and Ardo's sidebar rail
+and generated navigation are untouched — that switch does not cover them.
+
+```tsx
+import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
+import { ArdoRoot, ArdoSearch, ArdoSidebar, ArdoThemeToggle } from "ardo/ui";
+import config from "virtual:ardo/config";
+
+/* Read from every route match; no route below may override it. */
+export const handle = { chrome: false };
+
+export default function Root() {
+  return (
+    <>
+      <MarkDefs />
+      <SiteHeader current="ferrocat" actions={<ArdoSearch />} themeToggle={<ArdoThemeToggle />} />
+      {/* The wrapper the site's stylesheet hangs the shell overrides off. */}
+      <div className="docs-shell">
+        <ArdoRoot config={config}>
+          <ArdoSidebar>{/* … */}</ArdoSidebar>
+        </ArdoRoot>
+      </div>
+      <SiteFooter current="ferrocat" legal={<>…</>} />
+    </>
+  );
+}
+```
+
+Two things the site has to add for this to hold together:
+
+- **Hand the scrolling back to the document.** Ardo's docs layout is an
+  application shell: a fixed header, a `100vh` frame that never scrolls, and an
+  inner `<main>` that does. A footer placed below that frame is unreachable. The
+  wrapper class above is the hook for the overrides that fix it — `height: auto`
+  and `overflow: visible` on the frame, `overflow: visible` on `#main-content`,
+  and `position: sticky` with `top: var(--ardo-layout-headerHeight)` on
+  `.ardo-sidebar` and the table of contents, which relied on the inner scroll
+  container. Ardo's layout class names are hashed, so use its stable hooks
+  (`#main-content`, `.ardo-sidebar`) or a direct-child path.
+- **Set `--ardo-layout-headerHeight: 4rem`** on `:root`. Ardo derives its sticky
+  offsets and the table-of-contents height from it, and `.bar` — the family
+  header — is `4rem`. Without it every Ardo measurement is off by the
+  difference.
+
+`ArdoSearch` reads its index from a virtual module and falls back to the default
+labels, so it works outside `ArdoRoot`'s provider. Ferrocat's
+`docs/app/root.tsx` and `docs/app/styles/site.css` are the worked example.
+
+- **`actions`** is the slot for the controls a docs site keeps in the bar —
+  search, a section menu — rendered just before `themeToggle`. **`nav`** is a
+  second slot, between the lockup and the family navigation, for a site's own
+  navigation. Both take the site's own elements; the family chrome styles
+  neither.
+
+### The two pieces that fit inside `ArdoRoot` (fallback)
+
+When a site cannot give up Ardo's own header — its navigation, search and
+sidebar drawer are Ardo's, and `ArdoRoot` matches its chrome slots by component
+identity (`child.type === ArdoHeader`), so anything else passed as a child
+becomes the page _content_ — it takes the two pieces that do fit: the switcher
+inside `ArdoHeaderActions`, and the family footer inside `ArdoFooter`. The site
+keeps Ardo's header look; only the switcher and the footer are the family's.
 
 ```tsx
 import { MarkDefs, SiteFooter, ToolSwitcher } from "@ferramenta/family";
@@ -162,8 +227,12 @@ The order in [The chrome](#the-chrome) still holds — `tokens.css`, `fonts.css`
 own route chunk, which the browser loads _after_ the root stylesheet, so ties
 between `chrome.css` and Ardo on equal specificity go to Ardo. An integration
 override that has to beat an Ardo rule needs one element selector more than the
-rule it replaces — `footer.ardo-footer` rather than `.ardo-footer`. Ferroni's
-`docs/app/site.css` is the worked example.
+rule it replaces — `footer.ardo-footer` rather than `.ardo-footer`. Ardo also
+paints every `<a>` in its brand color, which outranks the color the chrome's
+links inherit from their iron band, so a site that keeps Ardo's stylesheet hands
+them back with `.site-header .lockup, .flyout a, .site-footer a { color:
+inherit }`. Ferroni's and ferrocat's `docs/app/…/site.css` are the worked
+examples.
 
 ## CSS entry points
 
