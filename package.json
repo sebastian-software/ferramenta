@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@ferramenta/family": "workspace:*",
-    "ardo": "^4.1.0",
+    "ardo": "^4.2.0",
     "isbot": "^5.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

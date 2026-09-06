@@ -14,12 +14,17 @@
   "files": [
     "bin",
     "dist",
+    "fonts",
     "lib",
     "src",
-    "theme.css",
+    "styles",
+    "NOTICE.md",
     "README.md"
   ],
   "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -27,7 +32,16 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./theme.css": "./theme.css"
+    "./chrome.css": "./styles/chrome.css",
+    "./fonts.css": "./styles/fonts.css",
+    "./theme.css": "./styles/theme.css",
+    "./tokens.css": "./styles/tokens.css",
+    "./fonts/*": "./fonts/*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -35,9 +49,12 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.13",
+    "ardo": "^4.2.0",
+    "react-dom": "^19.2.7",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
+    "ardo": ">=4.2.0",
     "react": ">=19.0.0 <20.0.0"
   }
 }

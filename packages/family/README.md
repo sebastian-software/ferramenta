@@ -1,38 +1,96 @@
 # @ferramenta/family
 
-Shared [Ardo](https://github.com/sebastian-software/ardo) configuration for the
-[Ferramenta](https://ferramenta.dev) sites: one theme, one project registry,
-and cross-site navigation.
+The [Ferramenta](https://ferramenta.dev) family in one package: the registry
+every site reads its facts from, the shared chrome (header with the tool
+switcher, footer), the project marks, the design tokens, and the display face.
 
-> **Status:** consumed via `workspace:*` by ferramenta.dev. npm publishing
-> under the `@ferramenta` scope is prepared but pending scope creation.
+> **Status:** consumed by ferramenta.dev through `workspace:*`. Not on npm yet —
+> the `@ferramenta` scope has to be created first (see
+> [Publishing](#publishing)). Until then siblings pin a commit SHA from Git.
 
-## Usage in an Ardo site
+## Requirements
+
+|         |                                                                                                |
+| ------- | ---------------------------------------------------------------------------------------------- |
+| React   | `>=19.0.0 <20.0.0` (peer)                                                                      |
+| Ardo    | `>=4.2.0` (peer) — the floor every family site is moving to                                    |
+| Node    | >= 22.13 for the `ferramenta-readme` generator; the components have no Node floor of their own |
+| Bundler | anything that resolves package exports and imports CSS (Vite, as Ardo uses)                    |
+
+## Install
 
 ```sh
-pnpm add @ferramenta/family
+pnpm add @ferramenta/family        # once the scope exists
+pnpm add github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family
 ```
 
-In `app/root.tsx`:
+## The chrome
 
 ```tsx
-import { FamilyLinks } from "@ferramenta/family";
-import "@ferramenta/family/theme.css";
+import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
 
-// inside the Ardo footer (or anywhere in the chrome):
-<ArdoFooter
-  copyright="..."
-  // ...
->
-  <FamilyLinks current="ferriki" />
-</ArdoFooter>;
+import "@ferramenta/family/tokens.css";
+import "@ferramenta/family/fonts.css";
+import "@ferramenta/family/theme.css";
+import "./your-site.css";
+// Last: the chrome has to win the ties a site-wide reset would otherwise take.
+import "@ferramenta/family/chrome.css";
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <MarkDefs />
+      <SiteHeader current="ferroni" />
+      <main>{children}</main>
+      <SiteFooter current="ferroni" />
+    </>
+  );
+}
 ```
 
-- `theme.css` applies the family brand (amber/copper) to all Ardo chrome
-  via the `--ardo-color-brand*` variables and styles the `FamilyLinks` nav.
-- `FamilyLinks` renders links to every family member; pass `current` to
-  de-emphasize the site's own entry.
-- `family` / `FAMILY_SITE` export the raw data when you need custom layout.
+- **`MarkDefs`** mounts the SVG sprite once per page. Without it every mark is
+  empty: `Mark` only references symbols.
+- **`SiteHeader`** — `current?: string`. Name the family member this site
+  belongs to and the switcher marks that entry `aria-current="page"`, while the
+  lockup links to ferramenta.dev instead of this site's root. Leave it out on
+  the family site itself. The theme toggle is Ardo's `ArdoThemeToggle`.
+- **`SiteFooter`** — `current?: string` (de-emphasizes the site's own entry),
+  `line?: "family" | "company"`, `legal?: ReactNode`. `line="company"` drops the
+  family columns and keeps the company links: it is for the tools that share the
+  workshop but not the engines (dalo, agent-bridge — decision D2 of the 2026-09
+  family audit).
+- **`Mark`** — `name` (a symbol without the `i-` prefix, e.g. `ferroni`,
+  `arrow`, `chev`), `className` (default `mark`; chrome icons use `icon`),
+  `size`.
+- **`FamilyLinks`** — the one-line variant for a site that keeps its own chrome
+  (palamedes, per decision D6): `current`, `label`, `className`.
+
+## CSS entry points
+
+| Import                          | What it is                                                                 | Safe to load anywhere?                                  |
+| ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `@ferramenta/family/tokens.css` | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                    |
+| `@ferramenta/family/fonts.css`  | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack |
+| `@ferramenta/family/theme.css`  | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                     |
+| `@ferramenta/family/chrome.css` | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                   |
+
+`chrome.css` needs `tokens.css`: every color, plate and hook value is a token.
+It owns these class names — a site that defines any of them itself should load
+its own stylesheet first: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
+`switcher`, `flyout`, `flygroup`, `ghlink`, `foot`, `foot-gap`, `foot-legal`,
+`mark`, `markplate`, `hook`, `fastener`, `icon`.
+
+The font file is also exported directly, for a preload link:
+
+```tsx
+import bigShoulders from "@ferramenta/family/fonts/big-shoulders.woff2?url";
+```
+
+## The registry
+
+`family`, `familyGroups()`, `FAMILY_SITE` and `isEngine()` come from
+`src/family.ts` — the single source of truth for names, jobs, proofs, versions,
+status, links and grouping (ADR-0001). Read facts from it; never hardcode them.
 
 ## The README family block
 
@@ -101,3 +159,27 @@ pnpm --dir ferramenta/packages/family install
 pnpm --dir ferramenta/packages/family build
 node ferramenta/packages/family/bin/family-readme.mjs --current ferrocat --write README.md
 ```
+
+## Publishing
+
+Releases run through release-please (`release-please-config.json` at the
+repository root, `release-type: node`, one product version) and
+`.github/workflows/publish.yml`, which publishes this package with npm Trusted
+Publishing (OIDC) and `--provenance`. No npm token is stored anywhere.
+
+**Owner actions, still open:**
+
+1. Create the `@ferramenta` scope on npmjs.com.
+2. Configure Trusted Publishing for `@ferramenta/family`, bound to
+   `sebastian-software/ferramenta` and `.github/workflows/publish.yml`.
+3. Set the repository variable `FERRAMENTA_NPM_SCOPE_READY` to `true`.
+
+Until step 3 the publish job stops at its first step with that message, so a
+release cannot half-publish quietly.
+
+## Licensing
+
+The code is MIT. The bundled marks are Streamline-derived and the font is under
+the SIL Open Font License — both carry their own terms in
+[NOTICE.md](NOTICE.md). Keep the sprite under 100 icons (ADR-0002); a test in
+this package fails if it grows past that.

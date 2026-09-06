@@ -1,13 +1,18 @@
 import type { LinksFunction, MetaFunction } from "react-router";
 
+import bigShouldersFont from "@ferramenta/family/fonts/big-shoulders.woff2?url";
 import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout } from "ardo/ui";
 import config from "virtual:ardo/config";
-
-import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url";
 import "ardo/ui/styles.css";
+import "@ferramenta/family/tokens.css";
+import "@ferramenta/family/fonts.css";
 import "@ferramenta/family/theme.css";
 
 import "./styles/site.css";
+
+// Last on purpose: the shared chrome has to win the ties the scoped reset in
+// site.css would otherwise take, exactly as it did when both lived in one file.
+import "@ferramenta/family/chrome.css";
 
 export const links: LinksFunction = () => [
   {

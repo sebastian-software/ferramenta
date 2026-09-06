@@ -1,13 +1,18 @@
 import type { MetaFunction } from "react-router";
 
-import { familyGroups, type FamilyTool, isEngine } from "@ferramenta/family";
+import {
+  familyGroups,
+  type FamilyTool,
+  isEngine,
+  Mark,
+  MarkDefs,
+  SiteFooter,
+  SiteHeader,
+} from "@ferramenta/family";
 import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
-import { Mark, MarkDefs } from "../components/Marks";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteHeader } from "../components/SiteHeader";
 import registryStats from "../data/registry-stats.json";
 
 /** Fully custom shell: disable Ardo's default header/footer for this route. */

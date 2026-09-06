@@ -1,0 +1,14 @@
+/*
+ * @ferramenta/family — the display face.
+ *
+ * Big Shoulders is the family display font (SIL OFL 1.1, see the package
+ * README). Loading this file is optional: without it the chrome falls back to
+ * the body stack through `var(--display), var(--body)`.
+ */
+
+@font-face {
+  font-family: "Big Shoulders";
+  src: url("../fonts/big-shoulders.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+}

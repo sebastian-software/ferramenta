@@ -1,196 +1,16 @@
 /*
- * ferramenta.dev — site styles, ported 1:1 from the approved comp
+ * ferramenta.dev — page styles, ported 1:1 from the approved comp
  * (design/comp/entwurf-c.html). Dark mode keys off Ardo's `.dark` class
  * on <html> (ArdoRootLayout theme bootstrap).
+ *
+ * The chrome the site shares with its siblings — header, footer, marks,
+ * plates, hooks — plus the tokens and the display face live in
+ * @ferramenta/family (styles/chrome.css, styles/tokens.css, styles/fonts.css).
+ * root.tsx loads chrome.css last so the chrome keeps winning over the scoped
+ * reset below, exactly as it did when both lived in this file.
  */
-@font-face {
-  font-family: "Big Shoulders";
-  src: url("../assets/fonts/big-shoulders.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: block;
-}
 
-:root {
-  --display: "Big Shoulders";
-  --disp-weight: 800;
-  --disp-track: 0;
-  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-
-  --bg: oklch(0.975 0.005 80);
-  --bg-dim: oklch(0.945 0.008 78);
-  --ink: oklch(0.21 0.014 45);
-  --ink-soft: oklch(0.42 0.018 48);
-  --rust: oklch(0.5 0.132 38);
-  --rust-deep: oklch(0.41 0.115 36);
-  --rust-tint: oklch(0.5 0.13 38 / 0.1);
-  --ember: oklch(0.68 0.175 52);
-  --line: oklch(0.86 0.014 70);
-  --line-heavy: oklch(0.28 0.016 48);
-  --on-rust: oklch(0.985 0.004 85);
-  --iron: oklch(0.235 0.014 45);
-  --iron-2: oklch(0.29 0.016 45);
-  --iron-ink: oklch(0.95 0.008 78);
-  --iron-soft: oklch(0.72 0.015 65);
-  --iron-line: oklch(0.38 0.018 48);
-  --grid-line: oklch(0.5 0.02 55 / 0.12);
-  --paper: oklch(0.985 0.004 85);
-  --plate-rim-hi: oklch(0.72 0.035 60);
-  --plate-rim-lo: oklch(0.46 0.045 45);
-  --plate-face-hi: oklch(0.93 0.025 62);
-  --plate-face-lo: oklch(0.81 0.045 52);
-  --plate-sheen: oklch(1 0 0 / 0.3);
-  --plate-brush: oklch(1 0 0 / 0.07);
-  --plate-shadow: oklch(0.3 0.03 45 / 0.3);
-  --hook-dark: oklch(0.38 0.025 45);
-  --hook-light: oklch(0.9 0.015 65 / 0.85);
-  --hook-hole: oklch(0.28 0.02 45 / 0.85);
-}
-:root.dark {
-  --hook-dark: oklch(0.62 0.02 50);
-  --hook-light: oklch(0.95 0.01 65 / 0.9);
-  --hook-hole: oklch(0.12 0.01 45);
-  --plate-rim-hi: oklch(0.45 0.035 50);
-  --plate-rim-lo: oklch(0.2 0.02 45);
-  --plate-face-hi: oklch(0.42 0.035 48);
-  --plate-face-lo: oklch(0.29 0.03 45);
-  --plate-sheen: oklch(1 0 0 / 0.1);
-  --plate-brush: oklch(1 0 0 / 0.05);
-  --plate-shadow: oklch(0.05 0.01 45 / 0.55);
-  --bg: oklch(0.195 0.008 48);
-  --bg-dim: oklch(0.23 0.011 48);
-  --ink: oklch(0.94 0.006 80);
-  --ink-soft: oklch(0.71 0.012 70);
-  --rust: oklch(0.69 0.14 45);
-  --rust-deep: oklch(0.6 0.125 42);
-  --rust-tint: oklch(0.69 0.14 45 / 0.13);
-  --ember: oklch(0.75 0.16 55);
-  --line: oklch(0.31 0.012 50);
-  --line-heavy: oklch(0.85 0.01 70);
-  --on-rust: oklch(0.15 0.01 50);
-  --iron: oklch(0.16 0.01 45);
-  --iron-2: oklch(0.21 0.012 45);
-  --iron-ink: oklch(0.95 0.008 78);
-  --iron-soft: oklch(0.7 0.015 65);
-  --iron-line: oklch(0.33 0.015 48);
-  --grid-line: oklch(0.7 0.02 55 / 0.1);
-}
-
-/* Duotone-Marken */
-:root {
-  --duo0: oklch(0.985 0.004 85);
-  --duo1: oklch(0.93 0.035 50);
-  --duo2: oklch(0.8 0.095 48);
-  --duoink: oklch(0.36 0.075 38);
-}
-:root.dark {
-  --duo0: oklch(0.93 0.012 70);
-  --duo1: oklch(0.31 0.045 42);
-  --duo2: oklch(0.54 0.11 45);
-  --duoink: oklch(0.89 0.035 55);
-}
-.mark path {
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
-.markplate {
-  display: grid;
-  place-items: center;
-  position: relative;
-  background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
-  filter: drop-shadow(0 2px 3px var(--plate-shadow));
-}
-.markplate::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
-  background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 46%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
-}
-.markplate svg {
-  position: relative;
-}
-.fastener {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  z-index: 3;
-  pointer-events: none;
-  border: 1px solid var(--plate-rim-lo);
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  box-shadow:
-    inset 1px 1px 1px var(--plate-sheen),
-    inset -1px -1px 1px var(--plate-shadow),
-    0 1px 2px var(--plate-shadow);
-}
-.fastener::after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  right: 2px;
-  top: 50%;
-  height: 1px;
-  background: var(--line-heavy);
-  transform: translateY(-50%) rotate(-20deg);
-}
-.fastener[data-position="tl"] {
-  top: var(--fastener-inset);
-  left: var(--fastener-inset);
-}
-.fastener[data-position="tr"] {
-  top: var(--fastener-inset);
-  right: var(--fastener-inset);
-}
-.fastener[data-position="br"] {
-  right: var(--fastener-inset);
-  bottom: var(--fastener-inset);
-}
-.fastener[data-position="bl"] {
-  bottom: var(--fastener-inset);
-  left: var(--fastener-inset);
-}
-.board .markplate {
-  width: 76px;
-  height: 76px;
-}
-.hook {
-  position: absolute;
-  top: -3.4px;
-  left: 50%;
-  translate: -50% 0;
-  width: 24px;
-  height: 28px;
-  z-index: 2;
-  pointer-events: none;
-}
-.board a:hover .hook {
-  translate: -50% 0;
-}
-.flyout .markplate {
-  width: 38px;
-  height: 38px;
-  flex: none;
-}
-.flyout .markplate svg {
-  width: 24px;
-  height: 24px;
-}
-header .lockup,
-footer .lockup,
-.flyout {
-  --duo0: oklch(0.93 0.012 70);
-  --duo1: oklch(0.31 0.045 42);
-  --duo2: oklch(0.54 0.11 45);
-  --duoink: oklch(0.89 0.035 55);
-}
-
-/* Comp-Reset, scoped auf unsere Shell (Ardo-Styles liefern keinen vollen Preflight) */
+/* Comp reset, scoped to our shell (Ardo's styles carry no full preflight) */
 .ferramenta-site *,
 .ferramenta-site *::before,
 .ferramenta-site *::after {
@@ -233,16 +53,8 @@ a {
 .ferramenta-site :where([id]) {
   scroll-margin-top: 6rem;
 }
-:root {
-  --focus: var(--rust);
-}
-:root.dark {
-  --focus: var(--ember);
-}
-.site-header,
-.site-footer,
-.ironband,
-.flyout {
+
+.ironband {
   --focus: var(--ember);
 }
 .skip-link {
@@ -259,22 +71,7 @@ a {
 .skip-link:focus-visible {
   left: 0;
 }
-.wrap {
-  max-width: 80rem;
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 3rem);
-}
-.icon {
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
-.icon .fillbit {
-  fill: currentColor;
-  stroke: none;
-}
+
 h1,
 h2,
 h3 {
@@ -286,121 +83,6 @@ h3 {
 }
 .chamfer {
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-}
-
-/* Header — iron bar */
-header {
-  position: sticky;
-  top: 0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    linear-gradient(var(--iron), var(--iron));
-  color: var(--iron-ink);
-  z-index: 50;
-  border-bottom: 2px solid var(--rust);
-}
-.bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  height: 4rem;
-}
-.lockup {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  text-decoration: none;
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-}
-.lockup svg {
-  color: var(--ember);
-}
-nav.site {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-details.switcher {
-  position: relative;
-}
-details.switcher summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  min-height: 44px;
-  padding: 0.4rem 0.45rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-details.switcher summary::-webkit-details-marker {
-  display: none;
-}
-details.switcher[open] summary svg.chev {
-  transform: scaleY(-1);
-}
-.flyout {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.85rem);
-  background: var(--iron);
-  border: 1px solid var(--iron-line);
-  border-top: 2px solid var(--rust);
-  min-width: 21rem;
-  padding: 0.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.125rem;
-  box-shadow: 0 18px 44px -16px oklch(0.1 0.01 45 / 0.55);
-}
-.flyout a {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  text-decoration: none;
-  padding: 0.55rem 0.6rem;
-  font-size: 0.92rem;
-}
-.flyout a:hover {
-  background: var(--iron-2);
-  color: var(--ember);
-}
-.flyout a svg {
-  flex: none;
-  color: var(--ember);
-}
-.flyout a small {
-  display: block;
-  color: var(--iron-soft);
-  font-size: 0.78rem;
-}
-.flyout a b {
-  font-family: var(--display), var(--body);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-}
-.ghlink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-}
-.ghlink svg {
-  fill: currentColor;
-}
-.site .ardo-theme-toggle,
-.site button {
-  min-width: 44px;
-  min-height: 44px;
 }
 
 /* Hero — forge floor */
@@ -485,6 +167,15 @@ details.switcher[open] summary svg.chev {
 }
 
 /* Pegboard — tools hang free */
+.board .markplate {
+  width: 76px;
+  height: 76px;
+}
+
+.board a:hover .hook {
+  translate: -50% 0;
+}
+
 .board {
   --fastener-inset: 8px;
   position: relative;
@@ -1093,74 +784,10 @@ section .intro {
   }
 }
 
-/* Footer — steel plate */
-footer.site-footer {
-  margin-top: clamp(3.5rem, 7vw, 5.5rem);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    linear-gradient(var(--iron), var(--iron));
-  color: var(--iron-ink);
-  border-top: 3px solid var(--rust);
-  padding-block: 3rem 6.5rem;
-}
-.foot {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 2.5rem;
-}
-.foot .lockup {
-  font-size: 1.3rem;
-}
-.foot .lockup svg {
-  color: var(--ember);
-}
-.foot p {
-  margin-top: 0.9rem;
-  color: var(--iron-soft);
-  font-size: 0.92rem;
-  max-width: 34ch;
-}
-.foot h3 {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: var(--body);
-  font-weight: 600;
-  color: var(--iron-soft);
-}
-.foot ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 0.9rem;
-  display: grid;
-  gap: 0.45rem;
-}
-.foot a {
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-.foot a:hover {
-  color: var(--ember);
-}
-@media (max-width: 46rem) {
-  .foot {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ---- React-port additions (comp wrote uppercase literally; the registry is lowercase) ---- */
-.lockup,
 .board a,
-.flyout a b,
 .row .who b {
   text-transform: uppercase;
-}
-.foot h3.foot-gap {
-  margin-top: 1.6rem;
-}
-.site .ardo-theme-toggle,
-.site button {
-  color: inherit;
 }
 
 /* Ardo reserves space for its fixed default header; with chrome:false none exists. */
@@ -1261,7 +888,7 @@ footer.site-footer {
   }
 }
 
-/* Schmale Screens: ToolRow stapelt, Pfeil entfaellt */
+/* Narrow screens: the tool row stacks and the arrow drops out */
 @media (max-width: 40rem) {
   .row {
     grid-template-columns: 3.8rem 1fr 1.5rem;
@@ -1270,29 +897,6 @@ footer.site-footer {
   .row .meta {
     grid-column: 1 / -1;
   }
-}
-
-/* Flyout-Gruppen + Footer-Legal (Critique-Runde 2) */
-.flygroup + .flygroup {
-  margin-top: 0.4rem;
-}
-.flygroup > small {
-  display: block;
-  padding: 0.35rem 0.6rem 0.15rem;
-  font-family: var(--display), var(--body);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--iron-soft);
-}
-.foot-legal {
-  grid-column: 1 / -1;
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--iron-line);
-  color: var(--iron-soft);
-  font-size: 0.85rem;
 }
 
 /* Registry facts: platform pairs and the family tally (live at build time) */

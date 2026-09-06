@@ -33,8 +33,9 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | Path                                 | Owns                                                                                                                                                                                                              |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `app/routes/home.tsx`                | The single page (custom shell: renders its own header/footer)                                                                                                                                                     |
-| `app/components/`                    | `SiteHeader`, `SiteFooter`, `Marks` (+ `mark-defs.ts`, auto-extracted SVG sprite)                                                                                                                                 |
-| `app/styles/site.css`                | The whole visual system, ported from the approved comp                                                                                                                                                            |
+| `app/styles/site.css`                | The page styles, ported from the approved comp — everything the family site does not share                                                                                                                        |
+| `packages/family/src/`               | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks`                                                               |
+| `packages/family/styles/`            | `tokens.css`, `fonts.css`, `chrome.css`, `theme.css` — the CSS entry points a consumer imports                                                                                                                    |
 | `scripts/refresh-registry-stats.mjs` | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                         |
 | `packages/family/`                   | `@ferramenta/family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
 | `packages/family/bin/`               | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                       |
@@ -47,6 +48,9 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Rules
 
+- The site consumes `@ferramenta/family` the way a sibling site does: through
+  the package name, never a relative path into `packages/family`. What the
+  chrome renders changes in the package, not in `app/`.
 - Tool facts (names, jobs, proofs, links) come from `family.ts` — never hardcode
   them in components. Update the registry, everything re-renders. That includes
   the README family block: it is generated (`pnpm readme:write`) and checked
