@@ -1,7 +1,8 @@
-import { type ReactNode, type RefObject, useEffect, useRef } from "react";
+import type { ElementType, ReactNode } from "react";
 
-import { FAMILY_SITE, familyGroups } from "./family.js";
+import { FAMILY_SITE } from "./family.js";
 import { Mark } from "./Mark.js";
+import { ToolSwitcher } from "./ToolSwitcher.js";
 
 export type SiteHeaderProps = {
   /**
@@ -17,86 +18,33 @@ export type SiteHeaderProps = {
    * to the family chrome.
    */
   themeToggle?: ReactNode;
+  /**
+   * Rendered between the lockup and the family navigation, for a site that has
+   * navigation of its own to put in the bar. It supplies its own element; the
+   * bar is a flex row and the family navigation stays pushed to the end.
+   */
+  nav?: ReactNode;
+  /**
+   * The element to render. `"header"` (the default) is the banner landmark.
+   * Pass `"div"` when the host already provides one — an Ardo site rendering
+   * this inside `<ArdoHeader>` — so the page does not end up with two. The
+   * classes, and therefore the styling, are the same either way.
+   */
+  as?: "div" | "header";
 };
 
-/** A `<details>` flyout is not modal: it closes on an outside click and on Escape. */
-function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
-  useEffect(() => {
-    function closeOnOutsideClick(event: MouseEvent) {
-      const switcher = ref.current;
-      const target = event.target;
-      if (switcher?.open && target instanceof Node && !switcher.contains(target)) {
-        switcher.removeAttribute("open");
-      }
-    }
-    function closeOnEscape(event: KeyboardEvent) {
-      const switcher = ref.current;
-      if (event.key === "Escape" && switcher?.open) {
-        switcher.removeAttribute("open");
-        switcher.querySelector<HTMLElement>("summary")?.focus();
-      }
-    }
-    document.addEventListener("click", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.removeEventListener("click", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [ref]);
-}
-
-/** The family-wide tool switcher, grouped the way the family site groups it. */
-function ToolSwitcher({ current }: { current?: string }) {
-  const switcherRef = useRef<HTMLDetailsElement>(null);
-  const { pipeline, language, workbench } = familyGroups();
-  const flyoutGroups = [
-    { label: "Pipeline", tools: pipeline },
-    { label: "Language", tools: language },
-    { label: "Workbench", tools: workbench },
-  ];
-
-  useDismissible(switcherRef);
-
-  return (
-    <details className="switcher" ref={switcherRef}>
-      <summary aria-label="All tools">
-        Tools <Mark name="chev" className="chev icon" size={16} />
-      </summary>
-      <div className="flyout">
-        {flyoutGroups.map((group) => (
-          <div className="flygroup" key={group.label}>
-            <small>{group.label}</small>
-            {group.tools.map((tool) => (
-              <a
-                key={tool.name}
-                href={tool.docs ?? tool.repo}
-                aria-current={tool.name === current ? "page" : undefined}
-              >
-                <span className="markplate">
-                  <Mark name={tool.name} size={24} />
-                </span>
-                <span>
-                  <b>{tool.name}</b>
-                  <small>{tool.shortJob}</small>
-                </span>
-              </a>
-            ))}
-          </div>
-        ))}
-      </div>
-    </details>
-  );
-}
-
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export function SiteHeader({ current, themeToggle }: SiteHeaderProps = {}) {
+export function SiteHeader({ as = "header", current, nav, themeToggle }: SiteHeaderProps = {}) {
+  const Root: ElementType = as;
+
   return (
-    <header className="site-header">
+    <Root className="site-header">
       <div className="wrap bar">
         <a className="lockup" href={current === undefined ? "/" : FAMILY_SITE}>
           <Mark name="ferramenta" size={26} />
           <span>ferramenta</span>
         </a>
+        {nav}
         <nav className="site" aria-label="Site">
           <ToolSwitcher current={current} />
           <a className="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub">
@@ -107,6 +55,6 @@ export function SiteHeader({ current, themeToggle }: SiteHeaderProps = {}) {
           {themeToggle}
         </nav>
       </div>
-    </header>
+    </Root>
   );
 }

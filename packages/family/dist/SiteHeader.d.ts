@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 export type SiteHeaderProps = {
     /**
      * The family member this site belongs to, e.g. "ferroni". The switcher marks
@@ -13,6 +13,19 @@ export type SiteHeaderProps = {
      * to the family chrome.
      */
     themeToggle?: ReactNode;
+    /**
+     * Rendered between the lockup and the family navigation, for a site that has
+     * navigation of its own to put in the bar. It supplies its own element; the
+     * bar is a flex row and the family navigation stays pushed to the end.
+     */
+    nav?: ReactNode;
+    /**
+     * The element to render. `"header"` (the default) is the banner landmark.
+     * Pass `"div"` when the host already provides one — an Ardo site rendering
+     * this inside `<ArdoHeader>` — so the page does not end up with two. The
+     * classes, and therefore the styling, are the same either way.
+     */
+    as?: "div" | "header";
 };
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export declare function SiteHeader({ current, themeToggle }?: SiteHeaderProps): import("react").JSX.Element;
+export declare function SiteHeader({ as, current, nav, themeToggle }?: SiteHeaderProps): import("react").JSX.Element;

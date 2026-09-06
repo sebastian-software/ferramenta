@@ -97,8 +97,9 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   fixed-header spacing otherwise break the sticky header and full-bleed bands.
 - **The scoped reset** (`.ferramenta-site * { margin: 0 … }`) must stay the
   first rule block of site.css — later rules of equal specificity depend on
-  cascade order. Element-selector margins it must not eat get a class selector
-  (see `footer.site-footer`).
+  cascade order. Margins in site.css that it must not eat need a selector that
+  outranks it; the chrome's own margins (`.site-footer`) rely instead on
+  root.tsx loading `chrome.css` after site.css.
 - **`ssr: { noExternal: ["lucide-react"] }`** in vite.config: Ardo uses lucide
   internally; without bundling, prerender inside a git worktree resolves a
   second React copy from the parent checkout and crashes with a useContext

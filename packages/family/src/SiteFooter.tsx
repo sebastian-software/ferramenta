@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 import { FAMILY_SITE, familyGroups, type FamilyTool } from "./family.js";
 import { Mark } from "./Mark.js";
@@ -22,6 +22,13 @@ export type SiteFooterProps = {
   line?: "company" | "family";
   /** The small print under the columns. */
   legal?: ReactNode;
+  /**
+   * The element to render. `"footer"` (the default) is the contentinfo
+   * landmark. Pass `"div"` when the host already provides one — an Ardo site
+   * rendering this inside `<ArdoFooter>` — so the page does not end up with
+   * two. The classes, and therefore the styling, are the same either way.
+   */
+  as?: "div" | "footer";
 };
 
 function ToolList({ tools, current }: { tools: FamilyTool[]; current?: string }) {
@@ -59,14 +66,16 @@ function CompanyList() {
 
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
 export function SiteFooter({
+  as = "footer",
   current,
   legal = DEFAULT_LEGAL,
   line = "family",
 }: SiteFooterProps = {}) {
   const { pipeline, language, workbench } = familyGroups();
+  const Root: ElementType = as;
 
   return (
-    <footer className="site-footer">
+    <Root className="site-footer">
       <div className={line === "company" ? "wrap foot foot-company" : "wrap foot"}>
         <div>
           <a className="lockup" href={current === undefined ? "/" : FAMILY_SITE}>
@@ -95,6 +104,6 @@ export function SiteFooter({
         </div>
         <p className="foot-legal">{legal}</p>
       </div>
-    </footer>
+    </Root>
   );
 }

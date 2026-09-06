@@ -44,6 +44,66 @@ test("current marks the site's own entry and sends the lockup to the family site
   assert.ok(entry.includes(">ferroni</b>"), "the marked entry is the current tool");
 });
 
+test("the switcher stands alone, for a host header that is not ours", () => {
+  const html = render(family.ToolSwitcher, { current: "ferroni" });
+  assert.match(html, /^<details class="switcher">/u);
+  assert.ok(html.includes("Tools"), "the default trigger text");
+  assert.ok(html.includes('<div class="flyout">'), "and its flyout");
+  assert.equal(html.match(/aria-current="page"/gu)?.length, 1);
+  for (const tool of family.family) {
+    assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+  }
+  assert.ok(
+    render(family.SiteHeader, { current: "ferroni" }).includes(html),
+    "the header renders the very same switcher",
+  );
+});
+
+test("the switcher takes a trigger label, a start alignment and host classes", () => {
+  const html = render(family.ToolSwitcher, {
+    align: "start",
+    className: "ardo-header-item",
+    label: "Ferramenta",
+  });
+  assert.match(html, /^<details class="switcher switcher-start ardo-header-item">/u);
+  assert.ok(html.includes("Ferramenta"), "the trigger text is the host's");
+  assert.ok(html.includes('aria-label="All tools"'), "the accessible name stays");
+});
+
+test("`as` drops the landmark element for a host that provides its own", () => {
+  const header = render(family.SiteHeader, { as: "div", current: "ferroni" });
+  assert.match(header, /^<div class="site-header">/u);
+  assert.ok(!header.includes("<header"), "no banner landmark inside the host's");
+  assert.ok(header.includes('<a class="lockup"'), "the chrome itself is unchanged");
+
+  const footer = render(family.SiteFooter, { as: "div", current: "ferroni" });
+  assert.match(footer, /^<div class="site-footer">/u);
+  assert.ok(!footer.includes("<footer"), "no contentinfo landmark inside the host's");
+  assert.ok(footer.includes(">Pipeline</h3>"), "the chrome itself is unchanged");
+});
+
+test("the chrome CSS carries the duotone set outside the header and footer", async () => {
+  const css = await readFile(new URL("../styles/chrome.css", import.meta.url), "utf8");
+  // The selector list of the rule that declares the duotone set. Without these
+  // two the switcher's marks, and a host's own mark on iron, are blank outside
+  // `.site-header` / `.site-footer`.
+  const declaration = css.indexOf("--duo0");
+  const selectors = css.lastIndexOf("}", declaration) + 1;
+  assert.ok(
+    css.slice(selectors, declaration).includes("details.switcher"),
+    "the switcher root carries no duotone variables",
+  );
+  assert.ok(
+    css.slice(selectors, declaration).includes(".on-iron"),
+    "there is no standalone duotone wrapper class",
+  );
+  assert.match(
+    css,
+    /\n\.site-footer \{\n {2}margin-top:/u,
+    'the footer is keyed on its class, so `as="div"` styles the same',
+  );
+});
+
 test("the footer lists the family in groups plus the company links", () => {
   const html = render(family.SiteFooter);
   assert.match(html, /^<footer class="site-footer">/u);
@@ -96,6 +156,7 @@ test("both entries load in a bare Node process", async () => {
     "  site: registry.FAMILY_SITE,",
     "  engines: registry.family.filter((tool) => registry.isEngine(tool)).length,",
     "  chrome: [typeof root.SiteHeader, typeof root.SiteFooter, typeof root.MarkDefs],",
+    "  switcher: typeof root.ToolSwitcher,",
     "}));",
   ].join("\n");
   const { stdout } = await promisify(execFile)(
@@ -111,6 +172,7 @@ test("both entries load in a bare Node process", async () => {
   assert.equal(result.site, family.FAMILY_SITE);
   assert.ok(result.engines > 0, "the registry knows which members are engines");
   assert.deepEqual(result.chrome, ["function", "function", "function"]);
+  assert.equal(result.switcher, "function", "the standalone switcher is exported");
 });
 
 test("the CSS a consumer imports is exported and shipped", async () => {
