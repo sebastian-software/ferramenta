@@ -8,8 +8,14 @@
     "url": "https://github.com/sebastian-software/ferramenta.git",
     "directory": "packages/ardo-config"
   },
+  "bin": {
+    "ferramenta-readme": "./bin/family-readme.mjs"
+  },
   "files": [
+    "bin",
     "dist",
+    "lib",
+    "src",
     "theme.css",
     "README.md"
   ],
