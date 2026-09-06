@@ -23,16 +23,22 @@ const GROUP_LABELS = {
 };
 
 /**
- * The registry, from the build output when there is one and from the
- * TypeScript source otherwise — so the generator also works in a fresh
- * checkout with no build. Node strips the type annotations (>= 22.18); `dist`
- * keeps older Node working after a `pnpm --filter @ferramenta/ardo-config build`.
+ * Candidates in the order they are tried. `src/family.ts` is the declared
+ * source of truth (ADR-0001) and must win: `dist` is build output, so
+ * preferring it would let `--write` emit and `--check` bless a registry that
+ * is one edit out of date whenever someone changes `family.ts` without
+ * rebuilding first. Node strips the type annotations (>= 22.18); `dist` is the
+ * fallback for older Node, after
+ * `pnpm --filter @ferramenta/ardo-config build`.
  */
-export async function loadRegistry() {
+const REGISTRY_SOURCES = ["../src/family.ts", "../dist/family.js"];
+
+/** The registry. `base` exists so the tests can point at a fixture package. */
+export async function loadRegistry(base = import.meta.url) {
   const errors = [];
-  for (const candidate of ["../dist/family.js", "../src/family.ts"]) {
+  for (const candidate of REGISTRY_SOURCES) {
     try {
-      return await import(new URL(candidate, import.meta.url).href);
+      return await import(new URL(candidate, base).href);
     } catch (error) {
       errors.push(`${candidate}: ${error.message}`);
     }

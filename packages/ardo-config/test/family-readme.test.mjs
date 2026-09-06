@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { test } from "node:test";
+import { pathToFileURL } from "node:url";
 
 import {
   BRANDING_START,
@@ -103,4 +107,71 @@ test("upsert replaces an existing block in place and is idempotent", () => {
 
 test("findBlock reports no block when the markers are missing", () => {
   assert.equal(findBlock("# Tool\n"), null);
+});
+
+test("a change to src/family.ts is picked up without rebuilding dist", async () => {
+  // The regression this guards: preferring the build output meant `--write`
+  // could emit and `--check` could bless a registry one edit out of date.
+  const root = await mkdtemp(join(tmpdir(), "family-registry-"));
+  try {
+    await mkdir(join(root, "src"), { recursive: true });
+    await mkdir(join(root, "dist"), { recursive: true });
+    await mkdir(join(root, "lib"), { recursive: true });
+    await writeFile(
+      join(root, "src", "family.ts"),
+      [
+        'export const FAMILY_SITE = "https://ferramenta.dev";',
+        "export type Tool = { name: string };",
+        'export const family: Tool[] = [{ name: "fresh-from-source" }];',
+        "export function familyGroups() {",
+        "  return { pipeline: family, language: [], workbench: [] };",
+        "}",
+        "",
+      ].join("\n"),
+    );
+    await writeFile(
+      join(root, "dist", "family.js"),
+      [
+        'export const FAMILY_SITE = "https://ferramenta.dev";',
+        'export const family = [{ name: "stale-build-output" }];',
+        "export function familyGroups() {",
+        "  return { pipeline: family, language: [], workbench: [] };",
+        "}",
+        "",
+      ].join("\n"),
+    );
+    const loaded = await loadRegistry(pathToFileURL(join(root, "lib", "family-readme.mjs")).href);
+    assert.deepEqual(
+      loaded.family.map((tool) => tool.name),
+      ["fresh-from-source"],
+    );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("the build output is the fallback when the source cannot be loaded", async () => {
+  const root = await mkdtemp(join(tmpdir(), "family-registry-"));
+  try {
+    await mkdir(join(root, "dist"), { recursive: true });
+    await mkdir(join(root, "lib"), { recursive: true });
+    await writeFile(
+      join(root, "dist", "family.js"),
+      [
+        'export const FAMILY_SITE = "https://ferramenta.dev";',
+        'export const family = [{ name: "from-build-output" }];',
+        "export function familyGroups() {",
+        "  return { pipeline: family, language: [], workbench: [] };",
+        "}",
+        "",
+      ].join("\n"),
+    );
+    const loaded = await loadRegistry(pathToFileURL(join(root, "lib", "family-readme.mjs")).href);
+    assert.deepEqual(
+      loaded.family.map((tool) => tool.name),
+      ["from-build-output"],
+    );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });

@@ -38,6 +38,12 @@ config.push(
     files: ["app/entry.server.tsx"],
     rules: { "max-params": "off" },
   },
+  {
+    // Tests build their fixtures under `mkdtemp`; the rule is about paths that
+    // reach the filesystem from untrusted input, which a temp directory is not.
+    files: ["**/test/**/*.mjs"],
+    rules: { "security/detect-non-literal-fs-filename": "off" },
+  },
 );
 
 export default config;

@@ -79,9 +79,10 @@ Verified from a scratch directory with pnpm 12. Two things to know:
 
 - The `&path:` part is required; without it pnpm installs the site, not the
   package.
-- The generator reads `dist/family.js` when a build exists and falls back to the
-  TypeScript source, which needs **Node >= 22.18** (native type stripping). On an
-  older Node, clone and build instead:
+- The generator reads `src/family.ts` — the declared source of truth, so an
+  edit is picked up without rebuilding — which needs **Node >= 22.18** (native
+  type stripping). `dist/family.js` is the fallback for older Node, and then a
+  build has to come first:
 
   ```sh
   git clone --depth 1 https://github.com/sebastian-software/ferramenta.git
