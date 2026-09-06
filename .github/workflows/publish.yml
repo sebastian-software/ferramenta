@@ -5,7 +5,10 @@
 # The manual path exists for retries only: when the publish job failed after the
 # release was cut, dispatch the workflow with that release's tag. It checks out
 # the tag, never `main`, so a delayed retry cannot publish newer sources under a
-# version that already exists.
+# version that already exists. The tag is not trusted input: it has to look like
+# `ferramenta-v<semver>`, a GitHub Release has to exist for it, and the checked
+# out `packages/family/package.json` has to carry exactly that version — so the
+# dispatch cannot publish an arbitrary tree with the OIDC credential.
 #
 # Publishing uses npm Trusted Publishing (OIDC). It needs `id-token: write` and
 # no NPM_TOKEN. Two owner actions have to happen before the first release:
@@ -89,6 +92,26 @@ jobs:
           FERRAMENTA_NPM_SCOPE_READY to true. See packages/family/README.md."
           exit 1
 
+      - name: Validate the release tag
+        env:
+          # Through the environment, never interpolated into the script: the
+          # dispatch input is operator-supplied text.
+          TAG: ${{ inputs.tag || needs.release-please.outputs.tag_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          case "$TAG" in
+            ferramenta-v[0-9]*.[0-9]*.[0-9]*) ;;
+            *)
+              echo "::error title=Not a release tag::'$TAG' is not of the form ferramenta-v<major>.<minor>.<patch>."
+              exit 1
+              ;;
+          esac
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json tagName > /dev/null; then
+            echo "::error title=No release for this tag::'$TAG' has no GitHub Release. Only a release cut by release-please can be published."
+            exit 1
+          fi
+
       - name: Check out the release tag
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -111,6 +134,18 @@ jobs:
 
       - name: Verify the release candidate
         run: pnpm agent:check
+
+      - name: Check the package version against the tag
+        env:
+          TAG: ${{ inputs.tag || needs.release-please.outputs.tag_name }}
+        run: |
+          set -euo pipefail
+          expected="${TAG#ferramenta-v}"
+          actual="$(node -p "require('./packages/family/package.json').version")"
+          if [ "$expected" != "$actual" ]; then
+            echo "::error title=Tag and package version disagree::'$TAG' expects @ferramenta/family $expected, the checked out tree carries $actual."
+            exit 1
+          fi
 
       - name: Publish with npm provenance
         working-directory: packages/family

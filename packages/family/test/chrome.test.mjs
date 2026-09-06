@@ -4,9 +4,11 @@
  * and no repository-local import path.
  */
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import { register } from "node:module";
 import { test } from "node:test";
+import { promisify } from "node:util";
 
 register("./ardo-ui-loader.mjs", import.meta.url);
 
@@ -77,12 +79,40 @@ test("every family member has a mark, and the sprite stays under 100 (ADR-0002)"
   assert.ok(symbols.length < 100, `the package ships ${symbols.length} icons`);
 });
 
+test("the registry entry loads in a bare Node process", async () => {
+  // The root entry pulls in `SiteHeader` -> `ardo/ui`, which needs a bundler —
+  // hence the stub above. A consumer that only wants the data must not need
+  // one, so this runs in a child process with no loader hooks at all.
+  const script = [
+    'const registry = await import("@ferramenta/family/registry");',
+    "console.log(JSON.stringify({",
+    "  groups: Object.keys(registry.familyGroups()),",
+    "  members: registry.family.length,",
+    "  site: registry.FAMILY_SITE,",
+    "  engines: registry.family.filter((tool) => registry.isEngine(tool)).length,",
+    "}));",
+  ].join("\n");
+  const { stdout } = await promisify(execFile)(
+    process.execPath,
+    ["--input-type=module", "-e", script],
+    {
+      cwd: new URL("../../../", import.meta.url),
+    },
+  );
+  const result = JSON.parse(stdout);
+  assert.deepEqual(result.groups, ["pipeline", "language", "workbench"]);
+  assert.equal(result.members, family.family.length);
+  assert.equal(result.site, family.FAMILY_SITE);
+  assert.ok(result.engines > 0, "the registry knows which members are engines");
+});
+
 test("the CSS a consumer imports is exported and shipped", async () => {
   for (const entry of ["./chrome.css", "./fonts.css", "./theme.css", "./tokens.css"]) {
     const target = manifest.exports[entry];
     assert.equal(typeof target, "string", `missing export: ${entry}`);
     await access(new URL(`../${target}`, import.meta.url));
   }
+  assert.equal(manifest.exports["./registry"].default, "./dist/family.js");
   await access(new URL("../fonts/big-shoulders.woff2", import.meta.url));
   assert.ok(manifest.files.includes("styles") && manifest.files.includes("fonts"));
 });

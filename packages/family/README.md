@@ -75,10 +75,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 | `@ferramenta/family/chrome.css` | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                   |
 
 `chrome.css` needs `tokens.css`: every color, plate and hook value is a token.
-It owns these class names — a site that defines any of them itself should load
-its own stylesheet first: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
+It goes last, after the site's own stylesheet, so a site-wide reset cannot take
+the selector ties from the chrome — which also means it wins those ties. It owns
+these class names: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
 `switcher`, `flyout`, `flygroup`, `ghlink`, `foot`, `foot-gap`, `foot-legal`,
-`mark`, `markplate`, `hook`, `fastener`, `icon`.
+`mark`, `markplate`, `hook`, `fastener`, `icon`. A site that needs one of them
+for its own elements should scope or rename it.
 
 The font file is also exported directly, for a preload link:
 
@@ -91,6 +93,18 @@ import bigShoulders from "@ferramenta/family/fonts/big-shoulders.woff2?url";
 `family`, `familyGroups()`, `FAMILY_SITE` and `isEngine()` come from
 `src/family.ts` — the single source of truth for names, jobs, proofs, versions,
 status, links and grouping (ADR-0001). Read facts from it; never hardcode them.
+
+Two entry points, because the chrome needs a bundler and the registry does not:
+
+```ts
+import { family, familyGroups } from "@ferramenta/family/registry"; // data only
+import { family, SiteHeader } from "@ferramenta/family"; // data plus the chrome
+```
+
+The root entry pulls in `SiteHeader`, which imports `ardo/ui` — a bundler-only
+module (it imports CSS and a `virtual:` config). A Node script, a build step or
+a site that renders its own chrome imports `@ferramenta/family/registry`: same
+data, no React and no Ardo.
 
 ## The README family block
 

@@ -32,6 +32,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./registry": {
+      "types": "./dist/family.d.ts",
+      "default": "./dist/family.js"
+    },
     "./chrome.css": "./styles/chrome.css",
     "./fonts.css": "./styles/fonts.css",
     "./theme.css": "./styles/theme.css",

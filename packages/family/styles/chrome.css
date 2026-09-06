@@ -4,12 +4,15 @@
  * Ported 1:1 from the approved comp (design/comp/entwurf-c.html in the
  * ferramenta repository).
  *
- * Load `tokens.css` first — every color, plate and hook value here is a token.
+ * Load `tokens.css` first — every color, plate and hook value here is a token —
+ * and load this file last, after the site's own stylesheet, so a site-wide
+ * reset cannot take the selector ties from the chrome.
+ *
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
  * `ghlink`, `foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`,
- * `fastener`, `icon`. A site that defines any of them itself should load its
- * own stylesheet after this one.
+ * `fastener`, `icon`. Loading last means this file wins those ties, so a site
+ * that needs one of the names for its own elements should scope or rename it.
  */
 
 .mark path {
