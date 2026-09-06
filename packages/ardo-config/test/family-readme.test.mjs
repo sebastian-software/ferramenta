@@ -211,14 +211,16 @@ test("the registry loads when the package sits under node_modules", async () => 
 });
 
 test("the registry source stays import-free so it loads through a data: URL", async () => {
-  // A `data:` module has no base URL, so a relative import inside family.ts
-  // would break exactly the node_modules case the test above covers.
+  // A `data:` module has no base URL, so anything that resolves another module
+  // — a side-effect import, a re-export, `import()`, `require()` — breaks
+  // exactly the node_modules case the test above covers.
   const source = await readFile(new URL("../src/family.ts", import.meta.url), "utf8");
-  const specifiers = [...source.matchAll(/\bfrom "(?<from>[^"]+)"/gu)];
-  assert.deepEqual(
-    specifiers.map((match) => match.groups.from),
-    [],
-    "src/family.ts must not import anything",
-  );
-  assert.ok(!source.includes("import("), "src/family.ts must not import anything dynamically");
+  const forbidden = [
+    ["a static import", /^[ \t]*import[\s"'({*]/mu],
+    ["a module specifier", /\bfrom[ \t]+["']/u],
+    ["a dynamic import", /\bimport[ \t]*\(/u],
+    ["a require call", /\brequire[ \t]*\(/u],
+  ];
+  const found = forbidden.filter(([, pattern]) => pattern.test(source)).map(([label]) => label);
+  assert.deepEqual(found, [], "src/family.ts must not resolve another module");
 });
