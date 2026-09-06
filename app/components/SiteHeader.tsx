@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
-import { ArdoThemeToggle } from "ardo/ui";
 import { familyGroups } from "@ferramenta/ardo-config";
+import { ArdoThemeToggle } from "ardo/ui";
+import { useEffect, useRef } from "react";
+
 import { Mark } from "./Marks";
 
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
@@ -16,7 +17,8 @@ export function SiteHeader() {
   useEffect(() => {
     function closeOnOutsideClick(event: MouseEvent) {
       const switcher = switcherRef.current;
-      if (switcher?.open && !switcher.contains(event.target as Node)) {
+      const target = event.target;
+      if (switcher?.open && target instanceof Node && !switcher.contains(target)) {
         switcher.removeAttribute("open");
       }
     }

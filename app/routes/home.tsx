@@ -1,12 +1,14 @@
-import { Fragment } from "react";
 import type { MetaFunction } from "react-router";
+
 import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config";
-import registryStats from "../data/registry-stats.json";
-import { Mark, MarkDefs } from "../components/Marks";
-import { SiteHeader } from "../components/SiteHeader";
-import { SiteFooter } from "../components/SiteFooter";
-import softwareLogo from "../assets/logos/sebastian-software.svg";
+import { Fragment } from "react";
+
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
+import softwareLogo from "../assets/logos/sebastian-software.svg";
+import { Mark, MarkDefs } from "../components/Marks";
+import { SiteFooter } from "../components/SiteFooter";
+import { SiteHeader } from "../components/SiteHeader";
+import registryStats from "../data/registry-stats.json";
 
 /** Fully custom shell: disable Ardo's default header/footer for this route. */
 export const handle = { chrome: false };
@@ -49,7 +51,7 @@ type RegistryStat = {
     version: string;
     downloads: number;
     recentDownloads: number;
-    updated: string | null;
+    updated: null | string;
   } | null;
   npm: { version: string; lastMonth: number; placeholder: boolean } | null;
 };
@@ -105,12 +107,12 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       <span className="proof">
         <span className="proof-story">{tool.proof}</span>
         <span className="proof-facts">
-          {tool.compat ? (
+          {tool.compat == null ? null : (
             <span>
               <b>Contract</b>
               {tool.compat}
             </span>
-          ) : null}
+          )}
           <span>
             <b>Evidence</b>
             {tool.evidence}

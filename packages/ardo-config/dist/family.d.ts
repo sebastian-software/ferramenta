@@ -3,8 +3,8 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  */
-export type FamilyStatus = "stable" | "beta" | "alpha" | "early";
-export interface FamilyTool {
+export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
+export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
     name: string;
     /** One-line job description — the subheader under the tool name */
@@ -17,8 +17,10 @@ export interface FamilyTool {
     proof: string;
     /** Compact, verifiable evidence for the family overview */
     evidence: string;
-    /** Fallback version (plain semver). The site prefers the live registry value;
-     *  this only renders when the build could not reach crates.io or npm. */
+    /**
+     * Fallback version (plain semver). The site prefers the live registry value;
+     * This only renders when the build could not reach crates.io or npm.
+     */
     version: string;
     /** Maturity, shown as a stamp next to the version */
     status: FamilyStatus;
@@ -32,7 +34,7 @@ export interface FamilyTool {
     pipeline?: boolean;
     /** Sub-family, e.g. "palamedes" for the i18n/language toolchain */
     subFamily?: string;
-}
+};
 export declare const FAMILY_SITE = "https://ferramenta.dev";
 export declare const family: FamilyTool[];
 /** The three display groups of the overview page, in order. */

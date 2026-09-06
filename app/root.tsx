@@ -1,9 +1,12 @@
-import { ArdoErrorBoundary, ArdoRootLayout, ArdoRoot } from "ardo/ui";
-import config from "virtual:ardo/config";
 import type { LinksFunction, MetaFunction } from "react-router";
+
+import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout } from "ardo/ui";
+import config from "virtual:ardo/config";
+
 import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url";
 import "ardo/ui/styles.css";
 import "@ferramenta/ardo-config/theme.css";
+
 import "./styles/site.css";
 
 export const links: LinksFunction = () => [

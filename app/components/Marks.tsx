@@ -12,12 +12,12 @@ export function MarkDefs() {
   );
 }
 
-interface MarkProps {
+type MarkProps = {
   /** Symbol name without the "i-" prefix, e.g. "ferroni" or "arrow" */
   name: string;
   className?: string;
   size?: number;
-}
+};
 
 /** A single symbol from the sprite. Project marks use class "mark", chrome icons "icon". */
 export function Mark({ name, className = "mark", size }: MarkProps) {

@@ -1,12 +1,12 @@
-import { FAMILY_SITE, family } from "./family.js";
+import { family, FAMILY_SITE } from "./family.js";
 
-export interface FamilyLinksProps {
+export type FamilyLinksProps = {
   /** Name of the tool whose site is rendering this (highlighted, not linked) */
   current?: string;
   /** Label in front of the links (default: "Ferramenta family") */
   label?: string;
   className?: string;
-}
+};
 
 /**
  * Cross-links to every family member plus the family site.
@@ -14,7 +14,7 @@ export interface FamilyLinksProps {
  */
 export function FamilyLinks({ current, label = "Ferramenta family", className }: FamilyLinksProps) {
   return (
-    <nav className={className ? `ferramenta-family ${className}` : "ferramenta-family"}>
+    <nav className={className == null ? "ferramenta-family" : `ferramenta-family ${className}`}>
       <a href={FAMILY_SITE}>{label}</a>
       <span className="ferramenta-family-label">·</span>
       {family.map((tool) => (

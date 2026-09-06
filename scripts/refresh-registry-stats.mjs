@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Fetches published versions and download counts for every family tool and
  * writes app/data/registry-stats.json, which the site bakes in at build time.
@@ -7,11 +6,10 @@
  * the build survives an offline or rate-limited registry, but a successful run
  * always wins. Run via `pnpm stats:refresh` (and nightly in CI).
  */
-import { writeFile, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 
-const here = dirname(fileURLToPath(import.meta.url));
+const here = import.meta.dirname;
 const OUT = join(here, "..", "app", "data", "registry-stats.json");
 const FAMILY = join(here, "..", "packages", "ardo-config", "src", "family.ts");
 const UA = "ferramenta.dev stats refresh (https://github.com/sebastian-software/ferramenta)";
@@ -50,7 +48,8 @@ async function npm(name) {
   return { version, lastMonth: point?.downloads ?? 0, placeholder };
 }
 
-const names = (await readFile(FAMILY, "utf8"))
+const familySource = await readFile(FAMILY, "utf8");
+const names = familySource
   .split("\n")
   .map((line) => line.match(/^\s*name: "([a-z]+)",$/)?.[1])
   .filter(Boolean);
@@ -69,8 +68,8 @@ for (const name of names) {
 }
 
 const payload = {
-  generatedAt: new Date().toISOString().slice(0, 19) + "Z",
+  generatedAt: `${new Date().toISOString().slice(0, 19)}Z`,
   tools,
 };
-await writeFile(OUT, JSON.stringify(payload, null, 2) + "\n");
+await writeFile(OUT, `${JSON.stringify(payload, null, 2)}\n`);
 console.log(`\nwrote ${OUT}`);
