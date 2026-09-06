@@ -1,5 +1,8 @@
 node_modules
 build
+
+# Build output of the workspace package — built by `pnpm build` and in CI
+packages/*/dist
 .DS_Store
 *.local
 

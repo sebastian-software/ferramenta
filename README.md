@@ -61,8 +61,10 @@ pnpm dev      # local dev server
 pnpm build    # static build into build/client
 ```
 
-The release automation decision guide covers Rust, Node, and combined products:
-[One product release with Release Please](docs/release-please-product-releases.md).
+The release model lives in
+[`@sebastian-software/standards`](https://github.com/sebastian-software/standards/tree/main/reference/release-please);
+[docs/release-please-product-releases.md](docs/release-please-product-releases.md)
+is the pointer.
 
 ## License
 

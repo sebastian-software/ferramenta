@@ -22,9 +22,9 @@
   "dependencies": {
     "@ferramenta/ardo-config": "workspace:*",
     "ardo": "^4.1.0",
-    "isbot": "*",
-    "react": "*",
-    "react-dom": "*",
+    "isbot": "^5.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-router": "^8.0.1"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "oxfmt": "^0.66.0",
     "oxlint": "^1.81.0",
     "typescript": "^5.9.3",
-    "vite": "^8.0.0-beta.0"
+    "vite": "^8.1.4"
   },
   "packageManager": "pnpm@11.10.0"
 }
