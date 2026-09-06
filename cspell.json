@@ -1,0 +1,27 @@
+{
+  "version": "0.2",
+  "ignorePaths": [".standards/"],
+  "words": [
+    "ardo",
+    "diffable",
+    "entwurf",
+    "ferralk",
+    "ferramenta",
+    "ferriki",
+    "ferrocat",
+    "ferrolex",
+    "ferromark",
+    "ferroni",
+    "ferrovia",
+    "ferrugo",
+    "forgejo",
+    "lockfile",
+    "oxfmt",
+    "oxlint",
+    "palamedes",
+    "pnpm",
+    "repometa",
+    "unreviewed",
+    "worktrees"
+  ]
+}

@@ -11,8 +11,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    // Build scripts are plain ESM JavaScript; included so the ESLint project
+    // service resolves them, not type-checked (checkJs stays off).
+    "allowJs": true
   },
-  "include": ["app/**/*", "*.ts", "*.config.ts"],
+  "include": ["app/**/*", "scripts/**/*.mjs", "*.ts", "*.config.ts"],
   "exclude": ["node_modules", "build"]
 }

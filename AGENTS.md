@@ -15,26 +15,31 @@ pnpm install        # pnpm 11 workspace
 pnpm dev            # dev server on :5173
 pnpm build          # builds the workspace package (tsc), then the site (prerender to build/client)
 pnpm preview        # serves the production build on :4173
+pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
+pnpm format         # oxfmt --write .   (pnpm format:check in CI)
+pnpm typecheck      # react-router typegen && tsc --noEmit
+pnpm agent:check    # lint + format:check + typecheck + build — run this before pushing
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
 There is no test suite yet; `pnpm build` (TypeScript, prerender, Ardo's link
-check) is the gate. CI deploys `main` to GitHub Pages (`.github/workflows/deploy.yml`).
+check) is the gate. `.github/workflows/ci.yml` runs that gate on every pull
+request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path | Owns |
-| --- | --- |
-| `app/routes/home.tsx` | The single page (custom shell: renders its own header/footer) |
-| `app/components/` | `SiteHeader`, `SiteFooter`, `Marks` (+ `mark-defs.ts`, auto-extracted SVG sprite) |
-| `app/styles/site.css` | The whole visual system, ported from the approved comp |
-| `scripts/refresh-registry-stats.mjs` | Build-time fetch of versions + downloads → `app/data/registry-stats.json` |
-| `packages/ardo-config/` | `@ferramenta/ardo-config` → future `@ferramenta/family`. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
-| `design/comp/` | Approved design comp (`entwurf-c.html`) + icon candidates + fonts |
-| `docs/adr/` | Decision records — **read before changing direction**, they are constraints |
-| `PRODUCT.md` / `DESIGN.md` | Product truth / design system (tokens, materials, module rules) |
-| `THIRD-PARTY-NOTICES.md` | Licensing: Streamline-derived icon SVGs are **not** MIT |
-| `docs/superpowers/specs/` | Historical task-scoped design specs (not ADRs) |
+| Path                                 | Owns                                                                                                                                                                       |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/routes/home.tsx`                | The single page (custom shell: renders its own header/footer)                                                                                                              |
+| `app/components/`                    | `SiteHeader`, `SiteFooter`, `Marks` (+ `mark-defs.ts`, auto-extracted SVG sprite)                                                                                          |
+| `app/styles/site.css`                | The whole visual system, ported from the approved comp                                                                                                                     |
+| `scripts/refresh-registry-stats.mjs` | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                  |
+| `packages/ardo-config/`              | `@ferramenta/ardo-config` → future `@ferramenta/family`. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
+| `design/comp/`                       | Approved design comp (`entwurf-c.html`) + icon candidates + fonts                                                                                                          |
+| `docs/adr/`                          | Decision records — **read before changing direction**, they are constraints                                                                                                |
+| `PRODUCT.md` / `DESIGN.md`           | Product truth / design system (tokens, materials, module rules)                                                                                                            |
+| `THIRD-PARTY-NOTICES.md`             | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                    |
+| `docs/superpowers/specs/`            | Historical task-scoped design specs (not ADRs)                                                                                                                             |
 
 ## Rules
 
@@ -52,8 +57,15 @@ check) is the gate. CI deploys `main` to GitHub Pages (`.github/workflows/deploy
   (padding ≡ 14 mod 28); zero border-radius.
 - Streamline-derived SVGs: keep any repo under 100 icons, keep attribution and
   the ownership carve-out intact (ADR-0002).
-- Code style: match the existing files — double quotes, no semicolons, 2-space
-  indent. Conventional commits; releases via release-please.
+- Code style is whatever `oxfmt` produces — run `pnpm format`, never hand-tune
+  formatting. Conventional commits; releases via release-please.
+- This repository is onboarded to
+  [`@sebastian-software/standards`](https://github.com/sebastian-software/standards)
+  (`.repometa.json`). `.oxfmtrc.json` is **managed**: never hand-edit it, and
+  never add repo-specific ignores there. `eslint.config.ts`, `oxlint.config.ts`,
+  `cspell.json` and `.github/workflows/ci.yml` are seeded — repo-specific
+  overrides on top of them are fine and carry a comment saying why. CI runs
+  `standards check`, so managed drift fails the build.
 - Site content is English. Tool names are lowercase in code and data; uppercase
   is applied by CSS.
 
