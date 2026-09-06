@@ -13,7 +13,8 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build",
+    "test": "node --test \"scripts/**/*.test.mjs\"",
+    "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs"
   },
   "dependencies": {

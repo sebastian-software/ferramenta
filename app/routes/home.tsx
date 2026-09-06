@@ -1,6 +1,6 @@
 import type { MetaFunction } from "react-router";
 
-import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config";
+import { familyGroups, type FamilyTool, isEngine } from "@ferramenta/ardo-config";
 import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
@@ -92,8 +92,14 @@ function Fasteners() {
   );
 }
 
+/**
+ * One ledger row. Engines carry the contract they succeed; applications carry
+ * no contract line — what they promise is the product, and the engines they
+ * are built on are named in the evidence.
+ */
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
   const facts = toolFacts(tool);
+  const engine = isEngine(tool);
   return (
     <a className="row" href={tool.docs ?? tool.repo}>
       <span className="num">{step ?? ""}</span>
@@ -107,12 +113,12 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       <span className="proof">
         <span className="proof-story">{tool.proof}</span>
         <span className="proof-facts">
-          {tool.compat == null ? null : (
+          {engine && tool.compat != null ? (
             <span>
               <b>Contract</b>
               {tool.compat}
             </span>
-          )}
+          ) : null}
           <span>
             <b>Evidence</b>
             {tool.evidence}
@@ -140,7 +146,9 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
               npm
             </span>
           ) : null}
-          {!facts.onCrates && !facts.adapter ? <span className="platform">git only</span> : null}
+          {engine && !facts.onCrates && !facts.adapter ? (
+            <span className="platform">git only</span>
+          ) : null}
         </span>
         <span className={tool.status === "stable" ? "st stable" : "st"}>{tool.status}</span>
       </span>
@@ -277,7 +285,8 @@ export default function HomePage() {
             <h2>The language workshop</h2>
             <p className="intro">
               Spelling and translation, treated as engineering problems: deterministic, diffable,
-              verifiable.
+              verifiable. Two engines, plus the application they carry — palamedes is the i18n
+              toolchain built on this family, and the reason the engines have to hold.
             </p>
             <div className="ledger">
               {language.map((tool) => (
@@ -347,8 +356,8 @@ export default function HomePage() {
                 <ul className="goals">
                   <li>
                     <b>Stable through evidence.</b> Every tool earns stability through evidence
-                    appropriate to its contract — ferroni and ferrocat are stable today; the rest
-                    keep their maturity visible.
+                    appropriate to its contract — ferroni, ferrocat and palamedes are stable today;
+                    the rest keep their maturity visible.
                   </li>
                   <li>
                     <b>Match before outrun.</b> Where there is a predecessor contract, compatibility
