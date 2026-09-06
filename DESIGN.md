@@ -16,19 +16,19 @@ rust as the structural color, zero border-radius, chamfers instead of rounding.
 Defined on `:root`, overridden on `:root.dark` (Ardo's `ArdoRootLayout` theme bootstrap
 sets `.dark` on `<html>`; storage key `ardo-theme`).
 
-| Token | Light | Dark | Role |
-|---|---|---|---|
-| `--bg` | 0.975 0.005 80 | 0.195 0.008 48 | page ground (under brush texture) |
-| `--bg-dim` | 0.945 0.008 78 | 0.23 0.011 48 | hover fills, board ground |
-| `--ink` / `--ink-soft` | 0.21 / 0.42 | 0.94 / 0.71 | text |
-| `--rust` / `--rust-deep` | 0.5 0.132 38 / 0.41 | 0.69 0.14 45 / 0.6 | brand accent, primary action |
-| `--ember` | 0.68 0.175 52 | 0.75 0.16 55 | glow, iron-band headings |
-| `--line` / `--line-heavy` | 0.86 / 0.28 | 0.31 / 0.85 | hairlines / heavy rules |
-| `--iron`, `--iron-2`, `--iron-ink`, `--iron-soft`, `--iron-line` | dark band palette | darker variants | header, beliefs band, footer, flyout |
-| `--duo0…--duo2`, `--duoink` | tint ramp + outline | dark ramp + light outline | duotone marks; dark set also on iron contexts (header/footer lockups, flyout) |
-| `--plate-rim-*`, `--plate-face-*`, `--plate-sheen`, `--plate-brush`, `--plate-shadow` | warm steel | gunmetal | octagon plate material |
-| `--hook-dark`, `--hook-light`, `--hook-hole` | burnished | bright metal | pegboard hooks |
-| `--paper` | 0.985 0.004 85 | (unchanged) | partner-logo carrier plates |
+| Token                                                                                 | Light               | Dark                      | Role                                                                          |
+| ------------------------------------------------------------------------------------- | ------------------- | ------------------------- | ----------------------------------------------------------------------------- |
+| `--bg`                                                                                | 0.975 0.005 80      | 0.195 0.008 48            | page ground (under brush texture)                                             |
+| `--bg-dim`                                                                            | 0.945 0.008 78      | 0.23 0.011 48             | hover fills, board ground                                                     |
+| `--ink` / `--ink-soft`                                                                | 0.21 / 0.42         | 0.94 / 0.71               | text                                                                          |
+| `--rust` / `--rust-deep`                                                              | 0.5 0.132 38 / 0.41 | 0.69 0.14 45 / 0.6        | brand accent, primary action                                                  |
+| `--ember`                                                                             | 0.68 0.175 52       | 0.75 0.16 55              | glow, iron-band headings                                                      |
+| `--line` / `--line-heavy`                                                             | 0.86 / 0.28         | 0.31 / 0.85               | hairlines / heavy rules                                                       |
+| `--iron`, `--iron-2`, `--iron-ink`, `--iron-soft`, `--iron-line`                      | dark band palette   | darker variants           | header, beliefs band, footer, flyout                                          |
+| `--duo0…--duo2`, `--duoink`                                                           | tint ramp + outline | dark ramp + light outline | duotone marks; dark set also on iron contexts (header/footer lockups, flyout) |
+| `--plate-rim-*`, `--plate-face-*`, `--plate-sheen`, `--plate-brush`, `--plate-shadow` | warm steel          | gunmetal                  | octagon plate material                                                        |
+| `--hook-dark`, `--hook-light`, `--hook-hole`                                          | burnished           | bright metal              | pegboard hooks                                                                |
+| `--paper`                                                                             | 0.985 0.004 85      | (unchanged)               | partner-logo carrier plates                                                   |
 
 Rules: rust is structural (rules, stamps, primary action), never a scattered accent.
 Ember is reserved for glow and headings on iron. No grays for secondary text on colored

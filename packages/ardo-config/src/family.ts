@@ -4,39 +4,39 @@
  * cross-linking, consistent descriptions, and the shared header/footer.
  */
 
-export type FamilyStatus = "stable" | "beta" | "alpha" | "early"
+export type FamilyStatus = "stable" | "beta" | "alpha" | "early";
 
 export interface FamilyTool {
   /** Package/repo name, e.g. "ferriki" */
-  name: string
+  name: string;
   /** One-line job description — the subheader under the tool name */
-  job: string
+  job: string;
   /** Terse job label for constrained family navigation surfaces */
-  shortJob: string
+  shortJob: string;
   /** Which established API/contract it stays compatible with */
-  compat?: string
+  compat?: string;
   /** Proof sentence: verifiable facts, no marketing claims */
-  proof: string
+  proof: string;
   /** Compact, verifiable evidence for the family overview */
-  evidence: string
+  evidence: string;
   /** Fallback version (plain semver). The site prefers the live registry value;
    *  this only renders when the build could not reach crates.io or npm. */
-  version: string
+  version: string;
   /** Maturity, shown as a stamp next to the version */
-  status: FamilyStatus
+  status: FamilyStatus;
   /** Registry where the package is published */
-  registry: "crates.io" | "npm"
+  registry: "crates.io" | "npm";
   /** GitHub repository URL */
-  repo: string
+  repo: string;
   /** Docs/homepage site, once it exists */
-  docs?: string
+  docs?: string;
   /** True for the ferroni → ferriki → ferromark content pipeline (array order = chain order) */
-  pipeline?: boolean
+  pipeline?: boolean;
   /** Sub-family, e.g. "palamedes" for the i18n/language toolchain */
-  subFamily?: string
+  subFamily?: string;
 }
 
-export const FAMILY_SITE = "https://ferramenta.dev"
+export const FAMILY_SITE = "https://ferramenta.dev";
 
 export const family: FamilyTool[] = [
   {
@@ -149,12 +149,12 @@ export const family: FamilyTool[] = [
     registry: "crates.io",
     repo: "https://github.com/sebastian-software/ferrugo",
   },
-]
+];
 
 /** The three display groups of the overview page, in order. */
 export function familyGroups() {
-  const pipeline = family.filter((tool) => tool.pipeline)
-  const language = family.filter((tool) => tool.subFamily === "palamedes")
-  const workbench = family.filter((tool) => !tool.pipeline && tool.subFamily !== "palamedes")
-  return { pipeline, language, workbench }
+  const pipeline = family.filter((tool) => tool.pipeline);
+  const language = family.filter((tool) => tool.subFamily === "palamedes");
+  const workbench = family.filter((tool) => !tool.pipeline && tool.subFamily !== "palamedes");
+  return { pipeline, language, workbench };
 }

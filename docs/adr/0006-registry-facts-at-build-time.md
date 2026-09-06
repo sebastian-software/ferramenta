@@ -54,7 +54,7 @@ endpoints.
 
 - Numbers are at most ~24h old; a release is visible the next morning without
   anyone editing the registry.
-- The repository gains one bot commit per day *at most*, and only when a number
+- The repository gains one bot commit per day _at most_, and only when a number
   changed.
 - Evidence strings must not repeat a version — the version is live now, the
   evidence text is not (fixed for ferrocat when this landed).

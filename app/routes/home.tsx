@@ -1,18 +1,18 @@
-import { Fragment } from "react"
-import type { MetaFunction } from "react-router"
-import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config"
-import registryStats from "../data/registry-stats.json"
-import { Mark, MarkDefs } from "../components/Marks"
-import { SiteHeader } from "../components/SiteHeader"
-import { SiteFooter } from "../components/SiteFooter"
-import softwareLogo from "../assets/logos/sebastian-software.svg"
-import consultingLogo from "../assets/logos/sebastian-consulting.svg"
+import { Fragment } from "react";
+import type { MetaFunction } from "react-router";
+import { familyGroups, type FamilyTool } from "@ferramenta/ardo-config";
+import registryStats from "../data/registry-stats.json";
+import { Mark, MarkDefs } from "../components/Marks";
+import { SiteHeader } from "../components/SiteHeader";
+import { SiteFooter } from "../components/SiteFooter";
+import softwareLogo from "../assets/logos/sebastian-software.svg";
+import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 
 /** Fully custom shell: disable Ardo's default header/footer for this route. */
-export const handle = { chrome: false }
+export const handle = { chrome: false };
 
 const description =
-  "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist."
+  "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.";
 
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },
@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => [
   { property: "og:url", content: "https://ferramenta.dev/" },
   { property: "og:image", content: "https://ferramenta.dev/social.png" },
   { name: "twitter:card", content: "summary_large_image" },
-]
+];
 
 const beliefs = [
   {
@@ -42,38 +42,43 @@ const beliefs = [
     heading: "Safe defaults",
     text: "Rust cores without a C toolchain — memory-layout-tuned, SIMD and NEON where it pays. Sanitized output, bounded memory and time: production behavior out of the box.",
   },
-]
+];
 
 type RegistryStat = {
-  crates: { version: string; downloads: number; recentDownloads: number; updated: string | null } | null
-  npm: { version: string; lastMonth: number; placeholder: boolean } | null
-}
+  crates: {
+    version: string;
+    downloads: number;
+    recentDownloads: number;
+    updated: string | null;
+  } | null;
+  npm: { version: string; lastMonth: number; placeholder: boolean } | null;
+};
 
-const stats = registryStats.tools as Record<string, RegistryStat | undefined>
-const formatCount = (value: number) => value.toLocaleString("en-US")
+const stats = registryStats.tools as Record<string, RegistryStat | undefined>;
+const formatCount = (value: number) => value.toLocaleString("en-US");
 
 /**
  * Live registry facts, baked in at build time (scripts/refresh-registry-stats.mjs).
  * The registry entry keeps a fallback version so an offline build still renders.
  */
 function toolFacts(tool: FamilyTool) {
-  const stat = stats[tool.name]
-  const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null
+  const stat = stats[tool.name];
+  const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null;
   return {
     version: stat?.crates?.version ?? adapter?.version ?? tool.version,
     crateDownloads: stat?.crates?.downloads ?? 0,
     onCrates: Boolean(stat?.crates),
     adapter: Boolean(adapter),
-  }
+  };
 }
 
 /** Family-wide crates.io downloads — one honest aggregate, not per-tool bragging. */
 const familyDownloads = Object.values(stats).reduce(
   (total, stat) => total + (stat?.crates?.downloads ?? 0),
   0,
-)
+);
 
-const fastenerPositions = ["tl", "tr", "br", "bl"] as const
+const fastenerPositions = ["tl", "tr", "br", "bl"] as const;
 
 function Fasteners() {
   return (
@@ -82,11 +87,11 @@ function Fasteners() {
         <span key={position} className="fastener" data-position={position} aria-hidden="true" />
       ))}
     </>
-  )
+  );
 }
 
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
-  const facts = toolFacts(tool)
+  const facts = toolFacts(tool);
   return (
     <a className="row" href={tool.docs ?? tool.repo}>
       <span className="num">{step ?? ""}</span>
@@ -139,7 +144,7 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
       </span>
       <Mark name="arrow" className="go icon" size={22} />
     </a>
-  )
+  );
 }
 
 function PipelineAssembly({ tools }: { tools: FamilyTool[] }) {
@@ -176,20 +181,22 @@ function PipelineAssembly({ tools }: { tools: FamilyTool[] }) {
         </span>
       </div>
     </figure>
-  )
+  );
 }
 
 export default function HomePage() {
-  const { pipeline, language, workbench } = familyGroups()
+  const { pipeline, language, workbench } = familyGroups();
   const boardGroups = [
     { label: "Pipeline", tools: pipeline },
     { label: "Language", tools: language },
     { label: "Workbench", tools: workbench },
-  ]
+  ];
 
   return (
     <>
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <MarkDefs />
       <SiteHeader />
       <div className="page-main" id="main">
@@ -201,15 +208,18 @@ export default function HomePage() {
               </h1>
               <p className="lede">
                 Ferramenta — Italian for hardware store — is a family of Rust-native tools built
-                around standards and APIs developers already know. Each project is re-engineered
-                in Rust; where an established predecessor exists, compatibility is checked
+                around standards and APIs developers already know. Each project is re-engineered in
+                Rust; where an established predecessor exists, compatibility is checked
                 differentially and performance is measured in the open.
               </p>
               <div className="cta-row">
                 <a className="btn primary chamfer" href="#pipeline">
                   Browse the tools <Mark name="arrow" className="icon" size={18} />
                 </a>
-                <a className="btn ghost" href="https://github.com/orgs/sebastian-software/repositories?q=ferr">
+                <a
+                  className="btn ghost"
+                  href="https://github.com/orgs/sebastian-software/repositories?q=ferr"
+                >
                   GitHub
                 </a>
               </div>
@@ -248,8 +258,8 @@ export default function HomePage() {
             <h2>The content pipeline</h2>
             <p className="intro">
               Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a
-              Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to
-              end in Rust, with each stage measured against the contract it succeeds.
+              Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end
+              in Rust, with each stage measured against the contract it succeeds.
             </p>
             <PipelineAssembly tools={pipeline} />
             <div className="ledger">
@@ -279,8 +289,8 @@ export default function HomePage() {
           <div className="wrap">
             <h2>On the workbench</h2>
             <p className="intro">
-              Three more tools taking shape — early, cut from the same steel, and explicit
-              about what is proven now and what is still on the bench.
+              Three more tools taking shape — early, cut from the same steel, and explicit about
+              what is proven now and what is still on the bench.
             </p>
             <div className="ledger">
               {workbench.map((tool) => (
@@ -326,8 +336,8 @@ export default function HomePage() {
                 </p>
                 <p>
                   Essential developer tooling is going native — Rust mostly, sometimes Go. Vite,
-                  SWC, OXC and esbuild showed what happens when the tools everything else stands
-                  on stop being slow. That movement isn&rsquo;t ours: we stand on its shoulders.
+                  SWC, OXC and esbuild showed what happens when the tools everything else stands on
+                  stop being slow. That movement isn&rsquo;t ours: we stand on its shoulders.
                   Ferramenta adds the pieces we know best — not mechanical ports, but engines
                   rebuilt the way you&rsquo;d design them for Rust today: memory-layout-conscious,
                   SIMD and NEON where it pays, allocation-free where it counts.
@@ -339,13 +349,13 @@ export default function HomePage() {
                     keep their maturity visible.
                   </li>
                   <li>
-                    <b>Match before outrun.</b> Where there is a predecessor contract,
-                    compatibility comes first and performance claims follow published benchmarks
-                    — never a compatibility asterisk.
+                    <b>Match before outrun.</b> Where there is a predecessor contract, compatibility
+                    comes first and performance claims follow published benchmarks — never a
+                    compatibility asterisk.
                   </li>
                   <li>
-                    <b>One chain, all Rust.</b> Markdown with highlighted code, end to end —
-                    regex, highlighting, rendering — without a C toolchain or a JS runtime.
+                    <b>One chain, all Rust.</b> Markdown with highlighted code, end to end — regex,
+                    highlighting, rendering — without a C toolchain or a JS runtime.
                   </li>
                 </ul>
               </div>
@@ -371,7 +381,10 @@ export default function HomePage() {
                 <a className="btn primary chamfer" href="#pipeline">
                   Compare the tools <Mark name="arrow" className="icon" size={18} />
                 </a>
-                <a className="btn ghost" href="https://github.com/orgs/sebastian-software/repositories?q=ferr">
+                <a
+                  className="btn ghost"
+                  href="https://github.com/orgs/sebastian-software/repositories?q=ferr"
+                >
                   View all source
                 </a>
               </div>
@@ -409,5 +422,5 @@ export default function HomePage() {
       </div>
       <SiteFooter />
     </>
-  )
+  );
 }

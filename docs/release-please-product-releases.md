@@ -11,10 +11,10 @@ order.
 
 ## Pick the repository shape first
 
-| Repository | Release authority | Start with |
-| --- | --- | --- |
-| Rust workspace | A real Cargo package at the repository root | [`rust-product-release-config.json`](../templates/release-please/rust-product-release-config.json) |
-| Node workspace | The root `package.json` | [`node-product-release-config.json`](../templates/release-please/node-product-release-config.json) |
+| Repository                        | Release authority                                    | Start with                                                                                                   |
+| --------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Rust workspace                    | A real Cargo package at the repository root          | [`rust-product-release-config.json`](../templates/release-please/rust-product-release-config.json)           |
+| Node workspace                    | The root `package.json`                              | [`node-product-release-config.json`](../templates/release-please/node-product-release-config.json)           |
 | Rust workspace plus Node packages | The real root Cargo package; Node versions follow it | [`rust-node-product-release-config.json`](../templates/release-please/rust-node-product-release-config.json) |
 
 The root path `.` is deliberate. Release Please considers releasable commits

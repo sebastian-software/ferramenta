@@ -8,25 +8,26 @@ p1_count: 2
 timestamp: 2026-08-14T21-04-27Z
 slug: app-routes-home-tsx
 ---
+
 Method: dual-agent (A: critique_design · B: critique_detector)
 
 # Ferramenta homepage critique — Runde 2 (nach externen Verbesserungen)
 
 ## Design Health Score
 
-| # | Heuristik | Score | Key Issue |
-|---|---|---|---|
-| 1 | Systemstatus | 3 | Anker-Sprung verschluckt Ziel-Überschrift |
-| 2 | Match System/Welt | 4 | Hardware-Metapher lückenlos; „Hunspell oracle" einziges Insider-Wort |
-| 3 | Kontrolle & Freiheit | 3 | „Compare the tools" teleportiert ~4000px, Ziel verdeckt |
-| 4 | Konsistenz & Standards | 3 | Doppelte CTA-Labels, ferrugo-Duplikat, Partner-h2 auf voller Größe |
-| 5 | Fehlerprävention | 2 | scroll-margin-top 0 bei 66px Sticky-Header; externe Ziele unmarkiert |
-| 6 | Wiedererkennen | 4 | Alles gelabelt |
-| 7 | Flexibilität | n/a | Persuade ohne Wiederkehr-Workflow |
-| 8 | Ästhetik & Minimalismus | 3 | 9 Interaktiva im Hero, 7 Datenpunkte je Reihe |
-| 9 | Fehler-Recovery | 3 | Nur die Anker-Falle |
-| 10 | Hilfe & Doku | n/a | Tiefe auf Projektseiten |
-| **Total** | | **25/32** | Good (78%) |
+| #         | Heuristik               | Score     | Key Issue                                                            |
+| --------- | ----------------------- | --------- | -------------------------------------------------------------------- |
+| 1         | Systemstatus            | 3         | Anker-Sprung verschluckt Ziel-Überschrift                            |
+| 2         | Match System/Welt       | 4         | Hardware-Metapher lückenlos; „Hunspell oracle" einziges Insider-Wort |
+| 3         | Kontrolle & Freiheit    | 3         | „Compare the tools" teleportiert ~4000px, Ziel verdeckt              |
+| 4         | Konsistenz & Standards  | 3         | Doppelte CTA-Labels, ferrugo-Duplikat, Partner-h2 auf voller Größe   |
+| 5         | Fehlerprävention        | 2         | scroll-margin-top 0 bei 66px Sticky-Header; externe Ziele unmarkiert |
+| 6         | Wiedererkennen          | 4         | Alles gelabelt                                                       |
+| 7         | Flexibilität            | n/a       | Persuade ohne Wiederkehr-Workflow                                    |
+| 8         | Ästhetik & Minimalismus | 3         | 9 Interaktiva im Hero, 7 Datenpunkte je Reihe                        |
+| 9         | Fehler-Recovery         | 3         | Nur die Anker-Falle                                                  |
+| 10        | Hilfe & Doku            | n/a       | Tiefe auf Projektseiten                                              |
+| **Total** |                         | **25/32** | Good (78%)                                                           |
 
 ## Spezifität
 

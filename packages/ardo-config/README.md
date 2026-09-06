@@ -16,8 +16,8 @@ pnpm add @ferramenta/ardo-config
 In `app/root.tsx`:
 
 ```tsx
-import { FamilyLinks } from "@ferramenta/ardo-config"
-import "@ferramenta/ardo-config/theme.css"
+import { FamilyLinks } from "@ferramenta/ardo-config";
+import "@ferramenta/ardo-config/theme.css";
 
 // inside the Ardo footer (or anywhere in the chrome):
 <ArdoFooter
@@ -25,7 +25,7 @@ import "@ferramenta/ardo-config/theme.css"
   // ...
 >
   <FamilyLinks current="ferriki" />
-</ArdoFooter>
+</ArdoFooter>;
 ```
 
 - `theme.css` applies the family brand (amber/copper) to all Ardo chrome

@@ -41,11 +41,11 @@ on:
       node-version:
         description: Node.js version for the publish job
         type: string
-        default: '24'
+        default: "24"
       smoke-script:
         description: Optional ESM snippet run from the workspace dir after the native build
         type: string
-        default: ''
+        default: ""
       force-publish:
         description: Build and publish even without a new release (backfill a missed publish)
         type: boolean

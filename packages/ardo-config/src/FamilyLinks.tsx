@@ -1,11 +1,11 @@
-import { FAMILY_SITE, family } from "./family.js"
+import { FAMILY_SITE, family } from "./family.js";
 
 export interface FamilyLinksProps {
   /** Name of the tool whose site is rendering this (highlighted, not linked) */
-  current?: string
+  current?: string;
   /** Label in front of the links (default: "Ferramenta family") */
-  label?: string
-  className?: string
+  label?: string;
+  className?: string;
 }
 
 /**
@@ -27,5 +27,5 @@ export function FamilyLinks({ current, label = "Ferramenta family", className }:
         </a>
       ))}
     </nav>
-  )
+  );
 }

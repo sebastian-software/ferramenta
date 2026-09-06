@@ -1,10 +1,10 @@
-import { ArdoErrorBoundary, ArdoRootLayout, ArdoRoot } from "ardo/ui"
-import config from "virtual:ardo/config"
-import type { LinksFunction, MetaFunction } from "react-router"
-import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url"
-import "ardo/ui/styles.css"
-import "@ferramenta/ardo-config/theme.css"
-import "./styles/site.css"
+import { ArdoErrorBoundary, ArdoRootLayout, ArdoRoot } from "ardo/ui";
+import config from "virtual:ardo/config";
+import type { LinksFunction, MetaFunction } from "react-router";
+import bigShouldersFont from "./assets/fonts/big-shoulders.woff2?url";
+import "ardo/ui/styles.css";
+import "@ferramenta/ardo-config/theme.css";
+import "./styles/site.css";
 
 export const links: LinksFunction = () => [
   {
@@ -14,7 +14,7 @@ export const links: LinksFunction = () => [
     type: "font/woff2",
     crossOrigin: "anonymous",
   },
-]
+];
 
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native developer tools" },
@@ -23,13 +23,13 @@ export const meta: MetaFunction = () => [
     content:
       "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.",
   },
-]
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  return <ArdoRootLayout>{children}</ArdoRootLayout>
+  return <ArdoRootLayout>{children}</ArdoRootLayout>;
 }
 
-export const ErrorBoundary = ArdoErrorBoundary
+export const ErrorBoundary = ArdoErrorBoundary;
 
 /*
 THESIS: A hardware store's family site: the tools hang on one pegboard, read like a
@@ -51,5 +51,5 @@ review, the verdict, and DESIGN.md
 */
 export default function Root() {
   // Full custom shell: header and footer are rendered by the home route.
-  return <ArdoRoot config={config} className="ferramenta-site" />
+  return <ArdoRoot config={config} className="ferramenta-site" />;
 }
