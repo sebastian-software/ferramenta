@@ -16,8 +16,9 @@ only in the context of the Ferramenta open-source projects. They may not be
 extracted, redistributed, or reused as standalone assets. Fewer than 100
 Streamline-derived icons are used per project.
 
-The ferralk mark (horseshoe magnet) is our own drawing in the same construction and
-carries no Streamline claim; it is covered by this repository's MIT license.
+The ferralk mark (horseshoe magnet) and the palamedes mark (type slugs in a
+composing stick) are our own drawings in the same construction and carry no
+Streamline claim; they are covered by this repository's MIT license.
 
 ## Big Shoulders (font)
 
