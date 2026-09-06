@@ -1,16 +1,13 @@
 /**
  * Consumer smoke test: renders the shipped chrome the way a sibling site would
- * — from the package's build output, in a bare Ardo-shaped app, with no Vite
+ * — from the package's build output, in a bare Node process, with no bundler
  * and no repository-local import path.
  */
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
-import { register } from "node:module";
 import { test } from "node:test";
 import { promisify } from "node:util";
-
-register("./ardo-ui-loader.mjs", import.meta.url);
 
 const { renderToStaticMarkup } = await import("react-dom/server");
 const { createElement } = await import("react");
@@ -24,11 +21,19 @@ test("the header renders the switcher with every family member", () => {
   assert.match(html, /^<header class="site-header">/u);
   assert.ok(html.includes('<a class="lockup" href="/">'), "the family site links its own root");
   assert.ok(html.includes("Tools"), "the switcher has its summary");
-  assert.ok(html.includes("ardo-theme-toggle"), "Ardo's theme toggle keeps its slot");
   for (const tool of family.family) {
     assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
     assert.ok(html.includes(`href="${tool.docs ?? tool.repo}"`), `missing link: ${tool.name}`);
   }
+});
+
+test("the theme toggle is the site's, rendered into the slot", () => {
+  // The package must not import `ardo/ui`: it is a bundler-only module, and a
+  // git consumer would then install Ardo's whole tree to build this package.
+  const toggle = createElement("button", { className: "ardo-theme-toggle", type: "button" });
+  const html = render(family.SiteHeader, { themeToggle: toggle });
+  assert.ok(html.includes('<button class="ardo-theme-toggle"'), "the slot renders its child");
+  assert.ok(!render(family.SiteHeader).includes("<button"), "and nothing without one");
 });
 
 test("current marks the site's own entry and sends the lockup to the family site", () => {
@@ -79,17 +84,18 @@ test("every family member has a mark, and the sprite stays under 100 (ADR-0002)"
   assert.ok(symbols.length < 100, `the package ships ${symbols.length} icons`);
 });
 
-test("the registry entry loads in a bare Node process", async () => {
-  // The root entry pulls in `SiteHeader` -> `ardo/ui`, which needs a bundler —
-  // hence the stub above. A consumer that only wants the data must not need
-  // one, so this runs in a child process with no loader hooks at all.
+test("both entries load in a bare Node process", async () => {
+  // No bundler, no loader hooks, resolved through the exports map: the case a
+  // git consumer hits before its own build ever runs.
   const script = [
     'const registry = await import("@ferramenta/family/registry");',
+    'const root = await import("@ferramenta/family");',
     "console.log(JSON.stringify({",
     "  groups: Object.keys(registry.familyGroups()),",
     "  members: registry.family.length,",
     "  site: registry.FAMILY_SITE,",
     "  engines: registry.family.filter((tool) => registry.isEngine(tool)).length,",
+    "  chrome: [typeof root.SiteHeader, typeof root.SiteFooter, typeof root.MarkDefs],",
     "}));",
   ].join("\n");
   const { stdout } = await promisify(execFile)(
@@ -104,6 +110,7 @@ test("the registry entry loads in a bare Node process", async () => {
   assert.equal(result.members, family.family.length);
   assert.equal(result.site, family.FAMILY_SITE);
   assert.ok(result.engines > 0, "the registry knows which members are engines");
+  assert.deepEqual(result.chrome, ["function", "function", "function"]);
 });
 
 test("the CSS a consumer imports is exported and shipped", async () => {

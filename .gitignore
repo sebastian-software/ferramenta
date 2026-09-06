@@ -1,8 +1,14 @@
 node_modules
 build
 
-# Build output of the workspace package — built by `pnpm build` and in CI
+# Build output of the workspace packages. `packages/family/dist` is the
+# exception and IS committed: pnpm 12 refuses to run a git-hosted package's
+# `prepare` script unless the consumer allow-lists it by a key that contains the
+# pinned commit SHA, so a built `dist` in Git is what makes
+# `pnpm add "github:sebastian-software/ferramenta#<sha>&path:/packages/family"`
+# work at all (ADR-0007). CI fails when it is stale.
 packages/*/dist
+!packages/family/dist
 .DS_Store
 *.local
 

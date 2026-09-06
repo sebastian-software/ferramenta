@@ -9,6 +9,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "@ferramenta/family";
+import { ArdoThemeToggle } from "ardo/ui";
 import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
@@ -213,7 +214,7 @@ export default function HomePage() {
         Skip to content
       </a>
       <MarkDefs />
-      <SiteHeader />
+      <SiteHeader themeToggle={<ArdoThemeToggle />} />
       <div className="page-main" id="main">
         <div className="hero">
           <div className="wrap">

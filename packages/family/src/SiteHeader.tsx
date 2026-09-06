@@ -1,5 +1,4 @@
-import { ArdoThemeToggle } from "ardo/ui";
-import { type RefObject, useEffect, useRef } from "react";
+import { type ReactNode, type RefObject, useEffect, useRef } from "react";
 
 import { FAMILY_SITE, familyGroups } from "./family.js";
 import { Mark } from "./Mark.js";
@@ -11,6 +10,13 @@ export type SiteHeaderProps = {
    * instead of this site's root. Leave it out on ferramenta.dev itself.
    */
   current?: string;
+  /**
+   * Rendered at the end of the bar, where the family site puts Ardo's
+   * `<ArdoThemeToggle />`. A slot rather than an import: `ardo/ui` only loads
+   * inside a bundler, and the theme switch belongs to the site's framework, not
+   * to the family chrome.
+   */
+  themeToggle?: ReactNode;
 };
 
 /** A `<details>` flyout is not modal: it closes on an outside click and on Escape. */
@@ -40,7 +46,7 @@ function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
 }
 
 /** The family-wide tool switcher, grouped the way the family site groups it. */
-function ToolSwitcher({ current }: SiteHeaderProps) {
+function ToolSwitcher({ current }: { current?: string }) {
   const switcherRef = useRef<HTMLDetailsElement>(null);
   const { pipeline, language, workbench } = familyGroups();
   const flyoutGroups = [
@@ -83,7 +89,7 @@ function ToolSwitcher({ current }: SiteHeaderProps) {
 }
 
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export function SiteHeader({ current }: SiteHeaderProps = {}) {
+export function SiteHeader({ current, themeToggle }: SiteHeaderProps = {}) {
   return (
     <header className="site-header">
       <div className="wrap bar">
@@ -98,7 +104,7 @@ export function SiteHeader({ current }: SiteHeaderProps = {}) {
               <use href="#i-github" />
             </svg>
           </a>
-          <ArdoThemeToggle />
+          {themeToggle}
         </nav>
       </div>
     </header>
