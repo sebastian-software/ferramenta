@@ -7,7 +7,8 @@ The following bundled assets carry their own terms and are **not** covered by th
 
 Most Ferramenta project marks (toolbox, anvil, flame, stamp, corner ruler, drawer
 cabinet, carving chisel, welding helmet — in `app/components/mark-defs.ts`,
-`app/assets/brand/` and `design/comp/`) are derived from icons by
+`app/assets/brand/`, `design/comp/` and `design/archive/icon-candidates/`) are
+derived from icons by
 [Streamline](https://streamlinehq.com) (Duotone and Ultimate sets), adapted in
 color and detail, and used under a Streamline license.
 

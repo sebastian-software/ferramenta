@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "pnpm --filter @ferramenta/ardo-config build && react-router build",
+    "build": "pnpm build:package && react-router build",
+    "build:package": "pnpm --filter @ferramenta/ardo-config build",
+    "prepare": "pnpm build:package",
     "preview": "vite preview",
     "lint": "pnpm lint:oxlint && pnpm lint:eslint",
     "lint:eslint": "eslint . --max-warnings=0",
@@ -22,9 +24,9 @@
   "dependencies": {
     "@ferramenta/ardo-config": "workspace:*",
     "ardo": "^4.1.0",
-    "isbot": "*",
-    "react": "*",
-    "react-dom": "*",
+    "isbot": "^5.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-router": "^8.0.1"
   },
   "devDependencies": {
@@ -37,7 +39,7 @@
     "oxfmt": "^0.66.0",
     "oxlint": "^1.81.0",
     "typescript": "^5.9.3",
-    "vite": "^8.0.0-beta.0"
+    "vite": "^8.1.4"
   },
   "packageManager": "pnpm@11.10.0"
 }
