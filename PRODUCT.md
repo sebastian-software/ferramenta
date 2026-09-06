@@ -25,7 +25,7 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
   - Language: **ferrolex** (spell-checking engine, Hunspell-compatible, v0.2.0, alpha, very active) + **ferrocat** (translation catalog engine: PO/FCL/ICU, v3.4.2, crates.io, most mature)
   - Workbench (solo tools): **ferralk** (byte-first glob matching + parallel filesystem walking, v0.1.2, git-pinned, checked against a frozen zlob reference), **ferrovia** (SVGO-compatible SVG optimizer, 0.1.0, WIP) and **ferrugo** (PDF preview engine, v0.5.0, crates.io) — all early stage, sites deferred.
 - Each project site lives in its own repo under `homepage/`, built on Ardo (in-house React-Router/SSG docs framework, v4.2), deployed to GitHub Pages. URLs: GitHub Pages now, own domains over time (ferramenta.dev and ferrocat.dev already live).
-- This repo holds the family overview site plus the shared package `@ferramenta/family` (rename of `@ferramenta/ardo-config`): design tokens, finished components (header with project switcher, footer, ProjectLogo, family registry), custom logo SVGs, bundled display font.
+- This repo holds the family overview site plus the shared package `@ferramenta/family`: design tokens, finished components (header with the family switcher, footer, project marks, family registry), custom logo SVGs, bundled display font.
 
 ## Capabilities and Constraints
 

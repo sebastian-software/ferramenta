@@ -6,7 +6,7 @@ The following bundled assets carry their own terms and are **not** covered by th
 ## Streamline icons
 
 Most Ferramenta project marks (toolbox, anvil, flame, stamp, corner ruler, drawer
-cabinet, carving chisel, welding helmet — in `app/components/mark-defs.ts`,
+cabinet, carving chisel, welding helmet — in `packages/family/src/mark-defs.ts`,
 `app/assets/brand/`, `design/comp/` and `design/archive/icon-candidates/`) are
 derived from icons by
 [Streamline](https://streamlinehq.com) (Duotone and Ultimate sets), adapted in
@@ -23,7 +23,7 @@ Streamline claim; they are covered by this repository's MIT license.
 
 ## Big Shoulders (font)
 
-`app/assets/fonts/big-shoulders.woff2` is the typeface
+`packages/family/fonts/big-shoulders.woff2` is the typeface
 [Big Shoulders](https://fonts.google.com/specimen/Big+Shoulders), licensed under
 the [SIL Open Font License 1.1](https://openfontlicense.org/).
 
@@ -31,3 +31,7 @@ the [SIL Open Font License 1.1](https://openfontlicense.org/).
 
 `app/assets/logos/` contains the wordmarks of Sebastian Software GmbH and
 Sebastian Consulting; all rights reserved by their owner.
+
+The published package `@ferramenta/family` carries the same terms in its own
+[NOTICE.md](packages/family/NOTICE.md); it ships the marks and the font, not the
+company logos.

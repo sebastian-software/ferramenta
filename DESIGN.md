@@ -1,9 +1,11 @@
 # Ferramenta — Design System
 
-Ground truth: the built site ([app/styles/site.css](app/styles/site.css), components in
-[app/components/](app/components)). Approved comp: [design/comp/entwurf-c.html](design/comp/entwurf-c.html)
-(direction "C · Schmiede", chosen from three intensity drafts). This file describes the system
-as built; extraction into `@ferramenta/family` follows this document.
+Ground truth: the built site ([app/styles/site.css](app/styles/site.css)) and the shared
+chrome it consumes ([packages/family/src/](packages/family/src),
+[packages/family/styles/](packages/family/styles)). Approved comp:
+[design/comp/entwurf-c.html](design/comp/entwurf-c.html) (direction "C · Schmiede", chosen from
+three intensity drafts). This file describes the system as built; the tokens, the chrome and
+the marks ship in `@ferramenta/family`.
 
 ## World in one sentence
 
@@ -36,7 +38,7 @@ surfaces — tinted tokens only.
 
 ## Typography
 
-- **Display**: Big Shoulders (variable, self-hosted `app/assets/fonts/big-shoulders.woff2`,
+- **Display**: Big Shoulders (variable, self-hosted `packages/family/fonts/big-shoulders.woff2`,
   weight 800, uppercase, `line-height 0.98`). All headings, tool names, buttons, board labels.
   H1 `clamp(3.4rem, 9vw, 6rem)`; section H2 `clamp(2.3rem, 4.6vw, 3.4rem)` with a 3px
   `--line-heavy` bottom rule. The 36KB WOFF2 is preloaded from the root route and uses
@@ -85,7 +87,7 @@ padding ≡ 14 (mod 28).
   in-house: a horseshoe magnet for ferralk and type slugs in a composing stick for palamedes).
   Marks for tools that join later are appended to the
   sprite in the same construction: 24 grid, two fills plus a 1px outline, square caps. Sprite:
-  [app/components/mark-defs.ts](app/components/mark-defs.ts), mounted once via `<MarkDefs/>`;
+  [packages/family/src/mark-defs.ts](packages/family/src/mark-defs.ts), mounted once via `<MarkDefs/>`;
   class `mark`. **License**: Streamline property, not MIT — see THIRD-PARTY-NOTICES.md.
 - **Chrome icons** (chevron, arrow, GitHub, hook): line style, 1.5/24, square caps, class `icon`.
 - Marks sit on `.markplate` octagons (clip-path `polygon(27% 0, 73% 0, 100% 27%, …)`);
@@ -126,7 +128,7 @@ padding ≡ 14 (mod 28).
 
 ## Content rules
 
-- The family registry ([packages/ardo-config/src/family.ts](packages/ardo-config/src/family.ts))
+- The family registry ([packages/family/src/family.ts](packages/family/src/family.ts))
   is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
 - Proof column carries only verifiable facts (test counts, parity, benchmarks). No invented
   social proof, stars, or testimonials.

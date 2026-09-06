@@ -1,0 +1,64 @@
+{
+  "name": "@ferramenta/family",
+  "version": "0.1.0",
+  "description": "The Ferramenta family: registry, shared site chrome, project marks, design tokens, and the display font",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebastian-software/ferramenta.git",
+    "directory": "packages/family"
+  },
+  "bin": {
+    "ferramenta-readme": "./bin/family-readme.mjs"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "fonts",
+    "lib",
+    "src",
+    "styles",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./registry": {
+      "types": "./dist/family.d.ts",
+      "default": "./dist/family.js"
+    },
+    "./chrome.css": "./styles/chrome.css",
+    "./fonts.css": "./styles/fonts.css",
+    "./theme.css": "./styles/theme.css",
+    "./tokens.css": "./styles/tokens.css",
+    "./fonts/*": "./fonts/*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.13",
+    "ardo": "^4.2.0",
+    "react-dom": "^19.2.7",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "ardo": ">=4.2.0",
+    "react": ">=19.0.0 <20.0.0"
+  }
+}

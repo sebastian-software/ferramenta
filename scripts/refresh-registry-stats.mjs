@@ -22,7 +22,7 @@ import { classifyOwnership, OURS, UNKNOWN } from "./registry-ownership.mjs";
 
 const here = import.meta.dirname;
 const OUT = join(here, "..", "app", "data", "registry-stats.json");
-const FAMILY = join(here, "..", "packages", "ardo-config", "src", "family.ts");
+const FAMILY = join(here, "..", "packages", "family", "src", "family.ts");
 const UA = "ferramenta.dev stats refresh (https://github.com/sebastian-software/ferramenta)";
 
 /** Marks a lookup the registry did not answer, as opposed to "not published". */

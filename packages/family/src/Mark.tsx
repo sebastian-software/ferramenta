@@ -1,8 +1,11 @@
-import { MARK_DEFS } from "./mark-defs";
+import { MARK_DEFS } from "./mark-defs.js";
 
 /**
  * Mounts the shared SVG sprite once per page: duotone project marks,
  * the pegboard hook, and the line-style chrome icons.
+ *
+ * Render it once, above the header. `Mark` only references symbols; without
+ * `MarkDefs` on the page every mark is empty.
  */
 export function MarkDefs() {
   return (
@@ -12,7 +15,7 @@ export function MarkDefs() {
   );
 }
 
-type MarkProps = {
+export type MarkProps = {
   /** Symbol name without the "i-" prefix, e.g. "ferroni" or "arrow" */
   name: string;
   className?: string;

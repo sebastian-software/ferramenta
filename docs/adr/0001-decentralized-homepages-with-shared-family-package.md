@@ -24,7 +24,7 @@ hosts the family overview site plus the shared workspace package (today
 `@ferramenta/ardo-config`, to be renamed `@ferramenta/family`), which ships
 **finished components** (header with family switcher, footer, project marks)
 plus tokens — not tokens alone. Sites consume it as a versioned npm dependency.
-The family registry (`packages/ardo-config/src/family.ts`) is the single source
+The family registry (`packages/family/src/family.ts`) is the single source
 of truth for tool names, jobs, proofs, versions, status, and links.
 
 Design work precedes extraction: the reference implementation on ferramenta.dev
@@ -96,4 +96,4 @@ prove too costly in practice.
 
 - [PRODUCT.md](../../PRODUCT.md) — product truth including rollout plan
 - [docs/superpowers/specs/2026-07-11-ardo-config-package-design.md](../superpowers/specs/2026-07-11-ardo-config-package-design.md) — earlier package rename decision
-- [packages/ardo-config/src/family.ts](../../packages/ardo-config/src/family.ts) — the registry this ADR declares canonical
+- [packages/family/src/family.ts](../../packages/family/src/family.ts) — the registry this ADR declares canonical
