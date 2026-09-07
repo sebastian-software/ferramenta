@@ -81,7 +81,7 @@ export const family: FamilyTool[] = [
   },
   {
     name: "ferromark",
-    job: "Markdown to HTML — CommonMark & GFM",
+    job: "Markdown to HTML with a secure default and every GFM extension included.",
     shortJob: "markdown",
     compat: "CommonMark / GFM",
     proof:
