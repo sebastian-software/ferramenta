@@ -163,6 +163,21 @@ details.switcher,
   stroke: none;
 }
 
+/*
+ * The chrome's own links take the ink of the band they sit on. Without this a
+ * host page's link color — or, with no rule at all, the browser's default blue
+ * — paints the switcher entries and the footer columns, because an inherited
+ * `color` does not reach an anchor through the UA stylesheet. Named element by
+ * element rather than as `.site-header a`, so whatever a host puts in the
+ * `actions` and `nav` slots keeps its own colors.
+ */
+.site-header .lockup,
+.site-header .ghlink,
+.flyout a,
+.site-footer a {
+  color: inherit;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -243,6 +258,8 @@ details.switcher[open] summary svg.chev {
   right: 0;
   top: calc(100% + 0.85rem);
   background: var(--iron);
+  /* Its own ink: standing alone, the page around it is not the iron band. */
+  color: var(--iron-ink);
   border: 1px solid var(--iron-line);
   border-top: 2px solid var(--rust);
   min-width: 21rem;
@@ -259,6 +276,34 @@ details.switcher[open] summary svg.chev {
 .switcher-start > .flyout {
   right: auto;
   left: 0;
+}
+
+/*
+ * Narrow viewports. The panel is 21rem wide, so hanging it off the trigger runs
+ * it off a phone screen whichever edge it is aligned to; below this width it
+ * spans the viewport instead. This ships with the component on purpose: a site
+ * that renders only `ToolSwitcher` has no other way to reach these rules, and
+ * every consumer would otherwise write them again.
+ *
+ * `position: fixed` with `top: auto` is what makes that possible without
+ * knowing the host: the horizontal edges come from the viewport, while the
+ * vertical position stays the static one — directly under the summary. It
+ * assumes the trigger's bar does not scroll away under an open flyout, which
+ * holds for the sticky and fixed headers this sits in.
+ */
+@media (max-width: 46rem) {
+  .switcher > .flyout {
+    position: fixed;
+    top: auto;
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    min-width: 0;
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    /* Two columns only while both still fit; a phone gets one. */
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
 }
 
 .flyout a {

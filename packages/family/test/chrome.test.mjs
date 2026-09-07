@@ -119,6 +119,18 @@ test("the chrome CSS carries the duotone set outside the header and footer", asy
     css.slice(css.indexOf(".foot-legal")).includes(".foot .foot-legal"),
     "the legal line is still clamped to the 34ch measure `.foot p` sets",
   );
+  // Both ship with the component: a consumer that renders only `ToolSwitcher`
+  // cannot reach them any other way.
+  assert.match(
+    css,
+    /@media \(max-width: 46rem\) \{\n {2}\.switcher > \.flyout \{/u,
+    "the narrow-viewport flyout rules are not in the package",
+  );
+  const flyoutRule = css.indexOf("\n.flyout {");
+  assert.ok(
+    css.slice(flyoutRule, css.indexOf("}", flyoutRule)).includes("color: var(--iron-ink)"),
+    "the flyout takes the host page's ink instead of its own",
+  );
   assert.match(
     css,
     /\n\.site-footer \{\n {2}margin-top:/u,

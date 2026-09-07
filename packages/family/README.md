@@ -210,9 +210,11 @@ export default function Root() {
   from an assumed header height, so a host bar of any height works. It still
   needs `MarkDefs` on the page. Use `align="start"` when the trigger sits near
   the left edge, where the default right-aligned flyout would run off-screen.
-  The flyout has a fixed minimum width; a host that wants it full-bleed on
-  narrow viewports overrides `.flyout` in its own stylesheet, as ferramenta.dev
-  does.
+  Narrow viewports are handled in `chrome.css`: below `46rem` the flyout stops
+  hanging off the trigger and spans the viewport under it, dropping to one
+  column when two no longer fit, so a consumer does not restate those rules. It
+  assumes the trigger's bar does not scroll out from under an open flyout, which
+  holds for the sticky and fixed headers this sits in.
 - **`as="div"`** on `SiteFooter` (and on `SiteHeader`) renders the chrome
   without its landmark element. `ArdoFooter` is already a `<footer>`, so the
   default would nest one inside the other and give the page two `contentinfo`
@@ -228,11 +230,12 @@ own route chunk, which the browser loads _after_ the root stylesheet, so ties
 between `chrome.css` and Ardo on equal specificity go to Ardo. An integration
 override that has to beat an Ardo rule needs one element selector more than the
 rule it replaces — `footer.ardo-footer` rather than `.ardo-footer`. Ardo also
-paints every `<a>` in its brand color, which outranks the color the chrome's
-links inherit from their iron band, so a site that keeps Ardo's stylesheet hands
-them back with `.site-header .lockup, .flyout a, .site-footer a { color:
-inherit }`. Ferroni's and ferrocat's `docs/app/…/site.css` are the worked
-examples.
+paints every `<a>` in its brand color; `chrome.css` already claims its own
+anchors back (the lockup, the GitHub link, the flyout entries and the footer
+columns), but it deliberately leaves the `actions` and `nav` slots alone, so
+whatever a site puts there keeps Ardo's colors — and needs its own rule if it
+wants the iron ink instead. Ferroni's and ferrocat's `docs/app/…/site.css` are
+the worked examples.
 
 ## CSS entry points
 
