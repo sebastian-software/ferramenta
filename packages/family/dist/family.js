@@ -36,7 +36,7 @@ export const family = [
     },
     {
         name: "ferromark",
-        job: "Markdown to HTML — CommonMark & GFM",
+        job: "Markdown to HTML with a secure default and every GFM extension included.",
         shortJob: "markdown",
         compat: "CommonMark / GFM",
         proof: "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
