@@ -16,6 +16,24 @@ const manifest = JSON.parse(await readFile(new URL("../package.json", import.met
 
 const render = (component, props) => renderToStaticMarkup(createElement(component, props));
 
+test("registry evidence carries durable provenance instead of release counts", () => {
+  for (const tool of family.family) {
+    assert.doesNotMatch(
+      tool.evidence,
+      /\d/u,
+      `${tool.name} evidence must not embed a volatile release number`,
+    );
+  }
+  assert.equal(
+    family.family.find((tool) => tool.name === "ferroni")?.evidence,
+    "Oniguruma compatibility oracle",
+  );
+  assert.equal(
+    family.family.find((tool) => tool.name === "ferromark")?.evidence,
+    "CommonMark & GFM conformance",
+  );
+});
+
 test("the header renders the switcher with every family member", () => {
   const html = render(family.SiteHeader);
   assert.match(html, /^<header class="site-header">/u);
