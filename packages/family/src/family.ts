@@ -59,7 +59,7 @@ export const family: FamilyTool[] = [
     compat: "Oniguruma / vscode-oniguruma",
     proof:
       "Oniguruma made TextMate grammars portable across editors. ferroni keeps its behavior in pure Rust, removing the C toolchain from the regex engine.",
-    evidence: "2,083 tests · 100% C parity",
+    evidence: "Oniguruma compatibility oracle",
     version: "1.3.2",
     status: "stable",
     group: "pipeline",
@@ -86,7 +86,7 @@ export const family: FamilyTool[] = [
     compat: "CommonMark / GFM",
     proof:
       "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
-    evidence: "248–268 MiB/s on Apple M1 Pro, September 2026 · 9–11% ahead of pulldown-cmark",
+    evidence: "CommonMark & GFM conformance",
     version: "0.7.0",
     status: "beta",
     group: "pipeline",
