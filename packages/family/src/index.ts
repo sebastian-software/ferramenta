@@ -4,7 +4,7 @@
  * import — so it loads in a bare Node process as well as in a bundler.
  *
  * Registry-only consumers — a Node script, a build step, a site that renders
- * its own chrome — import `@ferramenta/family/registry` instead: the same data
+ * its own chrome — import `ferramenta-family/registry` instead: the same data
  * without React.
  */
 export {

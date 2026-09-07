@@ -11,12 +11,10 @@
 # dispatch cannot publish an arbitrary tree with the OIDC credential.
 #
 # Publishing uses npm Trusted Publishing (OIDC). It needs `id-token: write` and
-# no NPM_TOKEN. Two owner actions have to happen before the first release:
-# create the `@ferramenta` scope on npmjs.com, configure Trusted Publishing for
-# `@ferramenta/family` bound to this repository and this workflow file, then set
-# the repository variable `FERRAMENTA_NPM_SCOPE_READY` to `true`. Until then the
-# publish job stops at its first step with that message instead of failing deep
-# inside npm.
+# no NPM_TOKEN. One owner action has to happen before the first release:
+# configure Trusted Publishing for `ferramenta-family` on npmjs.com, bound to
+# this repository, this workflow file and the `npm-release` environment. Until
+# then npm rejects the publish step.
 
 name: publish
 
@@ -62,7 +60,7 @@ jobs:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
   publish-npm:
-    name: Publish @ferramenta/family
+    name: Publish ferramenta-family
     needs: release-please
     # `!cancelled()` lets the job run when release-please was skipped by the
     # manual path; a plain `needs` would skip it too.
@@ -82,16 +80,6 @@ jobs:
       # credential. No NPM_TOKEN is required or consumed.
       id-token: write
     steps:
-      - name: Require the @ferramenta npm scope
-        if: ${{ vars.FERRAMENTA_NPM_SCOPE_READY != 'true' }}
-        run: |
-          echo "::error title=The @ferramenta npm scope is not ready::\
-          Create the @ferramenta scope on npmjs.com, configure Trusted Publishing \
-          for @ferramenta/family bound to sebastian-software/ferramenta and \
-          .github/workflows/publish.yml, then set the repository variable \
-          FERRAMENTA_NPM_SCOPE_READY to true. See packages/family/README.md."
-          exit 1
-
       - name: Validate the release tag
         env:
           # Through the environment, never interpolated into the script: the
@@ -143,7 +131,7 @@ jobs:
           expected="${TAG#ferramenta-v}"
           actual="$(node -p "require('./packages/family/package.json').version")"
           if [ "$expected" != "$actual" ]; then
-            echo "::error title=Tag and package version disagree::'$TAG' expects @ferramenta/family $expected, the checked out tree carries $actual."
+            echo "::error title=Tag and package version disagree::'$TAG' expects ferramenta-family $expected, the checked out tree carries $actual."
             exit 1
           fi
 

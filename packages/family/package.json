@@ -1,5 +1,5 @@
 {
-  "name": "@ferramenta/family",
+  "name": "ferramenta-family",
   "version": "0.1.0",
   "description": "The Ferramenta family: registry, shared site chrome, project marks, design tokens, and the display font",
   "license": "MIT",

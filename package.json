@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "react-router dev",
     "build": "pnpm build:package && react-router build",
-    "build:package": "pnpm --filter @ferramenta/family build",
+    "build:package": "pnpm --filter ferramenta-family build",
     "prepare": "pnpm build:package",
     "preview": "vite preview",
     "lint": "pnpm lint:oxlint && pnpm lint:eslint",
@@ -23,8 +23,8 @@
     "stats:refresh": "node scripts/refresh-registry-stats.mjs"
   },
   "dependencies": {
-    "@ferramenta/family": "workspace:*",
     "ardo": "^4.2.0",
+    "ferramenta-family": "workspace:*",
     "isbot": "^5.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

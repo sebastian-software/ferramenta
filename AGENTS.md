@@ -19,7 +19,7 @@ pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
 pnpm format         # oxfmt --write .   (pnpm format:check in CI)
 pnpm typecheck      # react-router typegen && tsc --noEmit
 pnpm test           # node --test plus the README family-block contract
-pnpm verify:package # installs @ferramenta/family in a scratch project (npm tarball + tracked files at HEAD)
+pnpm verify:package # installs ferramenta-family in a scratch project (npm tarball + tracked files at HEAD)
 pnpm agent:check    # lint + format:check + typecheck + build + test — run this before pushing
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
@@ -31,26 +31,26 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path                                   | Owns                                                                                                                                                                                                              |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer)                                                                                                                                                     |
-| `app/styles/site.css`                  | The page styles, ported from the approved comp — everything the family site does not share                                                                                                                        |
-| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks`                                                               |
-| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `chrome.css`, `theme.css` — the CSS entry points a consumer imports                                                                                                                    |
-| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                         |
-| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                         |
-| `packages/family/`                     | `@ferramenta/family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
-| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                       |
-| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                            |
-| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                 |
-| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                       |
-| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                   |
-| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                           |
-| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                    |
+| Path                                   | Owns                                                                                                                                                                                                             |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer)                                                                                                                                                    |
+| `app/styles/site.css`                  | The page styles, ported from the approved comp — everything the family site does not share                                                                                                                       |
+| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks`                                                              |
+| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `chrome.css`, `theme.css` — the CSS entry points a consumer imports                                                                                                                   |
+| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                        |
+| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                        |
+| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
+| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                      |
+| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                           |
+| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                |
+| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                      |
+| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                  |
+| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                          |
+| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                   |
 
 ## Rules
 
-- The site consumes `@ferramenta/family` the way a sibling site does: through
+- The site consumes `ferramenta-family` the way a sibling site does: through
   the package name, never a relative path into `packages/family`. What the
   chrome renders changes in the package, not in `app/`.
 - `packages/family/dist` is **committed** (ADR-0007): siblings install the

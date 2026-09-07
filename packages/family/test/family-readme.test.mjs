@@ -181,7 +181,7 @@ test("the registry loads when the package sits under node_modules", async () => 
   // `node_modules`, and that is where every consumer outside this repository
   // installs the package — so the generator has to strip the types itself.
   const root = await mkdtemp(join(tmpdir(), "family-registry-"));
-  const installed = join(root, "node_modules", "@ferramenta", "family");
+  const installed = join(root, "node_modules", "ferramenta-family");
   try {
     await mkdir(join(installed, "src"), { recursive: true });
     await mkdir(join(installed, "lib"), { recursive: true });

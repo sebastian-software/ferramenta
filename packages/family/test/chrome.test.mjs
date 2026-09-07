@@ -182,8 +182,8 @@ test("both entries load in a bare Node process", async () => {
   // No bundler, no loader hooks, resolved through the exports map: the case a
   // git consumer hits before its own build ever runs.
   const script = [
-    'const registry = await import("@ferramenta/family/registry");',
-    'const root = await import("@ferramenta/family");',
+    'const registry = await import("ferramenta-family/registry");',
+    'const root = await import("ferramenta-family");',
     "console.log(JSON.stringify({",
     "  groups: Object.keys(registry.familyGroups()),",
     "  members: registry.family.length,",

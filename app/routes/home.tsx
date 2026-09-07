@@ -1,5 +1,6 @@
 import type { MetaFunction } from "react-router";
 
+import { ArdoThemeToggle } from "ardo/ui";
 import {
   familyGroups,
   type FamilyTool,
@@ -8,8 +9,7 @@ import {
   MarkDefs,
   SiteFooter,
   SiteHeader,
-} from "@ferramenta/family";
-import { ArdoThemeToggle } from "ardo/ui";
+} from "ferramenta-family";
 import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";

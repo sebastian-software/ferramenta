@@ -5,6 +5,8 @@
 - Deciders: Sebastian Werner
 - Amended: 2026-09-06 — membership rule and corrected repository count, see
   [Amendment 2026-09-06](#amendment-2026-09-06)
+- Amended: 2026-09-07 — the package name, see
+  [Amendment 2026-09-07](#amendment-2026-09-07)
 
 ## Context
 
@@ -85,6 +87,18 @@ one the family builds with. Applications succeed a predecessor in the same
 successor register (ADR-0004) but carry no compatibility contract of their own,
 so the overview page renders no `Contract` fact for them and names the engines
 they run on in the evidence instead.
+
+## Amendment 2026-09-07
+
+The package this record calls `@ferramenta/family` is published as
+**`ferramenta-family`**. The `@ferramenta` npm scope is not available, and the
+organization does not namespace its packages, so the name is unscoped; the name
+is reserved on npm. Nothing about the decision changes — one shared package,
+extracted from the reference implementation, consumed by every sibling site. The
+import specifiers move with the name: `ferramenta-family`,
+`ferramenta-family/registry`, `ferramenta-family/chrome.css` and the other CSS
+entry points. The `ferramenta-readme` binary and the `<!-- ferramenta-family -->`
+README markers keep their spelling.
 
 ## Validation and review triggers
 
