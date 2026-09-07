@@ -5,7 +5,7 @@
  *
  * The chrome the site shares with its siblings — header, footer, marks,
  * plates, hooks — plus the tokens and the display face live in
- * @ferramenta/family (styles/chrome.css, styles/tokens.css, styles/fonts.css).
+ * ferramenta-family (styles/chrome.css, styles/tokens.css, styles/fonts.css).
  * root.tsx loads chrome.css last so the chrome keeps winning over the scoped
  * reset below, exactly as it did when both lived in this file.
  */

@@ -96,7 +96,7 @@ function checkConsumer(label, prepare) {
           private: true,
           type: "module",
           dependencies: {
-            "@ferramenta/family": specifier,
+            "ferramenta-family": specifier,
             react: "^19.2.7",
             "react-dom": "^19.2.7",
           },
@@ -111,14 +111,7 @@ function checkConsumer(label, prepare) {
 
     // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
     writeFileSync(join(scratch, "README.md"), "# consumer\n\nA thing.\n");
-    const binary = join(
-      scratch,
-      "node_modules",
-      "@ferramenta",
-      "family",
-      "bin",
-      "family-readme.mjs",
-    );
+    const binary = join(scratch, "node_modules", "ferramenta-family", "bin", "family-readme.mjs");
     run("node", [binary, "--current", "ferralk", "--write", "README.md"], scratch);
     process.stdout.write(
       run("node", [binary, "--current", "ferralk", "--check", "README.md"], scratch),

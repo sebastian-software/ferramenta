@@ -1,11 +1,11 @@
 /**
  * Runs inside the scratch project that `verify-package-consumers.mjs` builds:
- * imports both entry points of the installed `@ferramenta/family` and renders
+ * imports both entry points of the installed `ferramenta-family` and renders
  * the chrome. Plain Node, no bundler — the state a consumer is in right after
  * `pnpm add` and before its own build.
  */
-import { family, SiteFooter, SiteHeader, ToolSwitcher } from "@ferramenta/family";
-import { familyGroups } from "@ferramenta/family/registry";
+import { family, SiteFooter, SiteHeader, ToolSwitcher } from "ferramenta-family";
+import { familyGroups } from "ferramenta-family/registry";
 import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -49,7 +49,7 @@ expect(
 );
 
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own exported stylesheet
-const chrome = readFileSync(new URL(import.meta.resolve("@ferramenta/family/chrome.css")), "utf8");
+const chrome = readFileSync(new URL(import.meta.resolve("ferramenta-family/chrome.css")), "utf8");
 const declaration = chrome.indexOf("--duo0");
 const selectors = chrome.lastIndexOf("}", declaration) + 1;
 expect(

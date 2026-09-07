@@ -32,6 +32,6 @@ the [SIL Open Font License 1.1](https://openfontlicense.org/).
 `app/assets/logos/` contains the wordmarks of Sebastian Software GmbH and
 Sebastian Consulting; all rights reserved by their owner.
 
-The published package `@ferramenta/family` carries the same terms in its own
+The published package `ferramenta-family` carries the same terms in its own
 [NOTICE.md](packages/family/NOTICE.md); it ships the marks and the font, not the
 company logos.

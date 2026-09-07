@@ -5,7 +5,7 @@ chrome it consumes ([packages/family/src/](packages/family/src),
 [packages/family/styles/](packages/family/styles)). Approved comp:
 [design/comp/entwurf-c.html](design/comp/entwurf-c.html) (direction "C · Schmiede", chosen from
 three intensity drafts). This file describes the system as built; the tokens, the chrome and
-the marks ship in `@ferramenta/family`.
+the marks ship in `ferramenta-family`.
 
 ## World in one sentence
 

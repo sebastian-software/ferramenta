@@ -2,6 +2,8 @@
 
 - Status: accepted
 - Date: 2026-09-06
+- Amended: 2026-09-07 — the package name, see
+  [Amendment 2026-09-07](#amendment-2026-09-07)
 
 ## Context
 
@@ -73,6 +75,18 @@ the slot, and every Ardo sibling does the same one-liner.
 - Once `@ferramenta/family` is on npm, consumers move to a version range and
   this record can be revisited: the npm tarball carries `dist` either way, so
   the committed copy is only load-bearing for the Git path.
+
+## Amendment 2026-09-07
+
+The package this record calls `@ferramenta/family` is published as
+**`ferramenta-family`**: the `@ferramenta` npm scope is not available and the
+organization does not namespace its packages. The context above quotes the
+failing imports under the old name; read them as `ferramenta-family` and
+`ferramenta-family/registry`. The decision itself is untouched — `dist` stays
+committed, there is still no `prepare` script, and the Git contract is still a
+pinned commit SHA with `&path:/packages/family`. The last consequence now reads:
+once `ferramenta-family` has an npm release, consumers move to a version range
+and this record can be revisited.
 
 ## References
 

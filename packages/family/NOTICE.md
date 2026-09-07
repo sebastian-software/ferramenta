@@ -1,4 +1,4 @@
-# Third-Party Notices — @ferramenta/family
+# Third-Party Notices — ferramenta-family
 
 The source code of this package is MIT licensed (see the repository
 [LICENSE](https://github.com/sebastian-software/ferramenta/blob/main/LICENSE)).
@@ -27,5 +27,5 @@ Streamline claim; they are covered by the MIT license.
 `fonts/big-shoulders.woff2` is the typeface
 [Big Shoulders](https://fonts.google.com/specimen/Big+Shoulders), licensed under
 the [SIL Open Font License 1.1](https://openfontlicense.org/). Loading
-`@ferramenta/family/fonts.css` is optional; the chrome falls back to the body
+`ferramenta-family/fonts.css` is optional; the chrome falls back to the body
 stack without it.

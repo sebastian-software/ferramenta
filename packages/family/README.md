@@ -1,11 +1,11 @@
-# @ferramenta/family
+# ferramenta-family
 
 The [Ferramenta](https://ferramenta.dev) family in one package: the registry
 every site reads its facts from, the shared chrome (header with the tool
 switcher, footer), the project marks, the design tokens, and the display face.
 
-> **Status:** consumed by ferramenta.dev through `workspace:*`. Not on npm yet —
-> the `@ferramenta` scope has to be created first (see
+> **Status:** consumed by ferramenta.dev through `workspace:*`. The name
+> `ferramenta-family` is reserved on npm, but no release is published yet (see
 > [Publishing](#publishing)). Until then siblings pin a commit SHA from Git.
 
 ## Requirements
@@ -15,13 +15,13 @@ switcher, footer), the project marks, the design tokens, and the display face.
 | React   | `>=19.0.0 <20.0.0` (peer)                                                                                                             |
 | Ardo    | not required — an Ardo site passes `<ArdoThemeToggle />` into the header's `themeToggle` slot (the family sites are on the 4.2 floor) |
 | Node    | >= 22.13 for the `ferramenta-readme` generator; the components have no Node floor of their own                                        |
-| Bundler | for the chrome, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `@ferramenta/family/registry` needs none |
+| Bundler | for the chrome, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `ferramenta-family/registry` needs none  |
 
 ## Install
 
 ```sh
-# Once the @ferramenta scope exists:
-pnpm add @ferramenta/family
+# Once the first release is on npm:
+pnpm add ferramenta-family
 
 # Until then — from Git, pinned to a commit SHA:
 pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family"
@@ -43,7 +43,7 @@ install itself is checked by hand once per pin bump:
 ```sh
 cd "$(mktemp -d)" && echo '{"name":"pin-check","private":true,"type":"module"}' > package.json
 pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" react react-dom
-node -e 'import("@ferramenta/family").then((m) => console.log(typeof m.SiteHeader))'
+node -e 'import("ferramenta-family").then((m) => console.log(typeof m.SiteHeader))'
 ```
 
 Two things to know:
@@ -56,15 +56,15 @@ Two things to know:
 ## The chrome
 
 ```tsx
-import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
+import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
 import { ArdoThemeToggle } from "ardo/ui";
 
-import "@ferramenta/family/tokens.css";
-import "@ferramenta/family/fonts.css";
-import "@ferramenta/family/theme.css";
+import "ferramenta-family/tokens.css";
+import "ferramenta-family/fonts.css";
+import "ferramenta-family/theme.css";
 import "./your-site.css";
 // Last: the chrome has to win the ties a site-wide reset would otherwise take.
-import "@ferramenta/family/chrome.css";
+import "ferramenta-family/chrome.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -125,7 +125,7 @@ outside `ArdoRoot`, in the site's own root component, and Ardo's sidebar rail
 and generated navigation are untouched — that switch does not cover them.
 
 ```tsx
-import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
+import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
 import { ArdoRoot, ArdoSearch, ArdoSidebar, ArdoThemeToggle } from "ardo/ui";
 import config from "virtual:ardo/config";
 
@@ -185,7 +185,7 @@ inside `ArdoHeaderActions`, and the family footer inside `ArdoFooter`. The site
 keeps Ardo's header look; only the switcher and the footer are the family's.
 
 ```tsx
-import { MarkDefs, SiteFooter, ToolSwitcher } from "@ferramenta/family";
+import { MarkDefs, SiteFooter, ToolSwitcher } from "ferramenta-family";
 import { ArdoFooter, ArdoHeaderActions, ArdoRoot } from "ardo/ui";
 
 export default function Root() {
@@ -239,12 +239,12 @@ the worked examples.
 
 ## CSS entry points
 
-| Import                          | What it is                                                                 | Safe to load anywhere?                                  |
-| ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------- |
-| `@ferramenta/family/tokens.css` | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                    |
-| `@ferramenta/family/fonts.css`  | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack |
-| `@ferramenta/family/theme.css`  | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                     |
-| `@ferramenta/family/chrome.css` | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                   |
+| Import                         | What it is                                                                 | Safe to load anywhere?                                  |
+| ------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `ferramenta-family/tokens.css` | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                    |
+| `ferramenta-family/fonts.css`  | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack |
+| `ferramenta-family/theme.css`  | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                     |
+| `ferramenta-family/chrome.css` | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                   |
 
 `chrome.css` needs `tokens.css`: every color, plate and hook value is a token.
 It goes last, after the site's own stylesheet, so a site-wide reset cannot take
@@ -258,7 +258,7 @@ rename it.
 The font file is also exported directly, for a preload link:
 
 ```tsx
-import bigShoulders from "@ferramenta/family/fonts/big-shoulders.woff2?url";
+import bigShoulders from "ferramenta-family/fonts/big-shoulders.woff2?url";
 ```
 
 ## The registry
@@ -270,13 +270,13 @@ status, links and grouping (ADR-0001). Read facts from it; never hardcode them.
 Two entry points, because the chrome needs a bundler and the registry does not:
 
 ```ts
-import { family, familyGroups } from "@ferramenta/family/registry"; // data only
-import { family, SiteHeader } from "@ferramenta/family"; // data plus the chrome
+import { family, familyGroups } from "ferramenta-family/registry"; // data only
+import { family, SiteHeader } from "ferramenta-family"; // data plus the chrome
 ```
 
 The root entry pulls in React, and the chrome it renders wants a bundler for the
 CSS entry points. A Node script, a build step or a site that renders its own
-chrome imports `@ferramenta/family/registry`: same data, no React. Neither entry
+chrome imports `ferramenta-family/registry`: same data, no React. Neither entry
 imports `ardo/ui` — that module only loads inside a bundler, so Ardo reaches the
 chrome through slots (`themeToggle`, `nav`) instead.
 
@@ -313,8 +313,8 @@ ferramenta-readme --current ferrocat --check README.md  # exits 1 on drift
 
 ### Running it from a sibling repository
 
-The `@ferramenta` npm scope does not exist yet, so consume the package straight
-from Git. `pnpm dlx` accepts a ref and a subdirectory:
+The package has no npm release yet, so consume it straight from Git. `pnpm dlx`
+accepts a ref and a subdirectory:
 
 ```sh
 pnpm dlx "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" \
@@ -355,15 +355,15 @@ repository root, `release-type: node`, one product version) and
 `.github/workflows/publish.yml`, which publishes this package with npm Trusted
 Publishing (OIDC) and `--provenance`. No npm token is stored anywhere.
 
-**Owner actions, still open:**
+**Owner action, still open:** configure Trusted Publishing for
+`ferramenta-family` on npmjs.com, bound to `sebastian-software/ferramenta`,
+`.github/workflows/publish.yml` and the `npm-release` environment. Until then
+npm rejects the publish step, so a release cannot half-publish quietly.
 
-1. Create the `@ferramenta` scope on npmjs.com.
-2. Configure Trusted Publishing for `@ferramenta/family`, bound to
-   `sebastian-software/ferramenta` and `.github/workflows/publish.yml`.
-3. Set the repository variable `FERRAMENTA_NPM_SCOPE_READY` to `true`.
-
-Until step 3 the publish job stops at its first step with that message, so a
-release cannot half-publish quietly.
+The package is unscoped because the `@ferramenta` npm scope is not available and
+the organization does not namespace its packages. The name is reserved on npm;
+the `ferramenta-readme` binary and the `<!-- ferramenta-family -->` README
+markers are unaffected by the package name.
 
 ## Licensing
 

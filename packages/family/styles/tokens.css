@@ -1,5 +1,5 @@
 /*
- * @ferramenta/family — design tokens.
+ * ferramenta-family — design tokens.
  *
  * Variables only: nothing here paints, so a sibling site can load the tokens
  * without inheriting the family site's look. Dark mode keys off Ardo's `.dark`

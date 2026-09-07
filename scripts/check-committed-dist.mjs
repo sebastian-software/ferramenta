@@ -1,5 +1,5 @@
 /**
- * Fails when the committed build output of `@ferramenta/family` does not match
+ * Fails when the committed build output of `ferramenta-family` does not match
  * what the sources produce.
  *
  * `packages/family/dist` is committed because git consumers install it as it is
