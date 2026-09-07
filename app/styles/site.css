@@ -661,23 +661,6 @@ section .intro {
   nav.site {
     gap: 0.25rem;
   }
-  details.switcher {
-    position: static;
-  }
-  .flyout {
-    left: 0;
-    right: 0;
-    top: calc(100% + 2px);
-    width: auto;
-    min-width: 0;
-    max-height: calc(100vh - 5rem);
-    overflow-y: auto;
-  }
-}
-@media (max-width: 24rem) {
-  .flyout {
-    grid-template-columns: 1fr;
-  }
 }
 @media (max-width: 22rem) {
   .lockup span {

@@ -10,9 +10,10 @@
  *
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
- * `ghlink`, `foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`,
- * `fastener`, `icon`. Loading last means this file wins those ties, so a site
- * that needs one of the names for its own elements should scope or rename it.
+ * `ghlink`, `switcher-start`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
+ * `mark`, `markplate`, `hook`, `fastener`, `icon`. Loading last means this file
+ * wins those ties, so a site that needs one of the names for its own elements
+ * should scope or rename it.
  */
 
 .mark path {
@@ -113,9 +114,23 @@
   height: 24px;
 }
 
+/*
+ * Duotone marks on iron. The iron material is dark in both themes, so every
+ * mark drawn on it takes the same set whatever the page theme is — which is
+ * why these four are restated here instead of being inherited from
+ * `tokens.css`, where `:root` and `:root.dark` carry the on-paper set a mark
+ * on the page material follows.
+ *
+ * `details.switcher` carries them too, so the switcher is self-contained: a
+ * host site that renders it outside this package's own header still gets its
+ * marks. `.on-iron` is the same context as a bare class, for a host that puts
+ * a `Mark` of its own on an iron surface.
+ */
 .site-header .lockup,
 .site-footer .lockup,
-.flyout {
+details.switcher,
+.flyout,
+.on-iron {
   --duo0: oklch(0.93 0.012 70);
   --duo1: oklch(0.31 0.045 42);
   --duo2: oklch(0.54 0.11 45);
@@ -124,7 +139,8 @@
 
 .site-header,
 .site-footer,
-.flyout {
+.flyout,
+.on-iron {
   --focus: var(--ember);
 }
 
@@ -145,6 +161,21 @@
 .icon .fillbit {
   fill: currentColor;
   stroke: none;
+}
+
+/*
+ * The chrome's own links take the ink of the band they sit on. Without this a
+ * host page's link color — or, with no rule at all, the browser's default blue
+ * — paints the switcher entries and the footer columns, because an inherited
+ * `color` does not reach an anchor through the UA stylesheet. Named element by
+ * element rather than as `.site-header a`, so whatever a host puts in the
+ * `actions` and `nav` slots keeps its own colors.
+ */
+.site-header .lockup,
+.site-header .ghlink,
+.flyout a,
+.site-footer a {
+  color: inherit;
 }
 
 .site-header {
@@ -188,8 +219,17 @@ nav.site {
   gap: 1.25rem;
 }
 
+/*
+ * The flyout is positioned against this box, so this box has to be the trigger:
+ * `inline-block` keeps it shrink-wrapped in a host's block container (as a flex
+ * item it is shrink-to-fit either way), and `align-self` keeps a host bar that
+ * stretches its items from stretching it. The flyout therefore hangs under the
+ * summary at any host header height.
+ */
 details.switcher {
   position: relative;
+  display: inline-block;
+  align-self: center;
 }
 
 details.switcher summary {
@@ -218,6 +258,8 @@ details.switcher[open] summary svg.chev {
   right: 0;
   top: calc(100% + 0.85rem);
   background: var(--iron);
+  /* Its own ink: standing alone, the page around it is not the iron band. */
+  color: var(--iron-ink);
   border: 1px solid var(--iron-line);
   border-top: 2px solid var(--rust);
   min-width: 21rem;
@@ -226,6 +268,42 @@ details.switcher[open] summary svg.chev {
   grid-template-columns: 1fr 1fr;
   gap: 0.125rem;
   box-shadow: 0 18px 44px -16px oklch(0.1 0.01 45 / 0.55);
+  /* Own z-index: standing alone there is no header stacking context around it. */
+  z-index: 60;
+}
+
+/* `<ToolSwitcher align="start" />`: a trigger near the left edge of its host. */
+.switcher-start > .flyout {
+  right: auto;
+  left: 0;
+}
+
+/*
+ * Narrow viewports. The panel is 21rem wide, so hanging it off the trigger runs
+ * it off a phone screen whichever edge it is aligned to; below this width it
+ * spans the viewport instead. This ships with the component on purpose: a site
+ * that renders only `ToolSwitcher` has no other way to reach these rules, and
+ * every consumer would otherwise write them again.
+ *
+ * `position: fixed` with `top: auto` is what makes that possible without
+ * knowing the host: the horizontal edges come from the viewport, while the
+ * vertical position stays the static one — directly under the summary. It
+ * assumes the trigger's bar does not scroll away under an open flyout, which
+ * holds for the sticky and fixed headers this sits in.
+ */
+@media (max-width: 46rem) {
+  .switcher > .flyout {
+    position: fixed;
+    top: auto;
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    min-width: 0;
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    /* Two columns only while both still fit; a phone gets one. */
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
 }
 
 .flyout a {
@@ -278,7 +356,14 @@ details.switcher[open] summary svg.chev {
   min-height: 44px;
 }
 
-footer.site-footer {
+/*
+ * Keyed on the class, not the element: `<SiteFooter as="div" />` renders the
+ * same chrome for a host that already provides the contentinfo landmark. The
+ * margin needs this file loaded last (it is a single class, so a site-wide
+ * reset of equal specificity would otherwise take it) — which is the load
+ * order this package documents anyway.
+ */
+.site-footer {
   margin-top: clamp(3.5rem, 7vw, 5.5rem);
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
@@ -387,4 +472,13 @@ footer.site-footer {
   border-top: 1px solid var(--iron-line);
   color: var(--iron-soft);
   font-size: 0.85rem;
+}
+
+/*
+ * The legal line spans every column, so the 34ch measure `.foot p` sets for the
+ * lockup's paragraph would wrap a long one into a narrow strip. Two classes,
+ * because `.foot p` is one element selector stronger than `.foot-legal` alone.
+ */
+.foot .foot-legal {
+  max-width: none;
 }

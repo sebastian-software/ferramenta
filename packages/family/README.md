@@ -80,24 +80,162 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 - **`MarkDefs`** mounts the SVG sprite once per page. Without it every mark is
   empty: `Mark` only references symbols.
-- **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`. Name the
-  family member this site belongs to and the switcher marks that entry
-  `aria-current="page"`, while the lockup links to ferramenta.dev instead of
-  this site's root; leave it out on the family site itself. `themeToggle` is a
-  slot at the end of the bar: an Ardo site passes `<ArdoThemeToggle />`, a site
-  on something else passes its own control or nothing. The package does not
-  import `ardo/ui` — that module only loads inside a bundler, and the theme
-  switch belongs to the site's framework (ADR-0007).
+- **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`,
+  `actions?: ReactNode`, `nav?: ReactNode`, `as?: "header" | "div"`. Name the
+  family member this site
+  belongs to and the switcher marks that entry `aria-current="page"`, while the
+  lockup links to ferramenta.dev instead of this site's root; leave it out on
+  the family site itself. `themeToggle` is a slot at the end of the bar: an Ardo
+  site passes `<ArdoThemeToggle />`, a site on something else passes its own
+  control or nothing. The package does not import `ardo/ui` — that module only
+  loads inside a bundler, and the theme switch belongs to the site's framework
+  (ADR-0007). `actions` and `nav` are two more slots — the first just before
+  the theme toggle for a docs site's search or section menu, the second between
+  the lockup and the family navigation for a site's own navigation. Both take
+  the site's own elements.
 - **`SiteFooter`** — `current?: string` (de-emphasizes the site's own entry),
-  `line?: "family" | "company"`, `legal?: ReactNode`. `line="company"` drops the
-  family columns and keeps the company links: it is for the tools that share the
-  workshop but not the engines (dalo, agent-bridge — decision D2 of the 2026-09
-  family audit).
+  `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`.
+  `line="company"` drops the family columns and keeps the company links: it is
+  for the tools that share the workshop but not the engines (dalo, agent-bridge
+  — decision D2 of the 2026-09 family audit).
+- **`as`** on either one swaps the landmark element for a `div` with the same
+  classes, for a host that already provides the landmark — see
+  [Ardo docs sites](#ardo-docs-sites).
+- **`ToolSwitcher`** — the switcher on its own, for a site whose framework owns
+  the header. Same section.
 - **`Mark`** — `name` (a symbol without the `i-` prefix, e.g. `ferroni`,
   `arrow`, `chev`), `className` (default `mark`; chrome icons use `icon`),
-  `size`.
+  `size`. On the page material it needs no more than `tokens.css`. On an iron
+  surface of the host's own, put it inside an element with `class="on-iron"`:
+  that carries the four duotone variables the marks read, the same set the
+  header, footer and flyout use in both themes.
 - **`FamilyLinks`** — the one-line variant for a site that keeps its own chrome
   (palamedes, per decision D6): `current`, `label`, `className`.
+
+## Ardo docs sites
+
+There are two ways in, and they differ in how much of the family chrome the
+site ends up wearing.
+
+### The whole chrome, outside `ArdoRoot` (preferred)
+
+Ardo reads `handle = { chrome: false }` from every route match and then renders
+neither its own header nor its own footer. The family header and footer go
+outside `ArdoRoot`, in the site's own root component, and Ardo's sidebar rail
+and generated navigation are untouched — that switch does not cover them.
+
+```tsx
+import { MarkDefs, SiteFooter, SiteHeader } from "@ferramenta/family";
+import { ArdoRoot, ArdoSearch, ArdoSidebar, ArdoThemeToggle } from "ardo/ui";
+import config from "virtual:ardo/config";
+
+/* Read from every route match; no route below may override it. */
+export const handle = { chrome: false };
+
+export default function Root() {
+  return (
+    <>
+      <MarkDefs />
+      <SiteHeader current="ferrocat" actions={<ArdoSearch />} themeToggle={<ArdoThemeToggle />} />
+      {/* The wrapper the site's stylesheet hangs the shell overrides off. */}
+      <div className="docs-shell">
+        <ArdoRoot config={config}>
+          <ArdoSidebar>{/* … */}</ArdoSidebar>
+        </ArdoRoot>
+      </div>
+      <SiteFooter current="ferrocat" legal={<>…</>} />
+    </>
+  );
+}
+```
+
+Two things the site has to add for this to hold together:
+
+- **Hand the scrolling back to the document.** Ardo's docs layout is an
+  application shell: a fixed header, a `100vh` frame that never scrolls, and an
+  inner `<main>` that does. A footer placed below that frame is unreachable. The
+  wrapper class above is the hook for the overrides that fix it — `height: auto`
+  and `overflow: visible` on the frame, `overflow: visible` on `#main-content`,
+  and `position: sticky` with `top: var(--ardo-layout-headerHeight)` on
+  `.ardo-sidebar` and the table of contents, which relied on the inner scroll
+  container. Ardo's layout class names are hashed, so use its stable hooks
+  (`#main-content`, `.ardo-sidebar`) or a direct-child path.
+- **Set `--ardo-layout-headerHeight: 4rem`** on `:root`. Ardo derives its sticky
+  offsets and the table-of-contents height from it, and `.bar` — the family
+  header — is `4rem`. Without it every Ardo measurement is off by the
+  difference.
+
+`ArdoSearch` reads its index from a virtual module and falls back to the default
+labels, so it works outside `ArdoRoot`'s provider. Ferrocat's
+`docs/app/root.tsx` and `docs/app/styles/site.css` are the worked example.
+
+- **`actions`** is the slot for the controls a docs site keeps in the bar —
+  search, a section menu — rendered just before `themeToggle`. **`nav`** is a
+  second slot, between the lockup and the family navigation, for a site's own
+  navigation. Both take the site's own elements; the family chrome styles
+  neither.
+
+### The two pieces that fit inside `ArdoRoot` (fallback)
+
+When a site cannot give up Ardo's own header — its navigation, search and
+sidebar drawer are Ardo's, and `ArdoRoot` matches its chrome slots by component
+identity (`child.type === ArdoHeader`), so anything else passed as a child
+becomes the page _content_ — it takes the two pieces that do fit: the switcher
+inside `ArdoHeaderActions`, and the family footer inside `ArdoFooter`. The site
+keeps Ardo's header look; only the switcher and the footer are the family's.
+
+```tsx
+import { MarkDefs, SiteFooter, ToolSwitcher } from "@ferramenta/family";
+import { ArdoFooter, ArdoHeaderActions, ArdoRoot } from "ardo/ui";
+
+export default function Root() {
+  return (
+    <ArdoRoot>
+      <MarkDefs />
+      <ArdoHeaderActions>
+        <ToolSwitcher current="ferroni" />
+      </ArdoHeaderActions>
+      <ArdoFooter>
+        <SiteFooter as="div" current="ferroni" legal={<>…</>} />
+      </ArdoFooter>
+    </ArdoRoot>
+  );
+}
+```
+
+- **`ToolSwitcher`** — `current?: string`, `label?: ReactNode` (the trigger's
+  text, default `Tools`), `align?: "end" | "start"`, `className?: string`. It is
+  the same component `SiteHeader` renders, and it is self-contained: it carries
+  its own duotone variables, and the flyout hangs from the trigger rather than
+  from an assumed header height, so a host bar of any height works. It still
+  needs `MarkDefs` on the page. Use `align="start"` when the trigger sits near
+  the left edge, where the default right-aligned flyout would run off-screen.
+  Narrow viewports are handled in `chrome.css`: below `46rem` the flyout stops
+  hanging off the trigger and spans the viewport under it, dropping to one
+  column when two no longer fit, so a consumer does not restate those rules. It
+  assumes the trigger's bar does not scroll out from under an open flyout, which
+  holds for the sticky and fixed headers this sits in.
+- **`as="div"`** on `SiteFooter` (and on `SiteHeader`) renders the chrome
+  without its landmark element. `ArdoFooter` is already a `<footer>`, so the
+  default would nest one inside the other and give the page two `contentinfo`
+  landmarks. The CSS is keyed on the `site-footer` / `site-header` classes, not
+  on the element, so nothing else changes.
+
+### CSS load order on an Ardo site
+
+The order in [The chrome](#the-chrome) still holds — `tokens.css`, `fonts.css`,
+`theme.css`, the site's own stylesheet, `chrome.css` last — but on an Ardo site
+"last" does not settle every tie. Ardo re-emits `ardo/ui/styles.css` inside its
+own route chunk, which the browser loads _after_ the root stylesheet, so ties
+between `chrome.css` and Ardo on equal specificity go to Ardo. An integration
+override that has to beat an Ardo rule needs one element selector more than the
+rule it replaces — `footer.ardo-footer` rather than `.ardo-footer`. Ardo also
+paints every `<a>` in its brand color; `chrome.css` already claims its own
+anchors back (the lockup, the GitHub link, the flyout entries and the footer
+columns), but it deliberately leaves the `actions` and `nav` slots alone, so
+whatever a site puts there keeps Ardo's colors — and needs its own rule if it
+wants the iron ink instead. Ferroni's and ferrocat's `docs/app/…/site.css` are
+the worked examples.
 
 ## CSS entry points
 
@@ -112,9 +250,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 It goes last, after the site's own stylesheet, so a site-wide reset cannot take
 the selector ties from the chrome — which also means it wins those ties. It owns
 these class names: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
-`switcher`, `flyout`, `flygroup`, `ghlink`, `foot`, `foot-gap`, `foot-legal`,
-`mark`, `markplate`, `hook`, `fastener`, `icon`. A site that needs one of them
-for its own elements should scope or rename it.
+`switcher`, `switcher-start`, `flyout`, `flygroup`, `ghlink`, `on-iron`,
+`foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`,
+`icon`. A site that needs one of them for its own elements should scope or
+rename it.
 
 The font file is also exported directly, for a preload link:
 
@@ -135,10 +274,11 @@ import { family, familyGroups } from "@ferramenta/family/registry"; // data only
 import { family, SiteHeader } from "@ferramenta/family"; // data plus the chrome
 ```
 
-The root entry pulls in `SiteHeader`, which imports `ardo/ui` — a bundler-only
-module (it imports CSS and a `virtual:` config). A Node script, a build step or
-a site that renders its own chrome imports `@ferramenta/family/registry`: same
-data, no React and no Ardo.
+The root entry pulls in React, and the chrome it renders wants a bundler for the
+CSS entry points. A Node script, a build step or a site that renders its own
+chrome imports `@ferramenta/family/registry`: same data, no React. Neither entry
+imports `ardo/ui` — that module only loads inside a bundler, so Ardo reaches the
+chrome through slots (`themeToggle`, `nav`) instead.
 
 ## The README family block
 

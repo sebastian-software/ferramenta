@@ -22,3 +22,4 @@ export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";
 export { SiteHeader, type SiteHeaderProps } from "./SiteHeader.js";
+export { ToolSwitcher, type ToolSwitcherProps } from "./ToolSwitcher.js";

@@ -15,6 +15,13 @@ export type SiteFooterProps = {
     line?: "company" | "family";
     /** The small print under the columns. */
     legal?: ReactNode;
+    /**
+     * The element to render. `"footer"` (the default) is the contentinfo
+     * landmark. Pass `"div"` when the host already provides one — an Ardo site
+     * rendering this inside `<ArdoFooter>` — so the page does not end up with
+     * two. The classes, and therefore the styling, are the same either way.
+     */
+    as?: "div" | "footer";
 };
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
-export declare function SiteFooter({ current, legal, line, }?: SiteFooterProps): import("react").JSX.Element;
+export declare function SiteFooter({ as, current, legal, line, }?: SiteFooterProps): import("react").JSX.Element;

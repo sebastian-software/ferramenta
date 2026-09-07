@@ -13,3 +13,4 @@ export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs } from "./Mark.js";
 export { SiteFooter } from "./SiteFooter.js";
 export { SiteHeader } from "./SiteHeader.js";
+export { ToolSwitcher } from "./ToolSwitcher.js";
