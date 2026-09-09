@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-20
-- Amended: 2026-09-09 — protected-branch delivery, see
+- Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
 
 ## Context
@@ -74,15 +74,22 @@ fetch step.
 The direct push described above stopped working after `main` gained a required
 `check` status: the scheduled workflow could create its commit, but branch
 protection rejected the push. A workflow-created push would also not start the
-Pages deployment, because events made with `GITHUB_TOKEN` do not recursively
-start other workflows.
+Pages deployment, because push events made with `GITHUB_TOKEN` do not start
+other workflows.
 
 The nightly job now writes a changed snapshot to the dedicated
 `automation/refresh-registry-stats` branch and opens or updates one pull request.
-It verifies that the pull request points at the exact pushed commit, then
-explicitly dispatches the required CI workflow for that branch. The pull request
-uses the repository's normal review and merge path; merging it into `main`
-starts the existing Pages deployment.
+It verifies that the pull request points at the exact pushed commit. GitHub puts
+the pull request CI run in an approval-required state because the workflow uses
+`GITHUB_TOKEN` to open or update the pull request. This applies to the
+`opened`, `synchronize`, and `reopened` pull request events.
+
+A maintainer reviews the generated change and confirms that it contains only
+the expected registry stats snapshot, approves the held CI run, waits for the
+required `check` to pass, and then reviews and merges the pull request. Merging
+it into `main` starts the existing Pages deployment. The process does not
+auto-approve or auto-merge the change and does not use a separate token to
+bypass GitHub's approval requirement.
 
 The original consequence that numbers are at most about 24 hours old is
 superseded. Registry checks still run daily, but publication also waits for the
@@ -92,4 +99,5 @@ generated pull request to pass CI and be reviewed and merged.
 
 - [scripts/refresh-registry-stats.mjs](../../scripts/refresh-registry-stats.mjs)
 - [.github/workflows/refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
+- [GitHub Actions: `GITHUB_TOKEN` security](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs)
 - [ADR-0004](0004-successor-copy-register.md) — only verifiable claims
