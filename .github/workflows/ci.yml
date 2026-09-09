@@ -4,6 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  # The stats updater creates its PR with GITHUB_TOKEN, which does not emit a
+  # pull_request workflow run. It dispatches this fixed workflow explicitly.
+  workflow_dispatch:
 
 jobs:
   check:
