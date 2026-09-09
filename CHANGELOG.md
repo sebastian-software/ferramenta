@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.0...ferramenta-v1.0.1) (2026-09-07)
+
+
+### Bug Fixes
+
+* **family:** align ferromark registry tagline ([6cd0e90](https://github.com/sebastian-software/ferramenta/commit/6cd0e90d81a41cfc5f693473a648a7f22e084ed4))
+* **family:** keep registry evidence release-stable ([#37](https://github.com/sebastian-software/ferramenta/issues/37)) ([e587388](https://github.com/sebastian-software/ferramenta/commit/e587388c4e61a11fe3c71180a91a55662370358d))
+
 ## [1.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v0.1.0...ferramenta-v1.0.0) (2026-09-07)
 
 

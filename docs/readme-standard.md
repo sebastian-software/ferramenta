@@ -106,12 +106,14 @@ before that separator as well:
 
 ```md
 <!-- ferramenta-family:start -->
+
 …generated content…
 <!-- ferramenta-family:end -->
 
 ---
 
 <!-- sebastian-software-branding:start -->
+
 …standards-owned footer…
 <!-- sebastian-software-branding:end -->
 ```
