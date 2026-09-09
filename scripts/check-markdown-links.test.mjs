@@ -66,3 +66,38 @@ test("ignores Markdown links inside code fences", async () => {
     await rm(root, { force: true, recursive: true });
   }
 });
+
+test("splits raw delimiters before decoding and checks reference links", async () => {
+  const root = await fixture();
+  try {
+    await writeFile(join(root, "docs", "hash#name.md"), "# Hash\n");
+    await writeFile(join(root, "docs", "query?name.md"), "# Query\n");
+    await writeFile(
+      join(root, "README.md"),
+      "[Hash](docs/hash%23name.md) [Query](docs/query%3Fname.md) [Missing hash](docs/missing%23name.md) [Missing query](docs/missing%3Fname.md)\n\n[Guide][guide] [Missing][missing]\n\n[guide]: docs/guide.md\n[missing]: docs/nope.md\n",
+    );
+    assert.deepEqual(checkMarkdownLinks(root), [
+      "README.md: docs/missing%23name.md does not resolve to docs/missing#name.md",
+      "README.md: docs/missing%3Fname.md does not resolve to docs/missing?name.md",
+      "README.md: docs/nope.md does not resolve to docs/nope.md",
+    ]);
+  } finally {
+    await rm(root, { force: true, recursive: true });
+  }
+});
+
+test("checks destinations containing balanced parentheses", async () => {
+  const root = await fixture();
+  try {
+    await writeFile(join(root, "docs", "setup(legacy).md"), "# Legacy setup\n");
+    await writeFile(
+      join(root, "README.md"),
+      "[Existing](docs/setup(legacy).md) [Missing](docs/missing(legacy).md)\n",
+    );
+    assert.deepEqual(checkMarkdownLinks(root), [
+      "README.md: docs/missing(legacy).md does not resolve to docs/missing(legacy).md",
+    ]);
+  } finally {
+    await rm(root, { force: true, recursive: true });
+  }
+});

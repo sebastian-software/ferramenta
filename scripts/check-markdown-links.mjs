@@ -43,14 +43,68 @@ function withoutCode(source) {
     .join("\n");
 }
 
+function skipWhitespace(markdown, start) {
+  let cursor = start;
+  while (/\s/u.test(markdown[cursor] ?? "")) cursor++;
+  return cursor;
+}
+
+function angleDestination(markdown, start) {
+  const end = markdown.indexOf(">", start + 1);
+  return end === -1 ? null : { end, link: markdown.slice(start + 1, end) };
+}
+
+function destinationStep(character, parentheses) {
+  if (character === "\\") return { advance: 2, parentheses, stop: false };
+  if (character === "(") return { advance: 1, parentheses: parentheses + 1, stop: false };
+  if (character === ")" && parentheses > 0)
+    return { advance: 1, parentheses: parentheses - 1, stop: false };
+  if (character === ")" || (/\s/u.test(character) && parentheses === 0))
+    return { advance: 0, parentheses, stop: true };
+  return { advance: 1, parentheses, stop: false };
+}
+
+function balancedDestination(markdown, start) {
+  const destinationStart = start;
+  let cursor = start;
+  let parentheses = 0;
+  while (cursor < markdown.length) {
+    const step = destinationStep(markdown[cursor], parentheses);
+    if (step.stop) return { end: cursor, link: markdown.slice(destinationStart, cursor) };
+    cursor += step.advance;
+    parentheses = step.parentheses;
+  }
+  return null;
+}
+
+function destinationAt(markdown, start) {
+  const cursor = skipWhitespace(markdown, start);
+  return markdown[cursor] === "<"
+    ? angleDestination(markdown, cursor)
+    : balancedDestination(markdown, cursor);
+}
+
+function inlineLinks(markdown) {
+  const links = [];
+  let cursor = 0;
+  while (cursor < markdown.length) {
+    const marker = markdown.indexOf("](", cursor);
+    if (marker === -1) break;
+    const destination = destinationAt(markdown, marker + 2);
+    if (destination) {
+      links.push(destination.link);
+      cursor = destination.end + 1;
+    } else {
+      cursor = marker + 2;
+    }
+  }
+  return links;
+}
+
 function linksIn(source) {
   const links = [];
   const markdown = withoutCode(source);
-  // Markdown destinations permit optional titles and angle brackets; this
-  // bounded scan intentionally does not attempt to implement the full grammar.
-  // eslint-disable-next-line security/detect-unsafe-regex, regexp/no-super-linear-move -- The input is repository Markdown and the scan is bounded by link delimiters.
-  const inline = /\[[^\]]+\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+["'][^)]*["'])?\s*\)/gu;
-  for (const match of markdown.matchAll(inline)) links.push(match[1] ?? match[2]);
+  links.push(...inlineLinks(markdown));
 
   const definitions = /^\s{0,3}\[[^\]]+\]:\s*(?:<([^>]+)>|(\S+))/gmu;
   for (const match of markdown.matchAll(definitions)) links.push(match[1] ?? match[2]);
@@ -67,12 +121,11 @@ function decode(value, sourcePath) {
 
 function localTarget(link, sourcePath, repoRoot) {
   if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/iu.test(link)) return null;
-  const decoded = decode(link, sourcePath);
-  const hash = decoded.indexOf("#");
-  const query = decoded.indexOf("?");
+  const hash = link.indexOf("#");
+  const query = link.indexOf("?");
   const pathEnd =
-    [hash, query].filter((index) => index !== -1).sort((a, b) => a - b)[0] ?? decoded.length;
-  const pathPart = decoded.slice(0, pathEnd);
+    [hash, query].filter((index) => index !== -1).sort((a, b) => a - b)[0] ?? link.length;
+  const pathPart = decode(link.slice(0, pathEnd), sourcePath);
   if (pathPart === "") return null;
   const target = pathPart.startsWith("/")
     ? resolve(repoRoot, `.${pathPart}`)
