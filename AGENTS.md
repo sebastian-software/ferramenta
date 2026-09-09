@@ -85,6 +85,9 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   `cspell.json` and `.github/workflows/ci.yml` are seeded — repo-specific
   overrides on top of them are fine and carry a comment saying why. CI runs
   `standards check`, so managed drift fails the build.
+- Use US English for code, comments, commits, documentation, and site copy.
+  German design proper names and historical German working artifacts are
+  intentional exceptions; see [design/comp/README.md](design/comp/README.md).
 - Site content is English. Tool names are lowercase in code and data; uppercase
   is applied by CSS.
 
