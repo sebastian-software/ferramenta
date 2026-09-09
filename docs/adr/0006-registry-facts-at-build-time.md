@@ -2,6 +2,8 @@
 
 - Status: accepted
 - Date: 2026-08-20
+- Amended: 2026-09-09 — protected-branch delivery, see
+  [Amendment 2026-09-09](#amendment-2026-09-09)
 
 ## Context
 
@@ -66,6 +68,25 @@ endpoints.
 Revisit if the nightly commits become noise, if crates.io rate limits the job,
 or when the first sibling site consumes the shared package and needs its own
 fetch step.
+
+## Amendment 2026-09-09
+
+The direct push described above stopped working after `main` gained a required
+`check` status: the scheduled workflow could create its commit, but branch
+protection rejected the push. A workflow-created push would also not start the
+Pages deployment, because events made with `GITHUB_TOKEN` do not recursively
+start other workflows.
+
+The nightly job now writes a changed snapshot to the dedicated
+`automation/refresh-registry-stats` branch and opens or updates one pull request.
+It verifies that the pull request points at the exact pushed commit, then
+explicitly dispatches the required CI workflow for that branch. The pull request
+uses the repository's normal review and merge path; merging it into `main`
+starts the existing Pages deployment.
+
+The original consequence that numbers are at most about 24 hours old is
+superseded. Registry checks still run daily, but publication also waits for the
+generated pull request to pass CI and be reviewed and merged.
 
 ## References
 
