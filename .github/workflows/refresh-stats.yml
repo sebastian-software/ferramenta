@@ -1,8 +1,9 @@
 # Keeps the versions and download counts on ferramenta.dev current.
 #
 # The site is static, so registry facts are baked in at build time. This job
-# refreshes them once a day and commits only when something actually moved —
-# that push then triggers the normal Pages deploy.
+# refreshes them once a day and opens one reviewable pull request when something
+# moved. The required CI workflow is dispatched explicitly because events made
+# with GITHUB_TOKEN do not recursively start workflows.
 name: Refresh registry stats
 
 on:
@@ -11,7 +12,9 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
+  pull-requests: write
 
 concurrency:
   group: "refresh-stats"
@@ -23,6 +26,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          # Manual dispatches must refresh the reviewed default branch, never
+          # carry arbitrary content from the ref selected in the UI.
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -32,14 +39,70 @@ jobs:
       - name: Fetch versions and download counts
         run: node scripts/refresh-registry-stats.mjs
 
-      - name: Commit when the numbers moved
+      - name: Open or update the registry stats pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if git diff --quiet -- app/data/registry-stats.json; then
             echo "Registry facts unchanged — nothing to deploy."
             exit 0
           fi
+
+          changed=$(git diff --name-only)
+          if [ "$changed" != "app/data/registry-stats.json" ]; then
+            echo "Refusing to publish unexpected files:" >&2
+            echo "$changed" >&2
+            exit 1
+          fi
+
+          branch="automation/refresh-registry-stats"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --create "$branch"
           git add app/data/registry-stats.json
           git commit -m "chore(stats): refresh registry versions and downloads"
-          git push
+
+          # This branch belongs only to this workflow. Resolve its exact remote
+          # value so force-with-lease rejects a concurrent update rather than
+          # overwriting it. Exit 2 means the branch does not exist yet; every
+          # other lookup failure is real and stops the run.
+          set +e
+          remote=$(git ls-remote --exit-code --heads origin "refs/heads/$branch")
+          status=$?
+          set -e
+          case "$status" in
+            0)
+              remote_sha=${remote%%[[:space:]]*}
+              git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
+              fetched_sha=$(git rev-parse "refs/remotes/origin/$branch")
+              test "$fetched_sha" = "$remote_sha"
+              lease="--force-with-lease=refs/heads/$branch:$remote_sha"
+              ;;
+            2)
+              lease="--force-with-lease=refs/heads/$branch:"
+              ;;
+            *)
+              echo "Could not resolve the remote stats branch" >&2
+              exit "$status"
+              ;;
+          esac
+          git push "$lease" origin "HEAD:refs/heads/$branch"
+
+          pr=$(gh pr list --state open --head "$branch" --json number --jq '.[0].number')
+          if [ -z "$pr" ]; then
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "chore(stats): refresh registry versions and downloads" \
+              --body "Automated daily refresh of the committed registry versions and download counts."
+            pr=$(gh pr list --state open --head "$branch" --json number --jq '.[0].number')
+          fi
+
+          head=$(git rev-parse HEAD)
+          pr_head=$(gh pr view "$pr" --json headRefOid --jq .headRefOid)
+          if [ "$head" != "$pr_head" ]; then
+            echo "Pull request head $pr_head does not match pushed commit $head" >&2
+            exit 1
+          fi
+
+          gh workflow run ci.yml --ref "$branch"
