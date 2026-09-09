@@ -54,6 +54,8 @@ in [design/comp/](design/comp/). Icon and font assets carry their own terms — 
 Working on this repo (human or agent)? Start with [AGENTS.md](AGENTS.md); durable
 decisions and their rationale live in [docs/adr/](docs/adr/README.md), the design system
 in [DESIGN.md](DESIGN.md), and product truth in [PRODUCT.md](PRODUCT.md).
+README structure and the generated family block follow
+[docs/readme-standard.md](docs/readme-standard.md).
 
 ```sh
 pnpm install

@@ -132,7 +132,9 @@ padding ≡ 14 (mod 28).
   is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
 - Proof column carries only verifiable facts (test counts, parity, benchmarks). No invented
   social proof, stars, or testimonials.
-- Tool names always lowercase in code/data; uppercase is applied by CSS.
+- Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes); code,
+  data, URLs, package names, and crate names stay lowercase. CSS applies
+  uppercase where the visual styling calls for it.
 
 ## Ardo integration notes
 
