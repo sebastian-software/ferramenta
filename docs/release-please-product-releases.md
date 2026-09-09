@@ -14,6 +14,7 @@ guide that used to live here linked to templates in `docs/templates/` that this
 repository never had, so it pointed at nothing while claiming to be the source
 of truth.
 
-The reusable workflows under `.github/workflows/` stay for now — ferroni still
-consumes one. They are retired once the standards release composites land
-([standards#64](https://github.com/sebastian-software/standards/issues/64)).
+The former reusable workflows under `.github/workflows/` were retired after
+ferroni moved to its own `publish.yml`; no repository currently consumes them.
+New release workflows follow the standards release model as its templates and
+composites evolve ([standards#64](https://github.com/sebastian-software/standards/issues/64)).

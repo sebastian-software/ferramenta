@@ -15,9 +15,10 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "typecheck": "react-router typegen && tsc --noEmit",
+    "check:markdown-links": "node scripts/check-markdown-links.mjs",
     "readme:check": "node packages/family/bin/family-readme.mjs --check README.md",
     "readme:write": "node packages/family/bin/family-readme.mjs --write README.md",
-    "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check",
+    "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check && pnpm check:markdown-links",
     "verify:package": "node scripts/verify-package-consumers.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs"
