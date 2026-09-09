@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T06:50:59Z",
+  "generatedAt": "2026-09-09T08:59:16Z",
   "tools": {
     "ferroni": {
       "crates": {
@@ -47,7 +47,7 @@
     "palamedes": {
       "crates": null,
       "npm": {
-        "version": "1.24.0",
+        "version": "1.25.0",
         "lastMonth": 2795,
         "placeholder": true
       }
