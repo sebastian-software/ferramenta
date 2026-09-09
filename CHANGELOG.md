@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.1...ferramenta-v1.0.2) (2026-09-09)
+
+
+### Bug Fixes
+
+* **stats:** refresh through protected pull requests ([#41](https://github.com/sebastian-software/ferramenta/issues/41)) ([35a8a06](https://github.com/sebastian-software/ferramenta/commit/35a8a06565c2c3b6acdf38393fcdcba5ec7a5e7b))
+* **stats:** use reviewed pull request CI ([#47](https://github.com/sebastian-software/ferramenta/issues/47)) ([f2bf606](https://github.com/sebastian-software/ferramenta/commit/f2bf606e70d00dba3cffa819d6a4e9565dfe02ae))
+
 ## [1.0.1](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.0...ferramenta-v1.0.1) (2026-09-07)
 
 
