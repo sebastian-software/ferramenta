@@ -23,10 +23,11 @@ pnpm install
 node -p "require('./package.json').packageManager"
 ```
 
-Before pushing, run the same repository checks used by CI:
+Before pushing, run the repository validation commands:
 
 ```sh
 pnpm agent:check
+node scripts/check-committed-dist.mjs
 pnpm verify:package
 pnpm exec standards check
 ```
@@ -34,7 +35,8 @@ pnpm exec standards check
 `pnpm agent:check` covers lint, formatting, typechecking, the site build and
 tests. `pnpm verify:package` checks both the packed npm package and the files a
 Git consumer receives. `standards check` guards the repository's standards
-stamp and managed files.
+stamp and managed files. [CI](.github/workflows/ci.yml) also runs the
+committed-dist and standards-pin guards.
 
 ## Changes and generated files
 
