@@ -86,7 +86,8 @@ remain in the footer. Do not retain a second family block in `README.md.src`.
 
 ## Generated family block
 
-Every family README includes the block between these markers:
+Marker-based consumers include the block between these markers. Native
+mdtheme consumers use the frames described above instead:
 
 ```md
 <!-- ferramenta-family:start -->

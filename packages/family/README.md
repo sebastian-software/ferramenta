@@ -140,7 +140,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 - **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`,
   `actions?: ReactNode`, `nav?: ReactNode`, `as?: "header" | "div"`. Name the
   family member this site
-  belongs to and the switcher marks that entry `aria-current="page"`, while the
+  belongs to and the switcher shows that name as plain context, while the
   lockup links to ferramenta.dev instead of this site's root; leave it out on
   the family site itself. `themeToggle` is a slot at the end of the bar: an Ardo
   site passes `<ArdoThemeToggle />`, a site on something else passes its own
@@ -150,7 +150,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   the theme toggle for a docs site's search or section menu, the second between
   the lockup and the family navigation for a site's own navigation. Both take
   the site's own elements.
-- **`SiteFooter`** — `current?: string` (de-emphasizes the site's own entry),
+- **`SiteFooter`** — `current?: string` (omits the site's own entry),
   `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`.
   `line="company"` drops the family columns and keeps the company links: it is
   for the tools that share the workshop but not the engines (dalo, agent-bridge
