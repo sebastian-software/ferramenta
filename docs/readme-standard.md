@@ -76,6 +76,14 @@ content remains easy to scan. The Ferramenta overview README is a family hub
 with its own approved layout and may keep its generated block in that layout;
 this skeleton applies to the tool READMEs that siblings adopt.
 
+## Native mdtheme consumers
+
+Native consumers use the [Git theme](../packages/family/README.md#native-markdown-theme)
+instead of the marker updater below. The generated footer has the same catalog
+ownership, visible descriptions, and current-project exclusion. The compact
+family affiliation precedes the project content; the icon and related links
+remain in the footer. Do not retain a second family block in `README.md.src`.
+
 ## Generated family block
 
 Every family README includes the block between these markers:

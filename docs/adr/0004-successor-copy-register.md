@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-14
+- Updated: 2026-09-11
 - Deciders: Sebastian Werner
 
 ## Context
@@ -34,6 +35,26 @@ to everyone. ferriki keeps the API Shiki got right and swaps the engine…")
   giving back), goals, and a signed note appear on the family site.
 - Density: overview = concise but narrative; project sites = explanatory and
   exact; UI chrome = terse.
+
+## Family theme wording
+
+Use **“Ferramenta — A family of Rust tools”** as the family description and
+**“More from Ferramenta”** as the heading for related-tool links in Markdown
+and React. These phrases were approved on 2026-09-11. The voice is natural,
+clear US English: approachable without weakening Ferramenta as a brand.
+
+Use “family” rather than “suite” to express shared identity while preserving
+each tool's independence. Do not use “More tools from the workshop” for the
+related-tool section; the workshop metaphor makes the wording less direct.
+This copy decision does not change the established visual design or family
+membership rules.
+
+Theme branding and related-tool sections remain visually subordinate to the
+project's own content. Each related-tool link includes a visible short
+description, and the current project is omitted from the related links.
+
+The shared React navigation and generated Markdown frames use this wording.
+Consumers adopt it by updating their selected theme revision or family package.
 
 ## Considered options
 

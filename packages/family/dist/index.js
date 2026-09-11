@@ -7,7 +7,7 @@
  * its own chrome — import `ferramenta-family/registry` instead: the same data
  * without React.
  */
-export { family, FAMILY_SITE, familyGroups, isEngine, } from "./family.js";
+export { family, FAMILY_SITE, familyGroups, isEngine, relatedTools, } from "./family.js";
 export { FamilyLinks } from "./FamilyLinks.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs } from "./Mark.js";

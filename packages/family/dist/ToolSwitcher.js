@@ -40,7 +40,7 @@ function useDismissible(ref) {
  */
 export function ToolSwitcher({ align = "end", className, current, label } = {}) {
     const switcherRef = useRef(null);
-    const { pipeline, language, workbench } = familyGroups();
+    const { pipeline, language, workbench } = familyGroups(current);
     const flyoutGroups = [
         { label: "Pipeline", tools: pipeline },
         { label: "Language", tools: language },
@@ -52,5 +52,7 @@ export function ToolSwitcher({ align = "end", className, current, label } = {}) 
         classes.push("switcher-start");
     if (className !== undefined)
         classes.push(className);
-    return (_jsxs("details", { className: classes.join(" "), ref: switcherRef, children: [_jsxs("summary", { "aria-label": "All tools", children: [label ?? "Tools", " ", _jsx(Mark, { name: "chev", className: "chev icon", size: 16 })] }), _jsx("div", { className: "flyout", children: flyoutGroups.map((group) => (_jsxs("div", { className: "flygroup", children: [_jsx("small", { children: group.label }), group.tools.map((tool) => (_jsxs("a", { href: tool.docs ?? tool.repo, "aria-current": tool.name === current ? "page" : undefined, children: [_jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.name, size: 24 }) }), _jsxs("span", { children: [_jsx("b", { children: tool.name }), _jsx("small", { children: tool.shortJob })] })] }, tool.name)))] }, group.label))) })] }));
+    return (_jsxs("details", { className: classes.join(" "), ref: switcherRef, children: [_jsxs("summary", { "aria-label": "All tools", children: [label ?? "Tools", " ", _jsx(Mark, { name: "chev", className: "chev icon", size: 16 })] }), _jsxs("div", { className: "flyout", children: [current !== undefined && _jsxs("p", { className: "switcher-current", children: ["Current: ", current] }), flyoutGroups
+                        .filter((group) => group.tools.length > 0)
+                        .map((group) => (_jsxs("div", { className: "flygroup", children: [_jsx("small", { children: group.label }), group.tools.map((tool) => (_jsxs("a", { href: tool.docs ?? tool.repo, children: [_jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.name, size: 24 }) }), _jsxs("span", { children: [_jsx("b", { children: tool.name }), _jsx("small", { children: tool.shortJob })] })] }, tool.name)))] }, group.label)))] })] }));
 }

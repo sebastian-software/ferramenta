@@ -54,12 +54,10 @@ test("the theme toggle is the site's, rendered into the slot", () => {
   assert.ok(!render(family.SiteHeader).includes("<button"), "and nothing without one");
 });
 
-test("current marks the site's own entry and sends the lockup to the family site", () => {
+test("current is context rather than a self-link", () => {
   const html = render(family.SiteHeader, { current: "ferroni" });
-  assert.ok(html.includes(`<a class="lockup" href="${family.FAMILY_SITE}">`));
-  assert.equal(html.match(/aria-current="page"/gu)?.length, 1);
-  const entry = html.slice(html.indexOf('aria-current="page"'));
-  assert.ok(entry.includes(">ferroni</b>"), "the marked entry is the current tool");
+  assert.ok(html.includes("Current: ferroni"));
+  assert.ok(!html.includes('href="https://sebastian-software.github.io/ferroni/"'));
 });
 
 test("the switcher stands alone, for a host header that is not ours", () => {
@@ -67,8 +65,8 @@ test("the switcher stands alone, for a host header that is not ours", () => {
   assert.match(html, /^<details class="switcher">/u);
   assert.ok(html.includes("Tools"), "the default trigger text");
   assert.ok(html.includes('<div class="flyout">'), "and its flyout");
-  assert.equal(html.match(/aria-current="page"/gu)?.length, 1);
-  for (const tool of family.family) {
+  assert.ok(!html.includes('aria-current="page"'));
+  for (const tool of family.relatedTools("ferroni")) {
     assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
   }
   assert.ok(
@@ -180,9 +178,9 @@ test("the company line drops the family columns (decision D2)", () => {
   assert.ok(html.includes("Own terms."), "the legal line is the consumer's");
 });
 
-test("a family site de-emphasizes its own footer entry", () => {
+test("a family site omits its own footer entry", () => {
   const html = render(family.SiteFooter, { current: "ferrocat" });
-  assert.equal(html.match(/aria-current="page"/gu)?.length, 1);
+  assert.ok(!html.includes('aria-current="page"'));
 });
 
 test("every family member has a mark, and the sprite stays under 100 (ADR-0002)", () => {
@@ -236,4 +234,19 @@ test("the CSS a consumer imports is exported and shipped", async () => {
   assert.equal(manifest.exports["./registry"].default, "./dist/family.js");
   await access(new URL("../fonts/big-shoulders.woff2", import.meta.url));
   assert.ok(manifest.files.includes("styles") && manifest.files.includes("fonts"));
+});
+
+test("every related React link has a job and omits the current project", () => {
+  for (const current of family.family) {
+    for (const component of [family.FamilyLinks, family.SiteFooter]) {
+      const html = render(component, { current: current.name });
+      assert.ok(!html.includes(`href="${current.docs ?? current.repo}"`));
+      assert.ok(html.includes("#i-ferramenta"));
+      for (const sibling of family.relatedTools(current.name)) {
+        assert.ok(html.includes(`href="${sibling.docs ?? sibling.repo}"`));
+        const escaped = sibling.job.replaceAll("&", "&amp;");
+        assert.ok(html.includes(escaped));
+      }
+    }
+  }
 });

@@ -19,7 +19,8 @@
     "src",
     "styles",
     "NOTICE.md",
-    "README.md"
+    "README.md",
+    "markdown"
   ],
   "type": "module",
   "sideEffects": [

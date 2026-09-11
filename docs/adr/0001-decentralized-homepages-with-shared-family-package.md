@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-14
+- Updated: 2026-09-11
 - Deciders: Sebastian Werner
 - Amended: 2026-09-06 — membership rule and corrected repository count, see
   [Amendment 2026-09-06](#amendment-2026-09-06)
@@ -32,6 +33,29 @@ of truth for tool names, jobs, proofs, versions, status, and links.
 Design work precedes extraction: the reference implementation on ferramenta.dev
 defines the system; the package is extracted from it, never the other way
 around.
+
+## Native Markdown themes
+
+The same catalog now produces committed `header.md` and `footer.md` files in
+`packages/family/markdown/<project>/`. Native mdtheme consumers select their
+canonical catalog ID through this path, independently of their CLI version.
+Git refs may be branches (including `main`), tags, or commits. No JavaScript,
+package installation, or template execution runs in Rust consumers.
+
+The shared selector excludes the current project and rejects unknown IDs.
+Every related link has a visible catalog description. The catalog remains the
+membership authority, including applications such as Palamedes; names are not
+filtered by a `fer` prefix. Overview pages omit the current ID to list everyone.
+
+The producer regenerates every frame after catalog changes and CI checks for
+stale output. Git attributes enforce LF across platforms. The React components
+share catalog selection with Markdown, while their rendering stays independent.
+The compact footer includes the family icon and “More from Ferramenta”.
+
+Existing marker-based README consumers remain supported. A project migrating
+to mdtheme removes its old family marker block from the authored source and
+composes the company theme outside the family theme. Company branding remains
+owned by its existing provider; never render two competing company footers.
 
 ## Decision drivers
 
@@ -66,8 +90,8 @@ every site change into a ferramenta-repo change.
 
 ## Amendment 2026-09-06
 
-Accepted records are immutable in their decision; this amendment records what
-the decision covers, it does not change it.
+This is a living decision record. Updates describe the current contract; Git
+history preserves earlier decisions.
 
 **Membership rule.** A member of the Ferramenta family is a family engine, or a
 product built on family engines. Nothing else joins the registry: developer

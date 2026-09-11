@@ -1,9 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { family, FAMILY_SITE } from "./family.js";
-/**
- * Cross-links to every family member plus the family site.
- * Drop into an Ardo footer or header; styled via theme.css.
- */
-export function FamilyLinks({ current, label = "Ferramenta family", className }) {
-    return (_jsxs("nav", { className: className == null ? "ferramenta-family" : `ferramenta-family ${className}`, children: [_jsx("a", { href: FAMILY_SITE, children: label }), _jsx("span", { className: "ferramenta-family-label", children: "\u00B7" }), family.map((tool) => (_jsx("a", { href: tool.docs ?? tool.repo, "aria-current": tool.name === current ? "true" : undefined, children: tool.name }, tool.name)))] }));
+import { FAMILY_SITE, relatedTools } from "./family.js";
+import { Mark } from "./Mark.js";
+/** Compact family navigation. Mount MarkDefs once in the host page. */
+export function FamilyLinks({ current, label = "More from Ferramenta", className, }) {
+    return (_jsxs("nav", { "aria-label": label, className: ["ferramenta-family", className].filter(Boolean).join(" "), children: [_jsxs("a", { className: "ferramenta-family-heading", href: FAMILY_SITE, children: [_jsx(Mark, { name: "ferramenta", size: 24 }), " ", label] }), _jsx("p", { children: "A family of Rust tools." }), _jsx("ul", { children: relatedTools(current).map((tool) => (_jsxs("li", { children: [_jsx("a", { href: tool.docs ?? tool.repo, children: tool.name }), _jsxs("span", { children: [" \u2014 ", tool.job] })] }, tool.name))) })] }));
 }

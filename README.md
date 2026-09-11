@@ -12,9 +12,9 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
 <!-- ferramenta-family:start -->
 
-## The Ferramenta family
+### <a href="https://ferramenta.dev"><img src="https://raw.githubusercontent.com/sebastian-software/ferramenta/main/app/assets/brand/logo-light.svg" width="24" height="24" alt="" /> More from Ferramenta</a>
 
-This project is part of [Ferramenta](https://ferramenta.dev) — the family of Rust-native developer tools by [Sebastian Software](https://oss.sebastian-software.com) that keep the APIs the ecosystem already knows.
+[Ferramenta](https://ferramenta.dev) — A family of Rust tools.
 
 **The content pipeline**
 

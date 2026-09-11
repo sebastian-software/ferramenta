@@ -1,0 +1,3 @@
+
+# Native Git consumers need identical Markdown on every platform.
+/packages/family/markdown/** text eol=lf

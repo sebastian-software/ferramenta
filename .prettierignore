@@ -5,3 +5,6 @@
 # Ardo rewrites the route manifest on every build, so the formatter and the
 # generator would fight over it forever.
 app/routes.ts
+
+# Native frames preserve the generator's exact bytes; theme:check guards them.
+packages/family/markdown/**

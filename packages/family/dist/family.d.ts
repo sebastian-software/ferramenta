@@ -49,8 +49,10 @@ export declare const family: FamilyTool[];
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
 /** The three display groups of the overview page, in order. */
-export declare function familyGroups(): {
+export declare function familyGroups(current?: string): {
     pipeline: FamilyTool[];
     language: FamilyTool[];
     workbench: FamilyTool[];
 };
+/** Related tools in catalog order. Unknown project IDs are configuration errors. */
+export declare function relatedTools(current?: string): FamilyTool[];

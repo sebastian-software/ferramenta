@@ -16,6 +16,7 @@ export {
   type FamilyStatus,
   type FamilyTool,
   isEngine,
+  relatedTools,
 } from "./family.js";
 export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
 export { MARK_DEFS } from "./mark-defs.js";

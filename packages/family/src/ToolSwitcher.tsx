@@ -6,7 +6,7 @@ import { Mark } from "./Mark.js";
 export type ToolSwitcherProps = {
   /**
    * The family member this site belongs to, e.g. "ferroni". Its entry in the
-   * flyout is marked `aria-current="page"`.
+   * flyout is omitted; the current project appears as plain text.
    */
   current?: string;
   /** The trigger's text. Defaults to "Tools"; the accessible name stays "All tools". */
@@ -60,7 +60,7 @@ function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
  */
 export function ToolSwitcher({ align = "end", className, current, label }: ToolSwitcherProps = {}) {
   const switcherRef = useRef<HTMLDetailsElement>(null);
-  const { pipeline, language, workbench } = familyGroups();
+  const { pipeline, language, workbench } = familyGroups(current);
   const flyoutGroups = [
     { label: "Pipeline", tools: pipeline },
     { label: "Language", tools: language },
@@ -79,26 +79,25 @@ export function ToolSwitcher({ align = "end", className, current, label }: ToolS
         {label ?? "Tools"} <Mark name="chev" className="chev icon" size={16} />
       </summary>
       <div className="flyout">
-        {flyoutGroups.map((group) => (
-          <div className="flygroup" key={group.label}>
-            <small>{group.label}</small>
-            {group.tools.map((tool) => (
-              <a
-                key={tool.name}
-                href={tool.docs ?? tool.repo}
-                aria-current={tool.name === current ? "page" : undefined}
-              >
-                <span className="markplate">
-                  <Mark name={tool.name} size={24} />
-                </span>
-                <span>
-                  <b>{tool.name}</b>
-                  <small>{tool.shortJob}</small>
-                </span>
-              </a>
-            ))}
-          </div>
-        ))}
+        {current !== undefined && <p className="switcher-current">Current: {current}</p>}
+        {flyoutGroups
+          .filter((group) => group.tools.length > 0)
+          .map((group) => (
+            <div className="flygroup" key={group.label}>
+              <small>{group.label}</small>
+              {group.tools.map((tool) => (
+                <a key={tool.name} href={tool.docs ?? tool.repo}>
+                  <span className="markplate">
+                    <Mark name={tool.name} size={24} />
+                  </span>
+                  <span>
+                    <b>{tool.name}</b>
+                    <small>{tool.shortJob}</small>
+                  </span>
+                </a>
+              ))}
+            </div>
+          ))}
       </div>
     </details>
   );

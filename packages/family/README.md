@@ -8,6 +8,63 @@ switcher, footer), the project marks, the design tokens, and the display face.
 > `ferramenta-family` is reserved on npm, but no release is published yet (see
 > [Publishing](#publishing)). Until then siblings pin a commit SHA from Git.
 
+## Native Markdown theme
+
+Give your Rust project's README a compact family footer, with the Ferramenta
+icon and descriptions of the other tools. Install mdtheme using its
+[project setup guide](https://github.com/sebastian-software/mdtheme/blob/main/docs/project-tools.md),
+then add this to `mdtheme.yaml`:
+
+```yaml
+themes:
+  - git: https://github.com/sebastian-software/sebastian-theme.git
+    ref: main
+    path: markdown
+  - git: https://github.com/sebastian-software/ferramenta.git
+    ref: main
+    path: packages/family/markdown/ferromark
+```
+
+Replace `ferromark` with your catalog ID. That directory excludes the current
+project from its related links. Explicit selection also works in Cargo
+workspaces and repositories whose directory name differs from the crate name.
+Use a tag or commit instead of `main` to pin the theme. Git access is required;
+Node and theme dependencies are not required in the consuming Rust project.
+
+Keep project prose in `README.md.src`, then run `mise run readme:write` and
+`mise run readme:check`. Remove any old `ferramenta-family` block from the
+source during migration. Include company branding once, through the outer
+Sebastian theme; migrate standards-owned branding through standards rather
+than editing its markers manually.
+
+The central catalog includes family engines and applications. It supplies all
+names, descriptions, and links. Maintainers run `pnpm theme:write` after edits;
+`pnpm theme:check` checks the committed files in CI. Markdown frame files are
+included in the published family package too.
+
+For compact React navigation, mount `MarkDefs` once and use:
+
+```tsx
+import { FamilyLinks, MarkDefs } from "ferramenta-family";
+import "ferramenta-family/tokens.css";
+import "ferramenta-family/theme.css";
+
+export function RelatedTools() {
+  return (
+    <>
+      <MarkDefs />
+      <FamilyLinks current="ferromark" />
+    </>
+  );
+}
+```
+
+`FamilyLinks` includes a 24px family icon and visible descriptions. `SiteFooter`
+uses the same related tools; `ToolSwitcher` shows the current project as plain
+text. Unknown family IDs fail instead of silently including an incorrect link.
+Omit `current` on the family overview. Company-only footers still accept their
+own project names through `line="company"`.
+
 ## Requirements
 
 |         |                                                                                                                                       |
@@ -300,7 +357,7 @@ ferramenta-readme --current ferrocat --check README.md  # exits 1 on drift
   beside the engines.
 - **`--variant registry`** is two plain-Markdown lines with no HTML and no
   tables, for the README that crates.io and npm render.
-- **`--current <name>`** bolds that tool in the `github` tables, and names it in
+- **`--current <name>`** excludes that tool from related links, and names it in
   the `registry` lead line while leaving it out of its own sibling list.
 - **`--write`** replaces an existing block wherever it sits, and otherwise
   inserts it above the standards-owned `sebastian-software-branding` section
