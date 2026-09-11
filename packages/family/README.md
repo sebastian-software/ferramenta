@@ -39,7 +39,9 @@ than editing its markers manually.
 
 The central catalog includes family engines and applications. It supplies all
 names, descriptions, and links. Maintainers run `pnpm theme:write` after edits;
-`pnpm theme:check` checks the committed files in CI. Markdown frame files are
+`pnpm theme:check` checks the committed files in CI. Both commands reject
+unexpected output directories; review and remove obsolete generated files
+manually when removing a catalog member. The generator never deletes them. Markdown frame files are
 included in the published family package too.
 
 For compact React navigation, mount `MarkDefs` once and use:

@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-non-literal-fs-filename -- Paths use validated catalog IDs under the generated theme directory. */
-import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 
 import { loadRegistry } from "../packages/family/lib/family-readme.mjs";
 import { nativeFrame } from "../packages/family/lib/native-theme.mjs";
@@ -32,7 +32,8 @@ for (const [name, frame] of frames) {
 }
 for (const name of await readdir(root)) {
   if (expected.has(name)) continue;
-  if (mode === "--check") throw new Error(`Unexpected generated theme: ${name}`);
-  await rm(new URL(name, root), { recursive: true, force: true });
+  throw new Error(
+    `Unexpected generated theme: ${name}. Review and remove obsolete output manually.`,
+  );
 }
 console.log(`${frames.length} native themes ${mode === "--write" ? "written" : "verified"}.`);
