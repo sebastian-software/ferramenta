@@ -9,7 +9,7 @@ const DEFAULT_LEGAL =
 export type SiteFooterProps = {
   /**
    * The family member this site belongs to, e.g. "ferroni". Its own entry is
-   * de-emphasized, and the lockup links to the family site instead of this
+   * omitted, and the lockup links to the family site instead of this
    * site's root. Leave it out on ferramenta.dev itself.
    */
   current?: string;
@@ -31,17 +31,13 @@ export type SiteFooterProps = {
   as?: "div" | "footer";
 };
 
-function ToolList({ tools, current }: { tools: FamilyTool[]; current?: string }) {
+function ToolList({ tools }: { tools: FamilyTool[] }) {
   return (
     <ul>
       {tools.map((tool) => (
         <li key={tool.name}>
-          <a
-            href={tool.docs ?? tool.repo}
-            aria-current={tool.name === current ? "page" : undefined}
-          >
-            {tool.name}
-          </a>
+          <a href={tool.docs ?? tool.repo}>{tool.name}</a>
+          <span className="family-job">{tool.job}</span>
         </li>
       ))}
     </ul>
@@ -64,6 +60,10 @@ function CompanyList() {
   );
 }
 
+function footerGroups(line: "company" | "family", current?: string) {
+  return familyGroups(line === "family" ? current : undefined);
+}
+
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
 export function SiteFooter({
   as = "footer",
@@ -71,7 +71,7 @@ export function SiteFooter({
   legal = DEFAULT_LEGAL,
   line = "family",
 }: SiteFooterProps = {}) {
-  const { pipeline, language, workbench } = familyGroups();
+  const { pipeline, language, workbench } = footerGroups(line, current);
   const Root: ElementType = as;
 
   return (
@@ -80,23 +80,23 @@ export function SiteFooter({
         <div>
           <a className="lockup" href={current === undefined ? "/" : FAMILY_SITE}>
             <Mark name="ferramenta" size={22} />
-            ferramenta
+            More from Ferramenta
           </a>
-          <p>Rust-native developer tools by Sebastian Software. Open source, openly verified.</p>
+          <p>A family of Rust tools by Sebastian Software.</p>
         </div>
         {line === "family" && (
           <div>
             <h3>Pipeline</h3>
-            <ToolList tools={pipeline} current={current} />
+            <ToolList tools={pipeline} />
             <h3 className="foot-gap">Language</h3>
-            <ToolList tools={language} current={current} />
+            <ToolList tools={language} />
           </div>
         )}
         <div>
           {line === "family" && (
             <>
               <h3>Workbench</h3>
-              <ToolList tools={workbench} current={current} />
+              <ToolList tools={workbench} />
             </>
           )}
           <h3 className={line === "family" ? "foot-gap" : undefined}>Company</h3>

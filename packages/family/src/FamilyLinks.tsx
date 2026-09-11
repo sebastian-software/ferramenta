@@ -1,31 +1,33 @@
-import { family, FAMILY_SITE } from "./family.js";
+import { FAMILY_SITE, relatedTools } from "./family.js";
+import { Mark } from "./Mark.js";
 
 export type FamilyLinksProps = {
-  /** Name of the tool whose site is rendering this (highlighted, not linked) */
+  /** Omit this project from related links. Leave unset on the family overview. */
   current?: string;
-  /** Label in front of the links (default: "Ferramenta family") */
   label?: string;
   className?: string;
 };
 
-/**
- * Cross-links to every family member plus the family site.
- * Drop into an Ardo footer or header; styled via theme.css.
- */
-export function FamilyLinks({ current, label = "Ferramenta family", className }: FamilyLinksProps) {
+/** Compact family navigation. Mount MarkDefs once in the host page. */
+export function FamilyLinks({
+  current,
+  label = "More from Ferramenta",
+  className,
+}: FamilyLinksProps) {
   return (
-    <nav className={className == null ? "ferramenta-family" : `ferramenta-family ${className}`}>
-      <a href={FAMILY_SITE}>{label}</a>
-      <span className="ferramenta-family-label">·</span>
-      {family.map((tool) => (
-        <a
-          key={tool.name}
-          href={tool.docs ?? tool.repo}
-          aria-current={tool.name === current ? "true" : undefined}
-        >
-          {tool.name}
-        </a>
-      ))}
+    <nav aria-label={label} className={["ferramenta-family", className].filter(Boolean).join(" ")}>
+      <a className="ferramenta-family-heading" href={FAMILY_SITE}>
+        <Mark name="ferramenta" size={24} /> {label}
+      </a>
+      <p>A family of Rust tools.</p>
+      <ul>
+        {relatedTools(current).map((tool) => (
+          <li key={tool.name}>
+            <a href={tool.docs ?? tool.repo}>{tool.name}</a>
+            <span> — {tool.job}</span>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

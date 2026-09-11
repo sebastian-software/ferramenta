@@ -24,7 +24,10 @@ function expect(condition, message) {
 }
 
 expect(header.includes('<header class="site-header">'), "the header did not render");
-expect(header.includes('aria-current="page"'), "`current` did not mark the site's own entry");
+expect(
+  header.includes(`Current: ${family[0].name}`),
+  "`current` did not mark the site's own entry",
+);
 expect(footer.includes('<footer class="site-footer">'), "the footer did not render");
 for (const tool of family) {
   expect(footer.includes(`>${tool.name}</a>`), `missing from the footer: ${tool.name}`);
@@ -37,8 +40,8 @@ expect(Object.keys(familyGroups()).length === 3, "the registry entry is broken")
 const switcher = render(ToolSwitcher, { current: family[0].name });
 expect(switcher.startsWith('<details class="switcher">'), "the standalone switcher did not render");
 expect(switcher.includes('<div class="flyout">'), "the standalone switcher has no flyout");
-expect(switcher.includes('aria-current="page"'), "the standalone switcher lost `current`");
-for (const tool of family) {
+expect(switcher.includes(`Current: ${family[0].name}`), "the standalone switcher lost `current`");
+for (const tool of family.slice(1)) {
   expect(switcher.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
 }
 expect(
@@ -80,6 +83,10 @@ expect(
   "`as` did not swap the header element",
 );
 const hosted = render(SiteFooter, { as: "div", current: family[0].name });
+expect(
+  !hosted.includes(`href="${family[0].docs ?? family[0].repo}"`),
+  "footer contains a self-link",
+);
 expect(hosted.startsWith('<div class="site-footer">'), "`as` did not swap the footer element");
 expect(!hosted.includes("<footer"), '`as="div"` still emitted a contentinfo landmark');
 

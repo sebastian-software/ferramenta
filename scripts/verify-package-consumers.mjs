@@ -33,6 +33,8 @@ const run = (command, arguments_, cwd) =>
 
 const REQUIRED_FILES = [
   "dist/index.js",
+  "markdown/ferromark/header.md",
+  "markdown/ferromark/footer.md",
   "dist/family.js",
   "styles/chrome.css",
   "fonts/big-shoulders.woff2",

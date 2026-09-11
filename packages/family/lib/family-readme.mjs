@@ -109,26 +109,25 @@ export async function loadRegistry(base = import.meta.url) {
 }
 
 const link = (tool) => `[${tool.name}](${tool.docs ?? tool.repo})`;
-const named = (tool, current) => (tool.name === current ? `**${link(tool)}**` : link(tool));
 
-function table(tools, current) {
+function table(tools) {
   return [
     "| Tool | Job |",
     "| --- | --- |",
-    ...tools.map((tool) => `| ${named(tool, current)} | ${tool.job} |`),
+    ...tools.map((tool) => `| ${link(tool)} | ${tool.job} |`),
   ].join("\n");
 }
 
 /** Full block for a repository README: one sentence plus the grouped tables. */
 function githubBlock(registry, current) {
-  const groups = registry.familyGroups();
+  const groups = registry.familyGroups(current ?? undefined);
   const sections = Object.entries(GROUP_LABELS)
     .filter(([group]) => groups[group].length > 0)
-    .map(([group, label]) => `**${label}**\n\n${table(groups[group], current)}`);
+    .map(([group, label]) => `**${label}**\n\n${table(groups[group])}`);
   return [
-    "## The Ferramenta family",
+    `### <a href="${registry.FAMILY_SITE}"><img src="https://raw.githubusercontent.com/sebastian-software/ferramenta/main/app/assets/brand/logo-light.svg" width="24" height="24" alt="" /> More from Ferramenta</a>`,
     "",
-    `This project is part of [Ferramenta](${registry.FAMILY_SITE}) — the family of Rust-native developer tools by [Sebastian Software](https://oss.sebastian-software.com) that keep the APIs the ecosystem already knows.`,
+    `[Ferramenta](${registry.FAMILY_SITE}) — A family of Rust tools.`,
     "",
     sections.join("\n\n"),
   ].join("\n");
@@ -139,11 +138,11 @@ function registryBlock(registry, current) {
   const site = `[Ferramenta](${registry.FAMILY_SITE})`;
   const lead =
     current === null
-      ? `Part of the ${site} family — Rust-native developer tools that keep the APIs the ecosystem already knows.`
-      : `**${current}** is part of the ${site} family — Rust-native developer tools that keep the APIs the ecosystem already knows.`;
-  const siblings = registry.family
-    .filter((tool) => tool.name !== current)
-    .map((tool) => link(tool));
+      ? `Part of the ${site} family — A family of Rust tools.`
+      : `**${current}** is part of the ${site} family — A family of Rust tools.`;
+  const siblings = registry
+    .relatedTools(current ?? undefined)
+    .map((tool) => `${link(tool)} — ${tool.job}`);
   return `${lead}\n\nSiblings: ${siblings.join(" · ")}.`;
 }
 

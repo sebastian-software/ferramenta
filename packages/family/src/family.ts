@@ -179,10 +179,19 @@ export function isEngine(tool: FamilyTool) {
 }
 
 /** The three display groups of the overview page, in order. */
-export function familyGroups() {
+export function familyGroups(current?: string) {
+  const tools = relatedTools(current);
   return {
-    pipeline: family.filter((tool) => tool.group === "pipeline"),
-    language: family.filter((tool) => tool.group === "language"),
-    workbench: family.filter((tool) => tool.group === "workbench"),
+    pipeline: tools.filter((tool) => tool.group === "pipeline"),
+    language: tools.filter((tool) => tool.group === "language"),
+    workbench: tools.filter((tool) => tool.group === "workbench"),
   };
+}
+
+/** Related tools in catalog order. Unknown project IDs are configuration errors. */
+export function relatedTools(current?: string): FamilyTool[] {
+  if (current !== undefined && !family.some((tool) => tool.name === current)) {
+    throw new Error(`Unknown Ferramenta project: ${current}`);
+  }
+  return family.filter((tool) => tool.name !== current);
 }

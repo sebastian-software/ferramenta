@@ -31,30 +31,28 @@
 /* Family navigation (FamilyLinks component) */
 
 .ferramenta-family {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.9rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
-.ferramenta-family-label {
-  color: var(--ardo-color-text, inherit);
-  opacity: 0.6;
+.ferramenta-family .ferramenta-family-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.ferramenta-family ul {
+  margin-block: 0.75rem;
+  padding-inline-start: 1.25rem;
 }
 
 .ferramenta-family a {
   color: var(--ardo-color-brand);
-  text-decoration: none;
-  font-weight: 600;
+  text-underline-offset: 0.15em;
 }
 
-.ferramenta-family a:hover {
-  text-decoration: underline;
-}
-
-.ferramenta-family a[aria-current="true"] {
-  color: inherit;
-  opacity: 0.7;
-  pointer-events: none;
+.ferramenta-family a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }

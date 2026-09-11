@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 export type ToolSwitcherProps = {
     /**
      * The family member this site belongs to, e.g. "ferroni". Its entry in the
-     * flyout is marked `aria-current="page"`.
+     * flyout is omitted; the current project appears as plain text.
      */
     current?: string;
     /** The trigger's text. Defaults to "Tools"; the accessible name stays "All tools". */

@@ -28,10 +28,9 @@ test("the github block groups the family the way the site does", () => {
   }
 });
 
-test("--current bolds exactly one tool", () => {
-  const block = render(registry, { variant: "github", current: "ferrocat" });
-  const bolded = [...block.matchAll(/\*\*\[(?<name>[a-z]+)\]/gu)].map((match) => match[1]);
-  assert.deepEqual(bolded, ["ferrocat"]);
+test("--current excludes the current tool", () => {
+  const block = render(registry, { current: "ferrocat" });
+  assert.ok(!block.includes("[ferrocat]("));
 });
 
 test("applications get a row like every other member", () => {

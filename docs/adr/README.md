@@ -1,7 +1,9 @@
 # Decision Records
 
-Durable decisions with their rationale. Accepted records are immutable: when a
-decision changes, a new record supersedes the old one (see status lines).
+Durable decisions with their rationale. ADRs are living documents: update the
+relevant record and its Updated date when an agreed contract changes. Git
+history preserves previous decisions; historical superseded records remain
+available for context.
 Read these as constraints before changing direction; implementation values live
 in [DESIGN.md](../../DESIGN.md), [PRODUCT.md](../../PRODUCT.md), and the code.
 

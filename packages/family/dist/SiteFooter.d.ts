@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 export type SiteFooterProps = {
     /**
      * The family member this site belongs to, e.g. "ferroni". Its own entry is
-     * de-emphasized, and the lockup links to the family site instead of this
+     * omitted, and the lockup links to the family site instead of this
      * site's root. Leave it out on ferramenta.dev itself.
      */
     current?: string;

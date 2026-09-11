@@ -482,3 +482,22 @@ details.switcher[open] summary svg.chev {
 .foot .foot-legal {
   max-width: none;
 }
+
+/* Descriptions stay readable without competing with the project content. */
+.site-footer .family-job {
+  display: block;
+  color: var(--iron-soft);
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-transform: none;
+  max-width: 32ch;
+  margin-bottom: 0.5rem;
+}
+
+.switcher-current {
+  grid-column: 1 / -1;
+  font: inherit;
+  color: var(--iron-soft);
+  margin-bottom: 0.5rem;
+}

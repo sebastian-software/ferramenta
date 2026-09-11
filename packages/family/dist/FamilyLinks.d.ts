@@ -1,12 +1,8 @@
 export type FamilyLinksProps = {
-    /** Name of the tool whose site is rendering this (highlighted, not linked) */
+    /** Omit this project from related links. Leave unset on the family overview. */
     current?: string;
-    /** Label in front of the links (default: "Ferramenta family") */
     label?: string;
     className?: string;
 };
-/**
- * Cross-links to every family member plus the family site.
- * Drop into an Ardo footer or header; styled via theme.css.
- */
-export declare function FamilyLinks({ current, label, className }: FamilyLinksProps): import("react").JSX.Element;
+/** Compact family navigation. Mount MarkDefs once in the host page. */
+export declare function FamilyLinks({ current, label, className, }: FamilyLinksProps): import("react").JSX.Element;
