@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.2...ferramenta-v1.1.0) (2026-09-11)
+
+
+### Features
+
+* share descriptive family themes across Markdown and React ([#50](https://github.com/sebastian-software/ferramenta/issues/50)) ([05fadd2](https://github.com/sebastian-software/ferramenta/commit/05fadd21d86b69bb15179ef4461bef6b3b531f88))
+
 ## [1.0.2](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.1...ferramenta-v1.0.2) (2026-09-09)
 
 
