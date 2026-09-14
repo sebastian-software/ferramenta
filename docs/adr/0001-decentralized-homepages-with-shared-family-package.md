@@ -135,3 +135,26 @@ prove too costly in practice.
 - [PRODUCT.md](../../PRODUCT.md) — product truth including rollout plan
 - [docs/superpowers/specs/2026-07-11-ardo-config-package-design.md](../superpowers/specs/2026-07-11-ardo-config-package-design.md) — earlier package rename decision
 - [packages/family/src/family.ts](../../packages/family/src/family.ts) — the registry this ADR declares canonical
+
+## Repository adoption
+
+Updated: 2026-09-14
+
+This repository uses native mdtheme to compose its committed root README from
+`README.md.src` and Sebastian-Theme. The project introduction and setup come
+first; the company badge joins the project badges and the logo stays in the
+footer. Existing project badge links remain authored content.
+
+The CLI and theme are independently pinned by the project. CI checks generated
+output without writing it. Contributors regenerate and commit the output;
+pre-push validation never stages or commits. This avoids copied branding and
+keeps consumers independent of Node tooling solely for README generation.
+The tradeoff is a contributor tool installation and Git access during checks.
+
+This is a living decision. Update this record when the ownership or composition
+contract changes; configuration files own exact versions and revisions.
+See [the contributor workflow](../readme-theme.md).
+
+The family site's own root README keeps the catalog overview as project content.
+Its marker generator now writes `README.md.src` before mdtheme adds Sebastian
+branding. It does not consume a sibling frame or duplicate the family footer.

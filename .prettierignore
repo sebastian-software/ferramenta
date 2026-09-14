@@ -8,3 +8,6 @@ app/routes.ts
 
 # Native frames preserve the generator's exact bytes; theme:check guards them.
 packages/family/markdown/**
+
+# mdtheme checks the generated README byte for byte.
+/README.md
