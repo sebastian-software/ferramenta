@@ -31,8 +31,8 @@ importers:
         specifier: ^8.0.1
         version: 8.2.0(react-router@8.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(supports-color@9.4.0)(typescript@5.9.3)(vite@8.1.4(@types/node@26.4.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       '@sebastian-software/standards':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.11.1
+        version: 0.11.1
       '@types/react':
         specifier: ^19.2.13
         version: 19.2.17
@@ -1489,8 +1489,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sebastian-software/standards@0.10.0':
-    resolution: {integrity: sha512-7b79pfy7oMkIpQAWYZENzi7yJP4VOI6vIgairtx0L0YJ99lbOFI2P94TPeBUSUFwjZvF39yIWmUeORZDrNdmVw==}
+  '@sebastian-software/standards@0.11.1':
+    resolution: {integrity: sha512-3WECKOYgD7bZ7fmePTjl4Lqxo4OasvCb9utGxMUVG1czMmXCMvagXgLcfFTWczKMeFkDL2Y7k4w99NKU/i9h3A==}
     engines: {node: '>=24.0.0'}
     hasBin: true
 
@@ -5753,7 +5753,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.62.2':
     optional: true
 
-  '@sebastian-software/standards@0.10.0': {}
+  '@sebastian-software/standards@0.11.1': {}
 
   '@shikijs/core@4.3.1':
     dependencies:
