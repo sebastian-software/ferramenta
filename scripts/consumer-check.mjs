@@ -4,7 +4,14 @@
  * the chrome. Plain Node, no bundler — the state a consumer is in right after
  * `pnpm add` and before its own build.
  */
-import { family, SiteFooter, SiteHeader, ToolSwitcher } from "ferramenta-family";
+import {
+  family,
+  PipelineAssembly,
+  ProjectHero,
+  SiteFooter,
+  SiteHeader,
+  ToolSwitcher,
+} from "ferramenta-family";
 import { familyGroups } from "ferramenta-family/registry";
 import { readFileSync } from "node:fs";
 import { createElement } from "react";
@@ -90,4 +97,24 @@ expect(
 expect(hosted.startsWith('<div class="site-footer">'), "`as` did not swap the footer element");
 expect(!hosted.includes("<footer"), '`as="div"` still emitted a contentinfo landmark');
 
+// A sibling's own lockup, and the landing kit its home page is built from.
+const project = render(SiteHeader, { current: "ferroni", home: "/ferroni/", lockup: "project" });
+expect(
+  project.includes('<a class="lockup" href="/ferroni/">'),
+  "the project lockup did not link home",
+);
+expect(project.includes('class="flyhome"'), "the project lockup lost the way back to the family");
+expect(
+  render(ProjectHero, { mark: "ferroni", title: "Ferroni" }).includes("fam-hero-plate"),
+  "the hero did not hang the project's plate",
+);
+expect(
+  render(PipelineAssembly, { current: "ferroni" }).includes('aria-current="true"'),
+  "the pipeline assembly did not mark the current stage",
+);
+// eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own exported stylesheet
+const landing = readFileSync(new URL(import.meta.resolve("ferramenta-family/landing.css")), "utf8");
+expect(landing.includes(".fam-page"), "the shipped landing.css has no page scope");
+
 console.log(`rendered the chrome and the standalone switcher for ${family.length} family members`);
+console.log("rendered the project lockup and the landing kit");

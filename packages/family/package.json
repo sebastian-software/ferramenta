@@ -39,6 +39,7 @@
     },
     "./chrome.css": "./styles/chrome.css",
     "./fonts.css": "./styles/fonts.css",
+    "./landing.css": "./styles/landing.css",
     "./theme.css": "./styles/theme.css",
     "./tokens.css": "./styles/tokens.css",
     "./fonts/*": "./fonts/*",

@@ -2,15 +2,21 @@ import type { MetaFunction } from "react-router";
 
 import { ArdoThemeToggle } from "ardo/ui";
 import {
+  ClosingAction,
   familyGroups,
   type FamilyTool,
+  Fasteners,
+  IronBand,
   isEngine,
   Mark,
   MarkDefs,
+  PipelineAssembly,
+  ProjectHero,
+  Section,
   SiteFooter,
   SiteHeader,
+  Stamp,
 } from "ferramenta-family";
-import { Fragment } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
@@ -62,6 +68,8 @@ type RegistryStat = {
   npm: { version: string; lastMonth: number; placeholder: boolean } | null;
 };
 
+const sourceUrl = "https://github.com/orgs/sebastian-software/repositories?q=ferr";
+
 const stats = registryStats.tools as Record<string, RegistryStat | undefined>;
 const formatCount = (value: number) => value.toLocaleString("en-US");
 
@@ -86,18 +94,6 @@ const familyDownloads = Object.values(stats).reduce(
   0,
 );
 
-const fastenerPositions = ["tl", "tr", "br", "bl"] as const;
-
-function Fasteners() {
-  return (
-    <>
-      {fastenerPositions.map((position) => (
-        <span key={position} className="fastener" data-position={position} aria-hidden="true" />
-      ))}
-    </>
-  );
-}
-
 /**
  * One ledger row. Engines carry the contract they succeed; applications carry
  * no contract line — what they promise is the product, and the engines they
@@ -109,7 +105,7 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
   return (
     <a className="row" href={tool.docs ?? tool.repo}>
       <span className="num">{step ?? ""}</span>
-      <span className="plate">
+      <span className="plate markplate">
         <Mark name={tool.name} />
       </span>
       <span className="who">
@@ -156,47 +152,10 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
             <span className="platform">git only</span>
           ) : null}
         </span>
-        <span className={tool.status === "stable" ? "st stable" : "st"}>{tool.status}</span>
+        <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
       </span>
       <Mark name="arrow" className="go icon" size={22} />
     </a>
-  );
-}
-
-function PipelineAssembly({ tools }: { tools: FamilyTool[] }) {
-  return (
-    <figure
-      className="pipeline-assembly"
-      aria-label="Dependency assembly: ferroni provides the regex foundation for ferriki, and ferriki feeds highlighting into ferromark."
-    >
-      <Fasteners />
-      <div className="assembly-flow">
-        <span className="assembly-terminal">
-          <small>Foundation</small>
-          <b>Regex behavior</b>
-        </span>
-        <Mark name="arrow" className="assembly-connector icon" />
-        {tools.map((tool, index) => (
-          <Fragment key={tool.name}>
-            <span className="assembly-stage">
-              <span className="assembly-step">{String(index + 1).padStart(2, "0")}</span>
-              <span className="markplate">
-                <Mark name={tool.name} />
-              </span>
-              <span className="assembly-copy">
-                <b>{tool.name}</b>
-                <small>{tool.shortJob}</small>
-              </span>
-            </span>
-            <Mark name="arrow" className="assembly-connector icon" />
-          </Fragment>
-        ))}
-        <span className="assembly-terminal assembly-output">
-          <small>Application</small>
-          <b>Markdown → highlighted HTML</b>
-        </span>
-      </div>
-    </figure>
   );
 }
 
@@ -209,37 +168,31 @@ export default function HomePage() {
   ];
 
   return (
-    <>
+    <div className="fam-page">
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <MarkDefs />
       <SiteHeader themeToggle={<ArdoThemeToggle />} />
       <div className="page-main" id="main">
-        <div className="hero">
-          <div className="wrap">
-            <div>
-              <h1>
-                Heavy industry <em>for the web.</em>
-              </h1>
-              <p className="lede">
-                Ferramenta — Italian for hardware store — is a family of Rust-native tools built
-                around standards and APIs developers already know. Each project is re-engineered in
-                Rust; where an established predecessor exists, compatibility is checked
-                differentially and performance is measured in the open.
-              </p>
-              <div className="cta-row">
-                <a className="btn primary chamfer" href="#pipeline">
-                  Browse the tools <Mark name="arrow" className="icon" size={18} />
-                </a>
-                <a
-                  className="btn ghost"
-                  href="https://github.com/orgs/sebastian-software/repositories?q=ferr"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
+        <ProjectHero
+          title={
+            <>
+              Heavy industry <em>for the web.</em>
+            </>
+          }
+          lede="Ferramenta — Italian for hardware store — is a family of Rust-native tools built around standards and APIs developers already know. Each project is re-engineered in Rust; where an established predecessor exists, compatibility is checked differentially and performance is measured in the open."
+          actions={
+            <>
+              <a className="fam-btn fam-btn-primary" href="#pipeline">
+                Browse the tools <Mark name="arrow" className="icon" size={18} />
+              </a>
+              <a className="fam-btn fam-btn-ghost" href={sourceUrl}>
+                GitHub
+              </a>
+            </>
+          }
+          aside={
             <div className="board" aria-label="The tool family">
               <Fasteners />
               <div className="board-grid">
@@ -266,150 +219,118 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
+          }
+        />
 
-        <section id="pipeline">
-          <div className="wrap">
-            <h2>The content pipeline</h2>
-            <p className="intro">
-              Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a
-              Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end
-              in Rust, with each stage measured against the contract it succeeds.
-            </p>
-            <PipelineAssembly tools={pipeline} />
-            <div className="ledger">
-              {pipeline.map((tool, index) => (
-                <ToolRow key={tool.name} tool={tool} step={index + 1} />
-              ))}
+        <Section
+          id="pipeline"
+          title="The content pipeline"
+          intro="Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end in Rust, with each stage measured against the contract it succeeds."
+        >
+          <PipelineAssembly />
+          <div className="ledger">
+            {pipeline.map((tool, index) => (
+              <ToolRow key={tool.name} tool={tool} step={index + 1} />
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          id="language"
+          title="The language workshop"
+          intro="Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Two engines, plus the application they carry — palamedes is the i18n toolchain built on this family, and the reason the engines have to hold."
+        >
+          <div className="ledger">
+            {language.map((tool) => (
+              <ToolRow key={tool.name} tool={tool} />
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          id="workbench"
+          title="On the workbench"
+          intro="Three more tools taking shape — early, cut from the same steel, and explicit about what is proven now and what is still on the bench."
+        >
+          <div className="ledger">
+            {workbench.map((tool) => (
+              <ToolRow key={tool.name} tool={tool} />
+            ))}
+          </div>
+        </Section>
+
+        <IronBand title="What earns the stamp" rows={beliefs} />
+
+        <Section id="why" title="Why this store exists">
+          <div className="why-grid">
+            <div className="why-lead">
+              <p className="why-pull">
+                We&rsquo;ve been handed good tools all our lives. Time to forge some back.
+              </p>
+              <footer className="why-author">
+                <span>Written by</span>
+                <b>Sebastian Werner</b>
+                <small>Sebastian Software</small>
+              </footer>
+            </div>
+            <div className="why-body">
+              <p>
+                Open source shaped our careers — from leading qooxdoo at 1&amp;1 more than a decade
+                ago to the tools we still rely on every day. Ferramenta is how we give back: one
+                workshop, building the boring, load-bearing parts properly.
+              </p>
+              <p>
+                Essential developer tooling is going native — Rust mostly, sometimes Go. Vite, SWC,
+                OXC and esbuild showed what happens when the tools everything else stands on stop
+                being slow. That movement isn&rsquo;t ours: we stand on its shoulders. Ferramenta
+                adds the pieces we know best — not mechanical ports, but engines rebuilt the way
+                you&rsquo;d design them for Rust today: memory-layout-conscious, SIMD and NEON where
+                it pays, allocation-free where it counts.
+              </p>
+              <ul className="goals">
+                <li>
+                  <b>Stable through evidence.</b> Every tool earns stability through evidence
+                  appropriate to its contract — ferroni, ferrocat and palamedes are stable today;
+                  the rest keep their maturity visible.
+                </li>
+                <li>
+                  <b>Match before outrun.</b> Where there is a predecessor contract, compatibility
+                  comes first and performance claims follow published benchmarks — never a
+                  compatibility asterisk.
+                </li>
+                <li>
+                  <b>One chain, all Rust.</b> Markdown with highlighted code, end to end — regex,
+                  highlighting, rendering — without a C toolchain or a JS runtime.
+                </li>
+              </ul>
             </div>
           </div>
-        </section>
+        </Section>
 
-        <section id="language">
-          <div className="wrap">
-            <h2>The language workshop</h2>
-            <p className="intro">
-              Spelling and translation, treated as engineering problems: deterministic, diffable,
-              verifiable. Two engines, plus the application they carry — palamedes is the i18n
-              toolchain built on this family, and the reason the engines have to hold.
-            </p>
-            <div className="ledger">
-              {language.map((tool) => (
-                <ToolRow key={tool.name} tool={tool} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <ClosingAction
+          title="Choose a tool. Check the proof."
+          actions={
+            <>
+              <a className="fam-btn fam-btn-primary" href="#pipeline">
+                Compare the tools <Mark name="arrow" className="icon" size={18} />
+              </a>
+              <a className="fam-btn fam-btn-ghost" href={sourceUrl}>
+                View all source
+              </a>
+            </>
+          }
+        >
+          <p>
+            Start with the job you need, then compare its contract, evidence, and maturity in the
+            ledger. Every project is open source; early work is labeled early.
+          </p>
+          <p className="tally">
+            <b>{formatCount(familyDownloads)}</b> downloads on crates.io across the published
+            crates, counted at build time.
+          </p>
+        </ClosingAction>
 
-        <section id="workbench">
-          <div className="wrap">
-            <h2>On the workbench</h2>
-            <p className="intro">
-              Three more tools taking shape — early, cut from the same steel, and explicit about
-              what is proven now and what is still on the bench.
-            </p>
-            <div className="ledger">
-              {workbench.map((tool) => (
-                <ToolRow key={tool.name} tool={tool} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="ironband">
-          <div className="wrap">
-            <h2>What earns the stamp</h2>
-            <div className="beliefs">
-              {beliefs.map((belief) => (
-                <div key={belief.heading}>
-                  <h3>{belief.heading}</h3>
-                  <p>{belief.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <section id="why" className="why">
-          <div className="wrap">
-            <h2>Why this store exists</h2>
-            <div className="why-grid">
-              <div className="why-lead">
-                <p className="why-pull">
-                  We&rsquo;ve been handed good tools all our lives. Time to forge some back.
-                </p>
-                <footer className="why-author">
-                  <span>Written by</span>
-                  <b>Sebastian Werner</b>
-                  <small>Sebastian Software</small>
-                </footer>
-              </div>
-              <div className="why-body">
-                <p>
-                  Open source shaped our careers — from leading qooxdoo at 1&amp;1 more than a
-                  decade ago to the tools we still rely on every day. Ferramenta is how we give
-                  back: one workshop, building the boring, load-bearing parts properly.
-                </p>
-                <p>
-                  Essential developer tooling is going native — Rust mostly, sometimes Go. Vite,
-                  SWC, OXC and esbuild showed what happens when the tools everything else stands on
-                  stop being slow. That movement isn&rsquo;t ours: we stand on its shoulders.
-                  Ferramenta adds the pieces we know best — not mechanical ports, but engines
-                  rebuilt the way you&rsquo;d design them for Rust today: memory-layout-conscious,
-                  SIMD and NEON where it pays, allocation-free where it counts.
-                </p>
-                <ul className="goals">
-                  <li>
-                    <b>Stable through evidence.</b> Every tool earns stability through evidence
-                    appropriate to its contract — ferroni, ferrocat and palamedes are stable today;
-                    the rest keep their maturity visible.
-                  </li>
-                  <li>
-                    <b>Match before outrun.</b> Where there is a predecessor contract, compatibility
-                    comes first and performance claims follow published benchmarks — never a
-                    compatibility asterisk.
-                  </li>
-                  <li>
-                    <b>One chain, all Rust.</b> Markdown with highlighted code, end to end — regex,
-                    highlighting, rendering — without a C toolchain or a JS runtime.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="next-step">
-          <div className="wrap">
-            <h2>Choose a tool. Check the proof.</h2>
-            <div className="next-grid">
-              <div className="next-copy">
-                <p>
-                  Start with the job you need, then compare its contract, evidence, and maturity in
-                  the ledger. Every project is open source; early work is labeled early.
-                </p>
-                <p className="tally">
-                  <b>{formatCount(familyDownloads)}</b> downloads on crates.io across the published
-                  crates, counted at build time.
-                </p>
-              </div>
-              <div className="cta-row">
-                <a className="btn primary chamfer" href="#pipeline">
-                  Compare the tools <Mark name="arrow" className="icon" size={18} />
-                </a>
-                <a
-                  className="btn ghost"
-                  href="https://github.com/orgs/sebastian-software/repositories?q=ferr"
-                >
-                  View all source
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="partners">
+        <section className="fam-section partners">
           <div className="wrap">
             <h2>The wider workshop</h2>
             <div className="pgrid">
@@ -438,6 +359,6 @@ export default function HomePage() {
         </section>
       </div>
       <SiteFooter />
-    </>
+    </div>
   );
 }

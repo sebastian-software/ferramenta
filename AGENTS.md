@@ -31,22 +31,22 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path                                   | Owns                                                                                                                                                                                                             |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer)                                                                                                                                                    |
-| `app/styles/site.css`                  | The page styles, ported from the approved comp — everything the family site does not share                                                                                                                       |
-| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks`                                                              |
-| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `chrome.css`, `theme.css` — the CSS entry points a consumer imports                                                                                                                   |
-| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                        |
-| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                        |
-| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping |
-| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                      |
-| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                           |
-| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                |
-| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                      |
-| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                  |
-| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                          |
-| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                   |
+| Path                                   | Owns                                                                                                                                                                                                                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer), composed from the package's landing kit                                                                                                              |
+| `app/styles/site.css`                  | Only what the family site does not share: pegboard, registry ledger rows, the personal note, partners                                                                                                               |
+| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks` — and the landing kit (`ProjectHero`, `Section`, `IronBand`, …) |
+| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css`                                     |
+| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                           |
+| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                           |
+| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping    |
+| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                         |
+| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                              |
+| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                   |
+| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                         |
+| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                     |
+| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                             |
+| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                      |
 
 ## Rules
 
@@ -98,11 +98,16 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - **Ardo layout quirks**: `.ferramenta-site main` gets `overflow: visible` and
   `padding: 0` overrides in site.css — Ardo's docs-style scroll container and
   fixed-header spacing otherwise break the sticky header and full-bleed bands.
-- **The scoped reset** (`.ferramenta-site * { margin: 0 … }`) must stay the
-  first rule block of site.css — later rules of equal specificity depend on
-  cascade order. Margins in site.css that it must not eat need a selector that
-  outranks it; the chrome's own margins (`.site-footer`) rely instead on
-  root.tsx loading `chrome.css` after site.css.
+- **The scoped reset** (`:where(.ferramenta-site) *`) has zero specificity on
+  purpose: it may never take a tie from the landing kit, the chrome or site.css.
+  Do not "fix" it back to `.ferramenta-site *`, which outranked every
+  single-class margin loaded before it.
+- **The page ground is `.fam-page`**, not `body`: Ardo's layout `<main>` paints
+  its own background over the body. Home page content lives inside that
+  wrapper.
+- **Load order** (root.tsx): tokens, fonts, theme, `landing.css`, site.css,
+  `chrome.css`. site.css adjusts the kit on equal specificity; the chrome wins
+  its ties. A pattern a sibling could use goes into `landing.css`, not site.css.
 - **`ssr: { noExternal: ["lucide-react"] }`** in vite.config: Ardo uses lucide
   internally; without bundling, prerender inside a git worktree resolves a
   second React copy from the parent checkout and crashes with a useContext

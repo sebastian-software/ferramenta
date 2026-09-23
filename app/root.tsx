@@ -7,6 +7,8 @@ import "ardo/ui/styles.css";
 import "ferramenta-family/tokens.css";
 import "ferramenta-family/fonts.css";
 import "ferramenta-family/theme.css";
+// The landing kit before the site's own stylesheet, so site.css adjusts it on ties.
+import "ferramenta-family/landing.css";
 
 import "./styles/site.css";
 

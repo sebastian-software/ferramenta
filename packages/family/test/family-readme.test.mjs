@@ -62,7 +62,10 @@ test("formatter whitespace is not drift", () => {
 
 test("a different job string is drift", () => {
   const block = render(registry, { variant: "github" });
-  assert.notEqual(normalize(block.replace("regex engine", "regex thing")), normalize(block));
+  assert.notEqual(
+    normalize(block.replace("Shiki-compatible syntax highlighting", "syntax coloring")),
+    normalize(block),
+  );
 });
 
 test("the block lands above the standards branding section", () => {

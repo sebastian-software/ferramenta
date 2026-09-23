@@ -89,3 +89,36 @@
 :root.dark {
   --focus: var(--ember);
 }
+
+/*
+ * Materials and shapes as values. The brushed fiber is the texture the shop
+ * floor and every iron surface share; the speckle is the rust on a plate face.
+ * Both are theme-independent: they tint whatever color they lie over.
+ */
+:root {
+  --texture-brush: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E");
+  --texture-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E");
+  --ground-vignette: oklch(0.3 0.03 45 / 0.06);
+  --ember-glow: oklch(0.68 0.175 52 / 0.16);
+  --octagon: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
+  --chamfer: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+/* The display scale below the poster headline, and the rhythm between sections. */
+:root {
+  --h2-size: clamp(2.3rem, 4.6vw, 3.4rem);
+  --h3-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  --section-space: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/*
+ * Syntax colors for code on iron. Iron is dark in both themes, so there is one
+ * set; the keyword ember follows the theme's own ember.
+ */
+:root {
+  --code-keyword: var(--ember);
+  --code-type: var(--iron-ink);
+  --code-function: oklch(0.84 0.08 70);
+  --code-string: oklch(0.8 0.1 95);
+  --code-comment: var(--iron-soft);
+}

@@ -54,13 +54,13 @@ export const FAMILY_SITE = "https://ferramenta.dev";
 export const family: FamilyTool[] = [
   {
     name: "ferroni",
-    job: "Oniguruma-compatible regex engine",
+    job: "Oniguruma, continued in Rust",
     shortJob: "regex engine",
     compat: "Oniguruma / vscode-oniguruma",
     proof:
-      "Oniguruma made TextMate grammars portable across editors. ferroni keeps its behavior in pure Rust, removing the C toolchain from the regex engine.",
+      "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
     evidence: "Oniguruma compatibility oracle",
-    version: "1.3.2",
+    version: "1.4.2",
     status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferroni",
@@ -172,6 +172,21 @@ export const family: FamilyTool[] = [
     repo: "https://github.com/sebastian-software/ferrugo",
   },
 ];
+
+/** One end of the content pipeline: a stamped label and what enters or leaves. */
+export type PipelineEnd = { label: string; text: string };
+
+/**
+ * The content pipeline beyond its members: what goes in, what comes out, and
+ * the sentence that reads the whole assembly for a screen reader. The stages
+ * themselves are the `pipeline` group, in array order.
+ */
+export const PIPELINE: { input: PipelineEnd; output: PipelineEnd; description: string } = {
+  input: { label: "Foundation", text: "Regex behavior" },
+  output: { label: "Application", text: "Markdown → highlighted HTML" },
+  description:
+    "Dependency assembly: ferroni provides the regex foundation for ferriki, and ferriki feeds highlighting into ferromark.",
+};
 
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool: FamilyTool) {

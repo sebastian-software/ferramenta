@@ -46,6 +46,21 @@ export type FamilyTool = {
 };
 export declare const FAMILY_SITE = "https://ferramenta.dev";
 export declare const family: FamilyTool[];
+/** One end of the content pipeline: a stamped label and what enters or leaves. */
+export type PipelineEnd = {
+    label: string;
+    text: string;
+};
+/**
+ * The content pipeline beyond its members: what goes in, what comes out, and
+ * the sentence that reads the whole assembly for a screen reader. The stages
+ * themselves are the `pipeline` group, in array order.
+ */
+export declare const PIPELINE: {
+    input: PipelineEnd;
+    output: PipelineEnd;
+    description: string;
+};
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
 /** The three display groups of the overview page, in order. */

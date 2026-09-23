@@ -60,6 +60,41 @@ test("current is context rather than a self-link", () => {
   assert.ok(!html.includes('href="https://sebastian-software.github.io/ferroni/"'));
 });
 
+test("the project lockup names the site and moves the family into the switcher", () => {
+  const html = render(family.SiteHeader, {
+    current: "ferroni",
+    home: "/ferroni/",
+    lockup: "project",
+  });
+  assert.ok(html.includes('<a class="lockup" href="/ferroni/">'), "the lockup links the site home");
+  assert.ok(html.includes('<use href="#i-ferroni"></use></svg><span>ferroni</span>'));
+  assert.ok(html.includes('<details class="switcher switcher-family">'), "the family trigger");
+  assert.ok(html.includes('aria-label="Ferramenta: all tools"'), "its name keeps the visible word");
+  assert.ok(
+    html.includes(`<a class="flyhome" href="${family.FAMILY_SITE}">`),
+    "the way back to the family site",
+  );
+  assert.ok(!html.includes("<span>ferramenta</span>"), "no family lockup in the brand slot");
+  assert.ok(
+    render(family.SiteHeader, { current: "ferroni", lockup: "project" }).includes(
+      '<a class="lockup" href="/">',
+    ),
+    "home defaults to the site root",
+  );
+  assert.throws(
+    () => render(family.SiteHeader, { lockup: "project" }),
+    /needs `current`/u,
+    "a project lockup without a project is a configuration error",
+  );
+});
+
+test("the family lockup stays the default, with no family entry in the flyout", () => {
+  const html = render(family.SiteHeader, { current: "ferroni" });
+  assert.ok(html.includes(`<a class="lockup" href="${family.FAMILY_SITE}">`));
+  assert.ok(html.includes("<span>ferramenta</span>"));
+  assert.ok(!html.includes("flyhome"), "the lockup already is the way back");
+});
+
 test("the switcher stands alone, for a host header that is not ours", () => {
   const html = render(family.ToolSwitcher, { current: "ferroni" });
   assert.match(html, /^<details class="switcher">/u);
@@ -226,7 +261,13 @@ test("both entries load in a bare Node process", async () => {
 });
 
 test("the CSS a consumer imports is exported and shipped", async () => {
-  for (const entry of ["./chrome.css", "./fonts.css", "./theme.css", "./tokens.css"]) {
+  for (const entry of [
+    "./chrome.css",
+    "./fonts.css",
+    "./landing.css",
+    "./theme.css",
+    "./tokens.css",
+  ]) {
     const target = manifest.exports[entry];
     assert.equal(typeof target, "string", `missing export: ${entry}`);
     await access(new URL(`../${target}`, import.meta.url));

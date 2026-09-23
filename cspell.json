@@ -15,7 +15,9 @@
     "ferroni",
     "ferrovia",
     "ferrugo",
+    "flyhome",
     "forgejo",
+    "lede",
     "lockfile",
     "oxfmt",
     "oxlint",
@@ -24,6 +26,7 @@
     "pnpm",
     "repometa",
     "unreviewed",
+    "wordmark",
     "worktrees"
   ]
 }

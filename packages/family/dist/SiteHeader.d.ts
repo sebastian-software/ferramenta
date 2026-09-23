@@ -27,6 +27,20 @@ export type SiteHeaderProps = {
      */
     nav?: ReactNode;
     /**
+     * What the brand slot carries. `"family"` (the default) is the Ferramenta
+     * lockup — right on ferramenta.dev, and on a docs site that reads as a
+     * section of the family. `"project"` puts the current project's own mark and
+     * wordmark there, linking to `home`, and moves the way back to the family
+     * into the switcher (`ToolSwitcher family`). It needs `current`.
+     */
+    lockup?: "family" | "project";
+    /**
+     * Where the project lockup links: the site's own root. Defaults to `/`; a
+     * site served from a sub-path (GitHub Pages) passes its base, e.g.
+     * `/ferroni/`. Ignored by the family lockup.
+     */
+    home?: string;
+    /**
      * The element to render. `"header"` (the default) is the banner landmark.
      * Pass `"div"` when the host already provides one — an Ardo site rendering
      * this inside `<ArdoHeader>` — so the page does not end up with two. The
@@ -35,4 +49,4 @@ export type SiteHeaderProps = {
     as?: "div" | "header";
 };
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export declare function SiteHeader({ actions, as, current, nav, themeToggle, }?: SiteHeaderProps): import("react").JSX.Element;
+export declare function SiteHeader({ actions, as, current, home, lockup, nav, themeToggle, }?: SiteHeaderProps): import("react").JSX.Element;

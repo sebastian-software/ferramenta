@@ -15,6 +15,14 @@ export type ToolSwitcherProps = {
     align?: "end" | "start";
     /** Extra classes on the `<details>` root, for a host that has to place it. */
     className?: string;
+    /**
+     * The switcher as the way back to the family, for a site whose brand slot
+     * carries its own lockup: the trigger shows the Ferramenta mark and name
+     * instead of "Tools", and the flyout opens with a link to the family site.
+     * `SiteHeader lockup="project"` sets it; a host header that is not ours sets
+     * it itself.
+     */
+    family?: boolean;
 };
 /**
  * The family-wide tool switcher, grouped the way the family site groups it.
@@ -27,4 +35,4 @@ export type ToolSwitcherProps = {
  * duotone variables, and the flyout is positioned against the trigger, so the
  * host header's height does not matter.
  */
-export declare function ToolSwitcher({ align, className, current, label }?: ToolSwitcherProps): import("react").JSX.Element;
+export declare function ToolSwitcher(props?: ToolSwitcherProps): import("react").JSX.Element;

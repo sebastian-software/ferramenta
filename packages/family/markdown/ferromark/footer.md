@@ -6,7 +6,7 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma-compatible regex engine |
+| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
 | [ferriki](https://github.com/sebastian-software/ferriki) | Shiki-compatible syntax highlighting |
 
 **The language workshop**

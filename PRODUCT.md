@@ -21,18 +21,18 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 ## Operating Context
 
 - Family registry (all named equally; subfamilies exist):
-  - Content pipeline: **ferroni** (Oniguruma-compatible regex engine, v1.3.0, crates.io, most stable) → **ferriki** (Shiki-compatible syntax highlighting, v0.2.0, alpha) → **ferromark** (CommonMark/GFM Markdown→HTML, v0.7.0, crates.io + npm, beta)
+  - Content pipeline: **ferroni** (Oniguruma, continued in Rust after the C project ended in April 2025; crates.io, most stable) → **ferriki** (Shiki-compatible syntax highlighting, v0.2.0, alpha) → **ferromark** (CommonMark/GFM Markdown→HTML, v0.7.0, crates.io + npm, beta)
   - Language: **ferrolex** (spell-checking engine, Hunspell-compatible, v0.2.0, alpha, very active) + **ferrocat** (translation catalog engine: PO/FCL/ICU, v3.4.2, crates.io, most mature)
   - Workbench (solo tools): **ferralk** (byte-first glob matching + parallel filesystem walking, v0.1.2, git-pinned, checked against a frozen zlob reference), **ferrovia** (SVGO-compatible SVG optimizer, 0.1.0, WIP) and **ferrugo** (PDF preview engine, v0.5.0, crates.io) — all early stage, sites deferred.
 - Each project site lives in its own repo under `homepage/`, built on Ardo (in-house React-Router/SSG docs framework, v4.2), deployed to GitHub Pages. URLs: GitHub Pages now, own domains over time (ferramenta.dev and ferrocat.dev already live).
-- This repo holds the family overview site plus the shared package `ferramenta-family`: design tokens, finished components (header with the family switcher, footer, project marks, family registry), custom logo SVGs, bundled display font.
+- This repo holds the family overview site plus the shared package `ferramenta-family`: design tokens, finished components (header with the family switcher and a project lockup, footer, project marks, family registry), the landing kit every home page is built from, custom logo SVGs, bundled display font.
 
 ## Capabilities and Constraints
 
 - English only for now (i18n via Palamedes is a future follow-up; Ardo i18n still experimental).
 - Static prerendered sites (Ardo: `ssr: false, prerender: true`); GitHub Pages hosting; no server.
 - Rollout order after design approval: ferramenta.dev reference implementation → extract `ferramenta-family` → ferrocat → ferromark → ferroni → ferriki → ferrolex. Existing ferrocat.dev docs and ferromark homepage are reskinned, not rewritten.
-- Streamline Sharp icons (Pro license) may accompany marketing content: shared chrome icons may live in the central package; page-specific icons stay in each project repo (< 100 per project, mandatory attribution + Streamline ownership carve-out in LICENSE; those SVGs are not MIT). Project logos are never built from Streamline. `lucide-react` is to be removed.
+- Streamline Sharp icons (Pro license) may accompany marketing content: shared chrome icons may live in the central package; page-specific icons stay in each project repo (< 100 per project, mandatory attribution + Streamline ownership carve-out in LICENSE; those SVGs are not MIT). Project logos are never built from Streamline. `lucide-react` is to be removed: the package's line icons (arrow, chevron, GitHub, crate, adapter, external, package) cover the family home pages.
 
 ## Brand Commitments
 

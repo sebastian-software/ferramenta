@@ -2,7 +2,8 @@
 
 The [Ferramenta](https://ferramenta.dev) family in one package: the registry
 every site reads its facts from, the shared chrome (header with the tool
-switcher, footer), the project marks, the design tokens, and the display face.
+switcher, footer), the landing kit a home page is built from, the project
+marks, the design tokens, and the display face.
 
 > **Status:** consumed by ferramenta.dev through `workspace:*`. The name
 > `ferramenta-family` is reserved on npm, but no release is published yet (see
@@ -139,12 +140,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 - **`MarkDefs`** mounts the SVG sprite once per page. Without it every mark is
   empty: `Mark` only references symbols.
-- **`SiteHeader`** — `current?: string`, `themeToggle?: ReactNode`,
-  `actions?: ReactNode`, `nav?: ReactNode`, `as?: "header" | "div"`. Name the
-  family member this site
+- **`SiteHeader`** — `current?: string`, `lockup?: "family" | "project"`,
+  `home?: string`, `themeToggle?: ReactNode`, `actions?: ReactNode`,
+  `nav?: ReactNode`, `as?: "header" | "div"`. Name the family member this site
   belongs to and the switcher shows that name as plain context, while the
   lockup links to ferramenta.dev instead of this site's root; leave it out on
-  the family site itself. `themeToggle` is a slot at the end of the bar: an Ardo
+  the family site itself. `lockup="project"` puts the project's own mark and
+  wordmark in the brand slot, linking to `home` (default `/`; pass the base
+  path on GitHub Pages, e.g. `/ferroni/`), and turns the switcher into the way
+  back to the family (`ToolSwitcher family`). It needs `current`. `themeToggle` is a slot at the end of the bar: an Ardo
   site passes `<ArdoThemeToggle />`, a site on something else passes its own
   control or nothing. The package does not import `ardo/ui` — that module only
   loads inside a bundler, and the theme switch belongs to the site's framework
@@ -163,13 +167,90 @@ export function Layout({ children }: { children: React.ReactNode }) {
 - **`ToolSwitcher`** — the switcher on its own, for a site whose framework owns
   the header. Same section.
 - **`Mark`** — `name` (a symbol without the `i-` prefix, e.g. `ferroni`,
-  `arrow`, `chev`), `className` (default `mark`; chrome icons use `icon`),
-  `size`. On the page material it needs no more than `tokens.css`. On an iron
+  `arrow`, `chev`, `github`, `crate`, `adapter`, `external`, `package`),
+  `className` (default `mark`; chrome icons use `icon`), `size`. On the page material it needs no more than `tokens.css`. On an iron
   surface of the host's own, put it inside an element with `class="on-iron"`:
   that carries the four duotone variables the marks read, the same set the
   header, footer and flyout use in both themes.
 - **`FamilyLinks`** — the one-line variant for a site that keeps its own chrome
   (palamedes, per decision D6): `current`, `label`, `className`.
+
+## The landing kit
+
+A family home page is built from the same parts as ferramenta.dev, not from a
+copy of its stylesheet. Load `landing.css` after `theme.css` and **before**
+your own stylesheet, so your rules adjust the kit on equal specificity;
+`chrome.css` stays last. Wrap the page in `.fam-page` — it paints the brushed
+shop floor itself, because an Ardo layout paints its own background over
+`<body>`.
+
+```tsx
+import {
+  ClosingAction, CodePanel, EvidenceFigures, IronBand, Ledger, Mark, MarkDefs,
+  PipelineAssembly, ProjectHero, Section, SiteFooter, SiteHeader,
+} from "ferramenta-family";
+
+import "ferramenta-family/tokens.css";
+import "ferramenta-family/fonts.css";
+import "ferramenta-family/theme.css";
+import "ferramenta-family/landing.css";
+import "./your-site.css";
+import "ferramenta-family/chrome.css";
+
+export default function Home() {
+  return (
+    <div className="fam-page">
+      <MarkDefs />
+      <SiteHeader current="ferroni" lockup="project" home="/ferroni/" />
+      <ProjectHero
+        mark="ferroni"
+        title={<>Oniguruma, <em>forged in Rust.</em></>}
+        lede="…"
+        actions={
+          <a className="fam-btn fam-btn-primary" href="guide/">
+            Get started <Mark name="arrow" className="icon" size={18} />
+          </a>
+        }
+        install={<code>cargo add ferroni</code>}
+      />
+      <IronBand title="Oniguruma ended. The engine goes on." rows={pillars} />
+      <Section title="Where ferroni sits" intro="…">
+        <PipelineAssembly current="ferroni" />
+      </Section>
+      <Section layout="split" title="Faster on real code" intro="…" note="Measured on …">
+        <EvidenceFigures figures={benchmarks} />
+      </Section>
+      <Section title="What it covers">
+        <Ledger entries={coverage} />
+      </Section>
+      <ClosingAction title="Start building" actions={…} links={…}>
+        <p>…</p>
+      </ClosingAction>
+      <SiteFooter current="ferroni" />
+    </div>
+  );
+}
+```
+
+| Component          | Props                                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate) |
+| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`       |
+| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                               |
+| `PipelineAssembly` | `current?`, `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`) |
+| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                 |
+| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                     |
+| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                 |
+| `Stamp`            | `solid?`, `children`                                                                             |
+| `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                         |
+| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`     |
+
+Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
+(rust, chamfered — one per view) or `fam-btn-ghost`, `fam-actions` for a row
+of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`. The rules the
+kit carries — no kickers above headings, the H1 floor (`--fam-title-min` on
+`.fam-hero`, never below 2.5rem), where material may appear — are in the
+family's [DESIGN.md](https://github.com/sebastian-software/ferramenta/blob/main/DESIGN.md).
 
 ## Ardo docs sites
 
@@ -263,7 +344,10 @@ export default function Root() {
 ```
 
 - **`ToolSwitcher`** — `current?: string`, `label?: ReactNode` (the trigger's
-  text, default `Tools`), `align?: "end" | "start"`, `className?: string`. It is
+  text, default `Tools`), `align?: "end" | "start"`, `className?: string`,
+  `family?: boolean` (the trigger shows the Ferramenta mark and name, and the
+  flyout opens with a link to ferramenta.dev — for a host header whose brand is
+  the project's own). It is
   the same component `SiteHeader` renders, and it is self-contained: it carries
   its own duotone variables, and the flyout hangs from the trigger rather than
   from an assumed header height, so a host bar of any height works. It still
@@ -298,20 +382,23 @@ the worked examples.
 
 ## CSS entry points
 
-| Import                         | What it is                                                                 | Safe to load anywhere?                                  |
-| ------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------- |
-| `ferramenta-family/tokens.css` | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                    |
-| `ferramenta-family/fonts.css`  | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack |
-| `ferramenta-family/theme.css`  | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                     |
-| `ferramenta-family/chrome.css` | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                   |
+| Import                          | What it is                                                                 | Safe to load anywhere?                                        |
+| ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `ferramenta-family/tokens.css`  | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                          |
+| `ferramenta-family/fonts.css`   | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack       |
+| `ferramenta-family/theme.css`   | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                           |
+| `ferramenta-family/landing.css` | The landing kit: `.fam-page` and every `fam-` pattern                      | Yes — `fam-` prefixed; load it **before** your own stylesheet |
+| `ferramenta-family/chrome.css`  | The header, footer, marks, plates and hooks                                | Load it **after** your own stylesheet                         |
 
 `chrome.css` needs `tokens.css`: every color, plate and hook value is a token.
 It goes last, after the site's own stylesheet, so a site-wide reset cannot take
 the selector ties from the chrome — which also means it wins those ties. It owns
 these class names: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
-`switcher`, `switcher-start`, `flyout`, `flygroup`, `ghlink`, `on-iron`,
-`foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`,
-`icon`. A site that needs one of them for its own elements should scope or
+`switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
+`flyhome`, `ghlink`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `mark`,
+`markplate`, `hook`, `fastener`, `icon`. `landing.css` needs `chrome.css` for
+`wrap`, `markplate`, `fastener` and `icon`, and owns every class that starts
+with `fam-`. A site that needs one of them for its own elements should scope or
 rename it.
 
 The font file is also exported directly, for a preload link:
