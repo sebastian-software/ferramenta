@@ -53,9 +53,10 @@ on a plate face), `--ground-vignette`, `--ember-glow`, `--octagon` (plate outlin
   Shoulders. A site whose headline starts with a longer word lowers the floor with
   `--fam-title-min` on `.fam-hero` — never below 2.5rem. The headline breaks a word rather than
   scroll the page (`overflow-wrap: break-word`), but that is the last line of defense, not a
-  layout. The 36KB WOFF2 is preloaded from the root route and uses
-  `font-display: block`: display copy waits briefly instead of rendering a fallback and swapping;
-  body copy remains immediately visible in the system stack.
+  layout.
+- **Loading**: the 36KB WOFF2 is preloaded from the root route and uses `font-display: block`:
+  display copy waits briefly instead of rendering a fallback and swapping; body copy remains
+  immediately visible in the system stack.
 - **Body**: `system-ui` stack, 1.0625rem, line-height 1.6.
 - **Mono**: system mono stack (`ui-monospace…`), only for measured values: versions,
   registries, partner URLs, the signature. Never as a "technical" costume.
