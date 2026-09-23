@@ -20,7 +20,7 @@ export type FamilyTool = {
     name: string;
     /** One-line job description — the subheader under the tool name */
     job: string;
-    /** Terse job label for constrained family navigation surfaces */
+    /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
     shortJob: string;
     /** Which established API/contract it stays compatible with (engines only) */
     compat?: string;
@@ -61,8 +61,20 @@ export declare const PIPELINE: {
     output: PipelineEnd;
     description: string;
 };
+/**
+ * What each maturity stamp promises, in one line. The stamp legend on every
+ * family site reads from here, so a status means the same thing everywhere.
+ */
+export declare const STATUS_MEANING: Record<FamilyStatus, string>;
+/** Maturity order, most settled first. */
+export declare const STATUS_ORDER: FamilyStatus[];
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
+/**
+ * The most mature member of a group: best status by `STATUS_ORDER`, and on a
+ * tie the first in registry order. The honest place to start in that group.
+ */
+export declare function leadTool(tools: FamilyTool[]): FamilyTool | undefined;
 /** The three display groups of the overview page, in order. */
 export declare function familyGroups(current?: string): {
     pipeline: FamilyTool[];

@@ -91,10 +91,15 @@ row headed by a stamped 28px-tall group label — label rows and 28px gaps keep 
 hole on the wall grid (verified 0.0px offsets, desktop and mobile).
 
 The board's hole grid is a 28px tile (`background-size: 28px 28px`, dots offset 14px).
-Everything on the board is a multiple: padding 42px (desktop) / 14px (mobile), cells
-112×140px, gaps 28px → every hook hole lands exactly on a wall hole (verified 0.0px
-offsets, desktop and mobile). Change board geometry only in multiples of 28, keeping
-padding ≡ 14 (mod 28).
+Everything on the board is a multiple: padding 42px, cells 112×140px, gaps 28px → every hook
+hole lands exactly on a wall hole. The invariant is the hook, not the padding: a hook hangs at
+its cell's top center, and that point must sit at 14 (mod 28) from the board's padding edge on
+both axes. With 112px cells that means padding ≡ 14 (mod 28). The phone board (≤34rem) keeps
+every group on one row of three in 84px cells with no column gap and 56px plates, so its inline
+padding moves to 28 (a cell center is 42px in) while the block padding stays 14 — measured at
+14,14 for all nine hooks. Below 60rem the hero stacks, so the full board never squeezes the
+headline. Change board geometry only in multiples of 28, and re-measure the hook offsets after
+any change.
 
 ## Iconography
 
@@ -123,7 +128,11 @@ padding ≡ 14 (mod 28).
   the way back to the family: its trigger shows the Ferramenta mark and name, small and soft,
   and the flyout opens with the family site. On a phone the lockup drops to 1.2rem and the
   family trigger to its mark.
-- **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`;
+- **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`.
+  Each row is an `article` whose `h3` tool name is the link, stretched over the row by `::after`
+  — the whole row stays the target, while a screen reader hears the name instead of every fact.
+  The facts are a `dl`. A row that leads to a repository rather than a site shows the GitHub
+  glyph in the `go` column and says "GitHub repository" to assistive technology;
   big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
   register, followed by compact `Contract` and `Evidence` facts from the registry;
   visible metadata is the live version, registry availability as icon-plus-label pairs
@@ -133,10 +142,14 @@ padding ≡ 14 (mod 28).
   are named in `Evidence` — and no registry-availability pair, because the row leads to the
   product's own site rather than to a crate or an adapter. Download counts ride in the fact row; deeper evidence stays with each
   repository (owner boundary). Status stamps are tinted
-  fills (`stable` = rust), versions in mono. ≤64rem stacks; ≤40rem drops the arrow column.
-- **Pipeline assembly**: a flat dependency drawing above the pipeline ledger, using the existing
-  project plates and line-style arrows to show the regex foundation → ferroni → ferriki →
-  ferromark → Markdown application. It is horizontal on wide screens and vertical on narrow ones.
+  fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
+  What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
+  the foot of "What earns the stamp".
+- **Pipeline assembly**: a flat drawing above the pipeline ledger, using the existing project
+  plates and line-style arrows to show the chain as data flow: TextMate grammars in → ferroni →
+  ferriki → ferromark → highlighted HTML from Markdown out. The ends come from the registry
+  (`PIPELINE`) and never say "Application", which is a registry role. Small labels on the plate
+  use `--rust-on-plate` (rust-deep light, ember dark) to hold 4.5:1 across the plate gradient. It is horizontal on wide screens and vertical on narrow ones.
   A chamfered, four-screw steel chassis makes the chain feel like one assembled machine without
   turning its stages into separate cards. The nearby prose remains its complete text alternative.
 - **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows.
@@ -145,8 +158,10 @@ padding ≡ 14 (mod 28).
   the comp.
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
-- **Closing action**: a flat, ruled return to tool comparison before partner provenance; no new
-  material carrier. It carries the family download tally — a mono number in running text,
+- **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
+  ends forward, not back up the page: one entry per line of work — the most mature member of
+  each group by registry status (`leadTool`), with plate, name, short job and stamp. It carries
+  the family download tally — a mono number in running text with the date it was counted,
   never a metric tile.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
 - **Buttons**: `.fam-btn-primary` rust with a single chamfered corner (`--chamfer`), one per
@@ -171,8 +186,9 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 | `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions right                               |
 
 - **Stamps**: a tinted `--bg-dim` fill with a `--line` hairline, mono uppercase; the settled state
-  (`stable`, `covered`) is solid rust. One stamp for the family ledger, coverage ledgers and the
-  current assembly step.
+  (`stable`, `covered`) is solid rust; on iron the open states take `--iron-2` and `--iron-line`.
+  One stamp for the family ledger, coverage ledgers and the current assembly step. `StampKey`
+  renders the registry's meaning for each status.
 - **Evidence figures** show only numbers someone can reproduce; the section's `note` says where
   and when they were measured. Say what is not covered in the ledger as plainly as what is.
 - **Code panel** is the iron surface at code scale, not a new material: flat `--iron`, no
@@ -194,6 +210,9 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
   route-rendered components.
 - `.ferramenta-site main { overflow: visible; padding: 0 }` — Ardo's docs scroll-container
   behavior is disabled for this single-page shell (body scrolls; sticky header works).
+- The family chrome lives in `root.tsx`, outside `ArdoRoot`, inside the `.fam-page` wrapper:
+  that makes the header and footer the page's `banner` and `contentinfo` landmarks instead of
+  parts of Ardo's `<main>`. The skip link targets Ardo's `#main-content`.
 - The page ground is painted by `.fam-page`, not by `body`: Ardo's layout `<main>` paints its own
   background over the body, which hid the brushed floor and the warm `--bg` until the kit moved
   the ground onto the page element.
@@ -210,6 +229,10 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 - One authored moment: board items shift to rust on hover (no positional lift — plates stay on their hooks); arrows slide 3-4px
   on row hover; assembly stage names turn rust. `prefers-reduced-motion` disables transitions globally.
 - Focus: 2px `--focus` outline, offset 2px — rust on the light shop floor, ember on iron surfaces and in dark mode (≥3:1 everywhere). Contrast held in both themes (soft text ≥ 4.5:1).
+- Browser surfaces carry the palette: text selection is rust with `--on-rust` (ember on iron in
+  code), `accent-color` is rust, the code panel's scrollbar is iron.
+- Targets: the header lockup is 44px tall; footer links get a 24px+ hit area through padding
+  that a negative margin takes back, so the columns keep their rhythm.
 - The page must never scroll horizontally; wide content scrolls in its own container.
 
 ## Sharing & minimum sizes

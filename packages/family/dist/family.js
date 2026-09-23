@@ -37,7 +37,7 @@ export const family = [
     {
         name: "ferromark",
         job: "Markdown to HTML with a secure default and every GFM extension included.",
-        shortJob: "markdown",
+        shortJob: "Markdown to HTML",
         compat: "CommonMark / GFM",
         proof: "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
         evidence: "CommonMark & GFM conformance",
@@ -88,7 +88,7 @@ export const family = [
     {
         name: "ferrovia",
         job: "SVGO-compatible SVG optimizer",
-        shortJob: "svg optimizer",
+        shortJob: "SVG optimizer",
         compat: "SVGO",
         proof: "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
         evidence: "Byte-for-byte SVGO oracle · in progress",
@@ -111,7 +111,7 @@ export const family = [
     {
         name: "ferrugo",
         job: "PDF previews for untrusted files",
-        shortJob: "pdf previews",
+        shortJob: "PDF previews",
         proof: "PDF previews have traditionally meant embedding a browser-sized engine. ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
         evidence: "Bounded memory and time · no PDFium",
         version: "0.5.0",
@@ -126,13 +126,33 @@ export const family = [
  * themselves are the `pipeline` group, in array order.
  */
 export const PIPELINE = {
-    input: { label: "Foundation", text: "Regex behavior" },
-    output: { label: "Application", text: "Markdown → highlighted HTML" },
-    description: "Dependency assembly: ferroni provides the regex foundation for ferriki, and ferriki feeds highlighting into ferromark.",
+    input: { label: "Input", text: "TextMate grammars" },
+    output: { label: "Output", text: "Highlighted HTML from Markdown" },
+    description: "The content pipeline: ferroni runs the regular expressions of TextMate grammars for ferriki, and ferriki feeds highlighted code into ferromark, which renders Markdown to HTML.",
 };
+/**
+ * What each maturity stamp promises, in one line. The stamp legend on every
+ * family site reads from here, so a status means the same thing everywhere.
+ */
+export const STATUS_MEANING = {
+    stable: "Ready to adopt against its contract.",
+    beta: "The contract is covered; details may still change.",
+    alpha: "Working toward its contract; expect gaps.",
+    early: "Taking shape; only what is proven is claimed.",
+};
+/** Maturity order, most settled first. */
+export const STATUS_ORDER = ["stable", "beta", "alpha", "early"];
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool) {
     return (tool.role ?? "engine") === "engine";
+}
+/**
+ * The most mature member of a group: best status by `STATUS_ORDER`, and on a
+ * tie the first in registry order. The honest place to start in that group.
+ */
+export function leadTool(tools) {
+    // Array sort is stable, so equal statuses keep registry order.
+    return [...tools].sort((a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status))[0];
 }
 /** The three display groups of the overview page, in order. */
 export function familyGroups(current) {

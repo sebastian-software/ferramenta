@@ -73,7 +73,8 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   overview page. Only verifiable claims; no invented social proof.
 - Design changes respect DESIGN.md and ADR-0003: material lives only on body
   texture, octagon plates, and hooks; board geometry moves in 28px-module steps
-  (padding ≡ 14 mod 28); zero border-radius.
+  (hook centers on holes: padding ≡ 14 mod 28 with 112px cells; see DESIGN.md
+  for the phone board); zero border-radius.
 - Streamline-derived SVGs: keep any repo under 100 icons, keep attribution and
   the ownership carve-out intact (ADR-0002).
 - Code style is whatever `oxfmt` produces — run `pnpm format`, never hand-tune
@@ -94,7 +95,9 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 ## Gotchas (hard-won)
 
 - **Custom shell**: the route exports `handle = { chrome: false }` to disable
-  Ardo's default header/footer. Without it you get a double header.
+  Ardo's default header/footer. Without it you get a double header. The family
+  header and footer render in `root.tsx`, outside `ArdoRoot`, so they are real
+  landmarks; a route renders only its content.
 - **Ardo layout quirks**: `.ferramenta-site main` gets `overflow: visible` and
   `padding: 0` overrides in site.css — Ardo's docs-style scroll container and
   fixed-header spacing otherwise break the sticky header and full-bleed bands.

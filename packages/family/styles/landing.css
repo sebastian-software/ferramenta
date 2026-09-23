@@ -63,6 +63,26 @@
   outline-offset: 2px;
 }
 
+/* The browser's own surfaces carry the palette too. */
+:where(.fam-page) {
+  accent-color: var(--rust);
+}
+
+.fam-page ::selection {
+  background: var(--rust);
+  color: var(--on-rust);
+}
+
+/* Text for assistive technology only: the repository a link leads to, a unit. */
+.fam-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* -- Actions ---------------------------------------------------------------- */
 
 .fam-actions {
@@ -363,7 +383,7 @@
 }
 
 .fam-assembly-end small {
-  color: var(--rust);
+  color: var(--rust-on-plate);
   font-family: var(--mono);
   font-size: 0.75rem;
   font-weight: 700;
@@ -533,6 +553,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 .fam-code pre {
   --focus: var(--ember);
   padding: 1.25rem;
+  scrollbar-color: var(--iron-line) transparent;
   overflow-x: auto;
   background: none;
   font-family: var(--mono);
@@ -547,6 +568,11 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 
 .fam-code code {
   font-size: 1em;
+}
+
+.fam-code ::selection {
+  background: var(--ember);
+  color: var(--iron);
 }
 
 .fam-code .kw,
@@ -592,6 +618,31 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   border-color: var(--rust);
   background: var(--rust);
   color: var(--on-rust);
+}
+
+.on-iron .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--iron-line);
+  background: var(--iron-2);
+  color: var(--iron-ink);
+}
+
+/* The legend: each stamp beside the one line it promises. */
+.fam-stamp-key {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  margin-top: 2.5rem;
+}
+
+.fam-stamp-key dd {
+  margin: 0.55rem 0 0;
+  max-width: 28ch;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.on-iron .fam-stamp-key dd {
+  color: var(--iron-soft);
 }
 
 .fam-ledger {
@@ -685,6 +736,10 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 }
 
 @media (max-width: 54rem) {
+  .fam-stamp-key {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .fam-closing-grid {
     grid-template-columns: minmax(0, 1fr);
   }

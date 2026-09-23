@@ -8,7 +8,8 @@ export type PipelineAssemblyProps = {
   /**
    * The pipeline member this site belongs to. Its stage is marked as the one
    * you are on and is not a link; the others link to their sites. Leave it out
-   * on the family site.
+   * on the family site and on a site that is not a stage — naming any other
+   * member is a configuration error, not a silently unmarked chain.
    */
   current?: string;
   /** What enters the chain. Defaults to the registry's `PIPELINE.input`. */
@@ -59,10 +60,15 @@ export function PipelineAssembly({
   label = PIPELINE.description,
   output = PIPELINE.output,
 }: PipelineAssemblyProps = {}) {
-  if (current !== undefined && !family.some((tool) => tool.name === current)) {
-    throw new Error(`Unknown Ferramenta project: ${current}`);
-  }
   const { pipeline } = familyGroups();
+  if (current !== undefined && !pipeline.some((tool) => tool.name === current)) {
+    const known = family.some((tool) => tool.name === current);
+    throw new Error(
+      known
+        ? `${current} is not a pipeline stage; leave \`current\` out on its site`
+        : `Unknown Ferramenta project: ${current}`,
+    );
+  }
 
   return (
     <figure className="fam-assembly" aria-label={label}>

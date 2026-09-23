@@ -18,9 +18,12 @@ export {
   type FamilyStatus,
   type FamilyTool,
   isEngine,
+  leadTool,
   PIPELINE,
   type PipelineEnd,
   relatedTools,
+  STATUS_MEANING,
+  STATUS_ORDER,
 } from "./family.js";
 export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
 export { Fasteners } from "./Fasteners.js";
@@ -35,7 +38,7 @@ export {
   Section,
   type SectionProps,
 } from "./Landing.js";
-export { Ledger, type LedgerEntry, Stamp, type StampProps } from "./Ledger.js";
+export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Ledger.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { PipelineAssembly, type PipelineAssemblyProps } from "./PipelineAssembly.js";

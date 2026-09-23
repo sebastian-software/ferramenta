@@ -1,6 +1,7 @@
 import type { LinksFunction, MetaFunction } from "react-router";
 
-import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout } from "ardo/ui";
+import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout, ArdoThemeToggle } from "ardo/ui";
+import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
 import bigShouldersFont from "ferramenta-family/fonts/big-shoulders.woff2?url";
 import config from "virtual:ardo/config";
 import "ardo/ui/styles.css";
@@ -60,6 +61,18 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 review, the verdict, and DESIGN.md
 */
 export default function Root() {
-  // Full custom shell: header and footer are rendered by the home route.
-  return <ArdoRoot config={config} className="ferramenta-site" />;
+  // The family chrome sits outside ArdoRoot, so the header and footer are the
+  // page's banner and contentinfo landmarks rather than parts of Ardo's <main>.
+  // `.fam-page` paints the shop floor under all of it.
+  return (
+    <div className="fam-page">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <MarkDefs />
+      <SiteHeader themeToggle={<ArdoThemeToggle />} />
+      <ArdoRoot config={config} className="ferramenta-site" />
+      <SiteFooter />
+    </div>
+  );
 }

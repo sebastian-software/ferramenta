@@ -232,22 +232,27 @@ export default function Home() {
 }
 ```
 
-| Component          | Props                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
-| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate) |
-| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`       |
-| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                               |
-| `PipelineAssembly` | `current?`, `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`) |
-| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                 |
-| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                     |
-| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                 |
-| `Stamp`            | `solid?`, `children`                                                                             |
-| `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                         |
-| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`     |
+| Component          | Props                                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate)                                            |
+| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`                                                  |
+| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                                                                          |
+| `PipelineAssembly` | `current?` (a pipeline stage — any other name throws), `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`) |
+| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                                                            |
+| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                |
+| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                            |
+| `Stamp`            | `solid?`, `children`                                                                                                                        |
+| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                          |
+| `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                                                                    |
+| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                |
 
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 (rust, chamfered — one per view) or `fam-btn-ghost`, `fam-actions` for a row
-of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`. The rules the
+of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`, and
+`fam-sr-only` for text only assistive technology reads. From the registry:
+`PIPELINE` (the chain's ends), `STATUS_MEANING` and `STATUS_ORDER` (what each
+stamp promises, most settled first), and `leadTool(tools)` (the most mature
+member of a group — the honest place to start). The rules the
 kit carries — no kickers above headings, the H1 floor (`--fam-title-min` on
 `.fam-hero`, never below 2.5rem), where material may appear — are in the
 family's [DESIGN.md](https://github.com/sebastian-software/ferramenta/blob/main/DESIGN.md).

@@ -198,6 +198,7 @@ details.switcher,
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  min-height: 44px;
   text-decoration: none;
   font-family: var(--display), var(--body);
   font-weight: var(--disp-weight);
@@ -447,9 +448,19 @@ details.switcher[open] summary svg.chev {
   gap: 0.45rem;
 }
 
+/*
+ * The footer's links are one line of text each; the padding (taken back by the
+ * negative margin, so the columns keep their rhythm) gives each a 24px+ target.
+ */
 .foot a {
   text-decoration: none;
   font-size: 0.95rem;
+}
+
+.foot li > a {
+  display: inline-block;
+  padding-block: 0.3rem;
+  margin-block: -0.3rem;
 }
 
 .foot a:hover {

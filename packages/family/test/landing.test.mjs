@@ -97,7 +97,9 @@ test("the pipeline assembly follows the registry and marks the current stage", (
   }
   assert.ok(family.includes(kit.PIPELINE.input.text) && family.includes(kit.PIPELINE.output.text));
   assert.ok(!family.includes("aria-current"), "the family site is no stage");
+});
 
+test("a site's own stage is marked, and only pipeline members can be one", () => {
   const own = render(kit.PipelineAssembly, {
     current: "ferroni",
     input: { label: "Input", text: "TextMate grammars" },
@@ -107,6 +109,14 @@ test("the pipeline assembly follows the registry and marks the current stage", (
   assert.ok(!own.includes(`href="${ferroni.docs}"`), "the current stage is not a self-link");
   assert.ok(own.includes("TextMate grammars"), "the site names its own input");
   assert.throws(() => render(kit.PipelineAssembly, { current: "nope" }), /Unknown/u);
+  assert.throws(
+    () => render(kit.PipelineAssembly, { current: "ferrocat" }),
+    /not a pipeline stage/u,
+    "a member outside the chain is a configuration error, not an unmarked chain",
+  );
+  for (const end of [kit.PIPELINE.input.label, kit.PIPELINE.output.label]) {
+    assert.doesNotMatch(end, /Application/u, "the terminals must not reuse the application role");
+  }
 });
 
 test("figures, ledger and stamps render as lists with their states", () => {
@@ -183,5 +193,35 @@ test("the materials are tokens, not copies", async () => {
   }
   for (const token of ["--texture-brush", "--texture-speckle", "--octagon", "--chamfer"]) {
     assert.ok(tokens.includes(`${token}:`), `tokens.css has no ${token}`);
+  }
+});
+
+test("the stamp legend reads every status from the registry", () => {
+  const html = render(kit.StampKey);
+  assert.match(html, /^<dl class="fam-stamp-key">/u);
+  for (const status of kit.STATUS_ORDER) {
+    assert.ok(html.includes(`>${status}</span></dt><dd>${kit.STATUS_MEANING[status]}</dd>`));
+  }
+  assert.ok(html.includes('<span class="fam-stamp" data-tone="solid">stable</span>'));
+});
+
+test("the lead tool is the most mature member, registry order on a tie", () => {
+  const { language, workbench } = kit.familyGroups();
+  assert.equal(kit.leadTool(language)?.status, "stable");
+  const best = Math.min(...workbench.map((tool) => kit.STATUS_ORDER.indexOf(tool.status)));
+  assert.equal(
+    kit.leadTool(workbench),
+    workbench.find((tool) => kit.STATUS_ORDER.indexOf(tool.status) === best),
+  );
+  assert.equal(kit.leadTool([]), undefined);
+});
+
+test("short jobs keep their acronyms: the board shows them without a text transform", () => {
+  for (const tool of kit.family) {
+    assert.doesNotMatch(
+      tool.shortJob,
+      /\b(?:svg|pdf|markdown)\b/u,
+      `${tool.name}: ${tool.shortJob}`,
+    );
   }
 });

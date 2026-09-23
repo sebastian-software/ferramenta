@@ -24,7 +24,7 @@ export type FamilyTool = {
   name: string;
   /** One-line job description — the subheader under the tool name */
   job: string;
-  /** Terse job label for constrained family navigation surfaces */
+  /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
   shortJob: string;
   /** Which established API/contract it stays compatible with (engines only) */
   compat?: string;
@@ -82,7 +82,7 @@ export const family: FamilyTool[] = [
   {
     name: "ferromark",
     job: "Markdown to HTML with a secure default and every GFM extension included.",
-    shortJob: "markdown",
+    shortJob: "Markdown to HTML",
     compat: "CommonMark / GFM",
     proof:
       "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
@@ -137,7 +137,7 @@ export const family: FamilyTool[] = [
   {
     name: "ferrovia",
     job: "SVGO-compatible SVG optimizer",
-    shortJob: "svg optimizer",
+    shortJob: "SVG optimizer",
     compat: "SVGO",
     proof:
       "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
@@ -162,7 +162,7 @@ export const family: FamilyTool[] = [
   {
     name: "ferrugo",
     job: "PDF previews for untrusted files",
-    shortJob: "pdf previews",
+    shortJob: "PDF previews",
     proof:
       "PDF previews have traditionally meant embedding a browser-sized engine. ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
     evidence: "Bounded memory and time · no PDFium",
@@ -182,15 +182,40 @@ export type PipelineEnd = { label: string; text: string };
  * themselves are the `pipeline` group, in array order.
  */
 export const PIPELINE: { input: PipelineEnd; output: PipelineEnd; description: string } = {
-  input: { label: "Foundation", text: "Regex behavior" },
-  output: { label: "Application", text: "Markdown → highlighted HTML" },
+  input: { label: "Input", text: "TextMate grammars" },
+  output: { label: "Output", text: "Highlighted HTML from Markdown" },
   description:
-    "Dependency assembly: ferroni provides the regex foundation for ferriki, and ferriki feeds highlighting into ferromark.",
+    "The content pipeline: ferroni runs the regular expressions of TextMate grammars for ferriki, and ferriki feeds highlighted code into ferromark, which renders Markdown to HTML.",
 };
+
+/**
+ * What each maturity stamp promises, in one line. The stamp legend on every
+ * family site reads from here, so a status means the same thing everywhere.
+ */
+export const STATUS_MEANING: Record<FamilyStatus, string> = {
+  stable: "Ready to adopt against its contract.",
+  beta: "The contract is covered; details may still change.",
+  alpha: "Working toward its contract; expect gaps.",
+  early: "Taking shape; only what is proven is claimed.",
+};
+
+/** Maturity order, most settled first. */
+export const STATUS_ORDER: FamilyStatus[] = ["stable", "beta", "alpha", "early"];
 
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool: FamilyTool) {
   return (tool.role ?? "engine") === "engine";
+}
+
+/**
+ * The most mature member of a group: best status by `STATUS_ORDER`, and on a
+ * tie the first in registry order. The honest place to start in that group.
+ */
+export function leadTool(tools: FamilyTool[]): FamilyTool | undefined {
+  // Array sort is stable, so equal statuses keep registry order.
+  return [...tools].sort(
+    (a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status),
+  )[0];
 }
 
 /** The three display groups of the overview page, in order. */

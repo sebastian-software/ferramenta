@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { type FamilyStatus } from "./family.js";
 export type StampProps = {
     /** Solid rust for the settled state (stable, covered); a tinted fill otherwise. */
     solid?: boolean;
@@ -22,4 +23,12 @@ export type LedgerEntry = {
  */
 export declare function Ledger({ entries }: {
     entries: LedgerEntry[];
+}): import("react").JSX.Element;
+/**
+ * The stamp legend: every maturity status with the one line it promises, from
+ * the registry. Put it where the stamps first need reading; on iron it takes
+ * the iron stamp set.
+ */
+export declare function StampKey({ statuses }: {
+    statuses?: FamilyStatus[];
 }): import("react").JSX.Element;

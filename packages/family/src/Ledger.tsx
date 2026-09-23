@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { type FamilyStatus, STATUS_MEANING, STATUS_ORDER } from "./family.js";
+
 export type StampProps = {
   /** Solid rust for the settled state (stable, covered); a tinted fill otherwise. */
   solid?: boolean;
@@ -41,5 +43,25 @@ export function Ledger({ entries }: { entries: LedgerEntry[] }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * The stamp legend: every maturity status with the one line it promises, from
+ * the registry. Put it where the stamps first need reading; on iron it takes
+ * the iron stamp set.
+ */
+export function StampKey({ statuses = STATUS_ORDER }: { statuses?: FamilyStatus[] }) {
+  return (
+    <dl className="fam-stamp-key">
+      {statuses.map((status) => (
+        <div key={status}>
+          <dt>
+            <Stamp solid={status === "stable"}>{status}</Stamp>
+          </dt>
+          <dd>{STATUS_MEANING[status]}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
