@@ -148,7 +148,7 @@ test("`as` drops the landmark element for a host that provides its own", () => {
   const footer = render(family.SiteFooter, { as: "div", current: "ferroni" });
   assert.match(footer, /^<div class="site-footer">/u);
   assert.ok(!footer.includes("<footer"), "no contentinfo landmark inside the host's");
-  assert.ok(footer.includes(">Pipeline</h3>"), "the chrome itself is unchanged");
+  assert.ok(footer.includes(">Pipeline</h2>"), "the chrome itself is unchanged");
 });
 
 test("the chrome CSS carries the duotone set outside the header and footer", async () => {
@@ -193,7 +193,7 @@ test("the footer lists the family in groups plus the company links", () => {
   const html = render(family.SiteFooter);
   assert.match(html, /^<footer class="site-footer">/u);
   for (const label of ["Pipeline", "Language", "Workbench", "Company"]) {
-    assert.ok(html.includes(`>${label}</h3>`), `missing footer column: ${label}`);
+    assert.ok(html.includes(`>${label}</h2>`), `missing footer column: ${label}`);
   }
   for (const tool of family.family) {
     assert.ok(html.includes(`>${tool.name}`), `missing from the footer: ${tool.name}`);
@@ -206,9 +206,9 @@ test("the company line drops the family columns (decision D2)", () => {
   const html = render(family.SiteFooter, { current: "dalo", legal: "Own terms.", line: "company" });
   assert.ok(html.includes('class="wrap foot foot-company"'));
   for (const label of ["Pipeline", "Language", "Workbench"]) {
-    assert.ok(!html.includes(`>${label}</h3>`), `the company line must not list: ${label}`);
+    assert.ok(!html.includes(`>${label}</h2>`), `the company line must not list: ${label}`);
   }
-  assert.ok(html.includes(">Company</h3>"));
+  assert.ok(html.includes(">Company</h2>"));
   assert.ok(!html.includes("foot-gap"), "with one column there is no gap heading");
   assert.ok(html.includes("Own terms."), "the legal line is the consumer's");
 });
@@ -293,7 +293,7 @@ test("every related React link has a job and omits the current project", () => {
 });
 
 test("every link to a member without a site says it leads to its repository", () => {
-  const footer = render(family.SiteFooter, { jobs: "short" });
+  const footer = render(family.SiteFooter, { members: "short" });
   const header = render(family.SiteHeader);
   for (const tool of family.family) {
     const note = `${tool.name}<span class="fam-sr-only"> (GitHub repository)</span>`;
@@ -305,4 +305,12 @@ test("every link to a member without a site says it leads to its repository", ()
   assert.ok(footer.includes("</svg>ferramenta</a>"), "the lockup is the family's name");
   assert.ok(!footer.includes("More from Ferramenta"), "the family site names itself");
   assert.ok(render(family.SiteFooter, { current: "ferroni" }).includes("More from Ferramenta"));
+});
+
+test("the family's own index drops the footer's member columns, and headings are its own", () => {
+  const index = render(family.SiteFooter, { members: "none" });
+  for (const tool of family.family) assert.ok(!index.includes(`href="${family.toolHref(tool)}"`));
+  assert.ok(index.includes('class="wrap foot foot-company"'), "one column less");
+  assert.ok(index.includes("<h2>Company</h2>"), "the company links stay");
+  assert.ok(!/<h3/u.test(render(family.SiteFooter)), "footer headings are h2: its own outline");
 });

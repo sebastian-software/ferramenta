@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { family } from "./family.js";
 export const REGISTRY_ENDPOINTS = {
     crates: "https://crates.io/api/v1",
     npmRegistry: "https://registry.npmjs.org",
@@ -89,6 +90,40 @@ export async function fetchLiveRegistry(request, endpoints = REGISTRY_ENDPOINTS)
     for (const [name, value] of Object.entries(npm))
         facts[name] = { ...facts[name], npm: value };
     return facts;
+}
+/*
+ * What a page shows about a member's releases: the build-time snapshot, with
+ * whatever answered live on top, and the registry entry's fallback version
+ * last. `RegistryFacts` provides it to components; the policy lives here.
+ */
+/** True when a member has a real TypeScript/Node adapter on npm, not just a held name. */
+function hasAdapter(stat) {
+    return stat?.npm != null && stat.npm.placeholder !== true;
+}
+/**
+ * The packages worth asking for live: every verified crate, and npm only for a
+ * member without one — the crate's version is the one shown, so asking npm for
+ * it too would be a request whose answer never reaches the page.
+ */
+export function liveRequestFor(snapshot) {
+    const names = family.map((tool) => tool.name);
+    return {
+        crates: names.filter((name) => snapshot[name]?.crates != null),
+        npm: names.filter((name) => snapshot[name]?.crates == null && hasAdapter(snapshot[name])),
+    };
+}
+/** The facts for one member, from a snapshot and whatever answered live. */
+export function toolFacts(tool, stat, live = {}) {
+    const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
+    const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
+    // The crate carries the version when there is one; an adapter-only member shows npm's.
+    const release = crates ?? npm;
+    return {
+        version: release === null ? tool.version : release.version,
+        crateDownloads: crates === null ? 0 : crates.downloads,
+        onCrates: crates !== null,
+        adapter: npm !== null,
+    };
 }
 /**
  * The live figures for a page, after hydration. Returns an empty map during

@@ -2,7 +2,8 @@
  * ferramenta-family — the landing kit: the page patterns ferramenta.dev proved
  * and the sibling home pages grew (hero, open-ledger sections, iron band,
  * pipeline assembly, evidence figures, code panel, coverage ledger, closing
- * action), for every family home page to share instead of copy.
+ * action, and the family catalog: pegboard, tool ledger, job index), for every
+ * family home page to share instead of copy.
  *
  * Needs `tokens.css` (every value is a token) and `chrome.css` (`.wrap`,
  * `.markplate`, `.fastener`, `.icon`). Load it after `theme.css` and before the
@@ -708,6 +709,542 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+/* -- The family catalog: pegboard, tool ledger, job index ------------------- */
+
+/* A registry count (downloads): tabular, so a live value never shifts the line. */
+.fam-count {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The pegboard. Its hole grid is a 28px tile, and everything on it is a
+ * multiple: padding 42, cells 112×140, gaps 28, so every hook hangs on a hole
+ * (a hook's center sits at 14 mod 28 from the padding edge). Change it only in
+ * 28px steps and re-measure the hooks; DESIGN.md has the phone board.
+ */
+.fam-board {
+  --fastener-inset: 8px;
+  position: relative;
+  width: fit-content;
+  margin-inline: auto;
+  padding: 42px;
+  border: 2px solid var(--line-heavy);
+  background:
+    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
+    linear-gradient(var(--bg-dim), var(--bg-dim));
+}
+
+.fam-board-grid {
+  display: grid;
+  row-gap: 28px;
+}
+
+.fam-board-label {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  color: var(--ink-soft);
+  font-family: var(--display), var(--body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fam-board-row {
+  display: grid;
+  grid-template-columns: repeat(3, 112px);
+  grid-auto-rows: 140px;
+  gap: 28px;
+}
+
+.fam-board-item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.55rem;
+  width: 112px;
+  padding-top: 21px;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.fam-board-item:hover {
+  color: var(--rust);
+}
+
+/* Two classes: `.markplate` in chrome.css loads later and would take the tie. */
+.fam-board .markplate {
+  width: 76px;
+  height: 76px;
+}
+
+.fam-board .markplate svg {
+  width: 46px;
+  height: 46px;
+  color: var(--rust);
+}
+
+/* The stamp is riveted to the plate's lower edge: no extra row, the grid stays on the holes. */
+.fam-board-stamp {
+  position: absolute;
+  top: calc(21px + 76px - 0.7rem);
+  left: 50%;
+  z-index: 1;
+  translate: -50% 0;
+  line-height: 1;
+}
+
+.fam-board-stamp .fam-stamp {
+  padding: 0.05rem 0.35rem;
+  line-height: 1.25;
+}
+
+/* On the board ground an open stamp's tint vanishes; the floor color and the plate's rim edge it. */
+.fam-board-stamp .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--plate-rim-hi);
+  background: var(--bg);
+}
+
+.fam-board-copy {
+  display: grid;
+  justify-items: center;
+  margin-top: 0.35rem;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.fam-board-copy b {
+  font-family: var(--display), var(--body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* Short jobs keep their acronyms: no text transform. */
+.fam-board-copy small {
+  margin-top: 0.18rem;
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+.fam-board-item:hover .fam-board-copy small {
+  color: var(--rust);
+}
+
+.fam-board-repo {
+  display: inline-block;
+  margin-left: 0.3rem;
+  vertical-align: 0.05em;
+  color: var(--ink-soft);
+}
+
+/* A hero whose aside is the board stacks earlier: the board needs the full width below 60rem. */
+@media (max-width: 60rem) {
+  .fam-hero:has(.fam-board) > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * The phone board: every group still one row of three, in 84px cells (3 × 28)
+ * with no gap. A hook hangs at its cell's center, 42px in, so the inline
+ * padding moves to 28 to put it on a hole; the block padding stays 14.
+ */
+@media (max-width: 34rem) {
+  .fam-board {
+    padding: 14px 28px;
+  }
+
+  .fam-board-row {
+    grid-template-columns: repeat(3, 84px);
+    column-gap: 0;
+  }
+
+  .fam-board-item {
+    width: 84px;
+  }
+
+  .fam-board .markplate {
+    width: 56px;
+    height: 56px;
+  }
+
+  .fam-board .markplate svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .fam-board-stamp {
+    top: calc(21px + 56px - 0.7rem);
+  }
+
+  .fam-board-copy {
+    width: 100%;
+    padding-inline: 4px;
+  }
+
+  .fam-board-copy b {
+    font-size: 0.9rem;
+  }
+}
+
+/* The tool ledger: one hairline row per member, facts from the registry. */
+.fam-tools {
+  display: grid;
+  margin-top: 1.5rem;
+}
+
+.fam-tool {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.6rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s;
+}
+
+/* Only a numbered ledger carries the step column. */
+.fam-tools[data-steps] .fam-tool {
+  grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
+}
+
+.fam-tool:hover {
+  background: var(--bg-dim);
+}
+
+.fam-tool-num {
+  align-self: start;
+  padding-top: 0.2rem;
+  color: var(--ink-soft);
+  font-family: var(--display), var(--body);
+  font-size: 1.9rem;
+  font-weight: var(--disp-weight);
+  text-align: center;
+}
+
+.markplate.fam-tool-plate {
+  align-self: start;
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+.fam-tool-plate svg {
+  width: 44px;
+  height: 44px;
+}
+
+.fam-tool-name {
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* The name is the link; its ::after stretches the target over the whole row. */
+.fam-tool-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fam-tool-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.fam-tool-link:focus-visible {
+  outline: none;
+}
+
+.fam-tool:has(.fam-tool-link:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.fam-tool-job {
+  margin-top: 0.35rem;
+  color: var(--ink);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.fam-tool-proof {
+  max-width: 50ch;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.fam-tool-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.65rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.fam-tool-facts dt,
+.fam-tool-facts dd {
+  display: inline;
+}
+
+.fam-tool-facts dt {
+  margin-right: 0.35rem;
+  color: var(--rust);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Member names in a fact are names, set like the rest of the page's names. */
+.fam-tool-names {
+  text-transform: capitalize;
+}
+
+.fam-tool-facts .fam-count {
+  font-weight: 600;
+}
+
+.fam-tool-meta {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.fam-tool-version {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fam-tool-platforms {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  margin-top: 0.3rem;
+}
+
+.fam-tool-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 0.75rem;
+}
+
+.fam-tool-platform .icon {
+  flex: none;
+  color: var(--rust);
+}
+
+.fam-tool-meta .fam-stamp {
+  margin-top: 0.45rem;
+}
+
+.fam-tool:hover .fam-tool-meta .fam-stamp:not([data-tone="solid"]) {
+  background: var(--rust-tint);
+}
+
+.fam-tool-go {
+  color: var(--ink-soft);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+
+.fam-tool:hover .fam-tool-go {
+  color: var(--rust);
+  transform: translateX(4px);
+}
+
+/* Stacked: the proof and one line of version, registries and stamp under the name. */
+@media (max-width: 64rem) {
+  .fam-tool,
+  .fam-tools[data-steps] .fam-tool {
+    grid-template-columns: 3.8rem minmax(0, 1fr) 2rem;
+    row-gap: 0.8rem;
+  }
+
+  .fam-tool-num {
+    display: none;
+  }
+
+  .markplate.fam-tool-plate {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  .fam-tool-plate svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fam-tool-proof,
+  .fam-tool-meta {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .fam-tool-go {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .fam-tool-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .fam-tool-platforms {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 0;
+  }
+
+  .fam-tool-meta .fam-stamp {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .fam-tool,
+  .fam-tools[data-steps] .fam-tool {
+    grid-template-columns: 3.8rem minmax(0, 1fr) 1.5rem;
+    padding-block: 1.25rem;
+  }
+
+  .fam-tool-proof,
+  .fam-tool-meta {
+    grid-column: 1 / -1;
+  }
+}
+
+/*
+ * The job index: the aisle directory by the door. Job, leader, tool, stamp —
+ * one ruled line each, read across like a directory board.
+ */
+/* One grid for the whole board, so tools and stamps line up in columns. */
+.fam-jobs {
+  display: grid;
+  grid-template-columns: max-content minmax(1.5rem, 1fr) max-content max-content;
+  column-gap: 0.75rem;
+  width: min(100%, 36rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--line-heavy);
+}
+
+.fam-jobs > li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.fam-job {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  padding: 0.6rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.fam-job:hover {
+  background: var(--bg-dim);
+}
+
+.fam-job-name {
+  font-family: var(--display), var(--body);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* The leader: square dots, set like a directory board's. */
+.fam-job-leader {
+  align-self: end;
+  height: 2px;
+  margin-bottom: 0.45rem;
+  background: linear-gradient(90deg, var(--ink-soft) 2px, transparent 2px) 0 0 / 6px 2px repeat-x;
+  opacity: 0.55;
+}
+
+.fam-job-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fam-job-tool .mark {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--rust);
+}
+
+.fam-job-tool b {
+  font-family: var(--display), var(--body);
+  font-size: 1.15rem;
+  font-weight: var(--disp-weight);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.fam-job .fam-stamp {
+  justify-self: start;
+}
+
+.fam-job:hover .fam-job-name,
+.fam-job:hover .fam-job-tool b {
+  color: var(--rust);
+}
+
+.fam-job:hover .fam-stamp:not([data-tone="solid"]) {
+  background: var(--rust-tint);
+}
+
+/* A phone keeps job and tool on one line; the leader gives way first. */
+@media (max-width: 30rem) {
+  .fam-jobs {
+    grid-template-columns: minmax(0, 1fr) max-content max-content;
+    column-gap: 0.6rem;
+  }
+
+  .fam-job-leader {
+    display: none;
+  }
+
+  .fam-job-name,
+  .fam-job-tool b {
+    font-size: 1rem;
+  }
 }
 
 /* -- Narrow viewports ----------------------------------------------------------- */

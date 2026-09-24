@@ -31,11 +31,12 @@ export type SiteFooterProps = {
    */
   as?: "div" | "footer";
   /**
-   * The job line under each member: `"full"` (the default) is the registry's
-   * `job`; `"short"` is its `shortJob`, for the family site, where the page
-   * above already carries every full job and the footer only has to point.
+   * The family columns. `"full"` (the default) lists every member with the
+   * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
+   * columns, for a page that is itself the family's index (ferramenta.dev):
+   * the header's switcher still reaches every member.
    */
-  jobs?: "full" | "short";
+  members?: "full" | "none" | "short";
 };
 
 function ToolList({ jobs, tools }: { jobs: "full" | "short"; tools: FamilyTool[] }) {
@@ -87,43 +88,60 @@ function FooterLockup({ current }: { current?: string }) {
   );
 }
 
-function footerGroups(line: "company" | "family", current?: string) {
-  return familyGroups(line === "family" ? current : undefined);
+/**
+ * The footer's columns: the family in its groups (unless the page is the
+ * family's own index, or the site is on the company line), then the company.
+ * Headings are h2: the footer is its own landmark, outside the page's outline.
+ */
+function FooterColumns({
+  current,
+  line,
+  members,
+}: { current?: string } & Required<Pick<SiteFooterProps, "line" | "members">>) {
+  if (line === "company" || members === "none") {
+    return (
+      <div>
+        <h2>Company</h2>
+        <CompanyList />
+      </div>
+    );
+  }
+  const { pipeline, language, workbench } = familyGroups(current);
+  const jobs = members;
+  return (
+    <>
+      <div>
+        <h2>Pipeline</h2>
+        <ToolList jobs={jobs} tools={pipeline} />
+        <h2 className="foot-gap">Language</h2>
+        <ToolList jobs={jobs} tools={language} />
+      </div>
+      <div>
+        <h2>Workbench</h2>
+        <ToolList jobs={jobs} tools={workbench} />
+        <h2 className="foot-gap">Company</h2>
+        <CompanyList />
+      </div>
+    </>
+  );
 }
 
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
 export function SiteFooter({
   as = "footer",
   current,
-  jobs = "full",
   legal = DEFAULT_LEGAL,
   line = "family",
+  members = "full",
 }: SiteFooterProps = {}) {
-  const { pipeline, language, workbench } = footerGroups(line, current);
   const Root: ElementType = as;
+  const columns = line === "family" && members !== "none";
 
   return (
     <Root className="site-footer">
-      <div className={line === "company" ? "wrap foot foot-company" : "wrap foot"}>
+      <div className={columns ? "wrap foot" : "wrap foot foot-company"}>
         <FooterLockup current={current} />
-        {line === "family" && (
-          <div>
-            <h3>Pipeline</h3>
-            <ToolList jobs={jobs} tools={pipeline} />
-            <h3 className="foot-gap">Language</h3>
-            <ToolList jobs={jobs} tools={language} />
-          </div>
-        )}
-        <div>
-          {line === "family" && (
-            <>
-              <h3>Workbench</h3>
-              <ToolList jobs={jobs} tools={workbench} />
-            </>
-          )}
-          <h3 className={line === "family" ? "foot-gap" : undefined}>Company</h3>
-          <CompanyList />
-        </div>
+        <FooterColumns current={current} line={line} members={members} />
         <p className="foot-legal">{legal}</p>
       </div>
     </Root>

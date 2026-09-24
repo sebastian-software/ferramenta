@@ -60,7 +60,7 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 
 1. Prove, don't claim: a successor matches its original functionally and aims to beat it on performance, checked differentially; a new development holds itself to the standards it builds on. The proof lives with each tool.
 2. Open standards over proprietary formats; keep the APIs the ecosystem already knows.
-3. Every tool is named equally; subfamilies explain relationships, not hierarchy.
+3. Every tool is named equally and works on its own; subfamilies explain relationships, not hierarchy or a required chain. Nobody needs a whole group to use one member.
 4. Design first, extraction second: the shared package ships finished components, not just tokens.
 5. Content lives near the code: each site in its project's repo, updated with releases.
 

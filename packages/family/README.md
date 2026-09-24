@@ -158,9 +158,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   the site's own elements.
 - **`SiteFooter`** — `current?: string` (omits the site's own entry),
   `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`,
-  `jobs?: "full" | "short"` (short jobs for a page that already lists the full
-  ones — the family site). Without `current` the lockup names the family
-  itself.
+  `members?: "full" | "short" | "none"` (the member columns: full jobs, short
+  jobs, or none — for a page that is itself the family's index, as on
+  ferramenta.dev). Column headings are `h2`: the footer is its own landmark.
+  Without `current` the lockup names the family itself.
   `line="company"` drops the family columns and keeps the company links: it is
   for the tools that share the workshop but not the engines (dalo, agent-bridge
   — decision D2 of the 2026-09 family audit).
@@ -248,6 +249,10 @@ export default function Home() {
 | `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                                                                            |
 | `useLiveRegistry`  | `request: { crates: string[]; npm: string[] }`, `endpoints?` — live versions and downloads after hydration, from one bulk request per registry; `fetchLiveRegistry` is the same without React |
 | `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                                                                                                                      |
+| `Pegboard`         | `current?` (left off the wall), `label?` — every member on its hook with its stamp, grouped; fits `ProjectHero`'s `aside`                                                                     |
+| `ToolLedger`       | `tools`, `steps?` (number the rows where the order is real) — proof, `Succeeds` / `Builds on` / `Runs on`, evidence, live release                                                             |
+| `JobIndex`         | `current?` — every member's short job A to Z with its tool and stamp; recommends none, because every member works on its own                                                                  |
+| `RegistryFacts`    | `snapshot?`, `endpoints?`, `children` — the build's registry snapshot plus live figures for everything inside; read with `useToolFacts(tool)`, total with `<FamilyDownloads />`               |
 | `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                                                                  |
 
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
@@ -257,8 +262,7 @@ of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`, and
 `PIPELINE` (the chain's ends), `STATUS_MEANING` and `STATUS_ORDER` (what each
 stamp promises, most settled first), `isSuccessor(tool)` (a member with
 `succeeds`, as opposed to a new development with `buildsOn`),
-`leadTool(tools)` (the most mature member
-of a group), and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links
+`byJob(tools?)` (members A to Z by short job), and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links
 lead). Every surface that links a member says when that is a repository:
 `<RepoNote tool={tool} />` after the name renders the words for assistive
 technology (styled by `fam-sr-only` in `chrome.css`). The rules the

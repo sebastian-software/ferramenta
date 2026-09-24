@@ -14,7 +14,7 @@ export const family = [
         job: "Oniguruma, continued in Rust",
         shortJob: "regex engine",
         succeeds: "Oniguruma / vscode-oniguruma",
-        proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
+        proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
         evidence: "Oniguruma compatibility oracle",
         version: "1.4.2",
         status: "stable",
@@ -27,7 +27,7 @@ export const family = [
         job: "Shiki-compatible syntax highlighting",
         shortJob: "syntax highlighting",
         succeeds: "Shiki",
-        proof: "Shiki brought editor-grade highlighting to the web. ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
+        proof: "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
         evidence: "Mirrored Shiki test suite",
         version: "0.2.0",
         status: "alpha",
@@ -36,10 +36,10 @@ export const family = [
     },
     {
         name: "ferromark",
-        job: "Markdown to HTML with a secure default and every GFM extension included.",
+        job: "Markdown to HTML, sanitized by default",
         shortJob: "Markdown to HTML",
         buildsOn: "CommonMark / GFM",
-        proof: "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
+        proof: "CommonMark settled what Markdown means. Ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
         evidence: "CommonMark & GFM conformance",
         version: "2.1.1",
         status: "stable",
@@ -52,7 +52,7 @@ export const family = [
         job: "Spell checking for text and code",
         shortJob: "spell checking",
         succeeds: "Hunspell",
-        proof: "Hunspell set the dictionary standard. ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
+        proof: "Hunspell set the dictionary standard. Ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
         evidence: "Hunspell oracle · deterministic suggestion scoring",
         version: "0.2.0",
         status: "alpha",
@@ -64,8 +64,8 @@ export const family = [
         job: "Translation catalog engine",
         shortJob: "translation catalogs",
         buildsOn: "PO / ICU MessageFormat",
-        proof: "gettext taught software to speak in catalogs. ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
-        evidence: "Three-way merges · release audits · integrity lock",
+        proof: "gettext taught software to speak in catalogs. Ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
+        evidence: "Upstream-derived conformance cases · ahead of GNU msgmerge and common PO libraries",
         version: "3.4.2",
         status: "stable",
         group: "language",
@@ -77,7 +77,8 @@ export const family = [
         job: "Internationalization for TypeScript applications",
         shortJob: "i18n toolchain",
         proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
-        evidence: "Built on ferrocat, ferromark, and ferralk",
+        evidence: "Checked-in end-to-end benchmark against Lingui",
+        runsOn: ["ferrocat", "ferromark", "ferralk"],
         version: "1.23.0",
         status: "stable",
         group: "language",
@@ -90,7 +91,7 @@ export const family = [
         job: "SVGO-compatible SVG optimizer",
         shortJob: "SVG optimizer",
         succeeds: "SVGO",
-        proof: "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
+        proof: "SVGO set the standard for SVG optimization. Ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
         evidence: "Byte-for-byte SVGO oracle · in progress",
         version: "0.1.0",
         status: "early",
@@ -101,7 +102,7 @@ export const family = [
         name: "ferralk",
         job: "Glob matching and parallel filesystem walking",
         shortJob: "glob matching",
-        proof: "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
+        proof: "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
         evidence: "Frozen zlob reference · ahead of globset and fast-glob",
         version: "0.12.0",
         status: "early",
@@ -112,7 +113,7 @@ export const family = [
         name: "ferrugo",
         job: "PDF previews for untrusted files",
         shortJob: "PDF previews",
-        proof: "PDF previews have traditionally meant embedding a browser-sized engine. ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
+        proof: "PDF previews have traditionally meant embedding a browser-sized engine. Ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
         evidence: "Bounded memory and time · no PDFium",
         version: "0.5.0",
         status: "early",
@@ -126,9 +127,9 @@ export const family = [
  * themselves are the `pipeline` group, in array order.
  */
 export const PIPELINE = {
-    input: { label: "Input", text: "TextMate grammars" },
-    output: { label: "Output", text: "Highlighted HTML from Markdown" },
-    description: "The content pipeline: ferroni runs the regular expressions of TextMate grammars for ferriki, and ferriki feeds highlighted code into ferromark, which renders Markdown to HTML.",
+    input: { label: "Input", text: "Markdown with code" },
+    output: { label: "Output", text: "Highlighted HTML" },
+    description: "The content pipeline: Markdown with code goes in. Ferroni runs the regular expressions of the TextMate grammars for Ferriki, Ferriki highlights the code, and Ferromark renders the whole document to HTML.",
 };
 /**
  * What each maturity stamp promises, in one line. The stamp legend on every
@@ -163,12 +164,12 @@ export function isEngine(tool) {
     return (tool.role ?? "engine") === "engine";
 }
 /**
- * The most mature member of a group: best status by `STATUS_ORDER`, and on a
- * tie the first in registry order. The honest place to start in that group.
+ * Members in the order of their short jobs, A to Z: an index to look a job up
+ * in. Every member works on its own, so the index ranks none of them; it only
+ * answers "which tool does this".
  */
-export function leadTool(tools) {
-    // Array sort is stable, so equal statuses keep registry order.
-    return [...tools].sort((a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status))[0];
+export function byJob(tools = family) {
+    return [...tools].sort((a, b) => a.shortJob.localeCompare(b.shortJob, "en", { sensitivity: "base" }));
 }
 /** The three display groups of the overview page, in order. */
 export function familyGroups(current) {

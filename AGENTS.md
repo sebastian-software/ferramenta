@@ -31,22 +31,23 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path                                   | Owns                                                                                                                                                                                                                |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer), composed from the package's landing kit                                                                                                              |
-| `app/styles/site.css`                  | Only what the family site does not share: pegboard, registry ledger rows, the personal note, partners                                                                                                               |
-| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks` — and the landing kit (`ProjectHero`, `Section`, `IronBand`, …) |
-| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css`                                     |
-| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                           |
-| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                           |
-| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping    |
-| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                         |
-| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                              |
-| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                   |
-| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                         |
-| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                     |
-| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                             |
-| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                      |
+| Path                                   | Owns                                                                                                                                                                                                                                                      |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/routes/home.tsx`                  | The single page (custom shell: renders its own header/footer), composed from the package's landing kit                                                                                                                                                    |
+| `app/styles/site.css`                  | Only what the family site does not share: the personal note, partners, the tally, Ardo shell fixes                                                                                                                                                        |
+| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `Mark`/`MarkDefs` (+ `mark-defs.ts`, the SVG sprite), `FamilyLinks` — and the landing kit (`ProjectHero`, `Section`, `IronBand`, `Pegboard`, `ToolLedger`, `JobIndex`, …) |
+| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css`                                                                           |
+| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                 |
+| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                 |
+| `scripts/render-social-card.mjs`       | Renders `public/social.png` from the registry and the tokens (needs `CHROME=<chromium>`); re-run when the line-up changes                                                                                                                                 |
+| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome components, marks, tokens, font. **`src/family.ts` is the single source of truth** for tool names, jobs, proofs, versions, status, links, grouping                                          |
+| `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                                                               |
+| `design/comp/`                         | Approved design comp (`entwurf-c.html`) + the fonts and logos it loads                                                                                                                                                                                    |
+| `design/archive/`                      | Decision residue: the Streamline icon shortlist. Nothing here is built or shipped                                                                                                                                                                         |
+| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                                                               |
+| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, module rules)                                                                                                                                                                                           |
+| `THIRD-PARTY-NOTICES.md`               | Licensing: Streamline-derived icon SVGs are **not** MIT                                                                                                                                                                                                   |
+| `docs/superpowers/specs/`              | Historical task-scoped design specs (not ADRs)                                                                                                                                                                                                            |
 
 ## Rules
 
@@ -67,7 +68,7 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - Registry facts are **live** (ADR-0006): the Pages deploy runs
   `pnpm stats:refresh` before every build and nightly on a schedule, without
   committing anything, and the page updates versions and downloads live in the
-  browser (`useLiveRegistry`). The
+  browser (`RegistryFacts`, from the package). The
   committed `app/data/registry-stats.json` is only the fallback snapshot for
   local and CI builds, and the `version` in `family.ts` the last resort.
   Evidence strings must never repeat a version number.
@@ -99,8 +100,13 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - Use US English for code, comments, commits, documentation, and site copy.
   German design proper names and historical German working artifacts are
   intentional exceptions; see [design/comp/README.md](design/comp/README.md).
-- Site content is English. Tool names are lowercase in code and data; uppercase
-  is applied by CSS.
+- Site content is English. Tool names are lowercase in code and identifiers
+  (`name`, `runsOn`, URLs, packages) and capitalized in prose — page copy and
+  the registry's prose fields (`proof`, `PIPELINE.description`) alike; uppercase
+  display is applied by CSS.
+- Members are independent: nobody needs the whole pipeline or a whole group.
+  Copy never implies an entry point or a required chain, and the page's close is
+  the job index (every job A to Z), not a recommendation.
 
 ## Gotchas (hard-won)
 

@@ -10,6 +10,7 @@ export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
  * without React.
  */
 export {
+  byJob,
   family,
   FAMILY_SITE,
   type FamilyGroup,
@@ -20,7 +21,6 @@ export {
   isEngine,
   isSuccessor,
   leadsToRepo,
-  leadTool,
   PIPELINE,
   type PipelineEnd,
   relatedTools,
@@ -46,14 +46,34 @@ export {
   fetchLiveRegistry,
   type LiveRegistryFacts,
   type LiveRegistryRequest,
+  liveRequestFor,
   REGISTRY_ENDPOINTS,
   type RegistryEndpoints,
+  type RegistrySnapshot,
+  type RegistryStat,
+  type ToolFacts,
+  toolFacts,
   useLiveRegistry,
 } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { PipelineAssembly, type PipelineAssemblyProps } from "./PipelineAssembly.js";
+export {
+  Count,
+  FamilyDownloads,
+  RegistryFacts,
+  type RegistryFactsProps,
+  useToolFacts,
+} from "./RegistryFacts.js";
 export { RepoNote } from "./RepoNote.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";
 export { SiteHeader, type SiteHeaderProps } from "./SiteHeader.js";
+export {
+  JobIndex,
+  type JobIndexProps,
+  Pegboard,
+  type PegboardProps,
+  ToolLedger,
+  type ToolLedgerProps,
+} from "./ToolCatalog.js";
 export { ToolSwitcher, type ToolSwitcherProps } from "./ToolSwitcher.js";

@@ -23,11 +23,12 @@ export type SiteFooterProps = {
      */
     as?: "div" | "footer";
     /**
-     * The job line under each member: `"full"` (the default) is the registry's
-     * `job`; `"short"` is its `shortJob`, for the family site, where the page
-     * above already carries every full job and the footer only has to point.
+     * The family columns. `"full"` (the default) lists every member with the
+     * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
+     * columns, for a page that is itself the family's index (ferramenta.dev):
+     * the header's switcher still reaches every member.
      */
-    jobs?: "full" | "short";
+    members?: "full" | "none" | "short";
 };
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
-export declare function SiteFooter({ as, current, jobs, legal, line, }?: SiteFooterProps): import("react").JSX.Element;
+export declare function SiteFooter({ as, current, legal, line, members, }?: SiteFooterProps): import("react").JSX.Element;

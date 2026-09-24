@@ -22,7 +22,7 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 | --- | --- |
 | [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
 | [ferriki](https://github.com/sebastian-software/ferriki) | Shiki-compatible syntax highlighting |
-| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML with a secure default and every GFM extension included. |
+| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML, sanitized by default |
 
 **The language workshop**
 

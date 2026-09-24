@@ -269,7 +269,7 @@ details.switcher[open] summary svg.chev {
   background: var(--iron);
   /* Its own ink: standing alone, the page around it is not the iron band. */
   color: var(--iron-ink);
-  border: 1px solid var(--iron-line);
+  /* Elevation is the shadow alone; the rust edge ties it to the bar. */
   border-top: 2px solid var(--rust);
   min-width: 21rem;
   padding: 0.5rem;
@@ -422,7 +422,7 @@ details.switcher[open] summary svg.chev {
   gap: 2.5rem;
 }
 
-/* The company line (decision D2): no family columns, so one column less. */
+/* No family columns — the company line (decision D2), or `members="none"`: one column less. */
 .foot.foot-company {
   grid-template-columns: 1.4fr 1fr;
 }
@@ -442,7 +442,7 @@ details.switcher[open] summary svg.chev {
   max-width: 34ch;
 }
 
-.foot h3 {
+.foot h2 {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -523,7 +523,7 @@ details.switcher[open] summary svg.chev {
   text-transform: uppercase;
 }
 
-.foot h3.foot-gap {
+.foot h2.foot-gap {
   margin-top: 1.6rem;
 }
 

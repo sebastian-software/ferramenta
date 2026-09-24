@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { family, type FamilyTool } from "./family.js";
+
 /*
  * Live registry figures, fetched by the visitor's browser after the page has
  * rendered. The prerendered page already carries the figures from its last
@@ -118,6 +120,75 @@ export async function fetchLiveRegistry(
   for (const [name, value] of Object.entries(crates)) facts[name] = { crates: value };
   for (const [name, value] of Object.entries(npm)) facts[name] = { ...facts[name], npm: value };
   return facts;
+}
+
+/*
+ * What a page shows about a member's releases: the build-time snapshot, with
+ * whatever answered live on top, and the registry entry's fallback version
+ * last. `RegistryFacts` provides it to components; the policy lives here.
+ */
+
+/** True when a member has a real TypeScript/Node adapter on npm, not just a held name. */
+function hasAdapter(
+  stat: null | RegistryStat | undefined,
+): stat is { npm: NonNullable<RegistryStat["npm"]> } & RegistryStat {
+  return stat?.npm != null && stat.npm.placeholder !== true;
+}
+
+/** One member in a build-time snapshot, as `ferramenta.dev`'s stats script writes it. */
+export type RegistryStat = {
+  crates: { version: string; downloads: number } | null;
+  /** `placeholder` marks a name held on npm with nothing behind it yet. */
+  npm: { version: string; lastMonth: number; placeholder?: boolean } | null;
+};
+
+/**
+ * The build-time snapshot, keyed by member name. Only packages the build
+ * verified as the family's own belong in it: the live request is derived from
+ * it, so a same-named package someone else published never reaches the page.
+ */
+export type RegistrySnapshot = Record<string, null | RegistryStat | undefined>;
+
+/** What a page shows about a member's releases. */
+export type ToolFacts = {
+  /** Live when the registries answered, else the snapshot, else the registry entry's fallback. */
+  version: string;
+  /** All-time crates.io downloads; 0 when the member has no crate. */
+  crateDownloads: number;
+  onCrates: boolean;
+  /** Has a TypeScript/Node adapter on npm. */
+  adapter: boolean;
+};
+
+/**
+ * The packages worth asking for live: every verified crate, and npm only for a
+ * member without one — the crate's version is the one shown, so asking npm for
+ * it too would be a request whose answer never reaches the page.
+ */
+export function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest {
+  const names = family.map((tool) => tool.name);
+  return {
+    crates: names.filter((name) => snapshot[name]?.crates != null),
+    npm: names.filter((name) => snapshot[name]?.crates == null && hasAdapter(snapshot[name])),
+  };
+}
+
+/** The facts for one member, from a snapshot and whatever answered live. */
+export function toolFacts(
+  tool: FamilyTool,
+  stat: null | RegistryStat | undefined,
+  live: LiveRegistryFacts = {},
+): ToolFacts {
+  const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
+  const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
+  // The crate carries the version when there is one; an adapter-only member shows npm's.
+  const release = crates ?? npm;
+  return {
+    version: release === null ? tool.version : release.version,
+    crateDownloads: crates === null ? 0 : crates.downloads,
+    onCrates: crates !== null,
+    adapter: npm !== null,
+  };
 }
 
 /**

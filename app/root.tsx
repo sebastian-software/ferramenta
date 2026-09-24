@@ -49,11 +49,12 @@ OWN-WORLD: Light brushed-steel shop floor between two dark iron bands; rust as
 structural color; duotone project marks on chamfered octagon metal plates hanging
 from real hooks; uppercase condensed display (Big Shoulders); zero radius.
 STORY: A developer lands, gets the poster claim, sees the tool wall with each
-tool's maturity stamp, learns what earns a stamp, reads the numbered chain with
-proof, ends on one stable tool per line of work (or an honest "nothing to adopt
-yet"), then meets the wider OSS workshop as provenance on the way out.
-FIRST VIEWPORT: Iron header; huge uppercase headline left, pegboard with all seven
-marks right; chamfered rust primary action.
+tool's maturity stamp, learns what earns a stamp, reads the chain and the other
+groups with proof, ends at the job index (every job A to Z, the tool that does
+it, its stamp: each tool stands alone), then meets the wider OSS workshop as
+provenance on the way out.
+FIRST VIEWPORT: Iron header; huge uppercase headline left, pegboard with every
+member's mark right; chamfered rust primary action.
 FORM: Approved comp design/comp/entwurf-c.html (direction C of 3, brief-pinned).
 ADDITIONS (user-approved after comp): "Why this store exists" section (personal
 story + goals) between the iron band and the partner band; version display
@@ -73,7 +74,8 @@ export default function Root() {
       <MarkDefs />
       <SiteHeader themeToggle={<ArdoThemeToggle />} />
       <ArdoRoot config={config} className="ferramenta-site" />
-      <SiteFooter jobs="short" />
+      {/* The page is the family's index: the footer points at the company, not the roster again. */}
+      <SiteFooter members="none" />
     </div>
   );
 }

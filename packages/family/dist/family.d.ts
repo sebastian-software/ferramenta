@@ -30,7 +30,17 @@ export type FamilyTool = {
     succeeds?: string;
     /** The open standards or formats a new development builds on, e.g. "PO / ICU MessageFormat". */
     buildsOn?: string;
-    /** Proof sentence: verifiable facts, no marketing claims */
+    /**
+     * The family engines an application runs on, by `name`. Only an application
+     * sets it: an engine is proven on its own, a product by what it runs on and
+     * its own evidence. Each name must be a family member.
+     */
+    runsOn?: string[];
+    /**
+     * Proof sentence: verifiable facts, no marketing claims. It is prose, so a
+     * member's name is capitalized here ("Ferroni continues…"); `name`, URLs and
+     * package names stay lowercase.
+     */
     proof: string;
     /**
      * The evidence behind the tool: an oracle, a conformance suite, a design
@@ -92,10 +102,11 @@ export declare function isSuccessor(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
 /**
- * The most mature member of a group: best status by `STATUS_ORDER`, and on a
- * tie the first in registry order. The honest place to start in that group.
+ * Members in the order of their short jobs, A to Z: an index to look a job up
+ * in. Every member works on its own, so the index ranks none of them; it only
+ * answers "which tool does this".
  */
-export declare function leadTool(tools: FamilyTool[]): FamilyTool | undefined;
+export declare function byJob(tools?: FamilyTool[]): FamilyTool[];
 /** The three display groups of the overview page, in order. */
 export declare function familyGroups(current?: string): {
     pipeline: FamilyTool[];

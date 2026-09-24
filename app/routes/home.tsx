@@ -3,25 +3,20 @@ import type { MetaFunction } from "react-router";
 import {
   ClosingAction,
   family,
+  FamilyDownloads,
   familyGroups,
-  type FamilyTool,
-  Fasteners,
   IronBand,
-  isEngine,
-  leadsToRepo,
-  leadTool,
-  type LiveRegistryFacts,
+  JobIndex,
   Mark,
+  Pegboard,
   PipelineAssembly,
   ProjectHero,
-  RepoNote,
+  RegistryFacts,
   Section,
-  Stamp,
   StampKey,
-  toolHref,
-  useLiveRegistry,
+  ToolLedger,
 } from "ferramenta-family";
-import { createContext, use, useId } from "react";
+import { useId } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
@@ -47,11 +42,11 @@ export const meta: MetaFunction = () => [
 const beliefs = [
   {
     heading: "Proven, not promised",
-    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference — from Hunspell and Shiki to SVGO and Oniguruma. Claims stay tied to current evidence and maturity.",
+    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference: Hunspell, Shiki, SVGO, Oniguruma. Claims stay tied to current evidence and maturity.",
   },
   {
     heading: "Open standards first",
-    text: "CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on — never on formats only we control.",
+    text: "CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on, never on formats only we control.",
   },
   {
     heading: "Earned, tool by tool",
@@ -59,297 +54,19 @@ const beliefs = [
   },
   {
     heading: "Safe defaults",
-    text: "Rust cores without a C toolchain — memory-layout-tuned, SIMD and NEON where it pays. Sanitized output, bounded memory and time: production behavior out of the box.",
+    text: "Rust cores without a C toolchain, tuned for memory layout, with SIMD and NEON where it pays. Sanitized output, bounded memory and time: production behavior out of the box.",
   },
 ];
-
-type RegistryStat = {
-  crates: { version: string; downloads: number } | null;
-  npm: { version: string; lastMonth: number; placeholder: boolean } | null;
-};
 
 /** Every repository of the workshop; the family is a subset, named on this page. */
 const sourceUrl = "https://github.com/sebastian-software";
 
-const stats = registryStats.tools as Record<string, RegistryStat | undefined>;
-const formatCount = (value: number) => value.toLocaleString("en-US");
-
-/**
- * What to ask the registries for live: only the packages the build verified
- * as the family's own (scripts/registry-ownership.mjs). A name on crates.io or
- * npm that belongs to someone else never reaches the page, live or not.
- */
-const liveRequest = {
-  crates: family.map((tool) => tool.name).filter((name) => Boolean(stats[name]?.crates)),
-  npm: family
-    .map((tool) => tool.name)
-    .filter((name) => {
-      const npm = stats[name]?.npm;
-      return npm != null && !npm.placeholder;
-    }),
-};
-
-/** Live figures once the registries answer; empty during prerender. */
-const LiveFactsContext = createContext<Record<string, LiveRegistryFacts>>({});
-
 /** The stable members, from the registry, as a sentence list. */
 const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
-  family.filter((tool) => tool.status === "stable").map((tool) => tool.name),
+  family
+    .filter((tool) => tool.status === "stable")
+    .map((tool) => tool.name.charAt(0).toUpperCase() + tool.name.slice(1)),
 );
-
-/**
- * A member's registry figures. The prerendered page carries the values the
- * deploy fetched (scripts/refresh-registry-stats.mjs, at most a day old); the
- * browser then swaps in live ones as the registries answer. The registry
- * entry's own version is the last resort for an offline build.
- */
-function toolFacts(tool: FamilyTool, live: LiveRegistryFacts = {}) {
-  const stat = stats[tool.name];
-  const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null;
-  const crates = stat?.crates ? { ...stat.crates, ...live.crates } : null;
-  const npm = adapter ? { ...adapter, ...live.npm } : null;
-  return {
-    version: crates?.version ?? npm?.version ?? tool.version,
-    crateDownloads: crates?.downloads ?? 0,
-    onCrates: crates !== null,
-    adapter: npm !== null,
-  };
-}
-
-function useToolFacts(tool: FamilyTool) {
-  return toolFacts(tool, use(LiveFactsContext)[tool.name]);
-}
-
-/** Family-wide crates.io downloads, live once the registry answers. */
-function FamilyDownloads() {
-  const live = use(LiveFactsContext);
-  const total = family.reduce(
-    (sum, tool) => sum + toolFacts(tool, live[tool.name]).crateDownloads,
-    0,
-  );
-  return <b>{formatCount(total)}</b>;
-}
-
-/**
- * The facts under a row's proof, as a definition list a screen reader can
- * pace. A successor names what it succeeds; a new development names the
- * standards it builds on; both name their evidence, qualitatively, never with a figure.
- */
-function ProofFacts({ tool }: { tool: FamilyTool }) {
-  const facts = useToolFacts(tool);
-  return (
-    <dl className="proof-facts">
-      {tool.succeeds === undefined ? null : (
-        <div>
-          <dt>Succeeds</dt>
-          <dd>{tool.succeeds}</dd>
-        </div>
-      )}
-      {tool.buildsOn === undefined ? null : (
-        <div>
-          <dt>Builds on</dt>
-          <dd>{tool.buildsOn}</dd>
-        </div>
-      )}
-      <div>
-        <dt>Evidence</dt>
-        <dd>{tool.evidence}</dd>
-      </div>
-      {facts.onCrates ? (
-        <div>
-          <dt>Downloads</dt>
-          <dd>{formatCount(facts.crateDownloads)} on crates.io</dd>
-        </div>
-      ) : null}
-    </dl>
-  );
-}
-
-function ToolMeta({ tool }: { tool: FamilyTool }) {
-  const facts = useToolFacts(tool);
-  return (
-    <div className="meta">
-      <b>v{facts.version}</b>
-      <span className="platforms">
-        {facts.onCrates ? (
-          <span className="platform">
-            <Mark name="crate" className="icon" size={15} />
-            crates.io
-          </span>
-        ) : null}
-        {facts.adapter ? (
-          <span className="platform">
-            <Mark name="adapter" className="icon" size={15} />
-            npm
-          </span>
-        ) : null}
-        {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
-          <span className="platform">git only</span>
-        ) : null}
-      </span>
-      <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-    </div>
-  );
-}
-
-/**
- * One ledger row. A successor carries the implementation it succeeds, a new
- * development the standards it builds on; an application carries neither —
- * what it promises is the product, and the engines it is built on are named
- * in the evidence.
- *
- * The name is the link, stretched over the whole row, so the target stays the
- * row while a screen reader hears the name, not every fact at once. A row
- * that leads to a repository rather than a site says so.
- */
-function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
-  const onSite = !leadsToRepo(tool);
-  return (
-    <article className="row">
-      <span className="num" aria-hidden="true">
-        {step === undefined ? "" : String(step).padStart(2, "0")}
-      </span>
-      <span className="plate markplate" aria-hidden="true">
-        <Mark name={tool.name} />
-      </span>
-      <div className="who">
-        <h3>
-          <a className="row-link" href={toolHref(tool)}>
-            {tool.name}
-            <RepoNote tool={tool} />
-          </a>
-        </h3>
-        <p className="sub">{tool.job}</p>
-      </div>
-      <div className="proof">
-        <p className="proof-story">{tool.proof}</p>
-        <ProofFacts tool={tool} />
-      </div>
-      <ToolMeta tool={tool} />
-      <Mark name={onSite ? "arrow" : "github"} className="go icon" size={22} />
-    </article>
-  );
-}
-
-const boardGroups = () => {
-  const { pipeline, language, workbench } = familyGroups();
-  return [
-    { label: "Pipeline", tools: pipeline },
-    { label: "Language", tools: language },
-    { label: "Workbench", tools: workbench },
-  ];
-};
-
-function BoardGroup({ label, tools }: { label: string; tools: FamilyTool[] }) {
-  const labelId = useId();
-  return (
-    <div className="board-group" role="group" aria-labelledby={labelId}>
-      <small className="board-group-label" id={labelId}>
-        {label}
-      </small>
-      <div className="board-row">
-        {tools.map((tool) => (
-          <a key={tool.name} href={toolHref(tool)}>
-            <svg className="hook" aria-hidden="true">
-              <use href="#i-hook" />
-            </svg>
-            <span className="markplate">
-              <Mark name={tool.name} />
-            </span>
-            {/* Maturity on the wall itself: every plate carries its stamp, so none outranks another. */}
-            <span className="board-stamp">
-              <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-            </span>
-            <span className="board-copy">
-              <b>
-                {tool.name}
-                {leadsToRepo(tool) ? (
-                  <Mark name="github" className="icon board-repo" size={11} />
-                ) : null}
-                <RepoNote tool={tool} />
-              </b>
-              <small>{tool.shortJob}</small>
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/** The pegboard: every member on its hook, grouped the way the page is. */
-function Pegboard() {
-  return (
-    <nav className="board" aria-label="The tool family">
-      <Fasteners />
-      <div className="board-grid">
-        {boardGroups().map((group) => (
-          <BoardGroup key={group.label} label={group.label} tools={group.tools} />
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-/**
- * The close: one place to start per line of work — the group's stable member,
- * the one ready to adopt. A group with none says so and points at its section
- * instead of recommending an early tool as if it were proven.
- */
-function StartHere() {
-  return (
-    <ul className="start-list">
-      {boardGroups().map((group) => {
-        const tool = leadTool(group.tools);
-        if (tool === undefined) return null;
-        if (tool.status !== "stable") {
-          return (
-            <li key={group.label}>
-              <a className="start start-bench" href={`#${group.label.toLowerCase()}`}>
-                <small className="start-group">{group.label}</small>
-                <span className="start-copy">
-                  <b>Nothing to adopt yet</b>
-                  <span>{group.tools.length} tools taking shape — see what is proven so far</span>
-                </span>
-                <Stamp>{tool.status}</Stamp>
-                <Mark name="arrow" className="go icon" size={20} />
-              </a>
-            </li>
-          );
-        }
-        return (
-          <li key={group.label}>
-            <a className="start" href={toolHref(tool)}>
-              <small className="start-group">{group.label}</small>
-              <span className="plate markplate" aria-hidden="true">
-                <Mark name={tool.name} />
-              </span>
-              <span className="start-copy">
-                <b>
-                  {tool.name}
-                  <RepoNote tool={tool} />
-                </b>
-                <span>{tool.shortJob}</span>
-              </span>
-              <Stamp solid>{tool.status}</Stamp>
-              <Mark name="arrow" className="go icon" size={20} />
-            </a>
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
-function ToolLedger({ step, tools }: { step?: boolean; tools: FamilyTool[] }) {
-  return (
-    <div className="ledger">
-      {tools.map((tool, index) => (
-        <ToolRow key={tool.name} tool={tool} step={step === true ? index + 1 : undefined} />
-      ))}
-    </div>
-  );
-}
 
 function Why() {
   return (
@@ -367,32 +84,30 @@ function Why() {
         </div>
         <div className="why-body">
           <p>
-            Open source shaped our careers — from leading qooxdoo at 1&amp;1 more than a decade ago
-            to the tools we still rely on every day. Ferramenta is how we give back: one workshop,
-            building the boring, load-bearing parts properly.
+            Open source shaped our careers, from leading qooxdoo at 1&amp;1 more than a decade ago
+            to the tools we still rely on every day. Ferramenta, Italian for hardware store, is how
+            we give back: one workshop, building the boring, load-bearing parts properly.
           </p>
           <p>
-            Essential developer tooling is going native — Rust mostly, sometimes Go. Vite, SWC, OXC
-            and esbuild showed what happens when the tools everything else stands on stop being
-            slow. That movement isn&rsquo;t ours: we stand on its shoulders. Ferramenta adds the
-            pieces we know best — not mechanical ports, but engines rebuilt the way you&rsquo;d
-            design them for Rust today: memory-layout-conscious, SIMD and NEON where it pays,
-            allocation-free where it counts.
+            Essential developer tooling is going native. Vite, SWC, OXC and esbuild showed what
+            happens when the tools everything else stands on stop being slow, and we stand on their
+            shoulders. Ferramenta adds the pieces we know best, rebuilt the way you&rsquo;d design
+            them for Rust today rather than ported line by line.
           </p>
           <ul className="goals">
             <li>
               <b>Stable through evidence.</b> Every tool earns stability through evidence
-              appropriate to its contract — {stableNames} are stable today; the rest keep their
+              appropriate to its contract. {stableNames} are stable today; the rest keep their
               maturity visible.
             </li>
             <li>
               <b>Match before outrun.</b> Where there is a predecessor contract, compatibility comes
-              first and performance claims follow published benchmarks — never a compatibility
+              first, and performance claims follow published benchmarks, never a compatibility
               asterisk.
             </li>
             <li>
-              <b>One chain, all Rust.</b> Markdown with highlighted code, end to end — regex,
-              highlighting, rendering — without a C toolchain or a JS runtime.
+              <b>Alone or chained.</b> Each tool is useful on its own. Chained, Markdown with
+              highlighted code runs end to end in Rust, without a C toolchain or a JS runtime.
             </li>
           </ul>
         </div>
@@ -411,8 +126,8 @@ function Partners() {
           <a href="https://oss.sebastian-software.com">
             <img src={softwareLogo} alt="Sebastian Software" />
             <p>
-              Sixteen production-grade open-source projects across four languages — the wider
-              workshop this family comes from.
+              Production-grade open-source projects across several languages: the wider workshop
+              this family comes from.
             </p>
             <span className="plink">
               oss.sebastian-software.com <Mark name="arrow" className="icon" size={16} />
@@ -436,21 +151,20 @@ function Partners() {
 
 export default function HomePage() {
   const { pipeline, language, workbench } = familyGroups();
-  const live = useLiveRegistry(liveRequest);
 
   return (
-    <LiveFactsContext value={live}>
+    <RegistryFacts snapshot={registryStats.tools}>
       <ProjectHero
         title={
           <>
             Heavy industry <em>for the web.</em>
           </>
         }
-        lede="Ferramenta — Italian for hardware store — is a family of Rust-native tools built around standards and APIs developers already know. Some succeed an established implementation and are checked against it differentially; others are new developments, built directly on open standards. Either way, what a tool claims is measured in the open."
+        lede="Rust-native tools built on the standards developers already know. Each one works on its own: take the tool your job needs."
         actions={
           <>
-            <a className="fam-btn fam-btn-primary" href="#pipeline">
-              Browse the tools <Mark name="arrow" className="icon" size={18} />
+            <a className="fam-btn fam-btn-primary" href="#jobs">
+              Find a tool by job <Mark name="arrow" className="icon" size={18} />
             </a>
             <a className="fam-btn fam-btn-ghost" href={sourceUrl}>
               <Mark name="github" className="icon" size={18} /> GitHub
@@ -468,16 +182,16 @@ export default function HomePage() {
       <Section
         id="pipeline"
         title="The content pipeline"
-        intro="Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end in Rust, with each stage measured against the implementation it succeeds or the specification it follows."
+        intro="Three tools that also work as one chain. Each stands alone: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust."
       >
         <PipelineAssembly />
-        <ToolLedger step tools={pipeline} />
+        <ToolLedger steps tools={pipeline} />
       </Section>
 
       <Section
         id="language"
         title="The language workshop"
-        intro="Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Two engines, plus the application they carry — palamedes is the i18n toolchain built on this family, and the reason the engines have to hold."
+        intro="Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Ferrolex and Ferrocat each stand alone; Palamedes, the i18n toolchain for TypeScript apps, runs on Ferrocat."
       >
         <ToolLedger tools={language} />
       </Section>
@@ -485,7 +199,7 @@ export default function HomePage() {
       <Section
         id="workbench"
         title="On the workbench"
-        intro="Three more tools taking shape — early, cut from the same steel, and explicit about what is proven now and what is still on the bench."
+        intro="Three more tools taking shape: early, cut from the same steel, and explicit about what is proven now and what is still on the bench."
       >
         <ToolLedger tools={workbench} />
       </Section>
@@ -493,8 +207,9 @@ export default function HomePage() {
       <Why />
 
       <ClosingAction
-        title="Choose a tool. Check the proof."
-        actions={<StartHere />}
+        id="jobs"
+        title="Pick the job. Take the tool."
+        actions={<JobIndex />}
         links={
           <a href={sourceUrl}>
             <Mark name="github" className="icon" size={14} />
@@ -503,8 +218,8 @@ export default function HomePage() {
         }
       >
         <p>
-          Start where a line of work is ready: its stable tool, the one to adopt today. Every
-          project is open source; early work is labeled early.
+          Every tool stands on its own: take the one your job needs, no chain required. Each project
+          is open source, and its stamp says how far it has come.
         </p>
         <p className="tally">
           <FamilyDownloads /> downloads on crates.io across the published crates.
@@ -512,6 +227,6 @@ export default function HomePage() {
       </ClosingAction>
 
       <Partners />
-    </LiveFactsContext>
+    </RegistryFacts>
   );
 }

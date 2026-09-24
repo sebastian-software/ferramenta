@@ -21,7 +21,7 @@ sets `.dark` on `<html>`; storage key `ardo-theme`).
 
 | Token                                                                                 | Light               | Dark                      | Role                                                                          |
 | ------------------------------------------------------------------------------------- | ------------------- | ------------------------- | ----------------------------------------------------------------------------- |
-| `--bg`                                                                                | 0.975 0.005 80      | 0.195 0.008 48            | page ground (under brush texture)                                             |
+| `--bg`                                                                                | 0.975 0.005 80      | 0.215 0.009 48            | page ground (under brush texture)                                             |
 | `--bg-dim`                                                                            | 0.945 0.008 78      | 0.23 0.011 48             | hover fills, board ground                                                     |
 | `--ink` / `--ink-soft`                                                                | 0.21 / 0.42         | 0.94 / 0.71               | text                                                                          |
 | `--rust` / `--rust-deep`                                                              | 0.5 0.132 38 / 0.41 | 0.69 0.14 45 / 0.6        | brand accent, primary action                                                  |
@@ -31,8 +31,11 @@ sets `.dark` on `<html>`; storage key `ardo-theme`).
 | `--duo0…--duo2`, `--duoink`                                                           | tint ramp + outline | dark ramp + light outline | duotone marks; dark set also on iron contexts (header/footer lockups, flyout) |
 | `--plate-rim-*`, `--plate-face-*`, `--plate-sheen`, `--plate-brush`, `--plate-shadow` | warm steel          | gunmetal                  | octagon plate material                                                        |
 | `--hook-dark`, `--hook-light`, `--hook-hole`                                          | burnished           | bright metal              | pegboard hooks                                                                |
-| `--paper`                                                                             | 0.985 0.004 85      | (unchanged)               | partner-logo carrier plates                                                   |
+| `--paper`                                                                             | 0.985 0.004 85      | 0.86 0.006 80             | partner-logo carrier plates (dimmed in dark, so they never outshine the page) |
 | `--code-keyword`, `--code-type`, `--code-function`, `--code-string`, `--code-comment` | one set, on iron    | (keyword follows ember)   | syntax colors in the code panel                                               |
+
+In dark mode the floor (`--bg` L 0.215) stays visibly above the iron (`--iron` L 0.14): the
+"floor between two iron bands" rhythm must survive without the rust rules.
 
 Rules: rust is structural (rules, stamps, primary action), never a scattered accent.
 Ember is reserved for glow and headings on iron. No grays for secondary text on colored
@@ -131,30 +134,37 @@ any change.
   the way back to the family: its trigger shows the Ferramenta mark and name, small and soft,
   and the flyout opens with the family site. On a phone the lockup drops to 1.2rem and the
   family trigger to its mark.
-- **Ledger rows** (`.row`): hairline-separated, grid `[num | plate | who | proof | meta | go]`.
+- **Tool ledger** (`ToolLedger`, `.fam-tool`): hairline-separated, grid `[num | plate | who | proof | meta | go]`,
+  the `num` column only in a numbered ledger (`steps`) — unnumbered rows drop it instead of
+  leaving it empty.
   Each row is an `article` whose `h3` tool name is the link, stretched over the row by `::after`
   — the whole row stays the target, while a screen reader hears the name instead of every fact.
   The facts are a `dl`. A row that leads to a repository rather than a site shows the GitHub
   glyph in the `go` column and says "GitHub repository" to assistive technology;
   big display digits only where sequence is real (pipeline 01-02-03, as in the assembly). Proof stays in the successor
   register (successors) or its new-development counterpart, followed by compact facts from the
-  registry: `Succeeds` (the implementation a successor replaces) or `Builds on` (the standards a
-  new development builds on), then `Evidence` — the kind of proof, never its numbers;
+  registry: `Succeeds` (the implementation a successor replaces), `Builds on` (the standards a
+  new development builds on) or `Runs on` (the engines an application runs on), then
+  `Evidence` — a check or a design property, never a feature list and never numbers;
   visible metadata is the live version, registry availability as icon-plus-label pairs
   (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
   and maturity. Members with `role: "application"` (palamedes) are products the family
-  carries, not libraries it publishes: they show no `Succeeds` fact — the engines they run on
-  are named in `Evidence` — and no registry-availability pair, because the row leads to the
+  carries, not libraries it publishes: they show `Runs on` (the registry's `runsOn`) instead of
+  `Succeeds`, their own evidence (palamedes: its benchmark against Lingui), and no
+  registry-availability pair, because the row leads to the
   product's own site rather than to a crate or an adapter. Download counts ride in the fact row.
   Versions and downloads are prerendered from the deploy and updated live in the browser
-  (`useLiveRegistry`) in the page's own tabular mono, so nothing shifts when they arrive. Results
+  (`RegistryFacts` around the page; it asks only for what a row shows — every verified crate,
+  npm only for a member without one) in the page's own tabular mono, so nothing shifts when they arrive. Results
   stay with each repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
   What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
   the foot of "What earns the stamp".
 - **Pipeline assembly**: a flat drawing above the pipeline ledger, using the existing project
-  plates and line-style arrows to show the chain as data flow: TextMate grammars in → ferroni →
-  ferriki → ferromark → highlighted HTML from Markdown out. The ends come from the registry
+  plates and line-style arrows to show the chain as data flow: Markdown with code in → ferroni →
+  ferriki → ferromark → highlighted HTML out (the TextMate grammars are ferroni's configuration,
+  named in the description, not the chain's input). Each stage also works alone, and the
+  section's intro says so. The ends come from the registry
   (`PIPELINE`) and never say "Application", which is a registry role. Small text on the plate uses
   `--rust-on-plate` and `--ink-soft-on-plate`, which hold 4.5:1 against the face's worst end in
   both themes (dark: 4.8:1 and 5.1:1 against `--plate-face-hi`). It is horizontal on wide screens and vertical on narrow ones.
@@ -163,7 +173,7 @@ any change.
 - **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows, then the
   stamp key. It sits directly after the hero: the stamps on the wall are explained before the
   ledgers use them.
-- **Link destinations**: every link to a member — board, switcher, assembly, ledger, closing,
+- **Link destinations**: every link to a member — board, switcher, assembly, ledger, job index,
   footer — goes through the registry's `toolHref`, and when it leads to a repository rather than
   a site it says so: `RepoNote` for assistive technology everywhere, the GitHub glyph where the
   surface has room (ledger `go` column, board names).
@@ -173,15 +183,20 @@ any change.
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
 - **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
-  ends forward, not back up the page: one entry per line of work — the group's `stable`
-  member, ready to adopt, with plate, name, short job and stamp. A group with no stable member
-  is named honestly ("Nothing to adopt yet") and points at its own section instead of
-  recommending an early tool as if it were proven. On a phone the entries come before the copy.
-  It carries the family download tally — a mono number in running text, live-summed in the
-  browser, never a metric tile.
-- **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
-  On the family site the lockup is the family's own name, not "More from Ferramenta", and the
-  columns carry short jobs (`jobs="short"`): the page above already holds every full job.
+  ends forward with the **job index** (`JobIndex`, anchor `#jobs`, the hero's primary action):
+  every member's short job A to Z, a square-dot leader, the tool's mark and name, its stamp —
+  set like the aisle directory of a hardware store, one subgrid so tools and stamps line up.
+  Members are independent: nobody needs the whole chain or a whole group, so the index
+  recommends none and ranks none; the stamp says how far each has come. (It replaced a
+  per-group "start here" pick, which implied an entry point the tools do not have.) It carries
+  the family download tally — a mono number in running text, live-summed in the browser, never
+  a metric tile.
+- **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company),
+  headed by `h2`s — the footer is its own landmark, outside the page's outline. On the family
+  site the lockup is the family's own name, not "More from Ferramenta", and the member columns
+  are dropped (`members="none"`): the page is itself the family's index and the header's
+  switcher reaches every member, so the footer only carries the company links. A sibling keeps
+  the columns (`"full"`, or `"short"` for short jobs).
 - **Buttons**: `.fam-btn-primary` rust with a single chamfered corner (`--chamfer`), one per
   view; `.fam-btn-ghost` 1px heavy outline (iron line and ember on iron). Uppercase display type.
 
@@ -202,6 +217,10 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 | `CodePanel`        | code on iron under a rust rule, mono caption, `--code-*` colors; scrolls in its own box                         |
 | `Ledger` + `Stamp` | coverage rows: display name, status stamp, the sentence behind it                                               |
 | `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions right                               |
+| `Pegboard`         | the 28px wall: every member on a hook, grouped, stamped; `current` leaves a site's own member off               |
+| `ToolLedger`       | registry rows with proof, facts, live release; `steps` numbers a real sequence                                  |
+| `JobIndex`         | the aisle directory: job A to Z, leader, tool, stamp; recommends none                                           |
+| `RegistryFacts`    | provides snapshot + live registry figures to the three above and `FamilyDownloads`                              |
 
 - **Stamps**: a tinted `--bg-dim` fill with a `--line` hairline, mono uppercase; the settled state
   (`stable`, `covered`) is solid rust; on iron the open states take `--iron-2` and `--iron-line`.
@@ -220,8 +239,9 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
   globset", "a larger test suite" are fine; speed-up factors, timings, percentages and test
   counts live in each project's repository and site, where they stay current. No invented social
   proof, stars, or testimonials.
-- Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes); code,
-  data, URLs, package names, and crate names stay lowercase. CSS applies
+- Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes) — page copy and the
+  registry's prose fields (`proof`, `PIPELINE.description`) alike; identifiers (`name`,
+  `runsOn`), URLs, package names, and crate names stay lowercase. CSS applies
   uppercase where the visual styling calls for it.
 
 ## Ardo integration notes
@@ -258,9 +278,10 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 
 ## Sharing & minimum sizes
 
-- Social card: `public/social.png` (1200×630), rendered headless from the world (iron ground,
-  pegboard strip with the marks that existed when it was rendered); wired via Ardo `metadata` +
-  route-level og/twitter tags. Re-render it when the board's line-up changes.
+- Social card: `public/social.png` (1200×630), rendered headless from the world by
+  `scripts/render-social-card.mjs` (iron ground, poster headline, a pegboard strip with every
+  member's mark from the registry); wired via Ardo `metadata` + route-level og/twitter tags.
+  Re-render it when the line-up changes: `CHROME=<chromium> node scripts/render-social-card.mjs`.
 - Minimum UI text size on the page: 12px (0.75rem) — board/assembly sublabels, fact labels,
   stamps. Nothing below.
 - Footer carries a one-line license note (site MIT; tool licenses live in their repositories).

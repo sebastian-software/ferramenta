@@ -207,17 +207,6 @@ test("the stamp legend reads every status from the registry", () => {
   assert.ok(html.includes('<span class="fam-stamp" data-tone="solid">stable</span>'));
 });
 
-test("the lead tool is the most mature member, registry order on a tie", () => {
-  const { language, workbench } = kit.familyGroups();
-  assert.equal(kit.leadTool(language)?.status, "stable");
-  const best = Math.min(...workbench.map((tool) => kit.STATUS_ORDER.indexOf(tool.status)));
-  assert.equal(
-    kit.leadTool(workbench),
-    workbench.find((tool) => kit.STATUS_ORDER.indexOf(tool.status) === best),
-  );
-  assert.equal(kit.leadTool([]), undefined);
-});
-
 test("short jobs keep their acronyms: the board shows them without a text transform", () => {
   for (const tool of kit.family) {
     assert.doesNotMatch(
