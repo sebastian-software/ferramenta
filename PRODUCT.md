@@ -51,7 +51,7 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 
 ## Evidence on Hand
 
-- Results live with their owners, never on the family site: benchmarks, test counts, rankings and other numbers belong to each tool's repository and site, where they stay current. The family site names only the kind of evidence (the registry's `evidence` line: an oracle, a conformance suite, a design property) and links to the tool.
+- Results are welcome on the family site, figures are not. Speed and rigor are part of why the family exists, so the site may say a tool is among the fastest, ahead of a named alternative, or backed by a larger test suite — whenever that is true. It never repeats a speed-up factor, timing, percentage or test count: that precision goes stale here and belongs to each tool's repository and site, next to its setup.
 - Live registry figures: download counts render as shields.io badges on every view; versions and registry availability come from the build-time snapshot (`app/data/registry-stats.json`). No aggregate across tools is shown.
 - Assets: the mark sprite (`packages/family/src/mark-defs.ts`), the bundled Big Shoulders font, the brand logos (`app/assets/brand/`), the Sebastian Software and Sebastian Consulting wordmarks (`app/assets/logos/`), the social card (`public/social.png`), and the approved comp (`design/comp/`).
 - Absent, and never to be invented: stars, user counts, customer logos, testimonials, press. The family is young; there is no social proof.

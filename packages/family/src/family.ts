@@ -37,9 +37,10 @@ export type FamilyTool = {
   /** Proof sentence: verifiable facts, no marketing claims */
   proof: string;
   /**
-   * The kind of evidence behind the tool — an oracle, a conformance suite, a
-   * design property — never its results. Numbers, rankings and "faster than"
-   * live in the tool's own repository, where they stay current.
+   * The evidence behind the tool: an oracle, a conformance suite, a design
+   * property, and qualitative results ("ahead of globset", "among the fastest").
+   * Never a figure — no factors, timings, percentages or test counts: those go
+   * stale here, and live in the tool's own repository where they stay current.
    */
   evidence: string;
   /**
@@ -97,7 +98,7 @@ export const family: FamilyTool[] = [
     proof:
       "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
     evidence: "CommonMark & GFM conformance",
-    version: "2.0.1",
+    version: "2.1.1",
     status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferromark",
@@ -151,7 +152,7 @@ export const family: FamilyTool[] = [
     succeeds: "SVGO",
     proof:
       "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
-    evidence: "Byte-for-byte SVGO oracle",
+    evidence: "Byte-for-byte SVGO oracle · in progress",
     version: "0.1.0",
     status: "early",
     group: "workbench",
@@ -163,7 +164,7 @@ export const family: FamilyTool[] = [
     shortJob: "glob matching",
     proof:
       "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
-    evidence: "Frozen zlob reference",
+    evidence: "Frozen zlob reference · ahead of globset and fast-glob",
     version: "0.12.0",
     status: "early",
     group: "workbench",

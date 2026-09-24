@@ -33,9 +33,10 @@ export type FamilyTool = {
     /** Proof sentence: verifiable facts, no marketing claims */
     proof: string;
     /**
-     * The kind of evidence behind the tool — an oracle, a conformance suite, a
-     * design property — never its results. Numbers, rankings and "faster than"
-     * live in the tool's own repository, where they stay current.
+     * The evidence behind the tool: an oracle, a conformance suite, a design
+     * property, and qualitative results ("ahead of globset", "among the fastest").
+     * Never a figure — no factors, timings, percentages or test counts: those go
+     * stale here, and live in the tool's own repository where they stay current.
      */
     evidence: string;
     /**

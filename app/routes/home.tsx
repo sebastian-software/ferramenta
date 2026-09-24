@@ -97,7 +97,7 @@ function toolFacts(tool: FamilyTool) {
 /**
  * The facts under a row's proof, as a definition list a screen reader can
  * pace. A successor names what it succeeds; a new development names the
- * standards it builds on; both name the kind of evidence, never its results.
+ * standards it builds on; both name their evidence, qualitatively, never with a figure.
  */
 function ProofFacts({ tool }: { tool: FamilyTool }) {
   return (

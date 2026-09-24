@@ -64,17 +64,21 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   the README family block: it is generated (`pnpm readme:write`) and checked
   (`pnpm readme:check`, part of `pnpm test`), never hand-edited between the
   `<!-- ferramenta-family -->` markers.
-- Versions and download counts are **live** (ADR-0006): `pnpm stats:refresh`
-  writes `app/data/registry-stats.json` from crates.io and npm, and a nightly
-  workflow keeps it current. The `version` in `family.ts` is only the offline
-  fallback, and evidence strings must never repeat a version number.
+- Registry facts are **live** (ADR-0006): the Pages deploy runs
+  `pnpm stats:refresh` before every build and nightly on a schedule, without
+  committing anything; download counts render as live `RegistryBadge`s. The
+  committed `app/data/registry-stats.json` is only the fallback snapshot for
+  local and CI builds, and the `version` in `family.ts` the last resort.
+  Evidence strings must never repeat a version number.
 - Site copy follows ADR-0004: successors honor the original → state the
   succession → give the why; new developments honor the standard they build
   on → state what they do differently → give the why. Shared copy speaks for
   both. The registry marks each member with `succeeds` or `buildsOn`.
-- Never replicate a project's results on the family site — no benchmarks, test
-  counts, rankings or "faster than" (a test enforces it on `evidence` and
-  `proof`). Download counts render as live `RegistryBadge`s, not baked numbers. No API-method names or spec dumps on the
+- Claim results on the family site qualitatively, never with a figure: "among
+  the fastest", "ahead of globset", "a larger test suite" are fine; factors,
+  timings, percentages and test counts are not — they pretend to a precision
+  that goes stale here and belong in each project's repository (a test
+  enforces it on `evidence` and `proof`). Download counts render as live `RegistryBadge`s, not baked numbers. No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
 - Design changes respect DESIGN.md and ADR-0003: material lives only on body
   texture, octagon plates, and hooks; board geometry moves in 28px-module steps

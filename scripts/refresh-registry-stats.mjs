@@ -4,7 +4,10 @@
  *
  * Hard-coded facts stay out of the page: family.ts keeps a fallback version so
  * the build survives an offline or rate-limited registry, but a successful run
- * always wins. Run via `pnpm stats:refresh` (and nightly in CI).
+ * always wins. The Pages deploy runs it before every build (and nightly on a
+ * schedule), without committing the result; the committed file is only the
+ * fallback snapshot for local and CI builds. Run `pnpm stats:refresh` to
+ * update that snapshot by hand.
  *
  * A family name is not proof of family ownership: both registries hand out
  * names first come, first served. Every hit is therefore checked against the

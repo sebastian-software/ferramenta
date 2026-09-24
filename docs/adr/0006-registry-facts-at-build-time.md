@@ -113,13 +113,26 @@ dark variant, `flat-square`, square corners) to stay as close to the stamp
 language as an image can.
 
 The family-wide total is dropped: no badge service sums several crates, and a
-baked total would go stale again. Versions and registry availability (crates.io,
-npm, git only) stay build-time facts from the snapshot, with the registry's
-`version` as the offline fallback.
+baked total would go stale again.
+
+**No more snapshot pull requests.** A daily pull request that someone has to
+review and merge is an invitation to go stale, and it did. The
+`refresh-stats.yml` job and its `automation/refresh-registry-stats` branch are
+retired. Instead the Pages deploy (`deploy.yml`) runs `pnpm stats:refresh`
+right before `pnpm build` and deploys the result without committing it, and the
+deploy also runs nightly on a schedule. Versions and registry availability are
+therefore at most a day old again, with no bot commit and nothing to merge. A
+failed fetch never blocks a deploy: unresolved lookups keep the committed
+snapshot's value, and the step itself may fail without failing the job.
+
+`app/data/registry-stats.json` stays committed as the fallback snapshot for
+local and CI builds; refresh it by hand with `pnpm stats:refresh` when it
+matters. The registry's `version` remains the last resort. This supersedes the
+delivery described in the 2026-09-09 amendment.
 
 ## References
 
 - [scripts/refresh-registry-stats.mjs](../../scripts/refresh-registry-stats.mjs)
-- [.github/workflows/refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
+- [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml)
 - [GitHub Actions: `GITHUB_TOKEN` security](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs)
 - [ADR-0004](0004-successor-copy-register.md) — only verifiable claims

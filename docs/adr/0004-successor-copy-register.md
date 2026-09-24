@@ -101,12 +101,15 @@ model it builds on → states what it does differently → gives the why. Shared
 copy — the lede, the principles, the stamp legend — speaks for both and never
 implies that every tool replaces something.
 
-**No replicated results.** The family site never repeats a project's
-benchmarks, test counts, rankings or other results: they cannot be kept
-current from here. Evidence names the _kind_ of proof (an oracle, a conformance
-suite, a design property); the numbers live in each project's repository and
-site. Live registry figures render from the registries themselves (see
-ADR-0006).
+**Results without figures.** Speed is part of why the family exists, and the
+family site says so: a tool can be "among the fastest", "ahead of globset",
+backed by "a larger test suite than the original". What the family site never
+repeats is a figure — a speed-up factor, a timing, a percentage, a test count.
+Those pretend to a precision that cannot be kept current from here; they live
+in each project's repository and site, next to the setup that produced them.
+Evidence names the kind of proof (an oracle, a conformance suite, a design
+property) plus any qualitative result. Live registry figures render from the
+registries themselves (see ADR-0006).
 
 This supersedes the consequence that every new tool needs a named original to
 honor.

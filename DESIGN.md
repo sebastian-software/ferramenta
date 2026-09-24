@@ -215,9 +215,10 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 
 - The family registry ([packages/family/src/family.ts](packages/family/src/family.ts))
   is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
-- The family site replicates no project results — no benchmarks, test counts, rankings or
-  "faster than". Evidence names the kind of proof; the numbers live in each project's repository
-  and site. No invented social proof, stars, or testimonials.
+- Results are claimed qualitatively, never with a figure: "among the fastest", "ahead of
+  globset", "a larger test suite" are fine; speed-up factors, timings, percentages and test
+  counts live in each project's repository and site, where they stay current. No invented social
+  proof, stars, or testimonials.
 - Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes); code,
   data, URLs, package names, and crate names stay lowercase. CSS applies
   uppercase where the visual styling calls for it.

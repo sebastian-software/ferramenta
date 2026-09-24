@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-09T08:59:16Z",
+  "generatedAt": "2026-09-24T07:01:28Z",
   "tools": {
     "ferroni": {
       "crates": {
-        "version": "1.3.3",
-        "downloads": 1563,
-        "recentDownloads": 1308,
-        "updated": "2026-09-06"
+        "version": "1.4.2",
+        "downloads": 1746,
+        "recentDownloads": 1464,
+        "updated": "2026-09-23"
       },
       "npm": null
     },
@@ -16,14 +16,14 @@
     },
     "ferromark": {
       "crates": {
-        "version": "0.7.0",
-        "downloads": 5026,
-        "recentDownloads": 4548,
-        "updated": "2026-07-27"
+        "version": "2.1.1",
+        "downloads": 5369,
+        "recentDownloads": 4836,
+        "updated": "2026-09-23"
       },
       "npm": {
-        "version": "0.7.0",
-        "lastMonth": 35,
+        "version": "2.1.1",
+        "lastMonth": 304,
         "placeholder": false
       }
     },
@@ -34,13 +34,13 @@
     "ferrocat": {
       "crates": {
         "version": "3.4.2",
-        "downloads": 7471,
-        "recentDownloads": 6903,
+        "downloads": 7671,
+        "recentDownloads": 6105,
         "updated": "2026-08-06"
       },
       "npm": {
         "version": "0.2.0",
-        "lastMonth": 17,
+        "lastMonth": 16,
         "placeholder": false
       }
     },
@@ -48,7 +48,7 @@
       "crates": null,
       "npm": {
         "version": "1.25.0",
-        "lastMonth": 2795,
+        "lastMonth": 2173,
         "placeholder": true
       }
     },
@@ -59,8 +59,8 @@
     "ferralk": {
       "crates": {
         "version": "0.12.0",
-        "downloads": 833,
-        "recentDownloads": 833,
+        "downloads": 1034,
+        "recentDownloads": 1034,
         "updated": "2026-09-04"
       },
       "npm": null
@@ -68,13 +68,13 @@
     "ferrugo": {
       "crates": {
         "version": "0.5.0",
-        "downloads": 86,
-        "recentDownloads": 86,
+        "downloads": 91,
+        "recentDownloads": 91,
         "updated": "2026-07-05"
       },
       "npm": {
         "version": "0.0.1",
-        "lastMonth": 9,
+        "lastMonth": 11,
         "placeholder": true
       }
     }

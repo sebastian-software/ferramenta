@@ -226,11 +226,15 @@ test("short jobs keep their acronyms: the board shows them without a text transf
   }
 });
 
-test("the registry names results nowhere: evidence is a method, never a number or a ranking", () => {
-  const ranking = /\b(?:faster|slower|ahead of|beats?|fastest|outperforms?)\b|[×%]/iu;
+test("the registry claims results qualitatively, never with a figure that goes stale", () => {
+  // "Ahead of globset", "among the fastest", "a larger test suite" are fine; a
+  // factor, a timing, a percentage or a test count pretends to a precision the
+  // family site cannot keep current.
+  const figure =
+    /[×%]|(?<![\d.,])\d[\d.,]*\s?(?:x|ms|µs|ns|s|mib|mb|gib|gb|kib|kb|times|tests?|test functions)\b/iu;
   for (const tool of kit.family) {
-    assert.doesNotMatch(tool.evidence, ranking, `${tool.name} evidence states a result`);
-    assert.doesNotMatch(tool.proof, ranking, `${tool.name} proof states a result`);
+    assert.doesNotMatch(tool.evidence, figure, `${tool.name} evidence states a figure`);
+    assert.doesNotMatch(tool.proof, figure, `${tool.name} proof states a figure`);
     assert.ok(
       tool.succeeds === undefined || tool.buildsOn === undefined,
       `${tool.name} is either a successor or a new development, not both`,
