@@ -75,6 +75,7 @@ export {
   useToolFacts,
 } from "./RegistryFacts.js";
 export { RepoNote } from "./RepoNote.js";
+export { RunSample, type RunSampleProps } from "./RunSample.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";
 export { SiteHeader, type SiteHeaderProps } from "./SiteHeader.js";
 export {

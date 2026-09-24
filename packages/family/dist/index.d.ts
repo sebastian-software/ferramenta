@@ -20,6 +20,7 @@ export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { PipelineAssembly, type PipelineAssemblyProps } from "./PipelineAssembly.js";
 export { Count, FamilyDownloads, RegistryFacts, type RegistryFactsProps, useToolFacts, } from "./RegistryFacts.js";
 export { RepoNote } from "./RepoNote.js";
+export { RunSample, type RunSampleProps } from "./RunSample.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";
 export { SiteHeader, type SiteHeaderProps } from "./SiteHeader.js";
 export { JobIndex, type JobIndexProps, Pegboard, type PegboardProps, ToolLedger, type ToolLedgerProps, } from "./ToolCatalog.js";

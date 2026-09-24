@@ -188,6 +188,13 @@ test("the kit stays in its namespace and yields to the host", () => {
   assert.doesNotMatch(landing, /^\.fam-page (?:h1|h2|h3|p|a|code)\b/mu);
 });
 
+test("the pegboard's holes sit under its hooks: tile at 0 0, hole in the tile's middle", () => {
+  // A radial gradient centers in its tile, so a 28px tile at 0 0 puts every hole
+  // at 14 mod 28 from the padding edge, where the hooks hang (DESIGN.md).
+  assert.match(landing, /radial-gradient\([^)]*\)[^)]*\) 0 0 \/ 28px 28px/u);
+  assert.match(landing, /\.fam-board \{[^}]*padding: 42px;/u, "padding 42 = 14 mod 28");
+});
+
 test("the materials are tokens, not copies", async () => {
   for (const file of ["chrome.css", "landing.css"]) {
     const css = await readFile(new URL(`../styles/${file}`, import.meta.url), "utf8");

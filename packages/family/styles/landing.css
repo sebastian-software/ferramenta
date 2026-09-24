@@ -535,14 +535,14 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   margin-top: 1.5rem;
 }
 
+/* A file name or a command is an identifier: it keeps its own case. */
 .fam-code figcaption {
   padding: 0.6rem 1.25rem;
   border-bottom: 1px solid var(--iron-line);
   color: var(--iron-soft);
   font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
 }
 
 .fam-code pre {
@@ -741,7 +741,9 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 /*
  * The pegboard. Its hole grid is a 28px tile, and everything on it is a
  * multiple: padding 42, cells 112×140, gaps 28, so every hook hangs on a hole
- * (a hook's center sits at 14 mod 28 from the padding edge). Change it only in
+ * (a hook's center sits at 14 mod 28 from the padding edge). The hole is the
+ * radial gradient's center, which sits in the middle of its tile: with the
+ * tile at 0 0 the holes land at 14 mod 28, under the hooks. Change it only in
  * 28px steps and re-measure the hooks; DESIGN.md has the phone board.
  */
 .fam-board {
@@ -752,7 +754,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   padding: 42px;
   border: 2px solid var(--line-heavy);
   background:
-    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
+    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 0 0 / 28px 28px,
     linear-gradient(var(--bg-dim), var(--bg-dim));
 }
 
@@ -1260,6 +1262,94 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   .fam-job-name,
   .fam-job-tool b {
     font-size: 1rem;
+  }
+}
+
+/* -- Run sample: input, arrow, the output as it came out ------------------------ */
+
+.fam-run {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.fam-run .fam-code {
+  margin-top: 0;
+}
+
+.fam-run-arrow {
+  align-self: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--rust);
+}
+
+/* The output is a document on the floor, in the page's own type: a ruled sheet, not a card. */
+.fam-run-output {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--rust);
+  background: var(--bg-dim);
+}
+
+.fam-run-output figcaption {
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+
+.fam-run-doc {
+  padding: 1.25rem;
+}
+
+.fam-run-doc :is(h1, h2, h3, h4) {
+  font-size: 1.6rem;
+}
+
+.fam-run-doc p {
+  margin-top: 0.6rem;
+}
+
+/*
+ * The highlighted block keeps its theme's token colors on our iron, the surface
+ * code always sits on (gruvbox-dark-hard holds ≥6:1 there). The `!important`
+ * answers Ardo's own `.shiki { background: transparent !important }`, which
+ * would leave light tokens on the light floor. The rendered side wraps instead
+ * of scrolling: it is `inert`, so a scroll box there could not be reached.
+ */
+.fam-run-doc pre.shiki {
+  background: var(--iron) !important;
+}
+
+.fam-run-doc pre {
+  margin-top: 1rem;
+  padding: 1.1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 54rem) {
+  .fam-run {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fam-run-arrow {
+    justify-self: center;
+    rotate: 90deg;
+  }
+
+  /* On a phone the input wraps too: the sample reads without a sideways swipe. */
+  .fam-run .fam-code pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 }
 

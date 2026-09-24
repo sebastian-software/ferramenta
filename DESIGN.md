@@ -66,8 +66,8 @@ on a plate face), `--ground-vignette`, `--ember-glow`, `--octagon` (plate outlin
 - **No eyebrows or kickers.** A label above a heading that restates or teases it is out —
   headings carry their own weight, and on a sibling site the project lockup already says whose
   page it is. Mono uppercase _labels_ stay, where they name a measured or structural thing
-  beside it: figure labels, assembly terminals, code captions, stamps, board and flyout group
-  labels. The test: delete the label; if the heading still says everything, it was a kicker.
+  beside it: figure labels, assembly terminals, stamps, board and flyout group labels. A code
+  caption is a file name or a command, an identifier: mono, but in its own case. The test: delete the label; if the heading still says everything, it was a kicker.
 
 ## Materials (the skeuomorphic layer)
 
@@ -97,7 +97,11 @@ outranks another. A member whose link leads to its repository carries a small Gi
 after its name. Label rows and 28px gaps keep every hook hole on the wall grid. A row always
 has three columns, so a group of two leaves its third cell empty rather than widening a plate.
 
-The board's hole grid is a 28px tile (`background-size: 28px 28px`, dots offset 14px).
+The board's hole grid is a 28px tile (`background: radial-gradient(…) 0 0 / 28px 28px`). A radial
+gradient draws its hole in the middle of its tile, so a tile at `0 0` puts every hole at 14
+(mod 28) from the padding edge. (The comp offset the tile by 14px as well, which put the holes at
+0 mod 28 — every hook hung between four holes until round 5 of the critique measured the holes
+themselves, not only the hooks. A test now pins the tile position.)
 Everything on the board is a multiple: padding 42px, cells 112×140px, gaps 28px → every hook
 hole lands exactly on a wall hole. The invariant is the hook, not the padding: a hook hangs at
 its cell's top center, and that point must sit at 14 (mod 28) from the board's padding edge on
@@ -183,13 +187,19 @@ any change.
   the comp.
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
-- **The chain, run** (`#run`, after Why): the pipeline's proof without a figure. Ferromark's own
-  quick start as Markdown in a `CodePanel`, an arrow, and what Ferromark with Ferriki (whose
-  grammar engine is Ferroni) made of it, inserted as it came out: a committed artifact from
+- **The chain, run** (`RunSample`, inside the pipeline section between the chassis and the
+  ledger, so claim and proof share a screen): the pipeline's proof without a figure. Ferromark's
+  own quick start as Markdown in a `CodePanel`, an arrow, and what Ferromark with Ferriki (whose
+  grammar engine is Ferroni) made of it, inserted unedited: a committed artifact from
   `scripts/render-pipeline-sample.mjs` (`app/data/pipeline-sample.json`), never hand-written.
-  The output sits on a ruled `--bg-dim` sheet in the page's own type; the highlighted block keeps
-  its theme's own ground (gruvbox-dark-hard, chosen for its warm palette and ≥5.9:1 token
-  contrast). The sample's heading is an h3, so it nests under the section's h2.
+  The output caption names the versions it was rendered with, from the artifact, so a newer
+  live version in the ledger below is no contradiction. The output sits on a ruled `--bg-dim`
+  sheet in the page's own type; the highlighted block keeps its theme's token colors
+  (gruvbox-dark-hard: warm, ≥6:1) on our iron. Both panels set code at 0.875rem; the rendered
+  side wraps, and on a phone the input does too. The rendered side is `inert`: it repeats the
+  input for the eye, so assistive technology reads the input once and never meets the sample's
+  heading as a page heading. The sample quotes a real document, so the API call inside it is
+  content, not the API listing ADR-0004 keeps off overview pages.
 - **Hero actions**: the primary leads to the tools and their proof (`#pipeline`); the board
   beside it is already the way to a tool by job.
 - **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
@@ -225,6 +235,7 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 | `PipelineAssembly` | the chassis on four `Fasteners`; stages link to their sites, `current` stamps this site's step                  |
 | `EvidenceFigures`  | mono label, big rust display value, rust left rule, detail and raw measure                                      |
 | `CodePanel`        | code on iron under a rust rule, mono caption, `--code-*` colors; scrolls in its own box                         |
+| `RunSample`        | input `CodePanel`, arrow, the tool\'s real output unedited on a ruled sheet (inert); caption names the versions |
 | `Ledger` + `Stamp` | coverage rows: display name, status stamp, the sentence behind it                                               |
 | `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions or an `aside` list right            |
 | `Pegboard`         | the 28px wall: every member on a hook, grouped, stamped; `current` leaves a site's own member off               |
