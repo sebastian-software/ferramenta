@@ -50,6 +50,9 @@ jobs:
       - name: Refresh registry facts
         continue-on-error: true
         run: pnpm stats:refresh
+        env:
+          # Only for the rate limit of GitHub's release lookups; read-only, public data.
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Build
         run: pnpm build

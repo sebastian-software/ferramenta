@@ -132,7 +132,9 @@ const metricsDoc = (sources = { github: "ok", crates: "ok", npm: "ok" }) => ({
   schema: 1,
   generatedAt: "2026-09-24T12:00:00Z",
   sources,
-  github: {},
+  github: {
+    ferriki: { stars: 0, forks: 1, release: { tag: "v9.3.0", version: "9.3.0", publishedAt: "x" } },
+  },
   crates: {
     ferroni: { version: "9.0.0", downloads: 5, recentDownloads: 1, publishedAt: "x" },
     "someone-else": { version: "1.0.0", downloads: 1, recentDownloads: 1, publishedAt: "x" },
@@ -152,6 +154,14 @@ test("family facts come from the metrics document in one request", async (t) => 
   assert.deepEqual(facts.ferroni, { crates: { version: "9.0.0", downloads: 5 } });
   assert.deepEqual(facts.ferromark, { npm: { version: "9.1.0", lastMonth: 7 } });
   assert.equal(facts["someone-else"], undefined, "only family members");
+  assert.deepEqual(facts.ferriki, { release: { version: "9.3.0" } }, "a Git-only tool's release");
+  const ferriki = kit.family.find((tool) => tool.name === "ferriki");
+  assert.equal(kit.toolFacts(ferriki, { crates: null, npm: null }, facts.ferriki).version, "9.3.0");
+  assert.equal(
+    kit.toolFacts(ferriki, { crates: null, npm: null, release: { version: "9.2.0" } }).version,
+    "9.2.0",
+    "the snapshot's release before the registry's hand-set fallback",
+  );
 
   // Without a snapshot the live facts stand on their own: a sibling site gets figures too.
   const ferroni = kit.family.find((tool) => tool.name === "ferroni");

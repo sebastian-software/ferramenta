@@ -114,9 +114,17 @@ export function liveRequestFor(snapshot) {
 }
 /** A snapshot entry made from live facts alone, for a site that has no snapshot. */
 function statFromLive(live) {
-    if (live.crates === undefined && live.npm === undefined)
+    if (live.crates === undefined && live.npm === undefined && live.release === undefined)
         return null;
-    return { crates: live.crates ?? null, npm: live.npm ?? null };
+    return { crates: live.crates ?? null, npm: live.npm ?? null, release: live.release ?? null };
+}
+/**
+ * The version a member shows: the crate's when there is one, else the npm
+ * adapter's, else — for a Git-only member — its latest GitHub release. The
+ * registry's own value is the last resort.
+ */
+function shippedVersion(tool, registry, release) {
+    return (registry ?? release)?.version ?? tool.version;
 }
 /**
  * The facts for one member, from a snapshot and whatever answered live. With
@@ -127,10 +135,8 @@ export function toolFacts(tool, snapshotStat, live = {}) {
     const stat = snapshotStat ?? statFromLive(live);
     const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
     const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
-    // The crate carries the version when there is one; an adapter-only member shows npm's.
-    const release = crates ?? npm;
     return {
-        version: release === null ? tool.version : release.version,
+        version: shippedVersion(tool, crates ?? npm, live.release ?? stat?.release),
         crateDownloads: crates === null ? 0 : crates.downloads,
         onCrates: crates !== null,
         adapter: npm !== null,
@@ -162,6 +168,10 @@ function metricsFacts(doc, name) {
     if (npmVersion !== undefined && lastMonth !== undefined) {
         facts.npm = { version: npmVersion, lastMonth };
     }
+    const repo = metricsEntry(doc.github, name);
+    const release = isRecord(repo.release) ? textAt(repo.release, "version") : undefined;
+    if (release !== undefined)
+        facts.release = { version: release };
     return facts;
 }
 /** The family's facts from the metrics document, or null when it did not answer usefully. */
@@ -172,7 +182,7 @@ export async function fetchFamilyMetrics(url = METRICS_URL) {
     const facts = {};
     for (const { name } of family) {
         const member = metricsFacts(doc, name);
-        if (member.crates !== undefined || member.npm !== undefined)
+        if (Object.keys(member).length > 0)
             facts[name] = member;
     }
     return {
