@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.2...ferramenta-v1.1.0) (2026-09-24)
+
+
+### Features
+
+* **family:** landing kit and project lockup for sibling home pages ([#56](https://github.com/sebastian-software/ferramenta/issues/56)) ([e57dfff](https://github.com/sebastian-software/ferramenta/commit/e57dfff88a633d1e57ea0899212933af39769efe))
+* **family:** retire ferrovia from the family ([#60](https://github.com/sebastian-software/ferramenta/issues/60)) ([56bb453](https://github.com/sebastian-software/ferramenta/commit/56bb453fe72de7289835401b69ec53c89024b142))
+* share descriptive family themes across Markdown and React ([#50](https://github.com/sebastian-software/ferramenta/issues/50)) ([05fadd2](https://github.com/sebastian-software/ferramenta/commit/05fadd21d86b69bb15179ef4461bef6b3b531f88))
+* **site:** the chain, run for real; live figures from oss-metrics ([#58](https://github.com/sebastian-software/ferramenta/issues/58)) ([b3bdc23](https://github.com/sebastian-software/ferramenta/commit/b3bdc233ee14d14437b11e4b4137b02d8e90038c))
+
+
+### Bug Fixes
+
+* **family:** the GitHub mark fills itself ([#59](https://github.com/sebastian-software/ferramenta/issues/59)) ([792e1ac](https://github.com/sebastian-software/ferramenta/commit/792e1ac919aaacfb60a5a69369f1cd5675c5b229))
+
 ## [1.0.2](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.1...ferramenta-v1.0.2) (2026-09-09)
 
 
