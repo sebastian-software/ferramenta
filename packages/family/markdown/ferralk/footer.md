@@ -22,5 +22,4 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |

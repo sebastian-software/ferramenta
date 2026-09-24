@@ -48,10 +48,6 @@
         "placeholder": true
       }
     },
-    "ferrovia": {
-      "crates": null,
-      "npm": null
-    },
     "ferralk": {
       "crates": {
         "version": "0.12.0",

@@ -176,19 +176,6 @@ export const family: FamilyTool[] = [
     docs: "https://palamedes.dev",
   },
   {
-    name: "ferrovia",
-    job: "SVGO-compatible SVG optimizer",
-    shortJob: "SVG optimizer",
-    succeeds: "SVGO",
-    proof:
-      "SVGO set the standard for SVG optimization. Ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
-    evidence: "Byte-for-byte SVGO oracle · in progress",
-    version: "0.1.0",
-    status: "early",
-    group: "workbench",
-    repo: "https://github.com/sebastian-software/ferrovia",
-  },
-  {
     name: "ferralk",
     job: "Glob matching and parallel filesystem walking",
     shortJob: "glob matching",
