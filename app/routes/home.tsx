@@ -2,7 +2,6 @@ import type { MetaFunction } from "react-router";
 
 import {
   ClosingAction,
-  CodePanel,
   displayName,
   family,
   FamilyDownloads,
@@ -14,6 +13,8 @@ import {
   PipelineAssembly,
   ProjectHero,
   RegistryFacts,
+  RunSample,
+  runsOnTools,
   Section,
   StampKey,
   ToolLedger,
@@ -65,7 +66,16 @@ const beliefs = [
 const sourceUrl = "https://github.com/sebastian-software";
 
 /** The stable members, from the registry, as a sentence list. */
-const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
+const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
+
+/** What the pipeline sample was rendered with, from the artifact itself. */
+const sampleRun = `Rendered by Ferromark ${pipelineSample.rendered.ferromark} with Ferriki ${pipelineSample.rendered.ferriki}`;
+
+/** Group sizes in words, for the section intros: the registry decides how many. */
+const COUNT_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six"];
+const countWord = (count: number) => COUNT_WORDS[count] ?? String(count);
+
+const stableNames = listFormat.format(
   family.filter((tool) => tool.status === "stable").map((tool) => displayName(tool)),
 );
 
@@ -117,32 +127,6 @@ function Why() {
   );
 }
 
-/**
- * The chain, run for real: the input beside what Ferromark and Ferriki made of
- * it. The output is a committed build artifact (scripts/render-pipeline-sample.mjs),
- * inserted as it came out, so nothing in that panel is hand-written.
- */
-function PipelineRun() {
-  return (
-    <Section
-      id="run"
-      title="Markdown in, highlighted HTML out"
-      intro="The chain from the top of the page, run on Ferromark's own quick start: Ferromark renders the document and hands the code block to Ferriki, whose grammar engine is Ferroni."
-      note="Rendered by Ferromark with Ferriki highlighting and committed as it came out; nothing in the output is hand-written."
-    >
-      <div className="run">
-        <CodePanel caption="quick-start.md">{pipelineSample.markdown}</CodePanel>
-        <Mark name="arrow" className="icon run-arrow" />
-        <figure className="run-output">
-          <figcaption>Rendered HTML</figcaption>
-          {/* A trusted build artifact: Ferromark's sanitized output, escaped code from Ferriki. */}
-          <div className="run-doc" dangerouslySetInnerHTML={{ __html: pipelineSample.html }} />
-        </figure>
-      </div>
-    </Section>
-  );
-}
-
 function Partners() {
   const titleId = useId();
   return (
@@ -175,6 +159,14 @@ function Partners() {
     </section>
   );
 }
+
+/** The engines Palamedes runs on, as the registry has them. */
+const palamedesEngines = listFormat.format(
+  family
+    .filter((tool) => tool.name === "palamedes")
+    .flatMap((tool) => runsOnTools(tool))
+    .map((tool) => displayName(tool)),
+);
 
 export default function HomePage() {
   const { pipeline, language, workbench } = familyGroups();
@@ -209,16 +201,23 @@ export default function HomePage() {
       <Section
         id="pipeline"
         title="The content pipeline"
-        intro="Three tools that also work as one chain. Each stands alone: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust."
+        intro="Three tools that also work as one chain. Each stands alone: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust, as in Ferromark's own quick start below."
       >
         <PipelineAssembly />
+        {/* The chain, run for real: a committed artifact (scripts/render-pipeline-sample.mjs), never hand-written. */}
+        <RunSample
+          input={pipelineSample.markdown}
+          inputCaption="quick-start.md"
+          output={pipelineSample.html}
+          outputCaption={`${sampleRun}, unedited`}
+        />
         <ToolLedger steps tools={pipeline} />
       </Section>
 
       <Section
         id="language"
         title="The language workshop"
-        intro="Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Ferrolex and Ferrocat each stand alone; Palamedes, the i18n toolchain for TypeScript apps, runs on Ferrocat."
+        intro={`Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Ferrolex and Ferrocat each stand alone; Palamedes, the i18n toolchain for TypeScript apps, runs on ${palamedesEngines}.`}
       >
         <ToolLedger tools={language} />
       </Section>
@@ -226,14 +225,12 @@ export default function HomePage() {
       <Section
         id="workbench"
         title="On the workbench"
-        intro="Three more tools taking shape: early, cut from the same steel, and explicit about what is proven now and what is still on the bench."
+        intro={`${countWord(workbench.length)} more tools taking shape: early, cut from the same steel, and explicit about what is proven now and what is still on the bench.`}
       >
         <ToolLedger tools={workbench} />
       </Section>
 
       <Why />
-
-      <PipelineRun />
 
       <ClosingAction
         id="jobs"
@@ -247,8 +244,8 @@ export default function HomePage() {
         }
       >
         <p>
-          Every tool stands on its own: take the one your job needs, no chain required. Each project
-          is open source, and its stamp says how far it has come.
+          Look a job up: the index names the tool that does it and how far it has come. No tool
+          needs another beside it, and every project is open source.
         </p>
         <p className="tally">
           <FamilyDownloads /> downloads on crates.io across the published crates.

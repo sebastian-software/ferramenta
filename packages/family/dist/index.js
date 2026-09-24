@@ -20,6 +20,7 @@ export { Mark, MarkDefs } from "./Mark.js";
 export { PipelineAssembly } from "./PipelineAssembly.js";
 export { Count, FamilyDownloads, RegistryFacts, useToolFacts, } from "./RegistryFacts.js";
 export { RepoNote } from "./RepoNote.js";
+export { RunSample } from "./RunSample.js";
 export { SiteFooter } from "./SiteFooter.js";
 export { SiteHeader } from "./SiteHeader.js";
 export { JobIndex, Pegboard, ToolLedger, } from "./ToolCatalog.js";

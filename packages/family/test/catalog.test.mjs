@@ -200,3 +200,21 @@ test("the closing action takes a list beside the copy, with or without actions",
   assert.ok(html.includes('<div class="fam-closing-aside"><ul></ul></div>'));
   assert.ok(!html.includes("fam-actions"), "no empty action row");
 });
+
+test("a run sample shows its input once to assistive technology, the output for the eye", () => {
+  const html = render(kit.RunSample, {
+    input: "# Hi",
+    inputCaption: "hi.md",
+    output: "<h1>Hi</h1>",
+    outputCaption: "Rendered by Tool 1.0",
+  });
+  assert.match(
+    html,
+    /^<div class="fam-run"><figure class="fam-code"><figcaption>hi.md<\/figcaption>/u,
+  );
+  assert.ok(html.includes("<figcaption>Rendered by Tool 1.0</figcaption>"));
+  assert.ok(
+    html.includes('<div class="fam-run-doc" inert=""><h1>Hi</h1></div>'),
+    "inert, unedited",
+  );
+});
