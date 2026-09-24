@@ -18,6 +18,7 @@ export {
   type FamilyStatus,
   type FamilyTool,
   isEngine,
+  isSuccessor,
   leadsToRepo,
   leadTool,
   PIPELINE,
@@ -44,6 +45,7 @@ export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Le
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { PipelineAssembly, type PipelineAssemblyProps } from "./PipelineAssembly.js";
+export { RegistryBadge, type RegistryBadgeProps } from "./RegistryBadge.js";
 export { RepoNote } from "./RepoNote.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";
 export { SiteHeader, type SiteHeaderProps } from "./SiteHeader.js";

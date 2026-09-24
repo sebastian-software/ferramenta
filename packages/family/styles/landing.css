@@ -587,6 +587,29 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   color: var(--code-comment);
 }
 
+/* -- Live registry badges -------------------------------------------------------- */
+
+/* One image per theme; the tokens key dark mode on `.dark`, so the badges do too. */
+.fam-badge {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.fam-badge img {
+  display: block;
+  height: 20px;
+  width: auto;
+}
+
+.fam-badge .fam-badge-dark,
+:root.dark .fam-badge .fam-badge-light {
+  display: none;
+}
+
+:root.dark .fam-badge .fam-badge-dark {
+  display: block;
+}
+
 /* -- Stamps and the coverage ledger -------------------------------------------- */
 
 /* A tinted fill with a hairline edge, so an open state still reads as a stamp on the textured floor. */

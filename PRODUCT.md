@@ -18,7 +18,7 @@ ferramenta.dev is the family site for the Ferramenta tools (Italian for "hardwar
 
 ## Positioning
 
-A massive build-out of critical software infrastructure in Rust, aligned with the current ecosystem movement — oriented on open standards (CommonMark, PO files, ICU MessageFormat, Hunspell, TextMate grammars, SVGO, …). The ideal: match the originals functionally and beat them on performance — proven by differential testing against the original implementations (Hunspell oracle, Shiki test suite, svgo oracle, C-parity suites), not claimed.
+A massive build-out of critical software infrastructure in Rust, aligned with the current ecosystem movement — oriented on open standards (CommonMark, PO files, ICU MessageFormat, Hunspell, TextMate grammars, SVGO, …). The family has two kinds of member. Successors match an established implementation functionally and aim to beat it on performance, proven differentially against that implementation (Oniguruma, Shiki, Hunspell and SVGO oracles), not claimed. New developments have no predecessor to match; they build directly on open standards and earn trust the same way, in the open.
 
 ## Operating Context
 
@@ -26,6 +26,8 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
   - Content pipeline, in chain order: **ferroni** (Oniguruma, continued in Rust after the C project ended in April 2025) → **ferriki** (Shiki-compatible syntax highlighting) → **ferromark** (CommonMark/GFM Markdown to HTML).
   - Language: **ferrolex** (Hunspell-compatible spell checking), **ferrocat** (translation catalog engine: PO/ICU MessageFormat), and **palamedes** — the application: i18n for TypeScript apps, built on ferrocat, ferromark, and ferralk.
   - Workbench: **ferrovia** (SVGO-compatible SVG optimizer), **ferralk** (glob matching and parallel filesystem walking, checked against a frozen zlob reference), **ferrugo** (PDF previews for untrusted files) — early stage.
+- Kind of member (ADR-0004, confirmed 2026-09-24): successors are ferroni (Oniguruma), ferriki (Shiki), ferrolex (Hunspell) and ferrovia (SVGO); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), ferrugo, and the application palamedes. The registry records it as `succeeds` or `buildsOn`.
+- Maturity is the registry's hand-set `status`; the stamp legend says what each level means. Keep it in step with releases (ferromark is stable since v2).
 - Membership rule (ADR-0001): a member is a family engine or a product built on family engines. Tools from the same workshop that share neither — dalo, agent-bridge — belong to the company line under oss.sebastian-software.com and are not listed on ferramenta.dev.
 - Each project site lives in its own repo under `homepage/`, built on Ardo (in-house React-Router/SSG docs framework, v4.2), deployed to GitHub Pages. URLs: GitHub Pages now, own domains over time (ferramenta.dev and ferrocat.dev already live).
 - This repo holds the family overview site plus the shared package `ferramenta-family`: design tokens, finished components (header with the family switcher and a project lockup, footer, project marks, family registry), the landing kit every home page is built from, custom logo SVGs, bundled display font.
@@ -49,14 +51,14 @@ A massive build-out of critical software infrastructure in Rust, aligned with th
 
 ## Evidence on Hand
 
-- Real, citable facts live with their owners: each tool's repository carries its own benchmarks and test suites (ferromark throughput against pulldown-cmark and md4c, ferroni's upstream-test parity and scanner benchmarks, differential oracles across the family). Cite them from the owning repository with date and setup; the family site repeats only the registry's `evidence` lines.
-- Live registry facts: versions and crates.io/npm download counts (`app/data/registry-stats.json`, refreshed nightly). The family-wide download tally is the only aggregate shown.
+- Results live with their owners, never on the family site: benchmarks, test counts, rankings and other numbers belong to each tool's repository and site, where they stay current. The family site names only the kind of evidence (the registry's `evidence` line: an oracle, a conformance suite, a design property) and links to the tool.
+- Live registry figures: download counts render as shields.io badges on every view; versions and registry availability come from the build-time snapshot (`app/data/registry-stats.json`). No aggregate across tools is shown.
 - Assets: the mark sprite (`packages/family/src/mark-defs.ts`), the bundled Big Shoulders font, the brand logos (`app/assets/brand/`), the Sebastian Software and Sebastian Consulting wordmarks (`app/assets/logos/`), the social card (`public/social.png`), and the approved comp (`design/comp/`).
 - Absent, and never to be invented: stars, user counts, customer logos, testimonials, press. The family is young; there is no social proof.
 
 ## Product Principles
 
-1. Match the originals functionally, beat them on performance — and prove it differentially rather than claim it.
+1. Prove, don't claim: a successor matches its original functionally and aims to beat it on performance, checked differentially; a new development holds itself to the standards it builds on. The proof lives with each tool.
 2. Open standards over proprietary formats; keep the APIs the ecosystem already knows.
 3. Every tool is named equally; subfamilies explain relationships, not hierarchy.
 4. Design first, extraction second: the shared package ships finished components, not just tokens.

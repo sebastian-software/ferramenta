@@ -13,6 +13,7 @@ import {
   Mark,
   PipelineAssembly,
   ProjectHero,
+  RegistryBadge,
   RepoNote,
   Section,
   Stamp,
@@ -52,8 +53,8 @@ const beliefs = [
     text: "CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on — never on formats only we control.",
   },
   {
-    heading: "Familiar contracts",
-    text: "Compatibility is earned tool by tool. Stable projects can be adopted against familiar contracts; alpha and early tools show the standard they are working toward.",
+    heading: "Earned, tool by tool",
+    text: "A successor earns compatibility with the implementation it replaces; a new development earns trust with the standards it builds on. Either way, the stamp on each tool says how far it has come.",
   },
   {
     heading: "Safe defaults",
@@ -61,25 +62,16 @@ const beliefs = [
   },
 ];
 
+/* Only what the build needs: where a member is published, and its version. */
 type RegistryStat = {
-  crates: {
-    version: string;
-    downloads: number;
-    recentDownloads: number;
-    updated: null | string;
-  } | null;
-  npm: { version: string; lastMonth: number; placeholder: boolean } | null;
+  crates: { version: string } | null;
+  npm: { version: string; placeholder: boolean } | null;
 };
 
 /** Every repository of the workshop; the family is a subset, named on this page. */
 const sourceUrl = "https://github.com/sebastian-software";
 
 const stats = registryStats.tools as Record<string, RegistryStat | undefined>;
-const formatCount = (value: number) => value.toLocaleString("en-US");
-const countedOn = new Intl.DateTimeFormat("en-US", {
-  dateStyle: "long",
-  timeZone: "UTC",
-}).format(new Date(registryStats.generatedAt));
 
 /** The stable members, from the registry, as a sentence list. */
 const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
@@ -87,47 +79,45 @@ const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
 );
 
 /**
- * Live registry facts, baked in at build time (scripts/refresh-registry-stats.mjs).
- * The registry entry keeps a fallback version so an offline build still renders.
+ * Where a member is published and its version, from the build-time stats
+ * (scripts/refresh-registry-stats.mjs). The registry entry keeps a fallback
+ * version so an offline build still renders. Download counts are not baked
+ * in: they render live, as registry badges.
  */
 function toolFacts(tool: FamilyTool) {
   const stat = stats[tool.name];
   const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null;
   return {
     version: stat?.crates?.version ?? adapter?.version ?? tool.version,
-    crateDownloads: stat?.crates?.downloads ?? 0,
     onCrates: Boolean(stat?.crates),
     adapter: Boolean(adapter),
   };
 }
 
-/** Family-wide crates.io downloads: the one aggregate the page shows. */
-const familyDownloads = Object.values(stats).reduce(
-  (total, stat) => total + (stat?.crates?.downloads ?? 0),
-  0,
-);
-
-/** The registry facts under a row's proof, as a definition list a screen reader can pace. */
+/**
+ * The facts under a row's proof, as a definition list a screen reader can
+ * pace. A successor names what it succeeds; a new development names the
+ * standards it builds on; both name the kind of evidence, never its results.
+ */
 function ProofFacts({ tool }: { tool: FamilyTool }) {
-  const facts = toolFacts(tool);
   return (
     <dl className="proof-facts">
-      {isEngine(tool) && tool.compat != null ? (
+      {tool.succeeds === undefined ? null : (
         <div>
-          <dt>Contract</dt>
-          <dd>{tool.compat}</dd>
+          <dt>Succeeds</dt>
+          <dd>{tool.succeeds}</dd>
         </div>
-      ) : null}
+      )}
+      {tool.buildsOn === undefined ? null : (
+        <div>
+          <dt>Builds on</dt>
+          <dd>{tool.buildsOn}</dd>
+        </div>
+      )}
       <div>
         <dt>Evidence</dt>
         <dd>{tool.evidence}</dd>
       </div>
-      {facts.onCrates ? (
-        <div>
-          <dt>Downloads</dt>
-          <dd>{formatCount(facts.crateDownloads)} on crates.io</dd>
-        </div>
-      ) : null}
     </dl>
   );
 }
@@ -141,13 +131,13 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
         {facts.onCrates ? (
           <span className="platform">
             <Mark name="crate" className="icon" size={15} />
-            crates.io
+            <RegistryBadge registry="crates" name={tool.name} />
           </span>
         ) : null}
         {facts.adapter ? (
           <span className="platform">
             <Mark name="adapter" className="icon" size={15} />
-            npm
+            <RegistryBadge registry="npm" name={tool.name} />
           </span>
         ) : null}
         {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
@@ -160,9 +150,10 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
 }
 
 /**
- * One ledger row. Engines carry the contract they succeed; applications carry
- * no contract line — what they promise is the product, and the engines they
- * are built on are named in the evidence.
+ * One ledger row. A successor carries the implementation it succeeds, a new
+ * development the standards it builds on; an application carries neither —
+ * what it promises is the product, and the engines it is built on are named
+ * in the evidence.
  *
  * The name is the link, stretched over the whole row, so the target stays the
  * row while a screen reader hears the name, not every fact at once. A row
@@ -411,7 +402,7 @@ export default function HomePage() {
             Heavy industry <em>for the web.</em>
           </>
         }
-        lede="Ferramenta — Italian for hardware store — is a family of Rust-native tools built around standards and APIs developers already know. Each project is re-engineered in Rust; where an established predecessor exists, compatibility is checked differentially and performance is measured in the open."
+        lede="Ferramenta — Italian for hardware store — is a family of Rust-native tools built around standards and APIs developers already know. Some succeed an established implementation and are checked against it differentially; others are new developments, built directly on open standards. Either way, what a tool claims is measured in the open."
         actions={
           <>
             <a className="fam-btn fam-btn-primary" href="#pipeline">
@@ -433,7 +424,7 @@ export default function HomePage() {
       <Section
         id="pipeline"
         title="The content pipeline"
-        intro="Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end in Rust, with each stage measured against the contract it succeeds."
+        intro="Three tools, one chain: a regex engine drives a highlighter, the highlighter feeds a Markdown renderer. Markdown with code goes in, highlighted HTML comes out — end to end in Rust, with each stage measured against the implementation it succeeds or the specification it follows."
       >
         <PipelineAssembly />
         <ToolLedger step tools={pipeline} />
@@ -468,12 +459,9 @@ export default function HomePage() {
         }
       >
         <p>
-          Start where a line of work is ready: its stable tool, the one to adopt against its
-          contract today. Every project is open source; early work is labeled early.
-        </p>
-        <p className="tally">
-          <b>{formatCount(familyDownloads)}</b> downloads on crates.io across the published crates,
-          counted on {countedOn}.
+          Start where a line of work is ready: its stable tool, the one to adopt today. Every
+          project is open source; early work is labeled early, and each tool's own site carries its
+          current numbers.
         </p>
       </ClosingAction>
 

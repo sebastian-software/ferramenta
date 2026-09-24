@@ -13,7 +13,7 @@ export const family = [
         name: "ferroni",
         job: "Oniguruma, continued in Rust",
         shortJob: "regex engine",
-        compat: "Oniguruma / vscode-oniguruma",
+        succeeds: "Oniguruma / vscode-oniguruma",
         proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
         evidence: "Oniguruma compatibility oracle",
         version: "1.4.2",
@@ -26,7 +26,7 @@ export const family = [
         name: "ferriki",
         job: "Shiki-compatible syntax highlighting",
         shortJob: "syntax highlighting",
-        compat: "Shiki",
+        succeeds: "Shiki",
         proof: "Shiki brought editor-grade highlighting to the web. ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
         evidence: "Mirrored Shiki test suite",
         version: "0.2.0",
@@ -38,11 +38,11 @@ export const family = [
         name: "ferromark",
         job: "Markdown to HTML with a secure default and every GFM extension included.",
         shortJob: "Markdown to HTML",
-        compat: "CommonMark / GFM",
+        buildsOn: "CommonMark / GFM",
         proof: "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
         evidence: "CommonMark & GFM conformance",
-        version: "0.7.0",
-        status: "beta",
+        version: "2.0.1",
+        status: "stable",
         group: "pipeline",
         repo: "https://github.com/sebastian-software/ferromark",
         docs: "https://sebastian-software.github.io/ferromark/",
@@ -51,7 +51,7 @@ export const family = [
         name: "ferrolex",
         job: "Spell checking for text and code",
         shortJob: "spell checking",
-        compat: "Hunspell",
+        succeeds: "Hunspell",
         proof: "Hunspell set the dictionary standard. ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
         evidence: "Hunspell oracle · deterministic suggestion scoring",
         version: "0.2.0",
@@ -63,7 +63,7 @@ export const family = [
         name: "ferrocat",
         job: "Translation catalog engine",
         shortJob: "translation catalogs",
-        compat: "PO / ICU MessageFormat",
+        buildsOn: "PO / ICU MessageFormat",
         proof: "gettext taught software to speak in catalogs. ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
         evidence: "Three-way merges · release audits · integrity lock",
         version: "3.4.2",
@@ -89,9 +89,9 @@ export const family = [
         name: "ferrovia",
         job: "SVGO-compatible SVG optimizer",
         shortJob: "SVG optimizer",
-        compat: "SVGO",
+        succeeds: "SVGO",
         proof: "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
-        evidence: "Byte-for-byte SVGO oracle · in progress",
+        evidence: "Byte-for-byte SVGO oracle",
         version: "0.1.0",
         status: "early",
         group: "workbench",
@@ -102,7 +102,7 @@ export const family = [
         job: "Glob matching and parallel filesystem walking",
         shortJob: "glob matching",
         proof: "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
-        evidence: "Frozen zlob reference · ahead of globset and fast-glob",
+        evidence: "Frozen zlob reference",
         version: "0.12.0",
         status: "early",
         group: "workbench",
@@ -135,10 +135,10 @@ export const PIPELINE = {
  * family site reads from here, so a status means the same thing everywhere.
  */
 export const STATUS_MEANING = {
-    stable: "Ready to adopt against its contract.",
-    beta: "The contract is covered; details may still change.",
-    alpha: "Working toward its contract; expect gaps.",
-    early: "Taking shape; only what is proven is claimed.",
+    stable: "Ready to adopt; its interface is settled.",
+    beta: "Complete for its scope; details may still change.",
+    alpha: "Usable to try; expect gaps and breaking changes.",
+    early: "Taking shape; not yet something to depend on.",
 };
 /** Maturity order, most settled first. */
 export const STATUS_ORDER = ["stable", "beta", "alpha", "early"];
@@ -153,6 +153,10 @@ export function toolHref(tool) {
  */
 export function leadsToRepo(tool) {
     return tool.docs === undefined;
+}
+/** True for a member that succeeds an established implementation, false for a new development. */
+export function isSuccessor(tool) {
+    return tool.succeeds !== undefined;
 }
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool) {

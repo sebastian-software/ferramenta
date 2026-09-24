@@ -137,14 +137,18 @@ any change.
   The facts are a `dl`. A row that leads to a repository rather than a site shows the GitHub
   glyph in the `go` column and says "GitHub repository" to assistive technology;
   big display digits only where sequence is real (pipeline 01-02-03, as in the assembly). Proof stays in the successor
-  register, followed by compact `Contract` and `Evidence` facts from the registry;
+  register (successors) or its new-development counterpart, followed by compact facts from the
+  registry: `Succeeds` (the implementation a successor replaces) or `Builds on` (the standards a
+  new development builds on), then `Evidence` — the kind of proof, never its numbers;
   visible metadata is the live version, registry availability as icon-plus-label pairs
   (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
   and maturity. Members with `role: "application"` (palamedes) are products the family
-  carries, not libraries it publishes: they show no `Contract` fact — the engines they run on
+  carries, not libraries it publishes: they show no `Succeeds` fact — the engines they run on
   are named in `Evidence` — and no registry-availability pair, because the row leads to the
-  product's own site rather than to a crate or an adapter. Download counts ride in the fact row; deeper evidence stays with each
-  repository (owner boundary). Status stamps are tinted
+  product's own site rather than to a crate or an adapter. Each registry pair is the icon plus a
+  live shields.io badge (`RegistryBadge`: crates.io total, npm per month) in the page's colors,
+  light and dark; no download number is baked into the build. Results stay with each repository
+  (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
   What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
   the foot of "What earns the stamp".
@@ -172,9 +176,8 @@ any change.
   ends forward, not back up the page: one entry per line of work — the group's `stable`
   member, ready to adopt, with plate, name, short job and stamp. A group with no stable member
   is named honestly ("Nothing to adopt yet") and points at its own section instead of
-  recommending an early tool as if it were proven. On a phone the entries come before the copy. It carries
-  the family download tally — a mono number in running text with the date it was counted,
-  never a metric tile.
+  recommending an early tool as if it were proven. On a phone the entries come before the copy.
+  It shows no aggregate number: a family total cannot be kept current.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
   On the family site the lockup is the family's own name, not "More from Ferramenta", and the
   columns carry short jobs (`jobs="short"`): the page above already holds every full job.
@@ -212,8 +215,9 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 
 - The family registry ([packages/family/src/family.ts](packages/family/src/family.ts))
   is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
-- Proof column carries only verifiable facts (test counts, parity, benchmarks). No invented
-  social proof, stars, or testimonials.
+- The family site replicates no project results — no benchmarks, test counts, rankings or
+  "faster than". Evidence names the kind of proof; the numbers live in each project's repository
+  and site. No invented social proof, stars, or testimonials.
 - Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes); code,
   data, URLs, package names, and crate names stay lowercase. CSS applies
   uppercase where the visual styling calls for it.

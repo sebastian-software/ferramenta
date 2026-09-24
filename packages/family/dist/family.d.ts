@@ -22,11 +22,21 @@ export type FamilyTool = {
     job: string;
     /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
     shortJob: string;
-    /** Which established API/contract it stays compatible with (engines only) */
-    compat?: string;
+    /**
+     * The established implementation a successor succeeds and stays compatible
+     * with, e.g. "Oniguruma / vscode-oniguruma". Set it only for a successor; a
+     * new development leaves it out and names `buildsOn` instead.
+     */
+    succeeds?: string;
+    /** The open standards or formats a new development builds on, e.g. "PO / ICU MessageFormat". */
+    buildsOn?: string;
     /** Proof sentence: verifiable facts, no marketing claims */
     proof: string;
-    /** Compact, verifiable evidence for the family overview */
+    /**
+     * The kind of evidence behind the tool — an oracle, a conformance suite, a
+     * design property — never its results. Numbers, rankings and "faster than"
+     * live in the tool's own repository, where they stay current.
+     */
     evidence: string;
     /**
      * Fallback version (plain semver). The site prefers the live registry value;
@@ -76,6 +86,8 @@ export declare function toolHref(tool: FamilyTool): string;
  * nobody expecting documentation lands on GitHub unannounced.
  */
 export declare function leadsToRepo(tool: FamilyTool): boolean;
+/** True for a member that succeeds an established implementation, false for a new development. */
+export declare function isSuccessor(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
 /**

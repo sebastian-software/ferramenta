@@ -177,7 +177,7 @@ test("the kit stays in its namespace and yields to the host", () => {
     for (const selector of splitSelectorList(list)) {
       assert.match(
         selector,
-        /^(?:\.fam-|:where\(\.fam-|\.markplate\.fam-|\.on-iron \.fam-|a\.fam-)/u,
+        /^(?:\.fam-|:where\(\.fam-|\.markplate\.fam-|\.on-iron \.fam-|a\.fam-|:root\.dark \.fam-)/u,
         `landing.css styles outside its namespace: ${selector}`,
       );
     }
@@ -224,4 +224,28 @@ test("short jobs keep their acronyms: the board shows them without a text transf
       `${tool.name}: ${tool.shortJob}`,
     );
   }
+});
+
+test("the registry names results nowhere: evidence is a method, never a number or a ranking", () => {
+  const ranking = /\b(?:faster|slower|ahead of|beats?|fastest|outperforms?)\b|[×%]/iu;
+  for (const tool of kit.family) {
+    assert.doesNotMatch(tool.evidence, ranking, `${tool.name} evidence states a result`);
+    assert.doesNotMatch(tool.proof, ranking, `${tool.name} proof states a result`);
+    assert.ok(
+      tool.succeeds === undefined || tool.buildsOn === undefined,
+      `${tool.name} is either a successor or a new development, not both`,
+    );
+    assert.equal(kit.isSuccessor(tool), tool.succeeds !== undefined);
+  }
+});
+
+test("a registry badge is live, themed, and says what it shows", () => {
+  const html = render(kit.RegistryBadge, { name: "ferroni", registry: "crates" });
+  assert.match(html, /^<span class="fam-badge"><img class="fam-badge-light"/u);
+  assert.ok(html.includes('src="https://img.shields.io/crates/d/ferroni?style=flat-square'));
+  assert.ok(html.includes('alt="ferroni downloads on crates.io, live"'));
+  assert.ok(html.includes('class="fam-badge-dark"') && html.includes('aria-hidden="true"'));
+  assert.ok(
+    render(kit.RegistryBadge, { name: "ferrocat", registry: "npm" }).includes("/npm/dm/ferrocat?"),
+  );
 });

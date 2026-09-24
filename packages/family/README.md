@@ -246,6 +246,7 @@ export default function Home() {
 | `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                            |
 | `Stamp`            | `solid?`, `children`                                                                                                                        |
 | `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                          |
+| `RegistryBadge`    | `registry: "crates" \| "npm"`, `name`, `metric?: "downloads" \| "version"` — a live shields.io badge in the page colors, light and dark     |
 | `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                                                                    |
 | `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                |
 
@@ -254,7 +255,9 @@ Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`, and
 `fam-sr-only` for text only assistive technology reads. From the registry:
 `PIPELINE` (the chain's ends), `STATUS_MEANING` and `STATUS_ORDER` (what each
-stamp promises, most settled first), `leadTool(tools)` (the most mature member
+stamp promises, most settled first), `isSuccessor(tool)` (a member with
+`succeeds`, as opposed to a new development with `buildsOn`),
+`leadTool(tools)` (the most mature member
 of a group), and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links
 lead). Every surface that links a member says when that is a repository:
 `<RepoNote tool={tool} />` after the name renders the words for assistive

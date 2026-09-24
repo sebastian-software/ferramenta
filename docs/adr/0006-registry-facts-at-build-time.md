@@ -4,6 +4,8 @@
 - Date: 2026-08-20
 - Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
+- Amended: 2026-09-24 — download counts render as live badges, see
+  [Amendment 2026-09-24](#amendment-2026-09-24)
 
 ## Context
 
@@ -94,6 +96,26 @@ bypass GitHub's approval requirement.
 The original consequence that numbers are at most about 24 hours old is
 superseded. Registry checks still run daily, but publication also waits for the
 generated pull request to pass CI and be reviewed and merged.
+
+## Amendment 2026-09-24
+
+Download counts no longer come from the build-time snapshot. Since 2026-09-10
+the nightly snapshot pull request waited unmerged, so the page showed numbers
+that were weeks old — exactly the staleness this record set out to remove.
+
+Download counts now render as shields.io badges (`RegistryBadge` in the family
+package): crates.io total downloads and npm downloads per month, fetched by the
+visitor's browser on every view, so they are always current. The earlier
+objections are accepted as the trade: visitors load images from a third party,
+the badge typeface is not the page's, and a shields.io outage leaves a broken
+image rather than a number. The badges take the page's colors (a light and a
+dark variant, `flat-square`, square corners) to stay as close to the stamp
+language as an image can.
+
+The family-wide total is dropped: no badge service sums several crates, and a
+baked total would go stale again. Versions and registry availability (crates.io,
+npm, git only) stay build-time facts from the snapshot, with the registry's
+`version` as the offline fallback.
 
 ## References
 

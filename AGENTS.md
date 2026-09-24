@@ -68,8 +68,13 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   writes `app/data/registry-stats.json` from crates.io and npm, and a nightly
   workflow keeps it current. The `version` in `family.ts` is only the offline
   fallback, and evidence strings must never repeat a version number.
-- Site copy follows the successor register (ADR-0004): honor the original →
-  state the succession → give the why. No API-method names or spec dumps on the
+- Site copy follows ADR-0004: successors honor the original → state the
+  succession → give the why; new developments honor the standard they build
+  on → state what they do differently → give the why. Shared copy speaks for
+  both. The registry marks each member with `succeeds` or `buildsOn`.
+- Never replicate a project's results on the family site — no benchmarks, test
+  counts, rankings or "faster than" (a test enforces it on `evidence` and
+  `proof`). Download counts render as live `RegistryBadge`s, not baked numbers. No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
 - Design changes respect DESIGN.md and ADR-0003: material lives only on body
   texture, octagon plates, and hooks; board geometry moves in 28px-module steps
