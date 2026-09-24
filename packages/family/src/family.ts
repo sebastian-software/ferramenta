@@ -24,13 +24,34 @@ export type FamilyTool = {
   name: string;
   /** One-line job description — the subheader under the tool name */
   job: string;
-  /** Terse job label for constrained family navigation surfaces */
+  /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
   shortJob: string;
-  /** Which established API/contract it stays compatible with (engines only) */
-  compat?: string;
-  /** Proof sentence: verifiable facts, no marketing claims */
+  /**
+   * The established implementation a successor succeeds and stays compatible
+   * with, e.g. "Oniguruma / vscode-oniguruma". Set it only for a successor; a
+   * new development leaves it out and names `buildsOn` instead.
+   */
+  succeeds?: string;
+  /** The open standards or formats a new development builds on, e.g. "PO / ICU MessageFormat". */
+  buildsOn?: string;
+  /**
+   * The family engines an application runs on, by `name`. Only an application
+   * sets it: an engine is proven on its own, a product by what it runs on and
+   * its own evidence. Each name must be a family member.
+   */
+  runsOn?: string[];
+  /**
+   * Proof sentence: verifiable facts, no marketing claims. It is prose, so a
+   * member's name is capitalized here ("Ferroni continues…"); `name`, URLs and
+   * package names stay lowercase.
+   */
   proof: string;
-  /** Compact, verifiable evidence for the family overview */
+  /**
+   * The evidence behind the tool: an oracle, a conformance suite, a design
+   * property, and qualitative results ("ahead of globset", "among the fastest").
+   * Never a figure — no factors, timings, percentages or test counts: those go
+   * stale here, and live in the tool's own repository where they stay current.
+   */
   evidence: string;
   /**
    * Fallback version (plain semver). The site prefers the live registry value;
@@ -54,13 +75,13 @@ export const FAMILY_SITE = "https://ferramenta.dev";
 export const family: FamilyTool[] = [
   {
     name: "ferroni",
-    job: "Oniguruma-compatible regex engine",
+    job: "Oniguruma, continued in Rust",
     shortJob: "regex engine",
-    compat: "Oniguruma / vscode-oniguruma",
+    succeeds: "Oniguruma / vscode-oniguruma",
     proof:
-      "Oniguruma made TextMate grammars portable across editors. ferroni keeps its behavior in pure Rust, removing the C toolchain from the regex engine.",
+      "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
     evidence: "Oniguruma compatibility oracle",
-    version: "1.3.2",
+    version: "1.4.2",
     status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferroni",
@@ -70,9 +91,9 @@ export const family: FamilyTool[] = [
     name: "ferriki",
     job: "Shiki-compatible syntax highlighting",
     shortJob: "syntax highlighting",
-    compat: "Shiki",
+    succeeds: "Shiki",
     proof:
-      "Shiki brought editor-grade highlighting to the web. ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
+      "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
     evidence: "Mirrored Shiki test suite",
     version: "0.2.0",
     status: "alpha",
@@ -81,14 +102,14 @@ export const family: FamilyTool[] = [
   },
   {
     name: "ferromark",
-    job: "Markdown to HTML with a secure default and every GFM extension included.",
-    shortJob: "markdown",
-    compat: "CommonMark / GFM",
+    job: "Markdown to HTML, sanitized by default",
+    shortJob: "Markdown to HTML",
+    buildsOn: "CommonMark / GFM",
     proof:
-      "CommonMark settled what Markdown means. ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
+      "CommonMark settled what Markdown means. Ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
     evidence: "CommonMark & GFM conformance",
-    version: "0.7.0",
-    status: "beta",
+    version: "2.1.1",
+    status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferromark",
     docs: "https://sebastian-software.github.io/ferromark/",
@@ -97,9 +118,9 @@ export const family: FamilyTool[] = [
     name: "ferrolex",
     job: "Spell checking for text and code",
     shortJob: "spell checking",
-    compat: "Hunspell",
+    succeeds: "Hunspell",
     proof:
-      "Hunspell set the dictionary standard. ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
+      "Hunspell set the dictionary standard. Ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
     evidence: "Hunspell oracle · deterministic suggestion scoring",
     version: "0.2.0",
     status: "alpha",
@@ -110,10 +131,10 @@ export const family: FamilyTool[] = [
     name: "ferrocat",
     job: "Translation catalog engine",
     shortJob: "translation catalogs",
-    compat: "PO / ICU MessageFormat",
+    buildsOn: "PO / ICU MessageFormat",
     proof:
-      "gettext taught software to speak in catalogs. ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
-    evidence: "Three-way merges · release audits · integrity lock",
+      "gettext taught software to speak in catalogs. Ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
+    evidence: "Upstream-derived conformance cases · ahead of GNU msgmerge and common PO libraries",
     version: "3.4.2",
     status: "stable",
     group: "language",
@@ -126,7 +147,8 @@ export const family: FamilyTool[] = [
     shortJob: "i18n toolchain",
     proof:
       "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
-    evidence: "Built on ferrocat, ferromark, and ferralk",
+    evidence: "Checked-in end-to-end benchmark against Lingui",
+    runsOn: ["ferrocat", "ferromark", "ferralk"],
     version: "1.23.0",
     status: "stable",
     group: "language",
@@ -137,10 +159,10 @@ export const family: FamilyTool[] = [
   {
     name: "ferrovia",
     job: "SVGO-compatible SVG optimizer",
-    shortJob: "svg optimizer",
-    compat: "SVGO",
+    shortJob: "SVG optimizer",
+    succeeds: "SVGO",
     proof:
-      "SVGO set the standard for SVG optimization. ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
+      "SVGO set the standard for SVG optimization. Ferrovia is rebuilding its plugin model in Rust, checked byte for byte as each piece lands.",
     evidence: "Byte-for-byte SVGO oracle · in progress",
     version: "0.1.0",
     status: "early",
@@ -152,7 +174,7 @@ export const family: FamilyTool[] = [
     job: "Glob matching and parallel filesystem walking",
     shortJob: "glob matching",
     proof:
-      "Every build tool pays for finding files before it does any work. ferralk keeps zlob's byte-first approach in pure Rust — no Zig, no C ABI — and holds its matcher and walker to a frozen zlob reference.",
+      "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
     evidence: "Frozen zlob reference · ahead of globset and fast-glob",
     version: "0.12.0",
     status: "early",
@@ -162,9 +184,9 @@ export const family: FamilyTool[] = [
   {
     name: "ferrugo",
     job: "PDF previews for untrusted files",
-    shortJob: "pdf previews",
+    shortJob: "PDF previews",
     proof:
-      "PDF previews have traditionally meant embedding a browser-sized engine. ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
+      "PDF previews have traditionally meant embedding a browser-sized engine. Ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
     evidence: "Bounded memory and time · no PDFium",
     version: "0.5.0",
     status: "early",
@@ -173,9 +195,68 @@ export const family: FamilyTool[] = [
   },
 ];
 
+/** One end of the content pipeline: a stamped label and what enters or leaves. */
+export type PipelineEnd = { label: string; text: string };
+
+/**
+ * The content pipeline beyond its members: what goes in, what comes out, and
+ * the sentence that reads the whole assembly for a screen reader. The stages
+ * themselves are the `pipeline` group, in array order.
+ */
+export const PIPELINE: { input: PipelineEnd; output: PipelineEnd; description: string } = {
+  input: { label: "Input", text: "Markdown with code" },
+  output: { label: "Output", text: "Highlighted HTML" },
+  description:
+    "The content pipeline: Markdown with code goes in. Ferroni runs the regular expressions of the TextMate grammars for Ferriki, Ferriki highlights the code, and Ferromark renders the whole document to HTML.",
+};
+
+/**
+ * What each maturity stamp promises, in one line. The stamp legend on every
+ * family site reads from here, so a status means the same thing everywhere.
+ */
+export const STATUS_MEANING: Record<FamilyStatus, string> = {
+  stable: "Ready to adopt; its interface is settled.",
+  beta: "Complete for its scope; details may still change.",
+  alpha: "Usable to try; expect gaps and breaking changes.",
+  early: "Taking shape; not yet something to depend on.",
+};
+
+/** Maturity order, most settled first. */
+export const STATUS_ORDER: FamilyStatus[] = ["stable", "beta", "alpha", "early"];
+
+/** Where a member's links lead: its own site once it exists, its repository until then. */
+export function toolHref(tool: FamilyTool): string {
+  return tool.docs ?? tool.repo;
+}
+
+/**
+ * True when a member's links lead to its repository rather than a site. Every
+ * surface that links a member says so, visibly or to assistive technology, so
+ * nobody expecting documentation lands on GitHub unannounced.
+ */
+export function leadsToRepo(tool: FamilyTool): boolean {
+  return tool.docs === undefined;
+}
+
+/** True for a member that succeeds an established implementation, false for a new development. */
+export function isSuccessor(tool: FamilyTool): boolean {
+  return tool.succeeds !== undefined;
+}
+
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool: FamilyTool) {
   return (tool.role ?? "engine") === "engine";
+}
+
+/**
+ * Members in the order of their short jobs, A to Z: an index to look a job up
+ * in. Every member works on its own, so the index ranks none of them; it only
+ * answers "which tool does this".
+ */
+export function byJob(tools: FamilyTool[] = family): FamilyTool[] {
+  return [...tools].sort((a, b) =>
+    a.shortJob.localeCompare(b.shortJob, "en", { sensitivity: "base" }),
+  );
 }
 
 /** The three display groups of the overview page, in order. */

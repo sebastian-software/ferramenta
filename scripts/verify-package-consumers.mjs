@@ -37,6 +37,7 @@ const REQUIRED_FILES = [
   "markdown/ferromark/footer.md",
   "dist/family.js",
   "styles/chrome.css",
+  "styles/landing.css",
   "fonts/big-shoulders.woff2",
 ];
 

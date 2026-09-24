@@ -19,7 +19,7 @@ Streamline-derived icons are used per project.
 
 The ferralk mark (horseshoe magnet) and the palamedes mark (type slugs in a
 composing stick) are our own drawings in the same construction and carry no
-Streamline claim; they are covered by this repository's MIT license.
+Streamline claim; they are covered by this repository's MIT license. So are the line icons `external` and `package`, drawn for the landing kit.
 
 ## Big Shoulders (font)
 

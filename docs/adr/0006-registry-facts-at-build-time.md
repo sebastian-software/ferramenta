@@ -4,6 +4,8 @@
 - Date: 2026-08-20
 - Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
+- Amended: 2026-09-24 — facts fetched at every deploy and updated live in the browser, see
+  [Amendment 2026-09-24](#amendment-2026-09-24)
 
 ## Context
 
@@ -95,9 +97,48 @@ The original consequence that numbers are at most about 24 hours old is
 superseded. Registry checks still run daily, but publication also waits for the
 generated pull request to pass CI and be reviewed and merged.
 
+## Amendment 2026-09-24
+
+Since 2026-09-10 the nightly snapshot pull request waited unmerged, so the page
+showed numbers that were weeks old — exactly the staleness this record set out
+to remove. Two changes follow.
+
+**Live in the browser.** The client-side fetch rejected above is now the top
+layer, as progressive enhancement over the prerendered values: the page renders
+the figures its deploy fetched, and after hydration `useLiveRegistry` (family
+package) asks the registries for current versions and downloads and swaps them
+in, in the page's own typography. The objections no longer hold: there is no
+loading state and no layout shift, because the prerendered value is already
+there (tabular numerals keep widths steady); without JavaScript the deploy's
+value stays; a registry that does not answer changes nothing. All three
+endpoints answer cross-origin requests. A page view costs a handful of
+requests — one bulk crates.io call (`/crates?ids[]=…`), one bulk npm downloads
+call, one npm `latest` per adapter — and only for packages the build verified
+as the family's own. Visitors' browsers contact crates.io and npm directly;
+that exposes no visitor data beyond an ordinary request and was accepted. The
+endpoints are configurable (`RegistryEndpoints`), so a caching mirror can be put
+in front later without touching a component. The family-wide total is back,
+live-summed. (A shields.io badge variant was tried in between and dropped: the
+numbers belong in the page's own layout.)
+
+**No more snapshot pull requests.** A daily pull request that someone has to
+review and merge is an invitation to go stale, and it did. The
+`refresh-stats.yml` job and its `automation/refresh-registry-stats` branch are
+retired. Instead the Pages deploy (`deploy.yml`) runs `pnpm stats:refresh`
+right before `pnpm build` and deploys the result without committing it, and the
+deploy also runs nightly on a schedule. Versions and registry availability are
+therefore at most a day old again, with no bot commit and nothing to merge. A
+failed fetch never blocks a deploy: unresolved lookups keep the committed
+snapshot's value, and the step itself may fail without failing the job.
+
+`app/data/registry-stats.json` stays committed as the fallback snapshot for
+local and CI builds; refresh it by hand with `pnpm stats:refresh` when it
+matters. The registry's `version` remains the last resort. This supersedes the
+delivery described in the 2026-09-09 amendment.
+
 ## References
 
 - [scripts/refresh-registry-stats.mjs](../../scripts/refresh-registry-stats.mjs)
-- [.github/workflows/refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
+- [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml)
 - [GitHub Actions: `GITHUB_TOKEN` security](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs)
 - [ADR-0004](0004-successor-copy-register.md) — only verifiable claims

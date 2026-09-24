@@ -6,8 +6,8 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma-compatible regex engine |
-| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML with a secure default and every GFM extension included. |
+| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
+| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML, sanitized by default |
 
 **The language workshop**
 

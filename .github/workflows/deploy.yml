@@ -1,8 +1,14 @@
+# Builds and deploys ferramenta.dev. Registry facts (versions, where each tool
+# is published) are fetched fresh right before the build and never committed:
+# a nightly scheduled run keeps them current without a bot commit or a pull
+# request anyone has to merge (ADR-0006, amendment 2026-09-24).
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +44,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # A registry that does not answer keeps the committed snapshot's value, and
+      # a failed fetch must never block a deploy: the snapshot is the fallback.
+      - name: Refresh registry facts
+        continue-on-error: true
+        run: pnpm stats:refresh
 
       - name: Build
         run: pnpm build

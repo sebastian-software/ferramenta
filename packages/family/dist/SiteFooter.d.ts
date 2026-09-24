@@ -22,6 +22,13 @@ export type SiteFooterProps = {
      * two. The classes, and therefore the styling, are the same either way.
      */
     as?: "div" | "footer";
+    /**
+     * The family columns. `"full"` (the default) lists every member with the
+     * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
+     * columns, for a page that is itself the family's index (ferramenta.dev):
+     * the header's switcher still reaches every member.
+     */
+    members?: "full" | "none" | "short";
 };
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
-export declare function SiteFooter({ as, current, legal, line, }?: SiteFooterProps): import("react").JSX.Element;
+export declare function SiteFooter({ as, current, legal, line, members, }?: SiteFooterProps): import("react").JSX.Element;

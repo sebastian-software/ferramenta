@@ -3,6 +3,8 @@
 - Status: accepted
 - Date: 2026-08-14
 - Updated: 2026-09-11
+- Amended: 2026-09-24 — successors and new developments, see
+  [Amendment 2026-09-24](#amendment-2026-09-24)
 - Deciders: Sebastian Werner
 
 ## Context
@@ -79,6 +81,38 @@ surface.
 
 Reopen when localization via Palamedes introduces non-English channels, or when
 a tool has no meaningful predecessor to honor.
+
+## Amendment 2026-09-24
+
+The register assumed every member succeeds an established implementation. That
+is too narrow: some members are new developments with no non-Rust predecessor.
+
+**Two kinds of member.** A _successor_ succeeds an established implementation
+and stays compatible with it: ferroni (Oniguruma), ferriki (Shiki), ferrolex
+(Hunspell), ferrovia (SVGO). A _new development_ builds directly on open
+standards: ferrocat, ferralk, ferromark (its v2 builds on ox-content, with no
+non-Rust predecessor), ferrugo, and the application palamedes. The registry
+records this as `succeeds` or `buildsOn`; the overview renders it as a
+"Succeeds" or "Builds on" fact.
+
+Successor copy keeps the register above: honor the original → state the
+succession → give the why. New-development copy honors the standard or the
+model it builds on → states what it does differently → gives the why. Shared
+copy — the lede, the principles, the stamp legend — speaks for both and never
+implies that every tool replaces something.
+
+**Results without figures.** Speed is part of why the family exists, and the
+family site says so: a tool can be "among the fastest", "ahead of globset",
+backed by "a larger test suite than the original". What the family site never
+repeats is a figure — a speed-up factor, a timing, a percentage, a test count.
+Those pretend to a precision that cannot be kept current from here; they live
+in each project's repository and site, next to the setup that produced them.
+Evidence names the kind of proof (an oracle, a conformance suite, a design
+property) plus any qualitative result. Live registry figures render from the
+registries themselves (see ADR-0006).
+
+This supersedes the consequence that every new tool needs a named original to
+honor.
 
 ## References
 

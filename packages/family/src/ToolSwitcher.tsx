@@ -1,7 +1,8 @@
 import { type ReactNode, type RefObject, useEffect, useRef } from "react";
 
-import { familyGroups } from "./family.js";
+import { FAMILY_SITE, familyGroups, toolHref } from "./family.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 
 export type ToolSwitcherProps = {
   /**
@@ -19,6 +20,14 @@ export type ToolSwitcherProps = {
   align?: "end" | "start";
   /** Extra classes on the `<details>` root, for a host that has to place it. */
   className?: string;
+  /**
+   * The switcher as the way back to the family, for a site whose brand slot
+   * carries its own lockup: the trigger shows the Ferramenta mark and name
+   * instead of "Tools", and the flyout opens with a link to the family site.
+   * `SiteHeader lockup="project"` sets it; a host header that is not ours sets
+   * it itself.
+   */
+  family?: boolean;
 };
 
 /** A `<details>` flyout is not modal: it closes on an outside click and on Escape. */
@@ -47,6 +56,71 @@ function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
   }, [ref]);
 }
 
+function switcherClasses({ align, className, family }: ToolSwitcherProps) {
+  const classes = ["switcher"];
+  if (align === "start") classes.push("switcher-start");
+  if (family === true) classes.push("switcher-family");
+  if (className !== undefined) classes.push(className);
+  return classes.join(" ");
+}
+
+/** The trigger's default content: "Tools", or the family's mark and name. */
+function defaultTrigger(family: boolean): ReactNode {
+  if (!family) return "Tools";
+  return (
+    <>
+      <Mark name="ferramenta" size={18} />
+      <span>Ferramenta</span>
+    </>
+  );
+}
+
+/** The family site's own entry, on top of the flyout: the link a project lockup gave up. */
+function FamilyHome() {
+  return (
+    <a className="flyhome" href={FAMILY_SITE}>
+      <span className="markplate">
+        <Mark name="ferramenta" size={24} />
+      </span>
+      <span>
+        <b>ferramenta</b>
+        <small>the family site</small>
+      </span>
+    </a>
+  );
+}
+
+/** The registry's display groups, minus the current project; empty groups drop out. */
+function FlyoutGroups({ current }: { current?: string }) {
+  const { pipeline, language, workbench } = familyGroups(current);
+  const groups = [
+    { label: "Pipeline", tools: pipeline },
+    { label: "Language", tools: language },
+    { label: "Workbench", tools: workbench },
+  ];
+  return groups
+    .filter((group) => group.tools.length > 0)
+    .map((group) => (
+      <div className="flygroup" key={group.label}>
+        <small>{group.label}</small>
+        {group.tools.map((tool) => (
+          <a key={tool.name} href={toolHref(tool)}>
+            <span className="markplate">
+              <Mark name={tool.name} size={24} />
+            </span>
+            <span>
+              <b>
+                {tool.name}
+                <RepoNote tool={tool} />
+              </b>
+              <small>{tool.shortJob}</small>
+            </span>
+          </a>
+        ))}
+      </div>
+    ));
+}
+
 /**
  * The family-wide tool switcher, grouped the way the family site groups it.
  *
@@ -58,46 +132,21 @@ function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
  * duotone variables, and the flyout is positioned against the trigger, so the
  * host header's height does not matter.
  */
-export function ToolSwitcher({ align = "end", className, current, label }: ToolSwitcherProps = {}) {
+export function ToolSwitcher(props: ToolSwitcherProps = {}) {
+  const { current, family = false, label } = props;
   const switcherRef = useRef<HTMLDetailsElement>(null);
-  const { pipeline, language, workbench } = familyGroups(current);
-  const flyoutGroups = [
-    { label: "Pipeline", tools: pipeline },
-    { label: "Language", tools: language },
-    { label: "Workbench", tools: workbench },
-  ];
-
   useDismissible(switcherRef);
 
-  const classes = ["switcher"];
-  if (align === "start") classes.push("switcher-start");
-  if (className !== undefined) classes.push(className);
-
   return (
-    <details className={classes.join(" ")} ref={switcherRef}>
-      <summary aria-label="All tools">
-        {label ?? "Tools"} <Mark name="chev" className="chev icon" size={16} />
+    <details className={switcherClasses(props)} ref={switcherRef}>
+      {/* The accessible name keeps the visible word, so a voice user can say it. */}
+      <summary aria-label={family ? "Ferramenta: all tools" : "All tools"}>
+        {label ?? defaultTrigger(family)} <Mark name="chev" className="chev icon" size={16} />
       </summary>
       <div className="flyout">
+        {family && <FamilyHome />}
         {current !== undefined && <p className="switcher-current">Current: {current}</p>}
-        {flyoutGroups
-          .filter((group) => group.tools.length > 0)
-          .map((group) => (
-            <div className="flygroup" key={group.label}>
-              <small>{group.label}</small>
-              {group.tools.map((tool) => (
-                <a key={tool.name} href={tool.docs ?? tool.repo}>
-                  <span className="markplate">
-                    <Mark name={tool.name} size={24} />
-                  </span>
-                  <span>
-                    <b>{tool.name}</b>
-                    <small>{tool.shortJob}</small>
-                  </span>
-                </a>
-              ))}
-            </div>
-          ))}
+        <FlyoutGroups current={current} />
       </div>
     </details>
   );

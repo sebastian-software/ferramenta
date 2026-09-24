@@ -32,6 +32,20 @@ export type SiteHeaderProps = {
    */
   nav?: ReactNode;
   /**
+   * What the brand slot carries. `"family"` (the default) is the Ferramenta
+   * lockup — right on ferramenta.dev, and on a docs site that reads as a
+   * section of the family. `"project"` puts the current project's own mark and
+   * wordmark there, linking to `home`, and moves the way back to the family
+   * into the switcher (`ToolSwitcher family`). It needs `current`.
+   */
+  lockup?: "family" | "project";
+  /**
+   * Where the project lockup links: the site's own root. Defaults to `/`; a
+   * site served from a sub-path (GitHub Pages) passes its base, e.g.
+   * `/ferroni/`. Ignored by the family lockup.
+   */
+  home?: string;
+  /**
    * The element to render. `"header"` (the default) is the banner landmark.
    * Pass `"div"` when the host already provides one — an Ardo site rendering
    * this inside `<ArdoHeader>` — so the page does not end up with two. The
@@ -45,21 +59,34 @@ export function SiteHeader({
   actions,
   as = "header",
   current,
+  home = "/",
+  lockup = "family",
   nav,
   themeToggle,
 }: SiteHeaderProps = {}) {
   const Root: ElementType = as;
+  const project = lockup === "project";
+  // One construction for both lockups (PRODUCT.md): mark plus lowercase wordmark.
+  let name = "ferramenta";
+  let href = current === undefined ? "/" : FAMILY_SITE;
+  if (project) {
+    if (current === undefined) {
+      throw new Error('SiteHeader: lockup="project" needs `current`, the project it names');
+    }
+    name = current;
+    href = home;
+  }
 
   return (
     <Root className="site-header">
       <div className="wrap bar">
-        <a className="lockup" href={current === undefined ? "/" : FAMILY_SITE}>
-          <Mark name="ferramenta" size={26} />
-          <span>ferramenta</span>
+        <a className="lockup" href={href}>
+          <Mark name={name} size={26} />
+          <span>{name}</span>
         </a>
         {nav}
         <nav className="site" aria-label="Site">
-          <ToolSwitcher current={current} />
+          <ToolSwitcher current={current} family={project} />
           <a className="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub">
             <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true">
               <use href="#i-github" />
