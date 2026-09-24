@@ -3,11 +3,14 @@ import { type FamilyTool } from "./family.js";
 import { type RegistryEndpoints, type RegistrySnapshot, type ToolFacts } from "./LiveRegistry.js";
 export type RegistryFactsProps = {
     /**
-     * The build-time snapshot. Without one every member shows its registry
-     * fallback version and nothing is fetched: there is no verified package to ask for.
+     * The build-time snapshot, prerendered before anything live answers. Optional:
+     * without one the page renders the registry's fallback versions first, then
+     * whatever the metrics service answers.
      */
     snapshot?: RegistrySnapshot;
-    /** Where the live figures come from; defaults to the public registries. */
+    /** The metrics document (`METRICS_URL` by default); `false` asks the registries directly. */
+    metrics?: false | string;
+    /** The registries asked directly for what the metrics service did not answer. */
     endpoints?: RegistryEndpoints;
     children: ReactNode;
 };
@@ -15,7 +18,7 @@ export type RegistryFactsProps = {
  * Provides registry figures to the tool ledger, the board and the download
  * tally below it: the snapshot during prerender, live values after hydration.
  */
-export declare function RegistryFacts({ children, endpoints, snapshot }: RegistryFactsProps): import("react").JSX.Element;
+export declare function RegistryFacts({ children, endpoints, metrics, snapshot, }: RegistryFactsProps): import("react").JSX.Element;
 /** A member's facts inside `RegistryFacts`; the fallback version outside it. */
 export declare function useToolFacts(tool: FamilyTool): ToolFacts;
 /** A count in the page's tabular mono, formatted the same on server and client. */

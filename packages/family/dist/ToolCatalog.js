@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-import { byJob, family, familyGroups, isEngine, leadsToRepo, toolHref, } from "./family.js";
+import { byJob, displayName, family, familyGroups, isEngine, leadsToRepo, runsOnTools, toolHref, } from "./family.js";
 import { Fasteners } from "./Fasteners.js";
 import { Stamp } from "./Ledger.js";
 import { Mark } from "./Mark.js";
@@ -43,14 +43,12 @@ export function Pegboard({ current, label = "The tool family" } = {}) {
  */
 function ToolFactsList({ tool }) {
     const facts = useToolFacts(tool);
-    const runsOn = tool.runsOn
-        ?.map((name) => family.find((member) => member.name === name)?.name)
-        .filter((name) => name !== undefined);
-    return (_jsxs("dl", { className: "fam-tool-facts", children: [tool.succeeds === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Succeeds" }), _jsx("dd", { children: tool.succeeds })] })), tool.buildsOn === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Builds on" }), _jsx("dd", { children: tool.buildsOn })] })), runsOn === undefined || runsOn.length === 0 ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Runs on" }), _jsx("dd", { className: "fam-tool-names", children: runsOn.join(" · ") })] })), _jsxs("div", { children: [_jsx("dt", { children: "Evidence" }), _jsx("dd", { children: tool.evidence })] }), facts.onCrates ? (_jsxs("div", { children: [_jsx("dt", { children: "Downloads" }), _jsxs("dd", { children: [_jsx(Count, { value: facts.crateDownloads }), " on crates.io"] })] })) : null] }));
+    const runsOn = runsOnTools(tool);
+    return (_jsxs("dl", { className: "fam-tool-facts", children: [tool.succeeds === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Succeeds" }), _jsx("dd", { children: tool.succeeds })] })), tool.buildsOn === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Builds on" }), _jsx("dd", { children: tool.buildsOn })] })), runsOn.length === 0 ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Runs on" }), _jsx("dd", { children: runsOn.map((member) => displayName(member)).join(" · ") })] })), _jsxs("div", { children: [_jsx("dt", { children: "Evidence" }), _jsx("dd", { children: tool.evidence })] }), facts.onCrates ? (_jsxs("div", { children: [_jsx("dt", { children: "Downloads" }), _jsxs("dd", { children: [_jsx(Count, { value: facts.crateDownloads }), " on crates.io"] })] })) : null] }));
 }
 function ToolMeta({ tool }) {
     const facts = useToolFacts(tool);
-    return (_jsxs("div", { className: "fam-tool-meta", children: [_jsxs("b", { className: "fam-tool-version", children: ["v", facts.version] }), _jsxs("span", { className: "fam-tool-platforms", children: [facts.onCrates ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "crate", className: "icon", size: 15 }), "crates.io"] })) : null, facts.adapter ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "adapter", className: "icon", size: 15 }), "npm"] })) : null, isEngine(tool) && !facts.onCrates && !facts.adapter ? (_jsx("span", { className: "fam-tool-platform", children: "git only" })) : null] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }));
+    return (_jsxs("div", { className: "fam-tool-meta", children: [_jsxs("b", { className: "fam-tool-version", children: ["v", facts.version] }), _jsxs("span", { className: "fam-tool-platforms", children: [facts.onCrates ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "crate", className: "icon", size: 15 }), "crates.io"] })) : null, facts.adapter ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "adapter", className: "icon", size: 15 }), "npm"] })) : null, isEngine(tool) && !facts.onCrates && !facts.adapter ? (_jsx("span", { className: "fam-tool-platform", children: "install from Git" })) : null] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }));
 }
 /**
  * One ledger row. The name is the link, stretched over the whole row, so the
@@ -71,5 +69,5 @@ export function ToolLedger({ steps = false, tools }) {
  */
 export function JobIndex({ current } = {}) {
     const tools = byJob(family.filter((tool) => tool.name !== current));
-    return (_jsx("ul", { className: "fam-jobs", children: tools.map((tool) => (_jsx("li", { children: _jsxs("a", { className: "fam-job", href: toolHref(tool), children: [_jsx("span", { className: "fam-job-name", children: tool.shortJob }), _jsx("span", { className: "fam-job-leader", "aria-hidden": "true" }), _jsxs("span", { className: "fam-job-tool", children: [_jsx(Mark, { name: tool.name, className: "mark", size: 22 }), _jsxs("b", { children: [tool.name, _jsx(RepoNote, { tool: tool })] })] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }) }, tool.name))) }));
+    return (_jsx("ul", { className: "fam-jobs", children: tools.map((tool) => (_jsx("li", { children: _jsxs("a", { className: "fam-job", href: toolHref(tool), "aria-label": `${tool.shortJob}: ${displayName(tool)}, ${tool.status}${leadsToRepo(tool) ? " (GitHub repository)" : ""}`, children: [_jsx("span", { className: "fam-job-name", children: tool.shortJob }), _jsx("span", { className: "fam-job-leader", "aria-hidden": "true" }), _jsxs("span", { className: "fam-job-tool", children: [_jsx(Mark, { name: tool.name, className: "mark", size: 22 }), _jsx("b", { children: tool.name })] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }) }, tool.name))) }));
 }

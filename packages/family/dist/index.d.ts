@@ -9,12 +9,12 @@ export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
  * its own chrome — import `ferramenta-family/registry` instead: the same data
  * without React.
  */
-export { byJob, family, FAMILY_SITE, type FamilyGroup, familyGroups, type FamilyRole, type FamilyStatus, type FamilyTool, isEngine, isSuccessor, leadsToRepo, PIPELINE, type PipelineEnd, relatedTools, STATUS_MEANING, STATUS_ORDER, toolHref, } from "./family.js";
+export { byJob, displayName, family, FAMILY_SITE, type FamilyGroup, familyGroups, type FamilyLineage, type FamilyRole, type FamilyStatus, type FamilyTool, isEngine, isSuccessor, leadsToRepo, PIPELINE, type PipelineEnd, relatedTools, runsOnTools, STATUS_MEANING, STATUS_ORDER, toolHref, } from "./family.js";
 export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
 export { Fasteners } from "./Fasteners.js";
 export { ClosingAction, type ClosingActionProps, IronBand, type IronBandProps, type IronBandRow, ProjectHero, type ProjectHeroProps, Section, type SectionProps, } from "./Landing.js";
 export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Ledger.js";
-export { fetchLiveRegistry, type LiveRegistryFacts, type LiveRegistryRequest, liveRequestFor, REGISTRY_ENDPOINTS, type RegistryEndpoints, type RegistrySnapshot, type RegistryStat, type ToolFacts, toolFacts, useLiveRegistry, } from "./LiveRegistry.js";
+export { type FamilyFactsOptions, type FamilyMetrics, fetchFamilyFacts, fetchFamilyMetrics, fetchLiveRegistry, type LiveRegistryFacts, type LiveRegistryRequest, liveRequestFor, METRICS_URL, REGISTRY_ENDPOINTS, type RegistryEndpoints, type RegistrySnapshot, type RegistryStat, type ToolFacts, toolFacts, useFamilyFacts, useLiveRegistry, } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { PipelineAssembly, type PipelineAssemblyProps } from "./PipelineAssembly.js";

@@ -173,12 +173,23 @@ export function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest 
   };
 }
 
-/** The facts for one member, from a snapshot and whatever answered live. */
+/** A snapshot entry made from live facts alone, for a site that has no snapshot. */
+function statFromLive(live: LiveRegistryFacts): null | RegistryStat {
+  if (live.crates === undefined && live.npm === undefined) return null;
+  return { crates: live.crates ?? null, npm: live.npm ?? null };
+}
+
+/**
+ * The facts for one member, from a snapshot and whatever answered live. With
+ * a snapshot entry, live values only refresh what the build verified; without
+ * one, the live facts stand on their own (the metrics service filters by owner).
+ */
 export function toolFacts(
   tool: FamilyTool,
-  stat: null | RegistryStat | undefined,
+  snapshotStat: null | RegistryStat | undefined,
   live: LiveRegistryFacts = {},
 ): ToolFacts {
+  const stat = snapshotStat ?? statFromLive(live);
   const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
   const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
   // The crate carries the version when there is one; an adapter-only member shows npm's.
@@ -189,6 +200,121 @@ export function toolFacts(
     onCrates: crates !== null,
     adapter: npm !== null,
   };
+}
+
+/*
+ * The workshop's metrics service (github.com/sebastian-software/oss-metrics):
+ * one cached, CORS-open document with every project of the organization,
+ * filtered by owner at the source, so a same-named package someone else
+ * published cannot appear. One request instead of one per registry, and it
+ * needs no snapshot, so a sibling site gets live figures too.
+ */
+export const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
+
+export type FamilyMetrics = {
+  facts: Record<string, LiveRegistryFacts>;
+  /** Which registries the service answered for; the rest need a direct request. */
+  answered: { crates: boolean; npm: boolean };
+};
+
+function metricsEntry(section: unknown, name: string): Record<string, unknown> {
+  const entry = isRecord(section) ? section[name] : undefined;
+  return isRecord(entry) ? entry : {};
+}
+
+/** A member's crate and npm package from the metrics document, as live facts. */
+function metricsFacts(doc: Record<string, unknown>, name: string): LiveRegistryFacts {
+  const crate = metricsEntry(doc.crates, name);
+  const pkg = metricsEntry(doc.npm, name);
+  const facts: LiveRegistryFacts = {};
+  const version = textAt(crate, "version");
+  const downloads = countAt(crate, "downloads");
+  if (version !== undefined && downloads !== undefined) facts.crates = { version, downloads };
+  const npmVersion = textAt(pkg, "version");
+  const lastMonth = countAt(pkg, "monthlyDownloads");
+  if (npmVersion !== undefined && lastMonth !== undefined) {
+    facts.npm = { version: npmVersion, lastMonth };
+  }
+  return facts;
+}
+
+/** The family's facts from the metrics document, or null when it did not answer usefully. */
+export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<FamilyMetrics | null> {
+  const doc = await json(url);
+  if (!isRecord(doc) || doc.schema !== 1 || !isRecord(doc.sources)) return null;
+  const facts: Record<string, LiveRegistryFacts> = {};
+  for (const { name } of family) {
+    const member = metricsFacts(doc, name);
+    if (member.crates !== undefined || member.npm !== undefined) facts[name] = member;
+  }
+  return {
+    facts,
+    answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
+  };
+}
+
+export type FamilyFactsOptions = {
+  /** The metrics document; `false` skips it and asks the registries directly. */
+  metrics?: false | string;
+  /** The registries asked directly for what the metrics service did not answer. */
+  endpoints?: RegistryEndpoints;
+};
+
+/**
+ * Live facts for the family: the metrics service first; for a registry it did
+ * not answer (down, or not deployed yet), the registries directly, for the
+ * packages the snapshot verified. Whatever answers nowhere keeps its build value.
+ */
+export async function fetchFamilyFacts(
+  snapshot: RegistrySnapshot,
+  { endpoints = REGISTRY_ENDPOINTS, metrics = METRICS_URL }: FamilyFactsOptions = {},
+): Promise<Record<string, LiveRegistryFacts>> {
+  const fromMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+  const direct = unanswered(liveRequestFor(snapshot), fromMetrics);
+  const fromRegistries =
+    direct.crates.length + direct.npm.length > 0 ? await fetchLiveRegistry(direct, endpoints) : {};
+  return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+}
+
+/** What still needs a direct registry request: the registries the metrics service did not answer. */
+function unanswered(
+  request: LiveRegistryRequest,
+  metrics: FamilyMetrics | null,
+): LiveRegistryRequest {
+  return {
+    crates: metrics?.answered.crates === true ? [] : request.crates,
+    npm: metrics?.answered.npm === true ? [] : request.npm,
+  };
+}
+
+function mergeFacts(
+  base: Record<string, LiveRegistryFacts>,
+  extra: Record<string, LiveRegistryFacts>,
+): Record<string, LiveRegistryFacts> {
+  const facts = { ...base };
+  for (const [name, value] of Object.entries(extra)) facts[name] = { ...facts[name], ...value };
+  return facts;
+}
+
+/** `fetchFamilyFacts` after hydration: empty during prerender and until something answers. */
+export function useFamilyFacts(
+  snapshot: RegistrySnapshot,
+  options: FamilyFactsOptions = {},
+): Record<string, LiveRegistryFacts> {
+  const [facts, setFacts] = useState<Record<string, LiveRegistryFacts>>({});
+  const key = JSON.stringify([snapshot, options]);
+  useEffect(() => {
+    let current = true;
+    void fetchFamilyFacts(snapshot, options).then((live) => {
+      if (current) setFacts(live);
+    });
+    return () => {
+      current = false;
+    };
+    // Keyed on the inputs' value: the objects themselves may be new on every render.
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- `key` is their serialized value
+  }, [key]);
+  return facts;
 }
 
 /**

@@ -32,6 +32,11 @@ test("the job index lists every member A to Z by job, and ranks none", () => {
   for (const tool of kit.family) {
     assert.ok(html.includes(`href="${kit.toolHref(tool)}"`), `a link to ${tool.name}`);
   }
+  const ferroni = kit.family.find((tool) => tool.name === "ferroni");
+  assert.ok(
+    html.includes(`aria-label="${ferroni.shortJob}: Ferroni, ${ferroni.status}"`),
+    "a screen reader hears job, tool and stamp with their pauses",
+  );
   const own = render(kit.JobIndex, { current: "ferroni" });
   assert.ok(!own.includes("#i-ferroni"), "a site leaves itself out");
 });
@@ -54,26 +59,32 @@ test("the tool ledger numbers only a real sequence, and names what each member r
   assert.ok(!plain.includes("fam-tool-num"), "no empty step column");
   assert.ok(!plain.includes("data-steps"));
   const palamedes = kit.family.find((tool) => tool.name === "palamedes");
-  assert.ok(
-    plain.includes(
-      `<dt>Runs on</dt><dd class="fam-tool-names">${palamedes.runsOn.join(" · ")}</dd>`,
-    ),
-  );
+  const names = palamedes.runsOn.map((name) => kit.displayName(name)).join(" · ");
+  assert.ok(plain.includes(`<dt>Runs on</dt><dd>${names}</dd>`), "names as prose writes them");
+  assert.match(names, /^Ferrocat/u, "the first name too: no text-transform guesswork");
+  // Outside RegistryFacts a row shows the registry's fallback version.
+  assert.ok(plain.includes(`v${language[0].version}`));
+});
+
+test("every member rests on exactly one fact: what it succeeds, builds on, or runs on", () => {
+  const palamedes = kit.family.find((tool) => tool.name === "palamedes");
   for (const tool of kit.family) {
-    for (const name of tool.runsOn ?? []) {
-      assert.ok(
-        kit.family.some((member) => member.name === name),
-        `${tool.name} runs on ${name}`,
-      );
-    }
+    const lineage = [tool.succeeds, tool.buildsOn, tool.runsOn].filter(
+      (fact) => fact !== undefined,
+    );
+    assert.equal(
+      lineage.length,
+      1,
+      `${tool.name} rests on exactly one of succeeds, buildsOn, runsOn`,
+    );
     assert.equal(
       tool.runsOn !== undefined,
       !kit.isEngine(tool),
       "only an application runs on engines",
     );
+    assert.ok(kit.runsOnTools(tool).every((member) => kit.family.includes(member)));
   }
-  // Outside RegistryFacts a row shows the registry's fallback version.
-  assert.ok(plain.includes(`v${language[0].version}`));
+  assert.throws(() => kit.runsOnTools({ ...palamedes, runsOn: ["nope"] }), /unknown member: nope/u);
 });
 
 test("registry facts: live over snapshot over fallback, and only owned packages are asked for", () => {
@@ -111,4 +122,78 @@ test("registry facts: live over snapshot over fallback, and only owned packages 
   assert.deepEqual(request.crates, ["ferroni", "ferrocat"]);
   assert.deepEqual(request.npm, ["ferriki"], "npm only where no crate carries the version");
   assert.deepEqual(kit.liveRequestFor({ stranger: stat }), { crates: [], npm: [] });
+});
+
+const body = (value) => ({ ok: true, json: async () => value });
+const metricsDoc = (sources = { github: "ok", crates: "ok", npm: "ok" }) => ({
+  schema: 1,
+  generatedAt: "2026-09-24T12:00:00Z",
+  sources,
+  github: {},
+  crates: {
+    ferroni: { version: "9.0.0", downloads: 5, recentDownloads: 1, publishedAt: "x" },
+    "someone-else": { version: "1.0.0", downloads: 1, recentDownloads: 1, publishedAt: "x" },
+  },
+  npm: { ferromark: { version: "9.1.0", monthlyDownloads: 7, publishedAt: "x" } },
+});
+const verified = { ferroni: { crates: { version: "1", downloads: 1 }, npm: null } };
+
+test("family facts come from the metrics document in one request", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    return body(metricsDoc());
+  });
+  const facts = await kit.fetchFamilyFacts(verified);
+  assert.deepEqual(calls, [kit.METRICS_URL], "no registry is asked when the service answered");
+  assert.deepEqual(facts.ferroni, { crates: { version: "9.0.0", downloads: 5 } });
+  assert.deepEqual(facts.ferromark, { npm: { version: "9.1.0", lastMonth: 7 } });
+  assert.equal(facts["someone-else"], undefined, "only family members");
+
+  // Without a snapshot the live facts stand on their own: a sibling site gets figures too.
+  const ferroni = kit.family.find((tool) => tool.name === "ferroni");
+  assert.equal(kit.toolFacts(ferroni, undefined, facts.ferroni).version, "9.0.0");
+});
+
+test("a registry the metrics service did not answer is asked directly, for verified names only", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    if (String(url) === kit.METRICS_URL) {
+      return body(metricsDoc({ github: "ok", crates: "error", npm: "ok" }));
+    }
+    if (String(url).includes("/crates?")) {
+      return body({ crates: [{ id: "ferroni", max_stable_version: "9.9.9", downloads: 42 }] });
+    }
+    throw new Error("offline");
+  });
+  const facts = await kit.fetchFamilyFacts(verified);
+  assert.equal(calls.length, 2, "the document, then crates.io");
+  assert.equal(facts.ferroni.crates.version, "9.9.9");
+});
+
+test("with the metrics service down, the page falls back to the registries", async (t) => {
+  t.mock.method(globalThis, "fetch", async (url) => {
+    if (String(url).includes("/crates?")) {
+      return body({ crates: [{ id: "ferroni", max_stable_version: "9.9.9", downloads: 42 }] });
+    }
+    return { ok: false, json: async () => ({}) };
+  });
+  const facts = await kit.fetchFamilyFacts(verified);
+  assert.equal(facts.ferroni.crates.version, "9.9.9");
+  assert.deepEqual(
+    await kit.fetchFamilyFacts({}),
+    {},
+    "nothing verified, nothing asked, nothing shown",
+  );
+});
+
+test("the closing action takes a list beside the copy, with or without actions", () => {
+  const html = render(kit.ClosingAction, {
+    aside: createElement("ul", null),
+    children: createElement("p", null, "Copy."),
+    title: "Pick",
+  });
+  assert.ok(html.includes('<div class="fam-closing-aside"><ul></ul></div>'));
+  assert.ok(!html.includes("fam-actions"), "no empty action row");
 });

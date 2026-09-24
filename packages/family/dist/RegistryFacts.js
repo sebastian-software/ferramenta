@@ -1,15 +1,15 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, use, useMemo } from "react";
 import { family } from "./family.js";
-import { liveRequestFor, toolFacts, useLiveRegistry, } from "./LiveRegistry.js";
+import { toolFacts, useFamilyFacts, } from "./LiveRegistry.js";
 const NO_SNAPSHOT = {};
 const FactsContext = createContext({ snapshot: NO_SNAPSHOT, live: {} });
 /**
  * Provides registry figures to the tool ledger, the board and the download
  * tally below it: the snapshot during prerender, live values after hydration.
  */
-export function RegistryFacts({ children, endpoints, snapshot = NO_SNAPSHOT }) {
-    const live = useLiveRegistry(liveRequestFor(snapshot), endpoints);
+export function RegistryFacts({ children, endpoints, metrics, snapshot = NO_SNAPSHOT, }) {
+    const live = useFamilyFacts(snapshot, { endpoints, metrics });
     const value = useMemo(() => ({ snapshot, live }), [snapshot, live]);
     return _jsx(FactsContext, { value: value, children: children });
 }

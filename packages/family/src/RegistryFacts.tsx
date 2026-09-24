@@ -3,12 +3,11 @@ import { createContext, type ReactNode, use, useMemo } from "react";
 import { family, type FamilyTool } from "./family.js";
 import {
   type LiveRegistryFacts,
-  liveRequestFor,
   type RegistryEndpoints,
   type RegistrySnapshot,
   type ToolFacts,
   toolFacts,
-  useLiveRegistry,
+  useFamilyFacts,
 } from "./LiveRegistry.js";
 
 /*
@@ -26,11 +25,14 @@ const FactsContext = createContext<FactsState>({ snapshot: NO_SNAPSHOT, live: {}
 
 export type RegistryFactsProps = {
   /**
-   * The build-time snapshot. Without one every member shows its registry
-   * fallback version and nothing is fetched: there is no verified package to ask for.
+   * The build-time snapshot, prerendered before anything live answers. Optional:
+   * without one the page renders the registry's fallback versions first, then
+   * whatever the metrics service answers.
    */
   snapshot?: RegistrySnapshot;
-  /** Where the live figures come from; defaults to the public registries. */
+  /** The metrics document (`METRICS_URL` by default); `false` asks the registries directly. */
+  metrics?: false | string;
+  /** The registries asked directly for what the metrics service did not answer. */
   endpoints?: RegistryEndpoints;
   children: ReactNode;
 };
@@ -39,8 +41,13 @@ export type RegistryFactsProps = {
  * Provides registry figures to the tool ledger, the board and the download
  * tally below it: the snapshot during prerender, live values after hydration.
  */
-export function RegistryFacts({ children, endpoints, snapshot = NO_SNAPSHOT }: RegistryFactsProps) {
-  const live = useLiveRegistry(liveRequestFor(snapshot), endpoints);
+export function RegistryFacts({
+  children,
+  endpoints,
+  metrics,
+  snapshot = NO_SNAPSHOT,
+}: RegistryFactsProps) {
+  const live = useFamilyFacts(snapshot, { endpoints, metrics });
   const value = useMemo(() => ({ snapshot, live }), [snapshot, live]);
   return <FactsContext value={value}>{children}</FactsContext>;
 }
