@@ -12,7 +12,7 @@ export const family = [
     {
         name: "ferroni",
         job: "Oniguruma, continued in Rust",
-        shortJob: "regex engine",
+        shortJob: "Regex engine",
         succeeds: "Oniguruma / vscode-oniguruma",
         proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
         evidence: "Oniguruma compatibility oracle",
@@ -25,7 +25,7 @@ export const family = [
     {
         name: "ferriki",
         job: "Shiki-compatible syntax highlighting",
-        shortJob: "syntax highlighting",
+        shortJob: "Syntax highlighting",
         succeeds: "Shiki",
         proof: "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
         evidence: "Mirrored Shiki test suite",
@@ -50,7 +50,7 @@ export const family = [
     {
         name: "ferrolex",
         job: "Spell checking for text and code",
-        shortJob: "spell checking",
+        shortJob: "Spell checking",
         succeeds: "Hunspell",
         proof: "Hunspell set the dictionary standard. Ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
         evidence: "Hunspell oracle · deterministic suggestion scoring",
@@ -62,7 +62,7 @@ export const family = [
     {
         name: "ferrocat",
         job: "Translation catalog engine",
-        shortJob: "translation catalogs",
+        shortJob: "Translation catalogs",
         buildsOn: "PO / ICU MessageFormat",
         proof: "gettext taught software to speak in catalogs. Ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
         evidence: "Upstream-derived conformance cases · ahead of GNU msgmerge and common PO libraries",
@@ -89,7 +89,7 @@ export const family = [
     {
         name: "ferralk",
         job: "Glob matching and parallel filesystem walking",
-        shortJob: "glob matching",
+        shortJob: "Glob matching",
         buildsOn: "Glob syntax / .gitignore rules",
         proof: "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
         evidence: "Frozen zlob reference · ahead of globset and fast-glob",

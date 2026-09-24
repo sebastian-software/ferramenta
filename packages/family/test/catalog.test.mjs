@@ -210,7 +210,13 @@ test("a run sample shows its input once to assistive technology, the output for 
   });
   assert.match(
     html,
-    /^<div class="fam-run"><figure class="fam-code"><figcaption>hi.md<\/figcaption>/u,
+    /^<div class="fam-run"><div class="fam-run-input"><div class="fam-run-wide"><figure class="fam-code"><figcaption>hi.md<\/figcaption>/u,
+  );
+  assert.ok(
+    html.includes(
+      '<details class="fam-run-narrow"><summary><span>hi.md</span><small>Source</small>',
+    ),
+    "on a phone the input folds away; CSS picks one variant",
   );
   assert.ok(html.includes("<figcaption>Rendered by Tool 1.0</figcaption>"));
   assert.ok(

@@ -1008,23 +1008,27 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   font-size: 0.95rem;
 }
 
+/* One fact per line, labels in one column: every row scans the same way. */
 .fam-tool-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1rem;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.3rem 0.75rem;
+  align-items: baseline;
   margin-top: 0.65rem;
   color: var(--ink);
   font-size: 0.78rem;
   line-height: 1.35;
 }
 
-.fam-tool-facts dt,
+.fam-tool-facts > div {
+  display: contents;
+}
+
 .fam-tool-facts dd {
-  display: inline;
+  margin: 0;
 }
 
 .fam-tool-facts dt {
-  margin-right: 0.35rem;
   color: var(--rust);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1279,6 +1283,63 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   margin-top: 0;
 }
 
+.fam-run-input {
+  min-width: 0;
+}
+
+/* The folded input, for a phone: a bar in the code panel's own iron, opening downward. */
+.fam-run-narrow {
+  display: none;
+}
+
+.fam-run-narrow summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.25rem;
+  border-top: 3px solid var(--rust);
+  background: var(--iron);
+  color: var(--iron-ink);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fam-run-narrow summary::-webkit-details-marker {
+  display: none;
+}
+
+.fam-run-narrow summary small {
+  color: var(--iron-soft);
+  font-family: var(--body);
+  font-size: 0.8125rem;
+}
+
+.fam-run-narrow summary .icon {
+  margin-left: auto;
+  transition: rotate 0.15s;
+}
+
+.fam-run-narrow[open] summary .icon {
+  rotate: 180deg;
+}
+
+.fam-run-narrow summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Opened, the panel continues the bar: no second rust rule, no second caption. */
+.fam-run-narrow .fam-code {
+  border-top: 0;
+}
+
+.fam-run-narrow .fam-code figcaption {
+  display: none;
+}
+
 .fam-run-arrow {
   align-self: center;
   width: 1.75rem;
@@ -1326,6 +1387,11 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   background: var(--iron) !important;
 }
 
+/* The kit sets inline code at 0.9em; a block keeps the panel's size, as on the input side. */
+.fam-run-doc pre code {
+  font-size: 1em;
+}
+
 .fam-run-doc pre {
   margin-top: 1rem;
   padding: 1.1rem 1.25rem;
@@ -1346,7 +1412,15 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
     rotate: 90deg;
   }
 
-  /* On a phone the input wraps too: the sample reads without a sideways swipe. */
+  /* On a phone the input folds away, and wraps when opened: no sideways swipe. */
+  .fam-run-wide {
+    display: none;
+  }
+
+  .fam-run-narrow {
+    display: block;
+  }
+
   .fam-run .fam-code pre {
     white-space: pre-wrap;
     overflow-wrap: anywhere;

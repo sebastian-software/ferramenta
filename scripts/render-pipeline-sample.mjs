@@ -46,8 +46,21 @@ async function load(dir) {
   return { module, version: manifest.version };
 }
 
+/**
+ * The Ferroni version a Ferriki build runs on, from the repository's Cargo.lock
+ * (two levels above node/ferriki): the chain's first stage, named with the rest.
+ */
+async function ferroniIn(ferrikiDir) {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the Ferriki checkout the caller named
+  const lock = await readFile(join(ferrikiDir, "..", "..", "Cargo.lock"), "utf8");
+  const version = /\[\[package\]\]\nname = "ferroni"\nversion = "([^"]+)"/u.exec(lock)?.[1];
+  if (!version) throw new Error("no ferroni package in Ferriki's Cargo.lock");
+  return version;
+}
+
 const ferromark = await load(packageDir("FERROMARK"));
 const ferriki = await load(packageDir("FERRIKI"));
+const ferroni = await ferroniIn(packageDir("FERRIKI"));
 
 const highlighter = await ferriki.module.createHighlighter({ langs: ["rust"], themes: [THEME] });
 const html = ferromark.module.toHtmlWithHighlighter(MARKDOWN, highlighter, {
@@ -63,10 +76,10 @@ const sample = {
   markdown: MARKDOWN,
   html,
   theme: THEME,
-  rendered: { ferromark: ferromark.version, ferriki: ferriki.version },
+  rendered: { ferromark: ferromark.version, ferriki: ferriki.version, ferroni },
 };
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- a fixed path inside this repository
 await writeFile(output, `${JSON.stringify(sample, null, 2)}\n`);
 console.log(
-  `wrote ${output.pathname} (ferromark ${ferromark.version}, ferriki ${ferriki.version})`,
+  `wrote ${output.pathname} (ferromark ${ferromark.version}, ferriki ${ferriki.version}, ferroni ${ferroni})`,
 );

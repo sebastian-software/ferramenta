@@ -69,7 +69,8 @@ const sourceUrl = "https://github.com/sebastian-software";
 const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
 
 /** What the pipeline sample was rendered with, from the artifact itself. */
-const sampleRun = `Rendered by Ferromark ${pipelineSample.rendered.ferromark} with Ferriki ${pipelineSample.rendered.ferriki}`;
+const { rendered } = pipelineSample;
+const sampleRun = `Rendered by Ferromark ${rendered.ferromark} with Ferriki ${rendered.ferriki} on Ferroni ${rendered.ferroni}`;
 
 /** Group sizes in words, for the section intros: the registry decides how many. */
 const COUNT_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six"];
@@ -107,9 +108,8 @@ function Why() {
           </p>
           <ul className="goals">
             <li>
-              <b>Stable through evidence.</b> Every tool earns stability through evidence
-              appropriate to its contract. {stableNames} are stable today; the rest keep their
-              maturity visible.
+              <b>Stable through evidence.</b> Every tool earns its stamp with the proof its contract
+              calls for. {stableNames} are stable today; the rest keep their maturity visible.
             </li>
             <li>
               <b>Match before outrun.</b> Where there is a predecessor contract, compatibility comes
@@ -201,23 +201,25 @@ export default function HomePage() {
       <Section
         id="pipeline"
         title="The content pipeline"
-        intro="Three tools that also work as one chain. Each stands alone: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust, as in Ferromark's own quick start below."
+        intro="Three tools that also work as one chain: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust, as in Ferromark's own quick start below."
       >
         <PipelineAssembly />
         {/* The chain, run for real: a committed artifact (scripts/render-pipeline-sample.mjs), never hand-written. */}
         <RunSample
           input={pipelineSample.markdown}
           inputCaption="quick-start.md"
+          inputKind="Markdown source"
           output={pipelineSample.html}
           outputCaption={`${sampleRun}, unedited`}
         />
-        <ToolLedger steps tools={pipeline} />
+        {/* No step numbers: the chassis above already carries the order. */}
+        <ToolLedger tools={pipeline} />
       </Section>
 
       <Section
         id="language"
         title="The language workshop"
-        intro={`Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Ferrolex and Ferrocat each stand alone; Palamedes, the i18n toolchain for TypeScript apps, runs on ${palamedesEngines}.`}
+        intro={`Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Palamedes, the i18n toolchain for TypeScript apps, runs on ${palamedesEngines}.`}
       >
         <ToolLedger tools={language} />
       </Section>

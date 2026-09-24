@@ -144,9 +144,11 @@ any change.
   leaving it empty.
   Each row is an `article` whose `h3` tool name is the link, stretched over the row by `::after`
   — the whole row stays the target, while a screen reader hears the name instead of every fact.
-  The facts are a `dl`. A row that leads to a repository rather than a site shows the GitHub
+  The facts are a `dl`, set as a grid with one fact per line and the labels in one column, so
+  every row scans the same way. A row that leads to a repository rather than a site shows the GitHub
   glyph in the `go` column and says "GitHub repository" to assistive technology;
-  big display digits only where sequence is real (pipeline 01-02-03, as in the assembly). Proof stays in the successor
+  no step numbers: where a sequence is real (the pipeline), the assembly above the ledger carries
+  it, and the ledger does not repeat it (`steps` stays available for a ledger without one). Proof stays in the successor
   register (successors) or its new-development counterpart, followed by compact facts from the
   registry: `Succeeds` (the implementation a successor replaces), `Builds on` (the standards a
   new development builds on) or `Runs on` (the engines an application runs on), then
@@ -196,7 +198,9 @@ any change.
   live version in the ledger below is no contradiction. The output sits on a ruled `--bg-dim`
   sheet in the page's own type; the highlighted block keeps its theme's token colors
   (gruvbox-dark-hard: warm, ≥6:1) on our iron. Both panels set code at 0.875rem; the rendered
-  side wraps, and on a phone the input does too. The rendered side is `inert`: it repeats the
+  side wraps. On a phone (below 54rem) the input folds into a `<details>` bar in the panel's own
+  iron ("quick-start.md · Markdown source"): the output is the proof, the source is there on
+  request. Both variants are in the markup and CSS shows one, so nothing waits for JavaScript. The rendered side is `inert`: it repeats the
   input for the eye, so assistive technology reads the input once and never meets the sample's
   heading as a page heading. The sample quotes a real document, so the API call inside it is
   content, not the API listing ADR-0004 keeps off overview pages.

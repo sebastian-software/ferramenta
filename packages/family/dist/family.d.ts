@@ -49,7 +49,11 @@ export type FamilyTool = {
     name: string;
     /** One-line job description — the subheader under the tool name */
     job: string;
-    /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
+    /**
+     * Terse job label for constrained family navigation surfaces. Sentence case
+     * ("Regex engine"); acronyms keep their capitals ("SVG") and a lowercase
+     * term of art its lowercase ("i18n toolchain").
+     */
     shortJob: string;
     /**
      * Proof sentence: verifiable facts, no marketing claims. It is prose, so a
