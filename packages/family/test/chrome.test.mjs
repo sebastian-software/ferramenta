@@ -314,3 +314,10 @@ test("the family's own index drops the footer's member columns, and headings are
   assert.ok(index.includes("<h2>Company</h2>"), "the company links stay");
   assert.ok(!/<h3/u.test(render(family.SiteFooter)), "footer headings are h2: its own outline");
 });
+
+test("the GitHub mark fills itself: the stroked `.icon` class would leave only its outline", () => {
+  assert.match(
+    family.MARK_DEFS,
+    /<symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d=/u,
+  );
+});
