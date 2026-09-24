@@ -66,7 +66,8 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   `<!-- ferramenta-family -->` markers.
 - Registry facts are **live** (ADR-0006): the Pages deploy runs
   `pnpm stats:refresh` before every build and nightly on a schedule, without
-  committing anything; download counts render as live `RegistryBadge`s. The
+  committing anything, and the page updates versions and downloads live in the
+  browser (`useLiveRegistry`). The
   committed `app/data/registry-stats.json` is only the fallback snapshot for
   local and CI builds, and the `version` in `family.ts` the last resort.
   Evidence strings must never repeat a version number.
@@ -78,7 +79,7 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   the fastest", "ahead of globset", "a larger test suite" are fine; factors,
   timings, percentages and test counts are not — they pretend to a precision
   that goes stale here and belong in each project's repository (a test
-  enforces it on `evidence` and `proof`). Download counts render as live `RegistryBadge`s, not baked numbers. No API-method names or spec dumps on the
+  enforces it on `evidence` and `proof`). No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
 - Design changes respect DESIGN.md and ADR-0003: material lives only on body
   texture, octagon plates, and hooks; board geometry moves in 28px-module steps

@@ -553,7 +553,7 @@ a {
   }
 }
 
-/* Registry pairs: the icon says what is published, the badge its live downloads */
+/* Registry facts: platform pairs and the family tally (live in the browser) */
 .row .meta .platforms {
   display: flex;
   flex-direction: column;
@@ -690,4 +690,17 @@ a {
    first element of the page, is the one. */
 .ferramenta-site a[href="#main-content"] {
   display: none;
+}
+
+.fam-closing .tally {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.fam-closing .tally b {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-weight: 700;
 }

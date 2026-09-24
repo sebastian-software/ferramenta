@@ -235,20 +235,20 @@ export default function Home() {
 }
 ```
 
-| Component          | Props                                                                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate)                                            |
-| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`                                                  |
-| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                                                                          |
-| `PipelineAssembly` | `current?` (a pipeline stage — any other name throws), `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`) |
-| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                                                            |
-| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                |
-| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                            |
-| `Stamp`            | `solid?`, `children`                                                                                                                        |
-| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                          |
-| `RegistryBadge`    | `registry: "crates" \| "npm"`, `name`, `metric?: "downloads" \| "version"` — a live shields.io badge in the page colors, light and dark     |
-| `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                                                                    |
-| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                |
+| Component          | Props                                                                                                                                                                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate)                                                                                              |
+| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`                                                                                                    |
+| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                                                                                                                            |
+| `PipelineAssembly` | `current?` (a pipeline stage — any other name throws), `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`)                                                   |
+| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                                                                                                              |
+| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                  |
+| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                              |
+| `Stamp`            | `solid?`, `children`                                                                                                                                                                          |
+| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                                                                            |
+| `useLiveRegistry`  | `request: { crates: string[]; npm: string[] }`, `endpoints?` — live versions and downloads after hydration, from one bulk request per registry; `fetchLiveRegistry` is the same without React |
+| `ClosingAction`    | `title`, `actions`, `links?` (the mono link line), `children` (the copy)                                                                                                                      |
+| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                                                                  |
 
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 (rust, chamfered — one per view) or `fam-btn-ghost`, `fam-actions` for a row

@@ -145,10 +145,10 @@ any change.
   and maturity. Members with `role: "application"` (palamedes) are products the family
   carries, not libraries it publishes: they show no `Succeeds` fact — the engines they run on
   are named in `Evidence` — and no registry-availability pair, because the row leads to the
-  product's own site rather than to a crate or an adapter. Each registry pair is the icon plus a
-  live shields.io badge (`RegistryBadge`: crates.io total, npm per month) in the page's colors,
-  light and dark; no download number is baked into the build. Results stay with each repository
-  (owner boundary). Status stamps are tinted
+  product's own site rather than to a crate or an adapter. Download counts ride in the fact row.
+  Versions and downloads are prerendered from the deploy and updated live in the browser
+  (`useLiveRegistry`) in the page's own tabular mono, so nothing shifts when they arrive. Results
+  stay with each repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
   What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
   the foot of "What earns the stamp".
@@ -177,7 +177,8 @@ any change.
   member, ready to adopt, with plate, name, short job and stamp. A group with no stable member
   is named honestly ("Nothing to adopt yet") and points at its own section instead of
   recommending an early tool as if it were proven. On a phone the entries come before the copy.
-  It shows no aggregate number: a family total cannot be kept current.
+  It carries the family download tally — a mono number in running text, live-summed in the
+  browser, never a metric tile.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
   On the family site the lockup is the family's own name, not "More from Ferramenta", and the
   columns carry short jobs (`jobs="short"`): the page above already holds every full job.

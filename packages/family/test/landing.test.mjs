@@ -11,6 +11,8 @@ const { createElement } = await import("react");
 const kit = await import("../dist/index.js");
 
 const render = (component, props) => renderToStaticMarkup(createElement(component, props));
+/** A minimal fetch Response carrying JSON, for the stubbed registries. */
+const body = (value) => ({ ok: true, json: async () => value });
 
 /** Splits a selector list on its top-level commas: `:where(a, b)` is one selector. */
 function splitSelectorList(list) {
@@ -177,7 +179,7 @@ test("the kit stays in its namespace and yields to the host", () => {
     for (const selector of splitSelectorList(list)) {
       assert.match(
         selector,
-        /^(?:\.fam-|:where\(\.fam-|\.markplate\.fam-|\.on-iron \.fam-|a\.fam-|:root\.dark \.fam-)/u,
+        /^(?:\.fam-|:where\(\.fam-|\.markplate\.fam-|\.on-iron \.fam-|a\.fam-)/u,
         `landing.css styles outside its namespace: ${selector}`,
       );
     }
@@ -243,13 +245,33 @@ test("the registry claims results qualitatively, never with a figure that goes s
   }
 });
 
-test("a registry badge is live, themed, and says what it shows", () => {
-  const html = render(kit.RegistryBadge, { name: "ferroni", registry: "crates" });
-  assert.match(html, /^<span class="fam-badge"><img class="fam-badge-light"/u);
-  assert.ok(html.includes('src="https://img.shields.io/crates/d/ferroni?style=flat-square'));
-  assert.ok(html.includes('alt="ferroni downloads on crates.io, live"'));
-  assert.ok(html.includes('class="fam-badge-dark"') && html.includes('aria-hidden="true"'));
-  assert.ok(
-    render(kit.RegistryBadge, { name: "ferrocat", registry: "npm" }).includes("/npm/dm/ferrocat?"),
-  );
+test("live registry figures come from one bulk request per registry and survive failures", async (t) => {
+  const calls = [];
+  const fetchStub = t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    if (String(url).includes("/crates?")) {
+      return body({
+        crates: [
+          { id: "ferroni", max_stable_version: "9.9.9", max_version: "9.9.9", downloads: 42 },
+        ],
+      });
+    }
+    if (String(url).includes("/point/last-month/")) {
+      return body({ ferromark: { downloads: 7, package: "ferromark" }, ferrocat: null });
+    }
+    if (String(url).endsWith("/ferromark/latest")) return body({ version: "3.0.0" });
+    throw new Error("offline");
+  });
+
+  const live = await kit.fetchLiveRegistry({ crates: ["ferroni"], npm: ["ferromark", "ferrocat"] });
+  assert.deepEqual(live.ferroni, { crates: { version: "9.9.9", downloads: 42 } });
+  assert.deepEqual(live.ferromark, { npm: { version: "3.0.0", lastMonth: 7 } });
+  assert.equal(live.ferrocat, undefined, "an unanswered package is left out, not zeroed");
+  assert.equal(calls.filter((url) => url.includes("/crates?")).length, 1, "one crates.io request");
+  assert.ok(calls.some((url) => url.startsWith(kit.REGISTRY_ENDPOINTS.crates)));
+
+  fetchStub.mock.mockImplementation(async () => {
+    throw new Error("offline");
+  });
+  assert.deepEqual(await kit.fetchLiveRegistry({ crates: ["ferroni"], npm: ["ferromark"] }), {});
 });

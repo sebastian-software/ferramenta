@@ -10,17 +10,18 @@ import {
   isEngine,
   leadsToRepo,
   leadTool,
+  type LiveRegistryFacts,
   Mark,
   PipelineAssembly,
   ProjectHero,
-  RegistryBadge,
   RepoNote,
   Section,
   Stamp,
   StampKey,
   toolHref,
+  useLiveRegistry,
 } from "ferramenta-family";
-import { useId } from "react";
+import { createContext, use, useId } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
@@ -62,16 +63,34 @@ const beliefs = [
   },
 ];
 
-/* Only what the build needs: where a member is published, and its version. */
 type RegistryStat = {
-  crates: { version: string } | null;
-  npm: { version: string; placeholder: boolean } | null;
+  crates: { version: string; downloads: number } | null;
+  npm: { version: string; lastMonth: number; placeholder: boolean } | null;
 };
 
 /** Every repository of the workshop; the family is a subset, named on this page. */
 const sourceUrl = "https://github.com/sebastian-software";
 
 const stats = registryStats.tools as Record<string, RegistryStat | undefined>;
+const formatCount = (value: number) => value.toLocaleString("en-US");
+
+/**
+ * What to ask the registries for live: only the packages the build verified
+ * as the family's own (scripts/registry-ownership.mjs). A name on crates.io or
+ * npm that belongs to someone else never reaches the page, live or not.
+ */
+const liveRequest = {
+  crates: family.map((tool) => tool.name).filter((name) => Boolean(stats[name]?.crates)),
+  npm: family
+    .map((tool) => tool.name)
+    .filter((name) => {
+      const npm = stats[name]?.npm;
+      return npm != null && !npm.placeholder;
+    }),
+};
+
+/** Live figures once the registries answer; empty during prerender. */
+const LiveFactsContext = createContext<Record<string, LiveRegistryFacts>>({});
 
 /** The stable members, from the registry, as a sentence list. */
 const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
@@ -79,19 +98,36 @@ const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
 );
 
 /**
- * Where a member is published and its version, from the build-time stats
- * (scripts/refresh-registry-stats.mjs). The registry entry keeps a fallback
- * version so an offline build still renders. Download counts are not baked
- * in: they render live, as registry badges.
+ * A member's registry figures. The prerendered page carries the values the
+ * deploy fetched (scripts/refresh-registry-stats.mjs, at most a day old); the
+ * browser then swaps in live ones as the registries answer. The registry
+ * entry's own version is the last resort for an offline build.
  */
-function toolFacts(tool: FamilyTool) {
+function toolFacts(tool: FamilyTool, live: LiveRegistryFacts = {}) {
   const stat = stats[tool.name];
   const adapter = stat?.npm && !stat.npm.placeholder ? stat.npm : null;
+  const crates = stat?.crates ? { ...stat.crates, ...live.crates } : null;
+  const npm = adapter ? { ...adapter, ...live.npm } : null;
   return {
-    version: stat?.crates?.version ?? adapter?.version ?? tool.version,
-    onCrates: Boolean(stat?.crates),
-    adapter: Boolean(adapter),
+    version: crates?.version ?? npm?.version ?? tool.version,
+    crateDownloads: crates?.downloads ?? 0,
+    onCrates: crates !== null,
+    adapter: npm !== null,
   };
+}
+
+function useToolFacts(tool: FamilyTool) {
+  return toolFacts(tool, use(LiveFactsContext)[tool.name]);
+}
+
+/** Family-wide crates.io downloads, live once the registry answers. */
+function FamilyDownloads() {
+  const live = use(LiveFactsContext);
+  const total = family.reduce(
+    (sum, tool) => sum + toolFacts(tool, live[tool.name]).crateDownloads,
+    0,
+  );
+  return <b>{formatCount(total)}</b>;
 }
 
 /**
@@ -100,6 +136,7 @@ function toolFacts(tool: FamilyTool) {
  * standards it builds on; both name their evidence, qualitatively, never with a figure.
  */
 function ProofFacts({ tool }: { tool: FamilyTool }) {
+  const facts = useToolFacts(tool);
   return (
     <dl className="proof-facts">
       {tool.succeeds === undefined ? null : (
@@ -118,12 +155,18 @@ function ProofFacts({ tool }: { tool: FamilyTool }) {
         <dt>Evidence</dt>
         <dd>{tool.evidence}</dd>
       </div>
+      {facts.onCrates ? (
+        <div>
+          <dt>Downloads</dt>
+          <dd>{formatCount(facts.crateDownloads)} on crates.io</dd>
+        </div>
+      ) : null}
     </dl>
   );
 }
 
 function ToolMeta({ tool }: { tool: FamilyTool }) {
-  const facts = toolFacts(tool);
+  const facts = useToolFacts(tool);
   return (
     <div className="meta">
       <b>v{facts.version}</b>
@@ -131,13 +174,13 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
         {facts.onCrates ? (
           <span className="platform">
             <Mark name="crate" className="icon" size={15} />
-            <RegistryBadge registry="crates" name={tool.name} />
+            crates.io
           </span>
         ) : null}
         {facts.adapter ? (
           <span className="platform">
             <Mark name="adapter" className="icon" size={15} />
-            <RegistryBadge registry="npm" name={tool.name} />
+            npm
           </span>
         ) : null}
         {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
@@ -393,9 +436,10 @@ function Partners() {
 
 export default function HomePage() {
   const { pipeline, language, workbench } = familyGroups();
+  const live = useLiveRegistry(liveRequest);
 
   return (
-    <>
+    <LiveFactsContext value={live}>
       <ProjectHero
         title={
           <>
@@ -460,12 +504,14 @@ export default function HomePage() {
       >
         <p>
           Start where a line of work is ready: its stable tool, the one to adopt today. Every
-          project is open source; early work is labeled early, and each tool's own site carries its
-          current numbers.
+          project is open source; early work is labeled early.
+        </p>
+        <p className="tally">
+          <FamilyDownloads /> downloads on crates.io across the published crates.
         </p>
       </ClosingAction>
 
       <Partners />
-    </>
+    </LiveFactsContext>
   );
 }
