@@ -125,8 +125,8 @@ async function npmDownloads(name, previous) {
  * for unpublished names too, so a published version plus an organization
  * maintainer is the gate. A reserved-name placeholder is not a usable adapter,
  * and neither is a deprecated one (ferrocat's legacy Node bindings, replaced by
- * @palamedes/core-node): its latest version still resolves, but nobody should
- * install it.
+ * the Palamedes Node package): its latest version still resolves, but nobody
+ * should install it.
  */
 async function npm(name, previous) {
   const answer = await fetchJson(`https://registry.npmjs.org/${name}`);
@@ -134,19 +134,24 @@ async function npm(name, previous) {
     warnUnresolved(`npm/${name}`, answer.reason);
     return UNRESOLVED;
   }
-  const meta = answer.data;
-  const version = meta?.["dist-tags"]?.latest;
-  if (!version) return null;
-  const owned = resolveOwnership("npm", name, npmMaintainers(meta));
+  const latest = latestVersion(answer.data);
+  if (latest === null) return null;
+  const owned = resolveOwnership("npm", name, npmMaintainers(answer.data));
   if (owned === UNRESOLVED) return UNRESOLVED;
   if (!owned) return null;
-  if (meta.versions?.[version]?.deprecated) return null;
-  const description = meta.versions?.[version]?.description ?? "";
   return {
-    version,
+    version: latest.version,
     lastMonth: await npmDownloads(name, previous),
-    placeholder: /reserved/i.test(description),
+    placeholder: /reserved/i.test(latest.description ?? ""),
   };
+}
+
+/** The packument's latest version, or null when there is none or it is deprecated. */
+function latestVersion(meta) {
+  const version = meta?.["dist-tags"]?.latest;
+  const manifest = version ? meta.versions?.[version] : undefined;
+  if (!manifest || manifest.deprecated) return null;
+  return { version, description: manifest.description };
 }
 
 /** The committed stats, so an unresolved lookup can keep the previous value. */
