@@ -88,7 +88,7 @@ export function ToolSwitcher({ align = "end", className, current, label }: ToolS
               {group.tools.map((tool) => (
                 <a key={tool.name} href={tool.docs ?? tool.repo}>
                   <span className="markplate">
-                    <Mark name={tool.name} size={24} />
+                    <Mark name={tool.mark ?? tool.name} size={24} />
                   </span>
                   <span>
                     <b>{tool.name}</b>

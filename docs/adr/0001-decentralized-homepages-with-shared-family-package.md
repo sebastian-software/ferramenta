@@ -2,12 +2,14 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-11
+- Updated: 2026-09-25
 - Deciders: Sebastian Werner
 - Amended: 2026-09-06 — membership rule and corrected repository count, see
   [Amendment 2026-09-06](#amendment-2026-09-06)
 - Amended: 2026-09-07 — the package name, see
   [Amendment 2026-09-07](#amendment-2026-09-07)
+- Amended: 2026-09-25 — curated standalone applications, see
+  [Amendment 2026-09-25](#amendment-2026-09-25)
 
 ## Context
 
@@ -93,20 +95,16 @@ every site change into a ferramenta-repo change.
 This is a living decision record. Updates describe the current contract; Git
 history preserves earlier decisions.
 
-**Membership rule.** A member of the Ferramenta family is a family engine, or a
-product built on family engines. Nothing else joins the registry: developer
-tools from the same workshop that share neither — dalo, agent-bridge — stay a
-separate line under oss.sebastian-software.com and are not rendered on
-ferramenta.dev.
+**Original membership rule (superseded by the 2026-09-25 amendment).** A member
+of the Ferramenta family was a family engine, or a product built on family
+engines. Under that rule, dalo and agent-bridge stayed in the company line.
 
-**Count.** The family spans ten repositories as of 2026-09: ferramenta plus
+**Count at the time.** The family spanned ten repositories as of 2026-09: ferramenta plus
 nine tools — eight engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
 ferrovia, ferralk, ferrugo) and one application (palamedes, built on ferrocat,
-ferromark and ferralk). The "eight repositories (ferramenta plus seven tools)"
-in the context above is the count as it stood when this record was written; it
-was already one short when ferralk joined, and is superseded by this line.
+ferromark and ferralk). The context above records an earlier count.
 
-**Roles.** `role: "application"` marks a member the family carries rather than
+**Roles at the time.** `role: "application"` marked a member the family carried rather than
 one the family builds with. Applications succeed a predecessor in the same
 successor register (ADR-0004) but carry no compatibility contract of their own,
 so the overview page renders no `Contract` fact for them and names the engines
@@ -154,6 +152,34 @@ The tradeoff is a contributor tool installation and Git access during checks.
 This is a living decision. Update this record when the ownership or composition
 contract changes; configuration files own exact versions and revisions.
 See [the contributor workflow](../readme-theme.md).
+
+## Amendment 2026-09-25
+
+The Ferramenta family includes engines, products built on family engines, and
+selected standalone Rust-native applications that share its product thesis:
+focused tools that keep useful work close to the project, team, or device.
+Shared implementation strengthens the connection but is not required for every
+member. Rust source, company ownership, or proximity in a repository list is
+not sufficient on its own; membership remains curated.
+
+**Dalo and Cuttledoc join as applications.** Dalo manages team agent skills in
+Git and synchronizes an approved set to agent folders. Cuttledoc provides a
+reusable Rust transcription library and native CLI, with local processing as
+the first choice and hosted backends kept explicit. Their project sites keep
+their own layouts and visual identities. The Ferramenta site and README link
+out to them; shared chrome is optional. Dalo may use Ferralk for file discovery
+in the future, but that is not a current dependency or the basis for admission.
+
+**Current count.** The family spans twelve repositories: ferramenta plus
+eleven tools — eight engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
+ferrovia, ferralk, ferrugo) and three applications (palamedes, dalo,
+cuttledoc).
+
+**Current roles.** `role: "application"` marks a standalone product the family
+carries. Applications have no compatibility contract of their own, so the
+overview presents their verifiable product job and evidence instead. An
+application may be built on family engines, as Palamedes is, or join as a
+curated standalone product, as Dalo and Cuttledoc do.
 
 The family site's own root README keeps the catalog overview as project content.
 Its marker generator now writes `README.md.src` before mdtheme adds Sebastian

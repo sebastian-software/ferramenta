@@ -183,12 +183,13 @@ test("a family site omits its own footer entry", () => {
   assert.ok(!html.includes('aria-current="page"'));
 });
 
-test("every family member has a mark, and the sprite stays under 100 (ADR-0002)", () => {
+test("every family member resolves to a mark, and the sprite stays under 100 (ADR-0002)", () => {
   const symbols = [...family.MARK_DEFS.matchAll(/<symbol id="i-(?<name>[a-z-]+)"/gu)].map(
     (match) => match.groups.name,
   );
   for (const tool of family.family) {
-    assert.ok(symbols.includes(tool.name), `no mark for ${tool.name}`);
+    const mark = tool.mark ?? tool.name;
+    assert.ok(symbols.includes(mark), `no mark for ${tool.name} (expected ${mark})`);
   }
   assert.ok(symbols.includes("ferramenta"), "the family lockup mark");
   assert.ok(symbols.length < 100, `the package ships ${symbols.length} icons`);

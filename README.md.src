@@ -5,42 +5,41 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 <!-- mdtheme:badges:end -->
 
-**[ferramenta.dev](https://ferramenta.dev)** — the family site for the Ferramenta tools:
-Rust-native developer tools by [Sebastian Software](https://oss.sebastian-software.com) that keep
-the APIs the web ecosystem already knows.
+**[ferramenta.dev](https://ferramenta.dev)** — the family site for Rust-native tools and focused
+applications by [Sebastian Software](https://oss.sebastian-software.com).
 
 _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
 <!-- ferramenta-family:start -->
-
 ### <a href="https://ferramenta.dev"><img src="https://raw.githubusercontent.com/sebastian-software/ferramenta/main/app/assets/brand/logo-light.svg" width="24" height="24" alt="" /> More from Ferramenta</a>
 
 [Ferramenta](https://ferramenta.dev) — A family of Rust tools.
 
 **The content pipeline**
 
-| Tool                                                         | Job                                                                      |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| [ferroni](https://sebastian-software.github.io/ferroni/)     | Oniguruma-compatible regex engine                                        |
-| [ferriki](https://github.com/sebastian-software/ferriki)     | Shiki-compatible syntax highlighting                                     |
+| Tool | Job |
+| --- | --- |
+| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma-compatible regex engine |
+| [ferriki](https://github.com/sebastian-software/ferriki) | Shiki-compatible syntax highlighting |
 | [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML with a secure default and every GFM extension included. |
 
 **The language workshop**
 
-| Tool                                                       | Job                                              |
-| ---------------------------------------------------------- | ------------------------------------------------ |
-| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code                 |
-| [ferrocat](https://ferrocat.dev)                           | Translation catalog engine                       |
-| [palamedes](https://palamedes.dev)                         | Internationalization for TypeScript applications |
+| Tool | Job |
+| --- | --- |
+| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
+| [ferrocat](https://ferrocat.dev) | Translation catalog engine |
+| [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
 
 **On the workbench**
 
-| Tool                                                       | Job                                           |
-| ---------------------------------------------------------- | --------------------------------------------- |
-| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer                 |
-| [ferralk](https://github.com/sebastian-software/ferralk)   | Glob matching and parallel filesystem walking |
-| [ferrugo](https://github.com/sebastian-software/ferrugo)   | PDF previews for untrusted files              |
-
+| Tool | Job |
+| --- | --- |
+| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
+| [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
+| [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |
 <!-- ferramenta-family:end -->
 
 ## This repository

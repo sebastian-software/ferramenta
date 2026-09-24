@@ -20,12 +20,12 @@ import registryStats from "../data/registry-stats.json";
 export const handle = { chrome: false };
 
 const description =
-  "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.";
+  "Ferramenta is a family of Rust-native tools and applications, from standards-focused engines to agent skill management and local-first transcription.";
 
 export const meta: MetaFunction = () => [
-  { title: "Ferramenta — Rust-native developer tools" },
+  { title: "Ferramenta — Rust-native tools" },
   { name: "description", content: description },
-  { property: "og:title", content: "Ferramenta — Rust-native developer tools" },
+  { property: "og:title", content: "Ferramenta — Rust-native tools" },
   { property: "og:description", content: description },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://ferramenta.dev/" },
@@ -47,8 +47,8 @@ const beliefs = [
     text: "Compatibility is earned tool by tool. Stable projects can be adopted against familiar contracts; alpha and early tools show the standard they are working toward.",
   },
   {
-    heading: "Safe defaults",
-    text: "Rust cores without a C toolchain — memory-layout-tuned, SIMD and NEON where it pays. Sanitized output, bounded memory and time: production behavior out of the box.",
+    heading: "Keep work close",
+    text: "Skills stay in Git, catalogs stay with projects, and transcription runs locally by default. When a tool offers a hosted path, the choice stays explicit.",
   },
 ];
 
@@ -100,8 +100,8 @@ function Fasteners() {
 
 /**
  * One ledger row. Engines carry the contract they succeed; applications carry
- * no contract line — what they promise is the product, and the engines they
- * are built on are named in the evidence.
+ * no contract line — their evidence describes the product, whether it is built
+ * on family engines or stands on its own.
  */
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
   const facts = toolFacts(tool);
@@ -110,7 +110,7 @@ function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
     <a className="row" href={tool.docs ?? tool.repo}>
       <span className="num">{step ?? ""}</span>
       <span className="plate">
-        <Mark name={tool.name} />
+        <Mark name={tool.mark ?? tool.name} />
       </span>
       <span className="who">
         <b>{tool.name}</b>
@@ -223,10 +223,9 @@ export default function HomePage() {
                 Heavy industry <em>for the web.</em>
               </h1>
               <p className="lede">
-                Ferramenta — Italian for hardware store — is a family of Rust-native tools built
-                around standards and APIs developers already know. Each project is re-engineered in
-                Rust; where an established predecessor exists, compatibility is checked
-                differentially and performance is measured in the open.
+                Ferramenta — Italian for hardware store — is a family of Rust-native tools and
+                focused applications. Some rebuild infrastructure around familiar standards; others
+                keep practical workflows close to the team, project, or device.
               </p>
               <div className="cta-row">
                 <a className="btn primary chamfer" href="#pipeline">
@@ -253,7 +252,7 @@ export default function HomePage() {
                             <use href="#i-hook" />
                           </svg>
                           <span className="markplate">
-                            <Mark name={tool.name} />
+                            <Mark name={tool.mark ?? tool.name} />
                           </span>
                           <span className="board-copy">
                             <b>{tool.name}</b>
@@ -306,8 +305,8 @@ export default function HomePage() {
           <div className="wrap">
             <h2>On the workbench</h2>
             <p className="intro">
-              Three more tools taking shape — early, cut from the same steel, and explicit about
-              what is proven now and what is still on the bench.
+              Five independent tools and applications for work around code and content, from file
+              discovery and PDF previews to team agent skills and local speech transcription.
             </p>
             <div className="ledger">
               {workbench.map((tool) => (

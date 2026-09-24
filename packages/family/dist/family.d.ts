@@ -3,17 +3,15 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  *
- * Membership rule (ADR-0001 amendment, 2026-09-06): a member is a family
- * engine, or a product built on family engines. Developer tools that share
- * neither — dalo, agent-bridge — belong to the company line, not here.
+ * Membership rule (ADR-0001 amendment, 2026-09-25): a member is a family
+ * engine, a product built on family engines, or a standalone Rust-native
+ * product deliberately selected for this family. Rust and common ownership
+ * alone do not grant membership.
  */
 export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
 /** Display group on the overview page, the header flyout, and the footer. */
 export type FamilyGroup = "language" | "pipeline" | "workbench";
-/**
- * What a member is. Engines are libraries that succeed an established
- * implementation; applications are products the family's engines carry.
- */
+/** What a member is: a family engine or an application the family carries. */
 export type FamilyRole = "application" | "engine";
 export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
@@ -37,8 +35,10 @@ export type FamilyTool = {
     status: FamilyStatus;
     /** Display group. Within "pipeline", array order is chain order. */
     group: FamilyGroup;
-    /** Defaults to "engine" — only products built on the engines set this. */
+    /** Defaults to "engine" — applications are products the family carries. */
     role?: FamilyRole;
+    /** Sprite symbol override for members without an individual project mark. */
+    mark?: string;
     /** GitHub repository URL */
     repo: string;
     /** Docs/homepage site, once it exists */

@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-11
+- Updated: 2026-09-25
 - Deciders: Sebastian Werner
 
 ## Context
@@ -15,10 +15,13 @@ convince, project sites may go deep.
 
 ## Decision
 
-Family copy speaks as an **experienced peer**, in English, and follows the
-**successor register** for every tool description: honor the original →
-state the succession → give the why. ("Shiki brought editor-grade highlighting
-to everyone. ferriki keeps the API Shiki got right and swaps the engine…")
+Family copy speaks as an **experienced peer**, in English. Engines that succeed
+an established implementation follow the **successor register**: honor the
+original → state the succession → give the why. ("Shiki brought editor-grade
+highlighting to everyone. ferriki keeps the API Shiki got right and swaps the
+engine…") Standalone applications without a meaningful predecessor are an
+explicit exception: describe the product job and differentiating, verifiable
+behavior without inventing a successor relationship.
 
 - Overview pages carry no API method names or spec dumps; that depth belongs on
   project sites and docs.
@@ -73,7 +76,8 @@ surface.
 - Tool proofs in the family registry must be written (and reviewed) in this
   register; the registry text is what all sites render.
 - New tools joining the family need a named original to honor — or an explicit
-  exception here.
+  exception here. Dalo and Cuttledoc use the product-first exception recorded
+  in ADR-0001's 2026-09-25 amendment.
 
 ## Validation and review triggers
 

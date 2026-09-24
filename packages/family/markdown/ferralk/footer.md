@@ -24,3 +24,5 @@
 | --- | --- |
 | [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |

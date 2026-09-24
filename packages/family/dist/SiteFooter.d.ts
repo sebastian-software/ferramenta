@@ -8,9 +8,7 @@ export type SiteFooterProps = {
     current?: string;
     /**
      * Which line the site belongs to. "family" (the default) lists the family
-     * members; "company" is for the tools that share the workshop but not the
-     * engines — they carry the company links alone (decision D2 of the 2026-09
-     * family audit).
+     * members; "company" is for company projects outside the family registry.
      */
     line?: "company" | "family";
     /** The small print under the columns. */
