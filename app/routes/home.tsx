@@ -2,6 +2,8 @@ import type { MetaFunction } from "react-router";
 
 import {
   ClosingAction,
+  CodePanel,
+  displayName,
   family,
   FamilyDownloads,
   familyGroups,
@@ -20,6 +22,7 @@ import { useId } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
+import pipelineSample from "../data/pipeline-sample.json";
 import registryStats from "../data/registry-stats.json";
 
 /** Fully custom shell: disable Ardo's default header/footer for this route. */
@@ -63,9 +66,7 @@ const sourceUrl = "https://github.com/sebastian-software";
 
 /** The stable members, from the registry, as a sentence list. */
 const stableNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
-  family
-    .filter((tool) => tool.status === "stable")
-    .map((tool) => tool.name.charAt(0).toUpperCase() + tool.name.slice(1)),
+  family.filter((tool) => tool.status === "stable").map((tool) => displayName(tool)),
 );
 
 function Why() {
@@ -111,6 +112,32 @@ function Why() {
             </li>
           </ul>
         </div>
+      </div>
+    </Section>
+  );
+}
+
+/**
+ * The chain, run for real: the input beside what Ferromark and Ferriki made of
+ * it. The output is a committed build artifact (scripts/render-pipeline-sample.mjs),
+ * inserted as it came out, so nothing in that panel is hand-written.
+ */
+function PipelineRun() {
+  return (
+    <Section
+      id="run"
+      title="Markdown in, highlighted HTML out"
+      intro="The chain from the top of the page, run on Ferromark's own quick start: Ferromark renders the document and hands the code block to Ferriki, whose grammar engine is Ferroni."
+      note="Rendered by Ferromark with Ferriki highlighting and committed as it came out; nothing in the output is hand-written."
+    >
+      <div className="run">
+        <CodePanel caption="quick-start.md">{pipelineSample.markdown}</CodePanel>
+        <Mark name="arrow" className="icon run-arrow" />
+        <figure className="run-output">
+          <figcaption>Rendered HTML</figcaption>
+          {/* A trusted build artifact: Ferromark's sanitized output, escaped code from Ferriki. */}
+          <div className="run-doc" dangerouslySetInnerHTML={{ __html: pipelineSample.html }} />
+        </figure>
       </div>
     </Section>
   );
@@ -163,8 +190,8 @@ export default function HomePage() {
         lede="Rust-native tools built on the standards developers already know. Each one works on its own: take the tool your job needs."
         actions={
           <>
-            <a className="fam-btn fam-btn-primary" href="#jobs">
-              Find a tool by job <Mark name="arrow" className="icon" size={18} />
+            <a className="fam-btn fam-btn-primary" href="#pipeline">
+              See the tools and their proof <Mark name="arrow" className="icon" size={18} />
             </a>
             <a className="fam-btn fam-btn-ghost" href={sourceUrl}>
               <Mark name="github" className="icon" size={18} /> GitHub
@@ -206,10 +233,12 @@ export default function HomePage() {
 
       <Why />
 
+      <PipelineRun />
+
       <ClosingAction
         id="jobs"
         title="Pick the job. Take the tool."
-        actions={<JobIndex />}
+        aside={<JobIndex />}
         links={
           <a href={sourceUrl}>
             <Mark name="github" className="icon" size={14} />

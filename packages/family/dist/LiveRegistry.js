@@ -112,8 +112,19 @@ export function liveRequestFor(snapshot) {
         npm: names.filter((name) => snapshot[name]?.crates == null && hasAdapter(snapshot[name])),
     };
 }
-/** The facts for one member, from a snapshot and whatever answered live. */
-export function toolFacts(tool, stat, live = {}) {
+/** A snapshot entry made from live facts alone, for a site that has no snapshot. */
+function statFromLive(live) {
+    if (live.crates === undefined && live.npm === undefined)
+        return null;
+    return { crates: live.crates ?? null, npm: live.npm ?? null };
+}
+/**
+ * The facts for one member, from a snapshot and whatever answered live. With
+ * a snapshot entry, live values only refresh what the build verified; without
+ * one, the live facts stand on their own (the metrics service filters by owner).
+ */
+export function toolFacts(tool, snapshotStat, live = {}) {
+    const stat = snapshotStat ?? statFromLive(live);
     const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
     const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
     // The crate carries the version when there is one; an adapter-only member shows npm's.
@@ -124,6 +135,92 @@ export function toolFacts(tool, stat, live = {}) {
         onCrates: crates !== null,
         adapter: npm !== null,
     };
+}
+/*
+ * The workshop's metrics service (github.com/sebastian-software/oss-metrics):
+ * one cached, CORS-open document with every project of the organization,
+ * filtered by owner at the source, so a same-named package someone else
+ * published cannot appear. One request instead of one per registry, and it
+ * needs no snapshot, so a sibling site gets live figures too.
+ */
+export const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
+function metricsEntry(section, name) {
+    const entry = isRecord(section) ? section[name] : undefined;
+    return isRecord(entry) ? entry : {};
+}
+/** A member's crate and npm package from the metrics document, as live facts. */
+function metricsFacts(doc, name) {
+    const crate = metricsEntry(doc.crates, name);
+    const pkg = metricsEntry(doc.npm, name);
+    const facts = {};
+    const version = textAt(crate, "version");
+    const downloads = countAt(crate, "downloads");
+    if (version !== undefined && downloads !== undefined)
+        facts.crates = { version, downloads };
+    const npmVersion = textAt(pkg, "version");
+    const lastMonth = countAt(pkg, "monthlyDownloads");
+    if (npmVersion !== undefined && lastMonth !== undefined) {
+        facts.npm = { version: npmVersion, lastMonth };
+    }
+    return facts;
+}
+/** The family's facts from the metrics document, or null when it did not answer usefully. */
+export async function fetchFamilyMetrics(url = METRICS_URL) {
+    const doc = await json(url);
+    if (!isRecord(doc) || doc.schema !== 1 || !isRecord(doc.sources))
+        return null;
+    const facts = {};
+    for (const { name } of family) {
+        const member = metricsFacts(doc, name);
+        if (member.crates !== undefined || member.npm !== undefined)
+            facts[name] = member;
+    }
+    return {
+        facts,
+        answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
+    };
+}
+/**
+ * Live facts for the family: the metrics service first; for a registry it did
+ * not answer (down, or not deployed yet), the registries directly, for the
+ * packages the snapshot verified. Whatever answers nowhere keeps its build value.
+ */
+export async function fetchFamilyFacts(snapshot, { endpoints = REGISTRY_ENDPOINTS, metrics = METRICS_URL } = {}) {
+    const fromMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+    const direct = unanswered(liveRequestFor(snapshot), fromMetrics);
+    const fromRegistries = direct.crates.length + direct.npm.length > 0 ? await fetchLiveRegistry(direct, endpoints) : {};
+    return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+}
+/** What still needs a direct registry request: the registries the metrics service did not answer. */
+function unanswered(request, metrics) {
+    return {
+        crates: metrics?.answered.crates === true ? [] : request.crates,
+        npm: metrics?.answered.npm === true ? [] : request.npm,
+    };
+}
+function mergeFacts(base, extra) {
+    const facts = { ...base };
+    for (const [name, value] of Object.entries(extra))
+        facts[name] = { ...facts[name], ...value };
+    return facts;
+}
+/** `fetchFamilyFacts` after hydration: empty during prerender and until something answers. */
+export function useFamilyFacts(snapshot, options = {}) {
+    const [facts, setFacts] = useState({});
+    const key = JSON.stringify([snapshot, options]);
+    useEffect(() => {
+        let current = true;
+        void fetchFamilyFacts(snapshot, options).then((live) => {
+            if (current)
+                setFacts(live);
+        });
+        return () => {
+            current = false;
+        };
+        // Keyed on the inputs' value: the objects themselves may be new on every render.
+        // oxlint-disable-next-line react-hooks/exhaustive-deps -- `key` is their serialized value
+    }, [key]);
+    return facts;
 }
 /**
  * The live figures for a page, after hydration. Returns an empty map during

@@ -148,15 +148,15 @@ any change.
   new development builds on) or `Runs on` (the engines an application runs on), then
   `Evidence` — a check or a design property, never a feature list and never numbers;
   visible metadata is the live version, registry availability as icon-plus-label pairs
-  (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
+  (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "install from Git" when neither exists),
   and maturity. Members with `role: "application"` (palamedes) are products the family
   carries, not libraries it publishes: they show `Runs on` (the registry's `runsOn`) instead of
   `Succeeds`, their own evidence (palamedes: its benchmark against Lingui), and no
   registry-availability pair, because the row leads to the
   product's own site rather than to a crate or an adapter. Download counts ride in the fact row.
   Versions and downloads are prerendered from the deploy and updated live in the browser
-  (`RegistryFacts` around the page; it asks only for what a row shows — every verified crate,
-  npm only for a member without one) in the page's own tabular mono, so nothing shifts when they arrive. Results
+  (`RegistryFacts` around the page: one request to the workshop's metrics service, falling back
+  to the registries for what it did not answer — see ADR-0006) in the page's own tabular mono, so nothing shifts when they arrive. Results
   stay with each repository (owner boundary). Status stamps are tinted
   fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
   What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
@@ -183,8 +183,17 @@ any change.
   the comp.
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
+- **The chain, run** (`#run`, after Why): the pipeline's proof without a figure. Ferromark's own
+  quick start as Markdown in a `CodePanel`, an arrow, and what Ferromark with Ferriki (whose
+  grammar engine is Ferroni) made of it, inserted as it came out: a committed artifact from
+  `scripts/render-pipeline-sample.mjs` (`app/data/pipeline-sample.json`), never hand-written.
+  The output sits on a ruled `--bg-dim` sheet in the page's own type; the highlighted block keeps
+  its theme's own ground (gruvbox-dark-hard, chosen for its warm palette and ≥5.9:1 token
+  contrast). The sample's heading is an h3, so it nests under the section's h2.
+- **Hero actions**: the primary leads to the tools and their proof (`#pipeline`); the board
+  beside it is already the way to a tool by job.
 - **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
-  ends forward with the **job index** (`JobIndex`, anchor `#jobs`, the hero's primary action):
+  ends with the **job index** (`JobIndex`, anchor `#jobs`) in the kit's `aside` slot:
   every member's short job A to Z, a square-dot leader, the tool's mark and name, its stamp —
   set like the aisle directory of a hardware store, one subgrid so tools and stamps line up.
   Members are independent: nobody needs the whole chain or a whole group, so the index
@@ -217,11 +226,11 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
 | `EvidenceFigures`  | mono label, big rust display value, rust left rule, detail and raw measure                                      |
 | `CodePanel`        | code on iron under a rust rule, mono caption, `--code-*` colors; scrolls in its own box                         |
 | `Ledger` + `Stamp` | coverage rows: display name, status stamp, the sentence behind it                                               |
-| `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions right                               |
+| `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions or an `aside` list right            |
 | `Pegboard`         | the 28px wall: every member on a hook, grouped, stamped; `current` leaves a site's own member off               |
 | `ToolLedger`       | registry rows with proof, facts, live release; `steps` numbers a real sequence                                  |
 | `JobIndex`         | the aisle directory: job A to Z, leader, tool, stamp; recommends none                                           |
-| `RegistryFacts`    | provides snapshot + live registry figures to the three above and `FamilyDownloads`                              |
+| `RegistryFacts`    | provides snapshot + live figures (metrics service first) to the three above and `FamilyDownloads`               |
 
 - **Stamps**: a tinted `--bg-dim` fill with a `--line` hairline, mono uppercase; the settled state
   (`stable`, `covered`) is solid rust; on iron the open states take `--iron-2` and `--iron-line`.

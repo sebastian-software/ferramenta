@@ -164,7 +164,12 @@ export type ClosingActionProps = {
   /** The copy beside the actions: one or two paragraphs, as elements. */
   children?: ReactNode;
   /** The calls to action, right-aligned beside the copy. */
-  actions: ReactNode;
+  actions?: ReactNode;
+  /**
+   * A list beside the copy instead of (or after) the actions: an index, a set
+   * of entry points. Start-aligned and hung from the heading, like the copy.
+   */
+  aside?: ReactNode;
   /** A mono link line under the copy: registry pages, API docs, the license. */
   links?: ReactNode;
 };
@@ -173,7 +178,7 @@ export type ClosingActionProps = {
  * The flat, ruled return to the one action the page is for — no card, no new
  * material. Copy left, actions right; stacked below 54rem.
  */
-export function ClosingAction({ actions, children, id, links, title }: ClosingActionProps) {
+export function ClosingAction({ actions, aside, children, id, links, title }: ClosingActionProps) {
   const titleId = useId();
 
   return (
@@ -187,7 +192,8 @@ export function ClosingAction({ actions, children, id, links, title }: ClosingAc
             {children}
             {links !== undefined && <p className="fam-links">{links}</p>}
           </div>
-          <div className="fam-actions">{actions}</div>
+          {actions !== undefined && <div className="fam-actions">{actions}</div>}
+          {aside !== undefined && <div className="fam-closing-aside">{aside}</div>}
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ export const family = [
         succeeds: "Shiki",
         proof: "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
         evidence: "Mirrored Shiki test suite",
-        version: "0.2.0",
+        version: "0.3.0",
         status: "alpha",
         group: "pipeline",
         repo: "https://github.com/sebastian-software/ferriki",
@@ -54,7 +54,7 @@ export const family = [
         succeeds: "Hunspell",
         proof: "Hunspell set the dictionary standard. Ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
         evidence: "Hunspell oracle · deterministic suggestion scoring",
-        version: "0.2.0",
+        version: "0.4.0",
         status: "alpha",
         group: "language",
         repo: "https://github.com/sebastian-software/ferrolex",
@@ -79,7 +79,7 @@ export const family = [
         proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
         evidence: "Checked-in end-to-end benchmark against Lingui",
         runsOn: ["ferrocat", "ferromark", "ferralk"],
-        version: "1.23.0",
+        version: "1.25.0",
         status: "stable",
         group: "language",
         role: "application",
@@ -90,6 +90,7 @@ export const family = [
         name: "ferralk",
         job: "Glob matching and parallel filesystem walking",
         shortJob: "glob matching",
+        buildsOn: "Glob syntax / .gitignore rules",
         proof: "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
         evidence: "Frozen zlob reference · ahead of globset and fast-glob",
         version: "0.12.0",
@@ -101,6 +102,7 @@ export const family = [
         name: "ferrugo",
         job: "PDF previews for untrusted files",
         shortJob: "PDF previews",
+        buildsOn: "PDF (ISO 32000)",
         proof: "PDF previews have traditionally meant embedding a browser-sized engine. Ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
         evidence: "Bounded memory and time · no PDFium",
         version: "0.5.0",
@@ -142,6 +144,25 @@ export function toolHref(tool) {
  */
 export function leadsToRepo(tool) {
     return tool.docs === undefined;
+}
+/**
+ * A member's name as prose writes it: "Ferroni", not "ferroni". The registry
+ * keeps names lowercase (they are package names); copy capitalizes them, and
+ * a stylesheet's `text-transform` cannot, because the first word of a line
+ * may run on from a label before it.
+ */
+export function displayName(tool) {
+    const name = typeof tool === "string" ? tool : tool.name;
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+/** The members an application runs on. An unknown name is a registry error, not a silent gap. */
+export function runsOnTools(tool) {
+    return (tool.runsOn ?? []).map((name) => {
+        const member = family.find((candidate) => candidate.name === name);
+        if (member === undefined)
+            throw new Error(`${tool.name} runs on unknown member: ${name}`);
+        return member;
+    });
 }
 /** True for a member that succeeds an established implementation, false for a new development. */
 export function isSuccessor(tool) {
