@@ -123,8 +123,10 @@ async function npmDownloads(name, previous) {
 /**
  * npm: only count a package we actually publish. The downloads endpoint answers
  * for unpublished names too, so a published version plus an organization
- * maintainer is the gate, and a reserved-name placeholder is not a usable
- * adapter.
+ * maintainer is the gate. A reserved-name placeholder is not a usable adapter,
+ * and neither is a deprecated one (ferrocat's legacy Node bindings, replaced by
+ * @palamedes/core-node): its latest version still resolves, but nobody should
+ * install it.
  */
 async function npm(name, previous) {
   const answer = await fetchJson(`https://registry.npmjs.org/${name}`);
@@ -138,6 +140,7 @@ async function npm(name, previous) {
   const owned = resolveOwnership("npm", name, npmMaintainers(meta));
   if (owned === UNRESOLVED) return UNRESOLVED;
   if (!owned) return null;
+  if (meta.versions?.[version]?.deprecated) return null;
   const description = meta.versions?.[version]?.description ?? "";
   return {
     version,
