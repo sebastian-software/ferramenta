@@ -2,12 +2,14 @@ import { useId } from "react";
 
 import {
   byJob,
+  displayName,
   family,
   type FamilyGroup,
   familyGroups,
   type FamilyTool,
   isEngine,
   leadsToRepo,
+  runsOnTools,
   toolHref,
 } from "./family.js";
 import { Fasteners } from "./Fasteners.js";
@@ -111,9 +113,7 @@ export function Pegboard({ current, label = "The tool family" }: PegboardProps =
  */
 function ToolFactsList({ tool }: { tool: FamilyTool }) {
   const facts = useToolFacts(tool);
-  const runsOn = tool.runsOn
-    ?.map((name) => family.find((member) => member.name === name)?.name)
-    .filter((name) => name !== undefined);
+  const runsOn = runsOnTools(tool);
   return (
     <dl className="fam-tool-facts">
       {tool.succeeds === undefined ? null : (
@@ -128,10 +128,10 @@ function ToolFactsList({ tool }: { tool: FamilyTool }) {
           <dd>{tool.buildsOn}</dd>
         </div>
       )}
-      {runsOn === undefined || runsOn.length === 0 ? null : (
+      {runsOn.length === 0 ? null : (
         <div>
           <dt>Runs on</dt>
-          <dd className="fam-tool-names">{runsOn.join(" · ")}</dd>
+          <dd>{runsOn.map((member) => displayName(member)).join(" · ")}</dd>
         </div>
       )}
       <div>
@@ -169,7 +169,7 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
           </span>
         ) : null}
         {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
-          <span className="fam-tool-platform">git only</span>
+          <span className="fam-tool-platform">install from Git</span>
         ) : null}
       </span>
       <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
@@ -248,15 +248,17 @@ export function JobIndex({ current }: JobIndexProps = {}) {
     <ul className="fam-jobs">
       {tools.map((tool) => (
         <li key={tool.name}>
-          <a className="fam-job" href={toolHref(tool)}>
+          {/* Read as one line, the cells would run together: the label says it with its pauses. */}
+          <a
+            className="fam-job"
+            href={toolHref(tool)}
+            aria-label={`${tool.shortJob}: ${displayName(tool)}, ${tool.status}${leadsToRepo(tool) ? " (GitHub repository)" : ""}`}
+          >
             <span className="fam-job-name">{tool.shortJob}</span>
             <span className="fam-job-leader" aria-hidden="true" />
             <span className="fam-job-tool">
               <Mark name={tool.name} className="mark" size={22} />
-              <b>
-                {tool.name}
-                <RepoNote tool={tool} />
-              </b>
+              <b>{tool.name}</b>
             </span>
             <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
           </a>

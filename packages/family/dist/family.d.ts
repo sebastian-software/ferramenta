@@ -15,6 +15,35 @@ export type FamilyGroup = "language" | "pipeline" | "workbench";
  * implementation; applications are products the family's engines carry.
  */
 export type FamilyRole = "application" | "engine";
+/**
+ * What a member rests on: exactly one of these. A successor names the
+ * implementation it succeeds, a new development the standards it builds on,
+ * an application the engines it runs on. The type makes a member without one,
+ * or with two, a compile error.
+ */
+export type FamilyLineage = {
+    /**
+     * The established implementation a successor succeeds and stays compatible
+     * with, e.g. "Oniguruma / vscode-oniguruma".
+     */
+    succeeds: string;
+    buildsOn?: never;
+    runsOn?: never;
+} | {
+    /**
+     * The family engines an application runs on, by `name`. An engine is
+     * proven on its own, a product by what it runs on and its own evidence.
+     * Each name must be a family member.
+     */
+    runsOn: string[];
+    succeeds?: never;
+    buildsOn?: never;
+} | {
+    /** The open standards or formats a new development builds on, e.g. "PO / ICU MessageFormat". */
+    buildsOn: string;
+    succeeds?: never;
+    runsOn?: never;
+};
 export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
     name: string;
@@ -22,20 +51,6 @@ export type FamilyTool = {
     job: string;
     /** Terse job label for constrained family navigation surfaces. Sentence case: acronyms keep their capitals. */
     shortJob: string;
-    /**
-     * The established implementation a successor succeeds and stays compatible
-     * with, e.g. "Oniguruma / vscode-oniguruma". Set it only for a successor; a
-     * new development leaves it out and names `buildsOn` instead.
-     */
-    succeeds?: string;
-    /** The open standards or formats a new development builds on, e.g. "PO / ICU MessageFormat". */
-    buildsOn?: string;
-    /**
-     * The family engines an application runs on, by `name`. Only an application
-     * sets it: an engine is proven on its own, a product by what it runs on and
-     * its own evidence. Each name must be a family member.
-     */
-    runsOn?: string[];
     /**
      * Proof sentence: verifiable facts, no marketing claims. It is prose, so a
      * member's name is capitalized here ("Ferroni continues…"); `name`, URLs and
@@ -64,7 +79,7 @@ export type FamilyTool = {
     repo: string;
     /** Docs/homepage site, once it exists */
     docs?: string;
-};
+} & FamilyLineage;
 export declare const FAMILY_SITE = "https://ferramenta.dev";
 export declare const family: FamilyTool[];
 /** One end of the content pipeline: a stamped label and what enters or leaves. */
@@ -97,6 +112,15 @@ export declare function toolHref(tool: FamilyTool): string;
  * nobody expecting documentation lands on GitHub unannounced.
  */
 export declare function leadsToRepo(tool: FamilyTool): boolean;
+/**
+ * A member's name as prose writes it: "Ferroni", not "ferroni". The registry
+ * keeps names lowercase (they are package names); copy capitalizes them, and
+ * a stylesheet's `text-transform` cannot, because the first word of a line
+ * may run on from a label before it.
+ */
+export declare function displayName(tool: FamilyTool | string): string;
+/** The members an application runs on. An unknown name is a registry error, not a silent gap. */
+export declare function runsOnTools(tool: FamilyTool): FamilyTool[];
 /** True for a member that succeeds an established implementation, false for a new development. */
 export declare function isSuccessor(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */

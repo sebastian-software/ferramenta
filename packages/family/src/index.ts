@@ -11,10 +11,12 @@ export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
  */
 export {
   byJob,
+  displayName,
   family,
   FAMILY_SITE,
   type FamilyGroup,
   familyGroups,
+  type FamilyLineage,
   type FamilyRole,
   type FamilyStatus,
   type FamilyTool,
@@ -24,6 +26,7 @@ export {
   PIPELINE,
   type PipelineEnd,
   relatedTools,
+  runsOnTools,
   STATUS_MEANING,
   STATUS_ORDER,
   toolHref,
@@ -43,16 +46,22 @@ export {
 } from "./Landing.js";
 export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Ledger.js";
 export {
+  type FamilyFactsOptions,
+  type FamilyMetrics,
+  fetchFamilyFacts,
+  fetchFamilyMetrics,
   fetchLiveRegistry,
   type LiveRegistryFacts,
   type LiveRegistryRequest,
   liveRequestFor,
+  METRICS_URL,
   REGISTRY_ENDPOINTS,
   type RegistryEndpoints,
   type RegistrySnapshot,
   type RegistryStat,
   type ToolFacts,
   toolFacts,
+  useFamilyFacts,
   useLiveRegistry,
 } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";

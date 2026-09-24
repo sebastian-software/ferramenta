@@ -28,7 +28,7 @@ export function IronBand({ children, id, intro, rows, title }) {
  * The flat, ruled return to the one action the page is for — no card, no new
  * material. Copy left, actions right; stacked below 54rem.
  */
-export function ClosingAction({ actions, children, id, links, title }) {
+export function ClosingAction({ actions, aside, children, id, links, title }) {
     const titleId = useId();
-    return (_jsx("section", { className: "fam-section fam-closing", id: id, "aria-labelledby": titleId, children: _jsxs("div", { className: "wrap", children: [_jsx("h2", { className: "fam-heading", id: titleId, children: title }), _jsxs("div", { className: "fam-closing-grid", children: [_jsxs("div", { className: "fam-closing-copy", children: [children, links !== undefined && _jsx("p", { className: "fam-links", children: links })] }), _jsx("div", { className: "fam-actions", children: actions })] })] }) }));
+    return (_jsx("section", { className: "fam-section fam-closing", id: id, "aria-labelledby": titleId, children: _jsxs("div", { className: "wrap", children: [_jsx("h2", { className: "fam-heading", id: titleId, children: title }), _jsxs("div", { className: "fam-closing-grid", children: [_jsxs("div", { className: "fam-closing-copy", children: [children, links !== undefined && _jsx("p", { className: "fam-links", children: links })] }), actions !== undefined && _jsx("div", { className: "fam-actions", children: actions }), aside !== undefined && _jsx("div", { className: "fam-closing-aside", children: aside })] })] }) }));
 }
