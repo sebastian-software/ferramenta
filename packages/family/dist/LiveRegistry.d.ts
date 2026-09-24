@@ -65,8 +65,37 @@ export type ToolFacts = {
  * it too would be a request whose answer never reaches the page.
  */
 export declare function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest;
-/** The facts for one member, from a snapshot and whatever answered live. */
-export declare function toolFacts(tool: FamilyTool, stat: null | RegistryStat | undefined, live?: LiveRegistryFacts): ToolFacts;
+/**
+ * The facts for one member, from a snapshot and whatever answered live. With
+ * a snapshot entry, live values only refresh what the build verified; without
+ * one, the live facts stand on their own (the metrics service filters by owner).
+ */
+export declare function toolFacts(tool: FamilyTool, snapshotStat: null | RegistryStat | undefined, live?: LiveRegistryFacts): ToolFacts;
+export declare const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
+export type FamilyMetrics = {
+    facts: Record<string, LiveRegistryFacts>;
+    /** Which registries the service answered for; the rest need a direct request. */
+    answered: {
+        crates: boolean;
+        npm: boolean;
+    };
+};
+/** The family's facts from the metrics document, or null when it did not answer usefully. */
+export declare function fetchFamilyMetrics(url?: string): Promise<FamilyMetrics | null>;
+export type FamilyFactsOptions = {
+    /** The metrics document; `false` skips it and asks the registries directly. */
+    metrics?: false | string;
+    /** The registries asked directly for what the metrics service did not answer. */
+    endpoints?: RegistryEndpoints;
+};
+/**
+ * Live facts for the family: the metrics service first; for a registry it did
+ * not answer (down, or not deployed yet), the registries directly, for the
+ * packages the snapshot verified. Whatever answers nowhere keeps its build value.
+ */
+export declare function fetchFamilyFacts(snapshot: RegistrySnapshot, { endpoints, metrics }?: FamilyFactsOptions): Promise<Record<string, LiveRegistryFacts>>;
+/** `fetchFamilyFacts` after hydration: empty during prerender and until something answers. */
+export declare function useFamilyFacts(snapshot: RegistrySnapshot, options?: FamilyFactsOptions): Record<string, LiveRegistryFacts>;
 /**
  * The live figures for a page, after hydration. Returns an empty map during
  * prerender and until the registries answer, so a component renders its

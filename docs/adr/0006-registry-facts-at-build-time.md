@@ -6,6 +6,8 @@
   [Amendment 2026-09-09](#amendment-2026-09-09)
 - Amended: 2026-09-24 — facts fetched at every deploy and updated live in the browser, see
   [Amendment 2026-09-24](#amendment-2026-09-24)
+- Amended: 2026-09-24 — live figures from the workshop's metrics service first, see
+  [Amendment 2026-09-24 (metrics service)](#amendment-2026-09-24-metrics-service)
 
 ## Context
 
@@ -136,9 +138,32 @@ local and CI builds; refresh it by hand with `pnpm stats:refresh` when it
 matters. The registry's `version` remains the last resort. This supersedes the
 delivery described in the 2026-09-09 amendment.
 
+## Amendment 2026-09-24 (metrics service)
+
+The live layer moved into the family package (`RegistryFacts`), and with it a
+gap showed: a sibling site had no way to build the verified snapshot the live
+request was derived from, so it got fallback versions and nothing live.
+
+The workshop's metrics service
+([sebastian-software/oss-metrics](https://github.com/sebastian-software/oss-metrics),
+`https://metrics.sebastian-software.com/v1/metrics.json`) answers that. It is
+one small, CORS-open, CDN-cached document with every project of the
+organization, collected by owner (GitHub organization, crates.io user, npm
+maintainer), so a same-named package someone else published cannot appear in
+it. `RegistryFacts` asks it first: one request per page view instead of one
+per registry, and no snapshot needed. For a registry the service reports as
+failed, or while it is not deployed yet, the page falls back to the direct
+registry requests above, for the packages its snapshot verified. Whatever
+answers nowhere keeps its prerendered value. A site passes `metrics={false}`
+to skip the service.
+
+Visitors' browsers then contact the workshop's own domain instead of crates.io
+and npm; the service logs nothing beyond an ordinary CDN request.
+
 ## References
 
 - [scripts/refresh-registry-stats.mjs](../../scripts/refresh-registry-stats.mjs)
+- [packages/family/src/LiveRegistry.ts](../../packages/family/src/LiveRegistry.ts) — `fetchFamilyFacts`
 - [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml)
 - [GitHub Actions: `GITHUB_TOKEN` security](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs)
 - [ADR-0004](0004-successor-copy-register.md) — only verifiable claims
