@@ -11,10 +11,21 @@
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
  * `ghlink`, `switcher-start`, `switcher-family`, `flyhome`, `on-iron`, `foot`,
- * `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`, `icon`. Loading last means this file
+ * `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`, `icon`,
+ * `fam-sr-only`. Loading last means this file
  * wins those ties, so a site that needs one of the names for its own elements
  * should scope or rename it.
  */
+
+/* Text for assistive technology only: where a link leads, a unit, a legend. */
+.fam-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 .mark path {
   stroke-linecap: square;

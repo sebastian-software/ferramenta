@@ -142,6 +142,18 @@ export const STATUS_MEANING = {
 };
 /** Maturity order, most settled first. */
 export const STATUS_ORDER = ["stable", "beta", "alpha", "early"];
+/** Where a member's links lead: its own site once it exists, its repository until then. */
+export function toolHref(tool) {
+    return tool.docs ?? tool.repo;
+}
+/**
+ * True when a member's links lead to its repository rather than a site. Every
+ * surface that links a member says so, visibly or to assistive technology, so
+ * nobody expecting documentation lands on GitHub unannounced.
+ */
+export function leadsToRepo(tool) {
+    return tool.docs === undefined;
+}
 /** True for members the family builds *with*, false for products it carries. */
 export function isEngine(tool) {
     return (tool.role ?? "engine") === "engine";

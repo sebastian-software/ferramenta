@@ -40,7 +40,7 @@ test("the header renders the switcher with every family member", () => {
   assert.ok(html.includes('<a class="lockup" href="/">'), "the family site links its own root");
   assert.ok(html.includes("Tools"), "the switcher has its summary");
   for (const tool of family.family) {
-    assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+    assert.ok(html.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
     assert.ok(html.includes(`href="${tool.docs ?? tool.repo}"`), `missing link: ${tool.name}`);
   }
 });
@@ -102,7 +102,7 @@ test("the switcher stands alone, for a host header that is not ours", () => {
   assert.ok(html.includes('<div class="flyout">'), "and its flyout");
   assert.ok(!html.includes('aria-current="page"'));
   for (const tool of family.relatedTools("ferroni")) {
-    assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+    assert.ok(html.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
   }
   assert.ok(
     render(family.SiteHeader, { current: "ferroni" }).includes(html),
@@ -196,7 +196,7 @@ test("the footer lists the family in groups plus the company links", () => {
     assert.ok(html.includes(`>${label}</h3>`), `missing footer column: ${label}`);
   }
   for (const tool of family.family) {
-    assert.ok(html.includes(`>${tool.name}</a>`), `missing from the footer: ${tool.name}`);
+    assert.ok(html.includes(`>${tool.name}`), `missing from the footer: ${tool.name}`);
   }
   assert.ok(html.includes("https://oss.sebastian-software.com"));
   assert.ok(html.includes("MIT-licensed"), "the default legal line");
@@ -290,4 +290,19 @@ test("every related React link has a job and omits the current project", () => {
       }
     }
   }
+});
+
+test("every link to a member without a site says it leads to its repository", () => {
+  const footer = render(family.SiteFooter, { jobs: "short" });
+  const header = render(family.SiteHeader);
+  for (const tool of family.family) {
+    const note = `${tool.name}<span class="fam-sr-only"> (GitHub repository)</span>`;
+    assert.equal(footer.includes(note), family.leadsToRepo(tool), `footer: ${tool.name}`);
+    assert.equal(header.includes(note), family.leadsToRepo(tool), `switcher: ${tool.name}`);
+    assert.equal(family.toolHref(tool), tool.docs ?? tool.repo);
+  }
+  assert.ok(footer.includes(`>${family.family[0].shortJob}</span>`), "short jobs on request");
+  assert.ok(footer.includes("</svg>ferramenta</a>"), "the lockup is the family's name");
+  assert.ok(!footer.includes("More from Ferramenta"), "the family site names itself");
+  assert.ok(render(family.SiteFooter, { current: "ferroni" }).includes("More from Ferramenta"));
 });

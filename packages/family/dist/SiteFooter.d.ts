@@ -22,6 +22,12 @@ export type SiteFooterProps = {
      * two. The classes, and therefore the styling, are the same either way.
      */
     as?: "div" | "footer";
+    /**
+     * The job line under each member: `"full"` (the default) is the registry's
+     * `job`; `"short"` is its `shortJob`, for the family site, where the page
+     * above already carries every full job and the footer only has to point.
+     */
+    jobs?: "full" | "short";
 };
 /** Steel-plate footer: lockup, family columns from the registry, company links. */
-export declare function SiteFooter({ as, current, legal, line, }?: SiteFooterProps): import("react").JSX.Element;
+export declare function SiteFooter({ as, current, jobs, legal, line, }?: SiteFooterProps): import("react").JSX.Element;

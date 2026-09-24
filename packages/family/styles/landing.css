@@ -73,16 +73,6 @@
   color: var(--on-rust);
 }
 
-/* Text for assistive technology only: the repository a link leads to, a unit. */
-.fam-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
 /* -- Actions ---------------------------------------------------------------- */
 
 .fam-actions {
@@ -450,7 +440,7 @@
 
 .fam-assembly-copy small {
   margin-top: 0.22rem;
-  color: var(--ink-soft);
+  color: var(--ink-soft-on-plate);
   font-size: 0.75rem;
   line-height: 1.2;
 }

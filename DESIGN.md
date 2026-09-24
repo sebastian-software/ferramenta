@@ -87,8 +87,11 @@ fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay f
 ## The 28px module (pegboard)
 
 The board renders the family's real groups (Pipeline 3 / Language 3 / Workbench 3), each
-row headed by a stamped 28px-tall group label — label rows and 28px gaps keep every hook
-hole on the wall grid (verified 0.0px offsets, desktop and mobile).
+row headed by a stamped 28px-tall group label. Every plate carries its maturity stamp,
+riveted to the plate's lower edge (absolutely positioned, so no row grows and no hook moves):
+the wall shows what is proven before any ledger does, and because every plate has one, none
+outranks another. A member whose link leads to its repository carries a small GitHub glyph
+after its name. Label rows and 28px gaps keep every hook hole on the wall grid.
 
 The board's hole grid is a 28px tile (`background-size: 28px 28px`, dots offset 14px).
 Everything on the board is a multiple: padding 42px, cells 112×140px, gaps 28px → every hook
@@ -133,7 +136,7 @@ any change.
   — the whole row stays the target, while a screen reader hears the name instead of every fact.
   The facts are a `dl`. A row that leads to a repository rather than a site shows the GitHub
   glyph in the `go` column and says "GitHub repository" to assistive technology;
-  big display digits only where sequence is real (pipeline 1-2-3). Proof stays in the successor
+  big display digits only where sequence is real (pipeline 01-02-03, as in the assembly). Proof stays in the successor
   register, followed by compact `Contract` and `Evidence` facts from the registry;
   visible metadata is the live version, registry availability as icon-plus-label pairs
   (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "git only"),
@@ -148,22 +151,33 @@ any change.
 - **Pipeline assembly**: a flat drawing above the pipeline ledger, using the existing project
   plates and line-style arrows to show the chain as data flow: TextMate grammars in → ferroni →
   ferriki → ferromark → highlighted HTML from Markdown out. The ends come from the registry
-  (`PIPELINE`) and never say "Application", which is a registry role. Small labels on the plate
-  use `--rust-on-plate` (rust-deep light, ember dark) to hold 4.5:1 across the plate gradient. It is horizontal on wide screens and vertical on narrow ones.
+  (`PIPELINE`) and never say "Application", which is a registry role. Small text on the plate uses
+  `--rust-on-plate` and `--ink-soft-on-plate`, which hold 4.5:1 against the face's worst end in
+  both themes (dark: 4.8:1 and 5.1:1 against `--plate-face-hi`). It is horizontal on wide screens and vertical on narrow ones.
   A chamfered, four-screw steel chassis makes the chain feel like one assembled machine without
   turning its stages into separate cards. The nearby prose remains its complete text alternative.
-- **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows.
+- **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows, then the
+  stamp key. It sits directly after the hero: the stamps on the wall are explained before the
+  ledgers use them.
+- **Link destinations**: every link to a member — board, switcher, assembly, ledger, closing,
+  footer — goes through the registry's `toolHref`, and when it leads to a repository rather than
+  a site it says so: `RepoNote` for assistive technology everywhere, the GitHub glyph where the
+  surface has room (ledger `go` column, board names).
 - **Why section**: rust pull-quote (display) with an explicit `Written by` author block in the
   same column, plus prose and goal list (square rust bullets). User-approved addition on top of
   the comp.
 - **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
   mono link line, and hairline column divider.
 - **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
-  ends forward, not back up the page: one entry per line of work — the most mature member of
-  each group by registry status (`leadTool`), with plate, name, short job and stamp. It carries
+  ends forward, not back up the page: one entry per line of work — the group's `stable`
+  member, ready to adopt, with plate, name, short job and stamp. A group with no stable member
+  is named honestly ("Nothing to adopt yet") and points at its own section instead of
+  recommending an early tool as if it were proven. On a phone the entries come before the copy. It carries
   the family download tally — a mono number in running text with the date it was counted,
   never a metric tile.
 - **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company).
+  On the family site the lockup is the family's own name, not "More from Ferramenta", and the
+  columns carry short jobs (`jobs="short"`): the page above already holds every full job.
 - **Buttons**: `.fam-btn-primary` rust with a single chamfered corner (`--chamfer`), one per
   view; `.fam-btn-ghost` 1px heavy outline (iron line and ember on iron). Uppercase display type.
 
@@ -212,7 +226,8 @@ so a host rule always wins over a kit default. A home page is `.fam-page` with t
   behavior is disabled for this single-page shell (body scrolls; sticky header works).
 - The family chrome lives in `root.tsx`, outside `ArdoRoot`, inside the `.fam-page` wrapper:
   that makes the header and footer the page's `banner` and `contentinfo` landmarks instead of
-  parts of Ardo's `<main>`. The skip link targets Ardo's `#main-content`.
+  parts of Ardo's `<main>`. The skip link targets Ardo's `#main-content`; Ardo's own skip link,
+  which sits after the header and fails contrast on the brand amber, is hidden.
 - The page ground is painted by `.fam-page`, not by `body`: Ardo's layout `<main>` paints its own
   background over the body, which hid the brushed floor and the warm `--bg` until the kit moved
   the ground onto the page element.

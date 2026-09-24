@@ -1,7 +1,8 @@
 import { type ReactNode, type RefObject, useEffect, useRef } from "react";
 
-import { FAMILY_SITE, familyGroups } from "./family.js";
+import { FAMILY_SITE, familyGroups, toolHref } from "./family.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 
 export type ToolSwitcherProps = {
   /**
@@ -103,12 +104,15 @@ function FlyoutGroups({ current }: { current?: string }) {
       <div className="flygroup" key={group.label}>
         <small>{group.label}</small>
         {group.tools.map((tool) => (
-          <a key={tool.name} href={tool.docs ?? tool.repo}>
+          <a key={tool.name} href={toolHref(tool)}>
             <span className="markplate">
               <Mark name={tool.name} size={24} />
             </span>
             <span>
-              <b>{tool.name}</b>
+              <b>
+                {tool.name}
+                <RepoNote tool={tool} />
+              </b>
               <small>{tool.shortJob}</small>
             </span>
           </a>

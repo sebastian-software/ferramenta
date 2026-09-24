@@ -1,7 +1,8 @@
 import type { ElementType, ReactNode } from "react";
 
-import { FAMILY_SITE, familyGroups, type FamilyTool } from "./family.js";
+import { FAMILY_SITE, familyGroups, type FamilyTool, toolHref } from "./family.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 
 const DEFAULT_LEGAL =
   "This site is MIT-licensed; each tool states its own license in its repository.";
@@ -29,15 +30,24 @@ export type SiteFooterProps = {
    * two. The classes, and therefore the styling, are the same either way.
    */
   as?: "div" | "footer";
+  /**
+   * The job line under each member: `"full"` (the default) is the registry's
+   * `job`; `"short"` is its `shortJob`, for the family site, where the page
+   * above already carries every full job and the footer only has to point.
+   */
+  jobs?: "full" | "short";
 };
 
-function ToolList({ tools }: { tools: FamilyTool[] }) {
+function ToolList({ jobs, tools }: { jobs: "full" | "short"; tools: FamilyTool[] }) {
   return (
     <ul>
       {tools.map((tool) => (
         <li key={tool.name}>
-          <a href={tool.docs ?? tool.repo}>{tool.name}</a>
-          <span className="family-job">{tool.job}</span>
+          <a href={toolHref(tool)}>
+            {tool.name}
+            <RepoNote tool={tool} />
+          </a>
+          <span className="family-job">{jobs === "short" ? tool.shortJob : tool.job}</span>
         </li>
       ))}
     </ul>
@@ -60,6 +70,23 @@ function CompanyList() {
   );
 }
 
+/**
+ * The footer's lockup. On the family site itself it is the family's name; on
+ * a member's site it is the invitation back to the family.
+ */
+function FooterLockup({ current }: { current?: string }) {
+  const home = current === undefined;
+  return (
+    <div>
+      <a className="lockup" href={home ? "/" : FAMILY_SITE}>
+        <Mark name="ferramenta" size={22} />
+        {home ? "ferramenta" : "More from Ferramenta"}
+      </a>
+      <p>A family of Rust tools by Sebastian Software.</p>
+    </div>
+  );
+}
+
 function footerGroups(line: "company" | "family", current?: string) {
   return familyGroups(line === "family" ? current : undefined);
 }
@@ -68,6 +95,7 @@ function footerGroups(line: "company" | "family", current?: string) {
 export function SiteFooter({
   as = "footer",
   current,
+  jobs = "full",
   legal = DEFAULT_LEGAL,
   line = "family",
 }: SiteFooterProps = {}) {
@@ -77,26 +105,20 @@ export function SiteFooter({
   return (
     <Root className="site-footer">
       <div className={line === "company" ? "wrap foot foot-company" : "wrap foot"}>
-        <div>
-          <a className="lockup" href={current === undefined ? "/" : FAMILY_SITE}>
-            <Mark name="ferramenta" size={22} />
-            More from Ferramenta
-          </a>
-          <p>A family of Rust tools by Sebastian Software.</p>
-        </div>
+        <FooterLockup current={current} />
         {line === "family" && (
           <div>
             <h3>Pipeline</h3>
-            <ToolList tools={pipeline} />
+            <ToolList jobs={jobs} tools={pipeline} />
             <h3 className="foot-gap">Language</h3>
-            <ToolList tools={language} />
+            <ToolList jobs={jobs} tools={language} />
           </div>
         )}
         <div>
           {line === "family" && (
             <>
               <h3>Workbench</h3>
-              <ToolList tools={workbench} />
+              <ToolList jobs={jobs} tools={workbench} />
             </>
           )}
           <h3 className={line === "family" ? "foot-gap" : undefined}>Company</h3>

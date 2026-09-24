@@ -1,8 +1,16 @@
 import { Fragment } from "react";
 
-import { family, familyGroups, type FamilyTool, PIPELINE, type PipelineEnd } from "./family.js";
+import {
+  family,
+  familyGroups,
+  type FamilyTool,
+  PIPELINE,
+  type PipelineEnd,
+  toolHref,
+} from "./family.js";
 import { Fasteners } from "./Fasteners.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 
 export type PipelineAssemblyProps = {
   /**
@@ -33,7 +41,10 @@ function Stage({ current, step, tool }: { current: boolean; step: number; tool: 
         <Mark name={tool.name} />
       </span>
       <span className="fam-assembly-copy">
-        <b>{tool.name}</b>
+        <b>
+          {tool.name}
+          <RepoNote tool={tool} />
+        </b>
         <small>{tool.shortJob}</small>
       </span>
     </>
@@ -43,7 +54,7 @@ function Stage({ current, step, tool }: { current: boolean; step: number; tool: 
       {content}
     </span>
   ) : (
-    <a className="fam-assembly-stage" href={tool.docs ?? tool.repo}>
+    <a className="fam-assembly-stage" href={toolHref(tool)}>
       {content}
     </a>
   );

@@ -8,13 +8,16 @@ import {
   Fasteners,
   IronBand,
   isEngine,
+  leadsToRepo,
   leadTool,
   Mark,
   PipelineAssembly,
   ProjectHero,
+  RepoNote,
   Section,
   Stamp,
   StampKey,
+  toolHref,
 } from "ferramenta-family";
 import { useId } from "react";
 
@@ -166,20 +169,20 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
  * that leads to a repository rather than a site says so.
  */
 function ToolRow({ tool, step }: { tool: FamilyTool; step?: number }) {
-  const onSite = tool.docs !== undefined;
+  const onSite = !leadsToRepo(tool);
   return (
     <article className="row">
       <span className="num" aria-hidden="true">
-        {step ?? ""}
+        {step === undefined ? "" : String(step).padStart(2, "0")}
       </span>
       <span className="plate markplate" aria-hidden="true">
         <Mark name={tool.name} />
       </span>
       <div className="who">
         <h3>
-          <a className="row-link" href={tool.docs ?? tool.repo}>
+          <a className="row-link" href={toolHref(tool)}>
             {tool.name}
-            {onSite ? null : <span className="fam-sr-only"> (GitHub repository)</span>}
+            <RepoNote tool={tool} />
           </a>
         </h3>
         <p className="sub">{tool.job}</p>
@@ -212,15 +215,25 @@ function BoardGroup({ label, tools }: { label: string; tools: FamilyTool[] }) {
       </small>
       <div className="board-row">
         {tools.map((tool) => (
-          <a key={tool.name} href={tool.docs ?? tool.repo}>
+          <a key={tool.name} href={toolHref(tool)}>
             <svg className="hook" aria-hidden="true">
               <use href="#i-hook" />
             </svg>
             <span className="markplate">
               <Mark name={tool.name} />
             </span>
+            {/* Maturity on the wall itself: every plate carries its stamp, so none outranks another. */}
+            <span className="board-stamp">
+              <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
+            </span>
             <span className="board-copy">
-              <b>{tool.name}</b>
+              <b>
+                {tool.name}
+                {leadsToRepo(tool) ? (
+                  <Mark name="github" className="icon board-repo" size={11} />
+                ) : null}
+                <RepoNote tool={tool} />
+              </b>
               <small>{tool.shortJob}</small>
             </span>
           </a>
@@ -245,8 +258,9 @@ function Pegboard() {
 }
 
 /**
- * The close: one place to start per line of work — the most mature member of
- * each group, by registry status — instead of a jump back up the page.
+ * The close: one place to start per line of work — the group's stable member,
+ * the one ready to adopt. A group with none says so and points at its section
+ * instead of recommending an early tool as if it were proven.
  */
 function StartHere() {
   return (
@@ -254,18 +268,36 @@ function StartHere() {
       {boardGroups().map((group) => {
         const tool = leadTool(group.tools);
         if (tool === undefined) return null;
+        if (tool.status !== "stable") {
+          return (
+            <li key={group.label}>
+              <a className="start start-bench" href={`#${group.label.toLowerCase()}`}>
+                <small className="start-group">{group.label}</small>
+                <span className="start-copy">
+                  <b>Nothing to adopt yet</b>
+                  <span>{group.tools.length} tools taking shape — see what is proven so far</span>
+                </span>
+                <Stamp>{tool.status}</Stamp>
+                <Mark name="arrow" className="go icon" size={20} />
+              </a>
+            </li>
+          );
+        }
         return (
           <li key={group.label}>
-            <a className="start" href={tool.docs ?? tool.repo}>
+            <a className="start" href={toolHref(tool)}>
               <small className="start-group">{group.label}</small>
               <span className="plate markplate" aria-hidden="true">
                 <Mark name={tool.name} />
               </span>
               <span className="start-copy">
-                <b>{tool.name}</b>
+                <b>
+                  {tool.name}
+                  <RepoNote tool={tool} />
+                </b>
                 <span>{tool.shortJob}</span>
               </span>
-              <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
+              <Stamp solid>{tool.status}</Stamp>
               <Mark name="arrow" className="go icon" size={20} />
             </a>
           </li>
@@ -336,10 +368,11 @@ function Why() {
 }
 
 function Partners() {
+  const titleId = useId();
   return (
-    <section className="fam-section partners">
+    <section className="fam-section partners" aria-labelledby={titleId}>
       <div className="wrap">
-        <h2>The wider workshop</h2>
+        <h2 id={titleId}>The wider workshop</h2>
         <div className="pgrid">
           <a href="https://oss.sebastian-software.com">
             <img src={softwareLogo} alt="Sebastian Software" />
@@ -392,6 +425,11 @@ export default function HomePage() {
         aside={<Pegboard />}
       />
 
+      {/* Straight after the wall: the stamps on it are explained before the ledgers use them. */}
+      <IronBand title="What earns the stamp" rows={beliefs}>
+        <StampKey />
+      </IronBand>
+
       <Section
         id="pipeline"
         title="The content pipeline"
@@ -417,10 +455,6 @@ export default function HomePage() {
         <ToolLedger tools={workbench} />
       </Section>
 
-      <IronBand title="What earns the stamp" rows={beliefs}>
-        <StampKey />
-      </IronBand>
-
       <Why />
 
       <ClosingAction
@@ -434,8 +468,8 @@ export default function HomePage() {
         }
       >
         <p>
-          Start where each line of work is most proven — one tool per group, picked by its maturity
-          stamp. Every project is open source; early work is labeled early.
+          Start where a line of work is ready: its stable tool, the one to adopt against its
+          contract today. Every project is open source; early work is labeled early.
         </p>
         <p className="tally">
           <b>{formatCount(familyDownloads)}</b> downloads on crates.io across the published crates,

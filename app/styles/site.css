@@ -121,6 +121,33 @@ a {
   height: 46px;
   color: var(--rust);
 }
+/* The stamp is riveted to the plate's lower edge: no extra row, the grid stays on the holes. */
+.board-stamp {
+  position: absolute;
+  top: calc(21px + 76px - 0.7rem);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 1;
+  line-height: 1;
+}
+.board-stamp .fam-stamp {
+  padding: 0.05rem 0.35rem;
+  line-height: 1.25;
+}
+/* On the board ground an open stamp's tint vanishes; the floor color and the plate's rim edge it. */
+.board-stamp .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--plate-rim-hi);
+  background: var(--bg);
+}
+.board-copy {
+  margin-top: 0.35rem;
+}
+.board-repo {
+  display: inline-block;
+  margin-left: 0.3rem;
+  vertical-align: 0.05em;
+  color: var(--ink-soft);
+}
 .board-copy {
   display: grid;
   justify-items: center;
@@ -328,6 +355,9 @@ a {
   .board .markplate svg {
     width: 34px;
     height: 34px;
+  }
+  .board-stamp {
+    top: calc(21px + 56px - 0.7rem);
   }
   .board-copy {
     width: 100%;
@@ -631,14 +661,45 @@ a {
   color: var(--ink);
   font-weight: 700;
 }
+/* Stacked rows: version, registries and stamp read as one line under the proof. */
 @media (max-width: 64rem) {
+  .row .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+  }
   .row .meta .platforms {
     flex-direction: row;
     align-items: center;
     gap: 0.9rem;
+    margin-top: 0;
+  }
+  .row .meta .fam-stamp {
+    margin-top: 0;
   }
 }
 /* The start list is taller than the copy beside it; both hang from the heading. */
 .fam-closing .fam-closing-grid {
   align-items: start;
+}
+/* Stacked on a phone, the choice comes first and the copy explains it after. */
+@media (max-width: 54rem) {
+  .fam-closing .fam-closing-grid > .fam-actions {
+    order: -1;
+  }
+}
+/* A group with nothing stable: no plate to show, the text takes its column. */
+.start-bench .start-copy {
+  grid-column: plate / copy;
+}
+.start-bench .start-copy b {
+  font-size: 1.25rem;
+}
+
+/* Ardo renders a skip link of its own inside the layout, after our header — so
+   it skips nothing, and on the brand amber its text fails contrast. Ours, the
+   first element of the page, is the one. */
+.ferramenta-site a[href="#main-content"] {
+  display: none;
 }

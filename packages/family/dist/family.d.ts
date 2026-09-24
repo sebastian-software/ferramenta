@@ -68,6 +68,14 @@ export declare const PIPELINE: {
 export declare const STATUS_MEANING: Record<FamilyStatus, string>;
 /** Maturity order, most settled first. */
 export declare const STATUS_ORDER: FamilyStatus[];
+/** Where a member's links lead: its own site once it exists, its repository until then. */
+export declare function toolHref(tool: FamilyTool): string;
+/**
+ * True when a member's links lead to its repository rather than a site. Every
+ * surface that links a member says so, visibly or to assistive technology, so
+ * nobody expecting documentation lands on GitHub unannounced.
+ */
+export declare function leadsToRepo(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
 /**

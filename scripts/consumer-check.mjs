@@ -37,7 +37,7 @@ expect(
 );
 expect(footer.includes('<footer class="site-footer">'), "the footer did not render");
 for (const tool of family) {
-  expect(footer.includes(`>${tool.name}</a>`), `missing from the footer: ${tool.name}`);
+  expect(footer.includes(`>${tool.name}`), `missing from the footer: ${tool.name}`);
 }
 expect(Object.keys(familyGroups()).length === 3, "the registry entry is broken");
 
@@ -49,7 +49,7 @@ expect(switcher.startsWith('<details class="switcher">'), "the standalone switch
 expect(switcher.includes('<div class="flyout">'), "the standalone switcher has no flyout");
 expect(switcher.includes(`Current: ${family[0].name}`), "the standalone switcher lost `current`");
 for (const tool of family.slice(1)) {
-  expect(switcher.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+  expect(switcher.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
 }
 expect(
   render(ToolSwitcher, { align: "start", label: "Ferramenta" }).startsWith(

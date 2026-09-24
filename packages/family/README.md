@@ -157,7 +157,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   the lockup and the family navigation for a site's own navigation. Both take
   the site's own elements.
 - **`SiteFooter`** — `current?: string` (omits the site's own entry),
-  `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`.
+  `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`,
+  `jobs?: "full" | "short"` (short jobs for a page that already lists the full
+  ones — the family site). Without `current` the lockup names the family
+  itself.
   `line="company"` drops the family columns and keeps the company links: it is
   for the tools that share the workshop but not the engines (dalo, agent-bridge
   — decision D2 of the 2026-09 family audit).
@@ -251,8 +254,11 @@ Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 of them, `fam-chamfer`, `fam-intro`, `fam-note`, `fam-links`, and
 `fam-sr-only` for text only assistive technology reads. From the registry:
 `PIPELINE` (the chain's ends), `STATUS_MEANING` and `STATUS_ORDER` (what each
-stamp promises, most settled first), and `leadTool(tools)` (the most mature
-member of a group — the honest place to start). The rules the
+stamp promises, most settled first), `leadTool(tools)` (the most mature member
+of a group), and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links
+lead). Every surface that links a member says when that is a repository:
+`<RepoNote tool={tool} />` after the name renders the words for assistive
+technology (styled by `fam-sr-only` in `chrome.css`). The rules the
 kit carries — no kickers above headings, the H1 floor (`--fam-title-min` on
 `.fam-hero`, never below 2.5rem), where material may appear — are in the
 family's [DESIGN.md](https://github.com/sebastian-software/ferramenta/blob/main/DESIGN.md).
@@ -401,7 +407,7 @@ the selector ties from the chrome — which also means it wins those ties. It ow
 these class names: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
 `switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
 `flyhome`, `ghlink`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `mark`,
-`markplate`, `hook`, `fastener`, `icon`. `landing.css` needs `chrome.css` for
+`markplate`, `hook`, `fastener`, `icon`, `fam-sr-only`. `landing.css` needs `chrome.css` for
 `wrap`, `markplate`, `fastener` and `icon`, and owns every class that starts
 with `fam-`. A site that needs one of them for its own elements should scope or
 rename it.

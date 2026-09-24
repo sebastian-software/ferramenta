@@ -1,12 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Fragment } from "react";
-import { family, familyGroups, PIPELINE } from "./family.js";
+import { family, familyGroups, PIPELINE, toolHref, } from "./family.js";
 import { Fasteners } from "./Fasteners.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 /** One member of the chain: its step, its plate, its name. A link unless it is this site. */
 function Stage({ current, step, tool }) {
-    const content = (_jsxs(_Fragment, { children: [_jsx("span", { className: "fam-assembly-step", children: String(step).padStart(2, "0") }), _jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.name }) }), _jsxs("span", { className: "fam-assembly-copy", children: [_jsx("b", { children: tool.name }), _jsx("small", { children: tool.shortJob })] })] }));
-    return current ? (_jsx("span", { className: "fam-assembly-stage", "aria-current": "true", children: content })) : (_jsx("a", { className: "fam-assembly-stage", href: tool.docs ?? tool.repo, children: content }));
+    const content = (_jsxs(_Fragment, { children: [_jsx("span", { className: "fam-assembly-step", children: String(step).padStart(2, "0") }), _jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.name }) }), _jsxs("span", { className: "fam-assembly-copy", children: [_jsxs("b", { children: [tool.name, _jsx(RepoNote, { tool: tool })] }), _jsx("small", { children: tool.shortJob })] })] }));
+    return current ? (_jsx("span", { className: "fam-assembly-stage", "aria-current": "true", children: content })) : (_jsx("a", { className: "fam-assembly-stage", href: toolHref(tool), children: content }));
 }
 /**
  * The content pipeline as one assembled machine: a chamfered steel chassis on
