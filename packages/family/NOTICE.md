@@ -8,7 +8,7 @@ the MIT license.
 ## Streamline icons
 
 Most Ferramenta project marks in `src/mark-defs.ts` (toolbox, anvil, flame,
-stamp, corner ruler, drawer cabinet, carving chisel, welding helmet) are derived
+stamp, corner ruler, drawer cabinet, welding helmet) are derived
 from icons by [Streamline](https://streamlinehq.com) (Duotone and Ultimate
 sets), adapted in color and detail, and used under a Streamline license.
 

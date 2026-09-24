@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => [
 const beliefs = [
   {
     heading: "Proven, not promised",
-    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference: Hunspell, Shiki, SVGO, Oniguruma. Claims stay tied to current evidence and maturity.",
+    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference: Hunspell, Shiki, Oniguruma. Claims stay tied to current evidence and maturity.",
   },
   {
     heading: "Open standards first",

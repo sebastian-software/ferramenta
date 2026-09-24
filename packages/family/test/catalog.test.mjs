@@ -42,7 +42,10 @@ test("the pegboard hangs every member with its stamp, grouped like the family", 
   assert.equal(html.match(/class="fam-board-item"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-stamp"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-group"/gu).length, 3);
-  assert.equal(render(kit.Pegboard, { current: "ferroni" }).match(/fam-board-item/gu).length, 8);
+  assert.equal(
+    render(kit.Pegboard, { current: "ferroni" }).match(/fam-board-item/gu).length,
+    kit.family.length - 1,
+  );
 });
 
 test("the tool ledger numbers only a real sequence, and names what each member rests on", () => {

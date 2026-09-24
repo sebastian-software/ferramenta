@@ -89,12 +89,13 @@ fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay f
 
 ## The 28px module (pegboard)
 
-The board renders the family's real groups (Pipeline 3 / Language 3 / Workbench 3), each
+The board renders the family's real groups (Pipeline 3 / Language 3 / Workbench 2), each
 row headed by a stamped 28px-tall group label. Every plate carries its maturity stamp,
 riveted to the plate's lower edge (absolutely positioned, so no row grows and no hook moves):
 the wall shows what is proven before any ledger does, and because every plate has one, none
 outranks another. A member whose link leads to its repository carries a small GitHub glyph
-after its name. Label rows and 28px gaps keep every hook hole on the wall grid.
+after its name. Label rows and 28px gaps keep every hook hole on the wall grid. A row always
+has three columns, so a group of two leaves its third cell empty rather than widening a plate.
 
 The board's hole grid is a 28px tile (`background-size: 28px 28px`, dots offset 14px).
 Everything on the board is a multiple: padding 42px, cells 112×140px, gaps 28px → every hook
@@ -103,7 +104,7 @@ its cell's top center, and that point must sit at 14 (mod 28) from the board's p
 both axes. With 112px cells that means padding ≡ 14 (mod 28). The phone board (≤34rem) keeps
 every group on one row of three in 84px cells with no column gap and 56px plates, so its inline
 padding moves to 28 (a cell center is 42px in) while the block padding stays 14 — measured at
-14,14 for all nine hooks. Below 60rem the hero stacks, so the full board never squeezes the
+14,14 for all eight hooks. Below 60rem the hero stacks, so the full board never squeezes the
 headline. Change board geometry only in multiples of 28, and re-measure the hook offsets after
 any change.
 
@@ -111,7 +112,7 @@ any change.
 
 - **Project marks**: duotone, 24-grid, derived from Streamline (Duotone set) — recolored to
   the `--duo*` ramp, caps/joins forced square/miter. One motif per tool (toolbox, anvil+hammer,
-  flame, stamp, corner ruler, drawer cabinet, carving chisel, welding helmet, plus two drawn
+  flame, stamp, corner ruler, drawer cabinet, welding helmet, plus two drawn
   in-house: a horseshoe magnet for ferralk and type slugs in a composing stick for palamedes).
   Marks for tools that join later are appended to the
   sprite in the same construction: 24 grid, two fills plus a 1px outline, square caps. Sprite:

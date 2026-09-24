@@ -36,7 +36,6 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
 | Tool | Job |
 | --- | --- |
-| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
 <!-- ferramenta-family:end -->

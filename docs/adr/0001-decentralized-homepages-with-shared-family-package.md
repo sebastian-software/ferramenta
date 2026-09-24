@@ -84,7 +84,7 @@ every site change into a ferramenta-repo change.
 - Design updates reach sibling repos only via version bumps — intentional, no
   silent drift, but rollout is manual per repo.
 - Rollout order after extraction: ferrocat → ferromark → ferroni → ferriki →
-  ferrolex; ferrovia and ferrugo follow when they leave early stage.
+  ferrolex; ferrugo follows when it leaves early stage.
 - Existing ferrocat.dev docs and the ferromark homepage are reskinned onto the
   shared base, not rewritten.
 
@@ -99,12 +99,18 @@ tools from the same workshop that share neither — dalo, agent-bridge — stay 
 separate line under oss.sebastian-software.com and are not rendered on
 ferramenta.dev.
 
-**Count.** The family spans ten repositories as of 2026-09: ferramenta plus
-nine tools — eight engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
-ferrovia, ferralk, ferrugo) and one application (palamedes, built on ferrocat,
+**Count.** The family spans nine repositories as of 2026-09: ferramenta plus
+eight tools — seven engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
+ferralk, ferrugo) and one application (palamedes, built on ferrocat,
 ferromark and ferralk). The "eight repositories (ferramenta plus seven tools)"
 in the context above is the count as it stood when this record was written; it
 was already one short when ferralk joined, and is superseded by this line.
+
+**Retired.** ferrovia, the SVGO-compatible SVG optimizer, left the family on
+2026-09-24 and its repository is archived. SVG optimization is not a focus area
+for the family, and a Rust optimizer already exists elsewhere. A retired member
+leaves the registry, its mark leaves the sprite, and its generated Markdown
+frame is removed; the design comps keep it as history.
 
 **Roles.** `role: "application"` marks a member the family carries rather than
 one the family builds with. Applications succeed a predecessor in the same
