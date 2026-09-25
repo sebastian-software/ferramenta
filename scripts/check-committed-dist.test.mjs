@@ -16,11 +16,15 @@ const execFile = promisify(execFileCallback);
 const guard = fileURLToPath(new URL("check-committed-dist.mjs", import.meta.url));
 
 /** A repository with one committed file in `packages/family/dist`. */
-async function fixture() {
+async function fixture({ orphan = false } = {}) {
   const repo = await mkdtemp(join(tmpdir(), "committed-dist-"));
   const dist = join(repo, "packages", "family", "dist");
   await mkdir(dist, { recursive: true });
   await writeFile(join(dist, "index.js"), "export const built = true;\n");
+  if (orphan) {
+    await writeFile(join(dist, "RegistryBadge.js"), "export const obsolete = true;\n");
+    await writeFile(join(dist, "RegistryBadge.d.ts"), "export declare const obsolete: true;\n");
+  }
   const git = (...arguments_) => execFileSync("git", arguments_, { cwd: repo, stdio: "ignore" });
   git("init", "--quiet");
   git("config", "user.email", "check@example.com");
@@ -82,6 +86,21 @@ test("a deleted output file fails the guard", async () => {
     await rm(join(dist, "index.js"));
     const result = await runGuard(repo);
     assert.equal(result.code, 1, "removed build output must fail");
+  } finally {
+    await rm(repo, { force: true, recursive: true });
+  }
+});
+
+test("an orphaned output fails after a clean package build removes it", async () => {
+  const { dist, repo } = await fixture({ orphan: true });
+  try {
+    // Simulate the package build cleaning dist and emitting only current sources.
+    await rm(dist, { recursive: true, force: true });
+    await mkdir(dist, { recursive: true });
+    await writeFile(join(dist, "index.js"), "export const built = true;\n");
+    const result = await runGuard(repo);
+    assert.equal(result.code, 1, "removed orphan artifacts must fail the guard");
+    assert.match(result.output, /RegistryBadge\.js/u);
   } finally {
     await rm(repo, { force: true, recursive: true });
   }

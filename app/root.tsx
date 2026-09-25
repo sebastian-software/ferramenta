@@ -4,6 +4,8 @@ import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout, ArdoThemeToggle } from "ar
 import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
 import bigShouldersFont from "ferramenta-family/fonts/big-shoulders.woff2?url";
 import config from "virtual:ardo/config";
+
+import { SITE_DESCRIPTION } from "./site-metadata";
 import "ardo/ui/styles.css";
 import "ferramenta-family/tokens.css";
 import "ferramenta-family/fonts.css";
@@ -31,8 +33,7 @@ export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native tools" },
   {
     name: "description",
-    content:
-      "Ferramenta is a family of Rust-native tools and focused applications, from standards-led engines to team agent skills and local-first speech transcription.",
+    content: SITE_DESCRIPTION,
   },
 ];
 

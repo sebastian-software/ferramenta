@@ -1,6 +1,8 @@
 import { ardo } from "ardo/vite";
 import { defineConfig } from "vite";
 
+import { SITE_DESCRIPTION } from "./app/site-metadata";
+
 export default defineConfig({
   // Ardo uses lucide-react internally; bundle it during prerender so module
   // resolution never escapes this workspace (dual-React hazard in worktrees).
@@ -8,9 +10,9 @@ export default defineConfig({
   plugins: [
     ardo({
       title: "Ferramenta",
-      description:
-        "Rust-native developer tools that keep the APIs you already know — held to the originals by differential testing.",
+      description: SITE_DESCRIPTION,
       siteUrl: "https://ferramenta.dev",
+      linkCheck: { level: "error" },
       metadata: {
         image: "/social.png",
         ogType: "website",

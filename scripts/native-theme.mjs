@@ -19,9 +19,19 @@ for (const tool of registry.family) {
 }
 const frames = [...expected].map((name) => [name, nativeFrame(registry, name)]);
 if (mode === "--write") await mkdir(root, { recursive: true });
+
+async function checkForUnexpectedFiles(directory, name, frame) {
+  const expectedParts = new Set(Object.keys(frame).map((part) => `${part}.md`));
+  for (const part of await readdir(directory)) {
+    if (expectedParts.has(part)) continue;
+    throw new Error(`Unexpected generated theme file: ${name}/${part}. Remove the stale file.`);
+  }
+}
+
 for (const [name, frame] of frames) {
   const directory = new URL(`${name}/`, root);
   if (mode === "--write") await mkdir(directory, { recursive: true });
+  else await checkForUnexpectedFiles(directory, name, frame);
   for (const [part, content] of Object.entries(frame)) {
     const file = new URL(`${part}.md`, directory);
     if (mode === "--write") await writeFile(file, content);
@@ -30,10 +40,10 @@ for (const [name, frame] of frames) {
     }
   }
 }
-for (const name of await readdir(root)) {
-  if (expected.has(name)) continue;
+for (const entry of await readdir(root, { withFileTypes: true })) {
+  if (!entry.isDirectory() || expected.has(entry.name)) continue;
   throw new Error(
-    `Unexpected generated theme: ${name}. Review and remove obsolete output manually.`,
+    `Unexpected generated theme: ${entry.name}. Review and remove obsolete output manually.`,
   );
 }
 console.log(`${frames.length} native themes ${mode === "--write" ? "written" : "verified"}.`);

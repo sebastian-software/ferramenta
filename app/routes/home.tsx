@@ -25,22 +25,21 @@ import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
 import pipelineSample from "../data/pipeline-sample.json";
 import registryStats from "../data/registry-stats.json";
+import { SITE_DESCRIPTION } from "../site-metadata";
 
 /** Fully custom shell: disable Ardo's default header/footer for this route. */
 export const handle = { chrome: false };
 
-const description =
-  "Ferramenta is a family of Rust-native tools and focused applications, from standards-led engines to team agent skills and local-first speech transcription.";
-
 export const meta: MetaFunction = () => [
   { title: "Ferramenta — Rust-native tools" },
-  { name: "description", content: description },
+  { name: "description", content: SITE_DESCRIPTION },
   { property: "og:title", content: "Ferramenta — Rust-native tools" },
-  { property: "og:description", content: description },
+  { property: "og:description", content: SITE_DESCRIPTION },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://ferramenta.dev/" },
   { property: "og:image", content: "https://ferramenta.dev/social.png" },
   { name: "twitter:card", content: "summary_large_image" },
+  { tagName: "link", rel: "canonical", href: "https://ferramenta.dev/" },
 ];
 
 const beliefs = [

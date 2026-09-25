@@ -22,35 +22,17 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+import { family } from "../packages/family/dist/family.js";
+import { createRegistryFetcher } from "./lib/registry-fetch.mjs";
 import { classifyOwnership, OURS, UNKNOWN } from "./registry-ownership.mjs";
 
 const here = import.meta.dirname;
 const OUT = join(here, "..", "app", "data", "registry-stats.json");
-const FAMILY = join(here, "..", "packages", "family", "src", "family.ts");
-const UA = "ferramenta.dev stats refresh (https://github.com/sebastian-software/ferramenta)";
-
 /** Marks a lookup the registry did not answer, as opposed to "not published". */
 const UNRESOLVED = Symbol("unresolved");
 
 let unresolved = 0;
-
-/**
- * One registry request, with the three outcomes kept apart:
- * `{ ok: true, data }` — answered; `data === null` means the name is unknown to
- * the registry. `{ ok: false }` — the registry did not answer at all.
- */
-async function fetchJson(url, headers = {}) {
-  try {
-    const res = await fetch(url, {
-      headers: { "user-agent": UA, accept: "application/json", ...headers },
-    });
-    if (res.status === 404) return { ok: true, data: null };
-    if (!res.ok) return { ok: false, reason: `HTTP ${res.status}` };
-    return { ok: true, data: await res.json() };
-  } catch (error) {
-    return { ok: false, reason: error.message };
-  }
-}
+const fetchJson = createRegistryFetcher();
 
 function warnUnresolved(what, reason) {
   unresolved += 1;
@@ -206,19 +188,15 @@ async function loadPrevious() {
   }
 }
 
-const familySource = await readFile(FAMILY, "utf8");
-const names = familySource
-  .split("\n")
-  .map((line) => line.match(/^\s*name: "([a-z]+)",$/)?.[1])
-  .filter(Boolean);
+const names = family.map((tool) => tool.name);
 
-if (names.length === 0) throw new Error("no tool names found in family.ts");
+if (names.length === 0) throw new Error("the family registry is empty");
 
 const previous = await loadPrevious();
 const tools = {};
 for (const name of names) {
   const before = previous[name] ?? { crates: null, npm: null, release: null };
-  // Sequential on purpose: crates.io asks API clients to stay well under a request per second.
+  // Sequential on purpose: the shared fetcher keeps crates.io requests one second apart.
   const crate = await crates(name);
   const adapter = await npm(name, before.npm);
   const latest = await release(name);

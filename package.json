@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "pnpm build:package && react-router build",
+    "build": "pnpm build:package && react-router build && node scripts/check-rendered-links.mjs",
     "build:package": "pnpm --filter ferramenta-family build",
     "prepare": "pnpm build:package",
     "preview": "vite preview",
@@ -45,6 +45,9 @@
     "oxlint": "^1.81.0",
     "typescript": "^5.9.3",
     "vite": "^8.1.4"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "packageManager": "pnpm@11.10.0"
 }

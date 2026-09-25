@@ -16,18 +16,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-const THEME = "gruvbox-dark-hard";
-
-/** The family's own quick start, from Ferromark's README. An h3: on the page it sits under the section's h2. */
-const MARKDOWN = `### Render Markdown in Rust
-
-Ferromark turns **Markdown** into HTML:
-
-\`\`\`rust
-let html = ferromark::to_html("Hello, **world**!").unwrap();
-assert_eq!(html, "<p>Hello, <strong>world</strong>!</p>\\n");
-\`\`\`
-`;
+import { PIPELINE_SAMPLE_MARKDOWN, PIPELINE_SAMPLE_THEME } from "./lib/pipeline-sample.mjs";
 
 function packageDir(name) {
   const dir = process.env[name];
@@ -62,9 +51,12 @@ const ferromark = await load(packageDir("FERROMARK"));
 const ferriki = await load(packageDir("FERRIKI"));
 const ferroni = await ferroniIn(packageDir("FERRIKI"));
 
-const highlighter = await ferriki.module.createHighlighter({ langs: ["rust"], themes: [THEME] });
-const html = ferromark.module.toHtmlWithHighlighter(MARKDOWN, highlighter, {
-  theme: THEME,
+const highlighter = await ferriki.module.createHighlighter({
+  langs: ["rust"],
+  themes: [PIPELINE_SAMPLE_THEME],
+});
+const html = ferromark.module.toHtmlWithHighlighter(PIPELINE_SAMPLE_MARKDOWN, highlighter, {
+  theme: PIPELINE_SAMPLE_THEME,
   onHighlightError(error) {
     throw error;
   },
@@ -73,9 +65,9 @@ if (!html.includes('class="shiki')) throw new Error("the code block came out unh
 
 const output = new URL("../app/data/pipeline-sample.json", import.meta.url);
 const sample = {
-  markdown: MARKDOWN,
+  markdown: PIPELINE_SAMPLE_MARKDOWN,
   html,
-  theme: THEME,
+  theme: PIPELINE_SAMPLE_THEME,
   rendered: { ferromark: ferromark.version, ferriki: ferriki.version, ferroni },
 };
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- a fixed path inside this repository
