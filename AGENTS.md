@@ -13,7 +13,7 @@ developer tools by Sebastian Software; this repo itself is TypeScript/React.
 ```sh
 pnpm install        # pnpm 11 workspace; `prepare` builds the workspace package
 pnpm dev            # dev server on :5173
-pnpm build          # builds the workspace package (tsc), then the site (prerender to build/client)
+pnpm build          # builds the workspace package and site, then checks rendered page links
 pnpm preview        # serves the production build on :4173
 pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
 pnpm format         # oxfmt --write .   (pnpm format:check in CI)
@@ -24,7 +24,8 @@ pnpm agent:check    # lint + format:check + typecheck + build + test — run thi
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
-`pnpm build` (TypeScript, prerender, Ardo's link check) is the main gate;
+`pnpm build` (TypeScript, prerender, Ardo's content link check, and rendered
+page-fragment check) is the main gate;
 `pnpm test` adds the registry-ownership unit tests and the README family-block
 contract. `.github/workflows/ci.yml` runs that gate on every pull
 request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.

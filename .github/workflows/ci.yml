@@ -5,6 +5,10 @@ on:
   push:
     branches: [main]
 
+# CI runs dependencies and repository code; it only needs to read the checkout.
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -15,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 24
+          node-version-file: .node-version
           cache: pnpm
 
       # README checks use this repository's native CLI pin.
