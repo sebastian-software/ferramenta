@@ -2,7 +2,7 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 
 import { loadRegistry } from "../packages/family/lib/family-readme.mjs";
-import { nativeFrame } from "../packages/family/lib/native-theme.mjs";
+import { nativeFrame } from "./lib/native-theme.mjs";
 
 const mode = process.argv[2];
 if (!["--write", "--check"].includes(mode) || process.argv.length !== 3) {

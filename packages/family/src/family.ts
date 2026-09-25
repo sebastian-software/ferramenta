@@ -189,7 +189,7 @@ export const family: FamilyTool[] = [
     proof:
       "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
     evidence: "Frozen zlob reference · ahead of globset and fast-glob",
-    version: "0.12.0",
+    version: "1.0.0",
     status: "early",
     group: "workbench",
     repo: "https://github.com/sebastian-software/ferralk",

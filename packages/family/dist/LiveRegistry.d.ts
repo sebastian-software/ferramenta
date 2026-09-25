@@ -81,6 +81,8 @@ export declare function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistry
 export declare function toolFacts(tool: FamilyTool, snapshotStat: null | RegistryStat | undefined, live?: LiveRegistryFacts): ToolFacts;
 export declare const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
 export type FamilyMetrics = {
+    /** Generation time lets snapshot-backed pages reject an older cached response. */
+    generatedAt?: string;
     facts: Record<string, LiveRegistryFacts>;
     /** Which registries the service answered for; the rest need a direct request. */
     answered: {
@@ -93,6 +95,8 @@ export declare function fetchFamilyMetrics(url?: string): Promise<FamilyMetrics 
 export type FamilyFactsOptions = {
     /** The metrics document; `false` skips it and asks the registries directly. */
     metrics?: false | string;
+    /** Ignore metrics older than the build-time snapshot. */
+    snapshotGeneratedAt?: string;
     /** The registries asked directly for what the metrics service did not answer. */
     endpoints?: RegistryEndpoints;
 };
@@ -101,7 +105,7 @@ export type FamilyFactsOptions = {
  * not answer (down, or not deployed yet), the registries directly, for the
  * packages the snapshot verified. Whatever answers nowhere keeps its build value.
  */
-export declare function fetchFamilyFacts(snapshot: RegistrySnapshot, { endpoints, metrics }?: FamilyFactsOptions): Promise<Record<string, LiveRegistryFacts>>;
+export declare function fetchFamilyFacts(snapshot: RegistrySnapshot, { endpoints, metrics, snapshotGeneratedAt, }?: FamilyFactsOptions): Promise<Record<string, LiveRegistryFacts>>;
 /** `fetchFamilyFacts` after hydration: empty during prerender and until something answers. */
 export declare function useFamilyFacts(snapshot: RegistrySnapshot, options?: FamilyFactsOptions): Record<string, LiveRegistryFacts>;
 /**

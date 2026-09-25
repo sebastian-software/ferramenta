@@ -36,9 +36,9 @@ export type LiveRegistryFacts = {
 };
 
 /** Parsed JSON, or null when the request failed or did not answer with 2xx. */
-async function json(url: string): Promise<unknown> {
+async function json(url: string, options: Pick<RequestInit, "cache"> = {}): Promise<unknown> {
   try {
-    const response = await fetch(url, { headers: { accept: "application/json" } });
+    const response = await fetch(url, { headers: { accept: "application/json" }, ...options });
     if (!response.ok) return null;
     const data: unknown = await response.json();
     return data;
@@ -228,6 +228,8 @@ export function toolFacts(
 export const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
 
 export type FamilyMetrics = {
+  /** Generation time lets snapshot-backed pages reject an older cached response. */
+  generatedAt?: string;
   facts: Record<string, LiveRegistryFacts>;
   /** Which registries the service answered for; the rest need a direct request. */
   answered: { crates: boolean; npm: boolean };
@@ -259,7 +261,7 @@ function metricsFacts(doc: Record<string, unknown>, name: string): LiveRegistryF
 
 /** The family's facts from the metrics document, or null when it did not answer usefully. */
 export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<FamilyMetrics | null> {
-  const doc = await json(url);
+  const doc = await json(url, { cache: "no-cache" });
   if (!isRecord(doc) || doc.schema !== 1 || !isRecord(doc.sources)) return null;
   const facts: Record<string, LiveRegistryFacts> = {};
   for (const { name } of family) {
@@ -267,6 +269,7 @@ export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<Fam
     if (Object.keys(member).length > 0) facts[name] = member;
   }
   return {
+    generatedAt: textAt(doc, "generatedAt"),
     facts,
     answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
   };
@@ -275,6 +278,8 @@ export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<Fam
 export type FamilyFactsOptions = {
   /** The metrics document; `false` skips it and asks the registries directly. */
   metrics?: false | string;
+  /** Ignore metrics older than the build-time snapshot. */
+  snapshotGeneratedAt?: string;
   /** The registries asked directly for what the metrics service did not answer. */
   endpoints?: RegistryEndpoints;
 };
@@ -286,13 +291,33 @@ export type FamilyFactsOptions = {
  */
 export async function fetchFamilyFacts(
   snapshot: RegistrySnapshot,
-  { endpoints = REGISTRY_ENDPOINTS, metrics = METRICS_URL }: FamilyFactsOptions = {},
+  {
+    endpoints = REGISTRY_ENDPOINTS,
+    metrics = METRICS_URL,
+    snapshotGeneratedAt,
+  }: FamilyFactsOptions = {},
 ): Promise<Record<string, LiveRegistryFacts>> {
-  const fromMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+  const fetchedMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+  const fromMetrics = isMetricsFreshEnough(fetchedMetrics, snapshotGeneratedAt)
+    ? fetchedMetrics
+    : null;
   const direct = unanswered(liveRequestFor(snapshot), fromMetrics);
   const fromRegistries =
     direct.crates.length + direct.npm.length > 0 ? await fetchLiveRegistry(direct, endpoints) : {};
   return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+}
+
+function isMetricsFreshEnough(
+  metrics: FamilyMetrics | null,
+  snapshotGeneratedAt: string | undefined,
+): boolean {
+  if (snapshotGeneratedAt === undefined) return true;
+  if (metrics === null) return false;
+  const snapshotTime = Date.parse(snapshotGeneratedAt);
+  const metricsTime = Date.parse(metrics.generatedAt ?? "");
+  return (
+    Number.isFinite(snapshotTime) && Number.isFinite(metricsTime) && metricsTime >= snapshotTime
+  );
 }
 
 /** What still needs a direct registry request: the registries the metrics service did not answer. */

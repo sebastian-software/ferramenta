@@ -168,7 +168,7 @@ export default function HomePage() {
   const { pipeline, language, workbench } = familyGroups();
 
   return (
-    <RegistryFacts snapshot={registryStats.tools}>
+    <RegistryFacts snapshot={registryStats.tools} snapshotGeneratedAt={registryStats.generatedAt}>
       <ProjectHero
         title={
           <>

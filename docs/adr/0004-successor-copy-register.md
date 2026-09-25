@@ -93,8 +93,10 @@ is too narrow: some members are new developments with no non-Rust predecessor.
 and stays compatible with it: ferroni (Oniguruma), ferriki (Shiki) and ferrolex
 (Hunspell). A _new development_ builds directly on open standards: ferrocat,
 ferralk, ferromark (its v2 builds on ox-content, with no non-Rust predecessor),
-ferrugo, and the application palamedes. The registry records this as
-`succeeds` or `buildsOn`; the overview renders it as a "Succeeds" or "Builds on" fact.
+ferrugo. The registry records these as `succeeds` or `buildsOn`; the overview
+renders them as a "Succeeds" or "Builds on" fact. Applications that depend on
+family engines record those runtime dependencies as `runsOn`; the overview
+renders a "Runs on" fact. Palamedes runs on Ferrocat, Ferromark, and Ferralk.
 
 Successor copy keeps the register above: honor the original → state the
 succession → give the why. New-development copy honors the standard or the

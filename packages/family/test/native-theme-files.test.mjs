@@ -10,12 +10,16 @@ test("unexpected URL-like names never cause deletion outside generated output", 
   const root = await mkdtemp(join(tmpdir(), "family-theme-files-"));
   try {
     await Promise.all([
-      mkdir(join(root, "scripts"), { recursive: true }),
+      mkdir(join(root, "scripts/lib"), { recursive: true }),
       mkdir(join(root, "packages/family/src"), { recursive: true }),
     ]);
     await cp(
       new URL("../../../scripts/native-theme.mjs", import.meta.url),
       join(root, "scripts/native-theme.mjs"),
+    );
+    await cp(
+      new URL("../../../scripts/lib/native-theme.mjs", import.meta.url),
+      join(root, "scripts/lib/native-theme.mjs"),
     );
     await cp(new URL("../lib", import.meta.url), join(root, "packages/family/lib"), {
       recursive: true,

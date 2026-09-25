@@ -46,10 +46,6 @@ function BoardItem({ tool }: { tool: FamilyTool }) {
       <span className="markplate">
         <Mark name={tool.mark ?? tool.name} />
       </span>
-      {/* Riveted to the plate's lower edge: no extra row, so no hook moves. */}
-      <span className="fam-board-stamp">
-        <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-      </span>
       <span className="fam-board-copy">
         <b>
           {tool.name}
@@ -59,6 +55,10 @@ function BoardItem({ tool }: { tool: FamilyTool }) {
           <RepoNote tool={tool} />
         </b>
         <small>{tool.shortJob}</small>
+      </span>
+      {/* Riveted to the plate's lower edge: no extra row, so no hook moves. */}
+      <span className="fam-board-stamp">
+        <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
       </span>
     </a>
   );
@@ -155,23 +155,25 @@ function ToolMeta({ tool }: { tool: FamilyTool }) {
   return (
     <div className="fam-tool-meta">
       <b className="fam-tool-version">v{facts.version}</b>
-      <span className="fam-tool-platforms">
-        {facts.onCrates ? (
-          <span className="fam-tool-platform">
-            <Mark name="crate" className="icon" size={15} />
-            crates.io
-          </span>
-        ) : null}
-        {facts.adapter ? (
-          <span className="fam-tool-platform">
-            <Mark name="adapter" className="icon" size={15} />
-            npm
-          </span>
-        ) : null}
-        {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
-          <span className="fam-tool-platform">install from Git</span>
-        ) : null}
-      </span>
+      {facts.onCrates || facts.adapter || isEngine(tool) ? (
+        <span className="fam-tool-platforms">
+          {facts.onCrates ? (
+            <span className="fam-tool-platform">
+              <Mark name="crate" className="icon" size={15} />
+              crates.io
+            </span>
+          ) : null}
+          {facts.adapter ? (
+            <span className="fam-tool-platform">
+              <Mark name="adapter" className="icon" size={15} />
+              npm
+            </span>
+          ) : null}
+          {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
+            <span className="fam-tool-platform">install from Git</span>
+          ) : null}
+        </span>
+      ) : null}
       <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
     </div>
   );

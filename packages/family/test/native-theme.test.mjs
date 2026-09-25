@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { nativeFrame } from "../../../scripts/lib/native-theme.mjs";
 import { loadRegistry } from "../lib/family-readme.mjs";
-import { nativeFrame } from "../lib/native-theme.mjs";
 
 const registry = await loadRegistry();
 for (const current of registry.family) {
