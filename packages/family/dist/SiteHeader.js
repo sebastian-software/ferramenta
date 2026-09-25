@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { FAMILY_SITE, family } from "./family.js";
+import { family, FAMILY_SITE } from "./family.js";
 import { Mark } from "./Mark.js";
 import { ToolSwitcher } from "./ToolSwitcher.js";
 function githubLink(current) {
