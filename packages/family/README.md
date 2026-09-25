@@ -74,7 +74,8 @@ own project names through `line="company"`.
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | React   | `>=19.0.0 <20.0.0` (peer)                                                                                                             |
 | Ardo    | not required — an Ardo site passes `<ArdoThemeToggle />` into the header's `themeToggle` slot (the family sites are on the 4.2 floor) |
-| Node    | >= 22.13 for the `ferramenta-readme` generator; the components have no Node floor of their own                                        |
+| Node    | `>=20.11.0` for the package and its `ferramenta-readme` binary; the generator falls back to committed `dist/` on older Node           |
+| Theme   | `:root.dark` / `:root.light` for an explicit host choice; otherwise follows `prefers-color-scheme`                                    |
 | Bundler | for the chrome, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `ferramenta-family/registry` needs none  |
 
 ## Install
@@ -155,7 +156,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   (ADR-0007). `actions` and `nav` are two more slots — the first just before
   the theme toggle for a docs site's search or section menu, the second between
   the lockup and the family navigation for a site's own navigation. Both take
-  the site's own elements.
+  the site's own elements. With `current`, the GitHub icon links to that
+  member's repository and names it in its accessible label; without it, the
+  icon links to the organization.
 - **`SiteFooter`** — `current?: string` (omits the site's own entry),
   `line?: "family" | "company"`, `legal?: ReactNode`, `as?: "footer" | "div"`,
   `members?: "full" | "short" | "none"` (the member columns: full jobs, short
@@ -236,25 +239,25 @@ export default function Home() {
 }
 ```
 
-| Component          | Props                                                                                                                                                                                                                                                                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate)                                                                                                                                                                                                                                            |
-| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`                                                                                                                                                                                                                                                  |
-| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                                                                                                                                                                                                                                                                          |
-| `PipelineAssembly` | `current?` (a pipeline stage — any other name throws), `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`)                                                                                                                                                                                                 |
-| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                                                                                                                                                                                                                                                            |
-| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                                                                                                                |
-| `RunSample`        | `input`, `inputCaption`, `output` (your tool's real output as trusted HTML, a committed artifact), `outputCaption` (which tools and versions) — the tool run for real, input beside output; the output is `inert`                                                                                                                           |
-| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                                                                                                                                                                            |
-| `Stamp`            | `solid?`, `children`                                                                                                                                                                                                                                                                                                                        |
-| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                                                                                                                                                                                                                          |
-| `useLiveRegistry`  | `request: { crates: string[]; npm: string[] }`, `endpoints?` — live versions and downloads after hydration, from one bulk request per registry; `fetchLiveRegistry` is the same without React                                                                                                                                               |
-| `ClosingAction`    | `title`, `actions?`, `aside?` (a list beside the copy, e.g. `JobIndex`), `links?` (the mono link line), `children` (the copy)                                                                                                                                                                                                               |
-| `Pegboard`         | `current?` (left off the wall), `label?` — every member on its hook with its stamp, grouped; fits `ProjectHero`'s `aside`                                                                                                                                                                                                                   |
-| `ToolLedger`       | `tools`, `steps?` (number the rows where the order is real) — proof, `Succeeds` / `Builds on` / `Runs on`, evidence, live release                                                                                                                                                                                                           |
-| `JobIndex`         | `current?` — every member's short job A to Z with its tool and stamp; recommends none, because every member works on its own                                                                                                                                                                                                                |
-| `RegistryFacts`    | `snapshot?`, `metrics?`, `endpoints?`, `children` — live figures for everything inside from the workshop's metrics service (`METRICS_URL`: one request, no snapshot needed), the registries directly for what it did not answer; `snapshot` is only the prerendered value. Read with `useToolFacts(tool)`, total with `<FamilyDownloads />` |
-| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                                                                                                                                                                                                                |
+| Component          | Props                                                                                                                                                                                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ProjectHero`      | `title`, `lede?`, `actions?`, `install?`, `mark?` (a large plate), `aside?` (replaces the plate)                                                                                                                                                                  |
+| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `className?`, `children`                                                                                                                                                                        |
+| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children`                                                                                                                                                                                                |
+| `PipelineAssembly` | `current?` (a pipeline stage — any other name throws), `input?`, `output?`, `label?` — stages and ends default to the registry (`PIPELINE`)                                                                                                                       |
+| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]`                                                                                                                                                                                                                  |
+| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                                      |
+| `RunSample`        | `input`, `inputCaption`, `inputKind?`, `output` (your tool's real output as trusted HTML, a committed artifact), `outputCaption` — the tool run for real, input beside output; the output is `inert`                                                              |
+| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                                                                                                  |
+| `Stamp`            | `solid?`, `children`                                                                                                                                                                                                                                              |
+| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                                                                                                                                                |
+| `useLiveRegistry`  | `request: { crates: string[]; npm: string[] }`, `endpoints?` — direct live versions and downloads after hydration, one bulk request per registry; `fetchLiveRegistry` is the same without React                                                                   |
+| `ClosingAction`    | `id?`, `title`, `actions?`, `aside?` (a list beside the copy, e.g. `JobIndex`), `links?` (the mono link line), `children` (the copy)                                                                                                                              |
+| `Pegboard`         | `current?` (left off the wall), `label?` — every member on its hook with its stamp, grouped; fits `ProjectHero`'s `aside`                                                                                                                                         |
+| `ToolLedger`       | `tools`, `steps?` (number the rows where the order is real) — proof, `Succeeds` / `Builds on` / `Runs on`, evidence, live release                                                                                                                                 |
+| `JobIndex`         | `current?` — every member's short job A to Z with its tool and stamp; recommends none, because every member works on its own                                                                                                                                      |
+| `RegistryFacts`    | `snapshot?`, `snapshotGeneratedAt?`, `metrics?`, `endpoints?`, `children` — metrics-first live facts, with direct registry requests for unanswered sources; `snapshot` is the prerendered value. Read with `useToolFacts(tool)`, total with `<FamilyDownloads />` |
+| `Fasteners`        | none — four screws for a host's own chassis; set `position: relative` and `--fastener-inset`                                                                                                                                                                      |
 
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 (rust, chamfered — one per view) or `fam-btn-ghost`, `fam-actions` for a row
@@ -272,6 +275,13 @@ technology (styled by `fam-sr-only` in `chrome.css`). The rules the
 kit carries — no kickers above headings, the H1 floor (`--fam-title-min` on
 `.fam-hero`, never below 2.5rem), where material may appear — are in the
 family's [DESIGN.md](https://github.com/sebastian-software/ferramenta/blob/main/DESIGN.md).
+
+`RegistryFacts` uses `fetchFamilyFacts` / `useFamilyFacts`: one request to the
+metrics service first, then direct registry requests only for sources it did
+not answer. `fetchFamilyMetrics` reads just that service; `useLiveRegistry` /
+`fetchLiveRegistry` ask crates.io and npm directly. The registry helpers
+`toolFacts`, `liveRequestFor`, `REGISTRY_ENDPOINTS`, and `relatedTools`, the
+SVG symbol list `MARK_DEFS`, and the `Count` component are exported too.
 
 ## Ardo docs sites
 
@@ -405,7 +415,7 @@ the worked examples.
 
 | Import                          | What it is                                                                 | Safe to load anywhere?                                        |
 | ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `ferramenta-family/tokens.css`  | The OKLCH design tokens on `:root` and `:root.dark`                        | Yes — variables only, nothing paints                          |
+| `ferramenta-family/tokens.css`  | The OKLCH design tokens, native `color-scheme`, and dark-mode values       | Yes — no surfaces are painted                                 |
 | `ferramenta-family/fonts.css`   | `@font-face` for Big Shoulders plus the bundled WOFF2                      | Yes — optional; the chrome falls back to the body stack       |
 | `ferramenta-family/theme.css`   | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks` | Yes                                                           |
 | `ferramenta-family/landing.css` | The landing kit: `.fam-page` and every `fam-` pattern                      | Yes — `fam-` prefixed; load it **before** your own stylesheet |
@@ -416,11 +426,15 @@ It goes last, after the site's own stylesheet, so a site-wide reset cannot take
 the selector ties from the chrome — which also means it wins those ties. It owns
 these class names: `site-header`, `site-footer`, `bar`, `wrap`, `lockup`,
 `switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
-`flyhome`, `ghlink`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `mark`,
-`markplate`, `hook`, `fastener`, `icon`, `fam-sr-only`. `landing.css` needs `chrome.css` for
-`wrap`, `markplate`, `fastener` and `icon`, and owns every class that starts
-with `fam-`. A site that needs one of them for its own elements should scope or
-rename it.
+`flyhome`, `ghlink`, `site-nav`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
+`mark`, `markplate`, `hook`, `fastener`, `icon`, `fam-sr-only`. `landing.css`
+needs `chrome.css` for `wrap`, `mark`, `markplate`, `fastener`, `hook`, and
+`icon`; it also uses `on-iron`, `fam-sr-only`, and the `--fastener-inset`
+protocol. It owns every class that starts with `fam-`. The landing kit sets
+`.fam-page :where(a)` to rust and `.fam-band :where(a)` to ember, with underlines
+for running-text links. Host class selectors can override those defaults; bare
+element rules such as `a { color: … }` cannot. A site that needs one of these
+class names for its own elements should scope or rename it.
 
 The font file is also exported directly, for a preload link:
 
@@ -497,23 +511,11 @@ Three things to know:
   blesses today is not the one it blessed yesterday. Bump the pin when the
   registry changes; the block is generated, so the diff shows exactly what
   moved.
-- **Node >= 22.13 is the floor.** The generator reads `src/family.ts`, the
-  declared source of truth, so an edit to the registry is picked up without a
-  build. Node itself refuses to strip types from a file under `node_modules`,
-  which is where an installed package lives, so the generator strips them with
-  `module.stripTypeScriptTypes` (Node >= 22.13) and imports the JavaScript
-  through a `data:` URL. In a checkout — this repository, or a `git clone` —
-  Node strips the types on import instead (>= 22.18).
-
-On older Node, build the package first and run it from the checkout; the
-generator falls back to `dist/family.js`:
-
-```sh
-git clone --depth 1 https://github.com/sebastian-software/ferramenta.git
-pnpm --dir ferramenta/packages/family install
-pnpm --dir ferramenta/packages/family build
-node ferramenta/packages/family/bin/family-readme.mjs --current ferrocat --write README.md
-```
+- **Node >= 20.11.0 is the floor.** The generator tries the source registry
+  first. On Node >= 22.13 it strips source types for the installed-package
+  case; if source loading is unavailable, it uses the committed
+  `dist/family.js`. That fallback means older supported Node versions do not
+  need a package build first.
 
 ## Publishing
 

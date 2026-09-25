@@ -37,7 +37,14 @@ test("registry evidence carries durable provenance instead of release counts", (
 test("the header renders the switcher with every family member", () => {
   const html = render(family.SiteHeader);
   assert.match(html, /^<header class="site-header">/u);
+  assert.ok(html.includes('<nav class="site-nav" aria-label="Site">'));
   assert.ok(html.includes('<a class="lockup" href="/">'), "the family site links its own root");
+  assert.ok(
+    html.includes(
+      '<a class="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub">',
+    ),
+    "the family header links to the organization",
+  );
   assert.ok(html.includes("Tools"), "the switcher has its summary");
   for (const tool of family.family) {
     assert.ok(html.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
@@ -58,6 +65,12 @@ test("current is context rather than a self-link", () => {
   const html = render(family.SiteHeader, { current: "ferroni" });
   assert.ok(html.includes("Current: ferroni"));
   assert.ok(!html.includes('href="https://sebastian-software.github.io/ferroni/"'));
+  assert.ok(
+    html.includes(
+      '<a class="ghlink" href="https://github.com/sebastian-software/ferroni" aria-label="ferroni on GitHub">',
+    ),
+    "a project header links to its repository with a descriptive name",
+  );
 });
 
 test("the project lockup names the site and moves the family into the switcher", () => {
@@ -129,7 +142,7 @@ test("the docs-site slots keep search and navigation out of the toggle slot", ()
   });
   assert.ok(html.includes('<nav aria-label="Docs">'), "the nav slot renders");
   assert.ok(
-    html.indexOf('aria-label="Docs"') < html.indexOf('<nav class="site"'),
+    html.indexOf('aria-label="Docs"') < html.indexOf('<nav class="site-nav"'),
     "before the bar",
   );
   assert.ok(

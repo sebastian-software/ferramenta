@@ -47,6 +47,16 @@ test("the pegboard hangs every member with its stamp, grouped like the family", 
   assert.equal(html.match(/class="fam-board-item"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-stamp"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-group"/gu).length, 3);
+  const ferroniStart = html.indexOf(
+    '<a class="fam-board-item" href="https://sebastian-software.github.io/ferroni/">',
+  );
+  const ferroniEnd = html.indexOf("</a>", ferroniStart);
+  const ferroni = html.slice(ferroniStart, ferroniEnd);
+  assert.ok(
+    ferroni.indexOf("ferroni") < ferroni.indexOf("Regex engine") &&
+      ferroni.indexOf("Regex engine") < ferroni.indexOf("stable"),
+    "the tool name and job come before its maturity stamp",
+  );
   assert.equal(
     render(kit.Pegboard, { current: "ferroni" }).match(/fam-board-item/gu).length,
     kit.family.length - 1,
@@ -67,6 +77,11 @@ test("the tool ledger numbers only a real sequence, and names what each member r
   assert.match(names, /^Ferrocat/u, "the first name too: no text-transform guesswork");
   // Outside RegistryFacts a row shows the registry's fallback version.
   assert.ok(plain.includes(`v${language[0].version}`));
+  const application = render(kit.ToolLedger, { tools: [palamedes] });
+  assert.ok(
+    !application.includes('<span class="fam-tool-platforms"></span>'),
+    "applications without a published registry package do not render an empty platform line",
+  );
 });
 
 test("every member rests on exactly one fact: what it succeeds, builds on, or runs on", () => {
@@ -145,12 +160,16 @@ const verified = { ferroni: { crates: { version: "1", downloads: 1 }, npm: null 
 
 test("family facts come from the metrics document in one request", async (t) => {
   const calls = [];
-  t.mock.method(globalThis, "fetch", async (url) => {
-    calls.push(String(url));
+  t.mock.method(globalThis, "fetch", async (url, options) => {
+    calls.push({ url: String(url), cache: options?.cache });
     return body(metricsDoc());
   });
   const facts = await kit.fetchFamilyFacts(verified);
-  assert.deepEqual(calls, [kit.METRICS_URL], "no registry is asked when the service answered");
+  assert.deepEqual(
+    calls,
+    [{ url: kit.METRICS_URL, cache: "no-cache" }],
+    "the page revalidates its metrics document and asks no registry when the service answered",
+  );
   assert.deepEqual(facts.ferroni, { crates: { version: "9.0.0", downloads: 5 } });
   assert.deepEqual(facts.ferromark, { npm: { version: "9.1.0", lastMonth: 7 } });
   assert.equal(facts["someone-else"], undefined, "only family members");
@@ -166,6 +185,26 @@ test("family facts come from the metrics document in one request", async (t) => 
   // Without a snapshot the live facts stand on their own: a sibling site gets figures too.
   const ferroni = kit.family.find((tool) => tool.name === "ferroni");
   assert.equal(kit.toolFacts(ferroni, undefined, facts.ferroni).version, "9.0.0");
+});
+
+test("metrics older than the snapshot are ignored and verified registries are queried", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    if (String(url) === kit.METRICS_URL) return body(metricsDoc());
+    if (String(url).includes("/crates?")) {
+      return body({ crates: [{ id: "ferroni", max_stable_version: "2.0.0", downloads: 2 }] });
+    }
+    throw new Error("unexpected request");
+  });
+  const facts = await kit.fetchFamilyFacts(verified, {
+    snapshotGeneratedAt: "2026-09-25T05:00:00Z",
+  });
+  assert.deepEqual(calls, [
+    kit.METRICS_URL,
+    `${kit.REGISTRY_ENDPOINTS.crates}/crates?ids[]=ferroni&per_page=1`,
+  ]);
+  assert.deepEqual(facts.ferroni, { crates: { version: "2.0.0", downloads: 2 } });
 });
 
 test("a registry the metrics service did not answer is asked directly, for verified names only", async (t) => {

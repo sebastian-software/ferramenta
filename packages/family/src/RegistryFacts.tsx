@@ -30,6 +30,8 @@ export type RegistryFactsProps = {
    * whatever the metrics service answers.
    */
   snapshot?: RegistrySnapshot;
+  /** Snapshot generation time; older metrics responses are ignored. */
+  snapshotGeneratedAt?: string;
   /** The metrics document (`METRICS_URL` by default); `false` asks the registries directly. */
   metrics?: false | string;
   /** The registries asked directly for what the metrics service did not answer. */
@@ -46,8 +48,9 @@ export function RegistryFacts({
   endpoints,
   metrics,
   snapshot = NO_SNAPSHOT,
+  snapshotGeneratedAt,
 }: RegistryFactsProps) {
-  const live = useFamilyFacts(snapshot, { endpoints, metrics });
+  const live = useFamilyFacts(snapshot, { endpoints, metrics, snapshotGeneratedAt });
   const value = useMemo(() => ({ snapshot, live }), [snapshot, live]);
   return <FactsContext value={value}>{children}</FactsContext>;
 }

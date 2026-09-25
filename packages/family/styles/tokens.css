@@ -1,12 +1,12 @@
 /*
  * ferramenta-family — design tokens.
  *
- * Variables only: nothing here paints, so a sibling site can load the tokens
- * without inheriting the family site's look. Dark mode keys off Ardo's `.dark`
- * class on <html> (ArdoRootLayout theme bootstrap).
+ * Tokens and the browser's native-surface hint. Dark mode follows an explicit
+ * `:root.dark` class or the system preference unless the host sets `:root.light`.
  */
 
 :root {
+  color-scheme: light;
   --display: "Big Shoulders";
   --disp-weight: 800;
   --disp-track: 0;
@@ -41,8 +41,10 @@
   --hook-dark: oklch(0.38 0.025 45);
   --hook-light: oklch(0.9 0.015 65 / 0.85);
   --hook-hole: oklch(0.28 0.02 45 / 0.85);
+  --board-hole: oklch(0.45 0.02 55 / 0.3);
 }
 :root.dark {
+  color-scheme: dark;
   --hook-dark: oklch(0.62 0.02 50);
   --hook-light: oklch(0.95 0.01 65 / 0.9);
   --hook-hole: oklch(0.12 0.01 45);
@@ -53,6 +55,7 @@
   --plate-sheen: oklch(1 0 0 / 0.1);
   --plate-brush: oklch(1 0 0 / 0.05);
   --plate-shadow: oklch(0.05 0.01 45 / 0.55);
+  --board-hole: oklch(0.08 0.01 45 / 0.45);
   /* The floor sits visibly above the iron bands: the two must not merge in the dark. */
   --bg: oklch(0.215 0.009 48);
   --bg-dim: oklch(0.25 0.012 48);
@@ -73,24 +76,55 @@
   --grid-line: oklch(0.7 0.02 55 / 0.1);
   /* Carrier plates for partner logos: still paper, dimmed so they do not outshine the page. */
   --paper: oklch(0.86 0.006 80);
-}
-:root {
-  --duo0: oklch(0.985 0.004 85);
-  --duo1: oklch(0.93 0.035 50);
-  --duo2: oklch(0.8 0.095 48);
-  --duoink: oklch(0.36 0.075 38);
-}
-:root.dark {
   --duo0: oklch(0.93 0.012 70);
   --duo1: oklch(0.31 0.045 42);
   --duo2: oklch(0.54 0.11 45);
   --duoink: oklch(0.89 0.035 55);
-}
-:root {
-  --focus: var(--rust);
-}
-:root.dark {
   --focus: var(--ember);
+  --rust-on-plate: oklch(0.82 0.11 58);
+  --ink-soft-on-plate: oklch(0.83 0.015 65);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --hook-dark: oklch(0.62 0.02 50);
+    --hook-light: oklch(0.95 0.01 65 / 0.9);
+    --hook-hole: oklch(0.12 0.01 45);
+    --plate-rim-hi: oklch(0.45 0.035 50);
+    --plate-rim-lo: oklch(0.2 0.02 45);
+    --plate-face-hi: oklch(0.42 0.035 48);
+    --plate-face-lo: oklch(0.29 0.03 45);
+    --plate-sheen: oklch(1 0 0 / 0.1);
+    --plate-brush: oklch(1 0 0 / 0.05);
+    --plate-shadow: oklch(0.05 0.01 45 / 0.55);
+    --board-hole: oklch(0.08 0.01 45 / 0.45);
+    --bg: oklch(0.215 0.009 48);
+    --bg-dim: oklch(0.25 0.012 48);
+    --ink: oklch(0.94 0.006 80);
+    --ink-soft: oklch(0.71 0.012 70);
+    --rust: oklch(0.69 0.14 45);
+    --rust-deep: oklch(0.6 0.125 42);
+    --rust-tint: oklch(0.69 0.14 45 / 0.13);
+    --ember: oklch(0.75 0.16 55);
+    --line: oklch(0.31 0.012 50);
+    --line-heavy: oklch(0.85 0.01 70);
+    --on-rust: oklch(0.15 0.01 50);
+    --iron: oklch(0.14 0.009 45);
+    --iron-2: oklch(0.19 0.011 45);
+    --iron-ink: oklch(0.95 0.008 78);
+    --iron-soft: oklch(0.7 0.015 65);
+    --iron-line: oklch(0.31 0.015 48);
+    --grid-line: oklch(0.7 0.02 55 / 0.1);
+    --paper: oklch(0.86 0.006 80);
+    --duo0: oklch(0.93 0.012 70);
+    --duo1: oklch(0.31 0.045 42);
+    --duo2: oklch(0.54 0.11 45);
+    --duoink: oklch(0.89 0.035 55);
+    --focus: var(--ember);
+    --rust-on-plate: oklch(0.82 0.11 58);
+    --ink-soft-on-plate: oklch(0.83 0.015 65);
+  }
 }
 
 /*
@@ -110,6 +144,15 @@
   --chamfer: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
 }
 
+/* Theme-specific values used by marks and focus rings. */
+:root {
+  --duo0: oklch(0.985 0.004 85);
+  --duo1: oklch(0.93 0.035 50);
+  --duo2: oklch(0.8 0.095 48);
+  --duoink: oklch(0.36 0.075 38);
+  --focus: var(--rust);
+}
+
 /* The display scale below the poster headline, and the rhythm between sections. */
 :root {
   --h2-size: clamp(2.3rem, 4.6vw, 3.4rem);
@@ -127,10 +170,4 @@
   --code-function: oklch(0.84 0.08 70);
   --code-string: oklch(0.8 0.1 95);
   --code-comment: var(--iron-soft);
-}
-
-/* The dark face's light end (--plate-face-hi) is the worst case: 4.8:1 and 5.1:1 there. */
-:root.dark {
-  --rust-on-plate: oklch(0.82 0.11 58);
-  --ink-soft-on-plate: oklch(0.83 0.015 65);
 }

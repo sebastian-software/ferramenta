@@ -6,9 +6,9 @@ export const REGISTRY_ENDPOINTS = {
     npmDownloads: "https://api.npmjs.org/downloads",
 };
 /** Parsed JSON, or null when the request failed or did not answer with 2xx. */
-async function json(url) {
+async function json(url, options = {}) {
     try {
-        const response = await fetch(url, { headers: { accept: "application/json" } });
+        const response = await fetch(url, { headers: { accept: "application/json" }, ...options });
         if (!response.ok)
             return null;
         const data = await response.json();
@@ -176,7 +176,7 @@ function metricsFacts(doc, name) {
 }
 /** The family's facts from the metrics document, or null when it did not answer usefully. */
 export async function fetchFamilyMetrics(url = METRICS_URL) {
-    const doc = await json(url);
+    const doc = await json(url, { cache: "no-cache" });
     if (!isRecord(doc) || doc.schema !== 1 || !isRecord(doc.sources))
         return null;
     const facts = {};
@@ -186,6 +186,7 @@ export async function fetchFamilyMetrics(url = METRICS_URL) {
             facts[name] = member;
     }
     return {
+        generatedAt: textAt(doc, "generatedAt"),
         facts,
         answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
     };
@@ -195,11 +196,23 @@ export async function fetchFamilyMetrics(url = METRICS_URL) {
  * not answer (down, or not deployed yet), the registries directly, for the
  * packages the snapshot verified. Whatever answers nowhere keeps its build value.
  */
-export async function fetchFamilyFacts(snapshot, { endpoints = REGISTRY_ENDPOINTS, metrics = METRICS_URL } = {}) {
-    const fromMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+export async function fetchFamilyFacts(snapshot, { endpoints = REGISTRY_ENDPOINTS, metrics = METRICS_URL, snapshotGeneratedAt, } = {}) {
+    const fetchedMetrics = metrics === false ? null : await fetchFamilyMetrics(metrics);
+    const fromMetrics = isMetricsFreshEnough(fetchedMetrics, snapshotGeneratedAt)
+        ? fetchedMetrics
+        : null;
     const direct = unanswered(liveRequestFor(snapshot), fromMetrics);
     const fromRegistries = direct.crates.length + direct.npm.length > 0 ? await fetchLiveRegistry(direct, endpoints) : {};
     return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+}
+function isMetricsFreshEnough(metrics, snapshotGeneratedAt) {
+    if (snapshotGeneratedAt === undefined)
+        return true;
+    if (metrics === null)
+        return false;
+    const snapshotTime = Date.parse(snapshotGeneratedAt);
+    const metricsTime = Date.parse(metrics.generatedAt ?? "");
+    return (Number.isFinite(snapshotTime) && Number.isFinite(metricsTime) && metricsTime >= snapshotTime);
 }
 /** What still needs a direct registry request: the registries the metrics service did not answer. */
 function unanswered(request, metrics) {

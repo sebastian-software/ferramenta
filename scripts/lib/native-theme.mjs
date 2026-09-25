@@ -1,4 +1,4 @@
-import { END, render, START } from "./family-readme.mjs";
+import { END, render, START } from "../../packages/family/lib/family-readme.mjs";
 
 /** Static frames are built centrally; native consumers never execute this code. */
 export function nativeFrame(registry, current) {

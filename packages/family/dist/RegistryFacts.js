@@ -8,8 +8,8 @@ const FactsContext = createContext({ snapshot: NO_SNAPSHOT, live: {} });
  * Provides registry figures to the tool ledger, the board and the download
  * tally below it: the snapshot during prerender, live values after hydration.
  */
-export function RegistryFacts({ children, endpoints, metrics, snapshot = NO_SNAPSHOT, }) {
-    const live = useFamilyFacts(snapshot, { endpoints, metrics });
+export function RegistryFacts({ children, endpoints, metrics, snapshot = NO_SNAPSHOT, snapshotGeneratedAt, }) {
+    const live = useFamilyFacts(snapshot, { endpoints, metrics, snapshotGeneratedAt });
     const value = useMemo(() => ({ snapshot, live }), [snapshot, live]);
     return _jsx(FactsContext, { value: value, children: children });
 }
