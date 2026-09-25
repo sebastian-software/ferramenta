@@ -5,9 +5,9 @@ every site reads its facts from, the shared chrome (header with the tool
 switcher, footer), the landing kit a home page is built from, the project
 marks, the design tokens, and the display face.
 
-> **Status:** consumed by ferramenta.dev through `workspace:*`. The name
-> `ferramenta-family` is reserved on npm, but no release is published yet (see
-> [Publishing](#publishing)). Until then siblings pin a commit SHA from Git.
+> **Status:** consumed by ferramenta.dev through `workspace:*` and published as
+> `ferramenta-family@1.2.0` on npm. Sibling sites should use a versioned npm
+> dependency; pin a Git commit only when testing unreleased source.
 
 ## Native Markdown theme
 
@@ -81,10 +81,10 @@ own project names through `line="company"`.
 ## Install
 
 ```sh
-# Once the first release is on npm:
-pnpm add ferramenta-family
+# Use the published semver release:
+pnpm add ferramenta-family@^1.2.0
 
-# Until then — from Git, pinned to a commit SHA:
+# To test an unreleased source snapshot from Git:
 pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family"
 ```
 
@@ -494,15 +494,22 @@ ferramenta-readme --current ferrocat --check README.md  # exits 1 on drift
 
 ### Running it from a sibling repository
 
-The package has no npm release yet, so consume it straight from Git. `pnpm dlx`
-accepts a ref and a subdirectory:
+Use the published package for sibling repositories:
+
+```sh
+pnpm dlx ferramenta-family@^1.2.0 \
+  --current ferrocat --write README.md
+```
+
+To test README generation from an unreleased source snapshot, `pnpm dlx` also
+accepts a Git ref and a package subdirectory:
 
 ```sh
 pnpm dlx "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" \
   --current ferrocat --write README.md
 ```
 
-Three things to know:
+Three things to know about the Git form:
 
 - **The `&path:` part is required.** Without it pnpm installs the site, not the
   package, and there is no `ferramenta-readme` binary to run.
@@ -524,10 +531,8 @@ repository root, `release-type: node`, one product version) and
 `.github/workflows/publish.yml`, which publishes this package with npm Trusted
 Publishing (OIDC) and `--provenance`. No npm token is stored anywhere.
 
-**Owner action, still open:** configure Trusted Publishing for
-`ferramenta-family` on npmjs.com, bound to `sebastian-software/ferramenta`,
-`.github/workflows/publish.yml` and the `npm-release` environment. Until then
-npm rejects the publish step, so a release cannot half-publish quietly.
+The first versioned release, `ferramenta-family@1.2.0`, is published on npm.
+Future releases use the same release-please tag and GitHub Actions OIDC flow.
 
 The package is unscoped because the `@ferramenta` npm scope is not available and
 the organization does not namespace its packages. The name is reserved on npm;
