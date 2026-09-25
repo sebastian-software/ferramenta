@@ -153,7 +153,7 @@ any change.
   registry: `Succeeds` (the implementation a successor replaces), `Builds on` (the standards a
   new development builds on) or `Runs on` (the engines an application runs on), then
   `Evidence` — a check or a design property, never a feature list and never numbers;
-  visible metadata is the live version, registry availability as icon-plus-label pairs
+  visible metadata is the live version (for a Git-only tool, its latest GitHub release), registry availability as icon-plus-label pairs
   (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "install from Git" when neither exists),
   and maturity. Members with `role: "application"` (palamedes) are products the family
   carries, not libraries it publishes: they show `Runs on` (the registry's `runsOn`) instead of

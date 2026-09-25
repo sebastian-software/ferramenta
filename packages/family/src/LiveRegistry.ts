@@ -31,6 +31,8 @@ export type LiveRegistryRequest = { crates: string[]; npm: string[] };
 export type LiveRegistryFacts = {
   crates?: { version: string; downloads: number };
   npm?: { version: string; lastMonth: number };
+  /** The repository's latest GitHub release: the version of a tool that ships from Git only. */
+  release?: { version: string };
 };
 
 /** Parsed JSON, or null when the request failed or did not answer with 2xx. */
@@ -140,6 +142,8 @@ export type RegistryStat = {
   crates: { version: string; downloads: number } | null;
   /** `placeholder` marks a name held on npm with nothing behind it yet. */
   npm: { version: string; lastMonth: number; placeholder?: boolean } | null;
+  /** The repository's latest GitHub release, when it has one. */
+  release?: { version: string } | null;
 };
 
 /**
@@ -175,8 +179,22 @@ export function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest 
 
 /** A snapshot entry made from live facts alone, for a site that has no snapshot. */
 function statFromLive(live: LiveRegistryFacts): null | RegistryStat {
-  if (live.crates === undefined && live.npm === undefined) return null;
-  return { crates: live.crates ?? null, npm: live.npm ?? null };
+  if (live.crates === undefined && live.npm === undefined && live.release === undefined)
+    return null;
+  return { crates: live.crates ?? null, npm: live.npm ?? null, release: live.release ?? null };
+}
+
+/**
+ * The version a member shows: the crate's when there is one, else the npm
+ * adapter's, else — for a Git-only member — its latest GitHub release. The
+ * registry's own value is the last resort.
+ */
+function shippedVersion(
+  tool: FamilyTool,
+  registry: { version: string } | null,
+  release: { version: string } | null | undefined,
+): string {
+  return (registry ?? release)?.version ?? tool.version;
 }
 
 /**
@@ -192,10 +210,8 @@ export function toolFacts(
   const stat = snapshotStat ?? statFromLive(live);
   const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
   const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
-  // The crate carries the version when there is one; an adapter-only member shows npm's.
-  const release = crates ?? npm;
   return {
-    version: release === null ? tool.version : release.version,
+    version: shippedVersion(tool, crates ?? npm, live.release ?? stat?.release),
     crateDownloads: crates === null ? 0 : crates.downloads,
     onCrates: crates !== null,
     adapter: npm !== null,
@@ -235,6 +251,9 @@ function metricsFacts(doc: Record<string, unknown>, name: string): LiveRegistryF
   if (npmVersion !== undefined && lastMonth !== undefined) {
     facts.npm = { version: npmVersion, lastMonth };
   }
+  const repo = metricsEntry(doc.github, name);
+  const release = isRecord(repo.release) ? textAt(repo.release, "version") : undefined;
+  if (release !== undefined) facts.release = { version: release };
   return facts;
 }
 
@@ -245,7 +264,7 @@ export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<Fam
   const facts: Record<string, LiveRegistryFacts> = {};
   for (const { name } of family) {
     const member = metricsFacts(doc, name);
-    if (member.crates !== undefined || member.npm !== undefined) facts[name] = member;
+    if (Object.keys(member).length > 0) facts[name] = member;
   }
   return {
     facts,

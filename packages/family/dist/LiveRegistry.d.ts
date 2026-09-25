@@ -23,6 +23,10 @@ export type LiveRegistryFacts = {
         version: string;
         lastMonth: number;
     };
+    /** The repository's latest GitHub release: the version of a tool that ships from Git only. */
+    release?: {
+        version: string;
+    };
 };
 /**
  * Fetches the current figures for the requested packages. Resolves with
@@ -41,6 +45,10 @@ export type RegistryStat = {
         version: string;
         lastMonth: number;
         placeholder?: boolean;
+    } | null;
+    /** The repository's latest GitHub release, when it has one. */
+    release?: {
+        version: string;
     } | null;
 };
 /**

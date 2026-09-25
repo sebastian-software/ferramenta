@@ -157,6 +157,13 @@ registry requests above, for the packages its snapshot verified. Whatever
 answers nowhere keeps its prerendered value. A site passes `metrics={false}`
 to skip the service.
 
+A tool that ships only from Git (ferriki, ferrolex) has no registry version.
+Its version is its latest GitHub release, the one GitHub marks "Latest", with
+the semver taken from the tag. The metrics service carries it as
+`github.<repo>.release`, and the build snapshot records it from GitHub's
+releases API. The registry's hand-set `version` remains only the last resort
+for an offline build; it no longer has to be kept in step with releases.
+
 Visitors' browsers then contact the workshop's own domain instead of crates.io
 and npm; the service logs nothing beyond an ordinary CDN request.
 
