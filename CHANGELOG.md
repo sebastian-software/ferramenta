@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.1.0...ferramenta-v1.2.0) (2026-09-25)
+
+
+### Features
+
+* **family:** a leaner pipeline, Ferroni in the run, facts on one grid ([#63](https://github.com/sebastian-software/ferramenta/issues/63)) ([8d92d66](https://github.com/sebastian-software/ferramenta/commit/8d92d6660a11c54b31513673a76b30f06df2b8f2))
+* **family:** Git-only tools show their latest GitHub release ([#66](https://github.com/sebastian-software/ferramenta/issues/66)) ([3f9c4e4](https://github.com/sebastian-software/ferramenta/commit/3f9c4e46cfa96da0e581b44a7f60875c4c84d1c3))
+* **family:** hooks on their holes, the run beside its claim ([#61](https://github.com/sebastian-software/ferramenta/issues/61)) ([0a94bba](https://github.com/sebastian-software/ferramenta/commit/0a94bba2a12aecc85e01a70d84876eef496ef782))
+* **family:** list dalo and cuttledoc ([#86](https://github.com/sebastian-software/ferramenta/issues/86)) ([8bba574](https://github.com/sebastian-software/ferramenta/commit/8bba5748d3d4e80df782f74740ec0cd3186af53e))
+
+
+### Bug Fixes
+
+* **family:** resolve registry and chrome contract drift ([#87](https://github.com/sebastian-software/ferramenta/issues/87)) ([621873f](https://github.com/sebastian-software/ferramenta/commit/621873f8529bd9c31305dcd210015ee75344844d))
+
 ## [1.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.0.2...ferramenta-v1.1.0) (2026-09-24)
 
 
