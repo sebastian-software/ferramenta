@@ -534,6 +534,13 @@ Publishing (OIDC) and `--provenance`. No npm token is stored anywhere.
 The first versioned release, `ferramenta-family@1.2.0`, is published on npm.
 Future releases use the same release-please tag and GitHub Actions OIDC flow.
 
+Release notes are kept in the repository's
+[generated changelog](https://github.com/sebastian-software/ferramenta/blob/main/CHANGELOG.md).
+Release Please updates it from Conventional Commits, so this package does not
+need a separately maintained changelog. Mark breaking changes to public exports
+or props with `!` so Release Please records the breaking change and applies the
+corresponding SemVer bump.
+
 The package is unscoped because the `@ferramenta` npm scope is not available and
 the organization does not namespace its packages. The name is reserved on npm;
 the `ferramenta-readme` binary and the `<!-- ferramenta-family -->` README
