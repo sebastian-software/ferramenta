@@ -1,8 +1,8 @@
 /*
  * ferramenta.dev — the page styles only this site has: the personal note, the
  * partner band, the family tally, and Ardo's shell fixes. Ported from the
- * approved comp (design/comp/entwurf-c.html). Dark mode keys off Ardo's
- * `.dark` class on <html> (ArdoRootLayout theme bootstrap).
+ * approved comp (design/comp/entwurf-c.html). Dark mode follows the host's
+ * explicit `.dark` class or the system preference unless `.light` is set.
  *
  * Everything a sibling home page shares lives in ferramenta-family: the tokens
  * and the display face, the chrome (chrome.css, loaded last by root.tsx) and
@@ -37,7 +37,7 @@ html {
 body {
   background: var(--bg);
 }
-a {
+:where(.ferramenta-site) :where(a) {
   color: inherit;
 }
 .ferramenta-site :where([id]) {
@@ -105,7 +105,7 @@ a {
   color: var(--rust);
 }
 .pgrid a:hover .plink {
-  color: var(--rust-deep);
+  color: var(--rust);
 }
 .pgrid a:hover .plink .icon {
   transform: translateX(3px);

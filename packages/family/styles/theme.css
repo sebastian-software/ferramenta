@@ -16,7 +16,7 @@
   );
 }
 
-.dark {
+:root.dark {
   --ardo-color-brand: oklch(0.72 0.16 65);
   --ardo-color-brandLight: oklch(0.82 0.14 65);
   --ardo-color-brandDark: oklch(0.62 0.18 60);
@@ -26,6 +26,20 @@
     oklch(0.72 0.16 65) 0%,
     oklch(0.65 0.14 50) 100%
   );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --ardo-color-brand: oklch(0.72 0.16 65);
+    --ardo-color-brandLight: oklch(0.82 0.14 65);
+    --ardo-color-brandDark: oklch(0.62 0.18 60);
+    --ardo-color-brandSubtle: oklch(0.22 0.04 55);
+    --ardo-color-brandGradient: linear-gradient(
+      135deg,
+      oklch(0.72 0.16 65) 0%,
+      oklch(0.65 0.14 50) 100%
+    );
+  }
 }
 
 /* Family navigation (FamilyLinks component) */

@@ -10,9 +10,9 @@
  *
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
- * `ghlink`, `switcher-start`, `switcher-family`, `flyhome`, `on-iron`, `foot`,
- * `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`, `icon`,
- * `fam-sr-only`. Loading last means this file
+ * `ghlink`, `site-nav`, `switcher-start`, `switcher-family`, `flyhome`,
+ * `on-iron`, `foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`,
+ * `fastener`, `icon`, `fam-sr-only`. Loading last means this file
  * wins those ties, so a site that needs one of the names for its own elements
  * should scope or rename it.
  */
@@ -221,7 +221,7 @@ details.switcher,
   color: var(--ember);
 }
 
-nav.site {
+nav.site-nav {
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -395,10 +395,11 @@ details.switcher[open] summary svg.chev {
   fill: currentColor;
 }
 
-.site .ardo-theme-toggle,
-.site button {
+.site-nav .ardo-theme-toggle,
+.site-nav button {
   min-width: 44px;
   min-height: 44px;
+  color: inherit;
 }
 
 /*
@@ -503,7 +504,7 @@ details.switcher[open] summary svg.chev {
     font-size: 1.2rem;
   }
 
-  nav.site {
+  nav.site-nav {
     gap: 0.25rem;
   }
 
@@ -525,11 +526,6 @@ details.switcher[open] summary svg.chev {
 
 .foot h2.foot-gap {
   margin-top: 1.6rem;
-}
-
-.site .ardo-theme-toggle,
-.site button {
-  color: inherit;
 }
 
 .flygroup + .flygroup {

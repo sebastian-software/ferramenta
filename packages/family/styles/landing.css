@@ -6,13 +6,14 @@
  * family home page to share instead of copy.
  *
  * Needs `tokens.css` (every value is a token) and `chrome.css` (`.wrap`,
- * `.markplate`, `.fastener`, `.icon`). Load it after `theme.css` and before the
+ * `.mark`, `.markplate`, `.fastener`, `.hook`, `.icon`, `.on-iron`, `.fam-sr-only`,
+ * and the `--fastener-inset` protocol). Load it after `theme.css` and before the
  * site's own stylesheet, so the site can adjust the kit on equal specificity;
  * `chrome.css` stays last.
  *
- * Collisions: every class is prefixed `fam-`. Bare elements are only styled
- * inside `.fam-page`, and only through `:where()` — zero specificity, so any
- * rule of the host's wins over those defaults.
+ * Collisions: every landing class is prefixed `fam-`. Bare elements are styled
+ * inside `.fam-page`; link defaults keep the page class in the selector so
+ * framework-wide bare `a` rules do not override them. Host class rules win.
  */
 
 /* -- The page: brushed shop floor ------------------------------------------ */
@@ -49,7 +50,7 @@
 }
 
 /* Links in running text are rust and underlined; every pattern below sets its own. */
-:where(.fam-page) :where(a) {
+.fam-page :where(a) {
   color: var(--rust);
   text-underline-offset: 0.2em;
 }
@@ -285,7 +286,7 @@
   color: var(--iron-soft);
 }
 
-:where(.fam-band) :where(a) {
+.fam-band :where(a) {
   color: var(--ember);
 }
 
@@ -414,7 +415,7 @@
   font-size: 1.25rem;
   font-weight: var(--disp-weight);
   line-height: 1;
-  color: var(--rust);
+  color: var(--rust-on-plate);
 }
 
 .fam-assembly-stage .markplate {
@@ -451,10 +452,10 @@
 }
 
 a.fam-assembly-stage:hover .fam-assembly-copy b {
-  color: var(--rust);
+  color: var(--rust-on-plate);
 }
 
-/* The stage this site is: its step stamped solid, its name rust. */
+/* The stage this site is: its step stamped solid, its name legible on the plate. */
 .fam-assembly-stage[aria-current] .fam-assembly-step {
   padding: 0.12rem 0.4rem;
   background: var(--rust);
@@ -462,7 +463,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 }
 
 .fam-assembly-stage[aria-current] .fam-assembly-copy b {
-  color: var(--rust);
+  color: var(--rust-on-plate);
 }
 
 .fam-assembly-connector {
@@ -754,7 +755,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   padding: 42px;
   border: 2px solid var(--line-heavy);
   background:
-    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 0 0 / 28px 28px,
+    radial-gradient(var(--board-hole) 1.3px, transparent 1.4px) 0 0 / 28px 28px,
     linear-gradient(var(--bg-dim), var(--bg-dim));
 }
 

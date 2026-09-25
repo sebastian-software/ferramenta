@@ -1,6 +1,6 @@
 import type { ElementType, ReactNode } from "react";
 
-import { FAMILY_SITE } from "./family.js";
+import { family, FAMILY_SITE } from "./family.js";
 import { Mark } from "./Mark.js";
 import { ToolSwitcher } from "./ToolSwitcher.js";
 
@@ -54,6 +54,14 @@ export type SiteHeaderProps = {
   as?: "div" | "header";
 };
 
+function githubLink(current?: string) {
+  const currentTool = family.find((tool) => tool.name === current);
+  return {
+    href: currentTool?.repo ?? "https://github.com/sebastian-software",
+    label: currentTool === undefined ? "GitHub" : `${currentTool.name} on GitHub`,
+  };
+}
+
 /** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
 export function SiteHeader({
   actions,
@@ -66,6 +74,7 @@ export function SiteHeader({
 }: SiteHeaderProps = {}) {
   const Root: ElementType = as;
   const project = lockup === "project";
+  const github = githubLink(current);
   // One construction for both lockups (PRODUCT.md): mark plus lowercase wordmark.
   let name = "ferramenta";
   let href = current === undefined ? "/" : FAMILY_SITE;
@@ -85,9 +94,9 @@ export function SiteHeader({
           <span>{name}</span>
         </a>
         {nav}
-        <nav className="site" aria-label="Site">
+        <nav className="site-nav" aria-label="Site">
           <ToolSwitcher current={current} family={project} />
-          <a className="ghlink" href="https://github.com/sebastian-software" aria-label="GitHub">
+          <a className="ghlink" href={github.href} aria-label={github.label}>
             <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true">
               <use href="#i-github" />
             </svg>

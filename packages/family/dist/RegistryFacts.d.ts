@@ -8,6 +8,8 @@ export type RegistryFactsProps = {
      * whatever the metrics service answers.
      */
     snapshot?: RegistrySnapshot;
+    /** Snapshot generation time; older metrics responses are ignored. */
+    snapshotGeneratedAt?: string;
     /** The metrics document (`METRICS_URL` by default); `false` asks the registries directly. */
     metrics?: false | string;
     /** The registries asked directly for what the metrics service did not answer. */
@@ -18,7 +20,7 @@ export type RegistryFactsProps = {
  * Provides registry figures to the tool ledger, the board and the download
  * tally below it: the snapshot during prerender, live values after hydration.
  */
-export declare function RegistryFacts({ children, endpoints, metrics, snapshot, }: RegistryFactsProps): import("react").JSX.Element;
+export declare function RegistryFacts({ children, endpoints, metrics, snapshot, snapshotGeneratedAt, }: RegistryFactsProps): import("react").JSX.Element;
 /** A member's facts inside `RegistryFacts`; the fallback version outside it. */
 export declare function useToolFacts(tool: FamilyTool): ToolFacts;
 /** A count in the page's tabular mono, formatted the same on server and client. */
