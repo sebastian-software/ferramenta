@@ -2,9 +2,11 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-11
+- Updated: 2026-09-25
 - Amended: 2026-09-24 — successors and new developments, see
   [Amendment 2026-09-24](#amendment-2026-09-24)
+- Amended: 2026-09-25 — standalone applications, see
+  [Amendment 2026-09-25](#amendment-2026-09-25)
 - Deciders: Sebastian Werner
 
 ## Context
@@ -17,10 +19,10 @@ convince, project sites may go deep.
 
 ## Decision
 
-Family copy speaks as an **experienced peer**, in English, and follows the
-**successor register** for every tool description: honor the original →
-state the succession → give the why. ("Shiki brought editor-grade highlighting
-to everyone. ferriki keeps the API Shiki got right and swaps the engine…")
+Family copy speaks as an **experienced peer**, in English. Successor descriptions
+follow the register: honor the original → state the succession → give the why.
+New developments honor the standards or model they build on. Selected standalone
+applications use concise, verifiable descriptions of the job they do.
 
 - Overview pages carry no API method names or spec dumps; that depth belongs on
   project sites and docs.
@@ -74,8 +76,8 @@ surface.
 
 - Tool proofs in the family registry must be written (and reviewed) in this
   register; the registry text is what all sites render.
-- New tools joining the family need a named original to honor — or an explicit
-  exception here.
+- New tools joining the family need a named original to honor, standards or a
+  model to build on, or an explicit exception here.
 
 ## Validation and review triggers
 
@@ -112,6 +114,20 @@ registries themselves (see ADR-0006).
 
 This supersedes the consequence that every new tool needs a named original to
 honor.
+
+## Amendment 2026-09-25
+
+The 2026-09-24 amendment accounts for successors and new developments. A
+selected standalone application may have neither a predecessor nor a family
+engine dependency. Dalo and Cuttledoc use product-first copy grounded in
+verifiable behavior: Dalo keeps team skills in Git and syncs an approved set to
+supported agent folders; Cuttledoc offers local-first transcription through a
+reusable Rust library and native CLI, with hosted backends by explicit choice.
+Their registry lineage is `runsOn: []`. Family membership alone does not imply
+a Ferralk or other engine dependency.
+
+The family overview remains a concise outbound-links surface. These entries do
+not establish a common product layout or require adoption of the shared chrome.
 
 ## References
 

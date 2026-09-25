@@ -14,6 +14,7 @@
 
 | Tool | Job |
 | --- | --- |
+| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
 | [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
 
@@ -24,4 +25,3 @@
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
 | [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
-| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |

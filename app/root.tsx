@@ -28,11 +28,11 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "Ferramenta — Rust-native developer tools" },
+  { title: "Ferramenta — Rust-native tools" },
   {
     name: "description",
     content:
-      "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.",
+      "Ferramenta is a family of Rust-native tools and focused applications, from standards-led engines to team agent skills and local-first speech transcription.",
   },
 ];
 

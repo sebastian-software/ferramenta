@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T21:16:55Z",
+  "generatedAt": "2026-09-25T05:11:40Z",
   "tools": {
     "ferroni": {
       "crates": {
@@ -101,6 +101,25 @@
         "version": "0.5.0",
         "publishedAt": "2026-07-05T20:45:39Z"
       }
+    },
+    "dalo": {
+      "crates": {
+        "version": "0.17.0",
+        "downloads": 497,
+        "recentDownloads": 497,
+        "updated": "2026-09-17"
+      },
+      "npm": null,
+      "release": null
+    },
+    "cuttledoc": {
+      "crates": null,
+      "npm": {
+        "version": "2.0.0",
+        "lastMonth": 25,
+        "placeholder": false
+      },
+      "release": null
     }
   }
 }

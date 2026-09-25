@@ -30,12 +30,12 @@ import registryStats from "../data/registry-stats.json";
 export const handle = { chrome: false };
 
 const description =
-  "Ferramenta is a family of Rust-native developer tools built around familiar standards and APIs, with compatibility measured against established predecessors where they exist.";
+  "Ferramenta is a family of Rust-native tools and focused applications, from standards-led engines to team agent skills and local-first speech transcription.";
 
 export const meta: MetaFunction = () => [
-  { title: "Ferramenta — Rust-native developer tools" },
+  { title: "Ferramenta — Rust-native tools" },
   { name: "description", content: description },
-  { property: "og:title", content: "Ferramenta — Rust-native developer tools" },
+  { property: "og:title", content: "Ferramenta — Rust-native tools" },
   { property: "og:description", content: description },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://ferramenta.dev/" },
@@ -57,8 +57,8 @@ const beliefs = [
     text: "A successor earns compatibility with the implementation it replaces; a new development earns trust with the standards it builds on. Either way, the stamp on each tool says how far it has come.",
   },
   {
-    heading: "Safe defaults",
-    text: "Rust cores without a C toolchain, tuned for memory layout, with SIMD and NEON where it pays. Sanitized output, bounded memory and time: production behavior out of the box.",
+    heading: "Keep work close",
+    text: "Skills and catalogs stay with their projects; transcription runs locally by default, with hosted backends chosen explicitly.",
   },
 ];
 
@@ -71,10 +71,6 @@ const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
 /** What the pipeline sample was rendered with, from the artifact itself. */
 const { rendered } = pipelineSample;
 const sampleRun = `Rendered by Ferromark ${rendered.ferromark} with Ferriki ${rendered.ferriki} on Ferroni ${rendered.ferroni}`;
-
-/** Group sizes in words, for the section intros: the registry decides how many. */
-const COUNT_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six"];
-const countWord = (count: number) => COUNT_WORDS[count] ?? String(count);
 
 const stableNames = listFormat.format(
   family.filter((tool) => tool.status === "stable").map((tool) => displayName(tool)),
@@ -179,7 +175,7 @@ export default function HomePage() {
             Heavy industry <em>for the web.</em>
           </>
         }
-        lede="Rust-native tools built on the standards developers already know. Each one works on its own: take the tool your job needs."
+        lede="Rust-native engines and focused applications. Some rebuild infrastructure around familiar standards; others keep work close to the team, project, or device."
         actions={
           <>
             <a className="fam-btn fam-btn-primary" href="#pipeline">
@@ -227,7 +223,7 @@ export default function HomePage() {
       <Section
         id="workbench"
         title="On the workbench"
-        intro={`${countWord(workbench.length)} more tools taking shape: early, cut from the same steel, and explicit about what is proven now and what is still on the bench.`}
+        intro="File discovery, PDF previews, team agent skills, and local-first speech transcription, each useful on its own."
       >
         <ToolLedger tools={workbench} />
       </Section>

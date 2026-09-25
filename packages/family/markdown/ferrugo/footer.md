@@ -23,3 +23,5 @@
 | Tool | Job |
 | --- | --- |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
+| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |

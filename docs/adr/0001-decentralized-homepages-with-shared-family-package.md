@@ -2,33 +2,35 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-11
+- Updated: 2026-09-25
 - Deciders: Sebastian Werner
 - Amended: 2026-09-06 — membership rule and corrected repository count, see
   [Amendment 2026-09-06](#amendment-2026-09-06)
 - Amended: 2026-09-07 — the package name, see
   [Amendment 2026-09-07](#amendment-2026-09-07)
+- Amended: 2026-09-25 — standalone applications and independent site design, see
+  [Amendment 2026-09-25](#amendment-2026-09-25)
 
 ## Context
 
-The Ferramenta family spans eight repositories (ferramenta plus seven tools).
-Every tool needs a homepage with an identical header, navigation, footer, and
-visual language. ferrocat already runs its own Ardo docs site on ferrocat.dev;
-ferromark carries a `homepage/` folder. An earlier attempt started with a shared
+At the time this decision was first written, the Ferramenta family spanned
+eight repositories (ferramenta plus seven tools). The original rollout expected
+every tool to adopt an identical header, navigation, footer, and visual
+language. ferrocat already ran its own Ardo docs site on ferrocat.dev;
+ferromark carried a `homepage/` folder. An earlier attempt started with a shared
 config package before any visual language existed and was judged "built the
 wrong way around".
 
 ## Decision
 
-Each project site lives in its own repository under `homepage/`, built on Ardo,
-deployed to GitHub Pages (GitHub Pages URLs now; own `<tool>.dev` domains grow
-over time — ferramenta.dev and ferrocat.dev exist). The ferramenta repository
-hosts the family overview site plus the shared workspace package (today
-`@ferramenta/ardo-config`, to be renamed `@ferramenta/family`), which ships
-**finished components** (header with family switcher, footer, project marks)
-plus tokens — not tokens alone. Sites consume it as a versioned npm dependency.
-The family registry (`packages/family/src/family.ts`) is the single source
-of truth for tool names, jobs, proofs, versions, status, and links.
+Each project site lives with its project and owns its visual identity and
+layout. The ferramenta repository hosts the family overview and the optional
+shared package (today `ferramenta-family`), which ships **finished components**
+(header with family switcher, footer, project marks, and landing components)
+plus tokens — not tokens alone. A site may consume selected parts as a versioned
+npm dependency or use a separate design. The family registry
+(`packages/family/src/family.ts`) is the single source of truth for member
+names, jobs, proofs, lineage, status, marks, and outbound links.
 
 Design work precedes extraction: the reference implementation on ferramenta.dev
 defines the system; the package is extracted from it, never the other way
@@ -61,7 +63,7 @@ owned by its existing provider; never render two competing company footers.
 
 - Content (features, versions, examples) lives next to the code it describes
   and updates with releases.
-- Versioned consumption avoids big-bang design rollouts across eight repos.
+- Optional, versioned consumption avoids a forced design rollout across sibling repos.
 - Ardo's architecture treats custom header/footer components as a first-class
   extension point.
 - The failed first attempt showed that extracting shared assets before the
@@ -83,28 +85,25 @@ every site change into a ferramenta-repo change.
 
 - Design updates reach sibling repos only via version bumps — intentional, no
   silent drift, but rollout is manual per repo.
-- Rollout order after extraction: ferrocat → ferromark → ferroni → ferriki →
-  ferrolex; ferrugo follows when it leaves early stage.
-- Existing ferrocat.dev docs and the ferromark homepage are reskinned onto the
-  shared base, not rewritten.
+- The family overview links outward to each member's own homepage or repository;
+  it does not require family members to share a layout.
 
 ## Amendment 2026-09-06
 
 This is a living decision record. Updates describe the current contract; Git
 history preserves earlier decisions.
 
-**Membership rule.** A member of the Ferramenta family is a family engine, or a
-product built on family engines. Nothing else joins the registry: developer
-tools from the same workshop that share neither — dalo, agent-bridge — stay a
-separate line under oss.sebastian-software.com and are not rendered on
-ferramenta.dev.
+**Membership rule (historical; superseded by the 2026-09-25 amendment).** A
+member of the Ferramenta family was a family engine, or a product built on
+family engines. The 2026-09-25 amendment adds a narrow path for selected
+standalone Rust-native applications.
 
-**Count.** The family spans nine repositories as of 2026-09: ferramenta plus
-eight tools — seven engines (ferroni, ferriki, ferromark, ferrolex, ferrocat,
-ferralk, ferrugo) and one application (palamedes, built on ferrocat,
-ferromark and ferralk). The "eight repositories (ferramenta plus seven tools)"
-in the context above is the count as it stood when this record was written; it
-was already one short when ferralk joined, and is superseded by this line.
+**Count at that point.** Before ferrovia retired and before the standalone-app
+amendment, the family spanned nine repositories: ferramenta plus eight tools —
+seven engines (ferroni, ferriki, ferromark, ferrolex, ferrocat, ferralk,
+ferrugo) and one application (palamedes, built on ferrocat, ferromark, and
+ferralk). The earlier "eight repositories" line was already one short after
+ferralk joined.
 
 **Retired.** ferrovia, the SVGO-compatible SVG optimizer, left the family on
 2026-09-24 and its repository is archived. SVG optimization is not a focus area
@@ -112,11 +111,11 @@ for the family, and a Rust optimizer already exists elsewhere. A retired member
 leaves the registry, its mark leaves the sprite, and its generated Markdown
 frame is removed; the design comps keep it as history.
 
-**Roles.** `role: "application"` marks a member the family carries rather than
-one the family builds with. Applications succeed a predecessor in the same
-successor register (ADR-0004) but carry no compatibility contract of their own,
-so the overview page renders no `Contract` fact for them and names the engines
-they run on in the evidence instead.
+**Roles at that point.** `role: "application"` marked a member the family
+carries rather than one the family builds with. Palamedes carries no
+compatibility contract of its own, so the overview renders no `Contract` fact
+and names the engines it runs on. Standalone applications are covered by the
+2026-09-25 amendment.
 
 ## Amendment 2026-09-07
 
@@ -129,6 +128,27 @@ import specifiers move with the name: `ferramenta-family`,
 `ferramenta-family/registry`, `ferramenta-family/chrome.css` and the other CSS
 entry points. The `ferramenta-readme` binary and the `<!-- ferramenta-family -->`
 README markers keep their spelling.
+
+## Amendment 2026-09-25
+
+**Selected standalone applications.** Family membership is not limited to
+engines and applications built on those engines. A selected standalone
+Rust-native application can join when its product approach fits the workshop;
+common ownership alone remains insufficient. Dalo (team agent skills) and
+Cuttledoc (local-first speech transcription) join as standalone applications.
+Their catalog entries link outward to their own sites or repositories, and do
+not imply a dependency on a family engine.
+
+**Independent project identity.** Every project owns its visual identity and
+site layout. The family overview presents members at equal rank and links to
+their sites or repositories. The shared `ferramenta-family` package remains an
+optional source of reusable chrome and landing components; Palamedes already
+demonstrates that a project site can use a separate design. README and generated
+Markdown links remain outbound catalog surfaces.
+
+**Current count.** The family now has ten tool members in eleven repositories
+including ferramenta: seven engines and three applications (Palamedes, Dalo,
+and Cuttledoc). Ferrovia remains retired and outside the count.
 
 ## Validation and review triggers
 

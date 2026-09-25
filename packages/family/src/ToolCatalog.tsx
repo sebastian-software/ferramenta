@@ -44,7 +44,7 @@ function BoardItem({ tool }: { tool: FamilyTool }) {
         <use href="#i-hook" />
       </svg>
       <span className="markplate">
-        <Mark name={tool.name} />
+        <Mark name={tool.mark ?? tool.name} />
       </span>
       {/* Riveted to the plate's lower edge: no extra row, so no hook moves. */}
       <span className="fam-board-stamp">
@@ -191,7 +191,7 @@ function ToolRow({ step, tool }: { step?: number; tool: FamilyTool }) {
         </span>
       )}
       <span className="markplate fam-tool-plate" aria-hidden="true">
-        <Mark name={tool.name} />
+        <Mark name={tool.mark ?? tool.name} />
       </span>
       <div className="fam-tool-who">
         <h3 className="fam-tool-name">
@@ -257,7 +257,7 @@ export function JobIndex({ current }: JobIndexProps = {}) {
             <span className="fam-job-name">{tool.shortJob}</span>
             <span className="fam-job-leader" aria-hidden="true" />
             <span className="fam-job-tool">
-              <Mark name={tool.name} className="mark" size={22} />
+              <Mark name={tool.mark ?? tool.name} className="mark" size={22} />
               <b>{tool.name}</b>
             </span>
             <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>

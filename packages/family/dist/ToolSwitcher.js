@@ -58,7 +58,7 @@ function FlyoutGroups({ current }) {
     ];
     return groups
         .filter((group) => group.tools.length > 0)
-        .map((group) => (_jsxs("div", { className: "flygroup", children: [_jsx("small", { children: group.label }), group.tools.map((tool) => (_jsxs("a", { href: toolHref(tool), children: [_jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.name, size: 24 }) }), _jsxs("span", { children: [_jsxs("b", { children: [tool.name, _jsx(RepoNote, { tool: tool })] }), _jsx("small", { children: tool.shortJob })] })] }, tool.name)))] }, group.label)));
+        .map((group) => (_jsxs("div", { className: "flygroup", children: [_jsx("small", { children: group.label }), group.tools.map((tool) => (_jsxs("a", { href: toolHref(tool), children: [_jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.mark ?? tool.name, size: 24 }) }), _jsxs("span", { children: [_jsxs("b", { children: [tool.name, _jsx(RepoNote, { tool: tool })] }), _jsx("small", { children: tool.shortJob })] })] }, tool.name)))] }, group.label)));
 }
 /**
  * The family-wide tool switcher, grouped the way the family site groups it.

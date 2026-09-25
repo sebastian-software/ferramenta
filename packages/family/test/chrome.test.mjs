@@ -223,7 +223,7 @@ test("every family member has a mark, and the sprite stays under 100 (ADR-0002)"
     (match) => match.groups.name,
   );
   for (const tool of family.family) {
-    assert.ok(symbols.includes(tool.name), `no mark for ${tool.name}`);
+    assert.ok(symbols.includes(tool.mark ?? tool.name), `no mark for ${tool.name}`);
   }
   assert.ok(symbols.includes("ferramenta"), "the family lockup mark");
   assert.ok(symbols.length < 100, `the package ships ${symbols.length} icons`);

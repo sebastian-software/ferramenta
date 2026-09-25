@@ -106,7 +106,7 @@ function FlyoutGroups({ current }: { current?: string }) {
         {group.tools.map((tool) => (
           <a key={tool.name} href={toolHref(tool)}>
             <span className="markplate">
-              <Mark name={tool.name} size={24} />
+              <Mark name={tool.mark ?? tool.name} size={24} />
             </span>
             <span>
               <b>

@@ -3,9 +3,9 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  *
- * Membership rule (ADR-0001 amendment, 2026-09-06): a member is a family
- * engine, or a product built on family engines. Developer tools that share
- * neither — dalo, agent-bridge — belong to the company line, not here.
+ * Membership rule (ADR-0001 amendment, 2026-09-25): a member is a family
+ * engine, a product built on family engines, or a selected standalone
+ * Rust-native application. Common ownership alone does not grant membership.
  */
 export const FAMILY_SITE = "https://ferramenta.dev";
 export const family = [
@@ -109,6 +109,35 @@ export const family = [
         status: "early",
         group: "workbench",
         repo: "https://github.com/sebastian-software/ferrugo",
+    },
+    {
+        name: "dalo",
+        job: "Team agent skills, versioned and synced as code",
+        shortJob: "Agent skills",
+        proof: "Dalo keeps team skills in Git, resolves an approved set, and links those skills into the folders supported agents already read.",
+        evidence: "Git-backed sources · approvals · deterministic sync",
+        runsOn: [],
+        version: "0.17.0",
+        status: "beta",
+        group: "workbench",
+        role: "application",
+        mark: "ferramenta",
+        repo: "https://github.com/sebastian-software/dalo",
+        docs: "https://dalo.sh",
+    },
+    {
+        name: "cuttledoc",
+        job: "Local-first speech transcription",
+        shortJob: "Speech transcription",
+        proof: "Cuttledoc brings transcription to a reusable Rust library and native CLI, with on-device processing first and hosted backends available by explicit choice.",
+        evidence: "On-device transcription · reusable Rust library · native CLI",
+        runsOn: [],
+        version: "2.0.0",
+        status: "beta",
+        group: "workbench",
+        role: "application",
+        mark: "ferramenta",
+        repo: "https://github.com/sebastian-software/cuttledoc",
     },
 ];
 /**

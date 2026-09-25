@@ -5,9 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 <!-- mdtheme:badges:end -->
 
-**[ferramenta.dev](https://ferramenta.dev)** — the family site for the Ferramenta tools:
-Rust-native developer tools by [Sebastian Software](https://oss.sebastian-software.com) that keep
-the APIs the web ecosystem already knows.
+**[ferramenta.dev](https://ferramenta.dev)** — the family site for a curated set of Rust-native
+engines and focused applications by [Sebastian Software](https://oss.sebastian-software.com),
+with outbound links to each project's own site or repository.
 
 _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
@@ -38,6 +38,8 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 | --- | --- |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |
 <!-- ferramenta-family:end -->
 
 ## This repository

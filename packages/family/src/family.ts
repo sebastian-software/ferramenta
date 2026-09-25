@@ -3,9 +3,9 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  *
- * Membership rule (ADR-0001 amendment, 2026-09-06): a member is a family
- * engine, or a product built on family engines. Developer tools that share
- * neither — dalo, agent-bridge — belong to the company line, not here.
+ * Membership rule (ADR-0001 amendment, 2026-09-25): a member is a family
+ * engine, a product built on family engines, or a selected standalone
+ * Rust-native application. Common ownership alone does not grant membership.
  */
 
 export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
@@ -14,16 +14,16 @@ export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
 export type FamilyGroup = "language" | "pipeline" | "workbench";
 
 /**
- * What a member is. Engines are libraries that succeed an established
- * implementation; applications are products the family's engines carry.
+ * What a member is. Engines are reusable infrastructure; applications are
+ * user-facing products. Their lineage records any engine dependencies.
  */
 export type FamilyRole = "application" | "engine";
 
 /**
  * What a member rests on: exactly one of these. A successor names the
  * implementation it succeeds, a new development the standards it builds on,
- * an application the engines it runs on. The type makes a member without one,
- * or with two, a compile error.
+ * an application the engines it runs on (an empty list for a standalone app).
+ * The type makes a member without one, or with two, a compile error.
  */
 export type FamilyLineage =
   | {
@@ -39,7 +39,7 @@ export type FamilyLineage =
       /**
        * The family engines an application runs on, by `name`. An engine is
        * proven on its own, a product by what it runs on and its own evidence.
-       * Each name must be a family member.
+       * Each name must be a family member; [] means it is standalone.
        */
       runsOn: string[];
       succeeds?: never;
@@ -85,8 +85,10 @@ export type FamilyTool = {
   status: FamilyStatus;
   /** Display group. Within "pipeline", array order is chain order. */
   group: FamilyGroup;
-  /** Defaults to "engine" — only products built on the engines set this. */
+  /** Defaults to "engine" — applications set this explicitly. */
   role?: FamilyRole;
+  /** Sprite symbol override for members without an individual project mark. */
+  mark?: string;
   /** GitHub repository URL */
   repo: string;
   /** Docs/homepage site, once it exists */
@@ -204,6 +206,37 @@ export const family: FamilyTool[] = [
     status: "early",
     group: "workbench",
     repo: "https://github.com/sebastian-software/ferrugo",
+  },
+  {
+    name: "dalo",
+    job: "Team agent skills, versioned and synced as code",
+    shortJob: "Agent skills",
+    proof:
+      "Dalo keeps team skills in Git, resolves an approved set, and links those skills into the folders supported agents already read.",
+    evidence: "Git-backed sources · approvals · deterministic sync",
+    runsOn: [],
+    version: "0.17.0",
+    status: "beta",
+    group: "workbench",
+    role: "application",
+    mark: "ferramenta",
+    repo: "https://github.com/sebastian-software/dalo",
+    docs: "https://dalo.sh",
+  },
+  {
+    name: "cuttledoc",
+    job: "Local-first speech transcription",
+    shortJob: "Speech transcription",
+    proof:
+      "Cuttledoc brings transcription to a reusable Rust library and native CLI, with on-device processing first and hosted backends available by explicit choice.",
+    evidence: "On-device transcription · reusable Rust library · native CLI",
+    runsOn: [],
+    version: "2.0.0",
+    status: "beta",
+    group: "workbench",
+    role: "application",
+    mark: "ferramenta",
+    repo: "https://github.com/sebastian-software/cuttledoc",
   },
 ];
 
