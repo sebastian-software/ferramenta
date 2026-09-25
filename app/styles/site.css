@@ -1,19 +1,20 @@
 /*
- * ferramenta.dev — page styles, ported 1:1 from the approved comp
- * (design/comp/entwurf-c.html). Dark mode keys off Ardo's `.dark` class
- * on <html> (ArdoRootLayout theme bootstrap).
+ * ferramenta.dev — the page styles only this site has: the personal note, the
+ * partner band, the family tally, and Ardo's shell fixes. Ported from the
+ * approved comp (design/comp/entwurf-c.html). Dark mode keys off Ardo's
+ * `.dark` class on <html> (ArdoRootLayout theme bootstrap).
  *
- * The chrome the site shares with its siblings — header, footer, marks,
- * plates, hooks — plus the tokens and the display face live in
- * ferramenta-family (styles/chrome.css, styles/tokens.css, styles/fonts.css).
- * root.tsx loads chrome.css last so the chrome keeps winning over the scoped
- * reset below, exactly as it did when both lived in this file.
+ * Everything a sibling home page shares lives in ferramenta-family: the tokens
+ * and the display face, the chrome (chrome.css, loaded last by root.tsx) and
+ * the landing kit (landing.css, loaded before this file: hero, sections, iron
+ * band, pipeline assembly, buttons, closing action, pegboard, tool ledger, job
+ * index). Adjust the kit here on
+ * equal specificity; do not restate it.
  */
 
-/* Comp reset, scoped to our shell (Ardo's styles carry no full preflight) */
-.ferramenta-site *,
-.ferramenta-site *::before,
-.ferramenta-site *::after {
+/* Reset, scoped to our shell (Ardo's styles carry no full preflight). Zero
+   specificity, so it never takes a tie from the kit, the chrome or this file. */
+:where(.ferramenta-site) :where(*, *::before, *::after) {
   box-sizing: border-box;
   margin: 0;
 }
@@ -32,31 +33,17 @@ html {
     animation: none !important;
   }
 }
+/* The shop floor is `.fam-page`; this only covers the overscroll behind it. */
 body {
-  background:
-    radial-gradient(140% 90% at 50% 12%, transparent 55%, oklch(0.3 0.03 45 / 0.06)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    var(--bg);
-  color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  background: var(--bg);
 }
 a {
   color: inherit;
-}
-:focus-visible {
-  outline: 2px solid var(--focus, var(--ember));
-  outline-offset: 2px;
 }
 .ferramenta-site :where([id]) {
   scroll-margin-top: 6rem;
 }
 
-.ironband {
-  --focus: var(--ember);
-}
 .skip-link {
   position: absolute;
   left: -200vw;
@@ -72,606 +59,7 @@ a {
   left: 0;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  letter-spacing: var(--disp-track);
-  line-height: 0.98;
-  text-wrap: balance;
-}
-.chamfer {
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-}
-
-/* Hero — forge floor */
-.hero {
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    52rem 26rem at 88% 112%,
-    oklch(0.68 0.175 52 / 0.16),
-    transparent 62%
-  );
-  pointer-events: none;
-}
-.hero .wrap {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-  padding-block: clamp(3.5rem, 7vw, 6rem);
-}
-.hero h1 {
-  font-size: clamp(3.4rem, 9vw, 6rem);
-  text-transform: uppercase;
-  max-width: 12ch;
-}
-.hero h1 em {
-  font-style: normal;
-  color: var(--rust);
-}
-.hero p.lede {
-  margin-top: 1.6rem;
-  max-width: 50ch;
-  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-  color: var(--ink-soft);
-}
-.cta-row {
-  margin-top: 2.5rem;
-  display: flex;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  text-decoration: none;
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 1.05rem;
-  padding: 0.85rem 1.5rem;
-  border: 1px solid transparent;
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
-}
-.btn.primary {
-  background: var(--rust);
-  color: var(--on-rust);
-}
-.btn.primary:hover {
-  background: var(--rust-deep);
-}
-.btn.ghost {
-  border-color: var(--line-heavy);
-}
-.btn.ghost:hover {
-  border-color: var(--rust);
-  color: var(--rust);
-}
-.btn .icon {
-  stroke-width: 2;
-}
-
-/* Pegboard — tools hang free */
-.board .markplate {
-  width: 76px;
-  height: 76px;
-}
-
-.board a:hover .hook {
-  translate: -50% 0;
-}
-
-.board {
-  --fastener-inset: 8px;
-  position: relative;
-  border: 2px solid var(--line-heavy);
-  background:
-    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 14px 14px / 28px 28px,
-    linear-gradient(var(--bg-dim), var(--bg-dim));
-  padding: 42px;
-  width: fit-content;
-  margin-inline: auto;
-}
-.board-grid {
-  display: grid;
-  row-gap: 28px;
-}
-.board-group-label {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  font-family: var(--display), var(--body);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.board-row {
-  display: grid;
-  grid-template-columns: repeat(3, 112px);
-  column-gap: 28px;
-  grid-auto-rows: 140px;
-  row-gap: 28px;
-}
-.board a {
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  gap: 0.55rem;
-  padding-top: 21px;
-  position: relative;
-  width: 112px;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-.board a:hover {
-  color: var(--rust);
-}
-.board .markplate svg {
-  width: 46px;
-  height: 46px;
-  color: var(--rust);
-}
-.board-copy {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-  line-height: 1.05;
-}
-.board-copy b {
-  font-family: var(--display), var(--body);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-.board-copy small {
-  margin-top: 0.18rem;
-  color: var(--ink-soft);
-  font-family: var(--body);
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  line-height: 1.15;
-  text-transform: none;
-}
-.board a:hover .board-copy small {
-  color: var(--rust);
-}
-
-/* Sections — open ledger */
-section {
-  padding-top: clamp(3.5rem, 7vw, 5.5rem);
-}
-section > .wrap > h2 {
-  font-size: clamp(2.3rem, 4.6vw, 3.4rem);
-  text-transform: uppercase;
-  border-bottom: 3px solid var(--line-heavy);
-  padding-bottom: 0.6rem;
-}
-section .intro {
-  margin-top: 1rem;
-  color: var(--ink-soft);
-  max-width: 62ch;
-}
-.pipeline-assembly {
-  --fastener-inset: 8px;
-  position: relative;
-  isolation: isolate;
-  margin-top: 2rem;
-  padding: 2.25rem clamp(1.75rem, 4vw, 3rem) 2rem;
-  border: 2px solid var(--plate-rim-lo);
-  background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 38%),
-    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 4px),
-    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
-  clip-path: polygon(
-    12px 0,
-    calc(100% - 12px) 0,
-    100% 12px,
-    100% calc(100% - 12px),
-    calc(100% - 12px) 100%,
-    12px 100%,
-    0 calc(100% - 12px),
-    0 12px
-  );
-  filter: drop-shadow(0 8px 12px var(--plate-shadow));
-}
-.pipeline-assembly::before {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  z-index: -1;
-  border: 1px solid var(--plate-rim-lo);
-  clip-path: polygon(
-    8px 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    0 calc(100% - 8px),
-    0 8px
-  );
-  pointer-events: none;
-}
-.assembly-flow {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(6.5rem, 0.8fr) minmax(1.5rem, 0.4fr) repeat(
-      3,
-      minmax(7rem, 1fr) minmax(1.5rem, 0.4fr)
-    ) minmax(6.5rem, 0.8fr);
-  align-items: center;
-}
-.assembly-terminal {
-  display: grid;
-  gap: 0.25rem;
-  line-height: 1.15;
-}
-.assembly-terminal small {
-  color: var(--rust);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.assembly-terminal b {
-  max-width: 9rem;
-  font-size: 0.88rem;
-  font-weight: 650;
-}
-.assembly-output {
-  text-align: right;
-  justify-items: end;
-}
-.assembly-stage {
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  gap: 0.4rem;
-  position: relative;
-  min-width: 0;
-  text-align: center;
-}
-.assembly-step {
-  font-family: var(--display), var(--body);
-  font-size: 1.25rem;
-  font-weight: var(--disp-weight);
-  line-height: 1;
-  color: var(--rust);
-}
-.assembly-stage .markplate {
-  width: 4rem;
-  height: 4rem;
-}
-.assembly-stage .markplate svg {
-  width: 2.35rem;
-  height: 2.35rem;
-  color: var(--rust);
-}
-.assembly-copy {
-  display: grid;
-  justify-items: center;
-  line-height: 1.05;
-  min-width: 0;
-}
-.assembly-copy b {
-  font-family: var(--display), var(--body);
-  font-size: 1.15rem;
-  font-weight: var(--disp-weight);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-.assembly-copy small {
-  margin-top: 0.22rem;
-  color: var(--ink-soft);
-  font-size: 0.75rem;
-  line-height: 1.2;
-}
-.assembly-connector {
-  width: 100%;
-  height: 1.5rem;
-  color: var(--rust);
-  stroke-width: 1.5;
-}
-.ledger {
-  margin-top: 1.5rem;
-  display: grid;
-}
-.row {
-  display: grid;
-  grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) 1fr 8rem 2rem;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 1.6rem 0.25rem;
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.15s;
-}
-.row:hover {
-  background: var(--bg-dim);
-}
-.row:hover .go {
-  color: var(--rust);
-  transform: translateX(4px);
-}
-.row .num {
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  font-size: 1.9rem;
-  color: var(--ink-soft);
-  text-align: center;
-  align-self: start;
-  padding-top: 0.2rem;
-}
-.row .plate {
-  width: 4.6rem;
-  height: 4.6rem;
-  display: grid;
-  place-items: center;
-  align-self: start;
-  position: relative;
-  background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
-  filter: drop-shadow(0 2px 3px var(--plate-shadow));
-}
-.row .plate::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
-  background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 46%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
-}
-.row .plate svg {
-  position: relative;
-}
-.row .plate svg {
-  width: 44px;
-  height: 44px;
-}
-.row .who b {
-  display: block;
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  font-size: 2rem;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-.row .who .sub {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: 1.08rem;
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1.35;
-}
-.row .proof {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  max-width: 50ch;
-}
-.proof-story,
-.proof-facts {
-  display: block;
-}
-.proof-facts {
-  margin-top: 0.65rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1rem;
-  color: var(--ink);
-  font-size: 0.78rem;
-  line-height: 1.35;
-}
-.proof-facts > span {
-  display: inline;
-}
-.proof-facts b {
-  margin-right: 0.35rem;
-  color: var(--rust);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.row .meta {
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  text-align: right;
-  color: var(--ink-soft);
-}
-.row .meta b {
-  color: var(--ink);
-  font-weight: 600;
-}
-.row .meta .st {
-  display: inline-block;
-  margin-top: 0.45rem;
-  padding: 0.16rem 0.6rem;
-  background: var(--bg-dim);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.row:hover .meta .st {
-  background: var(--rust-tint);
-}
-.row .meta .st.stable {
-  color: var(--on-rust);
-  background: var(--rust);
-}
-.row:hover .meta .st.stable {
-  background: var(--rust);
-}
-.row .go {
-  color: var(--ink-soft);
-  transition:
-    color 0.15s,
-    transform 0.15s;
-}
-@media (max-width: 64rem) {
-  .assembly-flow {
-    grid-template-columns: minmax(5.5rem, 0.8fr) minmax(1rem, 0.3fr) repeat(
-        3,
-        minmax(6rem, 1fr) minmax(1rem, 0.3fr)
-      ) minmax(5.5rem, 0.8fr);
-  }
-  .row {
-    grid-template-columns: 3.8rem 1fr 2rem;
-    row-gap: 0.8rem;
-  }
-  .row .num {
-    display: none;
-  }
-  .row .plate {
-    width: 3.8rem;
-    height: 3.8rem;
-  }
-  .row .plate svg {
-    width: 32px;
-    height: 32px;
-  }
-  .row .proof,
-  .row .meta {
-    grid-column: 2;
-    text-align: left;
-  }
-  .row .go {
-    grid-row: 1;
-    grid-column: 3;
-  }
-}
-@media (max-width: 46rem) {
-  .pipeline-assembly {
-    padding: 2rem 1.5rem;
-  }
-  .assembly-flow {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-  }
-  .assembly-terminal,
-  .assembly-output {
-    justify-items: center;
-    text-align: center;
-  }
-  .assembly-terminal b {
-    max-width: none;
-  }
-  .assembly-stage {
-    grid-template-columns: auto auto;
-    column-gap: 0.8rem;
-    align-items: center;
-    text-align: left;
-  }
-  .assembly-step {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
-  .assembly-copy {
-    justify-items: start;
-  }
-  .assembly-connector {
-    width: 2rem;
-    height: 2rem;
-    transform: rotate(90deg);
-  }
-}
-
-/* Beliefs — iron band */
-.ironband {
-  margin-top: clamp(4rem, 8vw, 6.5rem);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    linear-gradient(var(--iron), var(--iron));
-  color: var(--iron-ink);
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
-  border-top: 3px solid var(--rust);
-}
-.ironband h2 {
-  font-size: clamp(2.3rem, 4.6vw, 3.4rem);
-  text-transform: uppercase;
-}
-.beliefs {
-  margin-top: 2.5rem;
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--iron-line);
-}
-.beliefs > div {
-  display: grid;
-  grid-template-columns: minmax(11rem, 22rem) 1fr;
-  gap: 1rem 3rem;
-  padding-block: 1.6rem;
-  border-bottom: 1px solid var(--iron-line);
-  align-items: start;
-}
-.beliefs h3 {
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  text-transform: uppercase;
-  color: var(--ember);
-  line-height: 1;
-}
-.beliefs p {
-  color: var(--iron-soft);
-  max-width: 62ch;
-}
-@media (max-width: 46rem) {
-  .beliefs > div {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  .hero .wrap {
-    grid-template-columns: 1fr;
-  }
-  .board {
-    padding: 14px;
-  }
-  .board-row {
-    grid-template-columns: repeat(2, 112px);
-  }
-  .bar {
-    gap: 0.5rem;
-  }
-  .lockup {
-    font-size: 1.2rem;
-  }
-  nav.site {
-    gap: 0.25rem;
-  }
-}
-@media (max-width: 22rem) {
-  .lockup span {
-    display: none;
-  }
-}
-
 /* Partners — from the same workshop */
-.partners {
-  padding-top: clamp(3.5rem, 7vw, 5.5rem);
-}
 .partners .wrap > h2 {
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   text-transform: uppercase;
@@ -740,48 +128,17 @@ section .intro {
   }
 }
 
-/* Closing action — return the visitor to the family before provenance */
-.next-grid {
-  margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem 4rem;
-  align-items: center;
-}
-.next-grid > p,
-.next-copy > p {
-  max-width: 58ch;
-  color: var(--ink-soft);
-  font-size: 1.08rem;
-}
-.next-grid .cta-row {
-  margin-top: 0;
-  justify-content: flex-end;
-}
-@media (max-width: 54rem) {
-  .next-grid {
-    grid-template-columns: 1fr;
-  }
-  .next-grid .cta-row {
-    justify-content: flex-start;
-  }
-}
-
-/* ---- React-port additions (comp wrote uppercase literally; the registry is lowercase) ---- */
-.board a,
-.row .who b {
-  text-transform: uppercase;
-}
-
 /* Ardo reserves space for its fixed default header; with chrome:false none exists. */
 .ferramenta-site > div {
   padding-top: 0 !important;
 }
 /* Ardo's layout <main> is overflow:auto (docs scroll container); on this
-   single-page shell the body scrolls, so free the overflow for sticky. */
+   single-page shell the body scrolls, so free the overflow for sticky. It also
+   paints its own background, which would cover the `.fam-page` shop floor. */
 .ferramenta-site main {
   overflow: visible !important;
   padding: 0 !important;
+  background: transparent !important;
 }
 
 /* Why — the personal note between the principles and the partner band */
@@ -871,52 +228,20 @@ section .intro {
   }
 }
 
-/* Narrow screens: the tool row stacks and the arrow drops out */
-@media (max-width: 40rem) {
-  .row {
-    grid-template-columns: 3.8rem 1fr 1.5rem;
-  }
-  .row .proof,
-  .row .meta {
-    grid-column: 1 / -1;
-  }
+/* Ardo renders a skip link of its own inside the layout, after our header — so
+   it skips nothing, and on the brand amber its text fails contrast. Ours, the
+   first element of the page, is the one. */
+.ferramenta-site a[href="#main-content"] {
+  display: none;
 }
 
-/* Registry facts: platform pairs and the family tally (live at build time) */
-.row .meta .platforms {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.15rem;
-  margin-top: 0.3rem;
-}
-.row .meta .platform {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-family: var(--body);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-.row .meta .platform .icon {
-  flex: none;
-  color: var(--rust);
-}
-.next-step .tally {
+.fam-closing .tally {
   margin-top: 0.8rem;
   font-size: 0.95rem;
   color: var(--ink-soft);
 }
-.next-step .tally b {
-  font-family: var(--mono);
+.fam-closing .tally .fam-count {
   font-size: 1.05rem;
   color: var(--ink);
   font-weight: 700;
-}
-@media (max-width: 64rem) {
-  .row .meta .platforms {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.9rem;
-  }
 }

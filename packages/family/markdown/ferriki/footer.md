@@ -6,8 +6,8 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma-compatible regex engine |
-| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML with a secure default and every GFM extension included. |
+| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
+| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML, sanitized by default |
 
 **The language workshop**
 
@@ -21,7 +21,6 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferrovia](https://github.com/sebastian-software/ferrovia) | SVGO-compatible SVG optimizer |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
 | [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |

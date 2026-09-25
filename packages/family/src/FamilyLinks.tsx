@@ -1,5 +1,6 @@
-import { FAMILY_SITE, relatedTools } from "./family.js";
+import { FAMILY_SITE, relatedTools, toolHref } from "./family.js";
 import { Mark } from "./Mark.js";
+import { RepoNote } from "./RepoNote.js";
 
 export type FamilyLinksProps = {
   /** Omit this project from related links. Leave unset on the family overview. */
@@ -23,7 +24,10 @@ export function FamilyLinks({
       <ul>
         {relatedTools(current).map((tool) => (
           <li key={tool.name}>
-            <a href={tool.docs ?? tool.repo}>{tool.name}</a>
+            <a href={toolHref(tool)}>
+              {tool.name}
+              <RepoNote tool={tool} />
+            </a>
             <span> — {tool.job}</span>
           </li>
         ))}

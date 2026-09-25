@@ -8,7 +8,7 @@ the MIT license.
 ## Streamline icons
 
 Most Ferramenta project marks in `src/mark-defs.ts` (toolbox, anvil, flame,
-stamp, corner ruler, drawer cabinet, carving chisel, welding helmet) are derived
+stamp, corner ruler, drawer cabinet, welding helmet) are derived
 from icons by [Streamline](https://streamlinehq.com) (Duotone and Ultimate
 sets), adapted in color and detail, and used under a Streamline license.
 
@@ -20,7 +20,7 @@ the sprite grows past that line.
 
 The ferralk mark (horseshoe magnet) and the palamedes mark (type slugs in a
 composing stick) are our own drawings in the same construction and carry no
-Streamline claim; they are covered by the MIT license.
+Streamline claim; they are covered by the MIT license. So are the line icons `external` and `package`, drawn for the landing kit.
 
 ## Big Shoulders (font)
 

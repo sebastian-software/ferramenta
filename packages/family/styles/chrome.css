@@ -10,11 +10,22 @@
  *
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
- * `ghlink`, `switcher-start`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
- * `mark`, `markplate`, `hook`, `fastener`, `icon`. Loading last means this file
+ * `ghlink`, `switcher-start`, `switcher-family`, `flyhome`, `on-iron`, `foot`,
+ * `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`, `fastener`, `icon`,
+ * `fam-sr-only`. Loading last means this file
  * wins those ties, so a site that needs one of the names for its own elements
  * should scope or rename it.
  */
+
+/* Text for assistive technology only: where a link leads, a unit, a legend. */
+.fam-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 .mark path {
   stroke-linecap: square;
@@ -26,7 +37,7 @@
   place-items: center;
   position: relative;
   background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
+  clip-path: var(--octagon);
   filter: drop-shadow(0 2px 3px var(--plate-shadow));
 }
 
@@ -34,10 +45,9 @@
   content: "";
   position: absolute;
   inset: 2px;
-  clip-path: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
+  clip-path: var(--octagon);
   background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 46%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(115deg, var(--plate-sheen), transparent 46%), var(--texture-speckle),
     repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
     linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
 }
@@ -181,9 +191,7 @@ details.switcher,
 .site-header {
   position: sticky;
   top: 0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    linear-gradient(var(--iron), var(--iron));
+  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
   color: var(--iron-ink);
   z-index: 50;
   border-bottom: 2px solid var(--rust);
@@ -201,6 +209,7 @@ details.switcher,
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  min-height: 44px;
   text-decoration: none;
   font-family: var(--display), var(--body);
   font-weight: var(--disp-weight);
@@ -260,7 +269,7 @@ details.switcher[open] summary svg.chev {
   background: var(--iron);
   /* Its own ink: standing alone, the page around it is not the iron band. */
   color: var(--iron-ink);
-  border: 1px solid var(--iron-line);
+  /* Elevation is the shadow alone; the rust edge ties it to the bar. */
   border-top: 2px solid var(--rust);
   min-width: 21rem;
   padding: 0.5rem;
@@ -276,6 +285,42 @@ details.switcher[open] summary svg.chev {
 .switcher-start > .flyout {
   right: auto;
   left: 0;
+}
+
+/*
+ * `<ToolSwitcher family />` — the way back to the family on a site whose
+ * lockup is its own (`<SiteHeader lockup="project" />`). The trigger names the
+ * family instead of competing with the project's wordmark: display face,
+ * small and soft on the iron bar. Standing alone in a host's header it keeps
+ * the host's color, because the soft iron ink would be illegible on a light bar.
+ */
+.switcher-family summary {
+  font-family: var(--display), var(--body);
+  font-weight: var(--disp-weight);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.site-header .switcher-family summary {
+  color: var(--iron-soft);
+}
+
+.site-header .switcher-family summary:hover,
+.site-header .switcher-family[open] summary {
+  color: var(--iron-ink);
+}
+
+.switcher-family summary svg.chev {
+  width: 12px;
+  height: 12px;
+}
+
+/* The family site's own entry, above the groups: the link the lockup gave up. */
+.flyout a.flyhome {
+  grid-column: 1 / -1;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid var(--iron-line);
 }
 
 /*
@@ -364,10 +409,8 @@ details.switcher[open] summary svg.chev {
  * order this package documents anyway.
  */
 .site-footer {
-  margin-top: clamp(3.5rem, 7vw, 5.5rem);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E"),
-    linear-gradient(var(--iron), var(--iron));
+  margin-top: var(--section-space);
+  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
   color: var(--iron-ink);
   border-top: 3px solid var(--rust);
   padding-block: 3rem 6.5rem;
@@ -379,7 +422,7 @@ details.switcher[open] summary svg.chev {
   gap: 2.5rem;
 }
 
-/* The company line (decision D2): no family columns, so one column less. */
+/* No family columns — the company line (decision D2), or `members="none"`: one column less. */
 .foot.foot-company {
   grid-template-columns: 1.4fr 1fr;
 }
@@ -399,7 +442,7 @@ details.switcher[open] summary svg.chev {
   max-width: 34ch;
 }
 
-.foot h3 {
+.foot h2 {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -416,9 +459,19 @@ details.switcher[open] summary svg.chev {
   gap: 0.45rem;
 }
 
+/*
+ * The footer's links are one line of text each; the padding (taken back by the
+ * negative margin, so the columns keep their rhythm) gives each a 24px+ target.
+ */
 .foot a {
   text-decoration: none;
   font-size: 0.95rem;
+}
+
+.foot li > a {
+  display: inline-block;
+  padding-block: 0.3rem;
+  margin-block: -0.3rem;
 }
 
 .foot a:hover {
@@ -436,12 +489,41 @@ details.switcher[open] summary svg.chev {
   }
 }
 
+/*
+ * The bar on a phone: tighter, with a smaller lockup, and on the narrowest
+ * screens the wordmark gives way to the mark. The family trigger drops its word
+ * too — the Ferramenta mark alone still opens the switcher.
+ */
+@media (max-width: 46rem) {
+  .bar {
+    gap: 0.5rem;
+  }
+
+  .lockup {
+    font-size: 1.2rem;
+  }
+
+  nav.site {
+    gap: 0.25rem;
+  }
+
+  .site-header .switcher-family summary > span {
+    display: none;
+  }
+}
+
+@media (max-width: 22rem) {
+  .lockup span {
+    display: none;
+  }
+}
+
 .lockup,
 .flyout a b {
   text-transform: uppercase;
 }
 
-.foot h3.foot-gap {
+.foot h2.foot-gap {
   margin-top: 1.6rem;
 }
 

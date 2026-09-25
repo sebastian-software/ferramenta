@@ -1,0 +1,1532 @@
+/*
+ * ferramenta-family — the landing kit: the page patterns ferramenta.dev proved
+ * and the sibling home pages grew (hero, open-ledger sections, iron band,
+ * pipeline assembly, evidence figures, code panel, coverage ledger, closing
+ * action, and the family catalog: pegboard, tool ledger, job index), for every
+ * family home page to share instead of copy.
+ *
+ * Needs `tokens.css` (every value is a token) and `chrome.css` (`.wrap`,
+ * `.markplate`, `.fastener`, `.icon`). Load it after `theme.css` and before the
+ * site's own stylesheet, so the site can adjust the kit on equal specificity;
+ * `chrome.css` stays last.
+ *
+ * Collisions: every class is prefixed `fam-`. Bare elements are only styled
+ * inside `.fam-page`, and only through `:where()` — zero specificity, so any
+ * rule of the host's wins over those defaults.
+ */
+
+/* -- The page: brushed shop floor ------------------------------------------ */
+
+.fam-page {
+  background:
+    radial-gradient(140% 90% at 50% 12%, transparent 55%, var(--ground-vignette)),
+    var(--texture-brush), var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  /* Wide content scrolls in its own box, never the page. `clip`, not `hidden`,
+     so a sticky header inside the page keeps sticking. */
+  overflow-x: clip;
+}
+
+:where(.fam-page) :where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+:where(.fam-page) :where(h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote, pre) {
+  margin: 0;
+}
+
+:where(.fam-page) :where(h1, h2, h3) {
+  font-family: var(--display), var(--body);
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Links in running text are rust and underlined; every pattern below sets its own. */
+:where(.fam-page) :where(a) {
+  color: var(--rust);
+  text-underline-offset: 0.2em;
+}
+
+:where(.fam-page) :where(code) {
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+.fam-page :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* The browser's own surfaces carry the palette too. */
+:where(.fam-page) {
+  accent-color: var(--rust);
+}
+
+.fam-page ::selection {
+  background: var(--rust);
+  color: var(--on-rust);
+}
+
+/* -- Actions ---------------------------------------------------------------- */
+
+.fam-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.fam-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid transparent;
+  color: var(--ink);
+  font-family: var(--display), var(--body);
+  font-weight: var(--disp-weight);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.fam-btn .icon {
+  stroke-width: 2;
+}
+
+/* The one primary action per view: rust, with a single chamfered corner. */
+.fam-btn-primary {
+  background: var(--rust);
+  color: var(--on-rust);
+  clip-path: var(--chamfer);
+}
+
+.fam-btn-primary:hover {
+  background: var(--rust-deep);
+}
+
+.fam-btn-ghost {
+  border-color: var(--line-heavy);
+}
+
+.fam-btn-ghost:hover {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.on-iron .fam-btn-ghost {
+  border-color: var(--iron-line);
+  color: var(--iron-ink);
+}
+
+.on-iron .fam-btn-ghost:hover {
+  border-color: var(--ember);
+  color: var(--ember);
+}
+
+/* The chamfer on its own, for a host element that is not a `fam-btn-primary`. */
+.fam-chamfer {
+  clip-path: var(--chamfer);
+}
+
+/* -- Hero: the forge floor --------------------------------------------------- */
+
+.fam-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ember light falls on the floor from the lower right — and on what hangs there. */
+.fam-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(52rem 26rem at 88% 112%, var(--ember-glow), transparent 62%);
+  pointer-events: none;
+}
+
+.fam-hero > .wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+/*
+ * Poster scale. The floor depends on the headline's longest word, so it is a
+ * property: in Big Shoulders, 3.4rem holds a ten-letter word ("ONIGURUMA,") on
+ * a 360px phone. A site with a longer first word lowers it on `.fam-hero` —
+ * never below 2.5rem. The last line of defense breaks the word instead of
+ * scrolling the page.
+ */
+.fam-title {
+  font-size: clamp(var(--fam-title-min, 3.4rem), 9vw, 6rem);
+  max-width: 12ch;
+  overflow-wrap: break-word;
+}
+
+.fam-title em {
+  font-style: normal;
+  color: var(--rust);
+}
+
+.fam-lede {
+  margin-top: 1.6rem;
+  max-width: 50ch;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  color: var(--ink-soft);
+}
+
+.fam-install {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.fam-install code {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line);
+  background: var(--bg-dim);
+  color: var(--ink);
+  font-size: 1em;
+}
+
+/* Two classes: `.markplate` in chrome.css loads later and would take the tie. */
+.markplate.fam-hero-plate {
+  width: clamp(9rem, 17vw, 13.5rem);
+  height: clamp(9rem, 17vw, 13.5rem);
+  filter: drop-shadow(0 10px 16px var(--plate-shadow));
+}
+
+.markplate.fam-hero-plate svg {
+  width: 58%;
+  height: 58%;
+}
+
+/* -- Sections: the open ledger --------------------------------------------- */
+
+.fam-section {
+  padding-top: var(--section-space);
+}
+
+.fam-heading {
+  font-size: var(--h2-size);
+  padding-bottom: 0.6rem;
+  border-bottom: 3px solid var(--line-heavy);
+}
+
+.fam-intro {
+  margin-top: 1rem;
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+.fam-note {
+  margin-top: 1rem;
+  max-width: 62ch;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.fam-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 2.5rem 4rem;
+  align-items: start;
+}
+
+/* -- Iron band --------------------------------------------------------------- */
+
+.fam-band {
+  --focus: var(--ember);
+  margin-top: clamp(4rem, 8vw, 6.5rem);
+  padding-block: var(--section-space);
+  border-top: 3px solid var(--rust);
+  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
+  color: var(--iron-ink);
+}
+
+/*
+ * Straight under the hero the band closes the first viewport instead of
+ * opening a new chapter: it meets the floor directly, so the ember light ends
+ * at the band's rust edge rather than at an unlit strip.
+ */
+.fam-hero + .fam-band {
+  margin-top: 0;
+}
+
+/* The rust top edge is the band's rule. */
+.fam-band .fam-heading {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.fam-band .fam-intro,
+.fam-band .fam-note {
+  color: var(--iron-soft);
+}
+
+:where(.fam-band) :where(a) {
+  color: var(--ember);
+}
+
+.fam-rows {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--iron-line);
+}
+
+.fam-rows > div {
+  display: grid;
+  grid-template-columns: minmax(11rem, 22rem) 1fr;
+  gap: 1rem 3rem;
+  align-items: start;
+  padding-block: 1.6rem;
+  border-bottom: 1px solid var(--iron-line);
+}
+
+.fam-rows h3 {
+  font-size: var(--h3-size);
+  line-height: 1;
+  color: var(--ember);
+}
+
+.fam-rows p {
+  max-width: 62ch;
+  color: var(--iron-soft);
+}
+
+/* -- Pipeline assembly: one machine on four fasteners --------------------- */
+
+.fam-assembly {
+  --fastener-inset: 8px;
+  position: relative;
+  isolation: isolate;
+  margin-top: 2rem;
+  padding: 2.25rem clamp(1.75rem, 4vw, 3rem) 2rem;
+  border: 2px solid var(--plate-rim-lo);
+  background:
+    linear-gradient(115deg, var(--plate-sheen), transparent 38%),
+    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
+  clip-path: polygon(
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px),
+    0 12px
+  );
+  filter: drop-shadow(0 8px 12px var(--plate-shadow));
+}
+
+/* The inner rim: a second, finer chamfered edge inset from the first. */
+.fam-assembly::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  border: 1px solid var(--plate-rim-lo);
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+  pointer-events: none;
+}
+
+.fam-assembly-flow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns:
+    minmax(6.5rem, 0.8fr) minmax(1.5rem, 0.4fr)
+    repeat(3, minmax(7rem, 1fr) minmax(1.5rem, 0.4fr))
+    minmax(6.5rem, 0.8fr);
+  align-items: center;
+}
+
+.fam-assembly-end {
+  display: grid;
+  gap: 0.25rem;
+  line-height: 1.15;
+}
+
+.fam-assembly-end small {
+  color: var(--rust-on-plate);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fam-assembly-end b {
+  max-width: 9rem;
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.fam-assembly-output {
+  justify-items: end;
+  text-align: right;
+}
+
+.fam-assembly-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.4rem;
+  min-width: 0;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+}
+
+.fam-assembly-step {
+  font-family: var(--display), var(--body);
+  font-size: 1.25rem;
+  font-weight: var(--disp-weight);
+  line-height: 1;
+  color: var(--rust);
+}
+
+.fam-assembly-stage .markplate {
+  width: 4rem;
+  height: 4rem;
+}
+
+.fam-assembly-stage .markplate svg {
+  width: 2.35rem;
+  height: 2.35rem;
+}
+
+.fam-assembly-copy {
+  display: grid;
+  justify-items: center;
+  min-width: 0;
+  line-height: 1.05;
+}
+
+.fam-assembly-copy b {
+  font-family: var(--display), var(--body);
+  font-size: 1.15rem;
+  font-weight: var(--disp-weight);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.fam-assembly-copy small {
+  margin-top: 0.22rem;
+  color: var(--ink-soft-on-plate);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+a.fam-assembly-stage:hover .fam-assembly-copy b {
+  color: var(--rust);
+}
+
+/* The stage this site is: its step stamped solid, its name rust. */
+.fam-assembly-stage[aria-current] .fam-assembly-step {
+  padding: 0.12rem 0.4rem;
+  background: var(--rust);
+  color: var(--on-rust);
+}
+
+.fam-assembly-stage[aria-current] .fam-assembly-copy b {
+  color: var(--rust);
+}
+
+.fam-assembly-connector {
+  width: 100%;
+  height: 1.5rem;
+  color: var(--rust);
+  stroke-width: 1.5;
+}
+
+/* -- Evidence figures ---------------------------------------------------------- */
+
+.fam-figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  padding-top: 0.5rem;
+}
+
+.fam-figures > div {
+  padding-left: 1rem;
+  border-left: 2px solid var(--rust);
+}
+
+.fam-figures dt {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.fam-figure-value {
+  margin-top: 0.25rem;
+  color: var(--rust);
+  font-family: var(--display), var(--body);
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: var(--disp-weight);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.fam-figure-detail {
+  margin-top: 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.fam-figure-detail span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+
+/* -- Code panel on iron --------------------------------------------------------- */
+
+.fam-code {
+  min-width: 0;
+  margin-top: 2rem;
+  border-top: 3px solid var(--rust);
+  background: var(--iron);
+  color: var(--iron-ink);
+}
+
+.fam-code + .fam-code {
+  margin-top: 1.5rem;
+}
+
+/* A file name or a command is an identifier: it keeps its own case. */
+.fam-code figcaption {
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid var(--iron-line);
+  color: var(--iron-soft);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+
+.fam-code pre {
+  --focus: var(--ember);
+  padding: 1.25rem;
+  scrollbar-color: var(--iron-line) transparent;
+  overflow-x: auto;
+  background: none;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.fam-code pre:focus-visible {
+  outline-offset: -2px;
+}
+
+.fam-code code {
+  font-size: 1em;
+}
+
+.fam-code ::selection {
+  background: var(--ember);
+  color: var(--iron);
+}
+
+.fam-code .kw,
+.fam-code .mc {
+  color: var(--code-keyword);
+}
+
+.fam-code .ty {
+  color: var(--code-type);
+  font-weight: 600;
+}
+
+.fam-code .fn {
+  color: var(--code-function);
+}
+
+.fam-code .str {
+  color: var(--code-string);
+}
+
+.fam-code .cm {
+  color: var(--code-comment);
+}
+
+/* -- Stamps and the coverage ledger -------------------------------------------- */
+
+/* A tinted fill with a hairline edge, so an open state still reads as a stamp on the textured floor. */
+.fam-stamp {
+  display: inline-block;
+  padding: 0.16rem 0.6rem;
+  border: 1px solid var(--line);
+  background: var(--bg-dim);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.fam-stamp[data-tone="solid"] {
+  border-color: var(--rust);
+  background: var(--rust);
+  color: var(--on-rust);
+}
+
+.on-iron .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--iron-line);
+  background: var(--iron-2);
+  color: var(--iron-ink);
+}
+
+/* The legend: each stamp beside the one line it promises. */
+.fam-stamp-key {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  margin-top: 2.5rem;
+}
+
+.fam-stamp-key dd {
+  margin: 0.55rem 0 0;
+  max-width: 28ch;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.on-iron .fam-stamp-key dd {
+  color: var(--iron-soft);
+}
+
+.fam-ledger {
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.fam-ledger-row {
+  display: grid;
+  grid-template-columns: minmax(12rem, 20rem) 9rem minmax(0, 1fr);
+  gap: 0.75rem 2rem;
+  align-items: baseline;
+  padding: 1.25rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.fam-ledger-name {
+  font-family: var(--display), var(--body);
+  font-size: 1.35rem;
+  font-weight: var(--disp-weight);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.fam-ledger-row .fam-stamp {
+  justify-self: start;
+}
+
+.fam-ledger-row p {
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+/* -- Closing action ------------------------------------------------------------ */
+
+.fam-closing-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem 4rem;
+  align-items: center;
+}
+
+.fam-closing-copy > p {
+  max-width: 58ch;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+}
+
+.fam-closing-copy > p + p {
+  margin-top: 0.8rem;
+}
+
+.fam-closing-grid > .fam-actions {
+  margin-top: 0;
+  justify-content: flex-end;
+}
+
+/* A list beside the copy (an index, a set of links): it hangs from the heading like the copy. */
+.fam-closing-grid:has(> .fam-closing-aside) {
+  align-items: start;
+}
+
+.fam-closing-aside {
+  min-width: 0;
+}
+
+/* The mono link line: where the project lives, spelled out. */
+.fam-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+
+/*
+ * An icon in the line (external, package) sits beside the underline, not on
+ * it. The padding, taken back by the margin, gives each link a 44px target
+ * without moving the line.
+ */
+.fam-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-block: 0.7rem;
+  margin-block: -0.7rem;
+}
+
+/* -- The family catalog: pegboard, tool ledger, job index ------------------- */
+
+/* A registry count (downloads): mono and tabular, so a live value never shifts the line. */
+.fam-count {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The pegboard. Its hole grid is a 28px tile, and everything on it is a
+ * multiple: padding 42, cells 112×140, gaps 28, so every hook hangs on a hole
+ * (a hook's center sits at 14 mod 28 from the padding edge). The hole is the
+ * radial gradient's center, which sits in the middle of its tile: with the
+ * tile at 0 0 the holes land at 14 mod 28, under the hooks. Change it only in
+ * 28px steps and re-measure the hooks; DESIGN.md has the phone board.
+ */
+.fam-board {
+  --fastener-inset: 8px;
+  position: relative;
+  width: fit-content;
+  margin-inline: auto;
+  padding: 42px;
+  border: 2px solid var(--line-heavy);
+  background:
+    radial-gradient(oklch(0.45 0.02 55 / 0.3) 1.3px, transparent 1.4px) 0 0 / 28px 28px,
+    linear-gradient(var(--bg-dim), var(--bg-dim));
+}
+
+.fam-board-grid {
+  display: grid;
+  row-gap: 28px;
+}
+
+.fam-board-label {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  color: var(--ink-soft);
+  font-family: var(--display), var(--body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fam-board-row {
+  display: grid;
+  grid-template-columns: repeat(3, 112px);
+  grid-auto-rows: 140px;
+  gap: 28px;
+}
+
+.fam-board-item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.55rem;
+  width: 112px;
+  padding-top: 21px;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.fam-board-item:hover {
+  color: var(--rust);
+}
+
+/* Two classes: `.markplate` in chrome.css loads later and would take the tie. */
+.fam-board .markplate {
+  width: 76px;
+  height: 76px;
+}
+
+.fam-board .markplate svg {
+  width: 46px;
+  height: 46px;
+  color: var(--rust);
+}
+
+/* The stamp is riveted to the plate's lower edge: no extra row, the grid stays on the holes. */
+.fam-board-stamp {
+  position: absolute;
+  top: calc(21px + 76px - 0.7rem);
+  left: 50%;
+  z-index: 1;
+  translate: -50% 0;
+  line-height: 1;
+}
+
+.fam-board-stamp .fam-stamp {
+  padding: 0.05rem 0.35rem;
+  line-height: 1.25;
+}
+
+/* On the board ground an open stamp's tint vanishes; the floor color and the plate's rim edge it. */
+.fam-board-stamp .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--plate-rim-hi);
+  background: var(--bg);
+}
+
+.fam-board-copy {
+  display: grid;
+  justify-items: center;
+  margin-top: 0.35rem;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.fam-board-copy b {
+  font-family: var(--display), var(--body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* Short jobs keep their acronyms: no text transform. */
+.fam-board-copy small {
+  margin-top: 0.18rem;
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+.fam-board-item:hover .fam-board-copy small {
+  color: var(--rust);
+}
+
+.fam-board-repo {
+  display: inline-block;
+  margin-left: 0.3rem;
+  vertical-align: 0.05em;
+  color: var(--ink-soft);
+}
+
+/* A hero whose aside is the board stacks earlier: the board needs the full width below 60rem. */
+@media (max-width: 60rem) {
+  .fam-hero:has(.fam-board) > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * The phone board: every group still one row of three, in 84px cells (3 × 28)
+ * with no gap. A hook hangs at its cell's center, 42px in, so the inline
+ * padding moves to 28 to put it on a hole; the block padding stays 14.
+ */
+@media (max-width: 34rem) {
+  .fam-board {
+    padding: 14px 28px;
+  }
+
+  .fam-board-row {
+    grid-template-columns: repeat(3, 84px);
+    column-gap: 0;
+  }
+
+  .fam-board-item {
+    width: 84px;
+  }
+
+  .fam-board .markplate {
+    width: 56px;
+    height: 56px;
+  }
+
+  .fam-board .markplate svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .fam-board-stamp {
+    top: calc(21px + 56px - 0.7rem);
+  }
+
+  .fam-board-copy {
+    width: 100%;
+    padding-inline: 4px;
+  }
+
+  .fam-board-copy b {
+    font-size: 0.9rem;
+  }
+}
+
+/* The tool ledger: one hairline row per member, facts from the registry. */
+.fam-tools {
+  display: grid;
+  margin-top: 1.5rem;
+}
+
+.fam-tool {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.6rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s;
+}
+
+/* Only a numbered ledger carries the step column. */
+.fam-tools[data-steps] .fam-tool {
+  grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
+}
+
+.fam-tool:hover {
+  background: var(--bg-dim);
+}
+
+.fam-tool-num {
+  align-self: start;
+  padding-top: 0.2rem;
+  color: var(--ink-soft);
+  font-family: var(--display), var(--body);
+  font-size: 1.9rem;
+  font-weight: var(--disp-weight);
+  text-align: center;
+}
+
+.markplate.fam-tool-plate {
+  align-self: start;
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+.fam-tool-plate svg {
+  width: 44px;
+  height: 44px;
+}
+
+.fam-tool-name {
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* The name is the link; its ::after stretches the target over the whole row. */
+.fam-tool-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fam-tool-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.fam-tool-link:focus-visible {
+  outline: none;
+}
+
+.fam-tool:has(.fam-tool-link:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.fam-tool-job {
+  margin-top: 0.35rem;
+  color: var(--ink);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.fam-tool-proof {
+  max-width: 50ch;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* One fact per line, labels in one column: every row scans the same way. */
+.fam-tool-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.3rem 0.75rem;
+  align-items: baseline;
+  margin-top: 0.65rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.fam-tool-facts > div {
+  display: contents;
+}
+
+.fam-tool-facts dd {
+  margin: 0;
+}
+
+.fam-tool-facts dt {
+  color: var(--rust);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fam-tool-facts .fam-count {
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.fam-tool-meta {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.fam-tool-version {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fam-tool-platforms {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  margin-top: 0.3rem;
+}
+
+.fam-tool-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 0.75rem;
+}
+
+.fam-tool-platform .icon {
+  flex: none;
+  color: var(--rust);
+}
+
+.fam-tool-meta .fam-stamp {
+  margin-top: 0.45rem;
+}
+
+.fam-tool:hover .fam-tool-meta .fam-stamp:not([data-tone="solid"]) {
+  background: var(--rust-tint);
+}
+
+.fam-tool-go {
+  color: var(--ink-soft);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+
+.fam-tool:hover .fam-tool-go {
+  color: var(--rust);
+  transform: translateX(4px);
+}
+
+/* Stacked: the proof and one line of version, registries and stamp under the name. */
+@media (max-width: 64rem) {
+  .fam-tool,
+  .fam-tools[data-steps] .fam-tool {
+    grid-template-columns: 3.8rem minmax(0, 1fr) 2rem;
+    row-gap: 0.8rem;
+  }
+
+  .fam-tool-num {
+    display: none;
+  }
+
+  .markplate.fam-tool-plate {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  .fam-tool-plate svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fam-tool-proof,
+  .fam-tool-meta {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .fam-tool-go {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .fam-tool-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .fam-tool-platforms {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 0;
+  }
+
+  .fam-tool-meta .fam-stamp {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .fam-tool,
+  .fam-tools[data-steps] .fam-tool {
+    grid-template-columns: 3.8rem minmax(0, 1fr) 1.5rem;
+    padding-block: 1.25rem;
+  }
+
+  .fam-tool-proof,
+  .fam-tool-meta {
+    grid-column: 1 / -1;
+  }
+}
+
+/*
+ * The job index: the aisle directory by the door. Job, leader, tool, stamp —
+ * one ruled line each, read across like a directory board.
+ */
+/* One grid for the whole board, so tools and stamps line up in columns. */
+.fam-jobs {
+  display: grid;
+  grid-template-columns: max-content minmax(3rem, 1fr) max-content max-content;
+  column-gap: 0.75rem;
+  width: min(100%, 34rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--line-heavy);
+}
+
+.fam-jobs > li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.fam-job {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  padding: 0.45rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.fam-job:hover {
+  background: var(--bg-dim);
+}
+
+/* Short jobs keep their acronyms and "i18n" its lowercase: no text transform, as on the board. */
+.fam-job-name {
+  font-family: var(--display), var(--body);
+  font-size: 1.1rem;
+  font-weight: var(--disp-weight);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* The leader: square dots, set like a directory board's. */
+.fam-job-leader {
+  align-self: end;
+  height: 2px;
+  margin-bottom: 0.45rem;
+  background: linear-gradient(90deg, var(--ink-soft) 2px, transparent 2px) 0 0 / 6px 2px repeat-x;
+  opacity: 0.55;
+}
+
+.fam-job-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fam-job-tool .mark {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--rust);
+}
+
+.fam-job-tool b {
+  font-family: var(--display), var(--body);
+  font-size: 1.1rem;
+  font-weight: var(--disp-weight);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.fam-job .fam-stamp {
+  justify-self: start;
+}
+
+.fam-job:hover .fam-job-name,
+.fam-job:hover .fam-job-tool b {
+  color: var(--rust);
+}
+
+.fam-job:hover .fam-stamp:not([data-tone="solid"]) {
+  background: var(--rust-tint);
+}
+
+/* A phone keeps job and tool on one line; the leader gives way first. */
+@media (max-width: 30rem) {
+  .fam-jobs {
+    grid-template-columns: minmax(0, 1fr) max-content max-content;
+    column-gap: 0.6rem;
+  }
+
+  .fam-job-leader {
+    display: none;
+  }
+
+  .fam-job-name,
+  .fam-job-tool b {
+    font-size: 1rem;
+  }
+}
+
+/* -- Run sample: input, arrow, the output as it came out ------------------------ */
+
+.fam-run {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.fam-run .fam-code {
+  margin-top: 0;
+}
+
+.fam-run-input {
+  min-width: 0;
+}
+
+/* The folded input, for a phone: a bar in the code panel's own iron, opening downward. */
+.fam-run-narrow {
+  display: none;
+}
+
+.fam-run-narrow summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.25rem;
+  border-top: 3px solid var(--rust);
+  background: var(--iron);
+  color: var(--iron-ink);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fam-run-narrow summary::-webkit-details-marker {
+  display: none;
+}
+
+.fam-run-narrow summary small {
+  color: var(--iron-soft);
+  font-family: var(--body);
+  font-size: 0.8125rem;
+}
+
+.fam-run-narrow summary .icon {
+  margin-left: auto;
+  transition: rotate 0.15s;
+}
+
+.fam-run-narrow[open] summary .icon {
+  rotate: 180deg;
+}
+
+.fam-run-narrow summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Opened, the panel continues the bar: no second rust rule, no second caption. */
+.fam-run-narrow .fam-code {
+  border-top: 0;
+}
+
+.fam-run-narrow .fam-code figcaption {
+  display: none;
+}
+
+.fam-run-arrow {
+  align-self: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--rust);
+}
+
+/* The output is a document on the floor, in the page's own type: a ruled sheet, not a card. */
+.fam-run-output {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--rust);
+  background: var(--bg-dim);
+}
+
+.fam-run-output figcaption {
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+
+.fam-run-doc {
+  padding: 1.25rem;
+}
+
+.fam-run-doc :is(h1, h2, h3, h4) {
+  font-size: 1.6rem;
+}
+
+.fam-run-doc p {
+  margin-top: 0.6rem;
+}
+
+/*
+ * The highlighted block keeps its theme's token colors on our iron, the surface
+ * code always sits on (gruvbox-dark-hard holds ≥6:1 there). The `!important`
+ * answers Ardo's own `.shiki { background: transparent !important }`, which
+ * would leave light tokens on the light floor. The rendered side wraps instead
+ * of scrolling: it is `inert`, so a scroll box there could not be reached.
+ */
+.fam-run-doc pre.shiki {
+  background: var(--iron) !important;
+}
+
+/* The kit sets inline code at 0.9em; a block keeps the panel's size, as on the input side. */
+.fam-run-doc pre code {
+  font-size: 1em;
+}
+
+.fam-run-doc pre {
+  margin-top: 1rem;
+  padding: 1.1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 54rem) {
+  .fam-run {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fam-run-arrow {
+    justify-self: center;
+    rotate: 90deg;
+  }
+
+  /* On a phone the input folds away, and wraps when opened: no sideways swipe. */
+  .fam-run-wide {
+    display: none;
+  }
+
+  .fam-run-narrow {
+    display: block;
+  }
+
+  .fam-run .fam-code pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* -- Narrow viewports ----------------------------------------------------------- */
+
+@media (max-width: 64rem) {
+  .fam-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fam-assembly-flow {
+    grid-template-columns:
+      minmax(5.5rem, 0.8fr) minmax(1rem, 0.3fr)
+      repeat(3, minmax(6rem, 1fr) minmax(1rem, 0.3fr))
+      minmax(5.5rem, 0.8fr);
+  }
+}
+
+@media (max-width: 54rem) {
+  .fam-stamp-key {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fam-closing-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fam-closing-grid > .fam-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 46rem) {
+  .fam-hero > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* On a phone the plate leads, small, and the headline follows it. */
+  .markplate.fam-hero-plate {
+    order: -1;
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  .fam-rows > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .fam-assembly {
+    padding: 2rem 1.5rem;
+  }
+
+  .fam-assembly-flow {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .fam-assembly-end,
+  .fam-assembly-output {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .fam-assembly-end b {
+    max-width: none;
+  }
+
+  .fam-assembly-stage {
+    grid-template-columns: auto auto;
+    column-gap: 0.8rem;
+    align-items: center;
+    text-align: left;
+  }
+
+  .fam-assembly-step {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .fam-assembly-copy {
+    justify-items: start;
+  }
+
+  .fam-assembly-connector {
+    width: 2rem;
+    height: 2rem;
+    transform: rotate(90deg);
+  }
+
+  .fam-ledger-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 30rem) {
+  .fam-figures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fam-page * {
+    transition: none !important;
+  }
+}

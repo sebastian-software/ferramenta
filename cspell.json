@@ -15,15 +15,21 @@
     "ferroni",
     "ferrovia",
     "ferrugo",
+    "flyhome",
     "forgejo",
+    "globset",
+    "lede",
     "lockfile",
+    "markplate",
     "oxfmt",
     "oxlint",
     "packument",
     "palamedes",
     "pnpm",
+    "prerendered",
     "repometa",
     "unreviewed",
+    "wordmark",
     "worktrees"
   ]
 }

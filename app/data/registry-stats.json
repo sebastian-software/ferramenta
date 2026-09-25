@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T22:17:17Z",
+  "generatedAt": "2026-09-25T05:11:40Z",
   "tools": {
     "ferroni": {
       "crates": {
@@ -8,11 +8,19 @@
         "recentDownloads": 1468,
         "updated": "2026-09-24"
       },
-      "npm": null
+      "npm": null,
+      "release": {
+        "version": "1.5.1",
+        "publishedAt": "2026-09-24T19:11:06Z"
+      }
     },
     "ferriki": {
       "crates": null,
-      "npm": null
+      "npm": null,
+      "release": {
+        "version": "0.3.0",
+        "publishedAt": "2026-09-06T08:36:41Z"
+      }
     },
     "ferromark": {
       "crates": {
@@ -25,11 +33,19 @@
         "version": "2.1.2",
         "lastMonth": 304,
         "placeholder": false
+      },
+      "release": {
+        "version": "2.1.2",
+        "publishedAt": "2026-09-24T11:03:08Z"
       }
     },
     "ferrolex": {
       "crates": null,
-      "npm": null
+      "npm": null,
+      "release": {
+        "version": "0.4.0",
+        "publishedAt": "2026-09-02T21:40:06Z"
+      }
     },
     "ferrocat": {
       "crates": {
@@ -38,10 +54,10 @@
         "recentDownloads": 6105,
         "updated": "2026-08-06"
       },
-      "npm": {
-        "version": "0.2.0",
-        "lastMonth": 16,
-        "placeholder": false
+      "npm": null,
+      "release": {
+        "version": "3.4.2",
+        "publishedAt": "2026-08-06T11:14:55Z"
       }
     },
     "palamedes": {
@@ -50,11 +66,11 @@
         "version": "1.25.0",
         "lastMonth": 2173,
         "placeholder": true
+      },
+      "release": {
+        "version": "1.25.0",
+        "publishedAt": "2026-09-09T08:34:58Z"
       }
-    },
-    "ferrovia": {
-      "crates": null,
-      "npm": null
     },
     "ferralk": {
       "crates": {
@@ -63,7 +79,11 @@
         "recentDownloads": 1034,
         "updated": "2026-09-24"
       },
-      "npm": null
+      "npm": null,
+      "release": {
+        "version": "1.0.0",
+        "publishedAt": "2026-09-24T20:31:46Z"
+      }
     },
     "ferrugo": {
       "crates": {
@@ -76,6 +96,10 @@
         "version": "0.0.1",
         "lastMonth": 11,
         "placeholder": true
+      },
+      "release": {
+        "version": "0.5.0",
+        "publishedAt": "2026-07-05T20:45:39Z"
       }
     },
     "dalo": {
@@ -85,7 +109,8 @@
         "recentDownloads": 497,
         "updated": "2026-09-17"
       },
-      "npm": null
+      "npm": null,
+      "release": null
     },
     "cuttledoc": {
       "crates": null,
@@ -93,7 +118,8 @@
         "version": "2.0.0",
         "lastMonth": 25,
         "placeholder": false
-      }
+      },
+      "release": null
     }
   }
 }

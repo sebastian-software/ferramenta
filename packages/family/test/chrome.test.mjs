@@ -40,7 +40,7 @@ test("the header renders the switcher with every family member", () => {
   assert.ok(html.includes('<a class="lockup" href="/">'), "the family site links its own root");
   assert.ok(html.includes("Tools"), "the switcher has its summary");
   for (const tool of family.family) {
-    assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+    assert.ok(html.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
     assert.ok(html.includes(`href="${tool.docs ?? tool.repo}"`), `missing link: ${tool.name}`);
   }
 });
@@ -60,6 +60,41 @@ test("current is context rather than a self-link", () => {
   assert.ok(!html.includes('href="https://sebastian-software.github.io/ferroni/"'));
 });
 
+test("the project lockup names the site and moves the family into the switcher", () => {
+  const html = render(family.SiteHeader, {
+    current: "ferroni",
+    home: "/ferroni/",
+    lockup: "project",
+  });
+  assert.ok(html.includes('<a class="lockup" href="/ferroni/">'), "the lockup links the site home");
+  assert.ok(html.includes('<use href="#i-ferroni"></use></svg><span>ferroni</span>'));
+  assert.ok(html.includes('<details class="switcher switcher-family">'), "the family trigger");
+  assert.ok(html.includes('aria-label="Ferramenta: all tools"'), "its name keeps the visible word");
+  assert.ok(
+    html.includes(`<a class="flyhome" href="${family.FAMILY_SITE}">`),
+    "the way back to the family site",
+  );
+  assert.ok(!html.includes("<span>ferramenta</span>"), "no family lockup in the brand slot");
+  assert.ok(
+    render(family.SiteHeader, { current: "ferroni", lockup: "project" }).includes(
+      '<a class="lockup" href="/">',
+    ),
+    "home defaults to the site root",
+  );
+  assert.throws(
+    () => render(family.SiteHeader, { lockup: "project" }),
+    /needs `current`/u,
+    "a project lockup without a project is a configuration error",
+  );
+});
+
+test("the family lockup stays the default, with no family entry in the flyout", () => {
+  const html = render(family.SiteHeader, { current: "ferroni" });
+  assert.ok(html.includes(`<a class="lockup" href="${family.FAMILY_SITE}">`));
+  assert.ok(html.includes("<span>ferramenta</span>"));
+  assert.ok(!html.includes("flyhome"), "the lockup already is the way back");
+});
+
 test("the switcher stands alone, for a host header that is not ours", () => {
   const html = render(family.ToolSwitcher, { current: "ferroni" });
   assert.match(html, /^<details class="switcher">/u);
@@ -67,7 +102,7 @@ test("the switcher stands alone, for a host header that is not ours", () => {
   assert.ok(html.includes('<div class="flyout">'), "and its flyout");
   assert.ok(!html.includes('aria-current="page"'));
   for (const tool of family.relatedTools("ferroni")) {
-    assert.ok(html.includes(`>${tool.name}</b>`), `missing from the switcher: ${tool.name}`);
+    assert.ok(html.includes(`<b>${tool.name}`), `missing from the switcher: ${tool.name}`);
   }
   assert.ok(
     render(family.SiteHeader, { current: "ferroni" }).includes(html),
@@ -113,7 +148,7 @@ test("`as` drops the landmark element for a host that provides its own", () => {
   const footer = render(family.SiteFooter, { as: "div", current: "ferroni" });
   assert.match(footer, /^<div class="site-footer">/u);
   assert.ok(!footer.includes("<footer"), "no contentinfo landmark inside the host's");
-  assert.ok(footer.includes(">Pipeline</h3>"), "the chrome itself is unchanged");
+  assert.ok(footer.includes(">Pipeline</h2>"), "the chrome itself is unchanged");
 });
 
 test("the chrome CSS carries the duotone set outside the header and footer", async () => {
@@ -158,10 +193,10 @@ test("the footer lists the family in groups plus the company links", () => {
   const html = render(family.SiteFooter);
   assert.match(html, /^<footer class="site-footer">/u);
   for (const label of ["Pipeline", "Language", "Workbench", "Company"]) {
-    assert.ok(html.includes(`>${label}</h3>`), `missing footer column: ${label}`);
+    assert.ok(html.includes(`>${label}</h2>`), `missing footer column: ${label}`);
   }
   for (const tool of family.family) {
-    assert.ok(html.includes(`>${tool.name}</a>`), `missing from the footer: ${tool.name}`);
+    assert.ok(html.includes(`>${tool.name}`), `missing from the footer: ${tool.name}`);
   }
   assert.ok(html.includes("https://oss.sebastian-software.com"));
   assert.ok(html.includes("MIT-licensed"), "the default legal line");
@@ -171,9 +206,9 @@ test("the company line drops the family columns (decision D2)", () => {
   const html = render(family.SiteFooter, { current: "dalo", legal: "Own terms.", line: "company" });
   assert.ok(html.includes('class="wrap foot foot-company"'));
   for (const label of ["Pipeline", "Language", "Workbench"]) {
-    assert.ok(!html.includes(`>${label}</h3>`), `the company line must not list: ${label}`);
+    assert.ok(!html.includes(`>${label}</h2>`), `the company line must not list: ${label}`);
   }
-  assert.ok(html.includes(">Company</h3>"));
+  assert.ok(html.includes(">Company</h2>"));
   assert.ok(!html.includes("foot-gap"), "with one column there is no gap heading");
   assert.ok(html.includes("Own terms."), "the legal line is the consumer's");
 });
@@ -183,13 +218,12 @@ test("a family site omits its own footer entry", () => {
   assert.ok(!html.includes('aria-current="page"'));
 });
 
-test("every family member resolves to a mark, and the sprite stays under 100 (ADR-0002)", () => {
+test("every family member has a mark, and the sprite stays under 100 (ADR-0002)", () => {
   const symbols = [...family.MARK_DEFS.matchAll(/<symbol id="i-(?<name>[a-z-]+)"/gu)].map(
     (match) => match.groups.name,
   );
   for (const tool of family.family) {
-    const mark = tool.mark ?? tool.name;
-    assert.ok(symbols.includes(mark), `no mark for ${tool.name} (expected ${mark})`);
+    assert.ok(symbols.includes(tool.mark ?? tool.name), `no mark for ${tool.name}`);
   }
   assert.ok(symbols.includes("ferramenta"), "the family lockup mark");
   assert.ok(symbols.length < 100, `the package ships ${symbols.length} icons`);
@@ -227,7 +261,13 @@ test("both entries load in a bare Node process", async () => {
 });
 
 test("the CSS a consumer imports is exported and shipped", async () => {
-  for (const entry of ["./chrome.css", "./fonts.css", "./theme.css", "./tokens.css"]) {
+  for (const entry of [
+    "./chrome.css",
+    "./fonts.css",
+    "./landing.css",
+    "./theme.css",
+    "./tokens.css",
+  ]) {
     const target = manifest.exports[entry];
     assert.equal(typeof target, "string", `missing export: ${entry}`);
     await access(new URL(`../${target}`, import.meta.url));
@@ -250,4 +290,34 @@ test("every related React link has a job and omits the current project", () => {
       }
     }
   }
+});
+
+test("every link to a member without a site says it leads to its repository", () => {
+  const footer = render(family.SiteFooter, { members: "short" });
+  const header = render(family.SiteHeader);
+  for (const tool of family.family) {
+    const note = `${tool.name}<span class="fam-sr-only"> (GitHub repository)</span>`;
+    assert.equal(footer.includes(note), family.leadsToRepo(tool), `footer: ${tool.name}`);
+    assert.equal(header.includes(note), family.leadsToRepo(tool), `switcher: ${tool.name}`);
+    assert.equal(family.toolHref(tool), tool.docs ?? tool.repo);
+  }
+  assert.ok(footer.includes(`>${family.family[0].shortJob}</span>`), "short jobs on request");
+  assert.ok(footer.includes("</svg>ferramenta</a>"), "the lockup is the family's name");
+  assert.ok(!footer.includes("More from Ferramenta"), "the family site names itself");
+  assert.ok(render(family.SiteFooter, { current: "ferroni" }).includes("More from Ferramenta"));
+});
+
+test("the family's own index drops the footer's member columns, and headings are its own", () => {
+  const index = render(family.SiteFooter, { members: "none" });
+  for (const tool of family.family) assert.ok(!index.includes(`href="${family.toolHref(tool)}"`));
+  assert.ok(index.includes('class="wrap foot foot-company"'), "one column less");
+  assert.ok(index.includes("<h2>Company</h2>"), "the company links stay");
+  assert.ok(!/<h3/u.test(render(family.SiteFooter)), "footer headings are h2: its own outline");
+});
+
+test("the GitHub mark fills itself: the stroked `.icon` class would leave only its outline", () => {
+  assert.match(
+    family.MARK_DEFS,
+    /<symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d=/u,
+  );
 });

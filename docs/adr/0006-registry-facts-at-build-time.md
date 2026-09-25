@@ -4,6 +4,10 @@
 - Date: 2026-08-20
 - Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
+- Amended: 2026-09-24 — facts fetched at every deploy and updated live in the browser, see
+  [Amendment 2026-09-24](#amendment-2026-09-24)
+- Amended: 2026-09-24 — live figures from the workshop's metrics service first, see
+  [Amendment 2026-09-24 (metrics service)](#amendment-2026-09-24-metrics-service)
 
 ## Context
 
@@ -95,9 +99,78 @@ The original consequence that numbers are at most about 24 hours old is
 superseded. Registry checks still run daily, but publication also waits for the
 generated pull request to pass CI and be reviewed and merged.
 
+## Amendment 2026-09-24
+
+Since 2026-09-10 the nightly snapshot pull request waited unmerged, so the page
+showed numbers that were weeks old — exactly the staleness this record set out
+to remove. Two changes follow.
+
+**Live in the browser.** The client-side fetch rejected above is now the top
+layer, as progressive enhancement over the prerendered values: the page renders
+the figures its deploy fetched, and after hydration `useLiveRegistry` (family
+package) asks the registries for current versions and downloads and swaps them
+in, in the page's own typography. The objections no longer hold: there is no
+loading state and no layout shift, because the prerendered value is already
+there (tabular numerals keep widths steady); without JavaScript the deploy's
+value stays; a registry that does not answer changes nothing. All three
+endpoints answer cross-origin requests. A page view costs a handful of
+requests — one bulk crates.io call (`/crates?ids[]=…`), one bulk npm downloads
+call, one npm `latest` per adapter — and only for packages the build verified
+as the family's own. Visitors' browsers contact crates.io and npm directly;
+that exposes no visitor data beyond an ordinary request and was accepted. The
+endpoints are configurable (`RegistryEndpoints`), so a caching mirror can be put
+in front later without touching a component. The family-wide total is back,
+live-summed. (A shields.io badge variant was tried in between and dropped: the
+numbers belong in the page's own layout.)
+
+**No more snapshot pull requests.** A daily pull request that someone has to
+review and merge is an invitation to go stale, and it did. The
+`refresh-stats.yml` job and its `automation/refresh-registry-stats` branch are
+retired. Instead the Pages deploy (`deploy.yml`) runs `pnpm stats:refresh`
+right before `pnpm build` and deploys the result without committing it, and the
+deploy also runs nightly on a schedule. Versions and registry availability are
+therefore at most a day old again, with no bot commit and nothing to merge. A
+failed fetch never blocks a deploy: unresolved lookups keep the committed
+snapshot's value, and the step itself may fail without failing the job.
+
+`app/data/registry-stats.json` stays committed as the fallback snapshot for
+local and CI builds; refresh it by hand with `pnpm stats:refresh` when it
+matters. The registry's `version` remains the last resort. This supersedes the
+delivery described in the 2026-09-09 amendment.
+
+## Amendment 2026-09-24 (metrics service)
+
+The live layer moved into the family package (`RegistryFacts`), and with it a
+gap showed: a sibling site had no way to build the verified snapshot the live
+request was derived from, so it got fallback versions and nothing live.
+
+The workshop's metrics service
+([sebastian-software/oss-metrics](https://github.com/sebastian-software/oss-metrics),
+`https://metrics.sebastian-software.com/v1/metrics.json`) answers that. It is
+one small, CORS-open, CDN-cached document with every project of the
+organization, collected by owner (GitHub organization, crates.io user, npm
+maintainer), so a same-named package someone else published cannot appear in
+it. `RegistryFacts` asks it first: one request per page view instead of one
+per registry, and no snapshot needed. For a registry the service reports as
+failed, or while it is not deployed yet, the page falls back to the direct
+registry requests above, for the packages its snapshot verified. Whatever
+answers nowhere keeps its prerendered value. A site passes `metrics={false}`
+to skip the service.
+
+A tool that ships only from Git (ferriki, ferrolex) has no registry version.
+Its version is its latest GitHub release, the one GitHub marks "Latest", with
+the semver taken from the tag. The metrics service carries it as
+`github.<repo>.release`, and the build snapshot records it from GitHub's
+releases API. The registry's hand-set `version` remains only the last resort
+for an offline build; it no longer has to be kept in step with releases.
+
+Visitors' browsers then contact the workshop's own domain instead of crates.io
+and npm; the service logs nothing beyond an ordinary CDN request.
+
 ## References
 
 - [scripts/refresh-registry-stats.mjs](../../scripts/refresh-registry-stats.mjs)
-- [.github/workflows/refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
+- [packages/family/src/LiveRegistry.ts](../../packages/family/src/LiveRegistry.ts) — `fetchFamilyFacts`
+- [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml)
 - [GitHub Actions: `GITHUB_TOKEN` security](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs)
 - [ADR-0004](0004-successor-copy-register.md) — only verifiable claims

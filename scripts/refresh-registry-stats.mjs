@@ -1,10 +1,14 @@
 /**
- * Fetches published versions and download counts for every family tool and
- * writes app/data/registry-stats.json, which the site bakes in at build time.
+ * Fetches published versions and download counts for every family tool, plus
+ * its latest GitHub release (the only version a Git-only tool has), and writes
+ * app/data/registry-stats.json, which the site bakes in at build time.
  *
  * Hard-coded facts stay out of the page: family.ts keeps a fallback version so
  * the build survives an offline or rate-limited registry, but a successful run
- * always wins. Run via `pnpm stats:refresh` (and nightly in CI).
+ * always wins. The Pages deploy runs it before every build (and nightly on a
+ * schedule), without committing the result; the committed file is only the
+ * fallback snapshot for local and CI builds. Run `pnpm stats:refresh` to
+ * update that snapshot by hand.
  *
  * A family name is not proof of family ownership: both registries hand out
  * names first come, first served. Every hit is therefore checked against the
@@ -35,9 +39,11 @@ let unresolved = 0;
  * `{ ok: true, data }` — answered; `data === null` means the name is unknown to
  * the registry. `{ ok: false }` — the registry did not answer at all.
  */
-async function fetchJson(url) {
+async function fetchJson(url, headers = {}) {
   try {
-    const res = await fetch(url, { headers: { "user-agent": UA, accept: "application/json" } });
+    const res = await fetch(url, {
+      headers: { "user-agent": UA, accept: "application/json", ...headers },
+    });
     if (res.status === 404) return { ok: true, data: null };
     if (!res.ok) return { ok: false, reason: `HTTP ${res.status}` };
     return { ok: true, data: await res.json() };
@@ -120,8 +126,10 @@ async function npmDownloads(name, previous) {
 /**
  * npm: only count a package we actually publish. The downloads endpoint answers
  * for unpublished names too, so a published version plus an organization
- * maintainer is the gate, and a reserved-name placeholder is not a usable
- * adapter.
+ * maintainer is the gate. A reserved-name placeholder is not a usable adapter,
+ * and neither is a deprecated one (ferrocat's legacy Node bindings, replaced by
+ * the Palamedes Node package): its latest version still resolves, but nobody
+ * should install it.
  */
 async function npm(name, previous) {
   const answer = await fetchJson(`https://registry.npmjs.org/${name}`);
@@ -129,18 +137,64 @@ async function npm(name, previous) {
     warnUnresolved(`npm/${name}`, answer.reason);
     return UNRESOLVED;
   }
-  const meta = answer.data;
-  const version = meta?.["dist-tags"]?.latest;
-  if (!version) return null;
-  const owned = resolveOwnership("npm", name, npmMaintainers(meta));
+  const latest = latestVersion(answer.data);
+  if (latest === null) return null;
+  const owned = resolveOwnership("npm", name, npmMaintainers(answer.data));
   if (owned === UNRESOLVED) return UNRESOLVED;
   if (!owned) return null;
-  const description = meta.versions?.[version]?.description ?? "";
   return {
-    version,
+    version: latest.version,
     lastMonth: await npmDownloads(name, previous),
-    placeholder: /reserved/i.test(description),
+    placeholder: /reserved/i.test(latest.description ?? ""),
   };
+}
+
+/** The packument's latest version, or null when there is none or it is deprecated. */
+function latestVersion(meta) {
+  const version = meta?.["dist-tags"]?.latest;
+  const manifest = version ? meta.versions?.[version] : undefined;
+  if (!manifest || manifest.deprecated) return null;
+  return { version, description: manifest.description };
+}
+
+/** "1.2.3" or "1.2.3-rc.1": a core of three numbers, then an optional prerelease. */
+function isSemver(text) {
+  const dash = text.indexOf("-");
+  const core = dash === -1 ? text : text.slice(0, dash);
+  const prerelease = dash === -1 ? "" : text.slice(dash + 1);
+  return /^\d+\.\d+\.\d+$/u.test(core) && (dash === -1 || /^[\w.]+$/u.test(prerelease));
+}
+
+/**
+ * "ferrolex-v0.4.0" → "0.4.0", as the metrics service reads release tags: the
+ * tail after a "v" or "-" (or the whole tag) that is a semver.
+ */
+function versionOfTag(tag) {
+  for (let at = 0; at < tag.length; at += 1) {
+    const tail = tag.slice(at);
+    if ((at === 0 || tag[at - 1] === "v" || tag[at - 1] === "-") && isSemver(tail)) return tail;
+  }
+  return null;
+}
+
+/**
+ * The repository's latest release (GitHub's "Latest": no drafts, no
+ * prereleases). The repository is the organization's own by construction, so
+ * no ownership check. `GITHUB_TOKEN`, when set (the deploy passes its own),
+ * lifts the unauthenticated rate limit.
+ */
+async function release(name) {
+  const token = process.env.GITHUB_TOKEN;
+  const answer = await fetchJson(
+    `https://api.github.com/repos/sebastian-software/${name}/releases/latest`,
+    token ? { authorization: `Bearer ${token}` } : {},
+  );
+  if (!answer.ok) {
+    warnUnresolved(`github/${name} release`, answer.reason);
+    return UNRESOLVED;
+  }
+  const version = answer.data?.tag_name ? versionOfTag(answer.data.tag_name) : null;
+  return version ? { version, publishedAt: answer.data.published_at } : null;
 }
 
 /** The committed stats, so an unresolved lookup can keep the previous value. */
@@ -163,18 +217,21 @@ if (names.length === 0) throw new Error("no tool names found in family.ts");
 const previous = await loadPrevious();
 const tools = {};
 for (const name of names) {
-  const before = previous[name] ?? { crates: null, npm: null };
+  const before = previous[name] ?? { crates: null, npm: null, release: null };
   // Sequential on purpose: crates.io asks API clients to stay well under a request per second.
   const crate = await crates(name);
   const adapter = await npm(name, before.npm);
+  const latest = await release(name);
   tools[name] = {
     crates: crate === UNRESOLVED ? before.crates : crate,
     npm: adapter === UNRESOLVED ? before.npm : adapter,
+    release: latest === UNRESOLVED ? (before.release ?? null) : latest,
   };
   const c = tools[name].crates;
   const n = tools[name].npm;
+  const r = tools[name].release;
   console.log(
-    `${name.padEnd(10)} ${c ? `crates ${c.version} (${c.downloads})` : "crates —"}  ${n ? `npm ${n.version}${n.placeholder ? " (reserved name)" : ` (${n.lastMonth}/mo)`}` : "npm —"}`,
+    `${name.padEnd(10)} ${c ? `crates ${c.version} (${c.downloads})` : "crates —"}  ${n ? `npm ${n.version}${n.placeholder ? " (reserved name)" : ` (${n.lastMonth}/mo)`}` : "npm —"}  ${r ? `release ${r.version}` : "release —"}`,
   );
 }
 
