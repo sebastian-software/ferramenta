@@ -6,8 +6,8 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
-| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML, sanitized by default |
+| [ferroni](https://ferroni.dev) | Oniguruma, continued in Rust |
+| [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
 
 **The language workshop**
 

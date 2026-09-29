@@ -6,8 +6,8 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferriki](https://github.com/sebastian-software/ferriki) | Shiki-compatible syntax highlighting |
-| [ferromark](https://sebastian-software.github.io/ferromark/) | Markdown to HTML, sanitized by default |
+| [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
+| [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
 
 **The language workshop**
 

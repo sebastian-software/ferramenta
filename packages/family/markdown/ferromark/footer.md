@@ -6,8 +6,8 @@
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://sebastian-software.github.io/ferroni/) | Oniguruma, continued in Rust |
-| [ferriki](https://github.com/sebastian-software/ferriki) | Shiki-compatible syntax highlighting |
+| [ferroni](https://ferroni.dev) | Oniguruma, continued in Rust |
+| [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
 
 **The language workshop**
 
