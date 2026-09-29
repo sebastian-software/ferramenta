@@ -110,7 +110,7 @@ export const family: FamilyTool[] = [
     status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferroni",
-    docs: "https://sebastian-software.github.io/ferroni/",
+    docs: "https://ferroni.dev",
   },
   {
     name: "ferriki",
@@ -124,6 +124,7 @@ export const family: FamilyTool[] = [
     status: "alpha",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferriki",
+    docs: "https://ferriki.dev",
   },
   {
     name: "ferromark",
@@ -137,7 +138,7 @@ export const family: FamilyTool[] = [
     status: "stable",
     group: "pipeline",
     repo: "https://github.com/sebastian-software/ferromark",
-    docs: "https://sebastian-software.github.io/ferromark/",
+    docs: "https://ferromark.dev",
   },
   {
     name: "ferrolex",

@@ -47,9 +47,11 @@ test("the pegboard hangs every member with its stamp, grouped like the family", 
   assert.equal(html.match(/class="fam-board-item"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-stamp"/gu).length, kit.family.length);
   assert.equal(html.match(/class="fam-board-group"/gu).length, 3);
+  const ferroniTool = kit.family.find((tool) => tool.name === "ferroni");
   const ferroniStart = html.indexOf(
-    '<a class="fam-board-item" href="https://sebastian-software.github.io/ferroni/">',
+    `<a class="fam-board-item" href="${kit.toolHref(ferroniTool)}">`,
   );
+  assert.notEqual(ferroniStart, -1, "the pegboard links to Ferroni's registered site");
   const ferroniEnd = html.indexOf("</a>", ferroniStart);
   const ferroni = html.slice(ferroniStart, ferroniEnd);
   assert.ok(
@@ -61,6 +63,14 @@ test("the pegboard hangs every member with its stamp, grouped like the family", 
     render(kit.Pegboard, { current: "ferroni" }).match(/fam-board-item/gu).length,
     kit.family.length - 1,
   );
+});
+
+test("the content pipeline links to each member's site", () => {
+  for (const name of ["ferroni", "ferriki", "ferromark"]) {
+    const tool = kit.family.find((member) => member.name === name);
+    assert.equal(kit.toolHref(tool), `https://${name}.dev`);
+    assert.equal(kit.leadsToRepo(tool), false);
+  }
 });
 
 test("the tool ledger numbers only a real sequence, and names what each member rests on", () => {
