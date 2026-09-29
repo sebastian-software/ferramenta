@@ -1,7 +1,7 @@
 import { ardo } from "ardo/vite";
 import { defineConfig } from "vite";
 
-import { SITE_DESCRIPTION } from "./app/site-metadata";
+import { SITE_DESCRIPTION } from "./app/site-metadata.ts";
 
 export default defineConfig({
   // Ardo uses lucide-react internally; bundle it during prerender so module
