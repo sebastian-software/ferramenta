@@ -96,7 +96,11 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   card under its own logo (`brand` in the registry), and keep their own sites.
 - A foreign logo (an application's, Sebastian Software's, Sebastian
   Consulting's) stands on a light ground in its own colors: never on steel,
-  oak or rust, never recolored.
+  oak or rust, never recolored. The switcher's applications tier is light for
+  that reason.
+- Quotes from outside voices (`Voices`) are verbatim, short, attributed and
+  linked to their source, and they speak about the material, never about the
+  family. No invented social proof.
 - Claim results on the family site qualitatively, never with a figure: "among
   the fastest", "ahead of globset", "a larger test suite" are fine; factors,
   timings, percentages and test counts are not — they pretend to a precision

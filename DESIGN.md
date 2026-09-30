@@ -256,7 +256,7 @@ refuses the SaaS hero-plus-feature-cards arrangement and the dark developer-tool
 **Key Characteristics:**
 
 - Three materials, one job each: brushed steel, dark oak, rust. Everything else is flat, the
-  dark chrome included.
+  dark chrome included, which carries no steel.
 - Two ramps hold every color: warm iron greys and oxidized rust.
 - One prop: the riveted plate, with its measured facts on a tag hanging below it.
 - One authored scheme on landing pages; no theme toggle there.
@@ -439,8 +439,8 @@ A page is `.fam-page` with full-bleed bands stacked inside it; each band holds o
 
 The family page's order, as built: the dark iron bar, the hero plate on oak, the engine
 catalog on the light ground, the applications band on oak, what every engine is held to (the
-principles), the personal note with the workshop's two logos on the dim ground, the rust band,
-the dark iron footer.
+principles), the personal note with the outside voices and the workshop's two logos on the
+dim ground, the rust band, the dark iron footer.
 
 - **Hero.** One plate; copy left, the rendered icon right (14 to 18rem) from 64rem up; on a
   phone the icon moves above the copy (8 to 11rem). The tag hangs from the plate's lower left.
@@ -516,7 +516,7 @@ like a card; an application's card is parted from the oak by its ground and its 
 
 ## Shapes
 
-Corners are sharp: every surface, button, stamp, card, panel and tile has a zero radius. Line
+Corners are sharp: every surface, button, stamp, card, chip and panel has a zero radius. Line
 icons are drawn with square caps and miter joins at a 1.5 stroke on a 24 grid. Borders are
 hairlines (1px), the heavy rule over a principle, a comparison table or a set of bars (3px), the brand rule over an application's
 card (4px), and the engraved outline of a ghost action or an outlined stamp (1.5px).
@@ -537,8 +537,8 @@ page is these components stacked inside one `.fam-page`.
 
 The family's one prop: a sheet of brushed steel (`steel.webp` over `steel`), riveted at its
 four corners, that says what a thing is. It appears as the hero plate, the name plate of a
-catalog row, and the small plate of an evidence figure; a steel tile (3px padding) under a
-small icon on a dark ground is the same material at icon scale. The hanging tag is a narrow
+catalog row, and the small plate of an evidence figure. The chrome carries no steel: a small
+icon stands directly on the dark iron. The hanging tag is a narrow
 plate frame on two chain links holding inlay cells: label over value, two columns on a phone,
 one row from 64rem. A plate that names nothing is not a plate; do not use it as a generic card.
 
@@ -560,7 +560,8 @@ one row from 64rem. A plate that names nothing is not a plate; do not use it as 
 ### The engine catalog (`EngineCatalog`)
 
 One hairline-separated row per engine. The name plate carries the rendered icon, the name
-(the link, stretched over the whole plate) and the plain "what", and nothing else: no maturity
+(the link, stretched over the whole plate) and the "what" as a label without its article
+("Regex engine"), and nothing else: no maturity
 stamp, because the live release beside it already says how far the engine has come. Beside
 the plate, in this order: what it does (largest, in ink), for whom, its lineage sentence, its
 relations as one-line sentences with a small adapter icon in rust, then the measured facts
@@ -572,7 +573,7 @@ action type.
 An oak band holding one light card per application: the page ground, ink text, and a 4px rule
 along the top in the application's own color. The logo stands on the card in its own colors;
 the name is set in the body face. An application that runs on family engines leads (wider
-column) and lists them as chips: a small icon on a steel tile, name and job on an inlay; its
+column) and lists them as chips: a small icon (32px), name and "what" label on an inlay; its
 action is filled with its brand color. One that stands alone says so in a sentence and takes
 an outlined action in that color.
 
@@ -583,6 +584,16 @@ ground. Principles sit side by side (two columns from 48rem, three or four from 
 under a 3px heavy rule; on oak the rule is `ember`. The dark band (`IronBand`, `fam-band`) is
 a full-bleed oak passage (`oak.webp` over iron-900); everything inside takes the `on-iron`
 colors.
+
+### Voices (`Voices`)
+
+Outside voices on the material, verbatim, attributed and linked: what people the field
+listens to have said about building with Rust, never about the family. A small label in the
+label style heads the set; each voice stands under a 3px heavy rule like a principle, its
+words in the display face at weight 600 in mixed case (`clamp(1.375rem, 2.2vw, 1.75rem)`,
+max 28ch), the name in ink and the source, linked, small in soft ink below. As many columns as
+hold 18rem from 48rem. On the family page it stands under the personal note, before the
+workshop's logos; on oak it takes the on-iron colors.
 
 ### The workshop's logos (site-only, `app/styles/site.css`)
 
@@ -656,25 +667,32 @@ and invented figures.
 
 Where a member fits with the others, from the registry, on the member's own page: chips
 grouped under "Runs on", "Pairs with" and "Carries" in the label style. A chip is the chip of
-the applications band made a link: the small icon on a steel tile, name and job on an inlay,
-with a 1px `inlay-line` edge that turns `ember` on hover. It names where two members fit
-together and never draws a chain; a member that stands alone renders nothing.
+the applications band made a link: the small icon (32px), name and "what" label on an inlay,
+with a 1px `inlay-line` edge that turns `ember` on hover. An application's chip is light
+instead (`data-light`: the page ground, ink, a `line` edge that turns `rust`), because its
+logo is a foreign brand drawn for a light ground. It names where two members fit together and
+never draws a chain; a member that stands alone renders nothing.
 
 ### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`, `FamilyLinks`)
 
 - **Header:** a sticky dark iron bar, 4rem tall, flat, with a 1px `iron-line` bottom edge. The
-  lockup is the small icon on a steel tile and the uppercase wordmark (1.5rem, tracking
-  0.08em). A site's own links are label-style display type in `iron-soft`, turning `iron-ink`
+  lockup is the small icon (40px; 32px below 46rem) directly on the iron and the uppercase
+  wordmark (1.5rem, tracking 0.08em). A site's own links are label-style display type in `iron-soft`, turning `iron-ink`
   on hover or when current. On a phone the links give way first; one may be kept.
 - **Search** (`site-search`): the host's own search component in the header's actions slot. It
   keeps its look; the chrome gives it its room (10 to 16rem wide). Below 64rem it takes a
   full-width second row under the bar, which grows to 7.5rem, rather than disappearing.
 - **Switcher:** a dark iron flyout listing the engines, then the applications, each tier under
-  a label; every entry is a tile icon, name and short job; hover is `iron-2` with `ember`
-  text. On a member's site the trigger shows the family's name inside a hairline and the
-  flyout opens with the way back to the family. Below 46rem it spans the viewport.
-- **Footer:** flat dark iron. Lockup and one sentence, then the engines, the applications, and
-  "Work with us" in display type with jobs in soft body text; a legal line over a hairline.
+  a label; every entry is the small icon (36px), name and "what" label; hover is `iron-2`
+  with `ember` text. The applications tier is light, to the panel's edges (the page ground
+  and ink, hover `bg-dim` with `rust`), because the applications' logos are foreign brands
+  drawn for a light ground. On a member's site the trigger shows the family's icon (32px) and
+  name inside a hairline, and the flyout opens with the way back to the family. Below 46rem
+  it spans the viewport.
+- **Footer:** flat dark iron. Lockup (icon 36px) and one sentence, then the engines, the
+  applications, and "Work with us" in display type with their "what" labels in soft body
+  text; over a hairline, the workshop's copyright line with the imprint and privacy links in
+  `iron-ink`, then the site's own legal text in `iron-soft`.
 - **Docs shell** (`docs.css`): Ardo's documentation layout under the family bar, in the family's
   colors (`theme.css`), with a theme toggle in the bar. The toggle exists only there. Every documentation table is
   set in tabular figures, and a table head keeps its own case, so a unit is never capitalized.
@@ -684,9 +702,9 @@ together and never draws a chain; a member that stands alone renders nothing.
 Each member is one object, shown as the same rendered picture at three sizes
 ([design/icons/README.md](design/icons/README.md)): `hero` (640px) on the plate of a first
 viewport, `rendered` (256px) on a catalog plate, and `small` (96px, the default), shown at 24
-to 48px in the header, the switcher, the footer, a list or a chip. On a dark ground the small
-icon sits on a steel tile, because a dark object on dark iron has no outline. There is no
-vector form. Applications keep their own logos. The line icons (chevron, arrow,
+to 48px in the header, the switcher, the footer, a list or a chip, directly on whatever ground
+it stands on: every object carries enough light of its own to read on dark iron, and a tile
+under it was tried and dropped. There is no vector form. Applications keep their own logos. The line icons (chevron, arrow,
 GitHub, crate, adapter, external, package, and a comparison's marks check, half and cross)
 come from one SVG sprite. The textures' sources and
 what each gave up to be a ground for text are in
@@ -710,7 +728,9 @@ what each gave up to be a ground for text are in
 - **Do** follow a hero with a light section.
 - **Do** show engines in the family look and applications on light cards under their own
   logos, with the brand color only in the top rule and the action.
-- **Do** put a small member icon on a steel tile when the ground is dark.
+- **Do** let a small member icon stand directly on its ground, dark iron included.
+- **Do** quote an outside voice verbatim, short, attributed and linked, and only about the
+  material.
 - **Do** state what is proven in words on the family site, and leave figures to each project's
   own page.
 - **Do** say how two members fit together in one sentence in the row, or as chips under
@@ -740,5 +760,8 @@ what each gave up to be a ground for text are in
 - **Don't** repeat a factor, timing, percentage or test count on the family site.
 - **Don't** put a comparison on a plate or a texture, or state a mark by color alone.
 - **Don't** use a real member's figures or a real contender's name in a kit specimen.
+- **Don't** put words in anyone's mouth about the family, or invent stars, counts,
+  testimonials or press.
+- **Don't** put a steel tile or any other frame under a small icon.
 - **Don't** dress an application in the family look, or an engine in a brand of its own.
 - **Don't** pair an oak band directly under the hero when a light section can go there.

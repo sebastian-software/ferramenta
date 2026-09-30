@@ -2,11 +2,12 @@
  * ferramenta-family — the landing kit: the page patterns of a family home page
  * (the plate hero, sections, the dark band, the engine catalog, the
  * applications band, principles, evidence figures, comparisons, relations,
- * code panel, run sample, coverage ledger, closing action, work-with-us band),
+ * voices, code panel, run sample, coverage ledger, closing action, work-with-us
+ * band),
  * for every family home page to share instead of copy.
  *
  * Needs `tokens.css` (every color is a token) and `chrome.css` (`.wrap`,
- * `.icon`, `.fam-icon`, `.fam-tile`, `.on-iron`, `.fam-sr-only`). Load it after
+ * `.icon`, `.fam-icon`, `.on-iron`, `.fam-sr-only`). Load it after
  * `theme.css` and before the site's own stylesheet, so the site can adjust the
  * kit on equal specificity; `chrome.css` stays last.
  *
@@ -704,8 +705,8 @@ a.fam-btn-steel:hover,
   display: grid;
   grid-template-columns: clamp(4.5rem, 20vw, 5.5rem) minmax(0, 1fr);
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem clamp(1.25rem, 4vw, 1.75rem) 1.25rem 1.5rem;
+  gap: 1.25rem;
+  padding: 1.25rem clamp(1.5rem, 4vw, 2.25rem) 1.25rem clamp(1.5rem, 4vw, 2rem);
 }
 
 .fam-engine-plate > .fam-icon {
@@ -940,12 +941,12 @@ a.fam-engine-link::after {
   list-style: none;
 }
 
-/* The engines it runs on: each icon on a steel tile, its name and job on a dark inlay. */
+/* The engines it runs on: each icon, its name and what it is, on a dark inlay. */
 .fam-app-runs li {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.5rem;
   background: var(--inlay);
   color: var(--inlay-ink);
   box-shadow: inset 0 0 0 1px var(--inlay-line);
@@ -1380,12 +1381,12 @@ a.fam-engine-link::after {
   margin: 0;
 }
 
-/* A related member: its icon on a steel tile, its name and job on a dark inlay. */
+/* A related member: its icon, its name and what it is, on a dark inlay. */
 a.fam-chip {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.5rem;
   background: var(--inlay);
   color: var(--inlay-ink);
   box-shadow: inset 0 0 0 1px var(--inlay-line);
@@ -1394,6 +1395,17 @@ a.fam-chip {
 
 a.fam-chip:hover {
   box-shadow: inset 0 0 0 1px var(--ember);
+}
+
+/* An application's chip is light: a foreign logo stands on a light ground. */
+a.fam-chip[data-light] {
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+a.fam-chip[data-light]:hover {
+  box-shadow: inset 0 0 0 1px var(--rust);
 }
 
 .fam-chip span:not(.fam-icon) {
@@ -1633,6 +1645,79 @@ a.fam-chip:hover {
   line-height: 1.65;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* -- Voices: what others say about the material ------------------------------ */
+
+.fam-voices {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.fam-voices-title {
+  margin-bottom: 1.25rem;
+  font:
+    600 0.8125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fam-voices-list {
+  display: grid;
+  gap: 2rem 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each voice under a heavy rule, like a principle: the words large, the source small. */
+.fam-voices-list blockquote {
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 3px solid var(--line-heavy);
+}
+
+.fam-voices-list p {
+  max-width: 28ch;
+  font:
+    600 clamp(1.375rem, 2.2vw, 1.75rem) / 1.15 var(--display),
+    var(--body);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+.fam-voices-list footer {
+  display: grid;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.fam-voices-list cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.on-iron .fam-voices-title,
+.on-iron .fam-voices-list footer {
+  color: var(--iron-soft);
+}
+
+.on-iron .fam-voices-list blockquote {
+  border-top-color: var(--iron-ink);
+}
+
+.on-iron .fam-voices-list cite {
+  color: var(--iron-ink);
+}
+
+@media (min-width: 48rem) {
+  .fam-voices-list {
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
 }
 
 /* -- Closing action ---------------------------------------------------------- */

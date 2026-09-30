@@ -50,8 +50,11 @@ test("the header renders the switcher with every family member", () => {
 test("the switcher lists the engines, then the applications, and can be left out", () => {
   const html = render(family.SiteHeader);
   const { applications, engines } = family.familyTiers();
-  assert.ok(html.includes('<div class="flygroup"><small>Engines</small>'));
-  assert.ok(html.includes('<div class="flygroup"><small>Applications</small>'));
+  assert.ok(html.includes('<div class="flygroup" data-tier="engines"><small>Engines</small>'));
+  assert.ok(
+    html.includes('<div class="flygroup" data-tier="applications"><small>Applications</small>'),
+    "the applications' group is marked: it stands on a light ground for their logos",
+  );
   assert.ok(
     html.indexOf(`<b>${engines.at(-1).name}`) < html.indexOf(`<b>${applications[0].name}`),
     "every engine before the first application",
@@ -91,9 +94,9 @@ test("the project lockup names the site and moves the family into the switcher",
   assert.ok(html.includes('<a class="lockup" href="/ferroni/">'), "the lockup links the site home");
   assert.ok(
     html.includes(
-      '<span class="fam-tile"><span class="fam-icon" data-icon="ferroni" data-form="small" style="--fam-icon-size:28px" aria-hidden="true"></span></span><span>ferroni</span>',
+      '<span class="fam-icon" data-icon="ferroni" data-form="small" style="--fam-icon-size:40px" aria-hidden="true"></span><span>ferroni</span>',
     ),
-    "the project's small icon on a steel tile, then its name",
+    "the project's small icon directly on the bar, then its name",
   );
   assert.ok(html.includes('<details class="switcher switcher-family">'), "the family trigger");
   assert.ok(html.includes('aria-label="Ferramenta: all tools"'), "its name keeps the visible word");
@@ -269,7 +272,7 @@ test("every related React link has a job and omits the current project", () => {
       assert.ok(html.includes('data-icon="ferramenta"'), "the family's toolbox");
       for (const sibling of family.relatedTools(current.name)) {
         assert.ok(html.includes(`href="${sibling.docs ?? sibling.repo}"`));
-        const escaped = sibling.job.replaceAll("&", "&amp;");
+        const escaped = sibling.job.replaceAll("&", "&amp;").replaceAll("'", "&#x27;");
         assert.ok(html.includes(escaped));
       }
     }
@@ -285,8 +288,14 @@ test("every link to a member without a site says it leads to its repository", ()
     assert.equal(header.includes(note), family.leadsToRepo(tool), `switcher: ${tool.name}`);
     assert.equal(family.toolHref(tool), tool.docs ?? tool.repo);
   }
-  assert.ok(footer.includes(`>${family.family[0].shortJob}</span>`), "short jobs on request");
-  assert.ok(footer.includes("</span></span>ferramenta</a>"), "the lockup is the family's name");
+  assert.ok(
+    footer.includes(`>${family.whatLabel(family.family[0])}</span>`),
+    "short jobs on request: what a member is, without its article",
+  );
+  assert.ok(
+    footer.includes('aria-hidden="true"></span>ferramenta</a>'),
+    "the lockup is the family's name",
+  );
   assert.ok(!footer.includes("More from Ferramenta"), "the family site names itself");
   assert.ok(render(family.SiteFooter, { current: "ferroni" }).includes("More from Ferramenta"));
 });

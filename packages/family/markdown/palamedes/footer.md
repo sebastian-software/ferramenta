@@ -18,4 +18,4 @@
 
 | Tool | Job |
 | --- | --- |
-| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [dalo](https://dalo.sh) | Your team's agent setup, versioned like code |

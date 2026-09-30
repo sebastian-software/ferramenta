@@ -43,6 +43,7 @@ export {
   STATUS_MEANING,
   STATUS_ORDER,
   toolHref,
+  whatLabel,
   WORKSHOP,
 } from "./family.js";
 export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
@@ -105,3 +106,4 @@ export {
   type EngineCatalogProps,
 } from "./ToolCatalog.js";
 export { ToolSwitcher, type ToolSwitcherProps } from "./ToolSwitcher.js";
+export { type Voice, Voices, type VoicesProps } from "./Voices.js";

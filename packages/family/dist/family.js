@@ -18,11 +18,10 @@ export const family = [
         name: "ferroni",
         what: "A regex engine",
         job: "Oniguruma-compatible regex engine",
-        shortJob: "Regex engine",
-        does: "Runs the regular expressions that TextMate grammars are written in, with the scanner editors and highlighters drive built in.",
-        audience: "For anyone who tokenizes code the way an editor does.",
+        does: "Runs Oniguruma's regular expressions in Rust, lookbehind, backreferences, named groups and Unicode classes included, with the multi-pattern scanner that editors and highlighters drive built in.",
+        audience: "For anyone who needs Oniguruma's syntax in Rust, from editors and highlighters to any search that leans on lookbehind or backreferences.",
         succeeds: "Oniguruma / vscode-oniguruma",
-        proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
+        proof: "Oniguruma is the regex engine behind PHP's mbstring, jq and every TextMate grammar, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
         evidence: "Oniguruma compatibility oracle",
         version: "1.4.2",
         status: "stable",
@@ -33,7 +32,6 @@ export const family = [
         name: "ferriki",
         what: "A syntax highlighter",
         job: "Shiki-compatible syntax highlighting",
-        shortJob: "Syntax highlighting",
         does: "Highlights code with the grammars and themes your editor uses.",
         audience: "For docs sites, blogs, and build tools that render code.",
         succeeds: "Shiki",
@@ -50,7 +48,6 @@ export const family = [
         name: "ferromark",
         what: "A Markdown renderer",
         job: "Markdown to HTML, sanitized by default",
-        shortJob: "Markdown to HTML",
         does: "Turns Markdown into HTML, sanitized by default, and is among the fastest engines for the job.",
         audience: "For static sites, docs pipelines, and any app that renders what people write.",
         buildsOn: "CommonMark / GFM",
@@ -65,7 +62,6 @@ export const family = [
         name: "ferrolex",
         what: "A spell checker",
         job: "Spell checking for text and code",
-        shortJob: "Spell checking",
         does: "Checks spelling in prose and in code, and gives the same suggestions every time.",
         audience: "For editors, linters, and CI checks.",
         succeeds: "Hunspell",
@@ -79,7 +75,6 @@ export const family = [
         name: "ferrocat",
         what: "A translation catalog engine",
         job: "Translation catalog engine",
-        shortJob: "Translation catalogs",
         does: "Reads, merges, and compiles translation catalogs.",
         audience: "For teams whose translations live in the repository.",
         buildsOn: "PO / ICU MessageFormat",
@@ -94,7 +89,6 @@ export const family = [
         name: "ferralk",
         what: "A glob matcher and file walker",
         job: "Glob matching and parallel filesystem walking",
-        shortJob: "Glob matching",
         does: "Matches glob patterns and walks file trees in parallel, ahead of globset and fast-glob.",
         audience: "For build tools, linters, and anything that starts with a file list.",
         buildsOn: "Glob syntax / .gitignore rules",
@@ -108,7 +102,6 @@ export const family = [
         name: "ferrugo",
         what: "A PDF preview renderer",
         job: "PDF previews for untrusted files",
-        shortJob: "PDF previews",
         does: "Renders previews of PDF files you have no reason to trust.",
         audience: "For upload pipelines and document viewers.",
         buildsOn: "PDF (ISO 32000)",
@@ -122,10 +115,9 @@ export const family = [
         name: "palamedes",
         what: "An i18n toolchain for TypeScript apps",
         job: "Internationalization for TypeScript applications",
-        shortJob: "i18n toolchain",
-        does: "Keeps messages where the interface is written, and moves extraction, validation, merging, and compilation onto a native toolchain.",
-        audience: "For TypeScript teams whose catalogs belong to the repository, not to a service.",
-        proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
+        does: "Write messages right where the interface is written, and let a native toolchain extract, validate, merge and compile them. Switch the locale and the copy, plurals, currency and dates change together, in Next.js, Vite, Remix, React Router, TanStack Start, Solid or Waku.",
+        audience: "For TypeScript teams who want their translations in the repository, reviewed like code, with a build that stays fast.",
+        proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and puts a Rust toolchain under it, so extraction, validation, merging and compilation run at native speed and the catalogs belong to the repository, not to a service.",
         evidence: "Checked-in end-to-end benchmark against Lingui",
         runsOn: ["ferrocat", "ferromark", "ferralk"],
         version: "1.25.0",
@@ -137,12 +129,11 @@ export const family = [
     },
     {
         name: "dalo",
-        what: "Agent skills for teams, kept as code",
-        job: "Team agent skills, versioned and synced as code",
-        shortJob: "Agent skills",
-        does: "Keeps team skills in Git, resolves an approved set, and links them into the folders your agents already read.",
-        audience: "For teams that share agent skills and want them reviewed like code.",
-        proof: "Dalo keeps team skills in Git, resolves an approved set, and links those skills into the folders supported agents already read.",
+        what: "A skill manager for coding agents",
+        job: "Your team's agent setup, versioned like code",
+        does: "Keeps your team's skills, standing instructions and hooks in Git, resolves one approved set, and syncs it into the folders Claude Code, Codex and Cursor already read. Every skill passes a security preflight before it lands on a machine.",
+        audience: "For engineers and team leads who run agents across several people and machines, and are done copying skill folders by hand.",
+        proof: "Agent skills used to live wherever someone last pasted them. Dalo gives them the discipline of code: a source in Git, approvals, conflict handling, drift detection, and one deterministic sync a whole team can rely on.",
         evidence: "Git-backed sources · approvals · deterministic sync",
         runsOn: [],
         version: "0.17.0",
@@ -160,6 +151,12 @@ export const family = [
  */
 export const WORKSHOP = {
     name: "Sebastian Software",
+    /** The legal entity behind the family, for the copyright line every footer carries. */
+    company: "Sebastian Software GmbH",
+    place: "Mainz, Germany",
+    /** The imprint and privacy policy the law asks a site to link; the company site keeps them. */
+    imprint: "https://sebastian-software.com/imprint",
+    privacy: "https://sebastian-software.com/privacy-policy",
     source: "https://github.com/sebastian-software",
     openSource: "https://oss.sebastian-software.com",
     consulting: "https://sebastian-consulting.com",
@@ -198,6 +195,16 @@ export function leadsToRepo(tool) {
 export function displayName(tool) {
     const name = typeof tool === "string" ? tool : tool.name;
     return name.charAt(0).toUpperCase() + name.slice(1);
+}
+/**
+ * What a member is, as a label without its article: "Regex engine" for the
+ * `what` "A regex engine". A first word with a digit keeps its case ("i18n
+ * toolchain").
+ */
+export function whatLabel(tool) {
+    const label = tool.what.replace(/^An? /u, "");
+    const [first = ""] = label.split(" ");
+    return /\d/u.test(first) ? label : label.charAt(0).toUpperCase() + label.slice(1);
 }
 /** A member by name. An unknown name is a registry error, not a silent gap. */
 function member(name, context) {

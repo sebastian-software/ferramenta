@@ -28,14 +28,12 @@ const members = [
   })),
 ];
 
-/** The small icon at each size, as the chrome shows it: on a steel tile. */
-function Tiles({ name }: { name: string }) {
+/** The small icon at each size, as the chrome shows it: directly on the dark iron. */
+function OnIron({ name }: { name: string }) {
   return (
     <div className="kit-icon-sizes" data-ground="iron">
       {SIZES.map((size) => (
-        <span key={size} className="fam-tile">
-          <Icon name={name} size={size} />
-        </span>
+        <Icon key={size} name={name} size={size} />
       ))}
     </div>
   );
@@ -62,7 +60,7 @@ function IconRow({ name, title, what }: { name: string; title: string; what: str
       <div className="fam-plate kit-icon-cell">
         <Icon name={name} form="rendered" label={title} />
       </div>
-      <Tiles name={name} />
+      <OnIron name={name} />
       <Bare name={name} />
     </li>
   );
@@ -78,14 +76,15 @@ export function IconSheet() {
     >
       <Caption name="<Icon name form />">
         The small form holds from 24 pixels up. Below that every one of these objects is a smudge,
-        so nothing in the family shows an icon smaller. On a dark ground it sits on a steel tile.
+        so nothing in the family shows an icon smaller. It stands directly on the dark iron: every
+        object carries enough light of its own.
       </Caption>
       <div className="wrap">
         <ul className="kit-icons">
           <li className="kit-icon-row kit-icon-head" aria-hidden="true">
             <div />
             <div>On a plate</div>
-            <div>{SIZES.join(" · ")} on tiles, dark ground</div>
+            <div>{SIZES.join(" · ")} on the dark iron</div>
             <div>{SIZES.join(" · ")} on the light ground</div>
           </li>
           {members.map((member) => (

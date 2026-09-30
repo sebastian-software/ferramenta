@@ -5,6 +5,7 @@ import {
   Measured,
   Relations,
   Section,
+  Voices,
 } from "ferramenta-family";
 import { Link } from "react-router";
 
@@ -82,6 +83,28 @@ export function ComparisonSpecimens() {
         rule="Where a member fits with the others, from the registry: what it runs on, what it pairs with, what it carries. It names where two fit together and never draws a chain."
       >
         <Relations current="ferriki" />
+      </Specimen>
+
+      <Specimen
+        name="<Voices />"
+        rule="Outside voices on the material: verbatim, short, attributed, and linked to the source. They speak about Rust, never about the family."
+      >
+        <Voices
+          title="The material, in other people's words"
+          voices={[
+            {
+              quote: "A sample quote, short enough to check against its source.",
+              who: "A named person",
+              where: "where and when they said it",
+              href: "#landing",
+            },
+            {
+              quote: "A second voice, so the two stand side by side under their rules.",
+              who: "Another named person",
+              where: "the venue · the date",
+            },
+          ]}
+        />
       </Specimen>
 
       <Specimen
