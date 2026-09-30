@@ -182,10 +182,10 @@ function Story() {
           </p>
           <p>
             The web&rsquo;s own toolchain has gone the same way, and we stand on the shoulders of
-            the people who took it there: esbuild and SWC first, and now Vite bundles with Rolldown
-            and parses, lints and formats with Oxc, all of it Rust. This site is linted and
-            formatted by them. Ferramenta is our part of that move: the engines under the tools, in
-            the language the tools themselves moved to.
+            the people who took it there: SWC first, then Turbopack, Biome and Lightning CSS, and
+            now Vite itself bundles with Rolldown and parses, lints and formats with Oxc, all of it
+            Rust. This site is linted and formatted by them. Ferramenta is our part of that move:
+            the engines under the tools, in the language the tools themselves moved to.
           </p>
         </div>
       </div>
