@@ -46,13 +46,13 @@ one of these objects is a smudge.
 
 **No vector form, for now.** A flat twin of each object was built: a second
 generated master, redrawn as an SVG of under 5 KB on a shared palette of
-sixteen colors. It was dropped. It was a second look to keep in step with the
-first, its colors drifted from the rendered objects beside it, and the rendered
-picture holds at 24 pixels on its own. What this leaves open is a mark that
+sixteen colors. It was dropped. At that size the redraws were too crude to
+stand beside the rendered objects, they were a second look to keep in step with
+the first, and the rendered picture holds at 24 pixels on its own. What this leaves open is a mark that
 scales cleanly: the brand mark (`app/assets/brand/logo-*.svg`, the favicon
 source and the image every sibling README loads) is the rendered toolbox in an
-SVG frame, a picture and not a drawing. The flat redraw is kept in the history
-of pull request 96 (commit `ff080b1`), should a vector mark be wanted.
+SVG frame, a picture and not a drawing. A vector mark, if one is wanted, starts
+from a new drawing, not from the dropped redraws.
 
 ## Decision drivers
 

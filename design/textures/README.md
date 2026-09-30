@@ -27,5 +27,4 @@ almost halfway to a near-black brown; and the rust is darkened, desaturated and
 mirrored into a seamless tile. Change a texture there, not in an image editor.
 
 The first build used a plate of hot-rolled steel with mill scale as the dark
-ground. It was replaced by the oak; its master is kept in the history of pull
-request 96 (commit `ff080b1`).
+ground. It was replaced by the oak.

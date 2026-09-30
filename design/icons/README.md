@@ -73,9 +73,10 @@ closed on a short bar of orange-hot steel.
 ## What was tried and set aside
 
 A flat twin of every object, for small places: a second generated master,
-redrawn as an SVG of under 5 KB on a shared palette. It was dropped for the
-rendered picture at a small size (ADR-0009); the script and its output are kept
-in the history of pull request 96 (commit `ff080b1`).
+redrawn as an SVG of under 5 KB on a shared palette. At that size the redraws
+were too crude to stand beside the rendered objects, and they were dropped for
+the rendered picture at a small size (ADR-0009). A vector mark, if one is ever
+wanted, starts from a new drawing.
 
 A relief stamped into steel and an enamel badge, as treatments for the same
 motifs. For Ferrolex a try square, a steel-bound dictionary and a loupe; for
