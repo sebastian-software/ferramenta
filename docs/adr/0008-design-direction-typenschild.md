@@ -24,9 +24,14 @@ comps were built for it (`design/comp/2026-10/`):
 None was accepted as drawn. The shadow board worked least; lettering on a rust
 field was rejected outright; text directly on a bright steel texture was not
 legible. The plate metaphor and the steel texture held. Two rounds of review
-turned direction 1 into what this record decides: quieter, on black steel
-instead of a bright ground, with the structure of each page changed so that a
+turned direction 1 into what this record decides: quieter, on a dark ground
+instead of a bright one, with the structure of each page changed so that a
 stranger first learns what a thing is.
+
+The first build put the plates on black steel and used cool blue-grey neutrals
+throughout. Reviewed beside the icons, that was two palettes: rust-orange
+objects on a ground that had nothing to do with them. The greys were warmed and
+the dark ground became wood, the bench a plate lies on.
 
 ## Decision
 
@@ -34,10 +39,16 @@ The family speaks direction **"Typenschild"** (German for a machine's data
 plate; a proper name, like "Schmiede" before it).
 
 **One authored scheme.** A family landing page is light, with deliberately dark
-passages in black steel. It does not change with the visitor's theme and offers
-no theme toggle. Documentation is different: long reading at night is a real
-need, so a docs page follows the system or the host's explicit choice. The
-chrome is black steel in both.
+passages. It does not change with the visitor's theme and offers no theme
+toggle. Documentation is different: long reading at night is a real need, so a
+docs page follows the system or the host's explicit choice. The chrome is dark
+iron in both: flat, without a texture.
+
+**Two ramps.** Every color is a step of one of two ramps, named the way
+Tailwind names them: `iron-50` to `iron-950`, the warm grey of blackened steel,
+and `rust-100` to `rust-900`. A component takes a role (`--bg`, `--ink`,
+`--rust`, `--steel`, `--inlay`, …), and every role is a step. The greys are
+warm because the icons are.
 
 **Three materials, each with one job.** Everything else is flat.
 
@@ -45,8 +56,9 @@ chrome is black steel in both.
   carries the action. It is the family's one prop. Small plates repeat it where
   a thing is named or measured: a catalog row, an evidence figure, the tiles
   under the icons in the chrome.
-- _Black steel_ is the ground of the first viewport, of the chrome, and of a
-  page's dark bands.
+- _Dark oak_ is the bench the plates lie on: the ground of the first viewport
+  and of a page's dark bands. It is smoked almost to black, so its grain is
+  there at a second look and light text holds on it.
 - _Rust_ appears once per page, as the band it closes on. It is dark and
   oxidized, never a saturated orange field, and carries no display lettering
   tricks: plain light type only.
@@ -83,7 +95,7 @@ this page: the live release beside each one says how far it has come.
 names (Sebastian Software, Sebastian Consulting) are not the family's, and
 their logos are kept because recognition matters more than a seamless surface.
 A foreign logo always stands on a light ground, in its own colors: it was drawn
-for one, and on steel, black steel or rust it either vanishes or fights the
+for one, and on steel, oak or rust it either vanishes or fights the
 material. An application's card is therefore a light card, with its brand color
 only in the rule above it and in its action.
 
@@ -112,7 +124,13 @@ marked `noindex`. There is no Storybook.
 
 ## Considered options
 
-### Chosen: "Typenschild", quiet, on black steel
+### Chosen: "Typenschild", quiet, its plates on a dark oak bench
+
+### Rejected: black steel as the dark ground, cool neutrals
+
+The first build. Blue-grey next to rust-orange icons read as two palettes. Warm
+greys alone, without wood, and a pale oak as the light ground were shown beside
+the chosen variant and set aside.
 
 ### Rejected: "Corten"
 
@@ -146,8 +164,8 @@ the site's own stack and shows the components in their real surroundings.
   line icons.
 - The package ships `icons/` and `textures/` beside `fonts/`, and an optional
   `docs.css` for an Ardo documentation layout inside the family chrome.
-- A new material, or a second prop, needs another decision record. A band of
-  black steel directly under the hero is allowed but heavy; the kit parts the
+- A new material, or a second prop, needs another decision record. A dark
+  band directly under the hero is allowed but heavy; the kit parts the
   two with a hairline, and a page is better served by a light section there.
 - The 28px board geometry of ADR-0003 is retired with the pegboard.
 

@@ -1,4 +1,4 @@
-# ADR-0009: Member icons are generated objects, in a rendered and a flat form
+# ADR-0009: Member icons are generated objects, shown as rendered pictures
 
 - Status: accepted
 - Date: 2026-09-30
@@ -19,19 +19,17 @@ a favicon), and an enamel badge. What held was the object itself, rendered.
 
 ## Decision
 
-Each member has **one object in two forms**, both made for this family:
+Each member has **one object**, made for this family: a realistic miniature in
+forged blackened steel, with a single rust-orange or glowing element. It is
+shown as the rendered picture everywhere, at three sizes:
 
-- The **rendered** form is a realistic miniature of the object in forged
-  blackened steel, with a single rust-orange or glowing element. It goes on a
-  plate: the hero, a catalog row.
-- The **flat** form is the same object in the same view and position, in a few
-  solid colors without gradients or textures. It takes every small place: the
-  header, the switcher, a list, a favicon, a README. It ships as one small
-  SVG (under 5 KB), redrawn from its master rather than traced.
+- 640 pixels for a hero plate,
+- 256 pixels for a catalog plate,
+- 96 pixels for every small place: the header, the switcher, a list, a chip. It
+  is shown there at 24 to 48 pixels.
 
-Every flat icon is drawn from one shared palette of sixteen colors
-(`packages/family/icons/palette.json`). Its greys take their hue from the
-rendered steel, so the flat icons keep its warmth.
+On a dark ground the small icon sits on a steel tile, because a dark object on
+dark iron has no outline.
 
 The objects: ferramenta, a toolbox · ferroni, an anvil with a hammer · ferriki,
 a flame in a fire pot · ferromark, a hand stamp · ferrolex, letterpress type ·
@@ -40,19 +38,28 @@ applications keep their own logos (ADR-0001).
 
 The icons are generated with an image model from written prompts, the first one
 from text alone and the others with it attached as the style reference. None was
-made from a Streamline file. The masters, the prompts and the scripts that turn
+made from a Streamline file. The masters, the prompts and the script that turns
 masters into the shipped files live in `design/icons/`.
 
-The flat form holds from 24 pixels up. Nothing in the family shows a member's
-icon smaller; at 16 pixels every one of these objects is a smudge.
+Nothing in the family shows a member's icon below 24 pixels; at 16 pixels every
+one of these objects is a smudge.
+
+**No vector form, for now.** A flat twin of each object was built: a second
+generated master, redrawn as an SVG of under 5 KB on a shared palette of
+sixteen colors. It was dropped. It was a second look to keep in step with the
+first, its colors drifted from the rendered objects beside it, and the rendered
+picture holds at 24 pixels on its own. What this leaves open is a mark that
+scales cleanly: the brand mark (`app/assets/brand/logo-*.svg`, the favicon
+source and the image every sibling README loads) is the rendered toolbox in an
+SVG frame, a picture and not a drawing. The flat redraw is kept in the history
+of pull request 96 (commit `ff080b1`), should a vector mark be wanted.
 
 ## Decision drivers
 
 - A plate needs an object with presence; a line icon enlarged is an empty
   plate.
-- The same motif has to work at 24 pixels and at 300, which one drawing cannot
-  do. Two forms of one object can.
-- One palette keeps eight flat icons a set and makes a ninth one fit.
+- One look per member. Two forms of one object are two things to draw, check
+  and keep alike.
 - The icons are the family's own, with no third-party terms attached.
 
 ## Consequences
@@ -62,21 +69,23 @@ icon smaller; at 16 pixels every one of these objects is a smudge.
   historical comps (`design/comp/entwurf-*.html`) and the archived shortlist
   (`design/archive/icon-candidates/`); `THIRD-PARTY-NOTICES.md` keeps the terms
   for those paths.
-- Icons are files (`icons/<name>.webp`, `-256.webp`, `-flat.svg`)
-  placed by `chrome.css` as background images; the `Icon` component renders
-  them. The sprite (`mark-defs.ts`) keeps only the chrome's own line icons.
-- A new member needs a rendered master and a flat master before it can join the
-  catalog; `design/icons/README.md` has the procedure.
-- The masters add about ten megabytes to the repository. They are the only
+- Icons are files (`icons/<name>.webp`, `-256.webp`, `-96.webp`) placed by
+  `chrome.css` as background images; the `Icon` component renders them. The
+  sprite (`mark-defs.ts`) keeps only the chrome's own line icons.
+- A new member needs a rendered master before it can join the catalog;
+  `design/icons/README.md` has the procedure.
+- The masters add several megabytes to the repository. They are the only
   source the shipped files can be rebuilt from.
-- The site's brand mark (`app/assets/brand/`) is the family's flat toolbox; the
-  path stays, because every sibling README loads it from `main`.
+- The brand mark's path stays, because every sibling README loads it from
+  `main`. It is a raster in an SVG frame, so it does not sharpen beyond its
+  144 pixels.
 
 ## Validation and review triggers
 
 Reopen if a mark shall be registered as a trademark (generated imagery and
 trademark registration need their own look), if the family needs an icon below
-24 pixels, or if the set has to be redrawn by hand for consistency.
+24 pixels or a favicon that scales, or if the set has to be redrawn by hand for
+consistency.
 
 ## References
 

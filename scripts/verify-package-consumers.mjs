@@ -40,9 +40,10 @@ const REQUIRED_FILES = [
   "styles/docs.css",
   "styles/landing.css",
   "fonts/barlow-condensed-700.woff2",
-  "icons/ferramenta-flat.svg",
+  "icons/ferramenta-96.webp",
   "icons/ferroni.webp",
   "textures/steel.webp",
+  "textures/oak.webp",
 ];
 
 /** Packs the package into the scratch directory and returns its specifier. */

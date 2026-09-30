@@ -13,7 +13,7 @@ export function ChromeSpecimens() {
     <Chapter
       id="chrome"
       title="Chrome"
-      intro="The header and footer every family site shares. They are black steel in every scheme, and everything they list comes from the registry."
+      intro="The header and footer every family site shares. They are dark iron in every scheme, and everything they list comes from the registry."
     >
       <Caption name={'<SiteHeader current="ferroni" lockup="project" />'}>
         A member&rsquo;s own site: its icon and name in the brand slot, the way back to the family

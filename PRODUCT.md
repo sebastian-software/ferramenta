@@ -33,7 +33,7 @@ A workshop's family of Rust-native engines, each built to the standard its field
 - The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. No surface shows the members as a chain.
 - Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki) and ferrolex (Hunspell); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), and ferrugo. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
 - Maturity is the registry's hand-set `status`. The family page does not stamp it on the engines: the live release beside each one already says how far it has come. A project's own site may show it (`Stamp`, `StampKey`). Keep it in step with releases.
-- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, black steel or rust.
+- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, oak or rust.
 - Project sites live with their projects. The engines' sites take the family look from the package, one by one, Ferroni first; until a site has migrated it runs the 1.x package. Each application's site is its own.
 - This repo holds the family site, the kit (`/kit`), and the shared package.
 
@@ -42,19 +42,19 @@ A workshop's family of Rust-native engines, each built to the standard its field
 - The family site is English-only for now; Ardo site localization remains experimental.
 - The site is statically prerendered with Ardo and hosted on GitHub Pages. Documentation on sibling sites keeps Ardo's layout; the family adds its colors and chrome, nothing more.
 - A landing page has one authored color scheme and no theme toggle (ADR-0008). Documentation follows the system scheme.
-- Member icons are generated for this family and are its own (ADR-0009). A new member needs a rendered and a flat master before it joins the catalog. Icons are never shown below 24 pixels.
+- Member icons are generated for this family and are its own (ADR-0009). A new member needs a rendered master before it joins the catalog. Icons are pictures at three sizes and are never shown below 24 pixels; a vector form, and with it a favicon that scales cleanly, is open.
 - The kit is public and `noindex`. Its sample pages are about an invented tool, so they repeat no real member's facts or figures.
 - `lucide-react` is not used in our own UI (it remains an internal Ardo dependency); the package's line icons (arrow, chevron, GitHub, crate, adapter, external, package) cover the family's pages.
 
 ## Brand Commitments
 
 - Iron, rust, metal, serious craft: robust and hard, and at the same time professional and trustworthy. Restraint carries the second half. Nothing is "in your face".
-- A light, cool ground with deliberately dark passages in black steel. Rust is the one color, dark and oxidized, never a saturated orange field. (User-pinned.)
-- Three materials, each with one job: brushed steel for the plate, black steel for the first viewport and the chrome, rust for the closing band. Everything else is flat.
+- A light ground in warm greys with deliberately dark passages. The greys are those of blackened steel, warm enough to stand beside rust; a cool blue-grey is not the family's. Rust is the one color, dark and oxidized, never a saturated orange field. (User-pinned.)
+- Three materials, each with one job: brushed steel for the plate, dark oak as the bench the plates lie on (the first viewport and the dark bands), rust for the closing band. Everything else is flat, the dark iron header and footer included.
 - The plate is the one prop: a riveted steel sheet that says what a thing is. Its measured facts hang below it on a small tag.
 - Sharp form throughout: hard corners, square caps, miter joins. Only rivets and chain links are round.
 - Typography: system-ui for body and docs text; Barlow Condensed, the lettering of a data plate, for names, headings and labels; system mono for code. Only the display face is bundled.
-- One object per member, in forged steel with a single rust-orange or glowing element: ferramenta = toolbox, ferroni = anvil and hammer, ferriki = flame in a fire pot, ferromark = hand stamp, ferrolex = letterpress type, ferrocat = drawer cabinet, ferralk = sieve, ferrugo = welding helmet. Each has a rendered form for plates and a flat twin for small places.
+- One object per member, in forged steel with a single rust-orange or glowing element: ferramenta = toolbox, ferroni = anvil and hammer, ferriki = flame in a fire pot, ferromark = hand stamp, ferrolex = letterpress type, ferrocat = drawer cabinet, ferralk = sieve, ferrugo = welding helmet. Each is a rendered picture, large on a plate and small in the chrome.
 - Say what it is first. Every surface names the thing in plain words before its lineage.
 - Members are independent. Copy never implies an entry point or a required chain.
 
@@ -78,4 +78,4 @@ A workshop's family of Rust-native engines, each built to the standard its field
 
 ## Accessibility & Inclusion
 
-WCAG-conscious defaults: contrast ≥ 4.5:1 for text on every surface, including steel, black steel and rust; small type never on a texture; keyboard-reachable navigation; reduced motion respected (the plate's light and the tag's sway stand still). No stricter formal requirement established.
+WCAG-conscious defaults: contrast ≥ 4.5:1 for text on every surface, including steel, oak and rust; small type never on a texture; keyboard-reachable navigation; reduced motion respected (the plate's light and the tag's sway stand still). No stricter formal requirement established.

@@ -10,7 +10,7 @@ function HeroCopy({ actions, install, lede, title, titleId, what, }) {
     return (_jsxs("div", { className: "fam-hero-copy", children: [_jsx("h1", { className: "fam-title", id: titleId, children: title }), what !== undefined && _jsx("p", { className: "fam-what", children: what }), lede !== undefined && _jsx("p", { className: "fam-lede", children: lede }), hasActions && (_jsxs("div", { className: "fam-actions", children: [actions, install !== undefined && _jsx("p", { className: "fam-install", children: install })] }))] }));
 }
 /**
- * The first viewport: one steel plate on black steel. The plate carries the
+ * The first viewport: one steel plate on the oak bench. The plate carries the
  * name, what the thing is, and the action; the facts hang below it.
  */
 export function ProjectHero({ aside, facts, icon, ...copy }) {
@@ -31,9 +31,9 @@ export function Principles({ items }) {
     return (_jsx("ul", { className: "fam-principles", "data-count": items.length, children: items.map((item) => (_jsxs("li", { children: [_jsx("h3", { children: item.heading }), _jsx("p", { children: item.text })] }, item.heading))) }));
 }
 /**
- * The full-bleed black-steel band between the light sections: a page's one or
- * two deliberately dark passages. Everything inside takes the on-iron colors
- * (`.on-iron`).
+ * The full-bleed dark band between the light sections, in dark oak: a page's
+ * one or two deliberately dark passages. Everything inside takes the on-iron
+ * colors (`.on-iron`).
  */
 export function IronBand({ children, id, intro, rows, title }) {
     const titleId = useId();

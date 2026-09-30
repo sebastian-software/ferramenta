@@ -74,7 +74,7 @@ function HeroCopy({
 }
 
 /**
- * The first viewport: one steel plate on black steel. The plate carries the
+ * The first viewport: one steel plate on the oak bench. The plate carries the
  * name, what the thing is, and the action; the facts hang below it.
  */
 export function ProjectHero({ aside, facts, icon, ...copy }: ProjectHeroProps) {
@@ -178,7 +178,7 @@ export function Principles({ items }: { items: Principle[] }) {
   );
 }
 
-/** The old name of `Principle`; an iron band's rows are principles on black steel. */
+/** The old name of `Principle`; an iron band's rows are principles on the dark ground. */
 export type IronBandRow = Principle;
 
 export type IronBandProps = {
@@ -192,9 +192,9 @@ export type IronBandProps = {
 };
 
 /**
- * The full-bleed black-steel band between the light sections: a page's one or
- * two deliberately dark passages. Everything inside takes the on-iron colors
- * (`.on-iron`).
+ * The full-bleed dark band between the light sections, in dark oak: a page's
+ * one or two deliberately dark passages. Everything inside takes the on-iron
+ * colors (`.on-iron`).
  */
 export function IronBand({ children, id, intro, rows, title }: IronBandProps) {
   const titleId = useId();

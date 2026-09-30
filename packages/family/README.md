@@ -139,7 +139,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 ```
 
-The header and footer are black steel in every scheme.
+The header and footer are dark iron in every scheme.
 
 - **`MarkDefs`** mounts the SVG sprite once per page: the line icons (arrow,
   chevron, GitHub, crate, adapter, external, package). Without it every `Mark`
@@ -181,13 +181,13 @@ The header and footer are black steel in every scheme.
 - **`ToolSwitcher`** — the switcher on its own, for a site whose framework owns
   the header. Same section. Its flyout lists the engines, then the
   applications.
-- **`Icon`** — `name` (a member's name, or `ferramenta`), `form?: "flat" |
+- **`Icon`** — `name` (a member's name, or `ferramenta`), `form?: "small" |
 "rendered" | "hero"`, `size?` (pixels), `label?`, `className?`. A member's
-  icon is a picture in two forms (ADR-0009): the flat form for every small
-  place, the rendered object for a plate (`rendered` up to about 128px, `hero`
-  for a first viewport). `chrome.css` places the files as background images, so
-  your bundler resolves them like the font. The flat form holds from 24px up;
-  do not show an icon smaller. On black steel, put it on a steel tile:
+  icon is one rendered picture at three sizes (ADR-0009): `small` (the default)
+  for the header, a list, a chip, shown at 24 to 48px; `rendered` for a catalog
+  plate, up to about 128px; `hero` for a first viewport. `chrome.css` places
+  the files as background images, so your bundler resolves them like the font.
+  Do not show an icon below 24px. On a dark ground, put it on a steel tile:
   `<span className="fam-tile"><Icon name="ferroni" size={28} /></span>`.
 - **`Mark`** — `name` (a sprite symbol without the `i-` prefix: `arrow`,
   `chev`, `github`, `crate`, `adapter`, `external`, `package`), `className`
@@ -264,7 +264,7 @@ from "X, continued in Rust".
 | `ProjectHero`      | `title`, `what?`, `lede?`, `actions?`, `install?`, `icon?` (a member's rendered icon on the plate), `aside?` (replaces the icon), `facts?: { label, value }[]` (the hanging tag)                                                                                  |
 | `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `tone?: "floor" \| "dim"`, `className?`, `children`                                                                                                                                             |
 | `Principles`       | `items: { heading, text }[]` — two to four, side by side under heavy rules                                                                                                                                                                                        |
-| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children` — a page's dark passage in black steel. Put a light section between it and the hero                                                                                                            |
+| `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children` — a page's dark passage, on oak. Put a light section between it and the hero                                                                                                                   |
 | `EngineCatalog`    | `current?` (left out), `tools?` (defaults to every engine) — one row per engine: its plate, what it does, for whom, its lineage, how it fits with others, its facts                                                                                               |
 | `ApplicationsBand` | `title?`, `intro?`, `id?`, `current?` — the applications on light cards, each under its own logo and brand color (`brand` in the registry); one that runs on family engines leads and names them                                                                  |
 | `Plate`            | `as?`, `className?`, `rivets?`, `children` — a riveted steel plate. `Rivets` and `HangingTag` (`facts`) are its parts; `PlateLight` moves the one reflection with the pointer (the hero renders it)                                                               |
@@ -280,8 +280,8 @@ from "X, continued in Rust".
 | `useLiveRegistry`  | `request: { crates: string[]; npm: string[] }`, `endpoints?` — direct live versions and downloads after hydration, one bulk request per registry; `fetchLiveRegistry` is the same without React                                                                   |
 
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
-(black steel — one per view), `fam-btn-ghost` (an engraved outline) or
-`fam-btn-steel` (bright steel, on black steel or rust), `fam-actions` for a row
+(dark iron — one per view), `fam-btn-ghost` (an engraved outline) or
+`fam-btn-steel` (bright steel, on oak or rust), `fam-actions` for a row
 of them, `fam-plate`, `fam-intro`, `fam-note`, `fam-links`, and `fam-sr-only`
 for text only assistive technology reads. From the registry: `familyTiers()`
 (the engines and the applications), `relationsOf(tool)` (what a member runs on,
@@ -441,14 +441,14 @@ rule if it wants the iron ink.
 
 ## CSS entry points
 
-| Import                          | What it is                                                                                     | Safe to load anywhere?                                        |
-| ------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `ferramenta-family/tokens.css`  | The OKLCH design tokens: the authored scheme, the dark values for docs, black steel, the plate | Yes — no surfaces are painted                                 |
-| `ferramenta-family/fonts.css`   | `@font-face` for Barlow Condensed (500, 600, 700) plus the bundled WOFF2                       | Yes — optional; the chrome falls back to the body stack       |
-| `ferramenta-family/theme.css`   | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks`                     | Yes                                                           |
-| `ferramenta-family/docs.css`    | The docs shell: an Ardo documentation layout inside the family chrome                          | Only on a site with Ardo docs pages; after `theme.css`        |
-| `ferramenta-family/landing.css` | The landing kit: `.fam-page` and every `fam-` pattern                                          | Yes — `fam-` prefixed; load it **before** your own stylesheet |
-| `ferramenta-family/chrome.css`  | The header, footer, switcher, and the member icons                                             | Load it **after** your own stylesheet                         |
+| Import                          | What it is                                                                                  | Safe to load anywhere?                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `ferramenta-family/tokens.css`  | The OKLCH design tokens: two ramps (`--iron-*`, `--rust-*`) and the roles that draw on them | Yes — no surfaces are painted                                 |
+| `ferramenta-family/fonts.css`   | `@font-face` for Barlow Condensed (500, 600, 700) plus the bundled WOFF2                    | Yes — optional; the chrome falls back to the body stack       |
+| `ferramenta-family/theme.css`   | Maps the tokens onto Ardo's `--ardo-color-brand*` and styles `FamilyLinks`                  | Yes                                                           |
+| `ferramenta-family/docs.css`    | The docs shell: an Ardo documentation layout inside the family chrome                       | Only on a site with Ardo docs pages; after `theme.css`        |
+| `ferramenta-family/landing.css` | The landing kit: `.fam-page` and every `fam-` pattern                                       | Yes — `fam-` prefixed; load it **before** your own stylesheet |
+| `ferramenta-family/chrome.css`  | The header, footer, switcher, and the member icons                                          | Load it **after** your own stylesheet                         |
 
 `chrome.css` needs `tokens.css`: every color is a token. It goes last, after
 the site's own stylesheet, so a site-wide reset cannot take the selector ties
@@ -470,7 +470,7 @@ Vite does. The files are exported too, for a preload link or an `<img>`:
 
 ```tsx
 import displayFont from "ferramenta-family/fonts/barlow-condensed-700.woff2?url";
-import ferroniFlat from "ferramenta-family/icons/ferroni-flat.svg";
+import ferroniIcon from "ferramenta-family/icons/ferroni-96.webp";
 ```
 
 ## The registry
@@ -604,8 +604,8 @@ sibling site migrates in one change:
 | The family footer's "Company" column                                | "Work with us": consulting, open source, GitHub                                                  |
 | `ClosingAction` with its actions beside the copy                    | the actions sit under the copy, the link line after them                                         |
 | Your own section menu for docs on a phone                           | `SiteMenu` in the header's `actions` slot                                                        |
-| `fam-btn-primary` in rust, chamfered                                | black steel, square; `fam-btn-steel` on black steel or rust                                      |
-| `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens | removed; see `tokens.css` for `--steel*`, `--inlay*`, `--iron*`                                  |
+| `fam-btn-primary` in rust, chamfered                                | dark iron, square; `fam-btn-steel` on oak or rust                                                |
+| `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens | removed; see `tokens.css` for the ramps and the roles (`--steel*`, `--inlay*`, `--iron*`)        |
 
 Keep the header and footer outside `.fam-page`, close the home page with
 `<WorkWithUs />`, and check the result against the sample tool page in the kit.

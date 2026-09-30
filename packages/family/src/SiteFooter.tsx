@@ -136,7 +136,7 @@ function FooterColumns({
   );
 }
 
-/** Black-steel footer: lockup, the two tiers from the registry, the workshop's links. */
+/** The dark footer: lockup, the two tiers from the registry, the workshop's links. */
 export function SiteFooter({
   as = "footer",
   current,

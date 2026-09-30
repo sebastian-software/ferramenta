@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 /** A member's icon as an inline box; see the forms above. */
-export function Icon({ className, form = "flat", label, name, size }) {
+export function Icon({ className, form = "small", label, name, size }) {
     const style = size === undefined ? undefined : { "--fam-icon-size": `${size}px` };
     const classes = className === undefined ? "fam-icon" : `fam-icon ${className}`;
     if (label === undefined) {

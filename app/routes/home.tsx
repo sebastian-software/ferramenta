@@ -96,7 +96,7 @@ const principles = [
 /**
  * The workshop's two names, each under its own logo in its own colors. They
  * stand on the light ground, where they were drawn to stand: a foreign logo is
- * never put on steel, black steel or rust.
+ * never put on steel, oak, rust or the dark chrome.
  */
 function Workshop() {
   return (

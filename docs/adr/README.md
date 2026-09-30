@@ -17,7 +17,7 @@ in [DESIGN.md](../../DESIGN.md), [PRODUCT.md](../../PRODUCT.md), and the code.
 | [0006](0006-registry-facts-at-build-time.md)                       | Registry facts fetched at build time, not badges                      | accepted                     |
 | [0007](0007-committed-package-build-output-for-git-consumers.md)   | The family package ships its build output in Git                      | accepted                     |
 | [0008](0008-design-direction-typenschild.md)                       | Design direction "Typenschild": one scheme, the plate as the one prop | accepted                     |
-| [0009](0009-generated-member-icons.md)                             | Member icons are generated objects, in a rendered and a flat form     | accepted                     |
+| [0009](0009-generated-member-icons.md)                             | Member icons are generated objects, shown as rendered pictures        | accepted                     |
 
 **Who is in the family.** Two tiers: the engines, and the applications the
 workshop also makes — products built on those engines, and selected standalone

@@ -36,7 +36,7 @@ function FooterColumns({ current, line, members, }) {
     const jobs = members;
     return (_jsxs(_Fragment, { children: [_jsxs("div", { children: [_jsx("h2", { children: "Engines" }), _jsx(ToolList, { jobs: jobs, tools: engines })] }), _jsxs("div", { children: [applications.length > 0 && (_jsxs(_Fragment, { children: [_jsx("h2", { children: "Applications" }), _jsx(ToolList, { jobs: jobs, tools: applications })] })), _jsx("h2", { className: applications.length > 0 ? "foot-gap" : undefined, children: "Work with us" }), _jsx(WorkshopList, {})] })] }));
 }
-/** Black-steel footer: lockup, the two tiers from the registry, the workshop's links. */
+/** The dark footer: lockup, the two tiers from the registry, the workshop's links. */
 export function SiteFooter({ as = "footer", current, legal = DEFAULT_LEGAL, line = "family", members = "full", } = {}) {
     const Root = as;
     const columns = line === "family" && members !== "none";

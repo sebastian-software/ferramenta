@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-export type IconForm = "flat" | "hero" | "rendered";
+export type IconForm = "hero" | "rendered" | "small";
 /** Inline styles that set custom properties, which `CSSProperties` alone does not allow. */
 export type CustomProperties = CSSProperties & Record<`--${string}`, string>;
 export type IconProps = {

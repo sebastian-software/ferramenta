@@ -33,7 +33,7 @@ export type ProjectHeroProps = {
     facts?: PlateFact[];
 };
 /**
- * The first viewport: one steel plate on black steel. The plate carries the
+ * The first viewport: one steel plate on the oak bench. The plate carries the
  * name, what the thing is, and the action; the facts hang below it.
  */
 export declare function ProjectHero({ aside, facts, icon, ...copy }: ProjectHeroProps): import("react").JSX.Element;
@@ -67,7 +67,7 @@ export type Principle = {
 export declare function Principles({ items }: {
     items: Principle[];
 }): import("react").JSX.Element;
-/** The old name of `Principle`; an iron band's rows are principles on black steel. */
+/** The old name of `Principle`; an iron band's rows are principles on the dark ground. */
 export type IronBandRow = Principle;
 export type IronBandProps = {
     id?: string;
@@ -79,9 +79,9 @@ export type IronBandProps = {
     children?: ReactNode;
 };
 /**
- * The full-bleed black-steel band between the light sections: a page's one or
- * two deliberately dark passages. Everything inside takes the on-iron colors
- * (`.on-iron`).
+ * The full-bleed dark band between the light sections, in dark oak: a page's
+ * one or two deliberately dark passages. Everything inside takes the on-iron
+ * colors (`.on-iron`).
  */
 export declare function IronBand({ children, id, intro, rows, title }: IronBandProps): import("react").JSX.Element;
 export type ClosingActionProps = {

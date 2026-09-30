@@ -6,16 +6,17 @@ masters=design/textures/masters
 out=packages/family/textures
 
 # The plate. Desaturated to a neutral steel, its contrast flattened so dark
-# text holds on every streak, and a light veil laid over it.
+# text holds on every streak, a light veil laid over it, and a little warmth:
+# the family's greys are those of blackened steel, not of a cool blue-grey.
 magick "$masters/steel-brushed.webp" -modulate 97,50,100 +sigmoidal-contrast 12x50% \
-  -fill white -colorize 10 -resize 1400x \
+  -fill white -colorize 10 -fill '#9a8567' -colorize 20 -resize 1400x \
   -quality 72 -define webp:method=6 "$out/steel.webp"
 
-# Black steel. Mill scale, pulled most of the way to a near-black, so only its
-# mottling is left and the band nets close to the chrome's own color (--iron):
-# a band under the header must not read as a lighter strip.
-magick "$masters/millscale.webp" -fill '#0c0e11' -colorize 82 -resize 1400x \
-  -quality 80 -define webp:method=6 "$out/black-steel.webp"
+# Oak. The bench the plates lie on: dark smoked oak, pulled almost halfway to
+# a near-black brown, so its grain is there at a second look and light text
+# holds on it.
+magick "$masters/oak-dark.webp" -fill '#1a130f' -colorize 45 -resize 1600x \
+  -quality 78 -define webp:method=6 "$out/oak.webp"
 
 # Rust. Darkened and desaturated, then mirrored into a tile that repeats
 # without a seam.

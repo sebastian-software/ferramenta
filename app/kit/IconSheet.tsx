@@ -1,32 +1,11 @@
 import { displayName, familyTiers, Icon, Mark } from "ferramenta-family";
-import ferralkFlat from "ferramenta-family/icons/ferralk-flat.svg";
-import ferramentaFlat from "ferramenta-family/icons/ferramenta-flat.svg";
-import ferrikiFlat from "ferramenta-family/icons/ferriki-flat.svg";
-import ferrocatFlat from "ferramenta-family/icons/ferrocat-flat.svg";
-import ferrolexFlat from "ferramenta-family/icons/ferrolex-flat.svg";
-import ferromarkFlat from "ferramenta-family/icons/ferromark-flat.svg";
-import ferroniFlat from "ferramenta-family/icons/ferroni-flat.svg";
-import ferrugoFlat from "ferramenta-family/icons/ferrugo-flat.svg";
-import palette from "ferramenta-family/icons/palette.json";
 
 import { Caption, Chapter } from "./Specimen";
-
-/** The vector twin of each icon: the file a favicon or a README uses. */
-const FLAT_SVG: Record<string, string> = {
-  ferralk: ferralkFlat,
-  ferramenta: ferramentaFlat,
-  ferriki: ferrikiFlat,
-  ferrocat: ferrocatFlat,
-  ferrolex: ferrolexFlat,
-  ferromark: ferromarkFlat,
-  ferroni: ferroniFlat,
-  ferrugo: ferrugoFlat,
-};
 
 /** The line icons of the sprite, by symbol name. */
 const MARKS = ["arrow", "chev", "external", "github", "crate", "package", "adapter"];
 
-/** The sizes the flat icon is shown at in the chrome and in lists. */
+/** The sizes the small icon is shown at in the chrome and in lists. */
 const SIZES = [48, 32, 24];
 
 const members = [
@@ -38,9 +17,23 @@ const members = [
   })),
 ];
 
-function Sizes({ ground, name }: { ground: "iron" | "white"; name: string }) {
+/** The small icon at each size, as the chrome shows it: on a steel tile. */
+function Tiles({ name }: { name: string }) {
   return (
-    <div className="kit-icon-sizes" data-ground={ground}>
+    <div className="kit-icon-sizes" data-ground="iron">
+      {SIZES.map((size) => (
+        <span key={size} className="fam-tile">
+          <Icon name={name} size={size} />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/** The small icon at each size on a light ground, without a tile. */
+function Bare({ name }: { name: string }) {
+  return (
+    <div className="kit-icon-sizes" data-ground="light">
       {SIZES.map((size) => (
         <Icon key={size} name={name} size={size} />
       ))}
@@ -56,54 +49,36 @@ function IconRow({ name, title, what }: { name: string; title: string; what: str
         <span>{what}</span>
       </div>
       <div className="fam-plate kit-icon-cell">
-        <Icon name={name} form="rendered" label={`${title}, rendered`} />
+        <Icon name={name} form="rendered" label={title} />
       </div>
-      <div className="fam-plate kit-icon-cell">
-        <img src={FLAT_SVG[name]} alt={`${title}, flat`} width={144} height={144} />
-      </div>
-      <Sizes ground="iron" name={name} />
-      <Sizes ground="white" name={name} />
+      <Tiles name={name} />
+      <Bare name={name} />
     </li>
   );
 }
 
-/** Every icon in both forms, at every size it has to work at, and the palette they share. */
+/** Every icon at every size it has to work at, and the line icons of the sprite. */
 export function IconSheet() {
   return (
     <Chapter
       id="icons"
       title="Icons"
-      intro="Each member has one object in two forms. The rendered object goes on a plate. Its flat twin, the same object in the same view in a few solid colors, takes every small place: the header, a list, a favicon, a README."
+      intro="Each member has one object: forged steel with a single glowing or rust-orange element. It is a rendered picture at three sizes, for a hero plate, a catalog plate, and every small place."
     >
       <Caption name="<Icon name form />">
-        The flat form holds from 24 pixels up. Below that every one of these objects is a smudge, so
-        nothing in the family shows an icon smaller.
+        The small form holds from 24 pixels up. Below that every one of these objects is a smudge,
+        so nothing in the family shows an icon smaller. On a dark ground it sits on a steel tile.
       </Caption>
       <div className="wrap">
         <ul className="kit-icons">
           <li className="kit-icon-row kit-icon-head" aria-hidden="true">
             <div />
-            <div>Rendered</div>
-            <div>Flat, SVG</div>
-            <div>{SIZES.join(" · ")} on black steel</div>
-            <div>{SIZES.join(" · ")} on white</div>
+            <div>On a plate</div>
+            <div>{SIZES.join(" · ")} on tiles, dark ground</div>
+            <div>{SIZES.join(" · ")} on the light ground</div>
           </li>
           {members.map((member) => (
             <IconRow key={member.name} {...member} />
-          ))}
-        </ul>
-      </div>
-
-      <Caption name="icons/palette.json">
-        Every flat icon is drawn from these {palette.length} colors. The greys take their hue from
-        the rendered steel, so the flat icons keep its warmth.
-      </Caption>
-      <div className="wrap">
-        <ul className="kit-palette">
-          {palette.map((color) => (
-            <li key={color} style={{ background: color }}>
-              <code>{color}</code>
-            </li>
           ))}
         </ul>
       </div>

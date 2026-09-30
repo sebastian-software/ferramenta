@@ -12,7 +12,7 @@ export type CodePanelProps = {
 };
 
 /**
- * A code example on black steel. That surface is dark in every scheme,
+ * A code example on dark iron. That surface is dark in every scheme,
  * so one set of syntax colors reads everywhere. It scrolls sideways in its own
  * box, never the page, and takes keyboard focus so that scroll is reachable.
  */

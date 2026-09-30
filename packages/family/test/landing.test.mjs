@@ -104,7 +104,7 @@ test("sections carry a ruled, labelled heading; split puts the head beside the c
   );
 });
 
-test("principles stand side by side, on the ground or in a black-steel band", () => {
+test("principles stand side by side, on the ground or in a dark oak band", () => {
   const items = [{ heading: "Same engine", text: "Verified." }];
   assert.equal(
     render(kit.Principles, { items }),
@@ -198,7 +198,7 @@ test("the kit stays in its namespace and yields to the host", () => {
 });
 
 test("the materials are files the package ships, and small type never sits on the texture", async () => {
-  for (const texture of ["steel.webp", "black-steel.webp", "rust.webp"]) {
+  for (const texture of ["steel.webp", "oak.webp", "rust.webp"]) {
     assert.ok(
       landing.includes(`url("../textures/${texture}")`),
       `landing.css does not use ${texture}`,

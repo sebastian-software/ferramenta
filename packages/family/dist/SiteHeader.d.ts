@@ -55,5 +55,5 @@ export type SiteHeaderProps = {
      */
     as?: "div" | "header";
 };
-/** Black-steel header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
+/** The dark header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
 export declare function SiteHeader({ actions, as, current, home, lockup, nav, switcher, themeToggle, }?: SiteHeaderProps): import("react").JSX.Element;

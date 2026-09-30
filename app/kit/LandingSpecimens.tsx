@@ -37,7 +37,7 @@ function Buttons() {
     <>
       <Specimen
         name="fam-btn"
-        rule="One primary action per view, in black steel. Beside it, an engraved outline in the surface's own ink."
+        rule="One primary action per view, in dark iron. Beside it, an engraved outline in the surface's own ink."
       >
         <div className="kit-row">
           <a className="fam-btn fam-btn-primary" href="#landing">
@@ -125,8 +125,8 @@ function Proof() {
       </Section>
 
       <Caption name="<CodePanel /> · <RunSample />">
-        Code sits on black steel in every scheme. A run sample shows a tool&rsquo;s real output
-        beside its input; this one is the committed output of Ferromark with Ferriki on Ferroni.
+        Code sits on dark iron in every scheme. A run sample shows a tool&rsquo;s real output beside
+        its input; this one is the committed output of Ferromark with Ferriki on Ferroni.
       </Caption>
       <Section title="A tool, run for real" tone="dim">
         <RunSample
@@ -226,13 +226,13 @@ export function LandingSpecimens() {
       <ApplicationsBand id="kit-applications" title="What the engines carry" />
 
       <Caption name="<Principles /> · <IronBand />">
-        What a project stands on, side by side under heavy rules. On the ground, or on black steel
-        as a page&rsquo;s dark passage.
+        What a project stands on, side by side under heavy rules. On the ground, or on dark oak as a
+        page&rsquo;s dark passage.
       </Caption>
       <div className="wrap kit-gap">
         <Principles items={principles} />
       </div>
-      <IronBand title="The same, on black steel" rows={principles} />
+      <IronBand title="The same, on the oak bench" rows={principles} />
 
       <Proof />
       <Closers />

@@ -1,17 +1,14 @@
 # Member icons
 
 The source of every icon in `packages/family/icons/`. Each member has one
-object in two forms (ADR-0009): a rendered object for plates, and its flat
-twin, the same object in the same view in a few solid colors, for every small
-place.
+object (ADR-0009), shown as a rendered picture at three sizes: on a hero plate,
+on a catalog plate, and small in the chrome.
 
-| Path                       | What it is                                                                       |
-| -------------------------- | -------------------------------------------------------------------------------- |
-| `masters/<name>.webp`      | The rendered master, as generated, on a transparent ground                       |
-| `masters/<name>-flat.webp` | The flat master, as generated (lossless)                                         |
-| `build-icons.sh`           | Masters → `<name>.webp` (640px) and `<name>-256.webp`, trimmed and centered      |
-| `draw-flat.py`             | Flat masters → `<name>-flat.svg`: redrawn on the palette, under 5 KB each        |
-| `kit-sample/`              | The masters of the kit's invented sample tool; its files go to `app/assets/kit/` |
+| Path                  | What it is                                                                        |
+| --------------------- | --------------------------------------------------------------------------------- |
+| `masters/<name>.webp` | The master, as generated, on a transparent ground                                 |
+| `build-icons.sh`      | Masters → `<name>.webp` (640px), `-256.webp` and `-96.webp`, trimmed and centered |
+| `kit-sample/`         | The master of the kit's invented sample tool; its files go to `app/assets/kit/`   |
 
 The masters are the only source the shipped files can be rebuilt from. They
 were generated on 2026-09-30 with the Codex CLI image tool. Every raster, master
@@ -22,42 +19,35 @@ it (`impeccable embed-prompt`); a new or replaced raster gets one too.
 
 ```sh
 sh design/icons/build-icons.sh
-python design/icons/draw-flat.py             # needs opencv-python-headless and numpy
 ```
 
-`build-icons.sh` also copies the family's flat toolbox to
-`app/assets/brand/logo-light.svg` and `logo-dark.svg`: the favicon source, and
-the image every README's family block loads from `main`.
+The script also writes the site's brand mark, `app/assets/brand/logo-light.svg`
+and `logo-dark.svg`: the favicon source, and the image every README's family
+block loads from `main`. Both want an SVG at that path, so the mark is the
+rendered toolbox at 144px inside an SVG frame. It is a picture, not a drawing;
+a mark that scales cleanly is open (ADR-0009).
 
-For an icon that is not a family member's, point both scripts somewhere else:
+For an icon that is not a family member's, point the script somewhere else:
 
 ```sh
 ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit sh design/icons/build-icons.sh
-ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit python design/icons/draw-flat.py
 ```
 
 ## A new member's icon
 
 1. Pick one object from the workshop that says what the member does, distinct
    in silhouette from the ones below.
-2. Generate the rendered master with the prompt below and an accepted icon
-   attached as the style reference (the anvil was the first; every other icon
-   was made with it attached).
-3. Generate the flat master with the rendered master and an accepted flat icon
-   attached (the flame is the reference from the third round on).
-4. Save both under `masters/`, run the two scripts, give the masters and the
-   rendered files their provenance sidecars, and add the three
+2. Generate the master with the prompt below and an accepted icon attached as
+   the style reference (the anvil was the first; every other icon was made with
+   it attached).
+3. Save it under `masters/`, run the script, give the master and the shipped
+   files their provenance sidecars, and add the three
    `.fam-icon[data-icon="<name>"]` rules to
    `packages/family/styles/chrome.css`.
-5. Look at it on the kit's icon sheet (`/kit#icons`) at every size. It has to
+4. Look at it on the kit's icon sheet (`/kit#icons`) at every size. It has to
    hold at 24 pixels; nothing in the family shows an icon smaller.
 
-`draw-flat.py` maps a new icon onto the family's palette
-(`packages/family/icons/palette.json`). `--derive N` measures a fresh palette
-from all flat masters and rewrites that file; do that only when the family's
-colors are meant to change.
-
-## The rendered prompt
+## The prompt
 
 A product icon: a realistic, richly detailed miniature object in a slight
 three-quarter front view from a little above. Forged blackened steel with worn
@@ -80,30 +70,12 @@ silhouette that stays recognizable at 32 pixels. Transparent background.
 The kit's sample tool (`kit-sample/ferrometro`): a vernier caliper, its jaws
 closed on a short bar of orange-hot steel.
 
-## The flat prompt
-
-The same object in the same view and position as the attached rendering, in
-the drawing style of the attached flat icon. Every area one uniform solid
-color; form shown through a lit, a mid and a shaded plane per part, with thin
-light edges between them; anything that glows drawn as nested flat shapes. No
-gradients, textures or outlines. Transparent background.
-
-A generated "flat" image is not flat: its areas carry faint mottling and every
-edge is a band of in-between colors. `draw-flat.py` cleans each image (a small
-palette taken from the calm interior of its areas, boundaries straightened by
-majority vote, specks removed, whole areas moved onto the family palette) and
-then redraws it rather than tracing it: stacked layers, each outline reduced to
-the few points that carry it, smooth curves through them. Its header explains
-each step.
-
-**The budget is 5 KB per flat icon.** The script keeps the mildest
-simplification that fits. If an icon only fits after losing its shape, the
-master is too detailed: generate a simpler one (large shapes, no thin highlight
-lines, no small parts) instead of raising the budget. The cabinet and the sieve
-were redrawn that way, with this addition to the flat prompt: "Only large flat
-shapes, about twenty in total. No thin highlight lines, no tiny parts."
-
 ## What was tried and set aside
+
+A flat twin of every object, for small places: a second generated master,
+redrawn as an SVG of under 5 KB on a shared palette. It was dropped for the
+rendered picture at a small size (ADR-0009); the script and its output are kept
+in the history of pull request 96 (commit `ff080b1`).
 
 A relief stamped into steel and an enamel badge, as treatments for the same
 motifs. For Ferrolex a try square, a steel-bound dictionary and a loupe; for

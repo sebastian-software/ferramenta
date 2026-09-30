@@ -1,6 +1,6 @@
 /*
  * ferramenta-family — the landing kit: the page patterns of a family home page
- * (the plate hero, sections, the black-steel band, the engine catalog, the
+ * (the plate hero, sections, the dark band, the engine catalog, the
  * applications band, principles, evidence figures, code panel, run sample,
  * coverage ledger, closing action, work-with-us band), for every family home
  * page to share instead of copy.
@@ -15,9 +15,9 @@
  * framework-wide bare `a` rules do not override them. Host class rules win.
  *
  * Material (ADR-0008): the plate is brushed steel, riveted; the hero ground
- * and the dark bands are black steel; the closing band is oxidized rust.
- * Everything else is flat. Small type never sits on the steel texture itself:
- * it goes on a dark inlay.
+ * and the dark bands are dark oak, the bench the plates lie on; the closing
+ * band is oxidized rust. Everything else is flat, the dark chrome included.
+ * Small type never sits on the steel texture itself: it goes on a dark inlay.
  */
 
 /* -- The page ---------------------------------------------------------------- */
@@ -125,7 +125,13 @@
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  background: radial-gradient(circle at 36% 30%, #fff 0, #dfe2e5 22%, #979ca1 58%, #5b6064 100%);
+  background: radial-gradient(
+    circle at 36% 30%,
+    #fff 0,
+    var(--rivet-light) 22%,
+    var(--steel) 58%,
+    var(--rivet-shade) 100%
+  );
   box-shadow:
     0 1px 1px rgb(0 0 0 / 0.55),
     0 0 0 1px rgb(0 0 0 / 0.28);
@@ -193,7 +199,7 @@
   z-index: 2;
   width: 0.625rem;
   height: 2.5rem;
-  border: 2.5px solid #b4b8bc;
+  border: 2.5px solid var(--iron-soft);
   border-radius: 0.3125rem;
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.6),
@@ -257,13 +263,13 @@
   }
 }
 
-/* -- Hero: one plate on black steel ------------------------------------------ */
+/* -- Hero: one plate on the oak bench ---------------------------------------- */
 
 .fam-hero {
   --fam-inset: clamp(1.5rem, 4vw, 3.5rem);
 
   padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 7vw, 5.5rem);
-  background: var(--iron) url("../textures/black-steel.webp") center / cover;
+  background: var(--oak) url("../textures/oak.webp") center / cover;
 }
 
 .fam-hero-plate {
@@ -346,7 +352,7 @@
 }
 
 /* An object on a plate casts a short shadow onto the steel. */
-.fam-plate .fam-icon:not([data-form="flat"]) {
+.fam-plate .fam-icon:not([data-form="small"]) {
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28));
 }
 
@@ -394,7 +400,7 @@
   transform: translateX(4px);
 }
 
-/* The one primary action per view: black steel. `a.` outranks the page's link color. */
+/* The one primary action per view: dark iron. `a.` outranks the page's link color. */
 a.fam-btn-primary {
   background: var(--iron);
   color: var(--iron-ink);
@@ -421,7 +427,7 @@ a.fam-btn-ghost:hover {
   background: rgb(255 255 255 / 0.12);
 }
 
-/* On black steel or rust the primary action is a piece of the plate's own steel, polished. */
+/* On a dark ground or on rust the primary action is a piece of the plate's own steel, polished. */
 a.fam-btn-steel,
 .on-iron a.fam-btn-primary {
   color: var(--steel-ink);
@@ -483,11 +489,11 @@ a.fam-btn-steel:hover,
   align-items: start;
 }
 
-/* -- Black-steel band -------------------------------------------------------- */
+/* -- The dark band: oak ------------------------------------------------------ */
 
 .fam-band {
   padding-block: var(--section-space);
-  background: var(--iron) url("../textures/black-steel.webp") center / cover;
+  background: var(--oak) url("../textures/oak.webp") center / cover;
   color: var(--iron-ink);
 }
 
@@ -1077,7 +1083,7 @@ a.fam-engine-link::after {
   }
 }
 
-/* -- Code panel on black steel ----------------------------------------------- */
+/* -- Code panel on dark iron -------------------------------------------------- */
 
 .fam-code {
   min-width: 0;
@@ -1249,7 +1255,7 @@ a.fam-engine-link::after {
 }
 
 /*
- * The highlighted block keeps its theme's token colors on black steel, the
+ * The highlighted block keeps its theme's token colors on dark iron, the
  * surface code always sits on (gruvbox-dark-hard holds ≥6:1 there). The
  * `!important` answers Ardo's own `.shiki { background: transparent !important }`,
  * which would leave light tokens on the light ground. The rendered side wraps

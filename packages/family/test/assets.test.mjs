@@ -27,7 +27,7 @@ test("every family member has an icon in every form the chrome and the kit show"
         `no ${form} icon rule for ${tool.name}`,
       );
     }
-    for (const file of ["-flat.svg", "-256.webp", ".webp"]) {
+    for (const file of ["-96.webp", "-256.webp", ".webp"]) {
       await shipped(`${tool.name}${file}`);
     }
   }
@@ -50,7 +50,7 @@ test("the sprite holds only the chrome's line icons, none of them a member's", (
 test("an icon is decoration beside a name, and an image when it stands alone", () => {
   assert.equal(
     render(family.Icon, { name: "ferroni" }),
-    '<span class="fam-icon" data-icon="ferroni" data-form="flat" aria-hidden="true"></span>',
+    '<span class="fam-icon" data-icon="ferroni" data-form="small" aria-hidden="true"></span>',
   );
   assert.equal(
     render(family.Icon, { form: "rendered", label: "Ferroni", name: "ferroni", size: 96 }),

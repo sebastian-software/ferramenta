@@ -91,9 +91,9 @@ test("the project lockup names the site and moves the family into the switcher",
   assert.ok(html.includes('<a class="lockup" href="/ferroni/">'), "the lockup links the site home");
   assert.ok(
     html.includes(
-      '<span class="fam-tile"><span class="fam-icon" data-icon="ferroni" data-form="flat" style="--fam-icon-size:28px" aria-hidden="true"></span></span><span>ferroni</span>',
+      '<span class="fam-tile"><span class="fam-icon" data-icon="ferroni" data-form="small" style="--fam-icon-size:28px" aria-hidden="true"></span></span><span>ferroni</span>',
     ),
-    "the project's flat icon on a steel tile, then its name",
+    "the project's small icon on a steel tile, then its name",
   );
   assert.ok(html.includes('<details class="switcher switcher-family">'), "the family trigger");
   assert.ok(html.includes('aria-label="Ferramenta: all tools"'), "its name keeps the visible word");

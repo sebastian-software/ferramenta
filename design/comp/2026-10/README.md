@@ -45,6 +45,11 @@ graphite ground, and a plate that says what the thing is before where it comes
 from, with the description and the action on the plate and the facts on a tag
 below it.
 
+The comps stay as they were approved. The built system moved on in two places
+(ADR-0008, ADR-0009): the graphite ground became dark oak with warm greys
+around it, and the flat twin of each icon was dropped for the rendered picture
+at a small size.
+
 ## Images
 
 The material textures in `assets/` were generated with the Codex CLI image tool

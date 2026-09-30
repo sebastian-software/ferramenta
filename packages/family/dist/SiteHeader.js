@@ -9,12 +9,12 @@ function githubLink(current) {
         label: currentTool === undefined ? "GitHub" : `${currentTool.name} on GitHub`,
     };
 }
-/** Black-steel header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
+/** The dark header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
 export function SiteHeader({ actions, as = "header", current, home = "/", lockup = "family", nav, switcher = true, themeToggle, } = {}) {
     const Root = as;
     const project = lockup === "project";
     const github = githubLink(current);
-    // One construction for both lockups: the flat icon on a steel tile, then the wordmark.
+    // One construction for both lockups: the small icon on a steel tile, then the wordmark.
     let name = "ferramenta";
     let href = current === undefined ? "/" : FAMILY_SITE;
     if (project) {

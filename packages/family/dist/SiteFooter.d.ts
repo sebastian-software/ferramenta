@@ -29,5 +29,5 @@ export type SiteFooterProps = {
      */
     members?: "full" | "none" | "short";
 };
-/** Black-steel footer: lockup, the two tiers from the registry, the workshop's links. */
+/** The dark footer: lockup, the two tiers from the registry, the workshop's links. */
 export declare function SiteFooter({ as, current, legal, line, members, }?: SiteFooterProps): import("react").JSX.Element;

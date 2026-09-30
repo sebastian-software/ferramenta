@@ -149,16 +149,17 @@ THESIS: Every machine carries a data plate that says what it is. The family
 site is the workshop's catalog of such plates: one riveted steel plate per
 engine, read before anything else. Refuses the SaaS hero-plus-feature-cards
 arrangement and the dark developer-tool default.
-OWN-WORLD: A light, cool ground with deliberately dark passages in black steel;
-brushed-steel plates with rivets and one moving reflection; lettering in a
-condensed data-plate face; each engine one rendered object of forged steel with
-a single glowing or rust-orange element; oxidized rust only as the closing band.
+OWN-WORLD: A light ground in warm iron greys with deliberately dark passages in
+dark oak, the bench the plates lie on; brushed-steel plates with rivets and one
+moving reflection; a dark iron bar and footer; lettering in a condensed
+data-plate face; each engine one rendered object of forged steel with a single
+glowing or rust-orange element; oxidized rust only as the closing band.
 STORY: A developer arriving from one tool's site learns what the family is
 (the plate), reads each engine as what it is, what it does, and for whom,
 before where it comes from; sees what the engines carry (the applications,
 under their own logos); learns what every engine is held to; meets the people
 and their workshop; and is offered their help.
-FIRST VIEWPORT: Black-steel bar; one steel plate on black steel with the
+FIRST VIEWPORT: Dark iron bar; one steel plate on the oak bench with the
 headline, the lede, the one action, and the family's toolbox; the measured
 facts on a small tag hanging below it.
 FORM: Code-led. Direction 1 of 3 ("Typenschild"), chosen by the owner from three

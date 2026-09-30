@@ -1,72 +1,52 @@
 /*
  * Ferramenta family theme for Ardo sites.
  * Oxidized rust as the brand color instead of Ardo's default green, and the
- * family's cool neutrals instead of Ardo's warm ones — the shared look across
- * ferramenta.dev and all package docs sites. Ardo keeps its own light and dark
- * schemes, its layout and its shapes for long reading; only the colors are
- * the family's, so a docs page sits under the black-steel chrome without a
- * change of temperature.
+ * family's warm iron greys instead of Ardo's own neutrals — the shared look
+ * across ferramenta.dev and all package docs sites. Ardo keeps its own light
+ * and dark schemes, its layout and its shapes for long reading; only the
+ * colors are the family's, so a docs page sits under the dark chrome without
+ * a change of temperature. Needs `tokens.css`: every value is a ramp step.
  */
 
 :root {
-  /* Every Ardo neutral is derived from this hue: the family's steel, not a warm grey. */
-  --ardo-hue-neutral: 250;
-  /*
-   * The page itself carries no hue at all (`none`), so where Ardo mixes the
-   * brand tint into it (a callout's ground) the mix keeps the rust's warmth.
-   * Mixed with a cool grey, the hue would travel through violet.
-   */
-  --ardo-color-bg: oklch(0.992 0 none);
+  /* Every Ardo neutral is derived from this hue: the iron ramp's. */
+  --ardo-hue-neutral: 55;
   /* Code sits on a quiet inset of the page, not on a tinted panel. */
-  --ardo-color-codeBg: oklch(0.955 0.004 250);
-  --ardo-color-codeBorder: oklch(0.88 0.006 250);
-
-  --ardo-color-brand: oklch(0.42 0.095 38);
-  --ardo-color-brandLight: oklch(0.5 0.11 40);
-  --ardo-color-brandDark: oklch(0.35 0.085 36);
-  --ardo-color-brandSubtle: oklch(0.95 0.015 50);
-  --ardo-color-brandGradient: linear-gradient(
-    135deg,
-    oklch(0.42 0.095 38) 0%,
-    oklch(0.35 0.085 36) 100%
-  );
+  --ardo-color-codeBg: var(--iron-50);
+  --ardo-color-codeBorder: var(--iron-200);
+  --ardo-color-brand: var(--rust-700);
+  --ardo-color-brandLight: var(--rust-600);
+  --ardo-color-brandDark: var(--rust-800);
+  --ardo-color-brandSubtle: var(--rust-100);
+  --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-700) 0%, var(--rust-800) 100%);
 }
 
 :root.dark {
-  /* The page is the chrome's own black steel, so the header has no seam under it. */
-  --ardo-color-bg: var(--iron);
-  --ardo-color-sidebarBg: oklch(0.165 0.008 250);
-  --ardo-color-sidebarRailBg: oklch(0.14 0.008 250);
-  --ardo-color-codeBg: oklch(0.155 0.008 250);
-  --ardo-color-codeBorder: oklch(0.3 0.01 250);
-  --ardo-color-brand: oklch(0.72 0.11 50);
-  --ardo-color-brandLight: oklch(0.8 0.1 55);
-  --ardo-color-brandDark: oklch(0.64 0.105 46);
-  /* On black steel the tint is steel too: rust mixed into a cool dark ground turns plum. */
-  --ardo-color-brandSubtle: oklch(0.25 0.012 250);
-  --ardo-color-brandGradient: linear-gradient(
-    135deg,
-    oklch(0.72 0.11 50) 0%,
-    oklch(0.64 0.105 46) 100%
-  );
+  /* The page is the chrome's own dark, so the header has no seam under it. */
+  --ardo-color-bg: var(--iron-950);
+  --ardo-color-sidebarBg: color-mix(in oklch, var(--iron-950) 88%, black);
+  --ardo-color-sidebarRailBg: color-mix(in oklch, var(--iron-950) 76%, black);
+  --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
+  --ardo-color-codeBorder: var(--iron-800);
+  --ardo-color-brand: var(--rust-300);
+  --ardo-color-brandLight: var(--rust-200);
+  --ardo-color-brandDark: var(--rust-400);
+  --ardo-color-brandSubtle: var(--rust-900);
+  --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --ardo-color-bg: var(--iron);
-    --ardo-color-sidebarBg: oklch(0.165 0.008 250);
-    --ardo-color-sidebarRailBg: oklch(0.14 0.008 250);
-    --ardo-color-codeBg: oklch(0.155 0.008 250);
-    --ardo-color-codeBorder: oklch(0.3 0.01 250);
-    --ardo-color-brand: oklch(0.72 0.11 50);
-    --ardo-color-brandLight: oklch(0.8 0.1 55);
-    --ardo-color-brandDark: oklch(0.64 0.105 46);
-    --ardo-color-brandSubtle: oklch(0.25 0.012 250);
-    --ardo-color-brandGradient: linear-gradient(
-      135deg,
-      oklch(0.72 0.11 50) 0%,
-      oklch(0.64 0.105 46) 100%
-    );
+    --ardo-color-bg: var(--iron-950);
+    --ardo-color-sidebarBg: color-mix(in oklch, var(--iron-950) 88%, black);
+    --ardo-color-sidebarRailBg: color-mix(in oklch, var(--iron-950) 76%, black);
+    --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
+    --ardo-color-codeBorder: var(--iron-800);
+    --ardo-color-brand: var(--rust-300);
+    --ardo-color-brandLight: var(--rust-200);
+    --ardo-color-brandDark: var(--rust-400);
+    --ardo-color-brandSubtle: var(--rust-900);
+    --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);
   }
 }
 
@@ -94,7 +74,7 @@
   flex: none;
   inline-size: var(--fam-icon-size, 1.5rem);
   aspect-ratio: 1;
-  background: url("../icons/ferramenta-flat.svg") center / contain no-repeat;
+  background: url("../icons/ferramenta-96.webp") center / contain no-repeat;
 }
 
 .ferramenta-family ul {

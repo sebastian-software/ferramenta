@@ -1,6 +1,6 @@
 /**
  * Renders the social card (public/social.png, 1200×630) from the world itself:
- * black steel, one riveted plate with the headline and the family's toolbox,
+ * the dark oak bench, one riveted plate with the headline and the family's toolbox,
  * and every engine's icon from the registry below it. Re-run it whenever the
  * family's line-up changes.
  *
@@ -51,7 +51,7 @@ const html = `<!doctype html>
   * { box-sizing: border-box; margin: 0; }
   body {
     position: relative; width: 1200px; height: 630px; overflow: hidden;
-    background: var(--iron) url("${asset("textures/black-steel.webp")}") center / cover;
+    background: var(--oak) url("${asset("textures/oak.webp")}") center / cover;
     color: var(--iron-ink); font-family: var(--body);
   }
   .plate {

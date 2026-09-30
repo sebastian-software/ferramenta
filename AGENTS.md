@@ -43,7 +43,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | `app/styles/site.css`, `kit.css`       | Only what the family site does not share: the personal note, Ardo shell fixes; the kit's specimen frames and the sample tool's icon                                                                                                                                                            |
 | `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite), `FamilyLinks` — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `WorkWithUs`, …) |
 | `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css` — and the optional `docs.css` for an Ardo docs layout                                                          |
-| `packages/family/icons/`, `textures/`  | The member icons (rendered, 256px, the flat SVG, the shared palette) and the three textures. Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                           |
+| `packages/family/icons/`, `textures/`  | The member icons (one rendered picture at 640, 256 and 96px) and the three textures (steel, oak, rust). Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                |
 | `design/icons/`, `design/textures/`    | Masters, prompts and build scripts for the icons and textures (ADR-0009). A new member's icon starts here                                                                                                                                                                                      |
 | `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                                                      |
 | `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                                                      |
@@ -96,7 +96,7 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   card under its own logo (`brand` in the registry), and keep their own sites.
 - A foreign logo (an application's, Sebastian Software's, Sebastian
   Consulting's) stands on a light ground in its own colors: never on steel,
-  black steel or rust, never recolored.
+  oak or rust, never recolored.
 - Claim results on the family site qualitatively, never with a figure: "among
   the fastest", "ahead of globset", "a larger test suite" are fine; factors,
   timings, percentages and test counts are not — they pretend to a precision
@@ -104,13 +104,18 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   enforces it on `evidence` and `proof`). No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
 - Design changes respect DESIGN.md and ADR-0008: three materials with one job
-  each (brushed steel for plates, black steel for the first viewport, the
-  chrome and dark bands, rust for the closing band); everything else flat;
-  small type never on a texture; sharp corners except rivets and chain links;
+  each (brushed steel for plates, dark oak under them in the first viewport
+  and the dark bands, rust for the closing band); everything else flat, the
+  dark iron chrome included; small type never on steel or rust (it goes on an inlay); sharp corners except rivets and chain links;
   one authored scheme on landing pages, no theme toggle there. A new material
   or a second prop needs a decision record.
-- Icons (ADR-0009): a member's icon is a picture in two forms, built from
-  `design/icons/`. Never show one below 24px, never edit a shipped icon file by
+- Colors come from two ramps in `tokens.css`, `--iron-50…950` (warm greys) and
+  `--rust-100…900`. Components take roles (`--bg`, `--ink`, `--rust`,
+  `--steel`, …), never a step, and a new color is a step or a role there, not
+  a literal in a stylesheet.
+- Icons (ADR-0009): a member's icon is one rendered picture at three sizes,
+  built from `design/icons/`. There is no flat or vector form. Never show one
+  below 24px, never edit a shipped icon file by
   hand, and give every new raster its provenance sidecar (`impeccable
 embed-prompt`). The Streamline material left in `design/comp/entwurf-*.html`
   and `design/archive/` keeps its terms (THIRD-PARTY-NOTICES.md).
