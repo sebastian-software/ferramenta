@@ -17,6 +17,9 @@ export function barProblems() {
   if (bar === null) return ["there is no header bar"];
   const width = document.documentElement.clientWidth;
   const phone = width < 768;
+  // A search field may take a second row on a phone: that row is the bar's bottom padding.
+  const row =
+    bar.getBoundingClientRect().height - Number.parseFloat(getComputedStyle(bar).paddingBottom);
   // What a visitor can see in the bar: not the entries of a closed flyout.
   const items = [...bar.querySelectorAll("a, summary, button")]
     .filter((element) => element.checkVisibility())
@@ -29,7 +32,7 @@ export function barProblems() {
   const overlaps = (first, second) =>
     second.box.left < first.box.right - 1 && second.box.top < first.box.bottom;
   return [
-    ...(bar.getBoundingClientRect().height > 72 ? ["the header bar wraps onto a second row"] : []),
+    ...(row > 72 ? ["the header bar wraps onto a second row"] : []),
     ...items.filter((item) => outside(item.box)).map((item) => `${item.name} leaves the gutter`),
     ...items
       .filter((item) => phone && item.box.height < 44)
@@ -51,6 +54,22 @@ export function plateProblems() {
       .filter((element) => leaves(element.getBoundingClientRect(), edge))
       .map((element) => `"${element.textContent.trim().slice(0, 40)}" leaves its plate`);
   });
+}
+
+/** Problems of a comparison: a table that scrolls out of reach, a bar or a mark without its text. */
+export function comparisonProblems() {
+  const scrolls = [...document.querySelectorAll(".fam-compare-scroll")].filter(
+    (box) => box.scrollWidth > box.clientWidth + 1,
+  );
+  const silent = (selector) =>
+    [...document.querySelectorAll(selector)].filter((element) => element.textContent.trim() === "");
+  return [
+    ...scrolls
+      .filter((box) => box.tabIndex !== 0 || !box.hasAttribute("aria-labelledby"))
+      .map(() => "a table scrolls sideways, but a keyboard cannot reach or name it"),
+    ...silent(".fam-bar-value").map(() => "a bar has no figure as text"),
+    ...silent(".fam-compare-mark").map(() => "a mark has no meaning as text"),
+  ];
 }
 
 /** Whether a `<details>` flyout is open, and whether its panel is inside the viewport. */

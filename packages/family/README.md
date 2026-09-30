@@ -197,6 +197,11 @@ The header and footer are dark iron in every scheme.
   It shows below `64rem`, where an Ardo docs layout hides its sidebar and a
   phone would otherwise have no way to the other pages; on those widths the
   bar drops the GitHub link, which the footer still carries.
+- **`site-search`** — a class, not a component: wrap your framework's search
+  field in `<div className="site-search">` inside the `actions` slot. It keeps
+  its own look and gets its room from the chrome. Below `64rem` it takes a
+  full-width row of its own under the bar; `docs.css` raises Ardo's header
+  height by that row.
 - **`FamilyLinks`** — the compact variant for a site that keeps its own chrome
   (palamedes, per decision D6): `current`, `label`, `className`.
 
@@ -269,6 +274,10 @@ from "X, continued in Rust".
 | `ApplicationsBand` | `title?`, `intro?`, `id?`, `current?` — the applications on light cards, each under its own logo and brand color (`brand` in the registry); one that runs on family engines leads and names them                                                                  |
 | `Plate`            | `as?`, `className?`, `rivets?`, `children` — a riveted steel plate. `Rivets` and `HangingTag` (`facts`) are its parts; `PlateLight` moves the one reflection with the pointer (the hero renders it)                                                               |
 | `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]` — each on a small plate                                                                                                                                                                                          |
+| `ComparisonTable`  | `caption`, `subject`, `contenders: { id, label, own? }[]`, `rows: { label, detail?, values, verdict?, behind? }[]`, `verdictLabel?`, `align?: "start" \| "end"` — the project beside the alternatives, as a real table that scrolls in its own box                |
+| `ComparisonBars`   | `caption`, `bars: { label, detail?, value, text?, own? }[]`, `max?` — one measure across the field, every bar with its figure as text                                                                                                                             |
+| `Measured`         | `on`, `machine`, `revision?`, `more?: { label, value }[]`, `children?` (the link to the full report) — where and when a figure was measured                                                                                                                       |
+| `Relations`        | `current` — where a member fits with the others, from the registry: what it runs on, pairs with, carries. Renders nothing for a member that stands alone                                                                                                          |
 | `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                                      |
 | `RunSample`        | `input`, `inputCaption`, `inputKind?`, `output` (your tool's real output as trusted HTML, a committed artifact), `outputCaption` — the tool run for real, input beside output; the output is `inert`                                                              |
 | `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                                                                                                  |
@@ -282,8 +291,9 @@ from "X, continued in Rust".
 Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
 (dark iron — one per view), `fam-btn-ghost` (an engraved outline) or
 `fam-btn-steel` (bright steel, on oak or rust), `fam-actions` for a row
-of them, `fam-plate`, `fam-intro`, `fam-note`, `fam-links`, and `fam-sr-only`
-for text only assistive technology reads. From the registry: `familyTiers()`
+of them, `fam-plate`, `fam-intro`, `fam-note`, `fam-links`, `fam-code-grid`
+(two `CodePanel`s side by side), and `fam-sr-only` for text only assistive
+technology reads. From the registry: `familyTiers()`
 (the engines and the applications), `relationsOf(tool)` (what a member runs on,
 what runs on it, what it pairs with), `WORKSHOP` (the workshop's links),
 `STATUS_MEANING` and `STATUS_ORDER` (what each stamp promises, most settled
@@ -304,6 +314,61 @@ not answer. `fetchFamilyMetrics` reads just that service; `useLiveRegistry` /
 `fetchLiveRegistry` ask crates.io and npm directly. The registry helpers
 `toolFacts`, `liveRequestFor`, `REGISTRY_ENDPOINTS`, and `relatedTools`, the
 SVG symbol list `MARK_DEFS`, and the `Count` component are exported too.
+
+## Patterns the sites share
+
+A pattern two members' pages need lives here, not in each site's stylesheet.
+Before writing a section by hand, look for it in this table; the kit at
+[ferramenta.dev/kit](https://ferramenta.dev/kit) shows every one, and its
+sample tool page and sample documentation show them at work.
+
+| A page wants to…                                    | Use                                                        |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| State a few headline figures                        | `EvidenceFigures` in a `Section layout="split"`            |
+| Stand beside the alternatives, workload by workload | `ComparisonTable align="end"` with a `verdictLabel`        |
+| Compare features or compatibility                   | `ComparisonTable` with marks (`true`, `false`, `{ mark }`) |
+| Show one measure across the field                   | `ComparisonBars`                                           |
+| Say where and when a figure was measured            | `Measured`, under the table, the bars or the figures       |
+| Say what is covered and what is not                 | `Ledger`                                                   |
+| Show the tool run for real                          | `RunSample`                                                |
+| Show two APIs, or a call and its output             | two `CodePanel`s in a `fam-code-grid`                      |
+| Say where the member fits with the others           | `Relations current="…"`                                    |
+| Carry its sections in the bar, as a menu on a phone | `site-links` in `nav`, `SiteMenu` in `actions`             |
+| Carry search in the bar                             | the host's search component inside `.site-search`          |
+| Put Ardo documentation inside the family chrome     | `docs.css` and `fam-docs-shell`                            |
+
+**Comparisons are honest or they are advertisements.** A row where the project
+is behind stays in the table and is marked `behind`. A mark that needs
+qualifying gets its words (`{ mark: "partial", note: "UTF-8 only" }`). Every
+measurement has a `Measured` under it. And figures stay on the member's own
+site: the family site never repeats one.
+
+```tsx
+<ComparisonTable
+  align="end"
+  caption="Median time per document; lower is faster."
+  subject="Document"
+  contenders={[
+    { id: "ferroni", label: "Ferroni", own: true },
+    { id: "oniguruma", label: "Oniguruma" },
+  ]}
+  rows={[
+    { label: "TypeScript", values: { ferroni: "1.26 ms", oniguruma: "3.13 ms" }, verdict: "2.5×" },
+    { label: "A slower case", values: { ferroni: "2.0 ms", oniguruma: "1.6 ms" }, verdict: "0.8×", behind: true },
+  ]}
+  verdictLabel="Factor"
+/>
+<Measured on="2026-09-23" machine="Apple M1 Pro, 32 GB, macOS 27.0" revision="2f109a75">
+  <Link to="/perf/benchmark-results">Full tables and the command to reproduce them</Link>
+</Measured>
+```
+
+The comparison components also work inside documentation (an `.mdx` page
+imports them like any component): they take the docs page's light or dark
+scheme, and their rules outrank the host's bare `table` and `ul` styles.
+`docs.css` additionally sets every documentation table in tabular figures and
+keeps a table head in its own case, so a unit such as `µs` is not capitalized
+into `MS`.
 
 ## Ardo docs sites
 
@@ -453,7 +518,7 @@ rule if it wants the iron ink.
 `chrome.css` needs `tokens.css`: every color is a token. It goes last, after
 the site's own stylesheet, so a site-wide reset cannot take the selector ties
 from the chrome — which also means it wins those ties. It owns these class
-names: `site-header`, `site-footer`, `site-links`, `site-menu`, `bar`, `wrap`, `lockup`,
+names: `site-header`, `site-footer`, `site-links`, `site-menu`, `site-search`, `bar`, `wrap`, `lockup`,
 `switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
 `flyhome`, `ghlink`, `site-nav`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
 `icon`, `fam-icon`, `fam-tile`, `fam-sr-only`. `landing.css` needs `chrome.css`
@@ -604,6 +669,10 @@ sibling site migrates in one change:
 | The family footer's "Company" column                                | "Work with us": consulting, open source, GitHub                                                  |
 | `ClosingAction` with its actions beside the copy                    | the actions sit under the copy, the link line after them                                         |
 | Your own section menu for docs on a phone                           | `SiteMenu` in the header's `actions` slot                                                        |
+| Your own wrapper and phone rules for search in the bar              | `<div className="site-search">` around the search component                                      |
+| Your own benchmark or feature tables, bars, "measured on" lines     | `ComparisonTable`, `ComparisonBars`, `Measured`                                                  |
+| A "Where it sits" section with `PipelineAssembly`                   | `<Relations current="…" />`                                                                      |
+| Your own two-column grid for code panels                            | the class `fam-code-grid`                                                                        |
 | `fam-btn-primary` in rust, chamfered                                | dark iron, square; `fam-btn-steel` on oak or rust                                                |
 | `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens | removed; see `tokens.css` for the ramps and the roles (`--steel*`, `--inlay*`, `--iron*`)        |
 

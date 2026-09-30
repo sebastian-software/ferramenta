@@ -30,6 +30,13 @@
   --ardo-layout-headerHeight: 4rem;
 }
 
+/* A header with a search field (`.site-search`) has a second row below 64rem. */
+@media (max-width: 64rem) {
+  :root:has(.site-header .site-search) {
+    --ardo-layout-headerHeight: 7.5rem;
+  }
+}
+
 .fam-docs-shell > div {
   height: auto;
   min-height: 100vh;
@@ -68,4 +75,17 @@
 /* "On this page": its sticky offset assumed a scroll container, not the page. */
 .fam-docs-shell #main-content > div > aside {
   top: calc(var(--ardo-layout-headerHeight) + var(--ardo-space-xl));
+}
+
+/* A column of measurements lines up: tabular figures in every documentation table. */
+.fam-docs-shell #main-content :where(table) {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Ardo letters a table's head in capitals. A unit must keep its case: in
+ * capitals µs reads as MS and ms as MS alike.
+ */
+.fam-docs-shell #main-content :where(th) {
+  text-transform: none;
 }

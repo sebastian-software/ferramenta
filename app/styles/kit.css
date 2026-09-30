@@ -461,22 +461,6 @@
   background-image: url("../assets/kit/ferrometro.webp");
 }
 
-.kit-code-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  align-items: start;
-  margin-top: 2rem;
-}
-.kit-code-grid .fam-code {
-  margin-top: 0;
-}
-@media (max-width: 64rem) {
-  .kit-code-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 /* The plate specimen: a plate takes its size from what it holds. */
 .kit-plate {
   width: fit-content;

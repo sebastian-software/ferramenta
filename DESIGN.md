@@ -49,6 +49,8 @@ colors:
   inlay-soft: "oklch(0.74 0.013 55)"
   inlay-line: "oklch(0.36 0.02 42)"
   oak: "oklch(0.29 0.02 44)"
+  rivet-light: "oklch(0.918 0.01 65)"
+  rivet-shade: "oklch(0.51 0.019 42)"
   code-keyword: "oklch(0.75 0.095 58)"
   code-type: "oklch(0.83 0.011 55)"
   code-function: "oklch(0.92 0.025 60)"
@@ -201,6 +203,19 @@ components:
     backgroundColor: "{colors.rust-fill}"
     textColor: "{colors.rust-fill-ink}"
     padding: "clamp(4.5rem, 9vw, 7.5rem) 0"
+  relation-chip:
+    backgroundColor: "{colors.inlay}"
+    textColor: "{colors.inlay-ink}"
+    rounded: "{rounded.none}"
+    padding: "0.375rem 0.875rem 0.375rem 0.375rem"
+  comparison-bar:
+    backgroundColor: "{colors.steel}"
+    rounded: "{rounded.none}"
+    height: "1.25rem"
+  comparison-bar-own:
+    backgroundColor: "{colors.rust}"
+    rounded: "{rounded.none}"
+    height: "1.25rem"
   code-panel:
     backgroundColor: "{colors.iron}"
     textColor: "{colors.iron-ink}"
@@ -273,6 +288,11 @@ its action; the family carries them, it does not dress them.
 **The Independent Members Rule.** No chain, no pipeline diagram, no entry point. Where two
 members fit together, the row says so in one sentence. The family site states results
 qualitatively and never repeats a figure; figures belong to each project's own page.
+
+**The Shared Pattern Rule.** A pattern two members' sites need lives in the package, not in
+each site's stylesheet, and it has a specimen in the kit. Before writing a section by hand,
+look for it in "Patterns the sites share" in
+[packages/family/README.md](packages/family/README.md).
 
 ## Colors
 
@@ -384,8 +404,11 @@ preloaded from the root route.
   section intro is 1.125rem in soft ink.
 - **Action** (700, 1.125rem, tracking 0.1em, uppercase): buttons, the catalog's go-link, the
   workshop's link lines.
+- **Figure in a row** (700, 1.25rem, tracking 0.02em, tabular figures): a comparison's verdict
+  and a bar's value. The large figure of an evidence plate is `clamp(3rem, 6vw, 4.5rem)`.
 - **Label** (600, 0.75rem to 0.875rem, tracking 0.14 to 0.16em, uppercase): a fact's label, a
-  stamp (700, 0.8125rem), a flyout group, a footer column head.
+  stamp (700, 0.8125rem), a flyout group, a footer column head, the head of a comparison
+  table.
 - **Mono** (system mono, 0.8125rem to 0.9375rem): code, commands, file names, a release
   number (tabular figures, so a live value never shifts the line).
 
@@ -425,10 +448,13 @@ the dark iron footer.
   column sits beside it with a 3.5rem gap. The facts share one set of columns down the page.
 - **Applications.** One column; from 64rem the leading card takes 1.75fr beside 1fr.
 - **Split section.** Heading column beside content (1fr / 1.6fr), stacking below 64rem.
-- **Breakpoints in use:** 22rem, 46rem, 48rem, 54rem, 60rem, 64rem. 64rem is the main one:
-  below it columns stack and a docs section menu appears in the bar.
+- **Code grid** (`fam-code-grid`). Two code panels side by side with a 1.5rem gap: two APIs,
+  or a call and what it prints. One column below 64rem.
+- **Breakpoints in use:** 22rem, 40rem, 46rem, 48rem, 54rem, 60rem, 64rem. 64rem is the main
+  one: below it columns stack, a docs section menu appears in the bar, and a search field
+  moves to a second row under the bar.
 
-The page never scrolls sideways (`overflow-x: clip` on `.fam-page`); wide content scrolls in
+The page never scrolls sideways (`overflow-x: clip` on `.fam-page`); wide content, a comparison table included, scrolls in
 its own box. Interactive targets are at least 44px tall in the bar and the link lines.
 
 ### Named Rules
@@ -448,7 +474,7 @@ See the Gotchas in [AGENTS.md](AGENTS.md).
 ## Elevation & Depth
 
 Depth belongs to the steel. The flat parts of a page (sections, rows, ledgers, application
-cards, the code panel, the chrome) carry no shadow and are parted by hairlines and ground
+cards, comparisons, the code panel, the chrome) carry no shadow and are parted by hairlines and ground
 changes. A plate is a physical sheet lying on the bench: a lit top and left edge, a shaded
 bottom and right edge, and a short cast shadow beneath it. An inlay is pressed into the steel.
 A flyout floats under the bar.
@@ -458,8 +484,8 @@ A flyout floats under the bar.
 - **Plate** (`inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55)`):
   every plate, large or small.
 - **Rivet** (`0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28)`): the four corner
-  rivets, 0.75rem across, 0.75rem in from each edge, shaded from white through iron-100 and
-  iron-400 to iron-600.
+  rivets, 0.75rem across, 0.75rem in from each edge, shaded from white through `rivet-light`
+  (iron-100) and `steel` to `rivet-shade` (iron-600).
 - **Inlay** (`inset 0 2px 4px rgb(0 0 0 / 0.6)`, plus `0 1px 0 rgb(255 255 255 / 0.3)` for the
   install line): small facts pressed into a plate.
 - **Object on a plate** (`drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28))`):
@@ -492,7 +518,7 @@ like a card; an application's card is parted from the oak by its ground and its 
 
 Corners are sharp: every surface, button, stamp, card, panel and tile has a zero radius. Line
 icons are drawn with square caps and miter joins at a 1.5 stroke on a 24 grid. Borders are
-hairlines (1px), the heavy rule over a principle (3px), the brand rule over an application's
+hairlines (1px), the heavy rule over a principle, a comparison table or a set of bars (3px), the brand rule over an application's
 card (4px), and the engraved outline of a ghost action or an outlined stamp (1.5px).
 
 **The Round-in-the-World Rule.** Only what is round in the world is round: rivets (50%) and
@@ -585,10 +611,54 @@ line it promises, from the registry.
 For a member's own page. An evidence figure is a small plate: the figure large
 (`clamp(3rem, 6vw, 4.5rem)`), its label under it, and what it was measured on in an inlay; the
 family site never shows one. The code panel is flat dark iron, without texture: a mono
-caption over a hairline, code at 0.875rem, scrolling in its own focusable box. A run sample
+caption over a hairline, code at 0.875rem, scrolling in its own focusable box; two panels
+stand side by side in a `fam-code-grid`. A run sample
 sets the input panel, an arrow in rust, and the tool's real output on a ruled sheet of the
 page ground; below 54rem the input folds into a bar. A ledger is hairline rows of name, stamp
 and sentence. The closing action is flat: headline, copy, one action, a mono link line.
+
+### Comparisons (`ComparisonTable`, `ComparisonBars`, `Measured`)
+
+For a member's own page and its documentation; the family site shows none. All three are flat:
+no plate, no texture, no shadow. They take their colors from roles only, so inside
+documentation they follow the docs scheme, and inside an `on-iron` band their ink, lines and
+the own-color move to the dark set (`ember` for the project). On oak their small type takes
+the full `iron-ink`, not the soft one: it stands on a texture there.
+
+- **Table.** One row per workload or feature, one column per contender, under a caption
+  (0.9375rem, soft ink) that says what is compared and which way is better. The head is
+  lettered like a plate's labels (display 600, 0.8125rem, tracking 0.14em, uppercase) under a
+  3px heavy rule; rows are parted by hairlines; cells are 0.9375rem in soft ink with tabular
+  figures. The project's own column is set apart: a rust rule over its head, its cells in full
+  ink at weight 600 on a tint of rust at 8%. `align="end"` sets measurements flush right and
+  unbroken. The optional verdict column is the row's figure, in the display face and in rust
+  where the project leads; a row marked `behind` sets its verdict in soft ink. It is a real
+  table, and it scrolls sideways in its own focusable box, never the page.
+- **Marks.** Yes, partial and no are the line icons check, half and cross at 18px: the check in
+  the own-color, the half in ink, the cross in the cell's soft ink. Each mark's meaning is also
+  there as text for assistive technology, a mark that needs qualifying carries its words
+  beside it ("UTF-8 only"), and a missing cell is a dash.
+- **Bars.** One measure in one unit: label, bar, figure on one set of columns, so every bar
+  starts on the same line, under a 3px heavy rule with hairlines between rows. Bars are flat,
+  1.25rem tall; the project's own bar is rust, the others `steel` (the flat color, not the
+  texture). Every bar carries its figure as text; the bar itself is for the eye only. Below
+  40rem the label takes its own line above the bar.
+- **Measured.** Where a figure comes from: when, on which machine, at which revision, and the
+  way to reproduce it. The same quiet facts as under a catalog row: labels in the label style
+  at 0.75rem, values at 0.875rem, over a hairline.
+
+**The Honest Comparison Rule.** A comparison shows the rows where the project is behind, and
+marks them. A mark that needs qualifying gets its words. Every measurement has its provenance
+under it. Figures stay on the member's own site; the kit's specimens use invented contenders
+and invented figures.
+
+### Relations (`Relations`)
+
+Where a member fits with the others, from the registry, on the member's own page: chips
+grouped under "Runs on", "Pairs with" and "Carries" in the label style. A chip is the chip of
+the applications band made a link: the small icon on a steel tile, name and job on an inlay,
+with a 1px `inlay-line` edge that turns `ember` on hover. It names where two members fit
+together and never draws a chain; a member that stands alone renders nothing.
 
 ### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`, `FamilyLinks`)
 
@@ -596,6 +666,9 @@ and sentence. The closing action is flat: headline, copy, one action, a mono lin
   lockup is the small icon on a steel tile and the uppercase wordmark (1.5rem, tracking
   0.08em). A site's own links are label-style display type in `iron-soft`, turning `iron-ink`
   on hover or when current. On a phone the links give way first; one may be kept.
+- **Search** (`site-search`): the host's own search component in the header's actions slot. It
+  keeps its look; the chrome gives it its room (10 to 16rem wide). Below 64rem it takes a
+  full-width second row under the bar, which grows to 7.5rem, rather than disappearing.
 - **Switcher:** a dark iron flyout listing the engines, then the applications, each tier under
   a label; every entry is a tile icon, name and short job; hover is `iron-2` with `ember`
   text. On a member's site the trigger shows the family's name inside a hairline and the
@@ -603,7 +676,8 @@ and sentence. The closing action is flat: headline, copy, one action, a mono lin
 - **Footer:** flat dark iron. Lockup and one sentence, then the engines, the applications, and
   "Work with us" in display type with jobs in soft body text; a legal line over a hairline.
 - **Docs shell** (`docs.css`): Ardo's documentation layout under the family bar, in the family's
-  colors (`theme.css`), with a theme toggle in the bar. The toggle exists only there.
+  colors (`theme.css`), with a theme toggle in the bar. The toggle exists only there. Every documentation table is
+  set in tabular figures, and a table head keeps its own case, so a unit is never capitalized.
 
 ### Icons (`Icon`, `Mark`)
 
@@ -612,8 +686,9 @@ Each member is one object, shown as the same rendered picture at three sizes
 viewport, `rendered` (256px) on a catalog plate, and `small` (96px, the default), shown at 24
 to 48px in the header, the switcher, the footer, a list or a chip. On a dark ground the small
 icon sits on a steel tile, because a dark object on dark iron has no outline. There is no
-vector form. Applications keep their own logos. The chrome's line icons (chevron, arrow,
-GitHub, crate, adapter, external, package) come from one SVG sprite. The textures' sources and
+vector form. Applications keep their own logos. The line icons (chevron, arrow,
+GitHub, crate, adapter, external, package, and a comparison's marks check, half and cross)
+come from one SVG sprite. The textures' sources and
 what each gave up to be a ground for text are in
 [design/textures/README.md](design/textures/README.md).
 
@@ -638,7 +713,11 @@ what each gave up to be a ground for text are in
 - **Do** put a small member icon on a steel tile when the ground is dark.
 - **Do** state what is proven in words on the family site, and leave figures to each project's
   own page.
-- **Do** say how two members fit together in one sentence in the row.
+- **Do** say how two members fit together in one sentence in the row, or as chips under
+  "Runs on", "Pairs with" and "Carries" on a member's page.
+- **Do** put a pattern two members' sites need into the package, with a specimen in the kit.
+- **Do** keep the rows where the project is behind in a comparison, and put a `Measured` under
+  every measurement.
 - **Do** honor reduced motion: the light stands still and the tag does not sway.
 
 ### Don't:
@@ -659,5 +738,7 @@ what each gave up to be a ground for text are in
 - **Don't** stamp a maturity rating on an engine's plate on the family page.
 - **Don't** draw the members as a chain or a pipeline, or imply an entry point.
 - **Don't** repeat a factor, timing, percentage or test count on the family site.
+- **Don't** put a comparison on a plate or a texture, or state a mark by color alone.
+- **Don't** use a real member's figures or a real contender's name in a kit specimen.
 - **Don't** dress an application in the family look, or an engine in a brand of its own.
 - **Don't** pair an oak band directly under the hero when a light section can go there.

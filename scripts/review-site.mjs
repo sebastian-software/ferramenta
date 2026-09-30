@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { launchBrowser } from "./lib/browser.mjs";
 import {
   barProblems,
+  comparisonProblems,
   flyoutState,
   focused,
   motion,
@@ -34,6 +35,7 @@ const PAGES = [
   { name: "kit", path: "/kit/" },
   { name: "kit-tool", path: "/kit/tool/" },
   { name: "kit-docs", path: "/kit/docs/getting-started/" },
+  { name: "kit-docs-benchmarks", path: "/kit/docs/benchmarks/" },
 ];
 /** Phones from the narrowest still in use, a tablet, and desktops up to a wide one. */
 const WIDTHS = [320, 360, 390, 768, 1024, 1280, 1440, 1920];
@@ -75,7 +77,8 @@ async function reviewLayout(page, { name, url, width }) {
   const scroll = await page.evaluate(call(sidewaysScroll));
   const inBar = await page.evaluate(call(barProblems));
   const onPlates = await page.evaluate(call(plateProblems));
-  const problems = [...inBar, ...onPlates];
+  const inComparisons = await page.evaluate(call(comparisonProblems));
+  const problems = [...inBar, ...onPlates, ...inComparisons];
   expect(scroll === 0, `${name} at ${width}px: the page scrolls sideways by ${scroll}px`);
   expect(problems.length === 0, `${name} at ${width}px: ${problems.join("; ")}`);
   await save(`${name}-${width}`, await page.screenshot({ fullPage: true }));

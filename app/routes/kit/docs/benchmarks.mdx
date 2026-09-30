@@ -1,0 +1,69 @@
+---
+order: 3
+title: Benchmarks
+description: A sample documentation page of the Ferramenta kit, for an invented family member.
+sitemap: false
+llms: false
+---
+
+import { ComparisonBars, ComparisonTable, Measured } from "ferramenta-family";
+
+import {
+  SAMPLE_BARS,
+  SAMPLE_CONTENDERS,
+  SAMPLE_FEATURES,
+  SAMPLE_MEASURED,
+  SAMPLE_TIMINGS,
+} from "../../../kit/sample-comparison";
+
+export const meta = () => [{ title: "Benchmarks — Ferrometro, a sample of the Ferramenta kit" }];
+
+# Benchmarks
+
+> **A sample page.** Ferrometro is invented, and so is every figure below: the
+> page shows how a member's documentation lays out a comparison.
+> [Back to the kit](/kit)
+
+A member's documentation states its measurements in full: every workload, the
+rows where it is behind, and what it takes to reproduce them. The same
+components carry the short version on the home page.
+
+## Against the alternatives
+
+<ComparisonTable
+  align="end"
+  caption="Median time per operation; lower is faster. The factor is the quickest alternative's time over Ferrometro's."
+  subject="Workload"
+  contenders={SAMPLE_CONTENDERS}
+  rows={SAMPLE_TIMINGS}
+  verdictLabel="Factor"
+/>
+
+<Measured {...SAMPLE_MEASURED} />
+
+## Throughput
+
+<ComparisonBars
+  caption="Parsing a corpus · thousand quantities per second · higher is faster"
+  bars={SAMPLE_BARS}
+/>
+
+## What each one covers
+
+<ComparisonTable
+  caption="Support as documented by each project."
+  subject="Feature"
+  contenders={SAMPLE_CONTENDERS}
+  rows={SAMPLE_FEATURES}
+/>
+
+## Raw numbers
+
+A plain Markdown table keeps the documentation's own look. Its figures are
+tabular, so a column of numbers lines up.
+
+| Run | Parse (µs) | Convert (µs) |
+| --- | ---------: | -----------: |
+| 1   |       1.02 |         0.21 |
+| 2   |       0.98 |         0.19 |
+| 3   |       1.00 |         0.20 |

@@ -12,6 +12,7 @@ export const SAMPLE = {
   what: "A units-of-measure engine in memory-safe Rust.",
   home: "/kit/tool",
   docs: "/kit/docs/getting-started",
+  benchmarks: "/kit/docs/benchmarks",
   install: "cargo add ferrometro",
 } as const;
 
@@ -19,6 +20,7 @@ export const SAMPLE = {
 export const SAMPLE_DOCS = [
   { label: "Getting started", to: "/kit/docs/getting-started" },
   { label: "Configuration", to: "/kit/docs/configuration" },
+  { label: "Benchmarks", to: "/kit/docs/benchmarks" },
 ] as const;
 
 /** True for the pages that show the invented tool's own site. */

@@ -1,4 +1,18 @@
 export { CodePanel, type CodePanelProps } from "./CodePanel.js";
+export {
+  type ComparisonBar,
+  ComparisonBars,
+  type ComparisonBarsProps,
+  type ComparisonCell,
+  type ComparisonMark,
+  type ComparisonRow,
+  ComparisonTable,
+  type ComparisonTableProps,
+  type Contender,
+  Measured,
+  type MeasuredProps,
+  type MeasuredRow,
+} from "./Comparison.js";
 export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
 /**
  * The full entry: the registry, the chrome, and the landing kit. It imports nothing but React —
@@ -78,6 +92,7 @@ export {
   type RegistryFactsProps,
   useToolFacts,
 } from "./RegistryFacts.js";
+export { Relations, type RelationsProps } from "./Relations.js";
 export { RepoNote } from "./RepoNote.js";
 export { RunSample, type RunSampleProps } from "./RunSample.js";
 export { SiteFooter, type SiteFooterProps } from "./SiteFooter.js";

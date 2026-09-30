@@ -31,7 +31,7 @@
   padding-inline: clamp(1rem, 4vw, 3rem);
 }
 
-/* The line icons of the sprite: chevron, arrow, GitHub, crate, adapter, external, package. */
+/* The line icons of the sprite: chevron, arrow, GitHub, crate, adapter, external, package, and a comparison's marks. */
 .icon {
   flex: none;
   stroke: currentColor;
@@ -363,6 +363,21 @@ details.site-menu {
 .site-menu-flyout a[aria-current="page"] {
   background: var(--iron-2);
   color: var(--ember);
+}
+
+/*
+ * A site's search field in the header's `actions` slot: wrap the host's own
+ * search component in `.site-search`. The component keeps its look; the chrome
+ * gives it its room. Below 64rem it drops to a full-width second row under
+ * the bar rather than disappearing: documentation without search is the worse
+ * trade. `docs.css` raises Ardo's header height by that row.
+ */
+.site-search {
+  width: clamp(10rem, 18vw, 16rem);
+}
+
+.site-search input {
+  width: 100%;
 }
 
 @media (max-width: 64rem) {
@@ -749,6 +764,27 @@ details.site-menu {
 
   .site-header:has(.site-menu) nav.site-nav {
     gap: 0;
+  }
+}
+
+/*
+ * The search row under the bar, from the width where a docs site's section
+ * menu replaces its links: the bar's first row keeps its 4rem and its items.
+ */
+@media (max-width: 64rem) {
+  .site-header:has(.site-search) .bar {
+    box-sizing: border-box;
+    min-height: 7.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* The bar is the `.wrap` itself, so the row keeps the wrap's gutter by hand. */
+  .site-search {
+    position: absolute;
+    right: clamp(1rem, 4vw, 3rem);
+    bottom: 0.5rem;
+    left: clamp(1rem, 4vw, 3rem);
+    width: auto;
   }
 }
 

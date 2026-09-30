@@ -5,6 +5,7 @@ import { type RouteConfig, route, index } from "@react-router/dev/routes"
 export default [
   index("routes/home.tsx"),
   route("kit", "routes/kit/index.tsx"),
+  route("kit/docs/benchmarks", "routes/kit/docs/benchmarks.mdx"),
   route("kit/docs/configuration", "routes/kit/docs/configuration.mdx"),
   route("kit/docs/getting-started", "routes/kit/docs/getting-started.mdx"),
   route("kit/tool", "routes/kit/tool.tsx"),

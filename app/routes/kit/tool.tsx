@@ -3,9 +3,12 @@ import type { MetaFunction } from "react-router";
 import {
   ClosingAction,
   CodePanel,
+  ComparisonBars,
+  ComparisonTable,
   EvidenceFigures,
   Ledger,
   Mark,
+  Measured,
   Principles,
   ProjectHero,
   Section,
@@ -15,6 +18,12 @@ import {
 import { Link } from "react-router";
 
 import { SAMPLE } from "../../kit/sample";
+import {
+  SAMPLE_BARS,
+  SAMPLE_CONTENDERS,
+  SAMPLE_FEATURES,
+  SAMPLE_MEASURED,
+} from "../../kit/sample-comparison";
 import { SampleNote } from "../../kit/SampleNote";
 
 /** A landing page: Ardo lays it out bare, without the docs sidebar. */
@@ -82,7 +91,7 @@ function Sample() {
       title="A quantity, parsed"
       intro="Parse a quantity, convert it, and let the engine refuse what does not add up."
     >
-      <div className="kit-code-grid">
+      <div className="fam-code-grid">
         <CodePanel caption="main.rs">
           <span className="kw">use</span> <span className="ty">ferrometro</span>::
           <span className="ty">Quantity</span>;{"\n\n"}
@@ -109,6 +118,32 @@ function Sample() {
         </CodePanel>
         <CodePanel caption="stdout">3687.81 [lbf_av].[ft_i]</CodePanel>
       </div>
+    </Section>
+  );
+}
+
+/** The tool beside the alternatives: one measure as bars, then what each one covers. */
+function Alternatives() {
+  return (
+    <Section
+      id="alternatives"
+      title="Beside the alternatives"
+      intro="Where it leads and where it does not, with the measurement's provenance under the figures."
+      tone="dim"
+    >
+      <ComparisonBars
+        caption="Parsing a corpus · thousand quantities per second · higher is faster"
+        bars={SAMPLE_BARS}
+      />
+      <Measured {...SAMPLE_MEASURED}>
+        <Link to={SAMPLE.benchmarks}>The full report, in the documentation</Link>
+      </Measured>
+      <ComparisonTable
+        caption="Support as documented by each project."
+        subject="Feature"
+        contenders={SAMPLE_CONTENDERS}
+        rows={SAMPLE_FEATURES}
+      />
     </Section>
   );
 }
@@ -166,6 +201,7 @@ export default function SampleToolPage() {
       </Section>
 
       <Sample />
+      <Alternatives />
 
       <Section
         id="coverage"
