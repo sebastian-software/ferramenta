@@ -138,6 +138,12 @@ function Workshop() {
  */
 const VOICES = [
   {
+    quote: "…Oxc, the JavaScript language toolchain written in Rust that powers all of our tools.",
+    who: "Evan You",
+    where: "on what Vite, Vitest and Rolldown run on · voidzero.dev, June 2026",
+    href: "https://voidzero.dev/posts/voidzero-cloudflare",
+  },
+  {
     quote: "…as damn near straight to the metal as you can get while still being portable.",
     who: "David Heinemeier Hansson",
     where: "on HEY's mail server, now in Rust · Rails World 2026 keynote",
@@ -173,6 +179,13 @@ function Story() {
             Much of that infrastructure was written decades ago, in C or across several languages.
             Most of what we build is its next generation: the same contracts, designed the way
             you&rsquo;d design them for Rust today.
+          </p>
+          <p>
+            The web&rsquo;s own toolchain has gone the same way, and we stand on the shoulders of
+            the people who took it there: esbuild and SWC first, and now Vite bundles with Rolldown
+            and parses, lints and formats with Oxc, all of it Rust. This site is linted and
+            formatted by them. Ferramenta is our part of that move: the engines under the tools, in
+            the language the tools themselves moved to.
           </p>
         </div>
       </div>
