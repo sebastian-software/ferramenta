@@ -30,9 +30,13 @@ shown as the rendered picture everywhere, at three sizes:
 
 The small icon stands directly on the dark iron of the chrome. A steel tile
 under it was tried and dropped: the frame made the object smaller and put a
-bright patch in the dark bar, and every object carries enough light of its own
-to read there. The applications' logos are foreign brands drawn for a light
-ground, so the switcher's applications tier is light.
+bright patch in the dark bar. The objects were rendered for the plate's steel,
+so on the iron their blackened bodies lose their edge; the small file is
+therefore built lit for the iron: its shadows lifted a step and a hair of light
+laid around its silhouette (`design/icons/build-icons.sh`). The same file reads
+on a light ground, so there is one small file, not two. The applications'
+logos are foreign brands drawn for a light ground, so the switcher's
+applications tier is light.
 
 The objects: ferramenta, a toolbox · ferroni, an anvil with a hammer · ferriki,
 a flame in a fire pot · ferromark, a hand stamp · ferrolex, letterpress type ·

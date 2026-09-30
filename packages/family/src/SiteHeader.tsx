@@ -98,7 +98,7 @@ export function SiteHeader({
     <Root className="site-header">
       <div className="wrap bar">
         <a className="lockup" href={href}>
-          <Icon name={name} size={40} />
+          <Icon name={name} size={48} />
           <span>{name}</span>
         </a>
         {nav}

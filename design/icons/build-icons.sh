@@ -3,6 +3,10 @@
 # margin trimmed to the object, the object centered on a square with a little
 # air, then three sizes: 640px for a hero plate, 256px for a catalog plate,
 # and 96px for every small place (the header, a list; shown at 24 to 48px).
+# The small one is lit for the dark iron it mostly stands on: the objects were
+# rendered for the plate's steel, and on the iron their blackened bodies lose
+# their edge. So its shadows are lifted a step and a hair of light is laid
+# around its silhouette. On a light ground the same file reads as rendered.
 # Run from the repository root: sh design/icons/build-icons.sh
 # ICON_MASTERS and ICON_OUT point it at another pair of directories, for an
 # icon that is not a family member's (the kit's sample tool).
@@ -16,7 +20,12 @@ for src in "$masters"/*.webp; do
     -write mpr:object +delete \
     \( mpr:object -resize 640x640 -quality 86 -define webp:method=6 -define webp:alpha-quality=95 -write "$out/$name.webp" +delete \) \
     \( mpr:object -resize 256x256 -quality 86 -define webp:method=6 -define webp:alpha-quality=95 -write "$out/$name-256.webp" +delete \) \
-    \( mpr:object -resize 96x96 -unsharp 0x0.6+0.6+0.02 -quality 90 -define webp:method=6 -define webp:alpha-quality=100 -write "$out/$name-96.webp" +delete \) \
+    \( mpr:object -resize 96x96 -unsharp 0x0.6+0.6+0.02 \
+       -channel RGB -gamma 1.35 -modulate 104,106,100 +channel -write mpr:lit +delete \) \
+    \( mpr:lit -alpha extract -morphology Dilate Disk:1 -blur 0x0.5 -evaluate multiply 0.5 -write mpr:rim +delete \) \
+    \( -size 96x96 xc:'#e9e3dd' mpr:rim -alpha off -compose CopyOpacity -composite \
+       mpr:lit -compose Over -composite \
+       -quality 90 -define webp:method=6 -define webp:alpha-quality=100 -write "$out/$name-96.webp" +delete \) \
     null:
 done
 

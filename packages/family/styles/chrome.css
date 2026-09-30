@@ -737,7 +737,7 @@ details.site-menu {
 
   /* The lockup's icon shrinks with its wordmark. */
   .lockup > .fam-icon {
-    inline-size: 32px;
+    inline-size: 36px;
   }
 
   nav.site-nav {

@@ -76,8 +76,9 @@ export function IconSheet() {
     >
       <Caption name="<Icon name form />">
         The small form holds from 24 pixels up. Below that every one of these objects is a smudge,
-        so nothing in the family shows an icon smaller. It stands directly on the dark iron: every
-        object carries enough light of its own.
+        so nothing in the family shows an icon smaller. The small file is lit for the dark iron it
+        mostly stands on, a step brighter and rimmed with a hair of light, and reads on a light
+        ground all the same.
       </Caption>
       <div className="wrap">
         <ul className="kit-icons">
