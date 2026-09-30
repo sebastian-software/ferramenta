@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-30T14:31:22.951Z",
+  "generatedAt": "2026-09-30T15:40:25.311Z",
   "title": "Design System: Ferramenta",
   "extensions": {
     "colorMeta": {
@@ -736,6 +736,38 @@
         ],
         "step": "iron-900"
       },
+      "rivet-light": {
+        "role": "neutral",
+        "displayName": "Rivet: Lit Side",
+        "canonical": "oklch(0.918 0.01 65)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-100"
+      },
+      "rivet-shade": {
+        "role": "neutral",
+        "displayName": "Rivet: Shaded Side",
+        "canonical": "oklch(0.51 0.019 42)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-600"
+      },
       "code-keyword": {
         "role": "neutral",
         "displayName": "Code: Keyword",
@@ -944,6 +976,10 @@
         "value": "22rem"
       },
       {
+        "name": "comparison",
+        "value": "40rem"
+      },
+      {
         "name": "phone",
         "value": "46rem"
       },
@@ -972,7 +1008,7 @@
       "refersTo": "plate",
       "description": "The family's one prop: riveted brushed steel that says what a thing is. On the family page a name plate carries no stamp. Shown here on the color under the texture; the package lays steel.webp and the moving reflection over it.",
       "html": "<div class=\"ds-plate\"><i class=\"ds-rivet ds-rivet-tl\"></i><i class=\"ds-rivet ds-rivet-tr\"></i><i class=\"ds-rivet ds-rivet-br\"></i><i class=\"ds-rivet ds-rivet-bl\"></i><b class=\"ds-plate-name\">Ferroni</b><span class=\"ds-plate-what\">A regex engine</span></div>",
-      "css": ".ds-plate { position: relative; display: grid; width: fit-content; padding: 1.75rem 3rem 1.5rem 2.75rem; color: var(--steel-ink); background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-plate-name { font: 700 2.125rem/1 var(--display), var(--body); letter-spacing: 0.035em; text-transform: uppercase; } .ds-plate-what { margin-top: 0.3125rem; font: 600 1.125rem/1.15 var(--display), var(--body); letter-spacing: 0.02em; } .ds-rivet { position: absolute; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #fff 0, var(--iron-100) 22%, var(--iron-400) 58%, var(--iron-600) 100%); box-shadow: 0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28); } .ds-rivet-tl { top: 0.75rem; left: 0.75rem; } .ds-rivet-tr { top: 0.75rem; right: 0.75rem; } .ds-rivet-br { right: 0.75rem; bottom: 0.75rem; } .ds-rivet-bl { bottom: 0.75rem; left: 0.75rem; }"
+      "css": ".ds-plate { position: relative; display: grid; width: fit-content; padding: 1.75rem 3rem 1.5rem 2.75rem; color: var(--steel-ink); background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-plate-name { font: 700 2.125rem/1 var(--display), var(--body); letter-spacing: 0.035em; text-transform: uppercase; } .ds-plate-what { margin-top: 0.3125rem; font: 600 1.125rem/1.15 var(--display), var(--body); letter-spacing: 0.02em; } .ds-rivet { position: absolute; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #fff 0, var(--rivet-light) 22%, var(--steel) 58%, var(--rivet-shade) 100%); box-shadow: 0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28); } .ds-rivet-tl { top: 0.75rem; left: 0.75rem; } .ds-rivet-tr { top: 0.75rem; right: 0.75rem; } .ds-rivet-br { right: 0.75rem; bottom: 0.75rem; } .ds-rivet-bl { bottom: 0.75rem; left: 0.75rem; }"
     },
     {
       "name": "Hanging Tag",
@@ -980,7 +1016,7 @@
       "refersTo": "hanging-tag-cell",
       "description": "The measured facts, second: inlay cells in a narrow steel frame, hung from the plate by two chain links.",
       "html": "<div class=\"ds-hanger\"><i class=\"ds-link ds-link-left\"></i><i class=\"ds-link ds-link-right\"></i><dl class=\"ds-tag\"><div><dt>Succeeds</dt><dd>Oniguruma</dd></div><div><dt>Made by</dt><dd>Sebastian Software</dd></div></dl></div>",
-      "css": ".ds-hanger { position: relative; width: fit-content; margin-top: 1.75rem; } .ds-link { position: absolute; top: -1.75rem; z-index: 2; width: 0.625rem; height: 2.5rem; border: 2.5px solid var(--iron-300); border-radius: 0.3125rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(0 0 0 / 0.3); } .ds-link-left { left: 1.5rem; } .ds-link-right { right: 1.5rem; } .ds-tag { display: flex; margin: 0; padding: 0.3125rem; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-tag > div { padding: 0.75rem 1.25rem 0.6875rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 1px 0 0 var(--inlay-line); } .ds-tag > div:first-child { padding-left: 2.75rem; box-shadow: none; } .ds-tag > div:last-child { padding-right: 2.75rem; } .ds-tag dt { font: 600 0.75rem/1 var(--display), var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--inlay-soft); } .ds-tag dd { margin: 0.3125rem 0 0; font: 600 1.0625rem/1.2 var(--display), var(--body); letter-spacing: 0.025em; }"
+      "css": ".ds-hanger { position: relative; width: fit-content; margin-top: 1.75rem; } .ds-link { position: absolute; top: -1.75rem; z-index: 2; width: 0.625rem; height: 2.5rem; border: 2.5px solid var(--iron-soft); border-radius: 0.3125rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(0 0 0 / 0.3); } .ds-link-left { left: 1.5rem; } .ds-link-right { right: 1.5rem; } .ds-tag { display: flex; margin: 0; padding: 0.3125rem; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-tag > div { padding: 0.75rem 1.25rem 0.6875rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 1px 0 0 var(--inlay-line); } .ds-tag > div:first-child { padding-left: 2.75rem; box-shadow: none; } .ds-tag > div:last-child { padding-right: 2.75rem; } .ds-tag dt { font: 600 0.75rem/1 var(--display), var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--inlay-soft); } .ds-tag dd { margin: 0.3125rem 0 0; font: 600 1.0625rem/1.2 var(--display), var(--body); letter-spacing: 0.025em; }"
     },
     {
       "name": "Primary Button",
@@ -1039,6 +1075,29 @@
       "css": ".ds-app { display: grid; gap: 0.5rem; max-width: 28rem; padding: 1.75rem; background: var(--bg); color: var(--ink); box-shadow: inset 0 4px 0 var(--ds-app-color); font-family: var(--body); } .ds-app h3 { margin: 0; font-size: 2rem; line-height: 1.1; letter-spacing: -0.01em; } .ds-app-job { margin: 0; font-size: 1.1875rem; font-weight: 600; color: var(--ink-soft); } .ds-app-go { display: inline-flex; align-items: center; gap: 0.5rem; justify-self: start; min-height: 3rem; margin-top: 1.25rem; padding: 0 1.25rem; background: var(--ds-app-color); color: var(--ds-app-on-color); font-weight: 700; text-decoration: none; } .ds-app-go:focus-visible { outline: 2px solid var(--ds-app-color); outline-offset: 3px; } .ds-arrow { flex: none; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); } a:hover > .ds-arrow { transform: translateX(4px); }"
     },
     {
+      "name": "Comparison Table",
+      "kind": "custom",
+      "description": "Contenders as columns, flat on the ground: the project's own column under a rust rule on a faint tint, the verdict in the display face, a row where the project is behind in soft ink. Invented contenders and figures.",
+      "html": "<figure class=\"ds-compare\"><figcaption>Median time per operation; lower is faster.</figcaption><div class=\"ds-compare-scroll\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Workload</th><th scope=\"col\" data-own>Ferrometro</th><th scope=\"col\">Library A</th><th scope=\"col\">Factor</th></tr></thead><tbody><tr><th scope=\"row\">Parse a quantity</th><td data-own>1.0 µs</td><td>2.4 µs</td><td class=\"ds-verdict\">2.4×</td></tr><tr data-behind><th scope=\"row\">Convert a temperature</th><td data-own>0.5 µs</td><td>0.4 µs</td><td class=\"ds-verdict\">0.8×</td></tr></tbody></table></div></figure>",
+      "css": ".ds-compare { margin: 0; font-family: var(--body); } .ds-compare figcaption { margin-bottom: 1rem; color: var(--ink-soft); font-size: 0.9375rem; line-height: 1.5; } .ds-compare-scroll { overflow-x: auto; } .ds-compare-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; } .ds-compare table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.4; font-variant-numeric: tabular-nums; } .ds-compare th, .ds-compare td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-weight: 400; text-align: end; white-space: nowrap; } .ds-compare thead th { border-top: 3px solid var(--line-heavy); color: var(--ink); font: 600 0.8125rem/1.2 var(--display), var(--body); letter-spacing: 0.14em; text-transform: uppercase; } .ds-compare th:first-child { padding-left: 0; text-align: start; } .ds-compare tbody th { color: var(--ink); font-weight: 600; } .ds-compare [data-own] { background: color-mix(in oklch, var(--rust) 8%, transparent); color: var(--ink); font-weight: 600; } .ds-compare thead [data-own] { border-top-color: var(--rust); } .ds-compare .ds-verdict { color: var(--rust); font: 700 1.25rem/1 var(--display), var(--body); letter-spacing: 0.02em; } .ds-compare [data-behind] .ds-verdict { color: var(--ink-soft); }"
+    },
+    {
+      "name": "Comparison Bars",
+      "kind": "custom",
+      "refersTo": "comparison-bar",
+      "description": "One measure across the field: flat bars from a common baseline, the project's own in rust, the others in steel, every figure as text. Invented contenders and figures.",
+      "html": "<figure class=\"ds-bars\"><figcaption>Parsing a corpus · thousand quantities per second · higher is faster</figcaption><ul><li data-own style=\"--ds-bar: 100%\"><b>Ferrometro</b><span class=\"ds-track\"></span><span class=\"ds-value\">840</span></li><li style=\"--ds-bar: 41.67%\"><b>Library A</b><span class=\"ds-track\"></span><span class=\"ds-value\">350</span></li><li style=\"--ds-bar: 10.71%\"><b>Library C</b><span class=\"ds-track\"></span><span class=\"ds-value\">90</span></li></ul></figure>",
+      "css": ".ds-bars { margin: 0; font-family: var(--body); } .ds-bars figcaption { margin-bottom: 1rem; color: var(--ink-soft); font-size: 0.9375rem; line-height: 1.5; } .ds-bars ul { display: grid; grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr) max-content; column-gap: 1.25rem; margin: 0; padding: 0; border-top: 3px solid var(--line-heavy); list-style: none; } .ds-bars li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--line); } .ds-bars b { color: var(--ink); font-size: 0.9375rem; font-weight: 600; } .ds-track { display: block; height: 1.25rem; background: linear-gradient(var(--steel), var(--steel)) left / var(--ds-bar, 0%) 100% no-repeat; } .ds-bars [data-own] .ds-track { background-image: linear-gradient(var(--rust), var(--rust)); } .ds-value { color: var(--ink); font: 700 1.25rem/1 var(--display), var(--body); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; text-align: end; }"
+    },
+    {
+      "name": "Relation Chip",
+      "kind": "chip",
+      "refersTo": "relation-chip",
+      "description": "A related member as a link: its icon on a steel tile (shown here as the tile alone), name and job on a dark inlay.",
+      "html": "<a class=\"ds-chip\" href=\"#\"><span class=\"ds-chip-tile\"></span><span><b>Ferroni</b>Regex engine</span></a>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.375rem 0.875rem 0.375rem 0.375rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 0 0 0 1px var(--inlay-line); text-decoration: none; font-family: var(--body); } .ds-chip:hover { box-shadow: inset 0 0 0 1px var(--ember); } .ds-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; } .ds-chip-tile { display: inline-block; width: 34px; height: 34px; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45); } .ds-chip span:last-child { display: grid; font-size: 0.8125rem; line-height: 1.25; } .ds-chip b { font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.06em; text-transform: uppercase; }"
+    },
+    {
       "name": "Principle",
       "kind": "custom",
       "description": "What a project stands on: a title under a 3px heavy rule, flat on the ground.",
@@ -1090,6 +1149,11 @@
       {
         "name": "The Independent Members Rule",
         "body": "No chain, no pipeline diagram, no entry point. Where two members fit together, the row says so in one sentence. The family site states results qualitatively and never repeats a figure; figures belong to each project's own page.",
+        "section": "overview"
+      },
+      {
+        "name": "The Shared Pattern Rule",
+        "body": "A pattern two members' sites need lives in the package, not in each site's stylesheet, and it has a specimen in the kit. Before writing a section by hand, look for it in \"Patterns the sites share\" in [packages/family/README.md](packages/family/README.md).",
         "section": "overview"
       },
       {
@@ -1153,6 +1217,11 @@
         "section": "shapes"
       },
       {
+        "name": "The Honest Comparison Rule",
+        "body": "A comparison shows the rows where the project is behind, and marks them. A mark that needs qualifying gets its words. Every measurement has its provenance under it. Figures stay on the member's own site; the kit's specimens use invented contenders and invented figures.",
+        "section": "components"
+      },
+      {
         "name": "The 24 Pixel Rule",
         "body": "A member's icon is never shown below 24px.",
         "section": "components"
@@ -1168,7 +1237,9 @@
       "**Do** show engines in the family look and applications on light cards under their own logos, with the brand color only in the top rule and the action.",
       "**Do** put a small member icon on a steel tile when the ground is dark.",
       "**Do** state what is proven in words on the family site, and leave figures to each project's own page.",
-      "**Do** say how two members fit together in one sentence in the row.",
+      "**Do** say how two members fit together in one sentence in the row, or as chips under \"Runs on\", \"Pairs with\" and \"Carries\" on a member's page.",
+      "**Do** put a pattern two members' sites need into the package, with a specimen in the kit.",
+      "**Do** keep the rows where the project is behind in a comparison, and put a `Measured` under every measurement.",
       "**Do** honor reduced motion: the light stands still and the tag does not sway."
     ],
     "donts": [
@@ -1185,6 +1256,8 @@
       "**Don't** stamp a maturity rating on an engine's plate on the family page.",
       "**Don't** draw the members as a chain or a pipeline, or imply an entry point.",
       "**Don't** repeat a factor, timing, percentage or test count on the family site.",
+      "**Don't** put a comparison on a plate or a texture, or state a mark by color alone.",
+      "**Don't** use a real member's figures or a real contender's name in a kit specimen.",
       "**Don't** dress an application in the family look, or an engine in a brand of its own.",
       "**Don't** pair an oak band directly under the hero when a light section can go there."
     ]

@@ -42,7 +42,18 @@ test("the sprite holds only the chrome's line icons, none of them a member's", (
   );
   assert.deepEqual(
     symbols.toSorted(),
-    ["adapter", "arrow", "chev", "crate", "external", "github", "package"],
+    [
+      "adapter",
+      "arrow",
+      "check",
+      "chev",
+      "crate",
+      "cross",
+      "external",
+      "github",
+      "half",
+      "package",
+    ],
     "the members' icons are pictures (`Icon`), not symbols",
   );
 });

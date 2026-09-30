@@ -4,6 +4,7 @@ import {
   ArdoErrorBoundary,
   ArdoRoot,
   ArdoRootLayout,
+  ArdoSearch,
   ArdoSidebar,
   ArdoSidebarGroup,
   ArdoSidebarLink,
@@ -130,13 +131,19 @@ function SampleHeader({ docs }: { docs: boolean }) {
       }
       actions={
         docs ? (
-          <SiteMenu label="Docs">
-            {SAMPLE_DOCS.map((page) => (
-              <NavLink key={page.to} to={page.to}>
-                {page.label}
-              </NavLink>
-            ))}
-          </SiteMenu>
+          <>
+            <SiteMenu label="Docs">
+              {SAMPLE_DOCS.map((page) => (
+                <NavLink key={page.to} to={page.to}>
+                  {page.label}
+                </NavLink>
+              ))}
+            </SiteMenu>
+            {/* The host's search component in the chrome's slot; it reads its index on its own. */}
+            <div className="site-search">
+              <ArdoSearch />
+            </div>
+          </>
         ) : undefined
       }
       themeToggle={docs ? <ArdoThemeToggle /> : undefined}

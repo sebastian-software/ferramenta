@@ -20,6 +20,7 @@ import {
 import { Link } from "react-router";
 
 import pipelineSample from "../data/pipeline-sample.json";
+import { ComparisonSpecimens } from "./ComparisonSpecimens";
 import { SAMPLE } from "./sample";
 import { Caption, Chapter, Specimen } from "./Specimen";
 
@@ -235,6 +236,7 @@ export function LandingSpecimens() {
       <IronBand title="The same, on the oak bench" rows={principles} />
 
       <Proof />
+      <ComparisonSpecimens />
       <Closers />
     </Chapter>
   );

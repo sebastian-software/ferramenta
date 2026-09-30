@@ -1,6 +1,7 @@
 /**
  * Mounts the shared SVG sprite once per page: the line icons of the chrome
- * (chevron, arrow, GitHub, crate, adapter, external, package).
+ * (chevron, arrow, GitHub, crate, adapter, external, package) and the marks
+ * of a comparison (check, half, cross).
  *
  * Render it once, above the header. `Mark` only references symbols; without
  * `MarkDefs` on the page every one of them is empty. The members' own icons

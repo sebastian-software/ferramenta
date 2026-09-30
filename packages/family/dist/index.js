@@ -1,4 +1,5 @@
 export { CodePanel } from "./CodePanel.js";
+export { ComparisonBars, ComparisonTable, Measured, } from "./Comparison.js";
 export { EvidenceFigures } from "./EvidenceFigures.js";
 /**
  * The full entry: the registry, the chrome, and the landing kit. It imports nothing but React —
@@ -19,6 +20,7 @@ export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs } from "./Mark.js";
 export { HangingTag, Plate, PlateLight, Rivets } from "./Plate.js";
 export { Count, FamilyDownloads, RegistryFacts, useToolFacts, } from "./RegistryFacts.js";
+export { Relations } from "./Relations.js";
 export { RepoNote } from "./RepoNote.js";
 export { RunSample } from "./RunSample.js";
 export { SiteFooter } from "./SiteFooter.js";

@@ -3,7 +3,18 @@ import { displayName, familyTiers, Icon, Mark } from "ferramenta-family";
 import { Caption, Chapter } from "./Specimen";
 
 /** The line icons of the sprite, by symbol name. */
-const MARKS = ["arrow", "chev", "external", "github", "crate", "package", "adapter"];
+const MARKS = [
+  "arrow",
+  "chev",
+  "external",
+  "github",
+  "crate",
+  "package",
+  "adapter",
+  "check",
+  "half",
+  "cross",
+];
 
 /** The sizes the small icon is shown at in the chrome and in lists. */
 const SIZES = [48, 32, 24];
@@ -84,7 +95,8 @@ export function IconSheet() {
       </div>
 
       <Caption name="<Mark name />">
-        The line icons of the sprite, for actions and links. They take the text color.
+        The line icons of the sprite, for actions, links and the marks of a comparison. They take
+        the text color.
       </Caption>
       <div className="wrap">
         <ul className="kit-marks">
