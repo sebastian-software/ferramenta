@@ -26,8 +26,8 @@ Each member has **one object in two forms**, both made for this family:
   plate: the hero, a catalog row.
 - The **flat** form is the same object in the same view and position, in a few
   solid colors without gradients or textures. It takes every small place: the
-  header, the switcher, a list, a favicon, a README. A traced SVG ships beside
-  a small raster of it.
+  header, the switcher, a list, a favicon, a README. It ships as one small
+  SVG (under 5 KB), redrawn from its master rather than traced.
 
 Every flat icon is drawn from one shared palette of sixteen colors
 (`packages/family/icons/palette.json`). Its greys take their hue from the
@@ -62,7 +62,7 @@ icon smaller; at 16 pixels every one of these objects is a smudge.
   historical comps (`design/comp/entwurf-*.html`) and the archived shortlist
   (`design/archive/icon-candidates/`); `THIRD-PARTY-NOTICES.md` keeps the terms
   for those paths.
-- Icons are files (`icons/<name>.webp`, `-256.webp`, `-flat.webp`, `-flat.svg`)
+- Icons are files (`icons/<name>.webp`, `-256.webp`, `-flat.svg`)
   placed by `chrome.css` as background images; the `Icon` component renders
   them. The sprite (`mark-defs.ts`) keeps only the chrome's own line icons.
 - A new member needs a rendered master and a flat master before it can join the

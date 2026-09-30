@@ -71,11 +71,21 @@ face, code in the system mono.
 in the world: rivets and the links of the tag's chain.
 
 **The family page's order.** Hero (what the family is) → the engine catalog →
-the applications band → what earns a rating → the personal note → "Work with
-us". The pipeline diagram, the subfamily groups, the job index, the download
-tally and the partner band are gone: the engines are independent, and a diagram
-that draws them as a chain says the opposite. Where two members fit together,
-the row says so in a sentence (`uses`, `pairsWith`, `runsOn` in the registry).
+the applications band → what every engine is held to → the personal note, with
+the workshop's two names under it → "Work with us". The pipeline diagram, the
+subfamily groups, the job index and the download tally are gone: the engines
+are independent, and a diagram that draws them as a chain says the opposite.
+Where two members fit together, the row says so in a sentence (`uses`,
+`pairsWith`, `runsOn` in the registry). The engines carry no maturity stamp on
+this page: the live release beside each one says how far it has come.
+
+**Foreign brands.** The applications (Palamedes, Dalo) and the workshop's two
+names (Sebastian Software, Sebastian Consulting) are not the family's, and
+their logos are kept because recognition matters more than a seamless surface.
+A foreign logo always stands on a light ground, in its own colors: it was drawn
+for one, and on steel, black steel or rust it either vanishes or fights the
+material. An application's card is therefore a light card, with its brand color
+only in the rule above it and in its action.
 
 **What the page is for.** Most visitors arrive from a tool's site and want the
 overview. The page should lead them to Palamedes, the product the engines carry,

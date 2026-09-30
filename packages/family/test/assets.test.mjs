@@ -27,7 +27,7 @@ test("every family member has an icon in every form the chrome and the kit show"
         `no ${form} icon rule for ${tool.name}`,
       );
     }
-    for (const file of ["-flat.webp", "-flat.svg", "-256.webp", ".webp"]) {
+    for (const file of ["-flat.svg", "-256.webp", ".webp"]) {
       await shipped(`${tool.name}${file}`);
     }
   }

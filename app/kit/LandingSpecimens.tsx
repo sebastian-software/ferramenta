@@ -32,8 +32,6 @@ const principles = [
 /** The first engine of the catalog, as the one row the kit shows. */
 const sampleEngines = family.filter((tool) => tool.name === "ferroni");
 
-const { rendered } = pipelineSample;
-
 function Buttons() {
   return (
     <>
@@ -88,7 +86,7 @@ function Plates() {
       </Specimen>
       <Specimen
         name="<Stamp /> · <StampKey />"
-        rule="A rating, lettered like a plate. Filled with rust once it is settled. The legend reads every status from the registry."
+        rule="A status, lettered like a plate: for a coverage ledger, or for a project that wants to show its maturity. Filled with rust once it is settled. The family page shows none."
       >
         <div className="kit-row">
           <Stamp solid>stable</Stamp>
@@ -136,7 +134,7 @@ function Proof() {
           inputCaption="quick-start.md"
           inputKind="Markdown source"
           output={pipelineSample.html}
-          outputCaption={`Rendered by Ferromark ${rendered.ferromark} with Ferriki ${rendered.ferriki} on Ferroni ${rendered.ferroni}, unedited`}
+          outputCaption="Rendered by Ferromark with Ferriki on Ferroni, unedited"
         />
         <CodePanel caption="main.rs">
           <span className="kw">use</span> <span className="ty">ferromark</span>::to_html;{"\n\n"}
@@ -221,8 +219,9 @@ export function LandingSpecimens() {
       </div>
 
       <Caption name="<ApplicationsBand />">
-        The applications in their own colors: the one place the family shows a brand that is not its
-        own. One that runs on family engines leads and names them.
+        The applications on light cards: a foreign logo keeps its own colors only on a light ground,
+        so the brand shows in the logo, the rule above the card and the action. One that runs on
+        family engines leads and names them.
       </Caption>
       <ApplicationsBand id="kit-applications" title="What the engines carry" />
 

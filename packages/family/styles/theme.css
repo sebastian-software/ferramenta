@@ -94,7 +94,7 @@
   flex: none;
   inline-size: var(--fam-icon-size, 1.5rem);
   aspect-ratio: 1;
-  background: url("../icons/ferramenta-flat.webp") center / contain no-repeat;
+  background: url("../icons/ferramenta-flat.svg") center / contain no-repeat;
 }
 
 .ferramenta-family ul {

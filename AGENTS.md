@@ -22,6 +22,7 @@ pnpm typecheck      # react-router typegen && tsc --noEmit
 pnpm test           # node --test plus the README family-block contract
 pnpm verify:package # installs ferramenta-family in a scratch project (npm tarball + tracked files at HEAD)
 pnpm agent:check    # lint + format:check + typecheck + build + test — run this before pushing
+pnpm review         # a real browser over the build (needs CHROME=<chromium>): every page at eight widths, flyouts, keyboard order, motion; captures in .impeccable/review/
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
@@ -37,17 +38,18 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | Path                                   | Owns                                                                                                                                                                                                                                                                                           |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `app/root.tsx`                         | The shell of every page: the family header and footer (outside `ArdoRoot`), the direction contract, the kit's `noindex`, and the docs shell for the sample documentation                                                                                                                       |
-| `app/routes/home.tsx`                  | The family page, composed from the package's landing kit: hero plate, engine catalog, applications band, ratings, the personal note, work with us                                                                                                                                              |
+| `app/routes/home.tsx`                  | The family page, composed from the package's landing kit: hero plate, engine catalog, applications band, principles, the personal note with the workshop's logos, work with us                                                                                                                 |
 | `app/routes/kit/`, `app/kit/`          | The design library at `/kit` (public, `noindex`): tokens, materials, icons, chrome and landing kit rendered from the package, plus a sample tool page and sample docs for an invented tool (`app/kit/sample.ts`)                                                                               |
 | `app/styles/site.css`, `kit.css`       | Only what the family site does not share: the personal note, Ardo shell fixes; the kit's specimen frames and the sample tool's icon                                                                                                                                                            |
 | `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite), `FamilyLinks` — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `WorkWithUs`, …) |
 | `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css` — and the optional `docs.css` for an Ardo docs layout                                                          |
-| `packages/family/icons/`, `textures/`  | The member icons (rendered, 256px, flat raster, flat SVG, the shared palette) and the three textures. Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                  |
+| `packages/family/icons/`, `textures/`  | The member icons (rendered, 256px, the flat SVG, the shared palette) and the three textures. Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                           |
 | `design/icons/`, `design/textures/`    | Masters, prompts and build scripts for the icons and textures (ADR-0009). A new member's icon starts here                                                                                                                                                                                      |
 | `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                                                      |
 | `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                                                      |
 | `scripts/render-pipeline-sample.mjs`   | Runs Ferromark + Ferriki on the sample and writes `app/data/pipeline-sample.json` (needs `FERROMARK=` and `FERRIKI=` package paths); never hand-edit the output. The kit shows it as the `RunSample` specimen                                                                                  |
 | `scripts/render-social-card.mjs`       | Renders `public/social.png` from the registry, the tokens and the icons (needs `CHROME=<chromium>`); re-run when the line-up changes                                                                                                                                                           |
+| `scripts/review-site.mjs`              | `pnpm review`: drives a headless Chromium over the build, checks layout at eight widths, the flyouts, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI; run it before a design change is called done)                                                    |
 | `scripts/prune-sitemap.mjs`            | Removes the `noindex` kit from the built sitemap (a `.tsx` route cannot opt out through frontmatter)                                                                                                                                                                                           |
 | `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome, landing kit, icons, tokens, textures, font. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links                                                         |
 | `packages/family/bin/`                 | `ferramenta-readme` — renders the `ferramenta-family` README block for this repo and every sibling (see the package README)                                                                                                                                                                    |
@@ -90,8 +92,11 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   standard they build on → state what they do differently → give the why. The
   registry marks each member with `succeeds`, `buildsOn` or `runsOn`.
 - Two tiers (ADR-0001, amended 2026-09-30): the engines wear the family look;
-  the applications (Palamedes, Dalo) are shown in one band in their own brand
-  colors (`brand` in the registry) and keep their own sites.
+  the applications (Palamedes, Dalo) are shown in one band, each on a light
+  card under its own logo (`brand` in the registry), and keep their own sites.
+- A foreign logo (an application's, Sebastian Software's, Sebastian
+  Consulting's) stands on a light ground in its own colors: never on steel,
+  black steel or rust, never recolored.
 - Claim results on the family site qualitatively, never with a figure: "among
   the fastest", "ahead of globset", "a larger test suite" are fine; factors,
   timings, percentages and test counts are not — they pretend to a precision
@@ -109,6 +114,10 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   hand, and give every new raster its provenance sidecar (`impeccable
 embed-prompt`). The Streamline material left in `design/comp/entwurf-*.html`
   and `design/archive/` keeps its terms (THIRD-PARTY-NOTICES.md).
+- A design change is checked at every width, not at one: `pnpm build` then
+  `CHROME=… pnpm review`. It fails on sideways scroll, a bar that does not fit,
+  text leaving its plate, a flyout that leaves the viewport or does not close,
+  a broken keyboard order, and motion that ignores the visitor's preference.
 - A component change shows up in the kit: add or update its specimen in
   `app/kit/` in the same change. The kit's sample pages are about an invented
   tool on purpose; never put a real member's figures there.

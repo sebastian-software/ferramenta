@@ -2,7 +2,7 @@
 # Builds the rendered icons the package ships from their masters: the
 # transparent margin trimmed to the object, the object centered on a square
 # with a little air, then two sizes (640px for a hero plate, 256px for a
-# catalog plate). The flat twins come from trace-flat.py.
+# catalog plate). The flat twins come from draw-flat.py.
 # Run from the repository root: sh design/icons/build-icons.sh
 # ICON_MASTERS and ICON_OUT point it at another pair of directories, for an
 # icon that is not a family member's (the kit's sample tool).

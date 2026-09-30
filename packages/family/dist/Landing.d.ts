@@ -27,7 +27,7 @@ export type ProjectHeroProps = {
     aside?: ReactNode;
     /**
      * The measured facts, hung below the plate on a small tag: what it succeeds,
-     * what it is checked against, its rating, its release. They come second, so
+     * what it is checked against, its release. They come second, so
      * they are not on the plate.
      */
     facts?: PlateFact[];

@@ -47,24 +47,16 @@ export type FamilyLineage = {
     succeeds?: never;
     runsOn?: never;
 };
-/** An application's brand colors, as CSS color values. */
+/**
+ * An application's brand, as far as the family shows it: its logo (an icon
+ * file of its own) and one color. Both appear on a light card, where a foreign
+ * logo keeps its own colors.
+ */
 export type FamilyBrand = {
-    /** The surface its logo and name sit on. */
-    ground: string;
-    /** Text on that surface. */
-    ink: string;
-    /** Its signal color: the job line, the action. */
-    accent: string;
-    /**
-     * A light ground for a logo that was drawn for one and would lose its dark
-     * parts on `ground`. Leave it out for a logo that brings its own.
-     */
-    logoGround?: string;
-    /**
-     * The shape of that ground: a square tile (the default), or a disc for an
-     * emblem that is round itself.
-     */
-    logoShape?: "disc" | "tile";
+    /** The brand's main color: the rule above its card, and its action. */
+    color: string;
+    /** Text on that color. */
+    onColor: string;
 };
 export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
@@ -122,8 +114,8 @@ export type FamilyTool = {
      */
     pairsWith?: string[];
     /**
-     * An application's own colors, for the one place the family shows it in its
-     * own brand: the applications band. Engines have none; they wear the family's.
+     * An application's own color, for the one place the family shows its brand:
+     * its card in the applications band. Engines have none; they wear the family's.
      */
     brand?: FamilyBrand;
     /** GitHub repository URL */
@@ -145,8 +137,9 @@ export declare const WORKSHOP: {
     readonly consulting: "https://sebastian-consulting.com";
 };
 /**
- * What each maturity stamp promises, in one line. The stamp legend on every
- * family site reads from here, so a status means the same thing everywhere.
+ * What each maturity stamp promises, in one line. A site that shows a stamp
+ * legend (`StampKey`) reads it from here, so a status means the same thing
+ * everywhere.
  */
 export declare const STATUS_MEANING: Record<FamilyStatus, string>;
 /** Maturity order, most settled first. */

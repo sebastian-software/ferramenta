@@ -12,11 +12,12 @@ import {
   RegistryFacts,
   runsOnTools,
   Section,
-  StampKey,
   WORKSHOP,
   WorkWithUs,
 } from "ferramenta-family";
 
+import consultingLogo from "../assets/logos/sebastian-consulting.svg";
+import softwareLogo from "../assets/logos/sebastian-software.svg";
 import registryStats from "../data/registry-stats.json";
 import { SITE_DESCRIPTION } from "../site-metadata";
 
@@ -92,6 +93,44 @@ const principles = [
   },
 ];
 
+/**
+ * The workshop's two names, each under its own logo in its own colors. They
+ * stand on the light ground, where they were drawn to stand: a foreign logo is
+ * never put on steel, black steel or rust.
+ */
+function Workshop() {
+  return (
+    <div className="wrap">
+      <ul className="workshop">
+        <li>
+          <a href={WORKSHOP.openSource}>
+            <img src={softwareLogo} alt="Sebastian Software" width={231} height={45} />
+            <p>
+              Production-grade open-source projects across several languages: the wider workshop
+              this family comes from.
+            </p>
+            <span>
+              {new URL(WORKSHOP.openSource).host} <Mark name="arrow" size={16} />
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href={WORKSHOP.consulting}>
+            <img src={consultingLogo} alt="Sebastian Consulting" width={239} height={45} />
+            <p>
+              The people behind the engines, for hire: integration, support, and long-term
+              maintenance.
+            </p>
+            <span>
+              {new URL(WORKSHOP.consulting).host} <Mark name="arrow" size={16} />
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
 /** The personal note: who builds this, and why. Site-only, so it is not in the kit. */
 function Story() {
   return (
@@ -117,6 +156,7 @@ function Story() {
           </p>
         </div>
       </div>
+      <Workshop />
     </section>
   );
 }
@@ -161,9 +201,8 @@ export default function HomePage() {
 
         <ApplicationsBand title="What the engines carry" intro={applicationsIntro} />
 
-        <Section id="ratings" title="What earns the rating">
+        <Section id="principles" title="What every engine is held to">
           <Principles items={principles} />
-          <StampKey />
         </Section>
 
         <Story />

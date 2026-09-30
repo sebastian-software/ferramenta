@@ -11,7 +11,6 @@ import {
   toolHref,
 } from "./family.js";
 import { type CustomProperties, Icon } from "./Icon.js";
-import { Stamp } from "./Ledger.js";
 import { Mark } from "./Mark.js";
 import { Rivets } from "./Plate.js";
 import { useToolFacts } from "./RegistryFacts.js";
@@ -92,9 +91,10 @@ function EngineFacts({ tool }: { tool: FamilyTool }) {
 }
 
 /**
- * One catalog row. The plate says what the engine is; the copy beside it says
- * what it does, for whom, and only then where it comes from. The name is the
- * link, stretched over the plate.
+ * One catalog row. The plate says what the engine is, and nothing else: no
+ * maturity stamp, because the release beside it already says how far it has
+ * come. The copy says what it does, for whom, and only then where it comes
+ * from. The name is the link, stretched over the plate.
  */
 function EngineRow({ tool }: { tool: FamilyTool }) {
   return (
@@ -112,7 +112,6 @@ function EngineRow({ tool }: { tool: FamilyTool }) {
             </h3>
             <p className="fam-engine-what">{tool.what}</p>
           </div>
-          <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
         </div>
         <div className="fam-engine-body">
           <p className="fam-engine-does">{tool.does}</p>
@@ -153,16 +152,10 @@ export function EngineCatalog({ current, tools }: EngineCatalogProps = {}) {
   );
 }
 
-/** An application's brand colors as custom properties, for the one band that shows them. */
+/** An application's brand color as custom properties, for the one card that shows it. */
 function brandStyle(tool: FamilyTool): CustomProperties | undefined {
   if (tool.brand === undefined) return undefined;
-  const style: CustomProperties = {
-    "--fam-app-ground": tool.brand.ground,
-    "--fam-app-ink": tool.brand.ink,
-    "--fam-app-accent": tool.brand.accent,
-  };
-  if (tool.brand.logoGround !== undefined) style["--fam-app-logo-ground"] = tool.brand.logoGround;
-  return style;
+  return { "--fam-app-color": tool.brand.color, "--fam-app-on-color": tool.brand.onColor };
 }
 
 /** The engines an application runs on: each icon on a steel tile, name and job on a dark inlay. */
@@ -189,15 +182,13 @@ function RunsOn({ engines }: { engines: FamilyTool[] }) {
 
 function ApplicationCard({ tool }: { tool: FamilyTool }) {
   const engines = runsOnTools(tool);
-  const logoGround =
-    tool.brand?.logoGround === undefined ? undefined : (tool.brand.logoShape ?? "tile");
   return (
     <article
       className="fam-app"
       data-lead={engines.length > 0 ? "" : undefined}
       style={brandStyle(tool)}
     >
-      <span className="fam-app-logo" data-ground={logoGround}>
+      <span className="fam-app-logo">
         <Icon name={tool.name} />
       </span>
       <div>
@@ -226,10 +217,10 @@ export type ApplicationsBandProps = {
 };
 
 /**
- * The applications on black steel, each in its own colors: the one place the
- * family shows a product in a brand that is not the family's. An application
- * that runs on family engines leads and names them; one that stands alone is
- * from the same workshop, and says no more than that.
+ * The applications, each on a light card under its own logo and color: the
+ * one place the family shows a brand that is not its own. An application that
+ * runs on family engines leads and names them; one that stands alone is from
+ * the same workshop, and says no more than that.
  */
 export function ApplicationsBand({
   current,

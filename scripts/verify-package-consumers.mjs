@@ -40,7 +40,7 @@ const REQUIRED_FILES = [
   "styles/docs.css",
   "styles/landing.css",
   "fonts/barlow-condensed-700.woff2",
-  "icons/ferramenta-flat.webp",
+  "icons/ferramenta-flat.svg",
   "icons/ferroni.webp",
   "textures/steel.webp",
 ];

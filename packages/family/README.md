@@ -266,7 +266,7 @@ from "X, continued in Rust".
 | `Principles`       | `items: { heading, text }[]` — two to four, side by side under heavy rules                                                                                                                                                                                        |
 | `IronBand`         | `title`, `intro?`, `rows?: { heading, text }[]`, `id?`, `children` — a page's dark passage in black steel. Put a light section between it and the hero                                                                                                            |
 | `EngineCatalog`    | `current?` (left out), `tools?` (defaults to every engine) — one row per engine: its plate, what it does, for whom, its lineage, how it fits with others, its facts                                                                                               |
-| `ApplicationsBand` | `title?`, `intro?`, `id?`, `current?` — the applications in their own colors (`brand` in the registry); one that runs on family engines leads and names them                                                                                                      |
+| `ApplicationsBand` | `title?`, `intro?`, `id?`, `current?` — the applications on light cards, each under its own logo and brand color (`brand` in the registry); one that runs on family engines leads and names them                                                                  |
 | `Plate`            | `as?`, `className?`, `rivets?`, `children` — a riveted steel plate. `Rivets` and `HangingTag` (`facts`) are its parts; `PlateLight` moves the one reflection with the pointer (the hero renders it)                                                               |
 | `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]` — each on a small plate                                                                                                                                                                                          |
 | `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                                      |
@@ -483,8 +483,7 @@ what each member is and does, proofs, versions, status, relations and links
 Every entry says what the member is before where it comes from: `what` ("A
 regex engine"), `does` (one plain sentence), `audience` ("For …"), then `proof`
 (its lineage, in ADR-0004's register) and `evidence`. Two tiers: engines, and
-applications (`role: "application"`, with their own `brand`: ground, ink,
-accent, and the ground and shape their logo needs). Relations
+applications (`role: "application"`, with their own `brand` color). Relations
 are facts, never a chain: `uses` (an engine built on another), `pairsWith`
 (commonly combined, no dependency either way), `runsOn` (an application's
 engines).

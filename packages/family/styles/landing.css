@@ -696,7 +696,7 @@ a.fam-btn-steel:hover,
 /* The name plate: what the engine is, and how far it has come. */
 .fam-engine-plate {
   display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  grid-template-columns: clamp(4.5rem, 20vw, 5.5rem) minmax(0, 1fr);
   align-items: center;
   gap: 1rem;
   padding: 1.25rem clamp(1.25rem, 4vw, 1.75rem) 1.25rem 1.5rem;
@@ -729,27 +729,6 @@ a.fam-engine-link::after {
     600 1.125rem/1.15 var(--display),
     var(--body);
   letter-spacing: 0.02em;
-}
-
-.fam-engine-plate .fam-stamp {
-  align-self: start;
-}
-
-/* On a phone the plate is too narrow for a long name beside its stamp: the stamp goes under the name. */
-@media (max-width: 30rem) {
-  .fam-engine-plate {
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    row-gap: 0.625rem;
-  }
-
-  .fam-engine-plate > .fam-icon {
-    grid-row: span 2;
-  }
-
-  .fam-engine-plate .fam-stamp {
-    grid-column: 2;
-    justify-self: start;
-  }
 }
 
 .fam-engine-body {
@@ -880,35 +859,30 @@ a.fam-engine-link::after {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
-/* An application in its own colors, from the registry: the family carries it, it does not dress it. */
+/*
+ * An application's card: a light card, because a foreign logo was drawn for a
+ * light ground and keeps its own colors only there. The family carries the
+ * application, it does not dress it: the brand shows in the logo, in the rule
+ * above the card and in the action.
+ */
 .fam-app {
   display: grid;
   gap: 1.25rem;
   align-content: start;
   padding: clamp(1.5rem, 3.5vw, 2.75rem);
-  background: var(--fam-app-ground, var(--iron-2));
-  color: var(--fam-app-ink, var(--iron-ink));
-  box-shadow: inset 0 0 0 1px
-    color-mix(in oklch, var(--fam-app-accent, var(--ember)) 55%, transparent);
+  --focus: var(--fam-app-color, var(--ink));
+
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: inset 0 4px 0 var(--fam-app-color, var(--ink));
 }
 
-/* A logo that brings its own ground stands free; one drawn for a light ground gets a tile of it. */
 .fam-app-logo {
   display: grid;
   place-items: center;
   justify-self: start;
   width: 5.5rem;
   aspect-ratio: 1;
-}
-
-.fam-app-logo[data-ground] {
-  padding: 0.625rem;
-  background: var(--fam-app-logo-ground);
-}
-
-/* A round emblem of another brand keeps its round ground: the one curve the family did not draw. */
-.fam-app-logo[data-ground="disc"] {
-  border-radius: 50%;
 }
 
 .fam-app-logo > .fam-icon {
@@ -927,7 +901,7 @@ a.fam-engine-link::after {
   margin: 0.375rem 0 0.875rem;
   font-size: 1.1875rem;
   font-weight: 600;
-  color: var(--fam-app-accent, var(--ember));
+  color: var(--ink-soft);
 }
 
 .fam-app p {
@@ -938,7 +912,7 @@ a.fam-engine-link::after {
 .fam-app-note {
   margin-top: 0.75rem;
   font-size: 0.9375rem;
-  opacity: 0.8;
+  color: var(--ink-soft);
 }
 
 .fam-app-label {
@@ -948,7 +922,7 @@ a.fam-engine-link::after {
     var(--body);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.85;
+  color: var(--ink-soft);
 }
 
 .fam-app-runs {
@@ -993,8 +967,8 @@ a.fam-engine-link::after {
   min-height: 3rem;
   margin-top: 1.75rem;
   padding: 0 1.25rem;
-  background: var(--fam-app-accent, var(--ember));
-  color: var(--fam-app-ground, var(--iron));
+  background: var(--fam-app-color, var(--ink));
+  color: var(--fam-app-on-color, var(--bg));
   font-weight: 700;
   text-decoration: none;
 }
@@ -1010,7 +984,7 @@ a.fam-engine-link::after {
 /* One that stands alone takes less room and an outlined action. */
 .fam-app:not([data-lead]) a.fam-app-go {
   background: none;
-  color: var(--fam-app-accent, var(--ember));
+  color: var(--fam-app-color, var(--ink));
   box-shadow: inset 0 0 0 1.5px currentColor;
 }
 
@@ -1037,9 +1011,10 @@ a.fam-engine-link::after {
 
 /* -- Evidence figures: each on its own small plate --------------------------- */
 
+/* As many plates in a row as hold their label: one on the narrowest phone, two on most. */
 .fam-figures {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9.75rem, 1fr));
   gap: 1rem;
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }

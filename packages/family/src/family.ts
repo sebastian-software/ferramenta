@@ -54,24 +54,16 @@ export type FamilyLineage =
       runsOn?: never;
     };
 
-/** An application's brand colors, as CSS color values. */
+/**
+ * An application's brand, as far as the family shows it: its logo (an icon
+ * file of its own) and one color. Both appear on a light card, where a foreign
+ * logo keeps its own colors.
+ */
 export type FamilyBrand = {
-  /** The surface its logo and name sit on. */
-  ground: string;
-  /** Text on that surface. */
-  ink: string;
-  /** Its signal color: the job line, the action. */
-  accent: string;
-  /**
-   * A light ground for a logo that was drawn for one and would lose its dark
-   * parts on `ground`. Leave it out for a logo that brings its own.
-   */
-  logoGround?: string;
-  /**
-   * The shape of that ground: a square tile (the default), or a disc for an
-   * emblem that is round itself.
-   */
-  logoShape?: "disc" | "tile";
+  /** The brand's main color: the rule above its card, and its action. */
+  color: string;
+  /** Text on that color. */
+  onColor: string;
 };
 
 export type FamilyTool = {
@@ -130,8 +122,8 @@ export type FamilyTool = {
    */
   pairsWith?: string[];
   /**
-   * An application's own colors, for the one place the family shows it in its
-   * own brand: the applications band. Engines have none; they wear the family's.
+   * An application's own color, for the one place the family shows its brand:
+   * its card in the applications band. Engines have none; they wear the family's.
    */
   brand?: FamilyBrand;
   /** GitHub repository URL */
@@ -268,13 +260,7 @@ export const family: FamilyTool[] = [
     version: "1.25.0",
     status: "stable",
     role: "application",
-    brand: {
-      ground: "#0e2a4d",
-      ink: "#f3eee4",
-      accent: "#c99a55",
-      logoGround: "#f6f1e7",
-      logoShape: "disc",
-    },
+    brand: { color: "#0e2a4d", onColor: "#f3eee4" },
     repo: "https://github.com/sebastian-software/palamedes",
     docs: "https://palamedes.dev",
   },
@@ -292,7 +278,7 @@ export const family: FamilyTool[] = [
     version: "0.17.0",
     status: "beta",
     role: "application",
-    brand: { ground: "#0b1733", ink: "#eef1f8", accent: "#ff9d78", logoGround: "#fff" },
+    brand: { color: "#0b1733", onColor: "#eef1f8" },
     repo: "https://github.com/sebastian-software/dalo",
     docs: "https://dalo.sh",
   },
@@ -311,8 +297,9 @@ export const WORKSHOP = {
 } as const;
 
 /**
- * What each maturity stamp promises, in one line. The stamp legend on every
- * family site reads from here, so a status means the same thing everywhere.
+ * What each maturity stamp promises, in one line. A site that shows a stamp
+ * legend (`StampKey`) reads it from here, so a status means the same thing
+ * everywhere.
  */
 export const STATUS_MEANING: Record<FamilyStatus, string> = {
   stable: "Ready to adopt; its interface is settled.",

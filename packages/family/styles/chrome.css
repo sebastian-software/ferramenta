@@ -57,35 +57,35 @@
 }
 
 .fam-icon[data-icon="ferramenta"] {
-  background-image: url("../icons/ferramenta-flat.webp");
+  background-image: url("../icons/ferramenta-flat.svg");
 }
 
 .fam-icon[data-icon="ferroni"] {
-  background-image: url("../icons/ferroni-flat.webp");
+  background-image: url("../icons/ferroni-flat.svg");
 }
 
 .fam-icon[data-icon="ferriki"] {
-  background-image: url("../icons/ferriki-flat.webp");
+  background-image: url("../icons/ferriki-flat.svg");
 }
 
 .fam-icon[data-icon="ferromark"] {
-  background-image: url("../icons/ferromark-flat.webp");
+  background-image: url("../icons/ferromark-flat.svg");
 }
 
 .fam-icon[data-icon="ferrolex"] {
-  background-image: url("../icons/ferrolex-flat.webp");
+  background-image: url("../icons/ferrolex-flat.svg");
 }
 
 .fam-icon[data-icon="ferrocat"] {
-  background-image: url("../icons/ferrocat-flat.webp");
+  background-image: url("../icons/ferrocat-flat.svg");
 }
 
 .fam-icon[data-icon="ferralk"] {
-  background-image: url("../icons/ferralk-flat.webp");
+  background-image: url("../icons/ferralk-flat.svg");
 }
 
 .fam-icon[data-icon="ferrugo"] {
-  background-image: url("../icons/ferrugo-flat.webp");
+  background-image: url("../icons/ferrugo-flat.svg");
 }
 
 .fam-icon[data-icon="palamedes"] {
@@ -367,6 +367,15 @@ details.site-menu {
 @media (max-width: 64rem) {
   details.site-menu {
     display: inline-block;
+  }
+
+  /* The menu stands in for the bar's own links, so they give their room up. */
+  .site-header:has(.site-menu) .site-links {
+    display: none;
+  }
+
+  .site-header:has(.site-menu) .site-links + * {
+    margin-left: auto;
   }
 }
 

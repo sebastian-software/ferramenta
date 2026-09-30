@@ -67,17 +67,20 @@ export const handle = { chrome: false };
 /** The family site's own bar: the page's anchors on the index, the kit's pages inside the kit. */
 function FamilyHeader({ inKit }: { inKit: boolean }) {
   if (inKit) {
+    const pages = (
+      <>
+        <NavLink to="/kit" end>
+          Kit
+        </NavLink>
+        <NavLink to={SAMPLE.home}>Sample tool</NavLink>
+        <NavLink to={SAMPLE.docs}>Sample docs</NavLink>
+      </>
+    );
+    // The same three links twice: in the bar where there is room, in a menu where there is not.
     return (
       <SiteHeader
-        nav={
-          <div className="site-links">
-            <NavLink to="/kit" end data-keep="">
-              Kit
-            </NavLink>
-            <NavLink to={SAMPLE.home}>Sample tool</NavLink>
-            <NavLink to={SAMPLE.docs}>Sample docs</NavLink>
-          </div>
-        }
+        nav={<div className="site-links">{pages}</div>}
+        actions={<SiteMenu label="Kit">{pages}</SiteMenu>}
       />
     );
   }
@@ -152,9 +155,9 @@ condensed data-plate face; each engine one rendered object of forged steel with
 a single glowing or rust-orange element; oxidized rust only as the closing band.
 STORY: A developer arriving from one tool's site learns what the family is
 (the plate), reads each engine as what it is, what it does, and for whom,
-before where it comes from; sees what the engines carry (the applications, in
-their own colors); learns what earns a rating; meets the people; and is
-offered their help.
+before where it comes from; sees what the engines carry (the applications,
+under their own logos); learns what every engine is held to; meets the people
+and their workshop; and is offered their help.
 FIRST VIEWPORT: Black-steel bar; one steel plate on black steel with the
 headline, the lede, the one action, and the family's toolbox; the measured
 facts on a small tag hanging below it.

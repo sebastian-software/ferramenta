@@ -10,7 +10,7 @@ place.
 | `masters/<name>.webp`      | The rendered master, as generated, on a transparent ground                       |
 | `masters/<name>-flat.webp` | The flat master, as generated (lossless)                                         |
 | `build-icons.sh`           | Masters → `<name>.webp` (640px) and `<name>-256.webp`, trimmed and centered      |
-| `trace-flat.py`            | Flat masters → `<name>-flat.svg` and `<name>-flat.webp` (96px), on the palette   |
+| `draw-flat.py`             | Flat masters → `<name>-flat.svg`: redrawn on the palette, under 5 KB each        |
 | `kit-sample/`              | The masters of the kit's invented sample tool; its files go to `app/assets/kit/` |
 
 The masters are the only source the shipped files can be rebuilt from. They
@@ -22,7 +22,7 @@ it (`impeccable embed-prompt`); a new or replaced raster gets one too.
 
 ```sh
 sh design/icons/build-icons.sh
-python design/icons/trace-flat.py            # needs opencv-python-headless, numpy, vtracer
+python design/icons/draw-flat.py             # needs opencv-python-headless and numpy
 ```
 
 `build-icons.sh` also copies the family's flat toolbox to
@@ -33,7 +33,7 @@ For an icon that is not a family member's, point both scripts somewhere else:
 
 ```sh
 ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit sh design/icons/build-icons.sh
-ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit python design/icons/trace-flat.py
+ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit python design/icons/draw-flat.py
 ```
 
 ## A new member's icon
@@ -45,13 +45,14 @@ ICON_MASTERS=design/icons/kit-sample ICON_OUT=app/assets/kit python design/icons
    was made with it attached).
 3. Generate the flat master with the rendered master and an accepted flat icon
    attached (the flame is the reference from the third round on).
-4. Save both under `masters/`, run the two scripts, and add the three
+4. Save both under `masters/`, run the two scripts, give the masters and the
+   rendered files their provenance sidecars, and add the three
    `.fam-icon[data-icon="<name>"]` rules to
    `packages/family/styles/chrome.css`.
 5. Look at it on the kit's icon sheet (`/kit#icons`) at every size. It has to
    hold at 24 pixels; nothing in the family shows an icon smaller.
 
-`trace-flat.py` maps a new icon onto the family's palette
+`draw-flat.py` maps a new icon onto the family's palette
 (`packages/family/icons/palette.json`). `--derive N` measures a fresh palette
 from all flat masters and rewrites that file; do that only when the family's
 colors are meant to change.
@@ -88,10 +89,19 @@ light edges between them; anything that glows drawn as nested flat shapes. No
 gradients, textures or outlines. Transparent background.
 
 A generated "flat" image is not flat: its areas carry faint mottling and every
-edge is a band of in-between colors. `trace-flat.py` cleans each image before
-tracing it (a small palette taken from the calm interior of its areas,
-boundaries straightened by majority vote, specks removed, whole areas moved
-onto the family palette); its header explains each step.
+edge is a band of in-between colors. `draw-flat.py` cleans each image (a small
+palette taken from the calm interior of its areas, boundaries straightened by
+majority vote, specks removed, whole areas moved onto the family palette) and
+then redraws it rather than tracing it: stacked layers, each outline reduced to
+the few points that carry it, smooth curves through them. Its header explains
+each step.
+
+**The budget is 5 KB per flat icon.** The script keeps the mildest
+simplification that fits. If an icon only fits after losing its shape, the
+master is too detailed: generate a simpler one (large shapes, no thin highlight
+lines, no small parts) instead of raising the budget. The cabinet and the sieve
+were redrawn that way, with this addition to the flat prompt: "Only large flat
+shapes, about twenty in total. No thin highlight lines, no tiny parts."
 
 ## What was tried and set aside
 

@@ -20,6 +20,7 @@
     "readme:write": "node packages/family/bin/family-readme.mjs --write README.md.src && mise run readme:write",
     "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check && pnpm check:markdown-links && pnpm theme:check",
     "verify:package": "node scripts/verify-package-consumers.mjs",
+    "review": "node scripts/review-site.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs",
     "theme:write": "node scripts/native-theme.mjs --write",

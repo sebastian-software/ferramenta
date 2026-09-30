@@ -76,7 +76,6 @@ test("the engine catalog gives each engine a plate, then what it does, then its 
       'data-icon="ferroni" data-form="rendered"',
       `<a class="fam-engine-link" href="${kit.toolHref(ferroni)}">ferroni</a>`,
       `<p class="fam-engine-what">${ferroni.what}</p>`,
-      '<span class="fam-stamp" data-tone="solid">stable</span>',
       `<p class="fam-engine-does">${ferroni.does}</p>`,
       ferroni.audience,
       ferroni.proof,
@@ -88,6 +87,10 @@ test("the engine catalog gives each engine a plate, then what it does, then its 
     "what it is, what it does, for whom, where it comes from, the facts last",
   );
   assert.ok(row.includes('<a href="https://ferriki.dev">Ferriki</a> runs on it'));
+  assert.ok(
+    !catalog.includes("fam-stamp"),
+    "no maturity stamp: the release says how far it has come",
+  );
 });
 
 test("a catalog row names the lineage its engine has, and a page can choose its rows", () => {
@@ -121,7 +124,7 @@ test("the applications band shows each application in its own colors", () => {
   assert.match(html, /^<section class="fam-band fam-apps on-iron" id="applications"/u);
   assert.equal(html.match(/<article class="fam-app"/gu).length, applications.length);
   for (const tool of applications) {
-    assert.ok(html.includes(`--fam-app-ground:${tool.brand.ground}`), `${tool.name}: its ground`);
+    assert.ok(html.includes(`--fam-app-color:${tool.brand.color}`), `${tool.name}: its color`);
     assert.ok(html.includes(`<h3 class="fam-app-name">${kit.displayName(tool)}</h3>`));
     assert.ok(html.includes(`href="${kit.toolHref(tool)}"`));
   }
@@ -143,7 +146,7 @@ test("the applications band shows each application in its own colors", () => {
   );
 });
 
-test("an application's card keeps the family's steel out, and gives its logo the ground it needs", () => {
+test("an application's card keeps the family's steel out, and is light for its logo", () => {
   const html = render(kit.ApplicationsBand);
   const lead = html.slice(html.indexOf('data-lead=""'), html.indexOf("</article>"));
   assert.doesNotMatch(
@@ -151,11 +154,7 @@ test("an application's card keeps the family's steel out, and gives its logo the
     /fam-plate/u,
     "the engines it names sit on an inlay: no small type on steel inside a brand card",
   );
-  assert.ok(html.includes('class="fam-app-logo" data-ground="disc"'), "a round emblem on a disc");
-  assert.ok(html.includes('class="fam-app-logo" data-ground="tile"'), "a logo on a light tile");
-  for (const tool of kit.familyTiers().applications) {
-    assert.ok(html.includes(`--fam-app-logo-ground:${tool.brand.logoGround}`), tool.name);
-  }
+  assert.ok(!html.includes("data-ground"), "a logo needs no tile: the card itself is light");
 });
 
 test("the engines link to their own sites once they have one", () => {

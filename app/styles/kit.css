@@ -440,7 +440,7 @@
  * forms, from the same pipeline (design/icons).
  */
 .fam-icon[data-icon="ferrometro"] {
-  background-image: url("../assets/kit/ferrometro-flat.webp");
+  background-image: url("../assets/kit/ferrometro-flat.svg");
 }
 .fam-icon[data-form="rendered"][data-icon="ferrometro"] {
   background-image: url("../assets/kit/ferrometro-256.webp");

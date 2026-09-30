@@ -1,4 +1,4 @@
-"""Traces the flat icon masters into the SVG and small raster the package ships.
+"""Redraws the flat icon masters as the small SVGs the package ships.
 
 A generated "flat" image is not flat: its areas carry faint mottling and every
 edge is a band of in-between colors. Traced as it is, that becomes blotches,
@@ -17,8 +17,21 @@ slivers along the edges and curves that jump. So each image is cleaned first:
    blotches of both.
 
 The result has a handful of exact colors and hard, smooth boundaries. It is
-traced into `<name>-flat.svg`, the vector a favicon or a README uses, and
-scaled into `<name>-flat.webp`, the few kilobytes the site chrome loads.
+then redrawn, not traced: a flat icon is a few shapes, and its file should be
+a few kilobytes (BUDGET), small enough to be the one flat form everywhere,
+from the header to a favicon.
+
+- The colors are stacked, largest area first. Each layer is drawn as the
+  union of its own areas and everything above it, so no seam can open between
+  two neighbors and every outline is as simple as it can be.
+- Each outline is reduced to the few points that carry it. A sharp point
+  stays a corner; the others become the control points of one smooth curve
+  (a quadratic B-spline, which costs a single point per vertex in SVG).
+- Coordinates are whole numbers on a coarse grid, written relative to the
+  point before.
+- The mildest simplification that fits the budget is the one that is kept
+  (LEVELS). A master too detailed to fit without losing its shape is a master
+  to redraw simpler, not a reason to raise the budget.
 
 The palette is a file on purpose: a new icon is mapped onto the colors the
 family already has. `--derive N` measures a fresh palette of N colors from the
@@ -30,8 +43,8 @@ is warmer: blackened, slightly brown. So a derived palette keeps the lightness
 of each grey it measured and takes the hue from the rendered icons' metal at
 that lightness.
 
-Run with a Python that has `opencv-python-headless`, `numpy` and `vtracer`:
-    python design/icons/trace-flat.py [--derive N] [name ...]
+Run with a Python that has `opencv-python-headless` and `numpy`:
+    python design/icons/draw-flat.py [--derive N] [name ...]
 
 `ICON_MASTERS` and `ICON_OUT` point it at another pair of directories, for an
 icon that is not a family member's (the kit's sample tool). The palette stays
@@ -39,23 +52,38 @@ the family's.
 """
 
 import json
+import math
 import os
 import pathlib
-import re
 import sys
-import tempfile
 
 import cv2
 import numpy as np
-import vtracer
 
 HERE = pathlib.Path(__file__).parent
 FAMILY_ICONS = HERE.parent.parent / "packages" / "family" / "icons"
 MASTERS = pathlib.Path(os.environ.get("ICON_MASTERS", HERE / "masters"))
 ICONS = pathlib.Path(os.environ.get("ICON_OUT", FAMILY_ICONS))
 PALETTE_FILE = FAMILY_ICONS / "palette.json"
-# The side of the small raster: twice the largest size the chrome shows it at.
-SMALL_SIDE = 96
+# The most a flat icon's SVG may weigh, in bytes.
+BUDGET = 5000
+# How strongly an icon is simplified, mild to strong: the side of the grid its
+# points snap to, how far an outline may stray from the cleaned image (pixels
+# at WORK_SIDE), and the share of the icon below which an area is dropped.
+LEVELS = [
+    (256, 2.2, 0.0012),
+    (192, 2.6, 0.0016),
+    (160, 3.0, 0.0022),
+    (128, 3.4, 0.0030),
+    (128, 4.0, 0.0040),
+    (112, 4.6, 0.0050),
+    (96, 5.4, 0.0065),
+]
+# The reach of the vote that settles the areas before they are drawn, as a
+# share of the icon's side.
+DRAW_SIGMA = 0.0035
+# A vertex whose two edges meet at less than this angle is a corner, not a bend.
+CORNER = 118
 
 # How much of the rendered steel's warmth the lightest grey gives up (the
 # darkest keeps all of it).
@@ -280,58 +308,123 @@ def cleaned(source, palette):
     return result
 
 
-def snapped(svg, hex_colors, palette):
-    """Every fill set to the palette color it is nearest to, so the file holds no other color."""
+def index_labels(image, hex_colors):
+    """The cleaned image as a map of palette indexes (-1 outside the icon)."""
+    inside = image[..., 3] > 0
+    bgr = image[..., :3].astype(np.int32)
+    key = (bgr[..., 2] << 16) | (bgr[..., 1] << 8) | bgr[..., 0]
+    labels = np.full(key.shape, -1, np.int32)
+    for index, color in enumerate(hex_colors):
+        labels[(key == int(color[1:], 16)) & inside] = index
+    return labels, inside
 
-    def snap(match):
-        nearest = np.argmin(np.linalg.norm(palette - lab_of([match.group(1).lower()])[0], axis=1))
-        return f'fill="{hex_colors[nearest]}"'
 
-    return re.sub(r'fill="(#[0-9A-Fa-f]{6})"', snap, svg)
+def angle_at(before, vertex, after):
+    """The angle between a vertex's two edges, in degrees."""
+    first, second = before - vertex, after - vertex
+    length = np.linalg.norm(first) * np.linalg.norm(second)
+    if length == 0:
+        return 180.0
+    return math.degrees(math.acos(max(-1.0, min(1.0, float(np.dot(first, second) / length)))))
 
 
-def trace(name, hex_colors):
-    source = MASTERS / f"{name}-flat.webp"
+def pair(dx, dy):
+    """Two whole numbers, with a space only where they would run together."""
+    first, second = str(int(dx)), str(int(dy))
+    return first + (second if second.startswith("-") else " " + second)
+
+
+def closed_path(points, scale):
+    """One closed outline: lines into its corners, a smooth curve through the rest.
+
+    The smooth stretches are a quadratic B-spline whose control points are the
+    outline's own vertices. It passes through the middle of each edge, and in
+    SVG every vertex after the first costs one point (`t`). Coordinates are
+    doubled, so those midpoints are whole numbers too.
+    """
+    snapped = np.round(points.astype(np.float64) * scale).astype(np.int64)
+    kept = [snapped[0]]
+    for point in snapped[1:]:
+        if (point != kept[-1]).any():
+            kept.append(point)
+    if len(kept) > 1 and (kept[0] == kept[-1]).all():
+        kept.pop()
+    count = len(kept)
+    if count < 3:
+        return ""
+    vertices = np.array(kept)
+    doubled = vertices * 2
+    corner = [
+        angle_at(vertices[index - 1], vertices[index], vertices[(index + 1) % count]) < CORNER
+        for index in range(count)
+    ]
+    start = next((index for index in range(count) if corner[index]), 0)
+    order = [(start + step) % count for step in range(count)]
+    at = doubled[start] if corner[start] else (doubled[order[-1]] + doubled[start]) // 2
+    commands = ["M" + pair(*at)]
+    curving = False
+    for index in order:
+        following = (index + 1) % count
+        if corner[index]:
+            if (at != doubled[index]).any():
+                commands.append("l" + pair(*(doubled[index] - at)))
+                at = doubled[index]
+            curving = False
+            continue
+        end = doubled[following] if corner[following] else (doubled[index] + doubled[following]) // 2
+        if curving:
+            commands.append("t" + pair(*(end - at)))
+        else:
+            commands.append("q" + pair(*(doubled[index] - at)) + " " + pair(*(end - at)))
+        at = end
+        curving = not corner[following]
+    return "".join(commands) + "z"
+
+
+def drawn(labels, inside, hex_colors, grid, epsilon, speck):
+    """The icon as an SVG at one level of simplification."""
+    side = labels.shape[0]
+    count = len(hex_colors)
+    sigma = side * DRAW_SIGMA
+    labels = vote(labels, count, inside, sigma)
+    labels = without_specks(labels, count, inside, side * side * speck, sigma)
+    labels = vote(labels, count, inside, sigma * 0.6)
+    areas = sorted(((int((labels == index).sum()), index) for index in range(count)), reverse=True)
+    stack = [index for area, index in areas if area > 0]
+    smallest = side * side * speck * 0.5
+    paths = []
+    for position, color in enumerate(stack):
+        layer = np.isin(labels, stack[position:]).astype(np.uint8) * 255
+        outlines, _ = cv2.findContours(layer, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE)
+        data = []
+        for outline in outlines:
+            if cv2.contourArea(outline) < smallest:
+                continue
+            reduced = cv2.approxPolyDP(outline, epsilon, True).reshape(-1, 2)
+            if len(reduced) >= 3:
+                data.append(closed_path(reduced, grid / side))
+        if data:
+            paths.append(f'<path fill="{hex_colors[color]}" d="{"".join(data)}"/>')
+    box = grid * 2
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {box} {box}" fill-rule="evenodd">'
+        + "".join(paths)
+        + "</svg>\n"
+    )
+
+
+def redraw(name, hex_colors):
     target = ICONS / f"{name}-flat.svg"
-    palette = lab_of(hex_colors)
-    image = cleaned(source, palette)
-    side = image.shape[0]
-    small = cv2.resize(image, (SMALL_SIDE, SMALL_SIDE), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(str(ICONS / f"{name}-flat.webp"), small, [cv2.IMWRITE_WEBP_QUALITY, 92])
-    with tempfile.TemporaryDirectory() as scratch:
-        clean_file = pathlib.Path(scratch) / "clean.png"
-        cv2.imwrite(str(clean_file), image)
-        vtracer.convert_image_to_svg_py(
-            str(clean_file),
-            str(target),
-            colormode="color",
-            hierarchical="stacked",
-            mode="spline",
-            filter_speckle=8,
-            color_precision=8,
-            layer_difference=2,
-            corner_threshold=70,
-            length_threshold=5.0,
-            splice_threshold=45,
-            max_iterations=10,
-            path_precision=0,
-        )
-    svg = target.read_text()
-    svg = re.sub(r"<\?xml[^>]*\?>\s*", "", svg)
-    svg = re.sub(r"<!--.*?-->\s*", "", svg, flags=re.S)
-    svg = re.sub(
-        r"<svg[^>]*>",
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {side} {side}">',
-        svg,
-        count=1,
-    )
-    svg = snapped(svg, hex_colors, palette)
-    target.write_text(svg.strip() + "\n")
-    used = len(set(re.findall(r'fill="(#[0-9a-f]{6})"', svg)))
-    print(
-        f"{target.name}: {target.stat().st_size // 1024} KB, "
-        f"{svg.count('<path')} paths, {used} of {len(hex_colors)} colors"
-    )
+    image = cleaned(MASTERS / f"{name}-flat.webp", lab_of(hex_colors))
+    labels, inside = index_labels(image, hex_colors)
+    for level, (grid, epsilon, speck) in enumerate(LEVELS):
+        svg = drawn(labels, inside, hex_colors, grid, epsilon, speck)
+        if len(svg) <= BUDGET:
+            break
+    target.write_text(svg)
+    used = svg.count("<path")
+    over = "" if len(svg) <= BUDGET else "  OVER BUDGET: redraw the master simpler"
+    print(f"{target.name}: {len(svg)} bytes at level {level}, {used} colors{over}")
 
 
 arguments = sys.argv[1:]
@@ -343,4 +436,4 @@ if arguments[:1] == ["--derive"]:
 else:
     family = json.loads(PALETTE_FILE.read_text())
 for name in arguments or everyone:
-    trace(name, family)
+    redraw(name, family)

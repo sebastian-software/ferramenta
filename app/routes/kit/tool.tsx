@@ -136,7 +136,6 @@ export default function SampleToolPage() {
         facts={[
           { label: "Built to", value: "UCUM" },
           { label: "Checked against", value: "UCUM functional tests" },
-          { label: "Rating", value: "Alpha" },
           { label: "Release", value: "v0.0.0" },
         ]}
       />

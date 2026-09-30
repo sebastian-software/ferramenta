@@ -162,8 +162,9 @@ rank. The registry has two tiers, and every surface shows them in this order:
   share the family's look (ADR-0008) and its icons (ADR-0009).
 - The **applications** are products from the same workshop with a brand of
   their own: Palamedes and Dalo. The family carries them; it does not dress
-  them. They appear in one band, in their own colors and with their own logos
-  (`brand` in the registry). An application that runs on family engines leads
+  them. They appear in one band, each on a light card under its own logo, with
+  its brand color in the rule above the card and in its action (`brand` in the
+  registry). An application that runs on family engines leads
   that band and names them; one that stands alone is "from the same workshop"
   and claims no more.
 

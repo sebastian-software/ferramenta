@@ -19,9 +19,9 @@ export type ApplicationsBandProps = {
     current?: string;
 };
 /**
- * The applications on black steel, each in its own colors: the one place the
- * family shows a product in a brand that is not the family's. An application
- * that runs on family engines leads and names them; one that stands alone is
- * from the same workshop, and says no more than that.
+ * The applications, each on a light card under its own logo and color: the
+ * one place the family shows a brand that is not its own. An application that
+ * runs on family engines leads and names them; one that stands alone is from
+ * the same workshop, and says no more than that.
  */
 export declare function ApplicationsBand({ current, id, intro, title, }?: ApplicationsBandProps): import("react").JSX.Element | null;

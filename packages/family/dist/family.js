@@ -131,13 +131,7 @@ export const family = [
         version: "1.25.0",
         status: "stable",
         role: "application",
-        brand: {
-            ground: "#0e2a4d",
-            ink: "#f3eee4",
-            accent: "#c99a55",
-            logoGround: "#f6f1e7",
-            logoShape: "disc",
-        },
+        brand: { color: "#0e2a4d", onColor: "#f3eee4" },
         repo: "https://github.com/sebastian-software/palamedes",
         docs: "https://palamedes.dev",
     },
@@ -154,7 +148,7 @@ export const family = [
         version: "0.17.0",
         status: "beta",
         role: "application",
-        brand: { ground: "#0b1733", ink: "#eef1f8", accent: "#ff9d78", logoGround: "#fff" },
+        brand: { color: "#0b1733", onColor: "#eef1f8" },
         repo: "https://github.com/sebastian-software/dalo",
         docs: "https://dalo.sh",
     },
@@ -171,8 +165,9 @@ export const WORKSHOP = {
     consulting: "https://sebastian-consulting.com",
 };
 /**
- * What each maturity stamp promises, in one line. The stamp legend on every
- * family site reads from here, so a status means the same thing everywhere.
+ * What each maturity stamp promises, in one line. A site that shows a stamp
+ * legend (`StampKey`) reads it from here, so a status means the same thing
+ * everywhere.
  */
 export const STATUS_MEANING = {
     stable: "Ready to adopt; its interface is settled.",
