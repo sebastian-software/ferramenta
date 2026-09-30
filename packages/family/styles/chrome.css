@@ -57,28 +57,6 @@
   vertical-align: middle;
 }
 
-/*
- * A small icon on the dark iron. The objects were rendered for the plate's
- * steel; on the iron their blackened bodies lose their edge. So on a dark
- * ground the chrome lifts one a step and rims it with a hair of light, as a
- * lamp over the bench would. On a light ground it stays as rendered.
- */
-:root {
-  --fam-icon-lit: brightness(1.28) contrast(0.9) saturate(1.06)
-    drop-shadow(0 0 1px color-mix(in oklch, var(--iron-100) 50%, transparent))
-    drop-shadow(0 0 2px color-mix(in oklch, var(--iron-100) 20%, transparent));
-}
-
-.site-header .fam-icon,
-.site-footer .fam-icon,
-.flyout .fam-icon {
-  filter: var(--fam-icon-lit);
-}
-
-.flygroup[data-tier="applications"] .fam-icon {
-  filter: none;
-}
-
 .fam-icon[data-icon="ferramenta"] {
   background-image: url("../icons/ferramenta-96.webp");
 }

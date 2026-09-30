@@ -942,11 +942,6 @@ a.fam-engine-link::after {
 }
 
 /* The engines it runs on: each icon, its name and what it is, on a dark inlay. */
-.fam-app-runs .fam-icon,
-a.fam-chip:not([data-light]) .fam-icon {
-  filter: var(--fam-icon-lit);
-}
-
 .fam-app-runs li {
   display: flex;
   align-items: center;
