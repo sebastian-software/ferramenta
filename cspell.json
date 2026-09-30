@@ -3,6 +3,7 @@
   "ignorePaths": [".standards/"],
   "words": [
     "ardo",
+    "corten",
     "dalo",
     "diffable",
     "entwurf",
@@ -12,6 +13,7 @@
     "ferrocat",
     "ferrolex",
     "ferromark",
+    "ferrometro",
     "ferroni",
     "ferrovia",
     "ferrugo",
@@ -28,6 +30,8 @@
     "pnpm",
     "prerendered",
     "repometa",
+    "schattenwand",
+    "typenschild",
     "unreviewed",
     "wordmark",
     "worktrees"

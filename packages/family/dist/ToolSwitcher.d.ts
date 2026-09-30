@@ -17,7 +17,7 @@ export type ToolSwitcherProps = {
     className?: string;
     /**
      * The switcher as the way back to the family, for a site whose brand slot
-     * carries its own lockup: the trigger shows the Ferramenta mark and name
+     * carries its own lockup: the trigger shows the Ferramenta icon and name
      * instead of "Tools", and the flyout opens with a link to the family site.
      * `SiteHeader lockup="project"` sets it; a host header that is not ours sets
      * it itself.
@@ -25,14 +25,15 @@ export type ToolSwitcherProps = {
     family?: boolean;
 };
 /**
- * The family-wide tool switcher, grouped the way the family site groups it.
+ * The family-wide tool switcher: the engines, then the applications the
+ * workshop also makes, each tier under its own label.
  *
  * `SiteHeader` renders it, and it also stands on its own: a docs site whose
  * framework owns the header — an Ardo site placing it into
  * `<ArdoHeaderActions>` — renders `<ToolSwitcher current="ferroni" />` there
  * and gets the same flyout. Standing alone it needs only `MarkDefs` on the
- * page and the package's `tokens.css` plus `chrome.css`; it carries its own
- * duotone variables, and the flyout is positioned against the trigger, so the
- * host header's height does not matter.
+ * page and the package's `tokens.css` plus `chrome.css`; the flyout carries its
+ * own colors and is positioned against the trigger, so the host header's
+ * height and theme do not matter.
  */
 export declare function ToolSwitcher(props?: ToolSwitcherProps): import("react").JSX.Element;

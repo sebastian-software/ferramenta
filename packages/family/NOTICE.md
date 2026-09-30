@@ -2,30 +2,21 @@
 
 The source code of this package is MIT licensed (see the repository
 [LICENSE](https://github.com/sebastian-software/ferramenta/blob/main/LICENSE)).
-The following bundled assets carry their own terms and are **not** covered by
-the MIT license.
+So are the member icons in `icons/`, the textures in `textures/`, and the line
+icons in `src/mark-defs.ts`: they were made for this family (ADR-0009). The
+following bundled assets carry their own terms.
 
-## Streamline icons
+## Barlow Condensed (font)
 
-Most Ferramenta project marks in `src/mark-defs.ts` (toolbox, anvil, flame,
-stamp, corner ruler, drawer cabinet, welding helmet) are derived
-from icons by [Streamline](https://streamlinehq.com) (Duotone and Ultimate
-sets), adapted in color and detail, and used under a Streamline license.
+`fonts/barlow-condensed-500.woff2`, `-600.woff2` and `-700.woff2` are weights of
+the typeface [Barlow Condensed](https://github.com/jpt/barlow) by The Barlow
+Project Authors, licensed under the
+[SIL Open Font License 1.1](https://openfontlicense.org/); the license text
+ships as `fonts/OFL-Barlow.txt`. Loading `ferramenta-family/fonts.css` is
+optional; the chrome falls back to the body stack without it.
 
-These icon assets remain the property of Streamline Design Inc. and may be used
-only in the context of the Ferramenta open-source projects. They may not be
-extracted, redistributed, or reused as standalone assets. Fewer than 100
-Streamline-derived icons are used per project — a test in this package fails if
-the sprite grows past that line.
+## Logos of other projects
 
-The ferralk mark (horseshoe magnet) and the palamedes mark (type slugs in a
-composing stick) are our own drawings in the same construction and carry no
-Streamline claim; they are covered by the MIT license. So are the line icons `external` and `package`, drawn for the landing kit.
-
-## Big Shoulders (font)
-
-`fonts/big-shoulders.woff2` is the typeface
-[Big Shoulders](https://fonts.google.com/specimen/Big+Shoulders), licensed under
-the [SIL Open Font License 1.1](https://openfontlicense.org/). Loading
-`ferramenta-family/fonts.css` is optional; the chrome falls back to the body
-stack without it.
+`icons/palamedes.svg` and `icons/dalo.svg` are the logos of the Palamedes and
+Dalo projects. They are shown to identify those projects in the family's
+navigation and belong to them. The GitHub mark in the sprite is GitHub's.

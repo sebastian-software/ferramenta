@@ -1,6 +1,6 @@
 # ADR-0005: Extend "Schmiede" with functional chassis and fasteners
 
-- Status: accepted
+- Status: superseded by [ADR-0008](0008-design-direction-typenschild.md)
 - Date: 2026-08-14
 - Deciders: Sebastian Werner
 - Supersedes: ADR-0003

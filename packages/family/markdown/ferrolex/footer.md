@@ -2,26 +2,20 @@
 
 [Ferramenta](https://ferramenta.dev) — A family of Rust tools.
 
-**The content pipeline**
+**Engines**
 
 | Tool | Job |
 | --- | --- |
-| [ferroni](https://ferroni.dev) | Oniguruma, continued in Rust |
+| [ferroni](https://ferroni.dev) | Oniguruma-compatible regex engine |
 | [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
 | [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
-
-**The language workshop**
-
-| Tool | Job |
-| --- | --- |
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
-| [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
-
-**On the workbench**
-
-| Tool | Job |
-| --- | --- |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+
+**Applications**
+
+| Tool | Job |
+| --- | --- |
+| [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
 | [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
-| [cuttledoc](https://github.com/sebastian-software/cuttledoc) | Local-first speech transcription |

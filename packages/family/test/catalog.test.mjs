@@ -1,97 +1,168 @@
 /**
  * The family catalog, rendered the way a sibling home page renders it: the
- * pegboard, the tool ledger and the job index from the package's build output,
- * and the registry-facts policy behind their release figures.
+ * engine catalog and the applications band from the package's build output,
+ * the registry's two tiers and relations, and the registry-facts policy behind
+ * the release figures.
  */
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { createElement } from "react";
 
-const { renderToStaticMarkup } = await import("react-dom/server");
-const { createElement } = await import("react");
-const kit = await import("../dist/index.js");
+import { assertInOrder, kit, member, render } from "./helpers.mjs";
 
-const render = (component, props) => renderToStaticMarkup(createElement(component, props));
-
-test("the job index lists every member A to Z by job, and ranks none", () => {
-  const sorted = kit.byJob().map((tool) => tool.shortJob.toLowerCase());
+test("the registry has two tiers: the engines, and the applications the workshop also makes", () => {
+  const { applications, engines } = kit.familyTiers();
+  assert.equal(engines.length + applications.length, kit.family.length);
+  assert.ok(engines.every((tool) => kit.isEngine(tool)));
+  assert.ok(applications.every((tool) => !kit.isEngine(tool)));
   assert.deepEqual(
-    sorted,
-    [...sorted].sort((a, b) => a.localeCompare(b, "en")),
+    kit.family.map((tool) => tool.name),
+    [...engines, ...applications].map((tool) => tool.name),
+    "the catalog lists every engine before the first application",
   );
-  assert.equal(kit.byJob().length, kit.family.length);
+  assert.ok(!kit.familyTiers("ferroni").engines.some((tool) => tool.name === "ferroni"));
+  assert.throws(() => kit.familyTiers("nope"), /Unknown Ferramenta project/u);
+});
 
-  const html = render(kit.JobIndex);
-  assert.match(html, /^<ul class="fam-jobs">/u);
-  assert.equal(html.match(/class="fam-job"/gu).length, kit.family.length);
-  const positions = kit.byJob().map((tool) => html.indexOf(`>${tool.shortJob}</span>`));
+test("every member says what it is before where it comes from", () => {
+  for (const tool of kit.family) {
+    if (kit.isEngine(tool)) {
+      // A page lists the engines as "a regex engine, a syntax highlighter, …".
+      assert.match(tool.what, /^An? /u, `${tool.name}: \`what\` is a noun phrase with its article`);
+    }
+    assert.doesNotMatch(tool.what, /\.$/u, `${tool.name}: \`what\` is a phrase, not a sentence`);
+    assert.match(tool.does, /^[A-Z].*\.$/u, `${tool.name}: \`does\` is one sentence`);
+    assert.match(tool.audience, /^For .*\.$/u, `${tool.name}: \`audience\` starts with "For"`);
+    assert.equal(tool.brand !== undefined, !kit.isEngine(tool), "only an application has a brand");
+  }
+});
+
+/** A member's relations as short strings: "runs-on ferroni". */
+const relations = (name) =>
+  kit.relationsOf(member(name)).map((relation) => `${relation.kind} ${relation.tool.name}`);
+
+test("relations are read from both sides, and never imply a chain", () => {
+  assert.deepEqual(relations("ferriki"), ["runs-on ferroni", "pairs-with ferromark"]);
+  assert.deepEqual(relations("ferroni"), ["carries ferriki"]);
   assert.deepEqual(
-    positions,
-    [...positions].sort((a, b) => a - b),
-    "rendered in job order",
+    relations("ferromark"),
+    ["pairs-with ferriki", "carries palamedes"],
+    "Ferromark pairs with Ferriki; it does not depend on it",
+  );
+  assert.deepEqual(relations("ferrolex"), [], "a member that stands alone has none");
+  assert.deepEqual(
+    relations("palamedes"),
+    member("palamedes").runsOn.map((name) => `runs-on ${name}`),
   );
   for (const tool of kit.family) {
-    assert.ok(html.includes(`href="${kit.toolHref(tool)}"`), `a link to ${tool.name}`);
+    for (const name of [...(tool.uses ?? []), ...(tool.pairsWith ?? [])]) member(name);
   }
-  const ferroni = kit.family.find((tool) => tool.name === "ferroni");
-  assert.ok(
-    html.includes(`aria-label="${ferroni.shortJob}: Ferroni, ${ferroni.status}"`),
-    "a screen reader hears job, tool and stamp with their pauses",
-  );
-  const own = render(kit.JobIndex, { current: "ferroni" });
-  assert.ok(!own.includes("#i-ferroni"), "a site leaves itself out");
 });
 
-test("the pegboard hangs every member with its stamp, grouped like the family", () => {
-  const html = render(kit.Pegboard);
-  assert.match(html, /^<nav class="fam-board" aria-label="The tool family">/u);
-  assert.equal(html.match(/class="fam-board-item"/gu).length, kit.family.length);
-  assert.equal(html.match(/class="fam-board-stamp"/gu).length, kit.family.length);
-  assert.equal(html.match(/class="fam-board-group"/gu).length, 3);
-  const ferroniTool = kit.family.find((tool) => tool.name === "ferroni");
-  const ferroniStart = html.indexOf(
-    `<a class="fam-board-item" href="${kit.toolHref(ferroniTool)}">`,
+const catalog = render(kit.EngineCatalog);
+
+test("the engine catalog gives each engine a plate, then what it does, then its facts", () => {
+  const { engines } = kit.familyTiers();
+  assert.match(catalog, /^<ul class="fam-engines">/u);
+  assert.equal(catalog.match(/<article class="fam-engine"/gu).length, engines.length);
+  assert.ok(!catalog.includes('id="palamedes"'), "applications are not in the engine catalog");
+
+  const ferroni = member("ferroni");
+  const row = catalog.slice(catalog.indexOf('id="ferroni"'), catalog.indexOf('id="ferriki"'));
+  assertInOrder(
+    row,
+    [
+      'class="fam-plate fam-engine-plate"',
+      'data-icon="ferroni" data-form="rendered"',
+      `<a class="fam-engine-link" href="${kit.toolHref(ferroni)}">ferroni</a>`,
+      `<p class="fam-engine-what">${ferroni.what}</p>`,
+      '<span class="fam-stamp" data-tone="solid">stable</span>',
+      `<p class="fam-engine-does">${ferroni.does}</p>`,
+      ferroni.audience,
+      ferroni.proof,
+      'class="fam-engine-fits"',
+      "<dt>Succeeds</dt>",
+      "<dt>Checked against</dt>",
+      `<dd class="fam-engine-version">v${ferroni.version}</dd>`,
+    ],
+    "what it is, what it does, for whom, where it comes from, the facts last",
   );
-  assert.notEqual(ferroniStart, -1, "the pegboard links to Ferroni's registered site");
-  const ferroniEnd = html.indexOf("</a>", ferroniStart);
-  const ferroni = html.slice(ferroniStart, ferroniEnd);
-  assert.ok(
-    ferroni.indexOf("ferroni") < ferroni.indexOf("Regex engine") &&
-      ferroni.indexOf("Regex engine") < ferroni.indexOf("stable"),
-    "the tool name and job come before its maturity stamp",
+  assert.ok(row.includes('<a href="https://ferriki.dev">Ferriki</a> runs on it'));
+});
+
+test("a catalog row names the lineage its engine has, and a page can choose its rows", () => {
+  const newDevelopment = catalog.slice(
+    catalog.indexOf('id="ferromark"'),
+    catalog.indexOf('id="ferrolex"'),
   );
+  assert.match(newDevelopment, /<dt>Built to<\/dt>/u, "a new development names its standard");
+  assert.doesNotMatch(newDevelopment, /<dt>Succeeds<\/dt>/u);
+
+  const own = render(kit.EngineCatalog, { current: "ferroni" });
+  assert.ok(!own.includes('id="ferroni"'), "a site leaves itself out");
   assert.equal(
-    render(kit.Pegboard, { current: "ferroni" }).match(/fam-board-item/gu).length,
-    kit.family.length - 1,
+    render(kit.EngineCatalog, { tools: [member("ferroni")] }).match(/<article/gu).length,
+    1,
+    "a page can show the rows it names",
   );
 });
 
-test("the content pipeline links to each member's site", () => {
-  for (const name of ["ferroni", "ferriki", "ferromark"]) {
-    const tool = kit.family.find((member) => member.name === name);
-    assert.equal(kit.toolHref(tool), `https://${name}.dev`);
-    assert.equal(kit.leadsToRepo(tool), false);
+test("a catalog row without a site says where its link leads", () => {
+  for (const tool of kit.familyTiers().engines) {
+    const note = `${tool.name}<span class="fam-sr-only"> (GitHub repository)</span>`;
+    assert.equal(catalog.includes(note), kit.leadsToRepo(tool), tool.name);
+  }
+  assert.ok(catalog.includes("GitHub repository <svg"), "and says so visibly on its link");
+});
+
+test("the applications band shows each application in its own colors", () => {
+  const html = render(kit.ApplicationsBand, { intro: "Intro.", title: "What the engines carry" });
+  const { applications } = kit.familyTiers();
+  assert.match(html, /^<section class="fam-band fam-apps on-iron" id="applications"/u);
+  assert.equal(html.match(/<article class="fam-app"/gu).length, applications.length);
+  for (const tool of applications) {
+    assert.ok(html.includes(`--fam-app-ground:${tool.brand.ground}`), `${tool.name}: its ground`);
+    assert.ok(html.includes(`<h3 class="fam-app-name">${kit.displayName(tool)}</h3>`));
+    assert.ok(html.includes(`href="${kit.toolHref(tool)}"`));
+  }
+  const palamedes = member("palamedes");
+  const lead = html.slice(html.indexOf('data-lead=""'), html.indexOf("</article>"));
+  assertInOrder(
+    lead,
+    [
+      "Palamedes",
+      ...kit.runsOnTools(palamedes).map((engine) => `<b>${engine.name}</b>${engine.shortJob}`),
+    ],
+    "the application that runs on family engines leads, and names them",
+  );
+  assert.ok(html.includes("From the same workshop"), "one that stands alone claims no more");
+  assert.equal(
+    render(kit.ApplicationsBand, { current: "palamedes" }).match(/<article/gu).length,
+    applications.length - 1,
+    "an application's own site leaves itself out",
+  );
+});
+
+test("an application's card keeps the family's steel out, and gives its logo the ground it needs", () => {
+  const html = render(kit.ApplicationsBand);
+  const lead = html.slice(html.indexOf('data-lead=""'), html.indexOf("</article>"));
+  assert.doesNotMatch(
+    lead,
+    /fam-plate/u,
+    "the engines it names sit on an inlay: no small type on steel inside a brand card",
+  );
+  assert.ok(html.includes('class="fam-app-logo" data-ground="disc"'), "a round emblem on a disc");
+  assert.ok(html.includes('class="fam-app-logo" data-ground="tile"'), "a logo on a light tile");
+  for (const tool of kit.familyTiers().applications) {
+    assert.ok(html.includes(`--fam-app-logo-ground:${tool.brand.logoGround}`), tool.name);
   }
 });
 
-test("the tool ledger numbers only a real sequence, and names what each member rests on", () => {
-  const { language, pipeline } = kit.familyGroups();
-  const chain = render(kit.ToolLedger, { steps: true, tools: pipeline });
-  assert.match(chain, /^<div class="fam-tools" data-steps="">/u);
-  assert.ok(chain.includes('<span class="fam-tool-num" aria-hidden="true">01</span>'));
-  const plain = render(kit.ToolLedger, { tools: language });
-  assert.ok(!plain.includes("fam-tool-num"), "no empty step column");
-  assert.ok(!plain.includes("data-steps"));
-  const palamedes = kit.family.find((tool) => tool.name === "palamedes");
-  const names = palamedes.runsOn.map((name) => kit.displayName(name)).join(" · ");
-  assert.ok(plain.includes(`<dt>Runs on</dt><dd>${names}</dd>`), "names as prose writes them");
-  assert.match(names, /^Ferrocat/u, "the first name too: no text-transform guesswork");
-  // Outside RegistryFacts a row shows the registry's fallback version.
-  assert.ok(plain.includes(`v${language[0].version}`));
-  const application = render(kit.ToolLedger, { tools: [palamedes] });
-  assert.ok(
-    !application.includes('<span class="fam-tool-platforms"></span>'),
-    "applications without a published registry package do not render an empty platform line",
-  );
+test("the engines link to their own sites once they have one", () => {
+  for (const name of ["ferroni", "ferriki", "ferromark"]) {
+    assert.equal(kit.toolHref(member(name)), `https://${name}.dev`);
+    assert.equal(kit.leadsToRepo(member(name)), false);
+  }
 });
 
 test("every member rests on exactly one fact: what it succeeds, builds on, or runs on", () => {
@@ -113,141 +184,6 @@ test("every member rests on exactly one fact: what it succeeds, builds on, or ru
     assert.ok(kit.runsOnTools(tool).every((member) => kit.family.includes(member)));
   }
   assert.throws(() => kit.runsOnTools({ ...palamedes, runsOn: ["nope"] }), /unknown member: nope/u);
-});
-
-test("registry facts: live over snapshot over fallback, and only owned packages are asked for", () => {
-  const tool = kit.family.find((member) => member.name === "ferrocat");
-  const stat = {
-    crates: { version: "3.4.2", downloads: 10 },
-    npm: { version: "0.2.0", lastMonth: 5 },
-  };
-  assert.deepEqual(kit.toolFacts(tool, stat), {
-    version: "3.4.2",
-    crateDownloads: 10,
-    onCrates: true,
-    adapter: true,
-  });
-  assert.equal(
-    kit.toolFacts(tool, stat, { crates: { version: "3.5.0", downloads: 11 } }).version,
-    "3.5.0",
-  );
-  assert.equal(kit.toolFacts(tool, undefined).version, tool.version, "the registry's fallback");
-  assert.equal(
-    kit.toolFacts(tool, {
-      crates: null,
-      npm: { version: "1.0.0", lastMonth: 0, placeholder: true },
-    }).adapter,
-    false,
-    "a held npm name is no adapter",
-  );
-
-  const request = kit.liveRequestFor({
-    ferroni: { crates: { version: "1", downloads: 1 }, npm: null },
-    ferrocat: stat,
-    palamedes: { crates: null, npm: { version: "1", lastMonth: 1, placeholder: true } },
-    ferriki: { crates: null, npm: { version: "1", lastMonth: 1 } },
-  });
-  assert.deepEqual(request.crates, ["ferroni", "ferrocat"]);
-  assert.deepEqual(request.npm, ["ferriki"], "npm only where no crate carries the version");
-  assert.deepEqual(kit.liveRequestFor({ stranger: stat }), { crates: [], npm: [] });
-});
-
-const body = (value) => ({ ok: true, json: async () => value });
-const metricsDoc = (sources = { github: "ok", crates: "ok", npm: "ok" }) => ({
-  schema: 1,
-  generatedAt: "2026-09-24T12:00:00Z",
-  sources,
-  github: {
-    ferriki: { stars: 0, forks: 1, release: { tag: "v9.3.0", version: "9.3.0", publishedAt: "x" } },
-  },
-  crates: {
-    ferroni: { version: "9.0.0", downloads: 5, recentDownloads: 1, publishedAt: "x" },
-    "someone-else": { version: "1.0.0", downloads: 1, recentDownloads: 1, publishedAt: "x" },
-  },
-  npm: { ferromark: { version: "9.1.0", monthlyDownloads: 7, publishedAt: "x" } },
-});
-const verified = { ferroni: { crates: { version: "1", downloads: 1 }, npm: null } };
-
-test("family facts come from the metrics document in one request", async (t) => {
-  const calls = [];
-  t.mock.method(globalThis, "fetch", async (url, options) => {
-    calls.push({ url: String(url), cache: options?.cache });
-    return body(metricsDoc());
-  });
-  const facts = await kit.fetchFamilyFacts(verified);
-  assert.deepEqual(
-    calls,
-    [{ url: kit.METRICS_URL, cache: "no-cache" }],
-    "the page revalidates its metrics document and asks no registry when the service answered",
-  );
-  assert.deepEqual(facts.ferroni, { crates: { version: "9.0.0", downloads: 5 } });
-  assert.deepEqual(facts.ferromark, { npm: { version: "9.1.0", lastMonth: 7 } });
-  assert.equal(facts["someone-else"], undefined, "only family members");
-  assert.deepEqual(facts.ferriki, { release: { version: "9.3.0" } }, "a Git-only tool's release");
-  const ferriki = kit.family.find((tool) => tool.name === "ferriki");
-  assert.equal(kit.toolFacts(ferriki, { crates: null, npm: null }, facts.ferriki).version, "9.3.0");
-  assert.equal(
-    kit.toolFacts(ferriki, { crates: null, npm: null, release: { version: "9.2.0" } }).version,
-    "9.2.0",
-    "the snapshot's release before the registry's hand-set fallback",
-  );
-
-  // Without a snapshot the live facts stand on their own: a sibling site gets figures too.
-  const ferroni = kit.family.find((tool) => tool.name === "ferroni");
-  assert.equal(kit.toolFacts(ferroni, undefined, facts.ferroni).version, "9.0.0");
-});
-
-test("metrics older than the snapshot are ignored and verified registries are queried", async (t) => {
-  const calls = [];
-  t.mock.method(globalThis, "fetch", async (url) => {
-    calls.push(String(url));
-    if (String(url) === kit.METRICS_URL) return body(metricsDoc());
-    if (String(url).includes("/crates?")) {
-      return body({ crates: [{ id: "ferroni", max_stable_version: "2.0.0", downloads: 2 }] });
-    }
-    throw new Error("unexpected request");
-  });
-  const facts = await kit.fetchFamilyFacts(verified, {
-    snapshotGeneratedAt: "2026-09-25T05:00:00Z",
-  });
-  assert.deepEqual(calls, [
-    kit.METRICS_URL,
-    `${kit.REGISTRY_ENDPOINTS.crates}/crates?ids[]=ferroni&per_page=1`,
-  ]);
-  assert.deepEqual(facts.ferroni, { crates: { version: "2.0.0", downloads: 2 } });
-});
-
-test("a registry the metrics service did not answer is asked directly, for verified names only", async (t) => {
-  const calls = [];
-  t.mock.method(globalThis, "fetch", async (url) => {
-    calls.push(String(url));
-    if (String(url) === kit.METRICS_URL) {
-      return body(metricsDoc({ github: "ok", crates: "error", npm: "ok" }));
-    }
-    if (String(url).includes("/crates?")) {
-      return body({ crates: [{ id: "ferroni", max_stable_version: "9.9.9", downloads: 42 }] });
-    }
-    throw new Error("offline");
-  });
-  const facts = await kit.fetchFamilyFacts(verified);
-  assert.equal(calls.length, 2, "the document, then crates.io");
-  assert.equal(facts.ferroni.crates.version, "9.9.9");
-});
-
-test("with the metrics service down, the page falls back to the registries", async (t) => {
-  t.mock.method(globalThis, "fetch", async (url) => {
-    if (String(url).includes("/crates?")) {
-      return body({ crates: [{ id: "ferroni", max_stable_version: "9.9.9", downloads: 42 }] });
-    }
-    return { ok: false, json: async () => ({}) };
-  });
-  const facts = await kit.fetchFamilyFacts(verified);
-  assert.equal(facts.ferroni.crates.version, "9.9.9");
-  assert.deepEqual(
-    await kit.fetchFamilyFacts({}),
-    {},
-    "nothing verified, nothing asked, nothing shown",
-  );
 });
 
 test("the closing action takes a list beside the copy, with or without actions", () => {

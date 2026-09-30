@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { STATUS_MEANING, STATUS_ORDER } from "./family.js";
-/** A status stamp: mono, uppercase, zero radius. */
+/** A status stamp, lettered like a plate: the display face, uppercase, zero radius. */
 export function Stamp({ children, solid = false }) {
     return (_jsx("span", { className: "fam-stamp", "data-tone": solid ? "solid" : undefined, children: children }));
 }

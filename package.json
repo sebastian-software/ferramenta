@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "pnpm build:package && react-router build && node scripts/check-rendered-links.mjs",
+    "build": "pnpm build:package && react-router build && node scripts/prune-sitemap.mjs && node scripts/check-rendered-links.mjs",
     "build:package": "pnpm --filter ferramenta-family build",
     "prepare": "pnpm build:package",
     "preview": "vite preview",

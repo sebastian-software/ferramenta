@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import { type FamilyStatus } from "./family.js";
 export type StampProps = {
-    /** Solid rust for the settled state (stable, covered); a tinted fill otherwise. */
+    /** Filled with rust for the settled state (stable, covered); an outline otherwise. */
     solid?: boolean;
     children: ReactNode;
 };
-/** A status stamp: mono, uppercase, zero radius. */
+/** A status stamp, lettered like a plate: the display face, uppercase, zero radius. */
 export declare function Stamp({ children, solid }: StampProps): import("react").JSX.Element;
 export type LedgerEntry = {
     /** Who or what the row is about. Also the row's key, so keep it unique. */

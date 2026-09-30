@@ -19,10 +19,10 @@ export const END = "<!-- ferramenta-family:end -->";
 export const BRANDING_START = "<!-- sebastian-software-branding:start -->";
 export const VARIANTS = ["github", "registry"];
 
-const GROUP_LABELS = {
-  pipeline: "The content pipeline",
-  language: "The language workshop",
-  workbench: "On the workbench",
+/** The family's two tiers (ADR-0008), in the order the block lists them. */
+const TIER_LABELS = {
+  engines: "Engines",
+  applications: "Applications",
 };
 
 /** Imports a module URL as it is on disk. */
@@ -118,12 +118,12 @@ function table(tools) {
   ].join("\n");
 }
 
-/** Full block for a repository README: one sentence plus the grouped tables. */
+/** Full block for a repository README: one sentence plus one table per tier. */
 function githubBlock(registry, current) {
-  const groups = registry.familyGroups(current ?? undefined);
-  const sections = Object.entries(GROUP_LABELS)
-    .filter(([group]) => groups[group].length > 0)
-    .map(([group, label]) => `**${label}**\n\n${table(groups[group])}`);
+  const tiers = registry.familyTiers(current ?? undefined);
+  const sections = Object.entries(TIER_LABELS)
+    .filter(([tier]) => tiers[tier].length > 0)
+    .map(([tier, label]) => `**${label}**\n\n${table(tiers[tier])}`);
   return [
     `### <a href="${registry.FAMILY_SITE}"><img src="https://raw.githubusercontent.com/sebastian-software/ferramenta/main/app/assets/brand/logo-light.svg" width="24" height="24" alt="" /> More from Ferramenta</a>`,
     "",

@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Ferroni — Schattenwand</title>
+    <meta name="description" content="Direction comp 3 of 3: a tool page in the family theme." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&display=swap"
+    />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="schattenwand.css" />
+  </head>
+  <body class="schattenwand tool">
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-ferramenta" viewBox="0 0 24 24">
+          <path
+            d="M1.5 7.747h21s1 0 1 1v12s0 1 -1 1h-21s-1 0 -1 -1v-12s0 -1 1 -1"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path d="M0.5 12.747h23v3H0.5Z" fill="var(--duo2)" stroke-width="1"></path>
+          <path
+            d="m0.5 12.747 10 0"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m13.5 12.747 10 0"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M13.5 14.247a1.5 1.5 0 0 1 -3 0v-2.5h3Z"
+            fill="var(--duo2)"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M8 7.747a4 4 0 0 1 8 0"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.5 7.747h21s1 0 1 1v12s0 1 -1 1h-21s-1 0 -1 -1v-12s0 -1 1 -1"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferroni" viewBox="0 0 24 24">
+          <path
+            d="M8.5 16.5h2a2 2 0 0 1 2 2c0 3.064 -4.53 1 -4.966 4.436a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.448 -3.369 -4.969 -1.424 -4.969 -4.435a2 2 0 0 1 2 -2h2a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1h-14Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M12.223 19.547c-0.98 1.519 -4.318 0.465 -4.689 3.389a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.377 -2.865 -3.694 -1.9 -4.681 -3.391a29.738 29.738 0 0 0 -6.561 0Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M8.5 16.5h2a2 2 0 0 1 2 2c0 3.064 -4.53 1 -4.966 4.436a0.5 0.5 0 0 0 0.5 0.564h14.935a0.5 0.5 0 0 0 0.5 -0.565c-0.448 -3.369 -4.969 -1.424 -4.969 -4.435a2 2 0 0 1 2 -2h2a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1h-14Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.5 10.5a1 1 0 0 0 -0.98 1.2 6 6 0 0 0 5.88 4.8h2.1v-6Z"
+            fill="var(--duo0)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.12 10.586a0.98 0.98 0 0 0 -0.393 0.281 1 1 0 0 0 -0.207 0.833 6 6 0 0 0 5.88 4.8h2.1v-2.727H6.4a5.98 5.98 0 0 1 -5.28 -3.187Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.5 10.5a1 1 0 0 0 -0.98 1.2 6 6 0 0 0 5.88 4.8h2.1v-6Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m0.5 4.5 12 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M13.5 0.5h4s1 0 1 1v6s0 1 -1 1h-4s-1 0 -1 -1v-6s0 -1 1 -1"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M15.5 7.5v-6a1 1 0 0 1 1 -1h-3a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h3a1 1 0 0 1 -1 -1Z"
+            fill="var(--duo0)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M13.5 0.5h4s1 0 1 1v6s0 1 -1 1h-4s-1 0 -1 -1v-6s0 -1 1 -1"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferriki" viewBox="0 0 24 24">
+          <path
+            d="M10.747 0.884a0.5 0.5 0 0 0 -0.679 0.669C11.883 5.1 11.69 9.959 9.205 12.7a6.568 6.568 0 0 1 -1.5 -3.029c-5.9 4.225 -2.789 13.5 4.5 13.5 10.47 0.004 9.073 -16.706 -1.458 -22.287Z"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M12.705 14.175c0.99 1.763 -1.512 4.294 -3 3.944a2.494 2.494 0 0 0 2.454 2.056c3.624 0 3.229 -5 0.546 -6Z"
+            fill="var(--duo2)"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferromark" viewBox="0 0 24 24">
+          <path
+            d="M22.5 20.5v2a1 1 0 0 1 -1 1h-19a1 1 0 0 1 -1 -1v-2"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M23.5 18.5v1a1 1 0 0 1 -1 1h-21a1 1 0 0 1 -1 -1v-1a2 2 0 0 1 2 -2c12.91 0 5 -8.87 5 -11.54 0 -5.96 9 -5.95 9 0 0 2.64 -7.88 11.54 5 11.54a2 2 0 0 1 2 2Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M21.5 16.5a17.665 17.665 0 0 1 -3.516 -0.307 14.393 14.393 0 0 1 -11.964 0 17.809 17.809 0 0 1 -3.52 0.3 2 2 0 0 0 -2 2v1a1 1 0 0 0 1 1h21a1 1 0 0 0 1 -1v-1a2 2 0 0 0 -2 -1.993Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M22.5 20.5v2a1 1 0 0 1 -1 1h-19a1 1 0 0 1 -1 -1v-2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M23.5 18.5v1a1 1 0 0 1 -1 1h-21a1 1 0 0 1 -1 -1v-1a2 2 0 0 1 2 -2c12.91 0 5 -8.87 5 -11.54 0 -5.96 9 -5.95 9 0 0 2.64 -7.88 11.54 5 11.54a2 2 0 0 1 2 2Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferrolex" viewBox="0 0 24 24">
+          <path
+            d="M23.5 3.5h-22a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h17Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.5 3.5a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h4.239l7 -7Z"
+            fill="var(--duo0)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1v-16l-5 7Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M22.5 18h-3a1 1 0 0 1 -1 -1v2.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1V17a1 1 0 0 1 -1 1Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1 -1v-16l-5 7Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M23.5 3.5h-22a1 1 0 0 0 -1 1v5a1 1 0 0 0 1 1h17Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m3.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m6.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m9.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m12.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m15.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m18.5 3.5 0 2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m4.5 10.5 0 -2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m7.5 10.5 0 -2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m10.5 10.5 0 -2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m13.5 10.5 0 -2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m16.5 10.5 0 -2"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M2.75 6.75A0.25 0.25 0 1 1 2.5 7a0.25 0.25 0 0 1 0.25 -0.25"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferrocat" viewBox="0 0 24 24">
+          <path
+            d="M20.5 22.5a1 1 0 0 1 -1 1h-15a1 1 0 0 1 -1 -1v-21a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M19.5 0.5h-15a1 1 0 0 0 -1 1v2.775a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1V1.5a1 1 0 0 0 -1 -1Z"
+            fill="var(--duo0)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M20.5 22.5a1 1 0 0 1 -1 1h-15a1 1 0 0 1 -1 -1v-21a1 1 0 0 1 1 -1h15a1 1 0 0 1 1 1Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 6.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 13.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 20.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M10.5 4.5h3"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M10.5 11.5h3"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M10.5 18.5h3"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 6.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 13.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M18.5 20.5a1 1 0 0 1 -1 1h-11a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h11a1 1 0 0 1 1 1Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-ferrugo" viewBox="0 0 24 24">
+          <path
+            d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M12 18.69a9.5 9.5 0 0 1 -9.5 -9.5V14a9.5 9.5 0 0 0 19 0V9.19a9.5 9.5 0 0 1 -9.5 9.5Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M21.5 14a9.5 9.5 0 0 1 -19 0V4.5a4 4 0 0 1 4 -4h11a4 4 0 0 1 4 4Z"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M6.5 4.5h11s1 0 1 1v6s0 1 -1 1h-11s-1 0 -1 -1v-6s0 -1 1 -1"
+            fill="var(--duo2)"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path d="M7.5 6.5h9v4h-9Z" fill="var(--duo2)" stroke-width="1"></path>
+          <path d="m7.5 6.5 0 4 0.975 0 4 -4 -4.975 0z" fill="var(--duo1)" stroke-width="1"></path>
+          <path
+            d="M7.5 6.5h9v4h-9Z"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-hook" viewBox="0 0 24 28">
+          <ellipse cx="12" cy="3.4" rx="2.7" ry="3" fill="var(--hook-hole)" />
+          <path d="M12 4 V17.6" stroke="var(--hook-dark)" stroke-width="3.2" fill="none" />
+          <path d="M11.4 4.6 V17" stroke="var(--hook-light)" stroke-width="1.1" fill="none" />
+          <circle
+            cx="12"
+            cy="21"
+            r="3.1"
+            fill="none"
+            stroke="var(--hook-dark)"
+            stroke-width="2.8"
+          />
+          <path
+            d="M9.4 19.8 a3.4 3.4 0 0 1 3.8 -1.9"
+            fill="none"
+            stroke="var(--hook-light)"
+            stroke-width="1.1"
+          />
+        </symbol>
+        <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6.5 9.25 L12 14.75 L17.5 9.25" /></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12 h15.25" />
+          <path d="M13.5 5.75 L19.75 12 L13.5 18.25" />
+        </symbol>
+        <symbol id="i-github" viewBox="0 0 16 16">
+          <path
+            fill="currentColor"
+            stroke="none"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+          />
+        </symbol>
+        <symbol id="i-ferralk" viewBox="0 0 24 24">
+          <path
+            d="M3.5 20.5V12a8.5 8.5 0 0 1 17 0v8.5h-5.4V12a3.1 3.1 0 0 0-6.2 0v8.5Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M8.9 12a3.1 3.1 0 0 1 3.1-3.1V3.5A8.5 8.5 0 0 0 3.5 12v8.5h5.4Z"
+            fill="var(--duo2)"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M3.5 20.5V12a8.5 8.5 0 0 1 17 0v8.5h-5.4V12a3.1 3.1 0 0 0-6.2 0v8.5Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M3.5 17h5.4v3.5H3.5zM15.1 17h5.4v3.5h-5.4z"
+            fill="var(--duo0)"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-crate" viewBox="0 0 24 24">
+          <rect
+            x="3"
+            y="5.5"
+            width="18"
+            height="13"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ></rect>
+          <path
+            d="M3 9h18M3 15h18M7.5 9l9 6M16.5 9l-9 6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ></path>
+        </symbol>
+        <symbol id="i-adapter" viewBox="0 0 24 24">
+          <rect
+            x="2.5"
+            y="7.5"
+            width="6"
+            height="9"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ></rect>
+          <rect
+            x="15.5"
+            y="10"
+            width="6"
+            height="4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ></rect>
+          <path
+            d="M8.5 9.5l7 1.5M8.5 14.5l7-1.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ></path>
+        </symbol>
+        <symbol id="i-palamedes" viewBox="0 0 24 24">
+          <path
+            d="M1.5 17.5h21v3s0 1 -1 1h-19s-1 0 -1 -1Z"
+            fill="var(--duo1)"
+            stroke-width="1"
+          ></path>
+          <path d="M2.5 6.5h5v11h-5Z" fill="var(--duo2)" stroke-width="1"></path>
+          <path d="M9.5 3.5h5v14h-5Z" fill="var(--duo2)" stroke-width="1"></path>
+          <path d="M16.5 9.5h5v8h-5Z" fill="var(--duo2)" stroke-width="1"></path>
+          <path d="M2.5 6.5h1.8v11H2.5Z" fill="var(--duo0)" stroke-width="1"></path>
+          <path d="M9.5 3.5h1.8v14H9.5Z" fill="var(--duo0)" stroke-width="1"></path>
+          <path d="M16.5 9.5h1.8v8h-1.8Z" fill="var(--duo0)" stroke-width="1"></path>
+          <path
+            d="M2.5 6.5h5v11h-5Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M9.5 3.5h5v14h-5Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M16.5 9.5h5v8h-5Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m4.9 9.5 1.6 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m4.9 12 1.1 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m11.9 6.5 1.6 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m11.9 9 1.1 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m18.9 12.5 1.6 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="m18.9 15 1.1 0"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+          <path
+            d="M1.5 17.5h21v3s0 1 -1 1h-19s-1 0 -1 -1Z"
+            fill="none"
+            stroke="var(--duoink)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+          ></path>
+        </symbol>
+        <symbol id="i-external" viewBox="0 0 24 24">
+          <path d="M10.25 4.75H4.75v14.5h14.5v-5.5" />
+          <path d="M14 4.75h5.25V10" />
+          <path d="M19.25 4.75 11 13" />
+        </symbol>
+        <symbol id="i-package" viewBox="0 0 24 24">
+          <path d="M12 3.25l8.25 4.5v8.5L12 20.75l-8.25-4.5v-8.5Z" />
+          <path d="M3.75 7.75 12 12.25l8.25-4.5M12 12.25v8.5" />
+          <path d="M7.875 5.5l8.25 4.5" />
+        </symbol>
+      </defs>
+    </svg>
+    <a class="skip" href="#main">Skip to content</a>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <filter
+          id="paint"
+          x="-20%"
+          y="-20%"
+          width="140%"
+          height="140%"
+          color-interpolation-filters="sRGB"
+        >
+          <feMorphology in="SourceAlpha" operator="dilate" radius="3.5" result="spread" />
+          <feFlood flood-color="#a8431c" />
+          <feComposite in2="spread" operator="in" />
+        </filter>
+      </defs>
+    </svg>
+    <header class="bar">
+      <div class="wrap bar-in">
+        <a class="lockup" href="schattenwand-tool.html"
+          ><svg class="mark" width="30" height="30" aria-hidden="true">
+            <use href="#i-ferroni"></use></svg
+          ><span>Ferroni</span></a
+        >
+        <nav aria-label="Primary">
+          <a class="family" href="schattenwand-home.html"
+            ><svg class="mark" width="20" height="20" aria-hidden="true">
+              <use href="#i-ferramenta"></use></svg
+            ><span>Ferramenta</span
+            ><svg class="icon" width="14" height="14" aria-hidden="true">
+              <use href="#i-chev"></use></svg></a
+          ><a class="wide-only" href="#evidence">Evidence</a
+          ><a class="wide-only" href="#run">Example</a
+          ><a class="gh" href="https://github.com/sebastian-software" aria-label="GitHub"
+            ><svg class="icon" width="20" height="20" aria-hidden="true">
+              <use href="#i-github"></use></svg
+          ></a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero tool-hero">
+        <div class="wrap hero-tool">
+          <div class="hero-tool-copy">
+            <h1>Ferroni</h1>
+            <p class="tagline">Oniguruma, continued in Rust.</p>
+            <p class="lede">
+              A regex engine in memory-safe Rust, with the vscode-oniguruma scanner built in for
+              TextMate grammars. Verified against the upstream tests and measured against the C
+              original.
+            </p>
+            <div class="actions">
+              <a class="btn btn-solid" href="#run"
+                >Get started
+                <svg class="icon" width="18" height="18" aria-hidden="true">
+                  <use href="#i-arrow"></use></svg
+              ></a>
+              <a class="btn btn-line" href="https://github.com/sebastian-software/ferroni"
+                ><svg class="icon" width="18" height="18" aria-hidden="true">
+                  <use href="#i-github"></use>
+                </svg>
+                GitHub</a
+              >
+              <p class="install"><code>cargo add ferroni</code><span>v1.4.2 · stable</span></p>
+            </div>
+          </div>
+          <div class="in-hand" aria-hidden="true">
+            <svg class="mark" width="280" height="280" aria-hidden="true">
+              <use href="#i-ferroni"></use>
+            </svg>
+          </div>
+        </div>
+        <div class="board">
+          <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i
+          ><i class="screw br"></i>
+          <ul class="bays">
+            <li class="bay" style="--i: 0">
+              <span class="bay-in" aria-current="page"
+                ><span class="hang away"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferroni"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferroni</b><span>Regular expressions</span
+                  ><span class="rating away">in use here</span></span
+                ></span
+              >
+            </li>
+            <li class="bay" style="--i: 1">
+              <a class="bay-in" href="https://ferriki.dev"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferriki"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferriki"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferriki</b><span>Syntax highlighting</span
+                  ><span class="rating alpha">alpha</span></span
+                ></a
+              >
+            </li>
+            <li class="bay" style="--i: 2">
+              <a class="bay-in" href="https://ferromark.dev"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferromark"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferromark"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferromark</b><span>Markdown to HTML</span
+                  ><span class="rating stable">stable</span></span
+                ></a
+              >
+            </li>
+            <li class="bay" style="--i: 3">
+              <a class="bay-in" href="https://github.com/sebastian-software/ferrolex"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrolex"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrolex"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferrolex</b><span>Spell checking</span
+                  ><span class="rating alpha">alpha</span></span
+                ></a
+              >
+            </li>
+            <li class="bay" style="--i: 4">
+              <a class="bay-in" href="https://ferrocat.dev"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrocat"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrocat"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferrocat</b><span>Translation catalogs</span
+                  ><span class="rating stable">stable</span></span
+                ></a
+              >
+            </li>
+            <li class="bay" style="--i: 5">
+              <a class="bay-in" href="https://github.com/sebastian-software/ferralk"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferralk"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferralk"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferralk</b><span>File discovery</span
+                  ><span class="rating stable">stable</span></span
+                ></a
+              >
+            </li>
+            <li class="bay" style="--i: 6">
+              <a class="bay-in" href="https://github.com/sebastian-software/ferrugo"
+                ><span class="hang"
+                  ><span class="ghost"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrugo"></use></svg></span
+                  ><span class="tool"
+                    ><svg class="mark" width="104" height="104" aria-hidden="true">
+                      <use href="#i-ferrugo"></use></svg></span
+                  ><i class="peg"></i></span
+                ><span class="label"
+                  ><b>Ferrugo</b><span>PDF previews</span
+                  ><span class="rating early">early</span></span
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="apps pillars">
+        <div class="wrap">
+          <h2>Oniguruma ended. The engine goes on.</h2>
+          <p class="intro">
+            Oniguruma’s C project closed on April 24, 2025, after more than twenty years as the
+            regex engine that TextMate grammars are written for. Ferroni carries it forward.
+          </p>
+          <ul class="principles on-dark">
+            <li>
+              <h3>Same engine, verified</h3>
+              <p>
+                A line-by-line port that keeps Oniguruma’s module structure and optimization
+                pipeline. Verified against the upstream UTF-8 tests, with differential checks
+                against C.
+              </p>
+            </li>
+            <li>
+              <h3>Memory-safe, no C toolchain</h3>
+              <p>cargo add ferroni and build: no bindgen, no C compiler, no node-gyp.</p>
+            </li>
+            <li>
+              <h3>Measured on real code</h3>
+              <p>
+                From single regex searches to complete TextMate grammars, the benchmark reports
+                record input, timings, and reproduction steps.
+              </p>
+            </li>
+            <li>
+              <h3>The scanner, built in</h3>
+              <p>
+                vscode-textmate and Shiki tokenize through vscode-oniguruma’s scanner. Ferroni ships
+                a scanner of the same shape, UTF-16 offsets included.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="evidence" id="evidence">
+        <div class="wrap">
+          <h2>Measured against C Oniguruma</h2>
+          <p class="intro">
+            Each factor is Oniguruma’s time divided by Ferroni’s on the same input; higher is
+            faster.
+          </p>
+          <ul class="figures">
+            <li class="figure">
+              <p class="value">2.5×</p>
+              <p class="label">TypeScript document</p>
+              <p class="detail">279 patterns, 28 lines</p>
+            </li>
+            <li class="figure">
+              <p class="value">32.6×</p>
+              <p class="label">CSS document</p>
+              <p class="detail">117 patterns, 19 lines</p>
+            </li>
+            <li class="figure">
+              <p class="value">9.8×</p>
+              <p class="label">Rust document</p>
+              <p class="detail">81 patterns, 31 lines</p>
+            </li>
+            <li class="figure">
+              <p class="value">6.2×</p>
+              <p class="label">Rejection speed</p>
+              <p class="detail">No match in a 50 KB buffer</p>
+            </li>
+            <li class="figure">
+              <p class="value">3.6×</p>
+              <p class="label">RegSet multi-pattern</p>
+              <p class="detail">5 patterns, simultaneous search</p>
+            </li>
+            <li class="figure">
+              <p class="value">3.1×</p>
+              <p class="label">Lookaround combined</p>
+              <p class="detail">A feature most Rust engines skip</p>
+            </li>
+          </ul>
+          <p class="note">
+            Reference measurements from 2026-09-23 on an Apple M1 Pro. Full tables and reproduction
+            steps live in the benchmark results.
+          </p>
+        </div>
+      </section>
+
+      <section class="run" id="run">
+        <div class="wrap">
+          <h2>A regular expression, run</h2>
+          <div class="run-grid">
+            <figure class="code">
+              <figcaption>website_sample.rs</figcaption>
+              <pre tabindex="0"><code><span class="k">use</span> ferroni::prelude::*;
+
+<span class="k">fn</span> <span class="f">main</span>() -&gt; <span class="t">Result</span>&lt;(), <span class="t">RegexError</span>&gt; {
+    <span class="k">let</span> regex = <span class="t">Regex</span>::<span class="f">new</span>(
+        <span class="s">r"(?&lt;=Date: )(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})"</span>,
+    )?;
+    <span class="k">let</span> text = <span class="s">"Date: 2026-09-26"</span>;
+    <span class="k">let</span> captures = regex.<span class="f">captures</span>(text).<span class="f">expect</span>(<span class="s">"the sample date matches"</span>);
+    <span class="c">// print the input, then every named group</span>
+    <span class="t">Ok</span>(())
+}</code></pre>
+            </figure>
+            <figure class="code out">
+              <figcaption>stdout</figcaption>
+              <pre tabindex="0"><code>input: Date: 2026-09-26
+year: 2026
+month: 09
+day: 26</code></pre>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="fits-in">
+        <div class="wrap">
+          <h2>Where Ferroni fits</h2>
+          <p class="intro">Ferroni works on its own. One family engine is built on it.</p>
+          <ul class="engine-list">
+            <li class="engine" id="ferriki">
+              <article>
+                <div class="thumb">
+                  <span class="hang"
+                    ><span class="ghost"
+                      ><svg class="mark" width="60" height="60" aria-hidden="true">
+                        <use href="#i-ferriki"></use></svg></span
+                    ><span class="tool"
+                      ><svg class="mark" width="60" height="60" aria-hidden="true">
+                        <use href="#i-ferriki"></use></svg></span
+                    ><i class="peg"></i
+                  ></span>
+                </div>
+                <div class="who">
+                  <h3><a href="https://ferriki.dev">Ferriki</a></h3>
+                  <p class="field">Syntax highlighting</p>
+                  <span class="rating alpha">alpha</span>
+                </div>
+                <div class="prose">
+                  <p class="does">Highlights code with the grammars and themes your editor uses.</p>
+                  <p>
+                    Shiki brought editor-grade highlighting to the web. Ferriki keeps its contract
+                    and moves the engine from JavaScript and WASM to native Rust.
+                  </p>
+                  <p>For docs sites, blogs, and build tools that render code.</p>
+                </div>
+                <dl class="facts">
+                  <div>
+                    <dt>Succeeds</dt>
+                    <dd>Shiki</dd>
+                  </div>
+                  <div>
+                    <dt>Checked against</dt>
+                    <dd>Mirrored Shiki test suite</dd>
+                  </div>
+                  <div>
+                    <dt>Fits</dt>
+                    <dd>
+                      <ul>
+                        <li>Runs on <a href="https://ferroni.dev">Ferroni</a></li>
+                        <li>Pairs with <a href="https://ferromark.dev">Ferromark</a></li>
+                      </ul>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Release</dt>
+                    <dd class="release">v0.3.0</dd>
+                  </div>
+                </dl>
+                <p class="go">
+                  <span>ferriki.dev</span>
+                  <svg class="icon" width="22" height="22" aria-hidden="true">
+                    <use href="#i-arrow"></use>
+                  </svg>
+                </p>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="work" id="work">
+        <div class="wrap work-grid">
+          <div>
+            <h2>Need one of these in your stack?</h2>
+            <p>
+              The people who build the engines also integrate them, support them, and maintain them
+              for the long run.
+            </p>
+          </div>
+          <div>
+            <ul class="offers">
+              <li>Integration into your toolchain</li>
+              <li>Support with a named contact</li>
+              <li>Long-term maintenance</li>
+            </ul>
+            <a class="btn btn-light" href="https://sebastian-consulting.com"
+              >Talk to Sebastian Consulting
+              <svg class="icon" width="18" height="18" aria-hidden="true">
+                <use href="#i-arrow"></use></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="foot">
+      <div class="wrap foot-grid">
+        <div class="foot-brand">
+          <a class="lockup" href="schattenwand-home.html"
+            ><svg class="mark" width="30" height="30" aria-hidden="true">
+              <use href="#i-ferramenta"></use></svg
+            ><span>Ferramenta</span></a
+          >
+          <p>Rust-native engines, built to the standards their fields agreed on.</p>
+        </div>
+        <div>
+          <h2>Engines</h2>
+          <ul>
+            <li><a href="https://ferroni.dev">Ferroni</a><span>Regular expressions</span></li>
+            <li><a href="https://ferriki.dev">Ferriki</a><span>Syntax highlighting</span></li>
+            <li><a href="https://ferromark.dev">Ferromark</a><span>Markdown to HTML</span></li>
+            <li>
+              <a href="https://github.com/sebastian-software/ferrolex">Ferrolex</a
+              ><span>Spell checking</span>
+            </li>
+            <li><a href="https://ferrocat.dev">Ferrocat</a><span>Translation catalogs</span></li>
+            <li>
+              <a href="https://github.com/sebastian-software/ferralk">Ferralk</a
+              ><span>File discovery</span>
+            </li>
+            <li>
+              <a href="https://github.com/sebastian-software/ferrugo">Ferrugo</a
+              ><span>PDF previews</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Applications</h2>
+          <ul>
+            <li><a href="https://palamedes.dev">Palamedes</a><span>i18n for TypeScript</span></li>
+            <li><a href="https://dalo.sh">Dalo</a><span>Team agent skills</span></li>
+          </ul>
+          <h2>Work with us</h2>
+          <ul>
+            <li><a href="https://sebastian-consulting.com">sebastian-consulting.com</a></li>
+            <li><a href="https://github.com/sebastian-software">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrap foot-note">
+        <p>A Sebastian Software workshop. Site MIT; each tool's license lives in its repository.</p>
+      </div>
+    </footer>
+    <nav class="comp-nav" aria-label="Comp">
+      <div>
+        <a href="typenschild-tool.html">1 Typenschild</a><a href="corten-tool.html">2 Cor-Ten</a
+        ><a href="schattenwand-tool.html" aria-current="true">3 Schattenwand</a>
+      </div>
+      <div>
+        <a href="schattenwand-home.html">Family page</a
+        ><a href="schattenwand-tool.html" aria-current="true">Tool page</a>
+      </div>
+    </nav>
+  </body>
+</html>

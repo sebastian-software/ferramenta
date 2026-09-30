@@ -13,6 +13,12 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const SKIPPED_DIRECTORIES = new Set([".git", ".pnpm-store", "build", "node_modules", "target"]);
 const MARKDOWN_EXTENSIONS = new Set([".md", ".mdx"]);
+/**
+ * Where the site's own pages live. In a page, a link that starts with `/` is a
+ * route of the site, not a file of the repository; the site build checks those
+ * (Ardo's `linkCheck`), so this check leaves them alone.
+ */
+const SITE_PAGES = join("app", "routes");
 
 function collectMarkdownFiles(directory) {
   const files = [];
@@ -119,8 +125,13 @@ function decode(value, sourcePath) {
   }
 }
 
+function isSitePage(sourcePath, repoRoot) {
+  return relative(repoRoot, sourcePath).startsWith(`${SITE_PAGES}/`);
+}
+
 function localTarget(link, sourcePath, repoRoot) {
   if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/iu.test(link)) return null;
+  if (link.startsWith("/") && isSitePage(sourcePath, repoRoot)) return null;
   const hash = link.indexOf("#");
   const query = link.indexOf("?");
   const pathEnd =

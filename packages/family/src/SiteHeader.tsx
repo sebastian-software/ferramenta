@@ -1,7 +1,7 @@
 import type { ElementType, ReactNode } from "react";
 
-import { family, FAMILY_SITE } from "./family.js";
-import { Mark } from "./Mark.js";
+import { family, FAMILY_SITE, WORKSHOP } from "./family.js";
+import { Icon } from "./Icon.js";
 import { ToolSwitcher } from "./ToolSwitcher.js";
 
 export type SiteHeaderProps = {
@@ -12,12 +12,19 @@ export type SiteHeaderProps = {
    */
   current?: string;
   /**
-   * Rendered at the end of the bar, where the family site puts Ardo's
-   * `<ArdoThemeToggle />`. A slot rather than an import: `ardo/ui` only loads
-   * inside a bundler, and the theme switch belongs to the site's framework, not
-   * to the family chrome.
+   * Rendered at the end of the bar, for a docs site that offers a theme switch
+   * (Ardo's `<ArdoThemeToggle />`). A slot rather than an import: `ardo/ui`
+   * only loads inside a bundler, and the switch belongs to the site's
+   * framework, not to the family chrome. A landing page leaves it out: the
+   * family's pages have one authored scheme (ADR-0008).
    */
   themeToggle?: ReactNode;
+  /**
+   * The family-wide tool switcher in the bar. On by default. The family site
+   * turns it off on its own index, which already is the list the switcher
+   * would open, and puts its page links in `nav` instead.
+   */
+  switcher?: boolean;
   /**
    * Rendered in the family navigation just before `themeToggle`, for the
    * controls a docs site keeps in the bar — search, a section menu. Its own
@@ -57,12 +64,12 @@ export type SiteHeaderProps = {
 function githubLink(current?: string) {
   const currentTool = family.find((tool) => tool.name === current);
   return {
-    href: currentTool?.repo ?? "https://github.com/sebastian-software",
+    href: currentTool?.repo ?? WORKSHOP.source,
     label: currentTool === undefined ? "GitHub" : `${currentTool.name} on GitHub`,
   };
 }
 
-/** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
+/** Black-steel header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
 export function SiteHeader({
   actions,
   as = "header",
@@ -70,12 +77,13 @@ export function SiteHeader({
   home = "/",
   lockup = "family",
   nav,
+  switcher = true,
   themeToggle,
 }: SiteHeaderProps = {}) {
   const Root: ElementType = as;
   const project = lockup === "project";
   const github = githubLink(current);
-  // One construction for both lockups (PRODUCT.md): mark plus lowercase wordmark.
+  // One construction for both lockups: the flat icon on a steel tile, then the wordmark.
   let name = "ferramenta";
   let href = current === undefined ? "/" : FAMILY_SITE;
   if (project) {
@@ -90,12 +98,14 @@ export function SiteHeader({
     <Root className="site-header">
       <div className="wrap bar">
         <a className="lockup" href={href}>
-          <Mark name={name} size={26} />
+          <span className="fam-tile">
+            <Icon name={name} size={28} />
+          </span>
           <span>{name}</span>
         </a>
         {nav}
         <nav className="site-nav" aria-label="Site">
-          <ToolSwitcher current={current} family={project} />
+          {switcher && <ToolSwitcher current={current} family={project} />}
           <a className="ghlink" href={github.href} aria-label={github.label}>
             <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true">
               <use href="#i-github" />

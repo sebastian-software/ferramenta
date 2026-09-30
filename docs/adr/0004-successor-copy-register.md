@@ -2,11 +2,13 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-25
+- Updated: 2026-09-30
 - Amended: 2026-09-24 — successors and new developments, see
   [Amendment 2026-09-24](#amendment-2026-09-24)
 - Amended: 2026-09-25 — standalone applications, see
   [Amendment 2026-09-25](#amendment-2026-09-25)
+- Amended: 2026-09-30 — what it is comes first, see
+  [Amendment 2026-09-30](#amendment-2026-09-30)
 - Deciders: Sebastian Werner
 
 ## Context
@@ -130,6 +132,30 @@ a Ferralk or other engine dependency.
 
 The family overview remains a concise outbound-links surface. These entries do
 not establish a common product layout or require adoption of the shared chrome.
+
+## Amendment 2026-09-30
+
+**What it is comes first.** The register above governs how lineage is worded.
+It does not put lineage first. A visitor who does not know Oniguruma learns
+nothing from "Oniguruma, continued in Rust"; they first need "a regex engine".
+So every surface says, in this order: what the thing is, what it does, who it
+is for, and only then where it comes from and what it is checked against
+(ADR-0008). The registry records the first three as `what` (a noun phrase with
+its article: "A regex engine"), `does` (one plain sentence) and `audience` (a
+sentence starting with "For"); `proof` keeps the register; `job` stays the
+one-line description for tables and says what the tool is, not what it
+continues. Assume the reader knows nothing about the field's history.
+
+The family's headline follows the same rule: it says what the family is in
+plain words rather than reaching for a slogan.
+
+**Cuttledoc** is no longer a member (ADR-0001, amendment of 2026-09-30); the
+2026-09-25 amendment's wording for it is history. Dalo's stands.
+
+**The engines' independence in copy.** The groups and the pipeline are gone
+from the page, and with them any sentence that names an entry point or a
+required chain. Where two members fit together, one sentence says so: "Ferriki
+runs on it", "Pairs with Ferromark", "Runs on Ferrocat".
 
 ## References
 

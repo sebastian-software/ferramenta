@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 export type EvidenceFigure = {
-    /** What was measured, in a mono label. Also the row's key, so keep it unique. */
+    /** What was measured. Also the row's key, so keep it unique. */
     label: string;
-    /** The figure itself, large and rust: a factor, a count, a percentage. */
+    /** The figure itself, large: a factor, a count, a percentage. */
     value: ReactNode;
     /** One line on the input it was measured on. */
     detail?: ReactNode;
@@ -10,9 +10,10 @@ export type EvidenceFigure = {
     measure?: ReactNode;
 };
 /**
- * Measured figures as a definition list: mono label, big rust display value,
- * rust rule on the left. Only numbers someone can reproduce — put where and
- * when they were measured in the section's `note`.
+ * Measured figures, each stamped on a small steel plate: the figure large, its
+ * label and input beneath. Only numbers someone can reproduce — put where and
+ * when they were measured in the section's `note`. A project's own site shows
+ * them; the family site never repeats a figure.
  */
 export declare function EvidenceFigures({ figures }: {
     figures: EvidenceFigure[];

@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { type FamilyStatus, STATUS_MEANING, STATUS_ORDER } from "./family.js";
 
 export type StampProps = {
-  /** Solid rust for the settled state (stable, covered); a tinted fill otherwise. */
+  /** Filled with rust for the settled state (stable, covered); an outline otherwise. */
   solid?: boolean;
   children: ReactNode;
 };
 
-/** A status stamp: mono, uppercase, zero radius. */
+/** A status stamp, lettered like a plate: the display face, uppercase, zero radius. */
 export function Stamp({ children, solid = false }: StampProps) {
   return (
     <span className="fam-stamp" data-tone={solid ? "solid" : undefined}>

@@ -1,27 +1,29 @@
 /*
- * ferramenta-family — the landing kit: the page patterns ferramenta.dev proved
- * and the sibling home pages grew (hero, open-ledger sections, iron band,
- * pipeline assembly, evidence figures, code panel, coverage ledger, closing
- * action, and the family catalog: pegboard, tool ledger, job index), for every
- * family home page to share instead of copy.
+ * ferramenta-family — the landing kit: the page patterns of a family home page
+ * (the plate hero, sections, the black-steel band, the engine catalog, the
+ * applications band, principles, evidence figures, code panel, run sample,
+ * coverage ledger, closing action, work-with-us band), for every family home
+ * page to share instead of copy.
  *
- * Needs `tokens.css` (every value is a token) and `chrome.css` (`.wrap`,
- * `.mark`, `.markplate`, `.fastener`, `.hook`, `.icon`, `.on-iron`, `.fam-sr-only`,
- * and the `--fastener-inset` protocol). Load it after `theme.css` and before the
- * site's own stylesheet, so the site can adjust the kit on equal specificity;
- * `chrome.css` stays last.
+ * Needs `tokens.css` (every color is a token) and `chrome.css` (`.wrap`,
+ * `.icon`, `.fam-icon`, `.fam-tile`, `.on-iron`, `.fam-sr-only`). Load it after
+ * `theme.css` and before the site's own stylesheet, so the site can adjust the
+ * kit on equal specificity; `chrome.css` stays last.
  *
  * Collisions: every landing class is prefixed `fam-`. Bare elements are styled
  * inside `.fam-page`; link defaults keep the page class in the selector so
  * framework-wide bare `a` rules do not override them. Host class rules win.
+ *
+ * Material (ADR-0008): the plate is brushed steel, riveted; the hero ground
+ * and the dark bands are black steel; the closing band is oxidized rust.
+ * Everything else is flat. Small type never sits on the steel texture itself:
+ * it goes on a dark inlay.
  */
 
-/* -- The page: brushed shop floor ------------------------------------------ */
+/* -- The page ---------------------------------------------------------------- */
 
 .fam-page {
-  background:
-    radial-gradient(140% 90% at 50% 12%, transparent 55%, var(--ground-vignette)),
-    var(--texture-brush), var(--bg);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--body);
   font-size: 1.0625rem;
@@ -43,16 +45,20 @@
 :where(.fam-page) :where(h1, h2, h3) {
   font-family: var(--display), var(--body);
   font-weight: var(--disp-weight);
-  letter-spacing: var(--disp-track);
-  line-height: 0.98;
+  line-height: 1;
   text-transform: uppercase;
   text-wrap: balance;
 }
 
+:where(.fam-page) :where(p) {
+  text-wrap: pretty;
+}
+
 /* Links in running text are rust and underlined; every pattern below sets its own. */
 .fam-page :where(a) {
-  color: var(--rust);
-  text-underline-offset: 0.2em;
+  color: var(--rust-deep);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
 }
 
 :where(.fam-page) :where(code) {
@@ -62,7 +68,7 @@
 
 .fam-page :focus-visible {
   outline: 2px solid var(--focus);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* The browser's own surfaces carry the palette too. */
@@ -75,459 +81,1032 @@
   color: var(--on-rust);
 }
 
-/* -- Actions ---------------------------------------------------------------- */
+/* -- The plate --------------------------------------------------------------- */
 
-.fam-actions {
-  margin-top: 2.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-}
-
-.fam-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.85rem 1.5rem;
-  border: 1px solid transparent;
-  color: var(--ink);
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
-}
-
-.fam-btn .icon {
-  stroke-width: 2;
-}
-
-/* The one primary action per view: rust, with a single chamfered corner. */
-.fam-btn-primary {
-  background: var(--rust);
-  color: var(--on-rust);
-  clip-path: var(--chamfer);
-}
-
-.fam-btn-primary:hover {
-  background: var(--rust-deep);
-}
-
-.fam-btn-ghost {
-  border-color: var(--line-heavy);
-}
-
-.fam-btn-ghost:hover {
-  border-color: var(--rust);
-  color: var(--rust);
-}
-
-.on-iron .fam-btn-ghost {
-  border-color: var(--iron-line);
-  color: var(--iron-ink);
-}
-
-.on-iron .fam-btn-ghost:hover {
-  border-color: var(--ember);
-  color: var(--ember);
-}
-
-/* The chamfer on its own, for a host element that is not a `fam-btn-primary`. */
-.fam-chamfer {
-  clip-path: var(--chamfer);
-}
-
-/* -- Hero: the forge floor --------------------------------------------------- */
-
-.fam-hero {
+.fam-plate {
   position: relative;
-  overflow: hidden;
+  isolation: isolate;
+  color: var(--steel-ink);
+  background: var(--steel) url("../textures/steel.webp") center / cover;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 1px 0 0 rgb(255 255 255 / 0.25),
+    inset 0 -1px 0 rgb(0 0 0 / 0.45),
+    inset -1px 0 0 rgb(0 0 0 / 0.25),
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 18px 28px -18px rgb(0 0 0 / 0.55);
 }
 
-/* Ember light falls on the floor from the lower right — and on what hangs there. */
-.fam-hero::after {
+/* The moving reflection: one light for every plate, placed by `PlateLight`. */
+.fam-plate::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(52rem 26rem at 88% 112%, var(--ember-glow), transparent 62%);
+  z-index: -1;
+  background: linear-gradient(
+      102deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.22) 46%,
+      rgb(255 255 255 / 0.05) 54%,
+      transparent 68%
+    )
+    var(--fam-sheen) 0 / 260% 100% no-repeat;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  transition: background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fam-plate :focus-visible {
+  --focus: var(--steel-ink);
+}
+
+.fam-rivet {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fff 0, #dfe2e5 22%, #979ca1 58%, #5b6064 100%);
+  box-shadow:
+    0 1px 1px rgb(0 0 0 / 0.55),
+    0 0 0 1px rgb(0 0 0 / 0.28);
   pointer-events: none;
 }
 
-.fam-hero > .wrap {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-  padding-block: clamp(3.5rem, 7vw, 6rem);
+.fam-rivet[data-corner="tl"] {
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+.fam-rivet[data-corner="tr"] {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.fam-rivet[data-corner="br"] {
+  right: 0.75rem;
+  bottom: 0.75rem;
+}
+
+.fam-rivet[data-corner="bl"] {
+  bottom: 0.75rem;
+  left: 0.75rem;
 }
 
 /*
- * Poster scale. The floor depends on the headline's longest word, so it is a
- * property: in Big Shoulders, 3.4rem holds a ten-letter word ("ONIGURUMA,") on
- * a 360px phone. A site with a longer first word lowers it on `.fam-hero` —
- * never below 2.5rem. The last line of defense breaks the word instead of
- * scrolling the page.
+ * The facts come second: a small tag on two links under the plate. The text
+ * sits on a dark inlay, so the texture never runs behind small type.
  */
+.fam-hanger {
+  position: relative;
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--fam-inset, 1.5rem));
+  margin: 1.125rem 0 0 var(--fam-inset, 1.5rem);
+  transform-origin: 50% -1.125rem;
+  animation: fam-sway 2.6s cubic-bezier(0.37, 0, 0.63, 1) 0.4s both;
+}
+
+@keyframes fam-sway {
+  0% {
+    transform: rotate(0.9deg);
+  }
+
+  25% {
+    transform: rotate(-0.6deg);
+  }
+
+  50% {
+    transform: rotate(0.35deg);
+  }
+
+  75% {
+    transform: rotate(-0.15deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.fam-link {
+  position: absolute;
+  top: -1.75rem;
+  z-index: 2;
+  width: 0.625rem;
+  height: 2.5rem;
+  border: 2.5px solid #b4b8bc;
+  border-radius: 0.3125rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.6),
+    inset 0 0 0 1px rgb(0 0 0 / 0.3);
+}
+
+.fam-link[data-side="left"] {
+  left: 1.5rem;
+}
+
+.fam-link[data-side="right"] {
+  right: 1.5rem;
+}
+
+.fam-tag {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0.3125rem;
+}
+
+.fam-tag > div {
+  padding: 0.75rem 1rem 0.6875rem;
+  background: var(--inlay);
+  color: var(--inlay-ink);
+  box-shadow: inset 1px 0 0 var(--inlay-line);
+}
+
+.fam-tag dt {
+  font:
+    600 0.75rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--inlay-soft);
+}
+
+.fam-tag dd {
+  margin-top: 0.3125rem;
+  font:
+    600 1.0625rem/1.2 var(--display),
+    var(--body);
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 64rem) {
+  .fam-tag {
+    display: flex;
+  }
+
+  .fam-tag > div {
+    padding-inline: 1.25rem;
+  }
+
+  .fam-tag > div:first-child {
+    padding-left: 2.75rem;
+    box-shadow: none;
+  }
+
+  .fam-tag > div:last-child {
+    padding-right: 2.75rem;
+  }
+}
+
+/* -- Hero: one plate on black steel ------------------------------------------ */
+
+.fam-hero {
+  --fam-inset: clamp(1.5rem, 4vw, 3.5rem);
+
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 7vw, 5.5rem);
+  background: var(--iron) url("../textures/black-steel.webp") center / cover;
+}
+
+.fam-hero-plate {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(2.25rem, 4.5vw, 3.5rem) var(--fam-inset);
+}
+
+.fam-hero-copy {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  min-width: 0;
+}
+
+/* The family's headline. A project's name, which has a `what` line under it, is larger. */
 .fam-title {
-  font-size: clamp(var(--fam-title-min, 3.4rem), 9vw, 6rem);
-  max-width: 12ch;
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 0.96;
+  letter-spacing: 0.005em;
   overflow-wrap: break-word;
+}
+
+.fam-hero-copy:has(> .fam-what) .fam-title {
+  font-size: clamp(3.25rem, 8vw, 6rem);
+  letter-spacing: 0.03em;
 }
 
 .fam-title em {
   font-style: normal;
-  color: var(--rust);
+  color: var(--rust-on-steel);
+}
+
+/* What the thing is: sentence case, directly under its name. */
+.fam-what {
+  margin-top: -0.5rem;
+  font:
+    600 clamp(1.5rem, 3vw, 2.25rem) / 1.1 var(--display),
+    var(--body);
+  letter-spacing: 0.01em;
 }
 
 .fam-lede {
-  margin-top: 1.6rem;
-  max-width: 50ch;
-  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-  color: var(--ink-soft);
+  max-width: 58ch;
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.fam-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 .fam-install {
-  margin-top: 1.5rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 1rem;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3.25rem;
+  padding: 0 1.125rem;
+  background: var(--inlay);
+  color: var(--inlay-ink);
+  box-shadow:
+    inset 0 2px 4px rgb(0 0 0 / 0.6),
+    0 1px 0 rgb(255 255 255 / 0.3);
   font-family: var(--mono);
-  font-size: 0.875rem;
-  color: var(--ink-soft);
+  font-size: 0.9375rem;
 }
 
-.fam-install code {
-  padding: 0.45rem 0.8rem;
-  border: 1px solid var(--line);
-  background: var(--bg-dim);
-  color: var(--ink);
-  font-size: 1em;
+.fam-install a {
+  color: var(--inlay-soft);
 }
 
-/* Two classes: `.markplate` in chrome.css loads later and would take the tie. */
-.markplate.fam-hero-plate {
-  width: clamp(9rem, 17vw, 13.5rem);
-  height: clamp(9rem, 17vw, 13.5rem);
-  filter: drop-shadow(0 10px 16px var(--plate-shadow));
+.fam-hero-side {
+  order: -1;
+  width: clamp(8rem, 42vw, 11rem);
 }
 
-.markplate.fam-hero-plate svg {
-  width: 58%;
-  height: 58%;
+/* An object on a plate casts a short shadow onto the steel. */
+.fam-plate .fam-icon:not([data-form="flat"]) {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28));
 }
 
-/* -- Sections: the open ledger --------------------------------------------- */
+.fam-hero-side > .fam-icon {
+  display: block;
+  inline-size: 100%;
+}
+
+@media (min-width: 64rem) {
+  .fam-hero-plate {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3.5rem;
+  }
+
+  .fam-hero-side {
+    order: 0;
+    width: clamp(14rem, 22vw, 18rem);
+    margin-right: 1rem;
+  }
+}
+
+/* -- Actions ----------------------------------------------------------------- */
+
+.fam-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  padding: 0 1.375rem;
+  font:
+    700 1.125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.fam-btn .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fam-btn:hover .icon:last-child {
+  transform: translateX(4px);
+}
+
+/* The one primary action per view: black steel. `a.` outranks the page's link color. */
+a.fam-btn-primary {
+  background: var(--iron);
+  color: var(--iron-ink);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 10px 16px -10px rgb(0 0 0 / 0.7);
+}
+
+a.fam-btn-primary:hover {
+  background: var(--iron-2);
+}
+
+/* Beside it: an engraved outline in whatever ink the surface has. */
+a.fam-btn-ghost {
+  color: inherit;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+a.fam-btn-ghost:hover {
+  background: rgb(0 0 0 / 0.1);
+}
+
+.on-iron a.fam-btn-ghost:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* On black steel or rust the primary action is a piece of the plate's own steel, polished. */
+a.fam-btn-steel,
+.on-iron a.fam-btn-primary {
+  color: var(--steel-ink);
+  background:
+    linear-gradient(rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.34)),
+    var(--steel) url("../textures/steel.webp") center / 320% auto;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgb(0 0 0 / 0.3),
+    0 10px 18px -10px rgb(0 0 0 / 0.7);
+}
+
+a.fam-btn-steel:hover,
+.on-iron a.fam-btn-primary:hover {
+  background:
+    linear-gradient(rgb(255 255 255 / 0.78), rgb(255 255 255 / 0.5)),
+    var(--steel) url("../textures/steel.webp") center / 320% auto;
+}
+
+/* -- Sections ---------------------------------------------------------------- */
 
 .fam-section {
-  padding-top: var(--section-space);
+  padding-block: var(--section-space);
+}
+
+.fam-section[data-tone="dim"] {
+  background: var(--bg-dim);
+}
+
+/* Two sections on the same ground are parted by one rhythm step, not two. */
+.fam-section:not([data-tone]) + .fam-section:not([data-tone]),
+.fam-section[data-tone="dim"] + .fam-section[data-tone="dim"] {
+  padding-top: 0;
 }
 
 .fam-heading {
   font-size: var(--h2-size);
-  padding-bottom: 0.6rem;
-  border-bottom: 3px solid var(--line-heavy);
+  letter-spacing: 0.01em;
 }
 
 .fam-intro {
+  max-width: 60ch;
   margin-top: 1rem;
-  max-width: 62ch;
+  font-size: 1.125rem;
   color: var(--ink-soft);
 }
 
 .fam-note {
+  max-width: 70ch;
   margin-top: 1rem;
-  max-width: 62ch;
   font-size: 0.9375rem;
   color: var(--ink-soft);
 }
 
 .fam-split {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
   gap: 2.5rem 4rem;
   align-items: start;
 }
 
-/* -- Iron band --------------------------------------------------------------- */
+/* -- Black-steel band -------------------------------------------------------- */
 
 .fam-band {
-  --focus: var(--ember);
-  margin-top: clamp(4rem, 8vw, 6.5rem);
   padding-block: var(--section-space);
-  border-top: 3px solid var(--rust);
-  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
+  background: var(--iron) url("../textures/black-steel.webp") center / cover;
   color: var(--iron-ink);
 }
 
-/*
- * Straight under the hero the band closes the first viewport instead of
- * opening a new chapter: it meets the floor directly, so the ember light ends
- * at the band's rust edge rather than at an unlit strip.
- */
-.fam-hero + .fam-band {
-  margin-top: 0;
-}
-
-/* The rust top edge is the band's rule. */
-.fam-band .fam-heading {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.fam-band .fam-intro,
-.fam-band .fam-note {
-  color: var(--iron-soft);
-}
-
-.fam-band :where(a) {
-  color: var(--ember);
-}
-
-.fam-rows {
-  margin-top: 2.5rem;
+/* Two dark passages in a row are one surface: a hairline parts them, not a seam in the texture. */
+.fam-hero + .fam-band,
+.fam-band + .fam-band {
   border-top: 1px solid var(--iron-line);
 }
 
-.fam-rows > div {
-  display: grid;
-  grid-template-columns: minmax(11rem, 22rem) 1fr;
-  gap: 1rem 3rem;
-  align-items: start;
-  padding-block: 1.6rem;
-  border-bottom: 1px solid var(--iron-line);
-}
-
-.fam-rows h3 {
-  font-size: var(--h3-size);
-  line-height: 1;
-  color: var(--ember);
-}
-
-.fam-rows p {
-  max-width: 62ch;
+.on-iron .fam-intro,
+.on-iron .fam-note {
   color: var(--iron-soft);
 }
 
-/* -- Pipeline assembly: one machine on four fasteners --------------------- */
-
-.fam-assembly {
-  --fastener-inset: 8px;
-  position: relative;
-  isolation: isolate;
-  margin-top: 2rem;
-  padding: 2.25rem clamp(1.75rem, 4vw, 3rem) 2rem;
-  border: 2px solid var(--plate-rim-lo);
-  background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 38%),
-    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 4px),
-    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
-  clip-path: polygon(
-    12px 0,
-    calc(100% - 12px) 0,
-    100% 12px,
-    100% calc(100% - 12px),
-    calc(100% - 12px) 100%,
-    12px 100%,
-    0 calc(100% - 12px),
-    0 12px
-  );
-  filter: drop-shadow(0 8px 12px var(--plate-shadow));
+.on-iron :where(a) {
+  color: var(--ember);
 }
 
-/* The inner rim: a second, finer chamfered edge inset from the first. */
-.fam-assembly::before {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  z-index: -1;
-  border: 1px solid var(--plate-rim-lo);
-  clip-path: polygon(
-    8px 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    0 calc(100% - 8px),
-    0 8px
-  );
-  pointer-events: none;
-}
+/* -- Principles -------------------------------------------------------------- */
 
-.fam-assembly-flow {
-  position: relative;
-  z-index: 1;
+.fam-principles {
   display: grid;
-  grid-template-columns:
-    minmax(6.5rem, 0.8fr) minmax(1.5rem, 0.4fr)
-    repeat(3, minmax(7rem, 1fr) minmax(1.5rem, 0.4fr))
-    minmax(6.5rem, 0.8fr);
-  align-items: center;
+  gap: 2rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding: 0;
+  list-style: none;
 }
 
-.fam-assembly-end {
-  display: grid;
-  gap: 0.25rem;
-  line-height: 1.15;
+.fam-principles li {
+  padding-top: 1.25rem;
+  border-top: 3px solid var(--line-heavy);
 }
 
-.fam-assembly-end small {
-  color: var(--rust-on-plate);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.fam-assembly-end b {
-  max-width: 9rem;
-  font-size: 0.88rem;
-  font-weight: 650;
-}
-
-.fam-assembly-output {
-  justify-items: end;
-  text-align: right;
-}
-
-.fam-assembly-stage {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  gap: 0.4rem;
-  min-width: 0;
-  color: var(--ink);
-  text-align: center;
-  text-decoration: none;
-}
-
-.fam-assembly-step {
-  font-family: var(--display), var(--body);
-  font-size: 1.25rem;
-  font-weight: var(--disp-weight);
-  line-height: 1;
-  color: var(--rust-on-plate);
-}
-
-.fam-assembly-stage .markplate {
-  width: 4rem;
-  height: 4rem;
-}
-
-.fam-assembly-stage .markplate svg {
-  width: 2.35rem;
-  height: 2.35rem;
-}
-
-.fam-assembly-copy {
-  display: grid;
-  justify-items: center;
-  min-width: 0;
+.fam-principles h3 {
+  font-size: var(--h3-size);
   line-height: 1.05;
+  letter-spacing: 0.03em;
 }
 
-.fam-assembly-copy b {
-  font-family: var(--display), var(--body);
-  font-size: 1.15rem;
-  font-weight: var(--disp-weight);
-  letter-spacing: 0.02em;
+.fam-principles p {
+  margin-top: 0.625rem;
+  color: var(--ink-soft);
+}
+
+.on-iron .fam-principles li {
+  border-color: var(--ember);
+}
+
+.on-iron .fam-principles p {
+  color: var(--iron-soft);
+}
+
+@media (min-width: 48rem) {
+  .fam-principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 3rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .fam-principles[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fam-principles[data-count="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+/* -- Stamps and the coverage ledger ------------------------------------------ */
+
+/* A rating, lettered like a plate: an outline, or filled with rust once it is settled. */
+.fam-stamp {
+  display: inline-block;
+  padding: 0.375rem 0.625rem 0.3125rem;
+  border: 1.5px solid currentColor;
+  font:
+    700 0.8125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: color 0.15s;
+  white-space: nowrap;
 }
 
-.fam-assembly-copy small {
-  margin-top: 0.22rem;
-  color: var(--ink-soft-on-plate);
-  font-size: 0.75rem;
-  line-height: 1.2;
-}
-
-a.fam-assembly-stage:hover .fam-assembly-copy b {
-  color: var(--rust-on-plate);
-}
-
-/* The stage this site is: its step stamped solid, its name legible on the plate. */
-.fam-assembly-stage[aria-current] .fam-assembly-step {
-  padding: 0.12rem 0.4rem;
+.fam-stamp[data-tone="solid"] {
+  border-color: var(--rust-deep);
   background: var(--rust);
   color: var(--on-rust);
 }
 
-.fam-assembly-stage[aria-current] .fam-assembly-copy b {
-  color: var(--rust-on-plate);
+/* An outlined stamp is small type: on a plate it sits on an inlay, never on the steel itself. */
+.fam-plate .fam-stamp:not([data-tone="solid"]) {
+  border-color: var(--inlay);
+  background: var(--inlay);
+  color: var(--inlay-ink);
 }
 
-.fam-assembly-connector {
-  width: 100%;
-  height: 1.5rem;
+.fam-plate .fam-stamp[data-tone="solid"],
+.on-iron .fam-stamp[data-tone="solid"] {
+  border-color: var(--rust-fill-edge);
+  background: var(--rust-fill);
+  color: var(--rust-fill-ink);
+}
+
+/* The legend: each stamp beside the one line it promises. */
+.fam-stamp-key {
+  display: grid;
+  gap: 1rem 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.fam-stamp-key > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.fam-stamp-key dt {
+  justify-self: start;
+}
+
+.fam-stamp-key dd {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.on-iron .fam-stamp-key {
+  border-color: var(--iron-line);
+}
+
+.on-iron .fam-stamp-key dd {
+  color: var(--iron-soft);
+}
+
+@media (min-width: 48rem) {
+  .fam-stamp-key {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.fam-ledger {
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.fam-ledger-row {
+  display: grid;
+  grid-template-columns: minmax(12rem, 20rem) 9rem minmax(0, 1fr);
+  gap: 0.75rem 2rem;
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.fam-ledger-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.fam-ledger-name {
+  font:
+    700 1.375rem/1.05 var(--display),
+    var(--body);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.fam-ledger-row .fam-stamp {
+  justify-self: start;
+}
+
+.fam-ledger-row p {
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+/* -- The engine catalog ------------------------------------------------------ */
+
+.fam-engines {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding: 0;
+  list-style: none;
+}
+
+.fam-engine {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 5rem;
+}
+
+/* The last row ends the section; a rule under it would have nothing to part. */
+.fam-engines > li:last-child > .fam-engine {
+  padding-bottom: 0;
+}
+
+/* The name plate: what the engine is, and how far it has come. */
+.fam-engine-plate {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem clamp(1.25rem, 4vw, 1.75rem) 1.25rem 1.5rem;
+}
+
+.fam-engine-plate > .fam-icon {
+  inline-size: 100%;
+}
+
+.fam-engine-name {
+  font-size: clamp(1.75rem, 7vw, 2.125rem);
+  letter-spacing: 0.035em;
+}
+
+/* `a.` so the page's link color does not take it; the link covers the whole plate. */
+a.fam-engine-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.fam-engine-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.fam-engine-what {
+  margin-top: 0.3125rem;
+  font:
+    600 1.125rem/1.15 var(--display),
+    var(--body);
+  letter-spacing: 0.02em;
+}
+
+.fam-engine-plate .fam-stamp {
+  align-self: start;
+}
+
+/* On a phone the plate is too narrow for a long name beside its stamp: the stamp goes under the name. */
+@media (max-width: 30rem) {
+  .fam-engine-plate {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    row-gap: 0.625rem;
+  }
+
+  .fam-engine-plate > .fam-icon {
+    grid-row: span 2;
+  }
+
+  .fam-engine-plate .fam-stamp {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+.fam-engine-body {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  color: var(--ink-soft);
+}
+
+.fam-engine-body > p {
+  max-width: 62ch;
+}
+
+/* What it does comes first, and largest. */
+.fam-engine-does {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.1875rem, 1.8vw, 1.375rem);
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.fam-engine-fits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1.5rem;
+  margin-top: 0.5rem;
+  padding: 0;
+  list-style: none;
+  color: var(--ink);
+}
+
+.fam-engine-fits li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fam-engine-fits .icon {
   color: var(--rust);
-  stroke-width: 1.5;
 }
 
-/* -- Evidence figures ---------------------------------------------------------- */
+/* The measured facts, last and quiet. */
+/* One set of columns for every row of the catalog, so the facts line up down the page. */
+.fam-engine-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem 2rem;
+  margin-top: 0.75rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.fam-engine-facts dt {
+  margin-bottom: 0.1875rem;
+  font:
+    600 0.75rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fam-engine-facts dd {
+  color: var(--ink);
+}
+
+/* On a phone the two long facts take a line each; release and registry share the last. */
+.fam-engine-facts > div:nth-last-child(n + 3) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 46rem) {
+  .fam-engine-facts {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.65fr) 4.5rem 6.75rem;
+    column-gap: 1.5rem;
+  }
+
+  .fam-engine-facts > div:nth-last-child(n + 3) {
+    grid-column: auto;
+  }
+}
+
+/* A release changes live: tabular mono, so a new value never shifts the line. */
+.fam-engine-version,
+.fam-count {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.fam-engine-go a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font:
+    700 1.125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.fam-engine-go .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fam-engine-go a:hover .icon {
+  transform: translateX(4px);
+}
+
+@media (min-width: 64rem) {
+  .fam-engine {
+    grid-template-columns: 24rem minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+    padding-block: 2.25rem;
+  }
+}
+
+/* -- The applications band --------------------------------------------------- */
+
+.fam-apps-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* An application in its own colors, from the registry: the family carries it, it does not dress it. */
+.fam-app {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  background: var(--fam-app-ground, var(--iron-2));
+  color: var(--fam-app-ink, var(--iron-ink));
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklch, var(--fam-app-accent, var(--ember)) 55%, transparent);
+}
+
+/* A logo that brings its own ground stands free; one drawn for a light ground gets a tile of it. */
+.fam-app-logo {
+  display: grid;
+  place-items: center;
+  justify-self: start;
+  width: 5.5rem;
+  aspect-ratio: 1;
+}
+
+.fam-app-logo[data-ground] {
+  padding: 0.625rem;
+  background: var(--fam-app-logo-ground);
+}
+
+/* A round emblem of another brand keeps its round ground: the one curve the family did not draw. */
+.fam-app-logo[data-ground="disc"] {
+  border-radius: 50%;
+}
+
+.fam-app-logo > .fam-icon {
+  inline-size: 100%;
+}
+
+.fam-app-name {
+  font-family: var(--body);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.fam-app-job {
+  margin: 0.375rem 0 0.875rem;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--fam-app-accent, var(--ember));
+}
+
+.fam-app p {
+  max-width: 58ch;
+}
+
+/* An application that stands alone says so in a sentence, not under a label with nothing below it. */
+.fam-app-note {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  opacity: 0.8;
+}
+
+.fam-app-label {
+  margin-top: 1.5rem;
+  font:
+    600 0.8125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.fam-app-runs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+/* The engines it runs on: each icon on a steel tile, its name and job on a dark inlay. */
+.fam-app-runs li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
+  background: var(--inlay);
+  color: var(--inlay-ink);
+  box-shadow: inset 0 0 0 1px var(--inlay-line);
+}
+
+.fam-app-runs span:not(.fam-icon) {
+  display: grid;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+}
+
+.fam-app-runs b {
+  font:
+    700 1.125rem/1 var(--display),
+    var(--body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* `a.` and the band's own link color would otherwise both outrank a single class. */
+.fam-app a.fam-app-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  margin-top: 1.75rem;
+  padding: 0 1.25rem;
+  background: var(--fam-app-accent, var(--ember));
+  color: var(--fam-app-ground, var(--iron));
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.fam-app-go .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fam-app-go:hover .icon {
+  transform: translateX(4px);
+}
+
+/* One that stands alone takes less room and an outlined action. */
+.fam-app:not([data-lead]) a.fam-app-go {
+  background: none;
+  color: var(--fam-app-accent, var(--ember));
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+@media (min-width: 48rem) {
+  .fam-app[data-lead] {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .fam-app[data-lead] .fam-app-logo {
+    width: 6.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .fam-apps-grid:has(> .fam-app[data-lead]) {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  }
+
+  .fam-apps-grid:has(> .fam-app[data-lead]:only-child) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* -- Evidence figures: each on its own small plate --------------------------- */
 
 .fam-figures {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  padding-top: 0.5rem;
+  gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
-.fam-figures > div {
-  padding-left: 1rem;
-  border-left: 2px solid var(--rust);
+.fam-split .fam-figures {
+  margin-top: 0;
 }
 
-.fam-figures dt {
-  color: var(--ink-soft);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1.5;
+.fam-figure {
+  display: grid;
+  align-content: start;
+  padding: 2rem 1.75rem 1.75rem;
+}
+
+/* The figure reads first, though the label names it: the label is the term. */
+.fam-figure-value {
+  order: -1;
+  font:
+    700 clamp(3rem, 6vw, 4.5rem) / 0.9 var(--display),
+    var(--body);
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fam-figure dt {
+  margin-top: 0.75rem;
+  font:
+    700 1.25rem/1.1 var(--display),
+    var(--body);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.fam-figure-value {
-  margin-top: 0.25rem;
-  color: var(--rust);
-  font-family: var(--display), var(--body);
-  font-size: clamp(2.6rem, 5vw, 3.6rem);
-  font-weight: var(--disp-weight);
-  letter-spacing: -0.01em;
-  line-height: 1;
-}
-
+/* What it was measured on is small type: it goes on an inlay, not on the steel. */
 .fam-figure-detail {
-  margin-top: 0.5rem;
-  color: var(--ink-soft);
+  margin-top: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--inlay);
+  color: var(--inlay-ink);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.6);
   font-size: 0.875rem;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .fam-figure-detail span {
   display: block;
-  margin-top: 0.15rem;
-  color: var(--ink);
+  color: var(--inlay-soft);
   font-family: var(--mono);
   font-size: 0.8125rem;
 }
 
-/* -- Code panel on iron --------------------------------------------------------- */
+@media (min-width: 64rem) {
+  .fam-figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .fam-split .fam-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* -- Code panel on black steel ----------------------------------------------- */
 
 .fam-code {
   min-width: 0;
   margin-top: 2rem;
-  border-top: 3px solid var(--rust);
   background: var(--iron);
   color: var(--iron-ink);
 }
@@ -538,23 +1117,24 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 
 /* A file name or a command is an identifier: it keeps its own case. */
 .fam-code figcaption {
-  padding: 0.6rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-bottom: 1px solid var(--iron-line);
   color: var(--iron-soft);
   font-family: var(--mono);
   font-size: 0.8125rem;
-  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .fam-code pre {
   --focus: var(--ember);
+
   padding: 1.25rem;
   scrollbar-color: var(--iron-line) transparent;
   overflow-x: auto;
   background: none;
   font-family: var(--mono);
   font-size: 0.875rem;
-  line-height: 1.7;
+  line-height: 1.65;
   white-space: pre;
 }
 
@@ -578,7 +1158,6 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 
 .fam-code .ty {
   color: var(--code-type);
-  font-weight: 600;
 }
 
 .fam-code .fn {
@@ -593,684 +1172,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   color: var(--code-comment);
 }
 
-/* -- Stamps and the coverage ledger -------------------------------------------- */
-
-/* A tinted fill with a hairline edge, so an open state still reads as a stamp on the textured floor. */
-.fam-stamp {
-  display: inline-block;
-  padding: 0.16rem 0.6rem;
-  border: 1px solid var(--line);
-  background: var(--bg-dim);
-  color: var(--ink);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-
-.fam-stamp[data-tone="solid"] {
-  border-color: var(--rust);
-  background: var(--rust);
-  color: var(--on-rust);
-}
-
-.on-iron .fam-stamp:not([data-tone="solid"]) {
-  border-color: var(--iron-line);
-  background: var(--iron-2);
-  color: var(--iron-ink);
-}
-
-/* The legend: each stamp beside the one line it promises. */
-.fam-stamp-key {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem 2rem;
-  margin-top: 2.5rem;
-}
-
-.fam-stamp-key dd {
-  margin: 0.55rem 0 0;
-  max-width: 28ch;
-  font-size: 0.9375rem;
-  line-height: 1.45;
-}
-
-.on-iron .fam-stamp-key dd {
-  color: var(--iron-soft);
-}
-
-.fam-ledger {
-  margin-top: 1.5rem;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-}
-
-.fam-ledger-row {
-  display: grid;
-  grid-template-columns: minmax(12rem, 20rem) 9rem minmax(0, 1fr);
-  gap: 0.75rem 2rem;
-  align-items: baseline;
-  padding: 1.25rem 0.25rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.fam-ledger-name {
-  font-family: var(--display), var(--body);
-  font-size: 1.35rem;
-  font-weight: var(--disp-weight);
-  line-height: 1.05;
-  text-transform: uppercase;
-}
-
-.fam-ledger-row .fam-stamp {
-  justify-self: start;
-}
-
-.fam-ledger-row p {
-  max-width: 62ch;
-  color: var(--ink-soft);
-}
-
-/* -- Closing action ------------------------------------------------------------ */
-
-.fam-closing-grid {
-  margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem 4rem;
-  align-items: center;
-}
-
-.fam-closing-copy > p {
-  max-width: 58ch;
-  color: var(--ink-soft);
-  font-size: 1.08rem;
-}
-
-.fam-closing-copy > p + p {
-  margin-top: 0.8rem;
-}
-
-.fam-closing-grid > .fam-actions {
-  margin-top: 0;
-  justify-content: flex-end;
-}
-
-/* A list beside the copy (an index, a set of links): it hangs from the heading like the copy. */
-.fam-closing-grid:has(> .fam-closing-aside) {
-  align-items: start;
-}
-
-.fam-closing-aside {
-  min-width: 0;
-}
-
-/* The mono link line: where the project lives, spelled out. */
-.fam-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  margin-top: 1.5rem;
-  font-family: var(--mono);
-  font-size: 0.875rem;
-}
-
-/*
- * An icon in the line (external, package) sits beside the underline, not on
- * it. The padding, taken back by the margin, gives each link a 44px target
- * without moving the line.
- */
-.fam-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding-block: 0.7rem;
-  margin-block: -0.7rem;
-}
-
-/* -- The family catalog: pegboard, tool ledger, job index ------------------- */
-
-/* A registry count (downloads): mono and tabular, so a live value never shifts the line. */
-.fam-count {
-  font-family: var(--mono);
-  font-variant-numeric: tabular-nums;
-}
-
-/*
- * The pegboard. Its hole grid is a 28px tile, and everything on it is a
- * multiple: padding 42, cells 112×140, gaps 28, so every hook hangs on a hole
- * (a hook's center sits at 14 mod 28 from the padding edge). The hole is the
- * radial gradient's center, which sits in the middle of its tile: with the
- * tile at 0 0 the holes land at 14 mod 28, under the hooks. Change it only in
- * 28px steps and re-measure the hooks; DESIGN.md has the phone board.
- */
-.fam-board {
-  --fastener-inset: 8px;
-  position: relative;
-  width: fit-content;
-  margin-inline: auto;
-  padding: 42px;
-  border: 2px solid var(--line-heavy);
-  background:
-    radial-gradient(var(--board-hole) 1.3px, transparent 1.4px) 0 0 / 28px 28px,
-    linear-gradient(var(--bg-dim), var(--bg-dim));
-}
-
-.fam-board-grid {
-  display: grid;
-  row-gap: 28px;
-}
-
-.fam-board-label {
-  display: flex;
-  align-items: center;
-  height: 28px;
-  color: var(--ink-soft);
-  font-family: var(--display), var(--body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.fam-board-row {
-  display: grid;
-  grid-template-columns: repeat(3, 112px);
-  grid-auto-rows: 140px;
-  gap: 28px;
-}
-
-.fam-board-item {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  gap: 0.55rem;
-  width: 112px;
-  padding-top: 21px;
-  color: inherit;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 0.15s;
-}
-
-.fam-board-item:hover {
-  color: var(--rust);
-}
-
-/* Two classes: `.markplate` in chrome.css loads later and would take the tie. */
-.fam-board .markplate {
-  width: 76px;
-  height: 76px;
-}
-
-.fam-board .markplate svg {
-  width: 46px;
-  height: 46px;
-  color: var(--rust);
-}
-
-/* The stamp is riveted to the plate's lower edge: no extra row, the grid stays on the holes. */
-.fam-board-stamp {
-  position: absolute;
-  top: calc(21px + 76px - 0.7rem);
-  left: 50%;
-  z-index: 1;
-  translate: -50% 0;
-  line-height: 1;
-}
-
-.fam-board-stamp .fam-stamp {
-  padding: 0.05rem 0.35rem;
-  line-height: 1.25;
-}
-
-/* On the board ground an open stamp's tint vanishes; the floor color and the plate's rim edge it. */
-.fam-board-stamp .fam-stamp:not([data-tone="solid"]) {
-  border-color: var(--plate-rim-hi);
-  background: var(--bg);
-}
-
-.fam-board-copy {
-  display: grid;
-  justify-items: center;
-  margin-top: 0.35rem;
-  line-height: 1.05;
-  text-align: center;
-}
-
-.fam-board-copy b {
-  font-family: var(--display), var(--body);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-/* Short jobs keep their acronyms: no text transform. */
-.fam-board-copy small {
-  margin-top: 0.18rem;
-  color: var(--ink-soft);
-  font-family: var(--body);
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  line-height: 1.15;
-  text-transform: none;
-}
-
-.fam-board-item:hover .fam-board-copy small {
-  color: var(--rust);
-}
-
-.fam-board-repo {
-  display: inline-block;
-  margin-left: 0.3rem;
-  vertical-align: 0.05em;
-  color: var(--ink-soft);
-}
-
-/* A hero whose aside is the board stacks earlier: the board needs the full width below 60rem. */
-@media (max-width: 60rem) {
-  .fam-hero:has(.fam-board) > .wrap {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/*
- * The phone board: every group still one row of three, in 84px cells (3 × 28)
- * with no gap. A hook hangs at its cell's center, 42px in, so the inline
- * padding moves to 28 to put it on a hole; the block padding stays 14.
- */
-@media (max-width: 34rem) {
-  .fam-board {
-    padding: 14px 28px;
-  }
-
-  .fam-board-row {
-    grid-template-columns: repeat(3, 84px);
-    column-gap: 0;
-  }
-
-  .fam-board-item {
-    width: 84px;
-  }
-
-  .fam-board .markplate {
-    width: 56px;
-    height: 56px;
-  }
-
-  .fam-board .markplate svg {
-    width: 34px;
-    height: 34px;
-  }
-
-  .fam-board-stamp {
-    top: calc(21px + 56px - 0.7rem);
-  }
-
-  .fam-board-copy {
-    width: 100%;
-    padding-inline: 4px;
-  }
-
-  .fam-board-copy b {
-    font-size: 0.9rem;
-  }
-}
-
-/* The tool ledger: one hairline row per member, facts from the registry. */
-.fam-tools {
-  display: grid;
-  margin-top: 1.5rem;
-}
-
-.fam-tool {
-  position: relative;
-  display: grid;
-  grid-template-columns: 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 1.6rem 0.25rem;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.15s;
-}
-
-/* Only a numbered ledger carries the step column. */
-.fam-tools[data-steps] .fam-tool {
-  grid-template-columns: 1.6rem 4.6rem minmax(0, 17rem) minmax(0, 1fr) 8rem 2rem;
-}
-
-.fam-tool:hover {
-  background: var(--bg-dim);
-}
-
-.fam-tool-num {
-  align-self: start;
-  padding-top: 0.2rem;
-  color: var(--ink-soft);
-  font-family: var(--display), var(--body);
-  font-size: 1.9rem;
-  font-weight: var(--disp-weight);
-  text-align: center;
-}
-
-.markplate.fam-tool-plate {
-  align-self: start;
-  width: 4.6rem;
-  height: 4.6rem;
-}
-
-.fam-tool-plate svg {
-  width: 44px;
-  height: 44px;
-}
-
-.fam-tool-name {
-  font-size: 2rem;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-/* The name is the link; its ::after stretches the target over the whole row. */
-.fam-tool-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.fam-tool-link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.fam-tool-link:focus-visible {
-  outline: none;
-}
-
-.fam-tool:has(.fam-tool-link:focus-visible) {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
-
-.fam-tool-job {
-  margin-top: 0.35rem;
-  color: var(--ink);
-  font-size: 1.08rem;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.fam-tool-proof {
-  max-width: 50ch;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-/* One fact per line, labels in one column: every row scans the same way. */
-.fam-tool-facts {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 0.3rem 0.75rem;
-  align-items: baseline;
-  margin-top: 0.65rem;
-  color: var(--ink);
-  font-size: 0.78rem;
-  line-height: 1.35;
-}
-
-.fam-tool-facts > div {
-  display: contents;
-}
-
-.fam-tool-facts dd {
-  margin: 0;
-}
-
-.fam-tool-facts dt {
-  color: var(--rust);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.fam-tool-facts .fam-count {
-  font-family: inherit;
-  font-weight: 600;
-}
-
-.fam-tool-meta {
-  color: var(--ink-soft);
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.fam-tool-version {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.fam-tool-platforms {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.15rem;
-  margin-top: 0.3rem;
-}
-
-.fam-tool-platform {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--ink-soft);
-  font-family: var(--body);
-  font-size: 0.75rem;
-}
-
-.fam-tool-platform .icon {
-  flex: none;
-  color: var(--rust);
-}
-
-.fam-tool-meta .fam-stamp {
-  margin-top: 0.45rem;
-}
-
-.fam-tool:hover .fam-tool-meta .fam-stamp:not([data-tone="solid"]) {
-  background: var(--rust-tint);
-}
-
-.fam-tool-go {
-  color: var(--ink-soft);
-  transition:
-    color 0.15s,
-    transform 0.15s;
-}
-
-.fam-tool:hover .fam-tool-go {
-  color: var(--rust);
-  transform: translateX(4px);
-}
-
-/* Stacked: the proof and one line of version, registries and stamp under the name. */
-@media (max-width: 64rem) {
-  .fam-tool,
-  .fam-tools[data-steps] .fam-tool {
-    grid-template-columns: 3.8rem minmax(0, 1fr) 2rem;
-    row-gap: 0.8rem;
-  }
-
-  .fam-tool-num {
-    display: none;
-  }
-
-  .markplate.fam-tool-plate {
-    width: 3.8rem;
-    height: 3.8rem;
-  }
-
-  .fam-tool-plate svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .fam-tool-proof,
-  .fam-tool-meta {
-    grid-column: 2;
-    text-align: left;
-  }
-
-  .fam-tool-go {
-    grid-row: 1;
-    grid-column: 3;
-  }
-
-  .fam-tool-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.4rem 0.9rem;
-  }
-
-  .fam-tool-platforms {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.9rem;
-    margin-top: 0;
-  }
-
-  .fam-tool-meta .fam-stamp {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 40rem) {
-  .fam-tool,
-  .fam-tools[data-steps] .fam-tool {
-    grid-template-columns: 3.8rem minmax(0, 1fr) 1.5rem;
-    padding-block: 1.25rem;
-  }
-
-  .fam-tool-proof,
-  .fam-tool-meta {
-    grid-column: 1 / -1;
-  }
-}
-
-/*
- * The job index: the aisle directory by the door. Job, leader, tool, stamp —
- * one ruled line each, read across like a directory board.
- */
-/* One grid for the whole board, so tools and stamps line up in columns. */
-.fam-jobs {
-  display: grid;
-  grid-template-columns: max-content minmax(3rem, 1fr) max-content max-content;
-  column-gap: 0.75rem;
-  width: min(100%, 34rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 2px solid var(--line-heavy);
-}
-
-.fam-jobs > li {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: subgrid;
-}
-
-.fam-job {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: subgrid;
-  align-items: center;
-  padding: 0.45rem 0.25rem;
-  border-bottom: 1px solid var(--line);
-  color: inherit;
-  text-decoration: none;
-  transition: background 0.15s;
-}
-
-.fam-job:hover {
-  background: var(--bg-dim);
-}
-
-/* Short jobs keep their acronyms and "i18n" its lowercase: no text transform, as on the board. */
-.fam-job-name {
-  font-family: var(--display), var(--body);
-  font-size: 1.1rem;
-  font-weight: var(--disp-weight);
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-}
-
-/* The leader: square dots, set like a directory board's. */
-.fam-job-leader {
-  align-self: end;
-  height: 2px;
-  margin-bottom: 0.45rem;
-  background: linear-gradient(90deg, var(--ink-soft) 2px, transparent 2px) 0 0 / 6px 2px repeat-x;
-  opacity: 0.55;
-}
-
-.fam-job-tool {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.fam-job-tool .mark {
-  flex: none;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--rust);
-}
-
-.fam-job-tool b {
-  font-family: var(--display), var(--body);
-  font-size: 1.1rem;
-  font-weight: var(--disp-weight);
-  letter-spacing: 0.02em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.fam-job .fam-stamp {
-  justify-self: start;
-}
-
-.fam-job:hover .fam-job-name,
-.fam-job:hover .fam-job-tool b {
-  color: var(--rust);
-}
-
-.fam-job:hover .fam-stamp:not([data-tone="solid"]) {
-  background: var(--rust-tint);
-}
-
-/* A phone keeps job and tool on one line; the leader gives way first. */
-@media (max-width: 30rem) {
-  .fam-jobs {
-    grid-template-columns: minmax(0, 1fr) max-content max-content;
-    column-gap: 0.6rem;
-  }
-
-  .fam-job-leader {
-    display: none;
-  }
-
-  .fam-job-name,
-  .fam-job-tool b {
-    font-size: 1rem;
-  }
-}
-
-/* -- Run sample: input, arrow, the output as it came out ------------------------ */
+/* -- Run sample: input, arrow, the output as it came out --------------------- */
 
 .fam-run {
   display: grid;
@@ -1288,7 +1190,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   min-width: 0;
 }
 
-/* The folded input, for a phone: a bar in the code panel's own iron, opening downward. */
+/* The folded input, for a phone: a bar in the code panel's own steel, opening downward. */
 .fam-run-narrow {
   display: none;
 }
@@ -1299,7 +1201,6 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   gap: 0.75rem;
   min-height: 2.75rem;
   padding: 0.6rem 1.25rem;
-  border-top: 3px solid var(--rust);
   background: var(--iron);
   color: var(--iron-ink);
   font-family: var(--mono);
@@ -1332,11 +1233,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   outline-offset: 2px;
 }
 
-/* Opened, the panel continues the bar: no second rust rule, no second caption. */
-.fam-run-narrow .fam-code {
-  border-top: 0;
-}
-
+/* Opened, the panel continues the bar: no second caption. */
 .fam-run-narrow .fam-code figcaption {
   display: none;
 }
@@ -1348,21 +1245,20 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   color: var(--rust);
 }
 
-/* The output is a document on the floor, in the page's own type: a ruled sheet, not a card. */
+/* The output is a document on the page, in the page's own type: a ruled sheet. */
 .fam-run-output {
   min-width: 0;
   border: 1px solid var(--line);
-  border-top: 3px solid var(--rust);
-  background: var(--bg-dim);
+  background: var(--bg);
 }
 
 .fam-run-output figcaption {
-  padding: 0.6rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-bottom: 1px solid var(--line);
   color: var(--ink-soft);
   font-family: var(--mono);
   font-size: 0.8125rem;
-  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 .fam-run-doc {
@@ -1370,7 +1266,7 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 }
 
 .fam-run-doc :is(h1, h2, h3, h4) {
-  font-size: 1.6rem;
+  font-size: var(--h3-size);
 }
 
 .fam-run-doc p {
@@ -1378,11 +1274,11 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
 }
 
 /*
- * The highlighted block keeps its theme's token colors on our iron, the surface
- * code always sits on (gruvbox-dark-hard holds ≥6:1 there). The `!important`
- * answers Ardo's own `.shiki { background: transparent !important }`, which
- * would leave light tokens on the light floor. The rendered side wraps instead
- * of scrolling: it is `inert`, so a scroll box there could not be reached.
+ * The highlighted block keeps its theme's token colors on black steel, the
+ * surface code always sits on (gruvbox-dark-hard holds ≥6:1 there). The
+ * `!important` answers Ardo's own `.shiki { background: transparent !important }`,
+ * which would leave light tokens on the light ground. The rendered side wraps
+ * instead of scrolling: it is `inert`, so a scroll box there could not be reached.
  */
 .fam-run-doc pre.shiki {
   background: var(--iron) !important;
@@ -1398,9 +1294,121 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
   padding: 1.1rem 1.25rem;
   font-family: var(--mono);
   font-size: 0.875rem;
-  line-height: 1.7;
+  line-height: 1.65;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* -- Closing action ---------------------------------------------------------- */
+
+.fam-closing-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem 4rem;
+}
+
+.fam-closing-copy > p {
+  max-width: 58ch;
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+}
+
+.fam-closing-copy > p + p {
+  margin-top: 0.8rem;
+}
+
+/* The action follows its copy directly; the link line comes after it. */
+.fam-closing-copy > .fam-actions {
+  margin-top: 1.75rem;
+}
+
+/* A list beside the copy (an index, a set of links): it hangs from the heading like the copy. */
+.fam-closing-grid:has(> .fam-closing-aside) {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.fam-closing-aside {
+  min-width: 0;
+}
+
+/* The mono link line: where the project lives, spelled out. */
+.fam-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+
+/*
+ * An icon in the line (external, package) sits beside the underline, not on
+ * it. The padding, taken back by the margin, gives each link a 44px target
+ * without moving the line.
+ */
+.fam-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-block: 0.7rem;
+  margin-block: -0.7rem;
+}
+
+/* -- Work with us: the rust band --------------------------------------------- */
+
+.fam-work {
+  --focus: var(--rust-fill-ink);
+
+  padding-block: var(--section-space);
+  background: var(--rust-fill) url("../textures/rust.webp") center top / 600px;
+  color: var(--rust-fill-ink);
+}
+
+.fam-work-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.fam-work p {
+  max-width: 50ch;
+  margin-top: 1rem;
+  font-size: 1.1875rem;
+  color: var(--rust-fill-soft);
+}
+
+.fam-offers {
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(255 255 255 / 0.4);
+}
+
+.fam-offers li {
+  padding-block: 0.875rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.4);
+  font:
+    600 1.375rem/1.1 var(--display),
+    var(--body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 64rem) {
+  .fam-work-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 5rem;
+    align-items: center;
+  }
+}
+
+/* -- Narrow viewports -------------------------------------------------------- */
+
+@media (max-width: 64rem) {
+  .fam-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 54rem) {
@@ -1426,108 +1434,26 @@ a.fam-assembly-stage:hover .fam-assembly-copy b {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
-}
 
-/* -- Narrow viewports ----------------------------------------------------------- */
-
-@media (max-width: 64rem) {
-  .fam-split {
+  .fam-closing-grid:has(> .fam-closing-aside) {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .fam-assembly-flow {
-    grid-template-columns:
-      minmax(5.5rem, 0.8fr) minmax(1rem, 0.3fr)
-      repeat(3, minmax(6rem, 1fr) minmax(1rem, 0.3fr))
-      minmax(5.5rem, 0.8fr);
-  }
-}
-
-@media (max-width: 54rem) {
-  .fam-stamp-key {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .fam-closing-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .fam-closing-grid > .fam-actions {
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 46rem) {
-  .fam-hero > .wrap {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* On a phone the plate leads, small, and the headline follows it. */
-  .markplate.fam-hero-plate {
-    order: -1;
-    width: 6.5rem;
-    height: 6.5rem;
-  }
-
-  .fam-rows > div {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.5rem;
-  }
-
-  .fam-assembly {
-    padding: 2rem 1.5rem;
-  }
-
-  .fam-assembly-flow {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-  }
-
-  .fam-assembly-end,
-  .fam-assembly-output {
-    justify-items: center;
-    text-align: center;
-  }
-
-  .fam-assembly-end b {
-    max-width: none;
-  }
-
-  .fam-assembly-stage {
-    grid-template-columns: auto auto;
-    column-gap: 0.8rem;
-    align-items: center;
-    text-align: left;
-  }
-
-  .fam-assembly-step {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
-
-  .fam-assembly-copy {
-    justify-items: start;
-  }
-
-  .fam-assembly-connector {
-    width: 2rem;
-    height: 2rem;
-    transform: rotate(90deg);
   }
 
   .fam-ledger-row {
     grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 30rem) {
-  .fam-figures {
-    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fam-page * {
-    transition: none !important;
+  .fam-hanger {
+    animation: none;
+  }
+
+  .fam-plate::after,
+  .fam-btn .icon,
+  .fam-engine-go .icon,
+  .fam-app-go .icon {
+    transition: none;
   }
 }

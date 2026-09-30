@@ -1,11 +1,12 @@
 import { MARK_DEFS } from "./mark-defs.js";
 
 /**
- * Mounts the shared SVG sprite once per page: duotone project marks,
- * the pegboard hook, and the line-style chrome icons.
+ * Mounts the shared SVG sprite once per page: the line icons of the chrome
+ * (chevron, arrow, GitHub, crate, adapter, external, package).
  *
  * Render it once, above the header. `Mark` only references symbols; without
- * `MarkDefs` on the page every mark is empty.
+ * `MarkDefs` on the page every one of them is empty. The members' own icons
+ * are not in the sprite: see `Icon`.
  */
 export function MarkDefs() {
   return (
@@ -16,14 +17,14 @@ export function MarkDefs() {
 }
 
 export type MarkProps = {
-  /** Symbol name without the "i-" prefix, e.g. "ferroni" or "arrow" */
+  /** Symbol name without the "i-" prefix, e.g. "arrow" */
   name: string;
   className?: string;
   size?: number;
 };
 
-/** A single symbol from the sprite. Project marks use class "mark", chrome icons "icon". */
-export function Mark({ name, className = "mark", size }: MarkProps) {
+/** A single line icon from the sprite. It takes the class "icon" unless told otherwise. */
+export function Mark({ name, className = "icon", size }: MarkProps) {
   return (
     <svg className={className} width={size} height={size} aria-hidden="true">
       <use href={`#i-${name}`} />

@@ -1,121 +1,68 @@
-import { useId } from "react";
+import { type ReactNode, useId } from "react";
 
 import {
-  byJob,
   displayName,
-  family,
-  type FamilyGroup,
-  familyGroups,
+  type FamilyRelation,
+  familyTiers,
   type FamilyTool,
-  isEngine,
   leadsToRepo,
+  relationsOf,
   runsOnTools,
   toolHref,
 } from "./family.js";
-import { Fasteners } from "./Fasteners.js";
+import { type CustomProperties, Icon } from "./Icon.js";
 import { Stamp } from "./Ledger.js";
 import { Mark } from "./Mark.js";
-import { Count, useToolFacts } from "./RegistryFacts.js";
+import { Rivets } from "./Plate.js";
+import { useToolFacts } from "./RegistryFacts.js";
 import { RepoNote } from "./RepoNote.js";
 
 /*
- * The family's members as a site shows them: hung on the pegboard, set in the
- * tool ledger, looked up in the job index. Everything comes from the registry,
- * and the release figures from `RegistryFacts`. Styled by `landing.css`.
+ * The family's two tiers as a site shows them: the engines as a catalog of
+ * name plates, the applications as a band in their own colors. Everything
+ * comes from the registry, the release figures from `RegistryFacts`. Styled by
+ * `landing.css`.
  */
 
-const GROUPS: Array<{ key: FamilyGroup; label: string }> = [
-  { key: "pipeline", label: "Pipeline" },
-  { key: "language", label: "Language" },
-  { key: "workbench", label: "Workbench" },
-];
-
-function boardGroups(current?: string) {
-  const groups = familyGroups(current);
-  return GROUPS.map((group) => ({ ...group, tools: groups[group.key] })).filter(
-    (group) => group.tools.length > 0,
-  );
+/** Where a member's link leads, as the page names it: its host, or its repository. */
+function linkLabel(tool: FamilyTool): string {
+  return leadsToRepo(tool) ? "GitHub repository" : new URL(toolHref(tool)).host;
 }
 
-function BoardItem({ tool }: { tool: FamilyTool }) {
+function RelationLine({ relation }: { relation: FamilyRelation }) {
+  const link = <a href={toolHref(relation.tool)}>{displayName(relation.tool)}</a>;
+  let text: ReactNode = <>Pairs with {link}</>;
+  if (relation.kind === "runs-on") text = <>Runs on {link}</>;
+  if (relation.kind === "carries") text = <>{link} runs on it</>;
   return (
-    <a className="fam-board-item" href={toolHref(tool)}>
-      <svg className="hook" aria-hidden="true">
-        <use href="#i-hook" />
-      </svg>
-      <span className="markplate">
-        <Mark name={tool.mark ?? tool.name} />
-      </span>
-      <span className="fam-board-copy">
-        <b>
-          {tool.name}
-          {leadsToRepo(tool) ? (
-            <Mark name="github" className="icon fam-board-repo" size={11} />
-          ) : null}
-          <RepoNote tool={tool} />
-        </b>
-        <small>{tool.shortJob}</small>
-      </span>
-      {/* Riveted to the plate's lower edge: no extra row, so no hook moves. */}
-      <span className="fam-board-stamp">
-        <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-      </span>
-    </a>
+    <li>
+      <Mark name="adapter" size={16} />
+      <span>{text}</span>
+    </li>
   );
 }
 
-function BoardGroup({ label, tools }: { label: string; tools: FamilyTool[] }) {
-  const labelId = useId();
+/** Where a member fits with others. Empty for one that stands entirely alone. */
+function Relations({ tool }: { tool: FamilyTool }) {
+  const relations = relationsOf(tool);
+  if (relations.length === 0) return null;
   return (
-    <div className="fam-board-group" role="group" aria-labelledby={labelId}>
-      <small className="fam-board-label" id={labelId}>
-        {label}
-      </small>
-      <div className="fam-board-row">
-        {tools.map((tool) => (
-          <BoardItem key={tool.name} tool={tool} />
-        ))}
-      </div>
-    </div>
+    <ul className="fam-engine-fits">
+      {relations.map((relation) => (
+        <RelationLine key={`${relation.kind}-${relation.tool.name}`} relation={relation} />
+      ))}
+    </ul>
   );
 }
 
-export type PegboardProps = {
-  /** A member whose own site this is: it is left off the wall. */
-  current?: string;
-  /** The navigation landmark's name. */
-  label?: string;
-};
-
-/**
- * The pegboard: every member on a hook, grouped the way the family is, each
- * plate stamped with its maturity so none outranks another. Its geometry is
- * the 28px wall grid (see DESIGN.md); it fits the hero's `aside`.
- */
-export function Pegboard({ current, label = "The tool family" }: PegboardProps = {}) {
-  return (
-    <nav className="fam-board" aria-label={label}>
-      <Fasteners />
-      <div className="fam-board-grid">
-        {boardGroups(current).map((group) => (
-          <BoardGroup key={group.key} label={group.label} tools={group.tools} />
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-/**
- * The facts under a row's proof, as a definition list a screen reader can
- * pace. A successor names what it succeeds, a new development the standards it
- * builds on, an application the engines it runs on; each names its evidence,
- * qualitatively, never with a figure.
- */
-function ToolFactsList({ tool }: { tool: FamilyTool }) {
+/** The measured facts, last and quiet: lineage, evidence, release, registries. */
+function EngineFacts({ tool }: { tool: FamilyTool }) {
   const facts = useToolFacts(tool);
-  const runsOn = runsOnTools(tool);
+  const registries = [facts.onCrates ? "crates.io" : null, facts.adapter ? "npm" : null].filter(
+    (registry) => registry !== null,
+  );
   return (
-    <dl className="fam-tool-facts">
+    <dl className="fam-engine-facts">
       {tool.succeeds === undefined ? null : (
         <div>
           <dt>Succeeds</dt>
@@ -124,148 +71,189 @@ function ToolFactsList({ tool }: { tool: FamilyTool }) {
       )}
       {tool.buildsOn === undefined ? null : (
         <div>
-          <dt>Builds on</dt>
+          <dt>Built to</dt>
           <dd>{tool.buildsOn}</dd>
         </div>
       )}
-      {runsOn.length === 0 ? null : (
-        <div>
-          <dt>Runs on</dt>
-          <dd>{runsOn.map((member) => displayName(member)).join(" · ")}</dd>
-        </div>
-      )}
       <div>
-        <dt>Evidence</dt>
+        <dt>Checked against</dt>
         <dd>{tool.evidence}</dd>
       </div>
-      {facts.onCrates ? (
-        <div>
-          <dt>Downloads</dt>
-          <dd>
-            <Count value={facts.crateDownloads} /> on crates.io
-          </dd>
-        </div>
-      ) : null}
+      <div>
+        <dt>Release</dt>
+        <dd className="fam-engine-version">v{facts.version}</dd>
+      </div>
+      <div>
+        <dt>Published on</dt>
+        <dd>{registries.length === 0 ? "Git" : registries.join(" · ")}</dd>
+      </div>
     </dl>
   );
 }
 
-function ToolMeta({ tool }: { tool: FamilyTool }) {
-  const facts = useToolFacts(tool);
+/**
+ * One catalog row. The plate says what the engine is; the copy beside it says
+ * what it does, for whom, and only then where it comes from. The name is the
+ * link, stretched over the plate.
+ */
+function EngineRow({ tool }: { tool: FamilyTool }) {
   return (
-    <div className="fam-tool-meta">
-      <b className="fam-tool-version">v{facts.version}</b>
-      {facts.onCrates || facts.adapter || isEngine(tool) ? (
-        <span className="fam-tool-platforms">
-          {facts.onCrates ? (
-            <span className="fam-tool-platform">
-              <Mark name="crate" className="icon" size={15} />
-              crates.io
-            </span>
-          ) : null}
-          {facts.adapter ? (
-            <span className="fam-tool-platform">
-              <Mark name="adapter" className="icon" size={15} />
-              npm
-            </span>
-          ) : null}
-          {isEngine(tool) && !facts.onCrates && !facts.adapter ? (
-            <span className="fam-tool-platform">install from Git</span>
-          ) : null}
-        </span>
-      ) : null}
-      <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-    </div>
+    <li>
+      <article className="fam-engine" id={tool.name}>
+        <div className="fam-plate fam-engine-plate">
+          <Rivets />
+          <Icon name={tool.name} form="rendered" />
+          <div>
+            <h3 className="fam-engine-name">
+              <a className="fam-engine-link" href={toolHref(tool)}>
+                {tool.name}
+                <RepoNote tool={tool} />
+              </a>
+            </h3>
+            <p className="fam-engine-what">{tool.what}</p>
+          </div>
+          <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
+        </div>
+        <div className="fam-engine-body">
+          <p className="fam-engine-does">{tool.does}</p>
+          <p>{tool.audience}</p>
+          <p>{tool.proof}</p>
+          <Relations tool={tool} />
+          <EngineFacts tool={tool} />
+          <p className="fam-engine-go">
+            <a href={toolHref(tool)}>
+              {linkLabel(tool)} <Mark name="arrow" size={18} />
+            </a>
+          </p>
+        </div>
+      </article>
+    </li>
   );
 }
 
+export type EngineCatalogProps = {
+  /** A member whose own site this is: it is left out of the catalog. */
+  current?: string;
+  /** The engines to show. Defaults to every engine in the registry, in catalog order. */
+  tools?: FamilyTool[];
+};
+
 /**
- * One ledger row. The name is the link, stretched over the whole row, so the
- * target stays the row while a screen reader hears the name, not every fact
- * at once. A row that leads to a repository rather than a site says so.
+ * The engine catalog: one row per engine, each with its name plate. Every
+ * engine works on its own; where two fit together, the row says so.
  */
-function ToolRow({ step, tool }: { step?: number; tool: FamilyTool }) {
+export function EngineCatalog({ current, tools }: EngineCatalogProps = {}) {
+  const engines = tools ?? familyTiers(current).engines;
   return (
-    <article className="fam-tool">
-      {step === undefined ? null : (
-        <span className="fam-tool-num" aria-hidden="true">
-          {String(step).padStart(2, "0")}
-        </span>
-      )}
-      <span className="markplate fam-tool-plate" aria-hidden="true">
-        <Mark name={tool.mark ?? tool.name} />
+    <ul className="fam-engines">
+      {engines.map((tool) => (
+        <EngineRow key={tool.name} tool={tool} />
+      ))}
+    </ul>
+  );
+}
+
+/** An application's brand colors as custom properties, for the one band that shows them. */
+function brandStyle(tool: FamilyTool): CustomProperties | undefined {
+  if (tool.brand === undefined) return undefined;
+  const style: CustomProperties = {
+    "--fam-app-ground": tool.brand.ground,
+    "--fam-app-ink": tool.brand.ink,
+    "--fam-app-accent": tool.brand.accent,
+  };
+  if (tool.brand.logoGround !== undefined) style["--fam-app-logo-ground"] = tool.brand.logoGround;
+  return style;
+}
+
+/** The engines an application runs on: each icon on a steel tile, name and job on a dark inlay. */
+function RunsOn({ engines }: { engines: FamilyTool[] }) {
+  return (
+    <>
+      <p className="fam-app-label">Runs on</p>
+      <ul className="fam-app-runs">
+        {engines.map((engine) => (
+          <li key={engine.name}>
+            <span className="fam-tile">
+              <Icon name={engine.name} size={28} />
+            </span>
+            <span>
+              <b>{engine.name}</b>
+              {engine.shortJob}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function ApplicationCard({ tool }: { tool: FamilyTool }) {
+  const engines = runsOnTools(tool);
+  const logoGround =
+    tool.brand?.logoGround === undefined ? undefined : (tool.brand.logoShape ?? "tile");
+  return (
+    <article
+      className="fam-app"
+      data-lead={engines.length > 0 ? "" : undefined}
+      style={brandStyle(tool)}
+    >
+      <span className="fam-app-logo" data-ground={logoGround}>
+        <Icon name={tool.name} />
       </span>
-      <div className="fam-tool-who">
-        <h3 className="fam-tool-name">
-          <a className="fam-tool-link" href={toolHref(tool)}>
-            {tool.name}
-            <RepoNote tool={tool} />
-          </a>
-        </h3>
-        <p className="fam-tool-job">{tool.job}</p>
+      <div>
+        <h3 className="fam-app-name">{displayName(tool)}</h3>
+        <p className="fam-app-job">{tool.job}</p>
+        <p>{tool.does}</p>
+        {engines.length > 0 ? (
+          <RunsOn engines={engines} />
+        ) : (
+          <p className="fam-app-note">From the same workshop. It stands on its own.</p>
+        )}
+        <a className="fam-app-go" href={toolHref(tool)}>
+          Visit {linkLabel(tool)} <Mark name="arrow" size={18} />
+        </a>
       </div>
-      <div className="fam-tool-proof">
-        <p className="fam-tool-story">{tool.proof}</p>
-        <ToolFactsList tool={tool} />
-      </div>
-      <ToolMeta tool={tool} />
-      <Mark name={leadsToRepo(tool) ? "github" : "arrow"} className="fam-tool-go icon" size={22} />
     </article>
   );
 }
 
-export type ToolLedgerProps = {
-  tools: FamilyTool[];
-  /**
-   * Number the rows 01, 02, 03 — only where the order is real, as in the
-   * pipeline's chain. Unnumbered rows drop the column instead of leaving it empty.
-   */
-  steps?: boolean;
-};
-
-/** The registry ledger: one hairline row per member, with proof, facts and release. */
-export function ToolLedger({ steps = false, tools }: ToolLedgerProps) {
-  return (
-    <div className="fam-tools" data-steps={steps ? "" : undefined}>
-      {tools.map((tool, index) => (
-        <ToolRow key={tool.name} tool={tool} step={steps ? index + 1 : undefined} />
-      ))}
-    </div>
-  );
-}
-
-export type JobIndexProps = {
-  /** A member whose own site this is: it is left out of the index. */
+export type ApplicationsBandProps = {
+  id?: string;
+  title?: ReactNode;
+  intro?: ReactNode;
+  /** A member whose own site this is: it is left out. */
   current?: string;
 };
 
 /**
- * The job index, like the aisle directory by a hardware store's door: every
- * job A to Z, and the tool that does it. Each member works on its own, so the
- * index recommends none; the stamp says how far each has come.
+ * The applications on black steel, each in its own colors: the one place the
+ * family shows a product in a brand that is not the family's. An application
+ * that runs on family engines leads and names them; one that stands alone is
+ * from the same workshop, and says no more than that.
  */
-export function JobIndex({ current }: JobIndexProps = {}) {
-  const tools = byJob(family.filter((tool) => tool.name !== current));
+export function ApplicationsBand({
+  current,
+  id = "applications",
+  intro,
+  title = "Applications",
+}: ApplicationsBandProps = {}) {
+  const titleId = useId();
+  const { applications } = familyTiers(current);
+  if (applications.length === 0) return null;
+
   return (
-    <ul className="fam-jobs">
-      {tools.map((tool) => (
-        <li key={tool.name}>
-          {/* Read as one line, the cells would run together: the label says it with its pauses. */}
-          <a
-            className="fam-job"
-            href={toolHref(tool)}
-            aria-label={`${tool.shortJob}: ${displayName(tool)}, ${tool.status}${leadsToRepo(tool) ? " (GitHub repository)" : ""}`}
-          >
-            <span className="fam-job-name">{tool.shortJob}</span>
-            <span className="fam-job-leader" aria-hidden="true" />
-            <span className="fam-job-tool">
-              <Mark name={tool.mark ?? tool.name} className="mark" size={22} />
-              <b>{tool.name}</b>
-            </span>
-            <Stamp solid={tool.status === "stable"}>{tool.status}</Stamp>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <section className="fam-band fam-apps on-iron" id={id} aria-labelledby={titleId}>
+      <div className="wrap">
+        <h2 className="fam-heading" id={titleId}>
+          {title}
+        </h2>
+        {intro !== undefined && <p className="fam-intro">{intro}</p>}
+        <div className="fam-apps-grid">
+          {applications.map((tool) => (
+            <ApplicationCard key={tool.name} tool={tool} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

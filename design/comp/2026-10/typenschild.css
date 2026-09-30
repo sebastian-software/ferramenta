@@ -1,0 +1,1279 @@
+/* Direction 1 · Typenschild
+   A precision-tool catalog: black steel, brushed steel plates, oxidized rust
+   as the one color. The one prop is the riveted plate: it carries the name,
+   what the thing is and the action. The facts hang below it on a small tag. */
+
+:root {
+  --ground: oklch(0.955 0.004 250);
+  --ground-dim: oklch(0.915 0.006 250);
+  --ink: oklch(0.21 0.012 250);
+  --ink-soft: oklch(0.4 0.014 250);
+  --line: oklch(0.82 0.008 250);
+  --rust: oklch(0.42 0.095 38);
+  --rust-deep: oklch(0.35 0.085 36);
+  --rust-bright: oklch(0.72 0.11 50);
+  --graphite: oklch(0.19 0.008 250);
+  --on-dark: oklch(0.96 0.004 250);
+  --on-dark-soft: oklch(0.78 0.008 250);
+  --on-rust-soft: oklch(0.9 0.02 60);
+  --engrave: oklch(0.2 0.012 250);
+  /* Rust as paint in an engraving: dark enough for 4.5:1 on the steel's mid tone. */
+  --rust-on-steel: oklch(0.4 0.11 37);
+  --inlay: oklch(0.2 0.008 250);
+  --on-inlay: oklch(0.95 0.004 250);
+  --on-inlay-soft: oklch(0.76 0.006 250);
+  --sheen: 40%;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --space: clamp(4.5rem, 9vw, 7.5rem);
+
+  accent-color: var(--rust);
+}
+
+::selection {
+  background: var(--rust);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 3px;
+}
+
+.bar :focus-visible,
+.hanger :focus-visible,
+.apps :focus-visible,
+.work :focus-visible,
+.foot :focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Header */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--graphite);
+  color: var(--on-dark);
+  border-bottom: 1px solid oklch(0.32 0.01 250);
+}
+
+.bar-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4rem;
+}
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  font: 700 1.5rem/1 var(--display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* On black steel a dark object loses its outline, so the chrome shows every
+   icon on a small tile of the plate steel. */
+.bar .badge,
+.foot .badge {
+  padding: 3px;
+  background:
+    linear-gradient(rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.1)),
+    oklch(0.64 0.004 250) url("assets/steel-dark.webp") center / 400%;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 0 -1px 0 rgb(0 0 0 / 0.45);
+}
+
+.bar nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.25rem, 2vw, 1.5rem);
+}
+
+.bar nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  padding-inline: 0.375rem;
+  font: 600 1.0625rem/1 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--on-dark-soft);
+  transition: color 0.2s;
+}
+
+.bar nav a:hover {
+  color: #fff;
+}
+
+.bar nav .family {
+  color: var(--on-dark);
+  padding-inline: 0.75rem;
+  border: 1px solid oklch(0.38 0.01 250);
+}
+
+.bar nav a {
+  white-space: nowrap;
+}
+
+@media (max-width: 47.99rem) {
+  .bar nav .family span,
+  .bar nav .family .icon {
+    display: none;
+  }
+
+  .bar nav .family {
+    padding-inline: 0.625rem;
+  }
+}
+
+.wide-only {
+  display: none !important;
+}
+
+@media (min-width: 48rem) {
+  .wide-only {
+    display: inline-flex !important;
+  }
+}
+
+/* ---------- The plate */
+
+.plate {
+  position: relative;
+  isolation: isolate;
+  color: var(--engrave);
+  background:
+    linear-gradient(rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.1)),
+    oklch(0.64 0.004 250) url("assets/steel-dark.webp") center / cover;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 1px 0 0 rgb(255 255 255 / 0.25),
+    inset 0 -1px 0 rgb(0 0 0 / 0.45),
+    inset -1px 0 0 rgb(0 0 0 / 0.25),
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 18px 28px -18px rgb(0 0 0 / 0.55);
+}
+
+/* The moving reflection: one light for every plate. */
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+      102deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.22) 46%,
+      rgb(255 255 255 / 0.05) 54%,
+      transparent 68%
+    )
+    var(--sheen) 0 / 260% 100% no-repeat;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  transition: background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rivet {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fff 0, #dfe2e5 22%, #979ca1 58%, #5b6064 100%);
+  box-shadow:
+    0 1px 1px rgb(0 0 0 / 0.55),
+    0 0 0 1px rgb(0 0 0 / 0.28);
+}
+
+.rivet.tl {
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+.rivet.tr {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.rivet.bl {
+  bottom: 0.75rem;
+  left: 0.75rem;
+}
+
+.rivet.br {
+  bottom: 0.75rem;
+  right: 0.75rem;
+}
+
+/* The facts come second: a small tag on two links under the plate. The
+   text sits on a dark inlay, so the texture never runs behind small type. */
+.hanger {
+  position: relative;
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--inset));
+  margin: 1.125rem 0 0 var(--inset);
+  transform-origin: 50% -1.125rem;
+  animation: sway 2.6s cubic-bezier(0.37, 0, 0.63, 1) 0.4s both;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0.9deg);
+  }
+
+  25% {
+    transform: rotate(-0.6deg);
+  }
+
+  50% {
+    transform: rotate(0.35deg);
+  }
+
+  75% {
+    transform: rotate(-0.15deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.link {
+  position: absolute;
+  top: -1.75rem;
+  z-index: 2;
+  width: 0.625rem;
+  height: 2.5rem;
+  border: 2.5px solid #b4b8bc;
+  border-radius: 0.3125rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.6),
+    inset 0 0 0 1px rgb(0 0 0 / 0.3);
+}
+
+.link.left {
+  left: 1.5rem;
+}
+
+.link.right {
+  right: 1.5rem;
+}
+
+.tag {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0.3125rem;
+}
+
+.tag > div {
+  padding: 0.75rem 1rem 0.6875rem;
+  background: var(--inlay);
+  color: var(--on-inlay);
+  box-shadow: inset 1px 0 0 oklch(0.34 0.008 250);
+}
+
+.tag dt {
+  font: 600 0.75rem/1 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-inlay-soft);
+}
+
+.tag dd {
+  margin-top: 0.3125rem;
+  font: 600 1.0625rem/1.2 var(--display);
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 64rem) {
+  .tag {
+    display: flex;
+  }
+
+  .tag > div {
+    padding-inline: 1.25rem;
+  }
+
+  .tag > div:first-child {
+    padding-left: 2.75rem;
+    box-shadow: none;
+  }
+
+  .tag > div:last-child {
+    padding-right: 2.75rem;
+  }
+}
+
+.rating {
+  display: inline-block;
+  padding: 0.375rem 0.625rem 0.3125rem;
+  border: 1.5px solid currentColor;
+  font: 700 0.8125rem/1 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rating.stable {
+  background: var(--rust);
+  border-color: var(--rust-deep);
+  color: #fff;
+}
+
+/* ---------- Hero */
+
+.hero {
+  --inset: clamp(1.5rem, 4vw, 3.5rem);
+
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 7vw, 5.5rem);
+  background:
+    linear-gradient(oklch(0.16 0.008 250 / 0.8), oklch(0.16 0.008 250 / 0.8)),
+    var(--graphite) url("assets/millscale.webp") center / cover;
+}
+
+.hero-plate {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(2.25rem, 4.5vw, 3.5rem) var(--inset);
+  color: oklch(0.13 0.01 250);
+}
+
+.hero-plate :focus-visible {
+  outline-color: oklch(0.13 0.01 250);
+}
+
+.copy {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+}
+
+.hero-plate h1 {
+  font: 700 clamp(2.5rem, 6vw, 4.75rem) / 0.96 var(--display);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+.hero-plate h1 em {
+  font-style: normal;
+  color: var(--rust-on-steel);
+}
+
+.lede {
+  max-width: 58ch;
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* A member's icon is a rendered object. On a plate it casts a short shadow
+   onto the steel. */
+.badge {
+  flex: none;
+  height: auto;
+}
+
+.emblem {
+  order: -1;
+  width: clamp(6rem, 30vw, 9rem);
+}
+
+.emblem .badge {
+  width: 100%;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 10px 10px rgb(0 0 0 / 0.3));
+}
+
+@media (min-width: 64rem) {
+  .hero-plate {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3.5rem;
+  }
+
+  .emblem {
+    order: 0;
+    width: clamp(14rem, 22vw, 18rem);
+    margin-right: 1rem;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  padding: 0 1.375rem;
+  font: 700 1.125rem/1 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s;
+}
+
+.btn .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover .icon:last-child {
+  transform: translateX(4px);
+}
+
+.btn-steel {
+  color: var(--engrave);
+  background: linear-gradient(#f6f7f8, #cdd1d5);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgb(0 0 0 / 0.3),
+    0 10px 18px -10px rgb(20 5 0 / 0.7);
+}
+
+.btn-steel:hover {
+  background: linear-gradient(#fff, #dde0e3);
+}
+
+/* On the plate: black steel for the one action, an engraved outline beside it. */
+.btn-dark {
+  background: var(--graphite);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 10px 16px -10px rgb(0 0 0 / 0.7);
+}
+
+.btn-dark:hover {
+  background: oklch(0.27 0.01 250);
+}
+
+.btn-outline {
+  box-shadow: inset 0 0 0 1.5px oklch(0.13 0.01 250 / 0.85);
+}
+
+.btn-outline:hover {
+  background: rgb(0 0 0 / 0.1);
+}
+
+/* ---------- Sections */
+
+section {
+  padding-block: var(--space);
+}
+
+h2 {
+  font: 700 clamp(2.25rem, 4.6vw, 3.5rem) / 1 var(--display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.intro {
+  max-width: 60ch;
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Engines */
+
+.engine-list {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.engine article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.engine:last-child article {
+  border-bottom: 1px solid var(--line);
+}
+
+.name-plate {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem clamp(1.25rem, 4vw, 1.75rem) 1.25rem 1.5rem;
+  color: oklch(0.13 0.01 250);
+}
+
+.name-plate .badge {
+  width: 100%;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 5px 5px rgb(0 0 0 / 0.28));
+}
+
+.name-plate h3 {
+  font: 700 clamp(1.75rem, 7vw, 2.125rem) / 1 var(--display);
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.name-plate h3 a {
+  text-decoration: none;
+}
+
+.name-plate h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.name-plate .what {
+  margin-top: 0.3125rem;
+  font: 600 1.125rem/1.15 var(--display);
+  letter-spacing: 0.02em;
+}
+
+.name-plate .rating {
+  align-self: start;
+}
+
+.prose {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  color: var(--ink-soft);
+}
+
+.prose p {
+  max-width: 62ch;
+}
+
+.does {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.1875rem, 1.8vw, 1.375rem);
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.fits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1.5rem;
+  margin-top: 0.5rem;
+  color: var(--ink);
+}
+
+.fits li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fits .icon {
+  color: var(--rust);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem 2rem;
+  margin-top: 0.75rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.meta dt {
+  margin-bottom: 0.1875rem;
+  font: 600 0.75rem/1 var(--display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.meta dd {
+  color: var(--ink);
+}
+
+.release {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.go a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font: 700 1.125rem/1 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--rust-deep);
+}
+
+.go a .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.go a:hover .icon {
+  transform: translateX(4px);
+}
+
+@media (min-width: 64rem) {
+  .engine article {
+    grid-template-columns: 24rem minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+    padding-block: 2.25rem;
+  }
+}
+
+/* ---------- Applications: the dark band */
+
+.apps {
+  background:
+    linear-gradient(oklch(0.16 0.008 250 / 0.8), oklch(0.16 0.008 250 / 0.8)),
+    var(--graphite) url("assets/millscale.webp") center / cover;
+  color: var(--on-dark);
+}
+
+.apps .intro {
+  color: var(--on-dark-soft);
+}
+
+.apps-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.app {
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+}
+
+.app h3 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.app .job {
+  margin: 0.375rem 0 0.875rem;
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+
+.app p {
+  max-width: 58ch;
+}
+
+.app.lead {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+  background: #0e2a4d;
+  border: 1px solid rgb(188 138 69 / 0.55);
+  color: #f3eee4;
+}
+
+.app.lead .job {
+  color: #dcb273;
+}
+
+.app.lead img {
+  padding: 0.625rem;
+  background: #f6f1e7;
+  border-radius: 50%;
+}
+
+.app.sibling {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  background: #0b1733;
+  border: 1px solid rgb(232 98 58 / 0.5);
+  color: #eef1f8;
+}
+
+.app.sibling img {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.app.sibling .job {
+  color: #ff9d78;
+}
+
+.runs-label {
+  margin-top: 1.5rem;
+  font: 600 0.8125rem/1 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.runs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+}
+
+.plate.mini {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.875rem 0.5rem 0.625rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 -1px 0 rgb(0 0 0 / 0.4),
+    0 8px 14px -8px rgb(0 0 0 / 0.8);
+}
+
+.plate.mini span {
+  display: grid;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+}
+
+.plate.mini b {
+  font: 700 1.125rem/1 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.app-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  margin-top: 1.75rem;
+  padding: 0 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  justify-self: start;
+}
+
+.app-go .icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-go:hover .icon {
+  transform: translateX(4px);
+}
+
+.lead .app-go {
+  background: #c99a55;
+  color: #0e2a4d;
+}
+
+.sibling .app-go {
+  box-shadow: inset 0 0 0 1.5px #ff9d78;
+  color: #ffb497;
+}
+
+@media (min-width: 48rem) {
+  .app.lead {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .apps-grid {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+/* ---------- Principles and the rating key */
+
+.principles {
+  display: grid;
+  gap: 2rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.principles li {
+  padding-top: 1.25rem;
+  border-top: 3px solid var(--ink);
+}
+
+.principles h3 {
+  font: 700 1.625rem/1.05 var(--display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.principles p {
+  margin-top: 0.625rem;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 48rem) {
+  .principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 3rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .how .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .principles.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+.rating-key {
+  display: grid;
+  gap: 1rem 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.rating-key div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.rating-key dd {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 48rem) {
+  .rating-key {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Story */
+
+.story {
+  background: var(--ground-dim);
+}
+
+.story-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.story blockquote p {
+  font: 700 clamp(2rem, 4.4vw, 3.5rem) / 1 var(--display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--rust-deep);
+}
+
+.story blockquote footer {
+  display: grid;
+  margin-top: 1.5rem;
+  line-height: 1.35;
+}
+
+.story blockquote span,
+.story-grid > p {
+  color: var(--ink-soft);
+}
+
+.story-grid > p {
+  max-width: 58ch;
+  font-size: 1.125rem;
+}
+
+@media (min-width: 64rem) {
+  .story-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 5rem;
+    align-items: end;
+  }
+}
+
+/* ---------- Work with us */
+
+.work {
+  background: var(--rust) url("assets/rust-dark-tile.webp") center top / 720px;
+  color: #fff;
+}
+
+.work-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.work-grid p {
+  max-width: 50ch;
+  margin-top: 1rem;
+  font-size: 1.1875rem;
+  color: var(--on-rust-soft);
+}
+
+.offers {
+  display: grid;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-top: 1px solid rgb(255 255 255 / 0.4);
+}
+
+.offers li {
+  padding-block: 0.875rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.4);
+  font: 600 1.375rem/1.1 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 64rem) {
+  .work-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 5rem;
+    align-items: center;
+  }
+}
+
+/* ---------- Footer */
+
+.foot {
+  padding-block: 4rem 5.5rem;
+  background: var(--graphite);
+  color: var(--on-dark);
+}
+
+.foot-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.foot-brand p {
+  max-width: 32ch;
+  margin-top: 0.75rem;
+  color: var(--on-dark-soft);
+}
+
+.foot h2 {
+  margin-bottom: 0.75rem;
+  font: 600 0.875rem/1 var(--display);
+  letter-spacing: 0.16em;
+  color: var(--on-dark-soft);
+}
+
+.foot ul + h2 {
+  margin-top: 2rem;
+}
+
+.foot li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  padding-block: 0.3125rem;
+}
+
+.foot li a {
+  font: 600 1.1875rem/1.2 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.foot li a:hover {
+  color: var(--rust-bright);
+}
+
+.foot li span {
+  font-size: 0.875rem;
+  color: var(--on-dark-soft);
+}
+
+.foot-note {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid oklch(0.32 0.01 250);
+  font-size: 0.875rem;
+  color: var(--on-dark-soft);
+}
+
+@media (min-width: 48rem) {
+  .foot-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .foot-engines {
+    columns: 1;
+  }
+}
+
+/* ---------- Tool page */
+
+.tool-plate h1 {
+  font-size: clamp(3.25rem, 8vw, 6rem);
+  letter-spacing: 0.03em;
+}
+
+.tool-plate .what {
+  margin-top: -0.5rem;
+  font: 600 clamp(1.5rem, 3vw, 2.25rem) / 1.1 var(--display);
+  letter-spacing: 0.01em;
+}
+
+.install {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  padding: 0 1.125rem;
+  background: var(--inlay);
+  color: var(--on-inlay);
+  box-shadow:
+    inset 0 2px 4px rgb(0 0 0 / 0.6),
+    0 1px 0 rgb(255 255 255 / 0.3);
+  font-size: 0.9375rem;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.figure {
+  padding: 2rem 1.75rem 1.75rem;
+}
+
+.figure .value {
+  font: 700 clamp(3rem, 6vw, 4.5rem) / 0.9 var(--display);
+  letter-spacing: 0.01em;
+  color: oklch(0.14 0.01 250);
+  font-variant-numeric: tabular-nums;
+}
+
+.figure .label {
+  margin-top: 0.75rem;
+  font: 700 1.25rem/1.1 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.figure .detail {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: oklch(0.16 0.01 250);
+}
+
+.note {
+  max-width: 70ch;
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 64rem) {
+  .figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.run {
+  background: var(--ground-dim);
+}
+
+.run-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.code {
+  min-width: 0;
+  background: var(--graphite);
+  color: oklch(0.92 0.006 250);
+}
+
+.code figcaption {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid oklch(0.3 0.01 250);
+  font: 0.8125rem/1 var(--mono);
+  color: var(--on-dark-soft);
+}
+
+.code pre {
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  scrollbar-color: oklch(0.4 0.01 250) transparent;
+}
+
+.code .k {
+  color: var(--rust-bright);
+}
+
+.code .t {
+  color: oklch(0.82 0.08 230);
+}
+
+.code .f {
+  color: oklch(0.88 0.09 95);
+}
+
+.code .s {
+  color: oklch(0.82 0.1 150);
+}
+
+.code .c {
+  color: oklch(0.68 0.01 250);
+}
+
+@media (min-width: 64rem) {
+  .run-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  }
+}
+
+.fits-in .engine-list {
+  margin-top: 2rem;
+}
+
+/* ---------- Icon sheet */
+
+.icon-sheet h1 {
+  font: 700 clamp(2.5rem, 6vw, 4.75rem) / 0.96 var(--display);
+  text-transform: uppercase;
+}
+
+.icon-list {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.icon-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.icon-head {
+  display: none;
+  font: 600 0.8125rem/1.2 var(--display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.icon-who {
+  grid-column: 1 / -1;
+}
+
+.icon-who h2 {
+  font-size: 2rem;
+  letter-spacing: 0.035em;
+}
+
+.icon-who p {
+  color: var(--ink-soft);
+}
+
+.icon-cell {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.icon-cell .badge {
+  width: min(100%, 12.5rem);
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28));
+}
+
+.icon-sizes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  min-height: 7rem;
+  padding: 1rem;
+}
+
+.icon-sizes.on-black {
+  background: var(--graphite);
+}
+
+.icon-sizes.on-white {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+@media (min-width: 64rem) {
+  .icon-row {
+    grid-template-columns: 11rem repeat(2, minmax(0, 1.1fr)) repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .icon-head {
+    display: grid;
+    padding-block: 0.75rem;
+  }
+
+  .icon-who {
+    grid-column: auto;
+  }
+}
+
+.icon-sub {
+  margin-top: var(--space);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+
+.swatches li {
+  display: flex;
+  align-items: flex-end;
+  min-height: 5.5rem;
+  padding: 0.5rem;
+}
+
+.swatches span {
+  padding: 0.125rem 0.25rem;
+  background: #fff;
+  color: var(--ink);
+  font: 0.75rem/1.2 var(--mono);
+}
+
+@media (min-width: 64rem) {
+  .swatches {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}

@@ -9,7 +9,7 @@ export type SiteFooterProps = {
     /**
      * Which line the site belongs to. "family" (the default) lists the family
      * members; "company" is for the tools that share the workshop but not the
-     * engines — they carry the company links alone (decision D2 of the 2026-09
+     * engines — they carry the workshop links alone (decision D2 of the 2026-09
      * family audit).
      */
     line?: "company" | "family";
@@ -25,10 +25,9 @@ export type SiteFooterProps = {
     /**
      * The family columns. `"full"` (the default) lists every member with the
      * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
-     * columns, for a page that is itself the family's index (ferramenta.dev):
-     * the header's switcher still reaches every member.
+     * columns, for a page that is itself the family's index (ferramenta.dev).
      */
     members?: "full" | "none" | "short";
 };
-/** Steel-plate footer: lockup, family columns from the registry, company links. */
+/** Black-steel footer: lockup, the two tiers from the registry, the workshop's links. */
 export declare function SiteFooter({ as, current, legal, line, members, }?: SiteFooterProps): import("react").JSX.Element;

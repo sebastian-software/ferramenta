@@ -1,73 +1,92 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-import { byJob, displayName, family, familyGroups, isEngine, leadsToRepo, runsOnTools, toolHref, } from "./family.js";
-import { Fasteners } from "./Fasteners.js";
+import { displayName, familyTiers, leadsToRepo, relationsOf, runsOnTools, toolHref, } from "./family.js";
+import { Icon } from "./Icon.js";
 import { Stamp } from "./Ledger.js";
 import { Mark } from "./Mark.js";
-import { Count, useToolFacts } from "./RegistryFacts.js";
+import { Rivets } from "./Plate.js";
+import { useToolFacts } from "./RegistryFacts.js";
 import { RepoNote } from "./RepoNote.js";
 /*
- * The family's members as a site shows them: hung on the pegboard, set in the
- * tool ledger, looked up in the job index. Everything comes from the registry,
- * and the release figures from `RegistryFacts`. Styled by `landing.css`.
+ * The family's two tiers as a site shows them: the engines as a catalog of
+ * name plates, the applications as a band in their own colors. Everything
+ * comes from the registry, the release figures from `RegistryFacts`. Styled by
+ * `landing.css`.
  */
-const GROUPS = [
-    { key: "pipeline", label: "Pipeline" },
-    { key: "language", label: "Language" },
-    { key: "workbench", label: "Workbench" },
-];
-function boardGroups(current) {
-    const groups = familyGroups(current);
-    return GROUPS.map((group) => ({ ...group, tools: groups[group.key] })).filter((group) => group.tools.length > 0);
+/** Where a member's link leads, as the page names it: its host, or its repository. */
+function linkLabel(tool) {
+    return leadsToRepo(tool) ? "GitHub repository" : new URL(toolHref(tool)).host;
 }
-function BoardItem({ tool }) {
-    return (_jsxs("a", { className: "fam-board-item", href: toolHref(tool), children: [_jsx("svg", { className: "hook", "aria-hidden": "true", children: _jsx("use", { href: "#i-hook" }) }), _jsx("span", { className: "markplate", children: _jsx(Mark, { name: tool.mark ?? tool.name }) }), _jsxs("span", { className: "fam-board-copy", children: [_jsxs("b", { children: [tool.name, leadsToRepo(tool) ? (_jsx(Mark, { name: "github", className: "icon fam-board-repo", size: 11 })) : null, _jsx(RepoNote, { tool: tool })] }), _jsx("small", { children: tool.shortJob })] }), _jsx("span", { className: "fam-board-stamp", children: _jsx(Stamp, { solid: tool.status === "stable", children: tool.status }) })] }));
+function RelationLine({ relation }) {
+    const link = _jsx("a", { href: toolHref(relation.tool), children: displayName(relation.tool) });
+    let text = _jsxs(_Fragment, { children: ["Pairs with ", link] });
+    if (relation.kind === "runs-on")
+        text = _jsxs(_Fragment, { children: ["Runs on ", link] });
+    if (relation.kind === "carries")
+        text = _jsxs(_Fragment, { children: [link, " runs on it"] });
+    return (_jsxs("li", { children: [_jsx(Mark, { name: "adapter", size: 16 }), _jsx("span", { children: text })] }));
 }
-function BoardGroup({ label, tools }) {
-    const labelId = useId();
-    return (_jsxs("div", { className: "fam-board-group", role: "group", "aria-labelledby": labelId, children: [_jsx("small", { className: "fam-board-label", id: labelId, children: label }), _jsx("div", { className: "fam-board-row", children: tools.map((tool) => (_jsx(BoardItem, { tool: tool }, tool.name))) })] }));
+/** Where a member fits with others. Empty for one that stands entirely alone. */
+function Relations({ tool }) {
+    const relations = relationsOf(tool);
+    if (relations.length === 0)
+        return null;
+    return (_jsx("ul", { className: "fam-engine-fits", children: relations.map((relation) => (_jsx(RelationLine, { relation: relation }, `${relation.kind}-${relation.tool.name}`))) }));
 }
-/**
- * The pegboard: every member on a hook, grouped the way the family is, each
- * plate stamped with its maturity so none outranks another. Its geometry is
- * the 28px wall grid (see DESIGN.md); it fits the hero's `aside`.
- */
-export function Pegboard({ current, label = "The tool family" } = {}) {
-    return (_jsxs("nav", { className: "fam-board", "aria-label": label, children: [_jsx(Fasteners, {}), _jsx("div", { className: "fam-board-grid", children: boardGroups(current).map((group) => (_jsx(BoardGroup, { label: group.label, tools: group.tools }, group.key))) })] }));
-}
-/**
- * The facts under a row's proof, as a definition list a screen reader can
- * pace. A successor names what it succeeds, a new development the standards it
- * builds on, an application the engines it runs on; each names its evidence,
- * qualitatively, never with a figure.
- */
-function ToolFactsList({ tool }) {
+/** The measured facts, last and quiet: lineage, evidence, release, registries. */
+function EngineFacts({ tool }) {
     const facts = useToolFacts(tool);
-    const runsOn = runsOnTools(tool);
-    return (_jsxs("dl", { className: "fam-tool-facts", children: [tool.succeeds === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Succeeds" }), _jsx("dd", { children: tool.succeeds })] })), tool.buildsOn === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Builds on" }), _jsx("dd", { children: tool.buildsOn })] })), runsOn.length === 0 ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Runs on" }), _jsx("dd", { children: runsOn.map((member) => displayName(member)).join(" · ") })] })), _jsxs("div", { children: [_jsx("dt", { children: "Evidence" }), _jsx("dd", { children: tool.evidence })] }), facts.onCrates ? (_jsxs("div", { children: [_jsx("dt", { children: "Downloads" }), _jsxs("dd", { children: [_jsx(Count, { value: facts.crateDownloads }), " on crates.io"] })] })) : null] }));
-}
-function ToolMeta({ tool }) {
-    const facts = useToolFacts(tool);
-    return (_jsxs("div", { className: "fam-tool-meta", children: [_jsxs("b", { className: "fam-tool-version", children: ["v", facts.version] }), facts.onCrates || facts.adapter || isEngine(tool) ? (_jsxs("span", { className: "fam-tool-platforms", children: [facts.onCrates ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "crate", className: "icon", size: 15 }), "crates.io"] })) : null, facts.adapter ? (_jsxs("span", { className: "fam-tool-platform", children: [_jsx(Mark, { name: "adapter", className: "icon", size: 15 }), "npm"] })) : null, isEngine(tool) && !facts.onCrates && !facts.adapter ? (_jsx("span", { className: "fam-tool-platform", children: "install from Git" })) : null] })) : null, _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }));
+    const registries = [facts.onCrates ? "crates.io" : null, facts.adapter ? "npm" : null].filter((registry) => registry !== null);
+    return (_jsxs("dl", { className: "fam-engine-facts", children: [tool.succeeds === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Succeeds" }), _jsx("dd", { children: tool.succeeds })] })), tool.buildsOn === undefined ? null : (_jsxs("div", { children: [_jsx("dt", { children: "Built to" }), _jsx("dd", { children: tool.buildsOn })] })), _jsxs("div", { children: [_jsx("dt", { children: "Checked against" }), _jsx("dd", { children: tool.evidence })] }), _jsxs("div", { children: [_jsx("dt", { children: "Release" }), _jsxs("dd", { className: "fam-engine-version", children: ["v", facts.version] })] }), _jsxs("div", { children: [_jsx("dt", { children: "Published on" }), _jsx("dd", { children: registries.length === 0 ? "Git" : registries.join(" · ") })] })] }));
 }
 /**
- * One ledger row. The name is the link, stretched over the whole row, so the
- * target stays the row while a screen reader hears the name, not every fact
- * at once. A row that leads to a repository rather than a site says so.
+ * One catalog row. The plate says what the engine is; the copy beside it says
+ * what it does, for whom, and only then where it comes from. The name is the
+ * link, stretched over the plate.
  */
-function ToolRow({ step, tool }) {
-    return (_jsxs("article", { className: "fam-tool", children: [step === undefined ? null : (_jsx("span", { className: "fam-tool-num", "aria-hidden": "true", children: String(step).padStart(2, "0") })), _jsx("span", { className: "markplate fam-tool-plate", "aria-hidden": "true", children: _jsx(Mark, { name: tool.mark ?? tool.name }) }), _jsxs("div", { className: "fam-tool-who", children: [_jsx("h3", { className: "fam-tool-name", children: _jsxs("a", { className: "fam-tool-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-tool-job", children: tool.job })] }), _jsxs("div", { className: "fam-tool-proof", children: [_jsx("p", { className: "fam-tool-story", children: tool.proof }), _jsx(ToolFactsList, { tool: tool })] }), _jsx(ToolMeta, { tool: tool }), _jsx(Mark, { name: leadsToRepo(tool) ? "github" : "arrow", className: "fam-tool-go icon", size: 22 })] }));
-}
-/** The registry ledger: one hairline row per member, with proof, facts and release. */
-export function ToolLedger({ steps = false, tools }) {
-    return (_jsx("div", { className: "fam-tools", "data-steps": steps ? "" : undefined, children: tools.map((tool, index) => (_jsx(ToolRow, { tool: tool, step: steps ? index + 1 : undefined }, tool.name))) }));
+function EngineRow({ tool }) {
+    return (_jsx("li", { children: _jsxs("article", { className: "fam-engine", id: tool.name, children: [_jsxs("div", { className: "fam-plate fam-engine-plate", children: [_jsx(Rivets, {}), _jsx(Icon, { name: tool.name, form: "rendered" }), _jsxs("div", { children: [_jsx("h3", { className: "fam-engine-name", children: _jsxs("a", { className: "fam-engine-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-engine-what", children: tool.what })] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }), _jsxs("div", { className: "fam-engine-body", children: [_jsx("p", { className: "fam-engine-does", children: tool.does }), _jsx("p", { children: tool.audience }), _jsx("p", { children: tool.proof }), _jsx(Relations, { tool: tool }), _jsx(EngineFacts, { tool: tool }), _jsx("p", { className: "fam-engine-go", children: _jsxs("a", { href: toolHref(tool), children: [linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] }) })] })] }) }));
 }
 /**
- * The job index, like the aisle directory by a hardware store's door: every
- * job A to Z, and the tool that does it. Each member works on its own, so the
- * index recommends none; the stamp says how far each has come.
+ * The engine catalog: one row per engine, each with its name plate. Every
+ * engine works on its own; where two fit together, the row says so.
  */
-export function JobIndex({ current } = {}) {
-    const tools = byJob(family.filter((tool) => tool.name !== current));
-    return (_jsx("ul", { className: "fam-jobs", children: tools.map((tool) => (_jsx("li", { children: _jsxs("a", { className: "fam-job", href: toolHref(tool), "aria-label": `${tool.shortJob}: ${displayName(tool)}, ${tool.status}${leadsToRepo(tool) ? " (GitHub repository)" : ""}`, children: [_jsx("span", { className: "fam-job-name", children: tool.shortJob }), _jsx("span", { className: "fam-job-leader", "aria-hidden": "true" }), _jsxs("span", { className: "fam-job-tool", children: [_jsx(Mark, { name: tool.mark ?? tool.name, className: "mark", size: 22 }), _jsx("b", { children: tool.name })] }), _jsx(Stamp, { solid: tool.status === "stable", children: tool.status })] }) }, tool.name))) }));
+export function EngineCatalog({ current, tools } = {}) {
+    const engines = tools ?? familyTiers(current).engines;
+    return (_jsx("ul", { className: "fam-engines", children: engines.map((tool) => (_jsx(EngineRow, { tool: tool }, tool.name))) }));
+}
+/** An application's brand colors as custom properties, for the one band that shows them. */
+function brandStyle(tool) {
+    if (tool.brand === undefined)
+        return undefined;
+    const style = {
+        "--fam-app-ground": tool.brand.ground,
+        "--fam-app-ink": tool.brand.ink,
+        "--fam-app-accent": tool.brand.accent,
+    };
+    if (tool.brand.logoGround !== undefined)
+        style["--fam-app-logo-ground"] = tool.brand.logoGround;
+    return style;
+}
+/** The engines an application runs on: each icon on a steel tile, name and job on a dark inlay. */
+function RunsOn({ engines }) {
+    return (_jsxs(_Fragment, { children: [_jsx("p", { className: "fam-app-label", children: "Runs on" }), _jsx("ul", { className: "fam-app-runs", children: engines.map((engine) => (_jsxs("li", { children: [_jsx("span", { className: "fam-tile", children: _jsx(Icon, { name: engine.name, size: 28 }) }), _jsxs("span", { children: [_jsx("b", { children: engine.name }), engine.shortJob] })] }, engine.name))) })] }));
+}
+function ApplicationCard({ tool }) {
+    const engines = runsOnTools(tool);
+    const logoGround = tool.brand?.logoGround === undefined ? undefined : (tool.brand.logoShape ?? "tile");
+    return (_jsxs("article", { className: "fam-app", "data-lead": engines.length > 0 ? "" : undefined, style: brandStyle(tool), children: [_jsx("span", { className: "fam-app-logo", "data-ground": logoGround, children: _jsx(Icon, { name: tool.name }) }), _jsxs("div", { children: [_jsx("h3", { className: "fam-app-name", children: displayName(tool) }), _jsx("p", { className: "fam-app-job", children: tool.job }), _jsx("p", { children: tool.does }), engines.length > 0 ? (_jsx(RunsOn, { engines: engines })) : (_jsx("p", { className: "fam-app-note", children: "From the same workshop. It stands on its own." })), _jsxs("a", { className: "fam-app-go", href: toolHref(tool), children: ["Visit ", linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] })] })] }));
+}
+/**
+ * The applications on black steel, each in its own colors: the one place the
+ * family shows a product in a brand that is not the family's. An application
+ * that runs on family engines leads and names them; one that stands alone is
+ * from the same workshop, and says no more than that.
+ */
+export function ApplicationsBand({ current, id = "applications", intro, title = "Applications", } = {}) {
+    const titleId = useId();
+    const { applications } = familyTiers(current);
+    if (applications.length === 0)
+        return null;
+    return (_jsx("section", { className: "fam-band fam-apps on-iron", id: id, "aria-labelledby": titleId, children: _jsxs("div", { className: "wrap", children: [_jsx("h2", { className: "fam-heading", id: titleId, children: title }), intro !== undefined && _jsx("p", { className: "fam-intro", children: intro }), _jsx("div", { className: "fam-apps-grid", children: applications.map((tool) => (_jsx(ApplicationCard, { tool: tool }, tool.name))) })] }) }));
 }

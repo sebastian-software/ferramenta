@@ -1,20 +1,18 @@
 /*
  * ferramenta-family — styles for the chrome this package renders:
- * `SiteHeader`, `SiteFooter`, and the marks, plates and hooks they hang on.
- * Ported 1:1 from the approved comp (design/comp/entwurf-c.html in the
- * ferramenta repository).
+ * `SiteHeader`, `SiteFooter`, `ToolSwitcher`, and the members' icons.
  *
- * Load `tokens.css` first — every color, plate and hook value here is a token —
- * and load this file last, after the site's own stylesheet, so a site-wide
- * reset cannot take the selector ties from the chrome.
+ * Load `tokens.css` first — every color here is a token — and load this file
+ * last, after the site's own stylesheet, so a site-wide reset cannot take the
+ * selector ties from the chrome.
  *
  * These class names are part of the package contract: `site-header`,
- * `site-footer`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`, `flygroup`,
- * `ghlink`, `site-nav`, `switcher-start`, `switcher-family`, `flyhome`,
- * `on-iron`, `foot`, `foot-gap`, `foot-legal`, `mark`, `markplate`, `hook`,
- * `fastener`, `icon`, `fam-sr-only`. Loading last means this file
- * wins those ties, so a site that needs one of the names for its own elements
- * should scope or rename it.
+ * `site-footer`, `site-links`, `site-menu`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`,
+ * `flygroup`, `ghlink`, `site-nav`, `switcher-start`, `switcher-family`,
+ * `flyhome`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `icon`, `fam-icon`,
+ * `fam-tile`, `fam-sr-only`. Loading last means this file wins those ties, so
+ * a site that needs one of the names for its own elements should scope or
+ * rename it.
  */
 
 /* Text for assistive technology only: where a link leads, a unit, a legend. */
@@ -27,140 +25,15 @@
   white-space: nowrap;
 }
 
-.mark path {
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
-
-.markplate {
-  display: grid;
-  place-items: center;
-  position: relative;
-  background: linear-gradient(180deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  clip-path: var(--octagon);
-  filter: drop-shadow(0 2px 3px var(--plate-shadow));
-}
-
-.markplate::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  clip-path: var(--octagon);
-  background:
-    linear-gradient(115deg, var(--plate-sheen), transparent 46%), var(--texture-speckle),
-    repeating-linear-gradient(0deg, var(--plate-brush) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, var(--plate-face-hi), var(--plate-face-lo));
-}
-
-.markplate svg {
-  position: relative;
-}
-
-.fastener {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  z-index: 3;
-  pointer-events: none;
-  border: 1px solid var(--plate-rim-lo);
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--plate-rim-hi), var(--plate-rim-lo));
-  box-shadow:
-    inset 1px 1px 1px var(--plate-sheen),
-    inset -1px -1px 1px var(--plate-shadow),
-    0 1px 2px var(--plate-shadow);
-}
-
-.fastener::after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  right: 2px;
-  top: 50%;
-  height: 1px;
-  background: var(--line-heavy);
-  transform: translateY(-50%) rotate(-20deg);
-}
-
-.fastener[data-position="tl"] {
-  top: var(--fastener-inset);
-  left: var(--fastener-inset);
-}
-
-.fastener[data-position="tr"] {
-  top: var(--fastener-inset);
-  right: var(--fastener-inset);
-}
-
-.fastener[data-position="br"] {
-  right: var(--fastener-inset);
-  bottom: var(--fastener-inset);
-}
-
-.fastener[data-position="bl"] {
-  bottom: var(--fastener-inset);
-  left: var(--fastener-inset);
-}
-
-.hook {
-  position: absolute;
-  top: -3.4px;
-  left: 50%;
-  translate: -50% 0;
-  width: 24px;
-  height: 28px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.flyout .markplate {
-  width: 38px;
-  height: 38px;
-  flex: none;
-}
-
-.flyout .markplate svg {
-  width: 24px;
-  height: 24px;
-}
-
-/*
- * Duotone marks on iron. The iron material is dark in both themes, so every
- * mark drawn on it takes the same set whatever the page theme is — which is
- * why these four are restated here instead of being inherited from
- * `tokens.css`, where `:root` and `:root.dark` carry the on-paper set a mark
- * on the page material follows.
- *
- * `details.switcher` carries them too, so the switcher is self-contained: a
- * host site that renders it outside this package's own header still gets its
- * marks. `.on-iron` is the same context as a bare class, for a host that puts
- * a `Mark` of its own on an iron surface.
- */
-.site-header .lockup,
-.site-footer .lockup,
-details.switcher,
-.flyout,
-.on-iron {
-  --duo0: oklch(0.93 0.012 70);
-  --duo1: oklch(0.31 0.045 42);
-  --duo2: oklch(0.54 0.11 45);
-  --duoink: oklch(0.89 0.035 55);
-}
-
-.site-header,
-.site-footer,
-.flyout,
-.on-iron {
-  --focus: var(--ember);
-}
-
 .wrap {
   max-width: 80rem;
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 3rem);
+  padding-inline: clamp(1rem, 4vw, 3rem);
 }
 
+/* The line icons of the sprite: chevron, arrow, GitHub, crate, adapter, external, package. */
 .icon {
+  flex: none;
   stroke: currentColor;
   fill: none;
   stroke-width: 1.5;
@@ -168,9 +41,155 @@ details.switcher,
   stroke-linejoin: miter;
 }
 
-.icon .fillbit {
-  fill: currentColor;
-  stroke: none;
+/*
+ * A member's icon (`Icon`). The files sit beside these styles in the package,
+ * so the consumer's bundler resolves them the way it resolves the font. The
+ * flat form is the default; the rendered forms override it below. The
+ * applications bring their own logos, which are the same file in every form.
+ */
+.fam-icon {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--fam-icon-size, 1.5rem);
+  aspect-ratio: 1;
+  background: center / contain no-repeat;
+  vertical-align: middle;
+}
+
+.fam-icon[data-icon="ferramenta"] {
+  background-image: url("../icons/ferramenta-flat.webp");
+}
+
+.fam-icon[data-icon="ferroni"] {
+  background-image: url("../icons/ferroni-flat.webp");
+}
+
+.fam-icon[data-icon="ferriki"] {
+  background-image: url("../icons/ferriki-flat.webp");
+}
+
+.fam-icon[data-icon="ferromark"] {
+  background-image: url("../icons/ferromark-flat.webp");
+}
+
+.fam-icon[data-icon="ferrolex"] {
+  background-image: url("../icons/ferrolex-flat.webp");
+}
+
+.fam-icon[data-icon="ferrocat"] {
+  background-image: url("../icons/ferrocat-flat.webp");
+}
+
+.fam-icon[data-icon="ferralk"] {
+  background-image: url("../icons/ferralk-flat.webp");
+}
+
+.fam-icon[data-icon="ferrugo"] {
+  background-image: url("../icons/ferrugo-flat.webp");
+}
+
+.fam-icon[data-icon="palamedes"] {
+  background-image: url("../icons/palamedes.svg");
+}
+
+.fam-icon[data-icon="dalo"] {
+  background-image: url("../icons/dalo.svg");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferramenta"] {
+  background-image: url("../icons/ferramenta-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferroni"] {
+  background-image: url("../icons/ferroni-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferriki"] {
+  background-image: url("../icons/ferriki-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferromark"] {
+  background-image: url("../icons/ferromark-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferrolex"] {
+  background-image: url("../icons/ferrolex-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferrocat"] {
+  background-image: url("../icons/ferrocat-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferralk"] {
+  background-image: url("../icons/ferralk-256.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferrugo"] {
+  background-image: url("../icons/ferrugo-256.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferramenta"] {
+  background-image: url("../icons/ferramenta.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferroni"] {
+  background-image: url("../icons/ferroni.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferriki"] {
+  background-image: url("../icons/ferriki.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferromark"] {
+  background-image: url("../icons/ferromark.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferrolex"] {
+  background-image: url("../icons/ferrolex.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferrocat"] {
+  background-image: url("../icons/ferrocat.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferralk"] {
+  background-image: url("../icons/ferralk.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferrugo"] {
+  background-image: url("../icons/ferrugo.webp");
+}
+
+/*
+ * A small tile of the plate steel under an icon. On black steel a dark object
+ * loses its outline, so the chrome shows every icon on one.
+ */
+.fam-tile {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  padding: 3px;
+  background: var(--steel) url("../textures/steel.webp") center / 400%;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 0 -1px 0 rgb(0 0 0 / 0.45);
+}
+
+/* Black steel is dark in every scheme, so the chrome's focus ring is always the glowing one. */
+.site-header,
+.site-footer,
+.flyout,
+.site-menu-flyout,
+.on-iron {
+  --focus: var(--ember);
+}
+
+.site-header :focus-visible,
+.site-footer :focus-visible,
+.flyout :focus-visible,
+.site-menu-flyout :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 /*
@@ -191,10 +210,10 @@ details.switcher,
 .site-header {
   position: sticky;
   top: 0;
-  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
-  color: var(--iron-ink);
   z-index: 50;
-  border-bottom: 2px solid var(--rust);
+  background: var(--iron);
+  color: var(--iron-ink);
+  border-bottom: 1px solid var(--iron-line);
 }
 
 .bar {
@@ -202,30 +221,65 @@ details.switcher,
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  height: 4rem;
+  min-height: 4rem;
 }
 
 .lockup {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.625rem;
   min-height: 44px;
   text-decoration: none;
   font-family: var(--display), var(--body);
   font-weight: var(--disp-weight);
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-}
-
-.lockup svg {
-  color: var(--ember);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 nav.site-nav {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+/*
+ * A site's own links in the header's `nav` slot: page anchors on a home page,
+ * the sections of a docs site. The family's lettering, quiet until hovered.
+ */
+.site-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.25rem, 2vw, 1.5rem);
+  margin-left: auto;
+}
+
+.site-links ~ nav.site-nav {
+  margin-left: 0;
+}
+
+.site-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.375rem;
+  color: var(--iron-soft);
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.site-links a:hover,
+.site-links a[aria-current] {
+  color: var(--iron-ink);
 }
 
 /*
@@ -241,7 +295,8 @@ details.switcher {
   align-self: center;
 }
 
-details.switcher summary {
+details.switcher summary,
+details.site-menu summary {
   list-style: none;
   cursor: pointer;
   display: flex;
@@ -250,16 +305,69 @@ details.switcher summary {
   gap: 0.4rem;
   min-height: 44px;
   padding: 0.4rem 0.45rem;
+  font-family: var(--display), var(--body);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-details.switcher summary::-webkit-details-marker {
+details.switcher summary::-webkit-details-marker,
+details.site-menu summary::-webkit-details-marker {
   display: none;
 }
 
-details.switcher[open] summary svg.chev {
+details.switcher[open] summary svg.chev,
+details.site-menu[open] summary svg.chev {
   transform: scaleY(-1);
+}
+
+/*
+ * `SiteMenu`: a site's own sections as a menu, for the widths where the bar
+ * cannot show them and an Ardo docs layout has hidden its sidebar. Not shown
+ * above 64rem.
+ */
+details.site-menu {
+  position: relative;
+  display: none;
+  align-self: center;
+}
+
+.site-menu-flyout {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.85rem);
+  z-index: 60;
+  display: grid;
+  min-width: 13rem;
+  padding: 0.5rem;
+  background: var(--iron);
+  color: var(--iron-ink);
+  border-top: 2px solid var(--ember);
+  box-shadow: 0 18px 44px -16px oklch(0.1 0.01 250 / 0.7);
+}
+
+.site-menu-flyout a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.6rem;
+  color: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.site-menu-flyout a:hover,
+.site-menu-flyout a[aria-current="page"] {
+  background: var(--iron-2);
+  color: var(--ember);
+}
+
+@media (max-width: 64rem) {
+  details.site-menu {
+    display: inline-block;
+  }
 }
 
 .flyout {
@@ -267,16 +375,15 @@ details.switcher[open] summary svg.chev {
   right: 0;
   top: calc(100% + 0.85rem);
   background: var(--iron);
-  /* Its own ink: standing alone, the page around it is not the iron band. */
+  /* Its own ink: standing alone, the page around it is not black steel. */
   color: var(--iron-ink);
-  /* Elevation is the shadow alone; the rust edge ties it to the bar. */
-  border-top: 2px solid var(--rust);
-  min-width: 21rem;
+  /* Elevation is the shadow alone; the glowing edge ties it to the bar. */
+  border-top: 2px solid var(--ember);
+  min-width: 34rem;
   padding: 0.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.125rem;
-  box-shadow: 0 18px 44px -16px oklch(0.1 0.01 45 / 0.55);
+  gap: 0.25rem;
+  box-shadow: 0 18px 44px -16px oklch(0.1 0.01 250 / 0.7);
   /* Own z-index: standing alone there is no header stacking context around it. */
   z-index: 60;
 }
@@ -290,16 +397,14 @@ details.switcher[open] summary svg.chev {
 /*
  * `<ToolSwitcher family />` — the way back to the family on a site whose
  * lockup is its own (`<SiteHeader lockup="project" />`). The trigger names the
- * family instead of competing with the project's wordmark: display face,
- * small and soft on the iron bar. Standing alone in a host's header it keeps
- * the host's color, because the soft iron ink would be illegible on a light bar.
+ * family instead of competing with the project's wordmark: small and soft on
+ * the bar, inside a hairline. Standing alone in a host's header it keeps the
+ * host's color, because the soft ink would be illegible on a light bar.
  */
 .switcher-family summary {
-  font-family: var(--display), var(--body);
-  font-weight: var(--disp-weight);
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  padding-inline: 0.625rem;
+  font-size: 0.9375rem;
+  box-shadow: inset 0 0 0 1px var(--iron-line);
 }
 
 .site-header .switcher-family summary {
@@ -316,15 +421,39 @@ details.switcher[open] summary svg.chev {
   height: 12px;
 }
 
-/* The family site's own entry, above the groups: the link the lockup gave up. */
+/* The family site's own entry, above the tiers: the link the lockup gave up. */
 .flyout a.flyhome {
-  grid-column: 1 / -1;
   margin-bottom: 0.25rem;
   border-bottom: 1px solid var(--iron-line);
 }
 
+/* A tier: its label, then its members in two columns. */
+.flygroup {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.125rem;
+}
+
+.flygroup + .flygroup {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--iron-line);
+}
+
+.flygroup > small {
+  grid-column: 1 / -1;
+  display: block;
+  padding: 0.35rem 0.6rem 0.15rem;
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--iron-soft);
+}
+
 /*
- * Narrow viewports. The panel is 21rem wide, so hanging it off the trigger runs
+ * Narrow viewports. The panel is 34rem wide, so hanging it off the trigger runs
  * it off a phone screen whichever edge it is aligned to; below this width it
  * spans the viewport instead. This ships with the component on purpose: a site
  * that renders only `ToolSwitcher` has no other way to reach these rules, and
@@ -346,17 +475,20 @@ details.switcher[open] summary svg.chev {
     min-width: 0;
     max-height: calc(100dvh - 6rem);
     overflow-y: auto;
-    /* Two columns only while both still fit; a phone gets one. */
+  }
+
+  /* Two columns only while both still fit; a phone gets one. */
+  .flygroup {
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 }
 
 .flyout a {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.75rem;
   align-items: center;
   text-decoration: none;
-  padding: 0.55rem 0.6rem;
+  padding: 0.5rem 0.6rem;
   font-size: 0.92rem;
 }
 
@@ -365,22 +497,20 @@ details.switcher[open] summary svg.chev {
   color: var(--ember);
 }
 
-.flyout a svg {
-  flex: none;
-  color: var(--ember);
-}
-
 .flyout a small {
   display: block;
   color: var(--iron-soft);
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
+  line-height: 1.3;
 }
 
 .flyout a b {
   font-family: var(--display), var(--body);
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  font-size: 1.1875rem;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .ghlink {
@@ -389,6 +519,16 @@ details.switcher[open] summary svg.chev {
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
+  color: var(--iron-soft);
+  transition: color 0.2s;
+}
+
+.site-header .ghlink {
+  color: var(--iron-soft);
+}
+
+.site-header .ghlink:hover {
+  color: var(--iron-ink);
 }
 
 .ghlink svg {
@@ -404,60 +544,54 @@ details.switcher[open] summary svg.chev {
 
 /*
  * Keyed on the class, not the element: `<SiteFooter as="div" />` renders the
- * same chrome for a host that already provides the contentinfo landmark. The
- * margin needs this file loaded last (it is a single class, so a site-wide
- * reset of equal specificity would otherwise take it) — which is the load
- * order this package documents anyway.
+ * same chrome for a host that already provides the contentinfo landmark.
  */
 .site-footer {
-  margin-top: var(--section-space);
-  background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
+  background: var(--iron);
   color: var(--iron-ink);
-  border-top: 3px solid var(--rust);
-  padding-block: 3rem 6.5rem;
+  padding-block: 4rem 5.5rem;
 }
 
 .foot {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 1.2fr 1.4fr 1fr;
+  gap: 2.5rem 3rem;
 }
 
 /* No family columns — the company line (decision D2), or `members="none"`: one column less. */
 .foot.foot-company {
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
 }
 
 .foot .lockup {
-  font-size: 1.3rem;
-}
-
-.foot .lockup svg {
-  color: var(--ember);
+  font-size: 1.375rem;
 }
 
 .foot p {
-  margin-top: 0.9rem;
+  margin: 0.9rem 0 0;
   color: var(--iron-soft);
-  font-size: 0.92rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
   max-width: 34ch;
 }
 
 .foot h2 {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: var(--body);
+  margin: 0;
+  font-family: var(--display), var(--body);
   font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--iron-soft);
 }
 
 .foot ul {
   list-style: none;
   padding: 0;
-  margin-top: 0.9rem;
+  margin: 0.9rem 0 0;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 /*
@@ -466,13 +600,18 @@ details.switcher[open] summary svg.chev {
  */
 .foot a {
   text-decoration: none;
-  font-size: 0.95rem;
 }
 
 .foot li > a {
   display: inline-block;
   padding-block: 0.3rem;
   margin-block: -0.3rem;
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .foot a:hover {
@@ -484,72 +623,17 @@ details.switcher[open] summary svg.chev {
   color: var(--iron-soft);
 }
 
-@media (max-width: 46rem) {
-  .foot {
-    grid-template-columns: 1fr;
-  }
-}
-
-/*
- * The bar on a phone: tighter, with a smaller lockup, and on the narrowest
- * screens the wordmark gives way to the mark. The family trigger drops its word
- * too — the Ferramenta mark alone still opens the switcher.
- */
-@media (max-width: 46rem) {
-  .bar {
-    gap: 0.5rem;
-  }
-
-  .lockup {
-    font-size: 1.2rem;
-  }
-
-  nav.site-nav {
-    gap: 0.25rem;
-  }
-
-  .site-header .switcher-family summary > span {
-    display: none;
-  }
-}
-
-@media (max-width: 22rem) {
-  .lockup span {
-    display: none;
-  }
-}
-
-.lockup,
-.flyout a b {
-  text-transform: uppercase;
-}
-
 .foot h2.foot-gap {
-  margin-top: 1.6rem;
-}
-
-.flygroup + .flygroup {
-  margin-top: 0.4rem;
-}
-
-.flygroup > small {
-  display: block;
-  padding: 0.35rem 0.6rem 0.15rem;
-  font-family: var(--display), var(--body);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--iron-soft);
+  margin-top: 2rem;
 }
 
 .foot-legal {
   grid-column: 1 / -1;
   margin-top: 1.2rem;
-  padding-top: 1.2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--iron-line);
   color: var(--iron-soft);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
 
 /*
@@ -565,17 +649,101 @@ details.switcher[open] summary svg.chev {
 .site-footer .family-job {
   display: block;
   color: var(--iron-soft);
-  font-family: system-ui, sans-serif;
+  font-family: var(--body);
   font-size: 0.875rem;
   line-height: 1.5;
   text-transform: none;
-  max-width: 32ch;
-  margin-bottom: 0.5rem;
+  max-width: 34ch;
+  margin-bottom: 0.25rem;
 }
 
 .switcher-current {
-  grid-column: 1 / -1;
+  margin: 0 0 0.25rem;
+  padding: 0.35rem 0.6rem;
   font: inherit;
+  font-size: 0.875rem;
   color: var(--iron-soft);
-  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 60rem) {
+  .foot,
+  .foot.foot-company {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * The bar on a phone: tighter, with a smaller lockup. A site's own links give
+ * way first; the family trigger drops its word — the Ferramenta icon alone
+ * still opens the switcher — and on the narrowest screens the wordmark goes too.
+ */
+@media (max-width: 46rem) {
+  .bar {
+    gap: 0.5rem;
+  }
+
+  .lockup {
+    font-size: 1.25rem;
+  }
+
+  nav.site-nav {
+    gap: 0.25rem;
+  }
+
+  .site-links a:not([data-keep]) {
+    display: none;
+  }
+
+  .site-header .switcher-family summary > span:not(.fam-tile) {
+    display: none;
+  }
+
+  /* Without its word the trigger is a tile and a chevron: it needs less air around them. */
+  .site-header .switcher-family summary {
+    padding-inline: 0.375rem;
+  }
+
+  /*
+   * With none of its links kept, the row would still cost the bar a gap. What
+   * follows it takes over its job of pushing the rest to the end of the bar.
+   */
+  .site-links:not(:has(a[data-keep])) {
+    display: none;
+  }
+
+  .site-links:not(:has(a[data-keep])) + * {
+    margin-left: auto;
+  }
+
+  /*
+   * A bar that carries a section menu is full on a phone: GitHub stays in the
+   * footer, and the lockup, the gaps and the family trigger each give a little,
+   * so the row still fits a 360px screen with the wordmark in it.
+   */
+  .site-header:has(.site-menu) .ghlink {
+    display: none;
+  }
+
+  .site-header:has(.site-menu) .bar {
+    gap: 0.375rem;
+  }
+
+  .site-header:has(.site-menu) .lockup {
+    gap: 0.5rem;
+    font-size: 1.125rem;
+  }
+
+  .site-header:has(.site-menu) .switcher-family summary {
+    padding-inline: 0.25rem;
+  }
+
+  .site-header:has(.site-menu) nav.site-nav {
+    gap: 0;
+  }
+}
+
+@media (max-width: 22rem) {
+  .lockup > span:not(.fam-tile) {
+    display: none;
+  }
 }

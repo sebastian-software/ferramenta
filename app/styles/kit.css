@@ -1,0 +1,496 @@
+/*
+ * ferramenta.dev/kit — the design library's own page styles: the specimen
+ * captions, the swatches, the type and icon sheets, and the invented sample
+ * tool's icon. Nothing here is part of the family kit; what the kit shows
+ * comes from ferramenta-family, unchanged.
+ */
+
+/* -- The kit's own head ------------------------------------------------------ */
+
+.kit-head {
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+.kit-head h1 {
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: 0.01em;
+}
+.kit-head > .wrap > p {
+  max-width: 62ch;
+  margin-top: 1.25rem;
+  font-size: 1.1875rem;
+  color: var(--ink-soft);
+}
+.kit-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 2rem;
+  margin-top: 2rem;
+  padding: 0;
+  list-style: none;
+}
+.kit-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--display), var(--body);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.kit-toc a:hover {
+  text-decoration: underline;
+}
+
+/* A chapter of the kit: a display heading on the ground, its specimens below. */
+.kit-chapter {
+  padding-top: var(--section-space);
+}
+.kit-chapter > .wrap > h2 {
+  font-size: var(--h2-size);
+  letter-spacing: 0.01em;
+}
+.kit-chapter > .wrap > p {
+  max-width: 62ch;
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+.kit-chapter:last-of-type {
+  padding-bottom: var(--section-space);
+}
+
+/*
+ * A specimen: the component's name and its one rule, then the component as a
+ * page would show it. Full-bleed components follow the caption directly.
+ */
+.kit-caption {
+  display: grid;
+  gap: 0.375rem 2rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-block: 0.875rem;
+  border-top: 3px solid var(--line-heavy);
+}
+.kit-caption h3 {
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kit-caption p {
+  max-width: 70ch;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+@media (min-width: 64rem) {
+  .kit-caption {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+.kit-stage {
+  margin-top: 1rem;
+}
+/* A full-bleed specimen follows its caption directly: the caption keeps its distance. */
+.kit-chapter > .wrap:has(> .kit-caption) + :is(section, .fam-section, .fam-band, .fam-work) {
+  margin-top: 1.5rem;
+}
+/*
+ * A stage on black steel or rust, for what is only ever shown there. The
+ * ground is the kit's own band class (`fam-band`, `fam-work`), so the texture
+ * is the package's; only the band's section rhythm is taken back.
+ */
+.kit-stage.fam-band,
+.kit-stage.fam-work {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.kit-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: center;
+}
+
+/* The chrome as a specimen: it must not stick to the kit's own viewport. */
+.kit-frame {
+  position: relative;
+  z-index: 0;
+  margin-top: 1rem;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.kit-frame .site-header {
+  position: static;
+}
+/* An open flyout needs room inside the frame. */
+.kit-frame[data-room] {
+  padding-bottom: 1px;
+}
+
+/* -- Colors ------------------------------------------------------------------ */
+
+.kit-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.kit-swatch {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+.kit-swatch i {
+  display: block;
+  height: 4.5rem;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+.kit-swatch code {
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.kit-swatch span {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+@media (min-width: 48rem) {
+  .kit-swatches {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 64rem) {
+  .kit-swatches {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.kit-palette {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.kit-palette li {
+  display: flex;
+  align-items: flex-end;
+  min-height: 5rem;
+  padding: 0.5rem;
+}
+.kit-palette code {
+  padding: 0.125rem 0.25rem;
+  background: #fff;
+  color: oklch(0.21 0.012 250);
+  font-size: 0.75rem;
+}
+@media (min-width: 64rem) {
+  .kit-palette {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+/* -- Materials --------------------------------------------------------------- */
+
+.kit-materials {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.kit-material {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+/* Each sample wears the kit class that carries its texture; only its size is set here. */
+.kit-material i {
+  display: block;
+  height: 9rem;
+  padding: 0;
+}
+.kit-material b {
+  font-family: var(--display), var(--body);
+  font-size: 1.375rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.kit-material span {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+@media (min-width: 48rem) {
+  .kit-materials {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* -- Type -------------------------------------------------------------------- */
+
+.kit-type {
+  margin-top: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.kit-type > div {
+  display: grid;
+  gap: 0.5rem 2rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.kit-type dt {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.kit-type dt code {
+  display: block;
+  color: var(--ink);
+  font-weight: 700;
+}
+.kit-type dd {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+@media (min-width: 64rem) {
+  .kit-type > div {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+.kit-type-title {
+  font-family: var(--display), var(--body);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+.kit-type-h2 {
+  font-family: var(--display), var(--body);
+  font-weight: 700;
+  font-size: var(--h2-size);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.kit-type-h3 {
+  font-family: var(--display), var(--body);
+  font-weight: 700;
+  font-size: var(--h3-size);
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.kit-type-what {
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+.kit-type-label {
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.kit-type-lede {
+  max-width: 58ch;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+.kit-type-body {
+  max-width: 62ch;
+}
+.kit-type-mono {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+
+/* -- Icons ------------------------------------------------------------------- */
+
+.kit-icons {
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+.kit-icon-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+.kit-icon-head {
+  display: none;
+  font-family: var(--display), var(--body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.kit-icon-who {
+  grid-column: 1 / -1;
+}
+.kit-icon-who b {
+  display: block;
+  font-family: var(--display), var(--body);
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+.kit-icon-who span {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+.kit-icon-cell {
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+.kit-icon-cell > .fam-icon,
+.kit-icon-cell > img {
+  width: min(100%, 9rem);
+  inline-size: min(100%, 9rem);
+  height: auto;
+}
+.kit-icon-cell > img {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28));
+}
+.kit-icon-sizes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.75rem;
+  min-height: 6rem;
+  padding: 1rem;
+}
+.kit-icon-sizes[data-ground="iron"] {
+  background: var(--iron);
+}
+.kit-icon-sizes[data-ground="white"] {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+@media (min-width: 64rem) {
+  .kit-icon-row {
+    grid-template-columns: 11rem repeat(2, minmax(0, 1fr)) repeat(2, minmax(0, 1.1fr));
+    gap: 1.5rem;
+  }
+  .kit-icon-head {
+    display: grid;
+    padding-block: 0.75rem;
+  }
+  .kit-icon-who {
+    grid-column: auto;
+  }
+}
+
+.kit-marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.kit-marks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+
+/* -- The sample pages -------------------------------------------------------- */
+
+/* The strip that says what a sample page is, under the header of each one. */
+.kit-sample-note {
+  padding-block: 0.625rem;
+  background: var(--iron-2);
+  color: var(--iron-soft);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.kit-sample-note p {
+  max-width: 80ch;
+}
+.kit-sample-note a {
+  color: var(--iron-ink);
+}
+
+/*
+ * The invented tool's icon. `Icon` places a member's picture through CSS, so a
+ * name the package does not know takes its picture from here: the same three
+ * forms, from the same pipeline (design/icons).
+ */
+.fam-icon[data-icon="ferrometro"] {
+  background-image: url("../assets/kit/ferrometro-flat.webp");
+}
+.fam-icon[data-form="rendered"][data-icon="ferrometro"] {
+  background-image: url("../assets/kit/ferrometro-256.webp");
+}
+.fam-icon[data-form="hero"][data-icon="ferrometro"] {
+  background-image: url("../assets/kit/ferrometro.webp");
+}
+
+.kit-code-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+.kit-code-grid .fam-code {
+  margin-top: 0;
+}
+@media (max-width: 64rem) {
+  .kit-code-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The plate specimen: a plate takes its size from what it holds. */
+.kit-plate {
+  width: fit-content;
+  max-width: 100%;
+  padding: 1.75rem 3rem 1.5rem 2.75rem;
+}
+.kit-plate b,
+.kit-plate span {
+  display: block;
+  font-family: var(--display), var(--body);
+}
+.kit-plate b {
+  font-size: 2.125rem;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+.kit-plate span {
+  margin-top: 0.3125rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+/* Room under a specimen that a full-bleed band follows directly. */
+.kit-gap {
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+}

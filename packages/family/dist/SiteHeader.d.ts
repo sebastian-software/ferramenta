@@ -7,12 +7,19 @@ export type SiteHeaderProps = {
      */
     current?: string;
     /**
-     * Rendered at the end of the bar, where the family site puts Ardo's
-     * `<ArdoThemeToggle />`. A slot rather than an import: `ardo/ui` only loads
-     * inside a bundler, and the theme switch belongs to the site's framework, not
-     * to the family chrome.
+     * Rendered at the end of the bar, for a docs site that offers a theme switch
+     * (Ardo's `<ArdoThemeToggle />`). A slot rather than an import: `ardo/ui`
+     * only loads inside a bundler, and the switch belongs to the site's
+     * framework, not to the family chrome. A landing page leaves it out: the
+     * family's pages have one authored scheme (ADR-0008).
      */
     themeToggle?: ReactNode;
+    /**
+     * The family-wide tool switcher in the bar. On by default. The family site
+     * turns it off on its own index, which already is the list the switcher
+     * would open, and puts its page links in `nav` instead.
+     */
+    switcher?: boolean;
     /**
      * Rendered in the family navigation just before `themeToggle`, for the
      * controls a docs site keeps in the bar — search, a section menu. Its own
@@ -48,5 +55,5 @@ export type SiteHeaderProps = {
      */
     as?: "div" | "header";
 };
-/** Iron header bar: lockup, family-wide tool switcher, GitHub, theme toggle. */
-export declare function SiteHeader({ actions, as, current, home, lockup, nav, themeToggle, }?: SiteHeaderProps): import("react").JSX.Element;
+/** Black-steel header bar: lockup, family-wide tool switcher, GitHub, the site's own slots. */
+export declare function SiteHeader({ actions, as, current, home, lockup, nav, switcher, themeToggle, }?: SiteHeaderProps): import("react").JSX.Element;
