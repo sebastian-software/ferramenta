@@ -1,173 +1,181 @@
 /*
  * ferramenta-family — design tokens.
  *
- * Tokens and the browser's native-surface hint. Dark mode follows an explicit
- * `:root.dark` class or the system preference unless the host sets `:root.light`.
+ * Two ramps hold every color the family draws with, and nothing else does:
+ *
+ *   iron   the warm grey of blackened steel, from a near-white ground to the
+ *          dark of the chrome
+ *   rust   oxidized rust: from sand to dark brown
+ *
+ * The steps are numbered as in Tailwind (a higher number is darker). The greys
+ * are warm on purpose: every member's icon is forged steel and rust, and a
+ * cool blue-grey page beside them reads as a different material.
+ *
+ * A component never uses a step directly. It uses a role (`--bg`, `--ink`,
+ * `--rust`, `--steel-ink`, …), and each role names the step it takes. That is
+ * what lets a docs page turn dark without a component knowing about it.
+ *
+ * The family's pages have one authored scheme (ADR-0008): a light ground with
+ * deliberately dark passages. A landing page never changes with the visitor's
+ * theme, so `.fam-page` pins the light roles. A docs page is different: long
+ * reading at night is a real need, so outside `.fam-page` the page-level roles
+ * follow an explicit `:root.dark` class or the system preference (unless the
+ * host sets `:root.light`). The chrome is dark in both and needs no second set.
  */
 
 :root {
-  color-scheme: light;
-  --display: "Big Shoulders";
-  --disp-weight: 800;
-  --disp-track: 0;
-  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --iron-50: oklch(0.955 0.007 70);
+  --iron-100: oklch(0.918 0.01 65);
+  --iron-200: oklch(0.83 0.011 55);
+  --iron-300: oklch(0.74 0.013 55);
+  --iron-400: oklch(0.65 0.015 45);
+  --iron-500: oklch(0.58 0.016 48);
+  --iron-600: oklch(0.51 0.019 42);
+  --iron-700: oklch(0.43 0.02 40);
+  --iron-800: oklch(0.36 0.02 42);
+  --iron-900: oklch(0.29 0.02 44);
+  --iron-950: oklch(0.19 0.012 50);
 
-  --bg: oklch(0.975 0.005 80);
-  --bg-dim: oklch(0.945 0.008 78);
-  --ink: oklch(0.21 0.014 45);
-  --ink-soft: oklch(0.42 0.018 48);
-  --rust: oklch(0.5 0.132 38);
-  --rust-deep: oklch(0.41 0.115 36);
-  --rust-tint: oklch(0.5 0.13 38 / 0.1);
-  --ember: oklch(0.68 0.175 52);
-  --line: oklch(0.86 0.014 70);
-  --line-heavy: oklch(0.28 0.016 48);
-  --on-rust: oklch(0.985 0.004 85);
-  --iron: oklch(0.235 0.014 45);
-  --iron-2: oklch(0.29 0.016 45);
-  --iron-ink: oklch(0.95 0.008 78);
-  --iron-soft: oklch(0.72 0.015 65);
-  --iron-line: oklch(0.38 0.018 48);
-  --grid-line: oklch(0.5 0.02 55 / 0.12);
-  --paper: oklch(0.985 0.004 85);
-  --plate-rim-hi: oklch(0.72 0.035 60);
-  --plate-rim-lo: oklch(0.46 0.045 45);
-  --plate-face-hi: oklch(0.93 0.025 62);
-  --plate-face-lo: oklch(0.81 0.045 52);
-  --plate-sheen: oklch(1 0 0 / 0.3);
-  --plate-brush: oklch(1 0 0 / 0.07);
-  --plate-shadow: oklch(0.3 0.03 45 / 0.3);
-  --hook-dark: oklch(0.38 0.025 45);
-  --hook-light: oklch(0.9 0.015 65 / 0.85);
-  --hook-hole: oklch(0.28 0.02 45 / 0.85);
-  --board-hole: oklch(0.45 0.02 55 / 0.3);
+  --rust-100: oklch(0.92 0.025 60);
+  --rust-200: oklch(0.84 0.06 60);
+  --rust-300: oklch(0.75 0.095 58);
+  --rust-400: oklch(0.66 0.115 57);
+  --rust-500: oklch(0.58 0.115 52);
+  --rust-600: oklch(0.51 0.109 48);
+  --rust-700: oklch(0.42 0.095 40);
+  --rust-800: oklch(0.36 0.086 40);
+  --rust-900: oklch(0.28 0.065 38);
 }
+
+/* -- Roles that follow the scheme: the page ------------------------------------ */
+
+:root {
+  color-scheme: light;
+
+  --bg: var(--iron-50);
+  --bg-dim: var(--iron-100);
+  --ink: var(--iron-950);
+  --ink-soft: var(--iron-700);
+  --line: var(--iron-200);
+  --line-heavy: var(--iron-950);
+
+  /* Rust is the one color: oxidized, dark, never a bright orange field. */
+  --rust: var(--rust-700);
+  --rust-deep: var(--rust-800);
+  --on-rust: var(--iron-50);
+  --focus: var(--rust);
+}
+
 :root.dark {
   color-scheme: dark;
-  --hook-dark: oklch(0.62 0.02 50);
-  --hook-light: oklch(0.95 0.01 65 / 0.9);
-  --hook-hole: oklch(0.12 0.01 45);
-  --plate-rim-hi: oklch(0.45 0.035 50);
-  --plate-rim-lo: oklch(0.2 0.02 45);
-  --plate-face-hi: oklch(0.42 0.035 48);
-  --plate-face-lo: oklch(0.29 0.03 45);
-  --plate-sheen: oklch(1 0 0 / 0.1);
-  --plate-brush: oklch(1 0 0 / 0.05);
-  --plate-shadow: oklch(0.05 0.01 45 / 0.55);
-  --board-hole: oklch(0.08 0.01 45 / 0.45);
-  /* The floor sits visibly above the iron bands: the two must not merge in the dark. */
-  --bg: oklch(0.215 0.009 48);
-  --bg-dim: oklch(0.25 0.012 48);
-  --ink: oklch(0.94 0.006 80);
-  --ink-soft: oklch(0.71 0.012 70);
-  --rust: oklch(0.69 0.14 45);
-  --rust-deep: oklch(0.6 0.125 42);
-  --rust-tint: oklch(0.69 0.14 45 / 0.13);
-  --ember: oklch(0.75 0.16 55);
-  --line: oklch(0.31 0.012 50);
-  --line-heavy: oklch(0.85 0.01 70);
-  --on-rust: oklch(0.15 0.01 50);
-  --iron: oklch(0.14 0.009 45);
-  --iron-2: oklch(0.19 0.011 45);
-  --iron-ink: oklch(0.95 0.008 78);
-  --iron-soft: oklch(0.7 0.015 65);
-  --iron-line: oklch(0.31 0.015 48);
-  --grid-line: oklch(0.7 0.02 55 / 0.1);
-  /* Carrier plates for partner logos: still paper, dimmed so they do not outshine the page. */
-  --paper: oklch(0.86 0.006 80);
-  --duo0: oklch(0.93 0.012 70);
-  --duo1: oklch(0.31 0.045 42);
-  --duo2: oklch(0.54 0.11 45);
-  --duoink: oklch(0.89 0.035 55);
+
+  --bg: var(--iron-950);
+  --bg-dim: var(--iron-900);
+  --ink: var(--iron-50);
+  --ink-soft: var(--iron-300);
+  --line: var(--iron-800);
+  --line-heavy: var(--iron-200);
+  --rust: var(--rust-300);
+  --rust-deep: var(--rust-400);
+  --on-rust: var(--iron-950);
   --focus: var(--ember);
-  --rust-on-plate: oklch(0.82 0.11 58);
-  --ink-soft-on-plate: oklch(0.83 0.015 65);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --hook-dark: oklch(0.62 0.02 50);
-    --hook-light: oklch(0.95 0.01 65 / 0.9);
-    --hook-hole: oklch(0.12 0.01 45);
-    --plate-rim-hi: oklch(0.45 0.035 50);
-    --plate-rim-lo: oklch(0.2 0.02 45);
-    --plate-face-hi: oklch(0.42 0.035 48);
-    --plate-face-lo: oklch(0.29 0.03 45);
-    --plate-sheen: oklch(1 0 0 / 0.1);
-    --plate-brush: oklch(1 0 0 / 0.05);
-    --plate-shadow: oklch(0.05 0.01 45 / 0.55);
-    --board-hole: oklch(0.08 0.01 45 / 0.45);
-    --bg: oklch(0.215 0.009 48);
-    --bg-dim: oklch(0.25 0.012 48);
-    --ink: oklch(0.94 0.006 80);
-    --ink-soft: oklch(0.71 0.012 70);
-    --rust: oklch(0.69 0.14 45);
-    --rust-deep: oklch(0.6 0.125 42);
-    --rust-tint: oklch(0.69 0.14 45 / 0.13);
-    --ember: oklch(0.75 0.16 55);
-    --line: oklch(0.31 0.012 50);
-    --line-heavy: oklch(0.85 0.01 70);
-    --on-rust: oklch(0.15 0.01 50);
-    --iron: oklch(0.14 0.009 45);
-    --iron-2: oklch(0.19 0.011 45);
-    --iron-ink: oklch(0.95 0.008 78);
-    --iron-soft: oklch(0.7 0.015 65);
-    --iron-line: oklch(0.31 0.015 48);
-    --grid-line: oklch(0.7 0.02 55 / 0.1);
-    --paper: oklch(0.86 0.006 80);
-    --duo0: oklch(0.93 0.012 70);
-    --duo1: oklch(0.31 0.045 42);
-    --duo2: oklch(0.54 0.11 45);
-    --duoink: oklch(0.89 0.035 55);
+
+    --bg: var(--iron-950);
+    --bg-dim: var(--iron-900);
+    --ink: var(--iron-50);
+    --ink-soft: var(--iron-300);
+    --line: var(--iron-800);
+    --line-heavy: var(--iron-200);
+    --rust: var(--rust-300);
+    --rust-deep: var(--rust-400);
+    --on-rust: var(--iron-950);
     --focus: var(--ember);
-    --rust-on-plate: oklch(0.82 0.11 58);
-    --ink-soft-on-plate: oklch(0.83 0.015 65);
   }
 }
 
-/*
- * Materials and shapes as values. The brushed fiber is the texture the shop
- * floor and every iron surface share; the speckle is the rust on a plate face.
- * Both are theme-independent: they tint whatever color they lie over.
- */
-:root {
-  --texture-brush: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.28' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23b)'/%3E%3C/svg%3E");
-  --texture-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='72' height='72' filter='url(%23n)'/%3E%3C/svg%3E");
-  --ground-vignette: oklch(0.3 0.03 45 / 0.06);
-  --ember-glow: oklch(0.68 0.175 52 / 0.16);
-  /* Small text on a plate face: 4.5:1 across the whole face gradient. */
-  --rust-on-plate: var(--rust-deep);
-  --ink-soft-on-plate: var(--ink-soft);
-  --octagon: polygon(27% 0, 73% 0, 100% 27%, 100% 73%, 73% 100%, 27% 100%, 0 73%, 0 27%);
-  --chamfer: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-}
+/* The same roles again, after the dark sets: a landing page pins the authored scheme. */
+.fam-page {
+  color-scheme: light;
 
-/* Theme-specific values used by marks and focus rings. */
-:root {
-  --duo0: oklch(0.985 0.004 85);
-  --duo1: oklch(0.93 0.035 50);
-  --duo2: oklch(0.8 0.095 48);
-  --duoink: oklch(0.36 0.075 38);
+  --bg: var(--iron-50);
+  --bg-dim: var(--iron-100);
+  --ink: var(--iron-950);
+  --ink-soft: var(--iron-700);
+  --line: var(--iron-200);
+  --line-heavy: var(--iron-950);
+  --rust: var(--rust-700);
+  --rust-deep: var(--rust-800);
+  --on-rust: var(--iron-50);
   --focus: var(--rust);
 }
 
-/* The display scale below the poster headline, and the rhythm between sections. */
-:root {
-  --h2-size: clamp(2.3rem, 4.6vw, 3.4rem);
-  --h3-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  --section-space: clamp(3.5rem, 7vw, 5.5rem);
-}
+/* -- Roles that are the same in every scheme ------------------------------------ */
 
-/*
- * Syntax colors for code on iron. Iron is dark in both themes, so there is one
- * set; the keyword ember follows the theme's own ember.
- */
 :root {
-  --code-keyword: var(--ember);
-  --code-type: var(--iron-ink);
-  --code-function: oklch(0.84 0.08 70);
-  --code-string: oklch(0.8 0.1 95);
-  --code-comment: var(--iron-soft);
+  --display: "Barlow Condensed";
+  --disp-weight: 700;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  /* The dark of the chrome ("iron"): the header, the footer, code panels. */
+  --iron: var(--iron-950);
+  --iron-2: var(--iron-900);
+  --iron-ink: var(--iron-50);
+  --iron-soft: var(--iron-300);
+  --iron-line: var(--iron-800);
+  /* Rust as it glows on a dark ground: rules, the hover of a link, a keyword in code. */
+  --ember: var(--rust-300);
+  /* The color under the oak of a dark passage, for the moment before its texture loads. */
+  --oak: var(--iron-900);
+
+  /*
+   * The plate. `--steel` is the color under the texture, for the moment before
+   * it loads. Text on a plate is `--steel-ink`, solid: it holds 4.5:1 on the
+   * texture's darkest streak. Rust on steel is a darker step than rust on the
+   * ground, for display lettering (a word in the headline), never small text.
+   */
+  --steel: var(--iron-400);
+  --steel-ink: var(--iron-950);
+  /* A rivet's head: its lit side and its shaded side, around `--steel`. */
+  --rivet-light: var(--iron-100);
+  --rivet-shade: var(--iron-600);
+  --rust-on-steel: var(--rust-800);
+  /*
+   * Rust as a surface: the closing band, and a settled stamp on steel or on a
+   * dark ground. It stays dark and oxidized in every scheme, unlike `--rust`,
+   * which turns to the glowing tone where a docs page is dark.
+   */
+  --rust-fill: var(--rust-700);
+  --rust-fill-edge: var(--rust-800);
+  --rust-fill-ink: var(--iron-50);
+  --rust-fill-soft: var(--rust-100);
+  /* The dark inlay small facts sit on, so the texture never runs behind small type. */
+  --inlay: var(--iron-950);
+  --inlay-ink: var(--iron-50);
+  --inlay-soft: var(--iron-300);
+  --inlay-line: var(--iron-800);
+
+  /* Where the one light stands: `PlateLight` moves it with the pointer. */
+  --fam-sheen: 40%;
+
+  /* The display scale below the hero's headline, and the rhythm between sections. */
+  --h2-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  --h3-size: 1.625rem;
+  --section-space: clamp(4.5rem, 9vw, 7.5rem);
+
+  /*
+   * Syntax colors for code on the dark ground: one set, because that surface
+   * is dark everywhere. All from the two ramps: glowing rust for keywords,
+   * sand for strings and functions, light iron for types.
+   */
+  --code-keyword: var(--rust-300);
+  --code-type: var(--iron-200);
+  --code-function: var(--rust-100);
+  --code-string: var(--rust-200);
+  --code-comment: var(--iron-400);
 }

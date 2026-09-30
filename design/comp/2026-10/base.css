@@ -1,0 +1,158 @@
+/* What the three direction comps share: the reset, the body type, the
+   reviewer's switch. Everything with a point of view lives in the direction's
+   own stylesheet. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--ground);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+code,
+pre {
+  font-family: var(--mono);
+}
+
+.wrap {
+  width: min(100% - 2rem, 77.5rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .wrap {
+    width: min(100% - 4rem, 77.5rem);
+  }
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  flex: none;
+}
+
+.mark {
+  flex: none;
+}
+
+/* A mark drawn to the edge of its 24 grid keeps its outline. */
+symbol {
+  overflow: visible;
+}
+
+/* The reviewer's switch. Neutral on purpose: it belongs to no direction. */
+.comp-nav {
+  position: fixed;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 90;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.375rem;
+  max-width: calc(100% - 1.5rem);
+  font:
+    500 0.75rem/1 system-ui,
+    sans-serif;
+}
+
+.comp-nav div {
+  display: flex;
+  background: #111;
+  color: #ddd;
+  box-shadow: 0 6px 18px -6px rgb(0 0 0 / 0.6);
+}
+
+.comp-nav a {
+  padding: 0.5rem 0.625rem;
+  text-decoration: none;
+}
+
+.comp-nav a[aria-current] {
+  background: #fff;
+  color: #111;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

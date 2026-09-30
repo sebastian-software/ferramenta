@@ -1,0 +1,66 @@
+---
+order: 1
+title: Getting started
+description: A sample documentation page of the Ferramenta kit, for an invented family member.
+sitemap: false
+llms: false
+---
+
+export const meta = () => [
+  { title: "Getting started — Ferrometro, a sample of the Ferramenta kit" },
+];
+
+# Getting started
+
+> **A sample page.** Ferrometro is invented to show what a family member's
+> documentation looks like; nothing here is a real tool. [Back to the kit](/kit)
+
+Ferrometro is a units-of-measure engine. It parses quantities, checks that
+their dimensions agree, and converts between units. Units are written the way
+[UCUM](https://ucum.org) writes them, so a value means the same thing in every
+system that reads it.
+
+## Install
+
+```bash
+cargo add ferrometro
+```
+
+Or add it by hand:
+
+```toml
+[dependencies]
+ferrometro = "0"
+```
+
+## Your first quantity
+
+A quantity is a number and its unit, kept together.
+
+```rust
+use ferrometro::Quantity;
+
+fn main() -> Result<(), ferrometro::Error> {
+    let torque: Quantity = "5 kN.m".parse()?;
+    println!("{}", torque.to("[lbf_av].[ft_i]")?);
+    Ok(())
+}
+```
+
+`to` converts between units of the same dimension and returns an error for
+anything else. There is no way to get a number out without naming its unit.
+
+## Dimension checks
+
+Arithmetic on quantities checks dimensions when the expression is parsed.
+
+| Expression    | Result                      |
+| ------------- | --------------------------- |
+| `3 m + 20 cm` | `3.2 m`                     |
+| `3 m * 2 s`   | `6 m.s`                     |
+| `3 m + 2 s`   | Error: length is not a time |
+
+## Where to go next
+
+[Configuration](/kit/docs/configuration) covers the unit tables and how to add
+your own.

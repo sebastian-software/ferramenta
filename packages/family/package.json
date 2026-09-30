@@ -1,7 +1,7 @@
 {
   "name": "ferramenta-family",
   "version": "1.2.0",
-  "description": "The Ferramenta family: registry, shared site chrome, project marks, design tokens, and the display font",
+  "description": "The Ferramenta family: registry, shared site chrome, landing kit, icons, design tokens, textures, and the display font",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,9 +15,11 @@
     "bin",
     "dist",
     "fonts",
+    "icons",
     "lib",
     "src",
     "styles",
+    "textures",
     "NOTICE.md",
     "README.md",
     "markdown"
@@ -38,11 +40,14 @@
       "default": "./dist/family.js"
     },
     "./chrome.css": "./styles/chrome.css",
+    "./docs.css": "./styles/docs.css",
     "./fonts.css": "./styles/fonts.css",
     "./landing.css": "./styles/landing.css",
     "./theme.css": "./styles/theme.css",
     "./tokens.css": "./styles/tokens.css",
     "./fonts/*": "./fonts/*",
+    "./icons/*": "./icons/*",
+    "./textures/*": "./textures/*",
     "./package.json": "./package.json"
   },
   "publishConfig": {

@@ -104,7 +104,7 @@ ferramenta-readme --current ferrocat --check README.md
 The package README describes the [generator and its Git-based installation](../packages/family/README.md#the-readme-family-block).
 This repository also exposes `pnpm readme:write` and `pnpm readme:check`
 wrappers for its own root README. The generator supplies the family tagline,
-member jobs, groups, and links. Never hand-edit content inside the markers,
+member jobs, the two tiers, and links. Never hand-edit content inside the markers,
 copy a table from another repository, or change a tool's job in a README.
 Change [`family.ts`](../packages/family/src/family.ts) when the fact itself
 changes, then regenerate the block in every affected repository.

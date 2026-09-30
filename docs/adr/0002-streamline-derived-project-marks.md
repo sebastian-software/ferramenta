@@ -1,6 +1,6 @@
 # ADR-0002: Project marks derived from Streamline icons, under license constraints
 
-- Status: accepted
+- Status: superseded by [ADR-0009](0009-generated-member-icons.md)
 - Date: 2026-08-14
 - Deciders: Sebastian Werner
 

@@ -5,15 +5,15 @@
  * `pnpm add` and before its own build.
  */
 import {
+  EngineCatalog,
   family,
-  PipelineAssembly,
   ProjectHero,
   SiteFooter,
   SiteHeader,
   ToolSwitcher,
 } from "ferramenta-family";
-import { familyGroups } from "ferramenta-family/registry";
-import { readFileSync } from "node:fs";
+import { familyTiers } from "ferramenta-family/registry";
+import { existsSync, readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
@@ -39,11 +39,11 @@ expect(footer.includes('<footer class="site-footer">'), "the footer did not rend
 for (const tool of family) {
   expect(footer.includes(`>${tool.name}`), `missing from the footer: ${tool.name}`);
 }
-expect(Object.keys(familyGroups()).length === 3, "the registry entry is broken");
+expect(Object.keys(familyTiers()).length === 2, "the registry entry is broken");
 
 // The switcher on its own, the way an Ardo docs site puts it into
 // `ArdoHeaderActions`: it has to render without the package's own header
-// around it, and the duotone variables its marks read have to come with it.
+// around it.
 const switcher = render(ToolSwitcher, { current: family[0].name });
 expect(switcher.startsWith('<details class="switcher">'), "the standalone switcher did not render");
 expect(switcher.includes('<div class="flyout">'), "the standalone switcher has no flyout");
@@ -58,18 +58,23 @@ expect(
   "the switcher ignored `align`",
 );
 
+// The icons are pictures the stylesheet places: every file it names has to be
+// in the installed package, or a consumer's header shows blank tiles.
+const chromeUrl = new URL(import.meta.resolve("ferramenta-family/chrome.css"));
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own exported stylesheet
-const chrome = readFileSync(new URL(import.meta.resolve("ferramenta-family/chrome.css")), "utf8");
-const declaration = chrome.indexOf("--duo0");
-const selectors = chrome.lastIndexOf("}", declaration) + 1;
-expect(
-  chrome.slice(selectors, declaration).includes("details.switcher"),
-  "the shipped chrome.css defines no duotone variables on the switcher root",
+const chrome = readFileSync(chromeUrl, "utf8");
+const pictures = [...chrome.matchAll(/url\("(?<file>\.\.\/[^"]+)"\)/gu)].map(
+  (match) => match.groups.file,
 );
-expect(
-  chrome.slice(selectors, declaration).includes(".on-iron"),
-  "the shipped chrome.css has no standalone duotone wrapper class",
-);
+expect(pictures.length > family.length, "the shipped chrome.css places no icons");
+/** True when the installed package ships the file a stylesheet of its own names. */
+function isShipped(file, stylesheet) {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- a path the installed package's own stylesheet names
+  return existsSync(new URL(file, stylesheet));
+}
+for (const file of pictures) {
+  expect(isShipped(file, chromeUrl), `chrome.css names a file that is not shipped: ${file}`);
+}
 
 // The docs-site slots: search and a section menu go in `actions`, not in the
 // theme-toggle slot.
@@ -105,16 +110,23 @@ expect(
 );
 expect(project.includes('class="flyhome"'), "the project lockup lost the way back to the family");
 expect(
-  render(ProjectHero, { mark: "ferroni", title: "Ferroni" }).includes("fam-hero-plate"),
-  "the hero did not hang the project's plate",
+  render(ProjectHero, { icon: "ferroni", title: "Ferroni" }).includes(
+    'data-icon="ferroni" data-form="hero"',
+  ),
+  "the hero did not put the project's icon on its plate",
 );
 expect(
-  render(PipelineAssembly, { current: "ferroni" }).includes('aria-current="true"'),
-  "the pipeline assembly did not mark the current stage",
+  render(EngineCatalog, { current: "ferroni" }).includes('<article class="fam-engine"'),
+  "the engine catalog did not render",
 );
+const landingUrl = new URL(import.meta.resolve("ferramenta-family/landing.css"));
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own exported stylesheet
-const landing = readFileSync(new URL(import.meta.resolve("ferramenta-family/landing.css")), "utf8");
+const landing = readFileSync(landingUrl, "utf8");
 expect(landing.includes(".fam-page"), "the shipped landing.css has no page scope");
+for (const match of landing.matchAll(/url\("(?<file>\.\.\/[^"]+)"\)/gu)) {
+  const { file } = match.groups;
+  expect(isShipped(file, landingUrl), `landing.css names a file that is not shipped: ${file}`);
+}
 
 console.log(`rendered the chrome and the standalone switcher for ${family.length} family members`);
 console.log("rendered the project lockup and the landing kit");

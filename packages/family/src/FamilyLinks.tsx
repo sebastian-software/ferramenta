@@ -1,5 +1,5 @@
 import { FAMILY_SITE, relatedTools, toolHref } from "./family.js";
-import { Mark } from "./Mark.js";
+import { Icon } from "./Icon.js";
 import { RepoNote } from "./RepoNote.js";
 
 export type FamilyLinksProps = {
@@ -9,7 +9,7 @@ export type FamilyLinksProps = {
   className?: string;
 };
 
-/** Compact family navigation. Mount MarkDefs once in the host page. */
+/** Compact family navigation, for a host page that renders none of the family chrome. */
 export function FamilyLinks({
   current,
   label = "More from Ferramenta",
@@ -18,9 +18,9 @@ export function FamilyLinks({
   return (
     <nav aria-label={label} className={["ferramenta-family", className].filter(Boolean).join(" ")}>
       <a className="ferramenta-family-heading" href={FAMILY_SITE}>
-        <Mark name="ferramenta" size={24} /> {label}
+        <Icon name="ferramenta" size={24} /> {label}
       </a>
-      <p>A family of Rust tools.</p>
+      <p>A family of Rust-native tools.</p>
       <ul>
         {relatedTools(current).map((tool) => (
           <li key={tool.name}>

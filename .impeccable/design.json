@@ -1,0 +1,1192 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T14:31:22.951Z",
+  "title": "Design System: Ferramenta",
+  "extensions": {
+    "colorMeta": {
+      "iron-50": {
+        "role": "neutral",
+        "displayName": "Iron 50",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-100": {
+        "role": "neutral",
+        "displayName": "Iron 100",
+        "canonical": "oklch(0.918 0.01 65)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-200": {
+        "role": "neutral",
+        "displayName": "Iron 200",
+        "canonical": "oklch(0.83 0.011 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-300": {
+        "role": "neutral",
+        "displayName": "Iron 300",
+        "canonical": "oklch(0.74 0.013 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-400": {
+        "role": "neutral",
+        "displayName": "Iron 400",
+        "canonical": "oklch(0.65 0.015 45)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-500": {
+        "role": "neutral",
+        "displayName": "Iron 500",
+        "canonical": "oklch(0.58 0.016 48)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-600": {
+        "role": "neutral",
+        "displayName": "Iron 600",
+        "canonical": "oklch(0.51 0.019 42)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-700": {
+        "role": "neutral",
+        "displayName": "Iron 700",
+        "canonical": "oklch(0.43 0.02 40)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-800": {
+        "role": "neutral",
+        "displayName": "Iron 800",
+        "canonical": "oklch(0.36 0.02 42)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-900": {
+        "role": "neutral",
+        "displayName": "Iron 900",
+        "canonical": "oklch(0.29 0.02 44)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "iron-950": {
+        "role": "neutral",
+        "displayName": "Iron 950",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ]
+      },
+      "rust-100": {
+        "role": "primary",
+        "displayName": "Rust 100",
+        "canonical": "oklch(0.92 0.025 60)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-200": {
+        "role": "primary",
+        "displayName": "Rust 200",
+        "canonical": "oklch(0.84 0.06 60)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-300": {
+        "role": "primary",
+        "displayName": "Rust 300",
+        "canonical": "oklch(0.75 0.095 58)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-400": {
+        "role": "primary",
+        "displayName": "Rust 400",
+        "canonical": "oklch(0.66 0.115 57)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-500": {
+        "role": "primary",
+        "displayName": "Rust 500",
+        "canonical": "oklch(0.58 0.115 52)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-600": {
+        "role": "primary",
+        "displayName": "Rust 600",
+        "canonical": "oklch(0.51 0.109 48)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-700": {
+        "role": "primary",
+        "displayName": "Rust 700",
+        "canonical": "oklch(0.42 0.095 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-800": {
+        "role": "primary",
+        "displayName": "Rust 800",
+        "canonical": "oklch(0.36 0.086 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "rust-900": {
+        "role": "primary",
+        "displayName": "Rust 900",
+        "canonical": "oklch(0.28 0.065 38)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-50"
+      },
+      "bg-dim": {
+        "role": "neutral",
+        "displayName": "Dim Ground",
+        "canonical": "oklch(0.918 0.01 65)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-100"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-950"
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(0.43 0.02 40)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-700"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.83 0.011 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-200"
+      },
+      "line-heavy": {
+        "role": "neutral",
+        "displayName": "Heavy Rule",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-950"
+      },
+      "rust": {
+        "role": "primary",
+        "displayName": "Oxidized Rust",
+        "canonical": "oklch(0.42 0.095 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-700"
+      },
+      "rust-deep": {
+        "role": "primary",
+        "displayName": "Deep Rust",
+        "canonical": "oklch(0.36 0.086 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-800"
+      },
+      "on-rust": {
+        "role": "neutral",
+        "displayName": "On Rust",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-50"
+      },
+      "rust-fill": {
+        "role": "primary",
+        "displayName": "Rust Fill",
+        "canonical": "oklch(0.42 0.095 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-700"
+      },
+      "rust-fill-edge": {
+        "role": "primary",
+        "displayName": "Rust Fill: Edge",
+        "canonical": "oklch(0.36 0.086 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-800"
+      },
+      "rust-fill-ink": {
+        "role": "neutral",
+        "displayName": "Rust Fill: Ink",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-50"
+      },
+      "rust-fill-soft": {
+        "role": "neutral",
+        "displayName": "Rust Fill: Soft Ink",
+        "canonical": "oklch(0.92 0.025 60)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-100"
+      },
+      "iron": {
+        "role": "neutral",
+        "displayName": "Dark Iron",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-950"
+      },
+      "iron-2": {
+        "role": "neutral",
+        "displayName": "Dark Iron, Raised",
+        "canonical": "oklch(0.29 0.02 44)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-900"
+      },
+      "iron-ink": {
+        "role": "neutral",
+        "displayName": "Ink on the Dark",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-50"
+      },
+      "iron-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink on the Dark",
+        "canonical": "oklch(0.74 0.013 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-300"
+      },
+      "iron-line": {
+        "role": "neutral",
+        "displayName": "Hairline on the Dark",
+        "canonical": "oklch(0.36 0.02 42)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-800"
+      },
+      "ember": {
+        "role": "primary",
+        "displayName": "Ember",
+        "canonical": "oklch(0.75 0.095 58)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-300"
+      },
+      "steel": {
+        "role": "neutral",
+        "displayName": "Plate Steel",
+        "canonical": "oklch(0.65 0.015 45)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-400"
+      },
+      "steel-ink": {
+        "role": "neutral",
+        "displayName": "Plate Ink",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-950"
+      },
+      "rust-on-steel": {
+        "role": "primary",
+        "displayName": "Rust on Steel",
+        "canonical": "oklch(0.36 0.086 40)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-800"
+      },
+      "inlay": {
+        "role": "neutral",
+        "displayName": "Inlay",
+        "canonical": "oklch(0.19 0.012 50)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-950"
+      },
+      "inlay-ink": {
+        "role": "neutral",
+        "displayName": "Ink on Inlay",
+        "canonical": "oklch(0.955 0.007 70)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-50"
+      },
+      "inlay-soft": {
+        "role": "neutral",
+        "displayName": "Label on Inlay",
+        "canonical": "oklch(0.74 0.013 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-300"
+      },
+      "inlay-line": {
+        "role": "neutral",
+        "displayName": "Divider on Inlay",
+        "canonical": "oklch(0.36 0.02 42)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-800"
+      },
+      "oak": {
+        "role": "neutral",
+        "displayName": "Oak Under",
+        "canonical": "oklch(0.29 0.02 44)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-900"
+      },
+      "code-keyword": {
+        "role": "neutral",
+        "displayName": "Code: Keyword",
+        "canonical": "oklch(0.75 0.095 58)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-300"
+      },
+      "code-type": {
+        "role": "neutral",
+        "displayName": "Code: Type",
+        "canonical": "oklch(0.83 0.011 55)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-200"
+      },
+      "code-function": {
+        "role": "neutral",
+        "displayName": "Code: Function",
+        "canonical": "oklch(0.92 0.025 60)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-100"
+      },
+      "code-string": {
+        "role": "neutral",
+        "displayName": "Code: String",
+        "canonical": "oklch(0.84 0.06 60)",
+        "tonalRamp": [
+          "oklch(0.28 0.065 38)",
+          "oklch(0.36 0.086 40)",
+          "oklch(0.42 0.095 40)",
+          "oklch(0.51 0.109 48)",
+          "oklch(0.58 0.115 52)",
+          "oklch(0.75 0.095 58)",
+          "oklch(0.84 0.06 60)",
+          "oklch(0.92 0.025 60)"
+        ],
+        "step": "rust-200"
+      },
+      "code-comment": {
+        "role": "neutral",
+        "displayName": "Code: Comment",
+        "canonical": "oklch(0.65 0.015 45)",
+        "tonalRamp": [
+          "oklch(0.19 0.012 50)",
+          "oklch(0.29 0.02 44)",
+          "oklch(0.36 0.02 42)",
+          "oklch(0.43 0.02 40)",
+          "oklch(0.58 0.016 48)",
+          "oklch(0.74 0.013 55)",
+          "oklch(0.918 0.01 65)",
+          "oklch(0.955 0.007 70)"
+        ],
+        "step": "iron-400"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The family's headline on the hero plate."
+      },
+      "display-name": {
+        "displayName": "Display, project name",
+        "purpose": "A project's own name on its hero plate, with a what line under it."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "A section's h2."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "A principle; a name on a catalog plate."
+      },
+      "what": {
+        "displayName": "What",
+        "purpose": "What the thing is, in sentence case, directly under its name."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Buttons and the catalog's go-link."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "A fact's label, a stamp, a flyout group, a footer column head."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "The paragraph on the plate."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, in the system face."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code, commands, file names, a release number."
+      }
+    },
+    "shadows": [
+      {
+        "name": "plate",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55)",
+        "purpose": "Every plate: lit top and left edge, shaded bottom and right edge, a short cast shadow."
+      },
+      {
+        "name": "rivet",
+        "value": "0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28)",
+        "purpose": "The four corner rivets."
+      },
+      {
+        "name": "inlay",
+        "value": "inset 0 2px 4px rgb(0 0 0 / 0.6)",
+        "purpose": "Small facts pressed into a plate."
+      },
+      {
+        "name": "inlay-install",
+        "value": "inset 0 2px 4px rgb(0 0 0 / 0.6), 0 1px 0 rgb(255 255 255 / 0.3)",
+        "purpose": "The install line on a plate."
+      },
+      {
+        "name": "object-on-plate",
+        "value": "drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28))",
+        "purpose": "A member's icon standing on a hero or catalog plate (a filter, not a box-shadow)."
+      },
+      {
+        "name": "primary-action",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 16px -10px rgb(0 0 0 / 0.7)",
+        "purpose": "The dark iron button on a plate."
+      },
+      {
+        "name": "steel-action",
+        "value": "inset 0 1px 0 #fff, inset 0 -1px 0 rgb(0 0 0 / 0.3), 0 10px 18px -10px rgb(0 0 0 / 0.7)",
+        "purpose": "The polished steel button on rust or oak."
+      },
+      {
+        "name": "steel-tile",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45)",
+        "purpose": "The steel tile under a small icon on a dark ground."
+      },
+      {
+        "name": "chain-link",
+        "value": "0 1px 2px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(0 0 0 / 0.3)",
+        "purpose": "The two links the tag hangs on."
+      },
+      {
+        "name": "flyout",
+        "value": "0 18px 44px -16px rgb(0 0 0 / 0.7)",
+        "purpose": "The switcher and the section menu under the bar."
+      }
+    ],
+    "motion": [
+      {
+        "name": "plate-light",
+        "value": "background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one reflection on every plate, following the pointer through --fam-sheen (rest: 40%)."
+      },
+      {
+        "name": "tag-sway",
+        "value": "fam-sway 2.6s cubic-bezier(0.37, 0, 0.63, 1) 0.4s both",
+        "purpose": "The hanging tag settles once on load, from 0.9deg to rest."
+      },
+      {
+        "name": "arrow-slide",
+        "value": "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "An action's arrow moves 4px on hover."
+      },
+      {
+        "name": "color-change",
+        "value": "0.2s",
+        "purpose": "Button grounds and bar link colors on hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "The light stands still, the tag does not sway, transitions are off."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrowest",
+        "value": "22rem"
+      },
+      {
+        "name": "phone",
+        "value": "46rem"
+      },
+      {
+        "name": "two-columns",
+        "value": "48rem"
+      },
+      {
+        "name": "run-sample",
+        "value": "54rem"
+      },
+      {
+        "name": "footer",
+        "value": "60rem"
+      },
+      {
+        "name": "wide",
+        "value": "64rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Name Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "The family's one prop: riveted brushed steel that says what a thing is. On the family page a name plate carries no stamp. Shown here on the color under the texture; the package lays steel.webp and the moving reflection over it.",
+      "html": "<div class=\"ds-plate\"><i class=\"ds-rivet ds-rivet-tl\"></i><i class=\"ds-rivet ds-rivet-tr\"></i><i class=\"ds-rivet ds-rivet-br\"></i><i class=\"ds-rivet ds-rivet-bl\"></i><b class=\"ds-plate-name\">Ferroni</b><span class=\"ds-plate-what\">A regex engine</span></div>",
+      "css": ".ds-plate { position: relative; display: grid; width: fit-content; padding: 1.75rem 3rem 1.5rem 2.75rem; color: var(--steel-ink); background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-plate-name { font: 700 2.125rem/1 var(--display), var(--body); letter-spacing: 0.035em; text-transform: uppercase; } .ds-plate-what { margin-top: 0.3125rem; font: 600 1.125rem/1.15 var(--display), var(--body); letter-spacing: 0.02em; } .ds-rivet { position: absolute; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #fff 0, var(--iron-100) 22%, var(--iron-400) 58%, var(--iron-600) 100%); box-shadow: 0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28); } .ds-rivet-tl { top: 0.75rem; left: 0.75rem; } .ds-rivet-tr { top: 0.75rem; right: 0.75rem; } .ds-rivet-br { right: 0.75rem; bottom: 0.75rem; } .ds-rivet-bl { bottom: 0.75rem; left: 0.75rem; }"
+    },
+    {
+      "name": "Hanging Tag",
+      "kind": "custom",
+      "refersTo": "hanging-tag-cell",
+      "description": "The measured facts, second: inlay cells in a narrow steel frame, hung from the plate by two chain links.",
+      "html": "<div class=\"ds-hanger\"><i class=\"ds-link ds-link-left\"></i><i class=\"ds-link ds-link-right\"></i><dl class=\"ds-tag\"><div><dt>Succeeds</dt><dd>Oniguruma</dd></div><div><dt>Made by</dt><dd>Sebastian Software</dd></div></dl></div>",
+      "css": ".ds-hanger { position: relative; width: fit-content; margin-top: 1.75rem; } .ds-link { position: absolute; top: -1.75rem; z-index: 2; width: 0.625rem; height: 2.5rem; border: 2.5px solid var(--iron-300); border-radius: 0.3125rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(0 0 0 / 0.3); } .ds-link-left { left: 1.5rem; } .ds-link-right { right: 1.5rem; } .ds-tag { display: flex; margin: 0; padding: 0.3125rem; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55); } .ds-tag > div { padding: 0.75rem 1.25rem 0.6875rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 1px 0 0 var(--inlay-line); } .ds-tag > div:first-child { padding-left: 2.75rem; box-shadow: none; } .ds-tag > div:last-child { padding-right: 2.75rem; } .ds-tag dt { font: 600 0.75rem/1 var(--display), var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--inlay-soft); } .ds-tag dd { margin: 0.3125rem 0 0; font: 600 1.0625rem/1.2 var(--display), var(--body); letter-spacing: 0.025em; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one primary action per view, in dark iron, on a plate or the light ground.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">See the seven engines <svg class=\"ds-arrow\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M4 12h15.25\"/><path d=\"M13.5 5.75 19.75 12 13.5 18.25\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.625rem; min-height: 3.25rem; padding: 0 1.375rem; font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0; transition: background-color 0.2s; background: var(--iron); color: var(--iron-ink); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 16px -10px rgb(0 0 0 / 0.7); } .ds-btn-primary:hover { background: var(--iron-2); } .ds-btn-primary:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; } .ds-arrow { flex: none; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); } a:hover > .ds-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Beside the primary: an engraved 1.5px outline in the surface's own ink.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">GitHub</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 0.625rem; min-height: 3.25rem; padding: 0 1.375rem; font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0; transition: background-color 0.2s; color: var(--steel-ink); box-shadow: inset 0 0 0 1.5px currentColor; } .ds-btn-ghost:hover { background: rgb(0 0 0 / 0.1); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }"
+    },
+    {
+      "name": "Steel Button",
+      "kind": "button",
+      "refersTo": "button-steel",
+      "description": "The one action on the rust band and on oak: a polished piece of the plate's steel. Shown on the color under the texture.",
+      "html": "<div class=\"ds-rust-stage\"><a class=\"ds-btn-steel\" href=\"#\">Talk to Sebastian Consulting <svg class=\"ds-arrow\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M4 12h15.25\"/><path d=\"M13.5 5.75 19.75 12 13.5 18.25\"/></svg></a></div>",
+      "css": ".ds-rust-stage { padding: 1.5rem; background: var(--rust-fill); } .ds-btn-steel { display: inline-flex; align-items: center; gap: 0.625rem; min-height: 3.25rem; padding: 0 1.375rem; font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0; transition: background-color 0.2s; color: var(--steel-ink); background: linear-gradient(rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.34)), var(--steel); box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgb(0 0 0 / 0.3), 0 10px 18px -10px rgb(0 0 0 / 0.7); } .ds-btn-steel:hover { background: linear-gradient(rgb(255 255 255 / 0.78), rgb(255 255 255 / 0.5)), var(--steel); } .ds-btn-steel:focus-visible { outline: 2px solid var(--rust-fill-ink); outline-offset: 3px; } .ds-arrow { flex: none; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); } a:hover > .ds-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Install Line",
+      "kind": "input",
+      "refersTo": "install-inlay",
+      "description": "A command in mono on a dark inlay, beside the actions on a plate. The family has no form fields.",
+      "html": "<p class=\"ds-install\"><code>cargo add ferroni</code></p>",
+      "css": ".ds-install { display: inline-flex; align-items: center; gap: 1rem; min-height: 3.25rem; margin: 0; padding: 0 1.125rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.6), 0 1px 0 rgb(255 255 255 / 0.3); font-family: var(--mono); font-size: 0.9375rem; } .ds-install code { font: inherit; }"
+    },
+    {
+      "name": "Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "A rating lettered like a plate: outlined while open, filled with rust once settled, an inlay when it sits on a plate.",
+      "html": "<span class=\"ds-stamp ds-stamp-solid\">Stable</span> <span class=\"ds-stamp\">Beta</span> <span class=\"ds-stamp ds-stamp-inlay\">Alpha</span>",
+      "css": ".ds-stamp { display: inline-block; padding: 0.375rem 0.625rem 0.3125rem; border: 1.5px solid currentColor; font: 700 0.8125rem/1 var(--display), var(--body); letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; color: var(--ink); } .ds-stamp-solid { border-color: var(--rust-deep); background: var(--rust); color: var(--on-rust); } .ds-stamp-inlay { border-color: var(--inlay); background: var(--inlay); color: var(--inlay-ink); }"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "site-header",
+      "description": "The flat dark iron bar: the small icon on a steel tile, the wordmark, the site's own links in label lettering.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-lockup\" href=\"#\"><span class=\"ds-tile\"></span><span>Ferramenta</span></a><nav class=\"ds-links\"><a href=\"#\">Engines</a><a href=\"#\">Applications</a><a href=\"#\">Work with us</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 1.5rem; min-height: 4rem; padding-inline: 1.5rem; background: var(--iron); color: var(--iron-ink); border-bottom: 1px solid var(--iron-line); } .ds-lockup { display: flex; align-items: center; gap: 0.625rem; min-height: 44px; color: inherit; text-decoration: none; font: 700 1.5rem/1 var(--display), var(--body); letter-spacing: 0.08em; text-transform: uppercase; } .ds-tile { display: inline-block; width: 34px; height: 34px; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45); } .ds-links { display: flex; align-items: center; gap: 1.5rem; margin-left: auto; } .ds-links a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.375rem; color: var(--iron-soft); font: 600 1.0625rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color 0.2s; } .ds-links a:hover { color: var(--iron-ink); } .ds-header a:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }"
+    },
+    {
+      "name": "Application Card",
+      "kind": "card",
+      "refersTo": "application-card",
+      "description": "An application on a light card: its brand color only in the 4px rule above the card and in the action. The logo (not shown) stands on the card in its own colors.",
+      "html": "<article class=\"ds-app\" style=\"--ds-app-color: #0e2a4d; --ds-app-on-color: #f3eee4\"><h3>Palamedes</h3><p class=\"ds-app-job\">Internationalization for TypeScript applications</p><a class=\"ds-app-go\" href=\"#\">Visit palamedes.dev <svg class=\"ds-arrow\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M4 12h15.25\"/><path d=\"M13.5 5.75 19.75 12 13.5 18.25\"/></svg></a></article>",
+      "css": ".ds-app { display: grid; gap: 0.5rem; max-width: 28rem; padding: 1.75rem; background: var(--bg); color: var(--ink); box-shadow: inset 0 4px 0 var(--ds-app-color); font-family: var(--body); } .ds-app h3 { margin: 0; font-size: 2rem; line-height: 1.1; letter-spacing: -0.01em; } .ds-app-job { margin: 0; font-size: 1.1875rem; font-weight: 600; color: var(--ink-soft); } .ds-app-go { display: inline-flex; align-items: center; gap: 0.5rem; justify-self: start; min-height: 3rem; margin-top: 1.25rem; padding: 0 1.25rem; background: var(--ds-app-color); color: var(--ds-app-on-color); font-weight: 700; text-decoration: none; } .ds-app-go:focus-visible { outline: 2px solid var(--ds-app-color); outline-offset: 3px; } .ds-arrow { flex: none; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); } a:hover > .ds-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Principle",
+      "kind": "custom",
+      "description": "What a project stands on: a title under a 3px heavy rule, flat on the ground.",
+      "html": "<div class=\"ds-principle\"><h3>Proven, not promised</h3><p>Where an engine succeeds an established implementation, differential suites measure it against that reference.</p></div>",
+      "css": ".ds-principle { max-width: 22rem; padding-top: 1.25rem; border-top: 3px solid var(--line-heavy); color: var(--ink); } .ds-principle h3 { margin: 0; font: 700 1.625rem/1.05 var(--display), var(--body); letter-spacing: 0.03em; text-transform: uppercase; } .ds-principle p { margin: 0.625rem 0 0; font: 400 1.0625rem/1.6 var(--body); color: var(--ink-soft); }"
+    },
+    {
+      "name": "Code Panel",
+      "kind": "custom",
+      "refersTo": "code-panel",
+      "description": "Code on flat dark iron: a mono caption over a hairline, syntax colors from the two ramps beside the glowing keyword.",
+      "html": "<figure class=\"ds-code\"><figcaption>main.rs</figcaption><pre tabindex=\"0\"><code><span class=\"ds-kw\">use</span> <span class=\"ds-ty\">ferroni</span>::<span class=\"ds-ty\">Regex</span>;\n<span class=\"ds-cm\">// one pattern, compiled once</span>\n<span class=\"ds-kw\">let</span> re = <span class=\"ds-ty\">Regex</span>::<span class=\"ds-fn\">new</span>(<span class=\"ds-str\">\"\\\\d+\"</span>)?;</code></pre></figure>",
+      "css": ".ds-code { margin: 0; background: var(--iron); color: var(--iron-ink); } .ds-code figcaption { padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--iron-line); color: var(--iron-soft); font: 0.8125rem/1 var(--mono); } .ds-code pre { margin: 0; padding: 1.25rem; overflow-x: auto; font: 0.875rem/1.65 var(--mono); white-space: pre; } .ds-code pre:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; } .ds-code code { font: inherit; } .ds-kw { color: var(--code-keyword); } .ds-ty { color: var(--code-type); } .ds-fn { color: var(--code-function); } .ds-str { color: var(--code-string); } .ds-cm { color: var(--code-comment); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Data Plate",
+    "overview": "Every machine carries a data plate that says what it is. The family site is the workshop's catalog of such plates: one riveted sheet of brushed steel per engine, read before anything else. The direction is named \"Typenschild\", German for that plate. A page is light and warm, with deliberately dark passages in smoked oak, the bench the plates lie on, and it closes on one band of dark, oxidized rust. Lettering is a condensed data-plate face; reading text is the system face. Each member is one rendered object of forged steel with a single glowing or rust-orange element, and the greys of the page are warm because those objects are.\n\nThe system is dense where a plate would be dense (names, labels, measured facts) and quiet everywhere else. Material gives the pull; restraint and plain language give the trust. It refuses the SaaS hero-plus-feature-cards arrangement and the dark developer-tool default.",
+    "keyCharacteristics": [
+      "Three materials, one job each: brushed steel, dark oak, rust. Everything else is flat, the dark chrome included.",
+      "Two ramps hold every color: warm iron greys and oxidized rust.",
+      "One prop: the riveted plate, with its measured facts on a tag hanging below it.",
+      "One authored scheme on landing pages; no theme toggle there.",
+      "Sharp corners; only rivets and chain links are round.",
+      "What a thing is comes first; where it comes from comes second.",
+      "Two tiers: engines in the family look, applications on light cards under their own logos."
+    ],
+    "rules": [
+      {
+        "name": "The Three Materials Rule",
+        "body": "Brushed steel is the plate: what a thing is, and the action. Dark oak is the bench: the first viewport and a page's dark bands. Rust is the closing band, once per page. Everything else is flat: the header, the footer, flyouts, code panels and inlays are dark iron without a texture. A new material, or a second prop beside the plate, needs a decision record.",
+        "section": "overview"
+      },
+      {
+        "name": "The Say-What-It-Is-First Rule",
+        "body": "A plate carries the name, the plain \"what\", what it does, and the action. Lineage and measured facts come second: on the hanging tag under a hero, or last and quiet in a catalog row. This is a rule for structure, not only for copy.",
+        "section": "overview"
+      },
+      {
+        "name": "The One Scheme Rule",
+        "body": "A landing page is `.fam-page`, which pins the authored light roles whatever the visitor's theme. It has no theme toggle. Documentation follows the system scheme (or the host's explicit `.light` / `.dark`), and keeps Ardo's layout and shapes; the family adds its colors and its chrome, nothing more.",
+        "section": "overview"
+      },
+      {
+        "name": "The Two Tiers Rule",
+        "body": "Engines wear the family look. Applications appear in one band, each on a light card under its own logo, with its brand color only in the rule above the card and in its action; the family carries them, it does not dress them.",
+        "section": "overview"
+      },
+      {
+        "name": "The Independent Members Rule",
+        "body": "No chain, no pipeline diagram, no entry point. Where two members fit together, the row says so in one sentence. The family site states results qualitatively and never repeats a figure; figures belong to each project's own page.",
+        "section": "overview"
+      },
+      {
+        "name": "The Two Ramps Rule",
+        "body": "Every color is a step of `iron` or `rust`, reached through a role. No cool grey, no third hue, no literal color in a component. (The only literals the build keeps are white and black, for highlights and shadows.)",
+        "section": "colors"
+      },
+      {
+        "name": "The Oxidized Rule",
+        "body": "Rust is dark and oxidized, never a saturated orange field. On the rust band the type is plain and light; no display-lettering tricks on rust.",
+        "section": "colors"
+      },
+      {
+        "name": "The Solid Ink Rule",
+        "body": "Text on steel is `steel-ink`, solid. `rust-on-steel` is for display lettering only.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Color Rule",
+        "body": "Rust is the only hue the family owns. A second accent does not exist; the saturated orange of the rendered icons belongs to the objects, not to the interface.",
+        "section": "colors"
+      },
+      {
+        "name": "The Foreign Logo Rule",
+        "body": "A logo that is not the family's (an application's, Sebastian Software's, Sebastian Consulting's) stands on a light ground in its own colors: never on steel, oak, rust or the dark chrome, and never recolored.",
+        "section": "colors"
+      },
+      {
+        "name": "The Inlay Rule",
+        "body": "Small type never sits on brushed steel or on rust: a texture's streaks cut into it. On or under a plate it goes on the dark inlay or on the hanging tag: fact labels, the install command, an outlined stamp, what a figure was measured on. As built, nothing below 1.0625rem sits directly on either material. Oak is the ground that carries light text: it is smoked almost to black, so a band's heading, its intro, and a note or stamp legend at 0.9375rem stand on it in the `iron-*` text roles. Measured on the shipped texture, full ink holds about 14:1 at its mean and soft text about 6.7:1, falling to about 4.8:1 on the lightest grain. Nothing smaller or softer than that goes on oak.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plate Lettering Rule",
+        "body": "Display type is uppercase and is for what a plate would carry. Two things keep their own case: the \"what\" line, and an identifier (a file name, a command). An application's name is set in the body face, because it is not the family's brand.",
+        "section": "typography"
+      },
+      {
+        "name": "The Light-After-Hero Rule",
+        "body": "Do not pair an oak band directly under the hero when a light section can go there. The kit parts two dark passages with an `iron-line` hairline, which makes the pairing possible, not preferable.",
+        "section": "layout"
+      },
+      {
+        "name": "The Load Order Rule",
+        "body": "`tokens.css`, `fonts.css`, `theme.css` (then the optional `docs.css`), `landing.css`, the site's own stylesheet, `chrome.css` last. The site adjusts the kit on equal specificity; the chrome wins its ties. Every landing class is prefixed `fam-`; bare elements are styled only inside `.fam-page` and through `:where()`, so a host rule always wins. The chrome's unprefixed class names (`site-header`, `bar`, `wrap`, `lockup`, `flyout`, `icon`, and the rest listed in the header of `chrome.css`) are part of the package contract. See the Gotchas in [AGENTS.md](AGENTS.md).",
+        "section": "layout"
+      },
+      {
+        "name": "The One Light Rule",
+        "body": "There is one moving reflection for all plates on a page, mounted once by the hero. No second ambient animation.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Material-Only Depth Rule",
+        "body": "A shadow means steel. A flat surface never takes one to look like a card; an application's card is parted from the oak by its ground and its top rule.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Round-in-the-World Rule",
+        "body": "Only what is round in the world is round: rivets (50%) and the links of the tag's chain (0.3125rem on a 0.625rem link). The family draws no other curve; a foreign logo keeps whatever shape it was drawn in.",
+        "section": "shapes"
+      },
+      {
+        "name": "The 24 Pixel Rule",
+        "body": "A member's icon is never shown below 24px.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** open a page with one plate on oak: name, the plain \"what\", what it does, the action; hang the measured facts below it on the tag.",
+      "**Do** keep the three materials to their jobs: brushed steel for plates, dark oak for the first viewport and dark bands, rust for the closing band, once. Keep the chrome flat.",
+      "**Do** take every color from a role, and every role from a step of the two ramps.",
+      "**Do** put small type on an inlay or on the tag whenever it would otherwise sit on brushed steel or on rust, and set text on steel in solid `steel-ink`.",
+      "**Do** build landing pages inside `.fam-page`, in the one authored scheme, with stylesheets in the documented load order and classes in the `fam-` namespace.",
+      "**Do** follow a hero with a light section.",
+      "**Do** show engines in the family look and applications on light cards under their own logos, with the brand color only in the top rule and the action.",
+      "**Do** put a small member icon on a steel tile when the ground is dark.",
+      "**Do** state what is proven in words on the family site, and leave figures to each project's own page.",
+      "**Do** say how two members fit together in one sentence in the row.",
+      "**Do** honor reduced motion: the light stands still and the tag does not sway."
+    ],
+    "donts": [
+      "**Don't** add a material or a second prop without a decision record.",
+      "**Don't** use a plate for something that names nothing; it is not a generic card.",
+      "**Don't** set small type on brushed steel or on rust, and don't use `rust-on-steel` below display size.",
+      "**Don't** make rust a saturated orange field, repeat the rust band on a page, or set display-lettering tricks on rust.",
+      "**Don't** introduce a cool grey, a third hue, or a literal color outside the two ramps.",
+      "**Don't** put a texture on the header, the footer, a flyout, a code panel or an inlay.",
+      "**Don't** round a corner. Only rivets and chain links are round.",
+      "**Don't** put a foreign logo on steel, oak, rust or the dark chrome, and don't recolor it.",
+      "**Don't** put a theme toggle on a landing page, or restyle documentation beyond the family's colors and chrome.",
+      "**Don't** show a member's icon below 24px.",
+      "**Don't** stamp a maturity rating on an engine's plate on the family page.",
+      "**Don't** draw the members as a chain or a pipeline, or imply an entry point.",
+      "**Don't** repeat a factor, timing, percentage or test count on the family site.",
+      "**Don't** dress an application in the family look, or an engine in a brand of its own.",
+      "**Don't** pair an oak band directly under the hero when a light section can go there."
+    ]
+  }
+}

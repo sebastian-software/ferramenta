@@ -1,103 +1,144 @@
 /**
  * Renders the social card (public/social.png, 1200×630) from the world itself:
- * iron ground, the poster headline, and the pegboard strip with every member's
- * mark from the registry. Re-run it whenever the family's line-up changes.
+ * the dark oak bench, one riveted plate with the headline and the family's toolbox,
+ * and every engine's icon from the registry below it. Re-run it whenever the
+ * family's line-up changes.
  *
- *   CHROME=/path/to/chrome-headless-shell node scripts/render-social-card.mjs
+ *   CHROME=/path/to/chromium node scripts/render-social-card.mjs
  *
  * Needs a Chromium binary (Playwright's chrome-headless-shell works) and the
  * package's build output (`pnpm build:package`).
  */
-import { execFileSync } from "node:child_process";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { spawn } from "node:child_process";
+import { copyFile, mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { setTimeout as sleep } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
-import { family, MARK_DEFS } from "../packages/family/dist/index.js";
+import { familyTiers } from "../packages/family/dist/index.js";
 
 const chrome = process.env.CHROME;
 if (!chrome) throw new Error("CHROME is required: the path to a Chromium binary");
 
-const styles = (name) => new URL(`../packages/family/styles/${name}.css`, import.meta.url).href;
+const asset = (path) => new URL(`../packages/family/${path}`, import.meta.url).href;
 const output = fileURLToPath(new URL("../public/social.png", import.meta.url));
+const { engines } = familyTiers();
 
-const plates = family
+const strip = engines
   .map(
     (tool) => `
       <figure>
-        <svg class="hook" aria-hidden="true"><use href="#i-hook" /></svg>
-        <span class="markplate"><svg class="mark"><use href="#i-${tool.name}" /></svg></span>
+        <img src="${asset(`icons/${tool.name}-256.webp`)}" alt="" />
         <figcaption>${tool.name}</figcaption>
       </figure>`,
   )
   .join("");
 
+const rivets = ["tl", "tr", "br", "bl"]
+  .map((corner) => `<i class="fam-rivet" data-corner="${corner}"></i>`)
+  .join("");
+
 const html = `<!doctype html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="${styles("tokens")}" />
-<link rel="stylesheet" href="${styles("fonts")}" />
-<link rel="stylesheet" href="${styles("chrome")}" />
+<link rel="stylesheet" href="${asset("styles/tokens.css")}" />
+<link rel="stylesheet" href="${asset("styles/fonts.css")}" />
+<link rel="stylesheet" href="${asset("styles/landing.css")}" />
+<link rel="stylesheet" href="${asset("styles/chrome.css")}" />
 <style>
   * { box-sizing: border-box; margin: 0; }
   body {
-    width: 1200px; height: 630px; overflow: hidden;
-    background: var(--texture-brush), linear-gradient(var(--iron), var(--iron));
-    border-top: 10px solid var(--rust);
+    position: relative; width: 1200px; height: 630px; overflow: hidden;
+    background: var(--oak) url("${asset("textures/oak.webp")}") center / cover;
     color: var(--iron-ink); font-family: var(--body);
-    position: relative;
   }
-  h1 {
-    position: absolute; left: 64px; top: 52px;
-    font: var(--disp-weight) 118px/0.92 var(--display); text-transform: uppercase;
+  .plate {
+    position: absolute; inset: 44px 44px auto; height: 382px;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px;
+    padding: 0 56px 0 64px;
   }
-  h1 em { font-style: normal; color: var(--ember); display: block; }
-  p {
-    position: absolute; left: 66px; top: 282px; max-width: 900px;
-    color: var(--iron-soft); font-size: 25px; line-height: 1.35;
+  .plate::after { transition: none; }
+  small {
+    display: block; margin-bottom: 18px;
+    font: 600 26px/1 var(--display); letter-spacing: 0.16em; text-transform: uppercase;
   }
-  .brand {
-    position: absolute; right: 64px; top: 58px; display: flex; gap: 14px; align-items: center;
-    font: var(--disp-weight) 34px/1 var(--display); text-transform: uppercase;
+  h1 { font: 700 86px/0.95 var(--display); letter-spacing: 0.005em; text-transform: uppercase; }
+  h1 em { font-style: normal; color: var(--rust-on-steel); }
+  .plate img {
+    width: 300px; height: 300px;
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.5)) drop-shadow(0 14px 14px rgb(0 0 0 / 0.3));
   }
-  .brand svg { width: 44px; height: 44px; }
   .strip {
-    position: absolute; left: 44px; right: 44px; bottom: 26px;
-    display: grid; grid-template-columns: repeat(${family.length}, 1fr);
+    position: absolute; inset: auto 44px 34px;
+    display: grid; grid-template-columns: repeat(${engines.length}, 1fr);
   }
-  figure { position: relative; display: grid; justify-items: center; gap: 12px; padding-top: 22px; }
-  .markplate { width: 84px; height: 84px; }
-  .markplate svg { width: 52px; height: 52px; }
-  figcaption { font: 700 19px/1 var(--display); letter-spacing: 0.03em; text-transform: uppercase; }
+  figure { display: grid; justify-items: center; gap: 8px; }
+  figure img { width: 88px; height: 88px; }
+  figcaption {
+    font: 700 22px/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase;
+  }
 </style>
 </head>
-<body class="on-iron">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${MARK_DEFS}</defs></svg>
-<h1>Heavy industry <em>for the web.</em></h1>
-<div class="brand"><svg class="mark"><use href="#i-ferramenta" /></svg>Ferramenta</div>
-<p>Rust-native developer tools, built on the standards you already know.</p>
-<div class="strip">${plates}</div>
+<body>
+<div class="fam-plate plate">
+  ${rivets}
+  <div>
+    <small>Ferramenta</small>
+    <h1>The engines under your tools, rebuilt in <em>Rust</em>.</h1>
+  </div>
+  <img src="${asset("icons/ferramenta.webp")}" alt="" />
+</div>
+<div class="strip">${strip}</div>
 </body>
 </html>`;
+
+/** Resolves once the file exists and has stopped growing. */
+async function written(path, attempts = 100) {
+  let last = -1;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    await sleep(200);
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own output file
+    const size = await stat(path).then(
+      (entry) => entry.size,
+      () => -1,
+    );
+    if (size > 0 && size === last) return;
+    last = size;
+  }
+  throw new Error(`the browser wrote no ${path}`);
+}
 
 const dir = await mkdtemp(join(tmpdir(), "social-card-"));
 try {
   const page = join(dir, "card.html");
+  const shot = join(dir, "card.png");
   // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
   await writeFile(page, html);
-  execFileSync(chrome, [
-    "--headless",
-    "--disable-gpu",
-    "--hide-scrollbars",
-    "--allow-file-access-from-files",
-    "--force-device-scale-factor=1",
-    "--window-size=1200,630",
-    "--virtual-time-budget=3000",
-    `--screenshot=${output}`,
-    `file://${page}`,
-  ]);
+  // Some Chromium builds keep running after the screenshot, so the browser is
+  // stopped once the file is complete instead of waited for.
+  const browser = spawn(
+    chrome,
+    [
+      "--headless=new",
+      "--disable-gpu",
+      "--hide-scrollbars",
+      "--allow-file-access-from-files",
+      "--force-device-scale-factor=1",
+      "--window-size=1200,630",
+      `--user-data-dir=${join(dir, "profile")}`,
+      `--screenshot=${shot}`,
+      `file://${page}`,
+    ],
+    { stdio: "ignore" },
+  );
+  try {
+    await written(shot);
+  } finally {
+    browser.kill();
+  }
+  await copyFile(shot, output);
   console.log(`wrote ${output}`);
 } finally {
   await rm(dir, { recursive: true, force: true });

@@ -10,7 +10,7 @@ export type CodePanelProps = {
     children: ReactNode;
 };
 /**
- * A code example on iron under a rust top rule. Iron is dark in both themes,
+ * A code example on dark iron. That surface is dark in every scheme,
  * so one set of syntax colors reads everywhere. It scrolls sideways in its own
  * box, never the page, and takes keyboard focus so that scroll is reachable.
  */

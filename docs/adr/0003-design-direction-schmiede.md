@@ -1,6 +1,6 @@
 # ADR-0003: Design direction "Schmiede" with a bounded material layer
 
-- Status: superseded by ADR-0005
+- Status: superseded by ADR-0005, which ADR-0008 superseded in turn
 - Date: 2026-08-14
 - Deciders: Sebastian Werner
 

@@ -1,44 +1,52 @@
 /*
  * Ferramenta family theme for Ardo sites.
- * Amber/copper brand instead of Ardo's default green — the shared
- * look across ferramenta.dev and all package docs sites.
+ * Oxidized rust as the brand color instead of Ardo's default green, and the
+ * family's warm iron greys instead of Ardo's own neutrals — the shared look
+ * across ferramenta.dev and all package docs sites. Ardo keeps its own light
+ * and dark schemes, its layout and its shapes for long reading; only the
+ * colors are the family's, so a docs page sits under the dark chrome without
+ * a change of temperature. Needs `tokens.css`: every value is a ramp step.
  */
 
 :root {
-  --ardo-color-brand: oklch(0.55 0.16 55);
-  --ardo-color-brandLight: oklch(0.65 0.16 55);
-  --ardo-color-brandDark: oklch(0.45 0.18 55);
-  --ardo-color-brandSubtle: oklch(0.96 0.03 55);
-  --ardo-color-brandGradient: linear-gradient(
-    135deg,
-    oklch(0.55 0.16 55) 0%,
-    oklch(0.5 0.14 40) 100%
-  );
+  /* Every Ardo neutral is derived from this hue: the iron ramp's. */
+  --ardo-hue-neutral: 55;
+  /* Code sits on a quiet inset of the page, not on a tinted panel. */
+  --ardo-color-codeBg: var(--iron-50);
+  --ardo-color-codeBorder: var(--iron-200);
+  --ardo-color-brand: var(--rust-700);
+  --ardo-color-brandLight: var(--rust-600);
+  --ardo-color-brandDark: var(--rust-800);
+  --ardo-color-brandSubtle: var(--rust-100);
+  --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-700) 0%, var(--rust-800) 100%);
 }
 
 :root.dark {
-  --ardo-color-brand: oklch(0.72 0.16 65);
-  --ardo-color-brandLight: oklch(0.82 0.14 65);
-  --ardo-color-brandDark: oklch(0.62 0.18 60);
-  --ardo-color-brandSubtle: oklch(0.22 0.04 55);
-  --ardo-color-brandGradient: linear-gradient(
-    135deg,
-    oklch(0.72 0.16 65) 0%,
-    oklch(0.65 0.14 50) 100%
-  );
+  /* The page is the chrome's own dark, so the header has no seam under it. */
+  --ardo-color-bg: var(--iron-950);
+  --ardo-color-sidebarBg: color-mix(in oklch, var(--iron-950) 88%, black);
+  --ardo-color-sidebarRailBg: color-mix(in oklch, var(--iron-950) 76%, black);
+  --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
+  --ardo-color-codeBorder: var(--iron-800);
+  --ardo-color-brand: var(--rust-300);
+  --ardo-color-brandLight: var(--rust-200);
+  --ardo-color-brandDark: var(--rust-400);
+  --ardo-color-brandSubtle: var(--rust-900);
+  --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --ardo-color-brand: oklch(0.72 0.16 65);
-    --ardo-color-brandLight: oklch(0.82 0.14 65);
-    --ardo-color-brandDark: oklch(0.62 0.18 60);
-    --ardo-color-brandSubtle: oklch(0.22 0.04 55);
-    --ardo-color-brandGradient: linear-gradient(
-      135deg,
-      oklch(0.72 0.16 65) 0%,
-      oklch(0.65 0.14 50) 100%
-    );
+    --ardo-color-bg: var(--iron-950);
+    --ardo-color-sidebarBg: color-mix(in oklch, var(--iron-950) 88%, black);
+    --ardo-color-sidebarRailBg: color-mix(in oklch, var(--iron-950) 76%, black);
+    --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
+    --ardo-color-codeBorder: var(--iron-800);
+    --ardo-color-brand: var(--rust-300);
+    --ardo-color-brandLight: var(--rust-200);
+    --ardo-color-brandDark: var(--rust-400);
+    --ardo-color-brandSubtle: var(--rust-900);
+    --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);
   }
 }
 
@@ -54,6 +62,19 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
+}
+
+/*
+ * The family's toolbox beside the heading. `chrome.css` places every member's
+ * icon; a host that shows only these links does not load it, so the one icon
+ * they use is placed here as well.
+ */
+.ferramenta-family .fam-icon {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--fam-icon-size, 1.5rem);
+  aspect-ratio: 1;
+  background: url("../icons/ferramenta-96.webp") center / contain no-repeat;
 }
 
 .ferramenta-family ul {

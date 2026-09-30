@@ -3,13 +3,16 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  *
- * Membership rule (ADR-0001 amendment, 2026-09-25): a member is a family
- * engine, a product built on family engines, or a selected standalone
- * Rust-native application. Common ownership alone does not grant membership.
+ * The family has two tiers (ADR-0008). Engines are the Rust-native
+ * infrastructure the family is about; they share the family's look.
+ * Applications are products from the same workshop with a brand of their own;
+ * the family carries them, it does not dress them.
+ *
+ * Every entry says what the member is before where it comes from: `what`,
+ * then `does`, then `audience`. Lineage (`proof`) and the measured facts come
+ * after. A stranger has to understand the thing first.
  */
 export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
-/** Display group on the overview page, the header flyout, and the footer. */
-export type FamilyGroup = "language" | "pipeline" | "workbench";
 /**
  * What a member is. Engines are reusable infrastructure; applications are
  * user-facing products. Their lineage records any engine dependencies.
@@ -44,21 +47,44 @@ export type FamilyLineage = {
     succeeds?: never;
     runsOn?: never;
 };
+/**
+ * An application's brand, as far as the family shows it: its logo (an icon
+ * file of its own) and one color. Both appear on a light card, where a foreign
+ * logo keeps its own colors.
+ */
+export type FamilyBrand = {
+    /** The brand's main color: the rule above its card, and its action. */
+    color: string;
+    /** Text on that color. */
+    onColor: string;
+};
 export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
     name: string;
-    /** One-line job description — the subheader under the tool name */
+    /**
+     * What the member is, as a noun phrase a stranger understands: "A regex
+     * engine". Sentence case; an engine's starts with its article, because pages
+     * list the engines in a sentence. The first thing any surface says after the
+     * name.
+     */
+    what: string;
+    /** One-line job description — the subheader under the tool name, the README tables */
     job: string;
     /**
      * Terse job label for constrained family navigation surfaces. Sentence case
-     * ("Regex engine"); acronyms keep their capitals ("SVG") and a lowercase
+     * ("Regex engine"); acronyms keep their capitals ("PDF") and a lowercase
      * term of art its lowercase ("i18n toolchain").
      */
     shortJob: string;
+    /** What it does, in one plain sentence. Results qualitatively, never with a figure. */
+    does: string;
+    /** Who reaches for it, as a sentence starting with "For". */
+    audience: string;
     /**
-     * Proof sentence: verifiable facts, no marketing claims. It is prose, so a
-     * member's name is capitalized here ("Ferroni continues…"); `name`, URLs and
-     * package names stay lowercase.
+     * Where it comes from, in the successor register (ADR-0004): honor the
+     * original or the standard, state the succession, give the why. It is prose,
+     * so a member's name is capitalized here ("Ferroni continues…"); `name`, URLs
+     * and package names stay lowercase. Verifiable facts, no marketing claims.
      */
     proof: string;
     /**
@@ -73,14 +99,25 @@ export type FamilyTool = {
      * this only renders when the build could not reach crates.io or npm.
      */
     version: string;
-    /** Maturity, shown as a stamp next to the version */
+    /** Maturity, shown as a stamp next to the name */
     status: FamilyStatus;
-    /** Display group. Within "pipeline", array order is chain order. */
-    group: FamilyGroup;
     /** Defaults to "engine" — applications set this explicitly. */
     role?: FamilyRole;
-    /** Sprite symbol override for members without an individual project mark. */
-    mark?: string;
+    /**
+     * Family engines this engine is built on, by `name`: a dependency in its
+     * code. Applications record theirs as `runsOn`, which is their lineage.
+     */
+    uses?: string[];
+    /**
+     * Family engines this one is commonly combined with, by `name`, with no
+     * dependency either way. Declared on one side; both sides show it.
+     */
+    pairsWith?: string[];
+    /**
+     * An application's own color, for the one place the family shows its brand:
+     * its card in the applications band. Engines have none; they wear the family's.
+     */
+    brand?: FamilyBrand;
     /** GitHub repository URL */
     repo: string;
     /** Docs/homepage site, once it exists */
@@ -88,24 +125,21 @@ export type FamilyTool = {
 } & FamilyLineage;
 export declare const FAMILY_SITE = "https://ferramenta.dev";
 export declare const family: FamilyTool[];
-/** One end of the content pipeline: a stamped label and what enters or leaves. */
-export type PipelineEnd = {
-    label: string;
-    text: string;
-};
 /**
- * The content pipeline beyond its members: what goes in, what comes out, and
- * the sentence that reads the whole assembly for a screen reader. The stages
- * themselves are the `pipeline` group, in array order.
+ * The workshop behind the family: where its code lives, and where the people
+ * who build the engines can be hired. Every family site's footer carries the
+ * consulting link, so it is a registry fact, not page copy.
  */
-export declare const PIPELINE: {
-    input: PipelineEnd;
-    output: PipelineEnd;
-    description: string;
+export declare const WORKSHOP: {
+    readonly name: "Sebastian Software";
+    readonly source: "https://github.com/sebastian-software";
+    readonly openSource: "https://oss.sebastian-software.com";
+    readonly consulting: "https://sebastian-consulting.com";
 };
 /**
- * What each maturity stamp promises, in one line. The stamp legend on every
- * family site reads from here, so a status means the same thing everywhere.
+ * What each maturity stamp promises, in one line. A site that shows a stamp
+ * legend (`StampKey`) reads it from here, so a status means the same thing
+ * everywhere.
  */
 export declare const STATUS_MEANING: Record<FamilyStatus, string>;
 /** Maturity order, most settled first. */
@@ -131,17 +165,28 @@ export declare function runsOnTools(tool: FamilyTool): FamilyTool[];
 export declare function isSuccessor(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */
 export declare function isEngine(tool: FamilyTool): boolean;
-/**
- * Members in the order of their short jobs, A to Z: an index to look a job up
- * in. Every member works on its own, so the index ranks none of them; it only
- * answers "which tool does this".
- */
-export declare function byJob(tools?: FamilyTool[]): FamilyTool[];
-/** The three display groups of the overview page, in order. */
-export declare function familyGroups(current?: string): {
-    pipeline: FamilyTool[];
-    language: FamilyTool[];
-    workbench: FamilyTool[];
-};
 /** Related tools in catalog order. Unknown project IDs are configuration errors. */
 export declare function relatedTools(current?: string): FamilyTool[];
+/**
+ * The family's two tiers, in catalog order, without the current project: the
+ * engines, and the applications the workshop also makes.
+ */
+export declare function familyTiers(current?: string): {
+    engines: FamilyTool[];
+    applications: FamilyTool[];
+};
+/**
+ * How two members relate. `runs-on`: the other is in this member's code.
+ * `carries`: this member is in the other's code. `pairs-with`: commonly
+ * combined, no dependency either way.
+ */
+export type FamilyRelation = {
+    kind: "carries" | "pairs-with" | "runs-on";
+    tool: FamilyTool;
+};
+/**
+ * Every relation a member has to the rest of the family, from both sides: what
+ * it runs on, what runs on it, what it pairs with. Members are independent;
+ * this is where two of them fit together, never a required chain.
+ */
+export declare function relationsOf(tool: FamilyTool): FamilyRelation[];

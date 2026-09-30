@@ -111,15 +111,6 @@
       },
       "npm": null,
       "release": null
-    },
-    "cuttledoc": {
-      "crates": null,
-      "npm": {
-        "version": "2.0.0",
-        "lastMonth": 25,
-        "placeholder": false
-      },
-      "release": null
     }
   }
 }

@@ -101,3 +101,19 @@ test("checks destinations containing balanced parentheses", async () => {
     await rm(root, { force: true, recursive: true });
   }
 });
+
+test("leaves a site page's route links to the site build, but checks its file links", async () => {
+  const root = await fixture();
+  try {
+    await mkdir(join(root, "app", "routes", "kit"), { recursive: true });
+    await writeFile(
+      join(root, "app", "routes", "kit", "docs.mdx"),
+      "[A route](/kit/tool) [A file](./nope.md)\n",
+    );
+    assert.deepEqual(checkMarkdownLinks(root), [
+      "app/routes/kit/docs.mdx: ./nope.md does not resolve to app/routes/kit/nope.md",
+    ]);
+  } finally {
+    await rm(root, { force: true, recursive: true });
+  }
+});

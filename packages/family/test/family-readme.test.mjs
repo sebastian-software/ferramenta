@@ -19,13 +19,17 @@ import {
 
 const registry = await loadRegistry();
 
-test("the github block groups the family the way the site does", () => {
+test("the github block lists the family's two tiers the way the site does", () => {
   const block = render(registry, { variant: "github", current: "ferrocat" });
   assert.match(block, /^<!-- ferramenta-family:start -->/u);
   assert.match(block, /<!-- ferramenta-family:end -->$/u);
-  for (const label of ["The content pipeline", "The language workshop", "On the workbench"]) {
-    assert.ok(block.includes(`**${label}**`), `missing group: ${label}`);
+  for (const label of ["Engines", "Applications"]) {
+    assert.ok(block.includes(`**${label}**`), `missing tier: ${label}`);
   }
+  assert.ok(
+    block.indexOf("**Engines**") < block.indexOf("**Applications**"),
+    "the engines come first",
+  );
 });
 
 test("--current excludes the current tool", () => {
@@ -125,8 +129,8 @@ test("a change to src/family.ts is picked up without rebuilding dist", async () 
         'export const FAMILY_SITE = "https://ferramenta.dev";',
         "export type Tool = { name: string };",
         'export const family: Tool[] = [{ name: "fresh-from-source" }];',
-        "export function familyGroups() {",
-        "  return { pipeline: family, language: [], workbench: [] };",
+        "export function familyTiers() {",
+        "  return { engines: family, applications: [] };",
         "}",
         "",
       ].join("\n"),
@@ -136,8 +140,8 @@ test("a change to src/family.ts is picked up without rebuilding dist", async () 
       [
         'export const FAMILY_SITE = "https://ferramenta.dev";',
         'export const family = [{ name: "stale-build-output" }];',
-        "export function familyGroups() {",
-        "  return { pipeline: family, language: [], workbench: [] };",
+        "export function familyTiers() {",
+        "  return { engines: family, applications: [] };",
         "}",
         "",
       ].join("\n"),
@@ -162,8 +166,8 @@ test("the build output is the fallback when the source cannot be loaded", async 
       [
         'export const FAMILY_SITE = "https://ferramenta.dev";',
         'export const family = [{ name: "from-build-output" }];',
-        "export function familyGroups() {",
-        "  return { pipeline: family, language: [], workbench: [] };",
+        "export function familyTiers() {",
+        "  return { engines: family, applications: [] };",
         "}",
         "",
       ].join("\n"),
@@ -193,8 +197,8 @@ test("the registry loads when the package sits under node_modules", async () => 
         'export const FAMILY_SITE = "https://ferramenta.dev";',
         "export type Tool = { name: string };",
         'export const family: Tool[] = [{ name: "installed-from-source" }];',
-        "export function familyGroups(): Record<string, Tool[]> {",
-        "  return { pipeline: family, language: [], workbench: [] };",
+        "export function familyTiers(): Record<string, Tool[]> {",
+        "  return { engines: family, applications: [] };",
         "}",
         "",
       ].join("\n"),
@@ -206,7 +210,7 @@ test("the registry loads when the package sits under node_modules", async () => 
       loaded.family.map((tool) => tool.name),
       ["installed-from-source"],
     );
-    assert.deepEqual(Object.keys(loaded.familyGroups()), ["pipeline", "language", "workbench"]);
+    assert.deepEqual(Object.keys(loaded.familyTiers()), ["engines", "applications"]);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

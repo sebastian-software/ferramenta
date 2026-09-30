@@ -1,39 +1,33 @@
 import type { MetaFunction } from "react-router";
 
 import {
-  ClosingAction,
+  ApplicationsBand,
   displayName,
-  family,
-  FamilyDownloads,
-  familyGroups,
-  IronBand,
-  JobIndex,
+  EngineCatalog,
+  familyTiers,
+  type FamilyTool,
   Mark,
-  Pegboard,
-  PipelineAssembly,
+  Principles,
   ProjectHero,
   RegistryFacts,
-  RunSample,
   runsOnTools,
   Section,
-  StampKey,
-  ToolLedger,
+  WORKSHOP,
+  WorkWithUs,
 } from "ferramenta-family";
-import { useId } from "react";
 
 import consultingLogo from "../assets/logos/sebastian-consulting.svg";
 import softwareLogo from "../assets/logos/sebastian-software.svg";
-import pipelineSample from "../data/pipeline-sample.json";
 import registryStats from "../data/registry-stats.json";
 import { SITE_DESCRIPTION } from "../site-metadata";
 
-/** Fully custom shell: disable Ardo's default header/footer for this route. */
-export const handle = { chrome: false };
+/** A landing page: Ardo lays it out bare, without the docs sidebar. */
+export const handle = { layout: "bare" };
 
 export const meta: MetaFunction = () => [
-  { title: "Ferramenta — Rust-native tools" },
+  { title: "Ferramenta — Rust-native engines" },
   { name: "description", content: SITE_DESCRIPTION },
-  { property: "og:title", content: "Ferramenta — Rust-native tools" },
+  { property: "og:title", content: "Ferramenta — Rust-native engines" },
   { property: "og:description", content: SITE_DESCRIPTION },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://ferramenta.dev/" },
@@ -42,214 +36,179 @@ export const meta: MetaFunction = () => [
   { tagName: "link", rel: "canonical", href: "https://ferramenta.dev/" },
 ];
 
-const beliefs = [
+const { applications, engines } = familyTiers();
+
+const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
+const NUMBER_WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
+/** A small count as prose writes it: "seven", not "7". */
+function numberWord(count: number): string {
+  return NUMBER_WORDS[count] ?? String(count);
+}
+
+function capitalize(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/** The first name in a lineage fact: "Oniguruma" from "Oniguruma / vscode-oniguruma". */
+function firstName(fact: string): string {
+  return fact.split(" / ")[0] ?? fact;
+}
+
+/** The lineage facts of every engine that has one of this kind, in catalog order. */
+function lineageNames(tools: FamilyTool[], kind: "buildsOn" | "succeeds"): string {
+  return tools
+    .map((tool) => tool[kind])
+    .filter((fact) => fact !== undefined)
+    .map((fact) => firstName(fact))
+    .join(" · ");
+}
+
+const engineCount = numberWord(engines.length);
+
+/** What each engine is, from the registry: "a regex engine, a syntax highlighter, …". */
+const engineKinds = listFormat.format(
+  engines.map((tool) => tool.what.charAt(0).toLowerCase() + tool.what.slice(1)),
+);
+
+/** The applications that run on family engines lead the band; the intro names the first. */
+const lead = applications.find((tool) => runsOnTools(tool).length > 0);
+const applicationsIntro =
+  lead === undefined
+    ? undefined
+    : `${displayName(lead)} is built on ${numberWord(runsOnTools(lead).length)} of them. It is the family at work in one product.`;
+
+const principles = [
   {
     heading: "Proven, not promised",
-    text: "Where a tool succeeds an established implementation, differential suites measure it against that reference: Hunspell, Shiki, Oniguruma. Claims stay tied to current evidence and maturity.",
+    text: "Where an engine succeeds an established implementation, differential suites measure it against that reference. Claims stay tied to current evidence.",
   },
   {
     heading: "Open standards first",
-    text: "CommonMark and GFM, PO and ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on, never on formats only we control.",
+    text: "CommonMark, PO files, ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on, never on formats only we control.",
   },
   {
-    heading: "Earned, tool by tool",
-    text: "A successor earns compatibility with the implementation it replaces; a new development earns trust with the standards it builds on. Either way, the stamp on each tool says how far it has come.",
-  },
-  {
-    heading: "Keep work close",
-    text: "Skills and catalogs stay with their projects; transcription runs locally by default, with hosted backends chosen explicitly.",
+    heading: "Match before outrun",
+    text: "Compatibility comes first. Performance claims follow published benchmarks, never a compatibility asterisk.",
   },
 ];
 
-/** Every repository of the workshop; the family is a subset, named on this page. */
-const sourceUrl = "https://github.com/sebastian-software";
-
-/** The stable members, from the registry, as a sentence list. */
-const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
-
-/** What the pipeline sample was rendered with, from the artifact itself. */
-const { rendered } = pipelineSample;
-const sampleRun = `Rendered by Ferromark ${rendered.ferromark} with Ferriki ${rendered.ferriki} on Ferroni ${rendered.ferroni}`;
-
-const stableNames = listFormat.format(
-  family.filter((tool) => tool.status === "stable").map((tool) => displayName(tool)),
-);
-
-function Why() {
+/**
+ * The workshop's two names, each under its own logo in its own colors. They
+ * stand on the light ground, where they were drawn to stand: a foreign logo is
+ * never put on steel, oak, rust or the dark chrome.
+ */
+function Workshop() {
   return (
-    <Section id="why" title="Why this store exists">
-      <div className="why-grid">
-        <div className="why-lead">
-          <p className="why-pull">
-            We&rsquo;ve been handed good tools all our lives. Time to forge some back.
-          </p>
-          <footer className="why-author">
-            <span>Written by</span>
-            <b>Sebastian Werner</b>
-            <small>Sebastian Software</small>
-          </footer>
-        </div>
-        <div className="why-body">
-          <p>
-            Open source shaped our careers, from leading qooxdoo at 1&amp;1 more than a decade ago
-            to the tools we still rely on every day. Ferramenta, Italian for hardware store, is how
-            we give back: one workshop, building the boring, load-bearing parts properly.
-          </p>
-          <p>
-            Essential developer tooling is going native. Vite, SWC, OXC and esbuild showed what
-            happens when the tools everything else stands on stop being slow, and we stand on their
-            shoulders. Ferramenta adds the pieces we know best, rebuilt the way you&rsquo;d design
-            them for Rust today rather than ported line by line.
-          </p>
-          <ul className="goals">
-            <li>
-              <b>Stable through evidence.</b> Every tool earns its stamp with the proof its contract
-              calls for. {stableNames} are stable today; the rest keep their maturity visible.
-            </li>
-            <li>
-              <b>Match before outrun.</b> Where there is a predecessor contract, compatibility comes
-              first, and performance claims follow published benchmarks, never a compatibility
-              asterisk.
-            </li>
-            <li>
-              <b>Alone or chained.</b> Each tool is useful on its own. Chained, Markdown with
-              highlighted code runs end to end in Rust, without a C toolchain or a JS runtime.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function Partners() {
-  const titleId = useId();
-  return (
-    <section className="fam-section partners" aria-labelledby={titleId}>
-      <div className="wrap">
-        <h2 id={titleId}>The wider workshop</h2>
-        <div className="pgrid">
-          <a href="https://oss.sebastian-software.com">
-            <img src={softwareLogo} alt="Sebastian Software" />
+    <div className="wrap">
+      <ul className="workshop">
+        <li>
+          <a href={WORKSHOP.openSource}>
+            <img src={softwareLogo} alt="Sebastian Software" width={231} height={45} />
             <p>
               Production-grade open-source projects across several languages: the wider workshop
               this family comes from.
             </p>
-            <span className="plink">
-              oss.sebastian-software.com <Mark name="arrow" className="icon" size={16} />
+            <span>
+              {new URL(WORKSHOP.openSource).host} <Mark name="arrow" size={16} />
             </span>
           </a>
-          <a href="https://sebastian-consulting.com">
-            <img src={consultingLogo} alt="Sebastian Consulting" />
+        </li>
+        <li>
+          <a href={WORKSHOP.consulting}>
+            <img src={consultingLogo} alt="Sebastian Consulting" width={239} height={45} />
             <p>
-              The people behind the tools, for hire: consulting for integration, support, and
-              long-term maintenance.
+              The people behind the engines, for hire: integration, support, and long-term
+              maintenance.
             </p>
-            <span className="plink">
-              sebastian-consulting.com <Mark name="arrow" className="icon" size={16} />
+            <span>
+              {new URL(WORKSHOP.consulting).host} <Mark name="arrow" size={16} />
             </span>
           </a>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+/** The personal note: who builds this, and why. Site-only, so it is not in the kit. */
+function Story() {
+  return (
+    <section className="fam-section story" data-tone="dim" aria-label="Why this workshop exists">
+      <div className="wrap story-grid">
+        <blockquote>
+          <p>We&rsquo;ve been handed good tools all our lives. Time to forge some back.</p>
+          <footer>
+            <b>Sebastian Werner</b>
+            <span>{WORKSHOP.name}</span>
+          </footer>
+        </blockquote>
+        <div className="story-body">
+          <p>
+            Open source shaped our careers, from leading qooxdoo at 1&amp;1 to the tools we rely on
+            every day. Ferramenta, Italian for hardware store, is how we give back: one workshop,
+            building the load-bearing parts properly.
+          </p>
+          <p>
+            Much of that infrastructure was written decades ago, in C or across several languages.
+            Most of what we build is its next generation: the same contracts, designed the way
+            you&rsquo;d design them for Rust today.
+          </p>
         </div>
       </div>
+      <Workshop />
     </section>
   );
 }
 
-/** The engines Palamedes runs on, as the registry has them. */
-const palamedesEngines = listFormat.format(
-  family
-    .filter((tool) => tool.name === "palamedes")
-    .flatMap((tool) => runsOnTools(tool))
-    .map((tool) => displayName(tool)),
-);
-
 export default function HomePage() {
-  const { pipeline, language, workbench } = familyGroups();
-
   return (
     <RegistryFacts snapshot={registryStats.tools} snapshotGeneratedAt={registryStats.generatedAt}>
-      <ProjectHero
-        title={
-          <>
-            Heavy industry <em>for the web.</em>
-          </>
-        }
-        lede="Rust-native engines and focused applications. Some rebuild infrastructure around familiar standards; others keep work close to the team, project, or device."
-        actions={
-          <>
-            <a className="fam-btn fam-btn-primary" href="#pipeline">
-              See the tools and their proof <Mark name="arrow" className="icon" size={18} />
-            </a>
-            <a className="fam-btn fam-btn-ghost" href={sourceUrl}>
-              <Mark name="github" className="icon" size={18} /> GitHub
-            </a>
-          </>
-        }
-        aside={<Pegboard />}
-      />
-
-      {/* Straight after the wall: the stamps on it are explained before the ledgers use them. */}
-      <IronBand title="What earns the stamp" rows={beliefs}>
-        <StampKey />
-      </IronBand>
-
-      <Section
-        id="pipeline"
-        title="The content pipeline"
-        intro="Three tools that also work as one chain: Ferroni is a regex engine, Ferriki a highlighter, Ferromark a Markdown renderer. Chained, Markdown with code goes in and highlighted HTML comes out, end to end in Rust, as in Ferromark's own quick start below."
-      >
-        <PipelineAssembly />
-        {/* The chain, run for real: a committed artifact (scripts/render-pipeline-sample.mjs), never hand-written. */}
-        <RunSample
-          input={pipelineSample.markdown}
-          inputCaption="quick-start.md"
-          inputKind="Markdown source"
-          output={pipelineSample.html}
-          outputCaption={`${sampleRun}, unedited`}
+      <div className="fam-page">
+        <ProjectHero
+          title={
+            <>
+              The engines under your tools, rebuilt in <em>Rust</em>.
+            </>
+          }
+          lede={`Ferramenta is a family of ${engineCount} Rust-native engines: ${engineKinds}. Each follows the standard its field already agreed on, and each works on its own.`}
+          actions={
+            <>
+              <a className="fam-btn fam-btn-primary" href="#engines">
+                See the {engineCount} engines <Mark name="arrow" size={18} />
+              </a>
+              <a className="fam-btn fam-btn-ghost" href={WORKSHOP.source}>
+                <Mark name="github" size={18} /> GitHub
+              </a>
+            </>
+          }
+          icon="ferramenta"
+          facts={[
+            { label: "Material", value: "Rust" },
+            { label: "Built to", value: lineageNames(engines, "buildsOn") },
+            { label: "Succeeds", value: lineageNames(engines, "succeeds") },
+            { label: "Made by", value: WORKSHOP.name },
+          ]}
         />
-        {/* No step numbers: the chassis above already carries the order. */}
-        <ToolLedger tools={pipeline} />
-      </Section>
 
-      <Section
-        id="language"
-        title="The language workshop"
-        intro={`Spelling and translation, treated as engineering problems: deterministic, diffable, verifiable. Palamedes, the i18n toolchain for TypeScript apps, runs on ${palamedesEngines}.`}
-      >
-        <ToolLedger tools={language} />
-      </Section>
+        <Section
+          id="engines"
+          title={`${capitalize(engineCount)} engines, each for one job`}
+          intro="Every engine works on its own. Where two fit together, the entry says so."
+        >
+          <EngineCatalog />
+        </Section>
 
-      <Section
-        id="workbench"
-        title="On the workbench"
-        intro="File discovery, PDF previews, team agent skills, and local-first speech transcription, each useful on its own."
-      >
-        <ToolLedger tools={workbench} />
-      </Section>
+        <ApplicationsBand title="What the engines carry" intro={applicationsIntro} />
 
-      <Why />
+        <Section id="principles" title="What every engine is held to">
+          <Principles items={principles} />
+        </Section>
 
-      <ClosingAction
-        id="jobs"
-        title="Pick the job. Take the tool."
-        aside={<JobIndex />}
-        links={
-          <a href={sourceUrl}>
-            <Mark name="github" className="icon" size={14} />
-            github.com/sebastian-software
-          </a>
-        }
-      >
-        <p>
-          Look a job up: the index names the tool that does it and how far it has come. No tool
-          needs another beside it, and every project is open source.
-        </p>
-        <p className="tally">
-          <FamilyDownloads /> downloads on crates.io across the published crates.
-        </p>
-      </ClosingAction>
+        <Story />
 
-      <Partners />
+        <WorkWithUs />
+      </div>
     </RegistryFacts>
   );
 }

@@ -1,0 +1,71 @@
+/*
+ * ferramenta-family — the docs shell: an Ardo documentation layout inside the
+ * family chrome. Optional; a site without documentation pages does not load it.
+ *
+ * Ardo's docs layout is an application shell: a fixed header, a 100vh frame
+ * that never scrolls, and an inner <main> that does. The family footer sits
+ * below that frame, so the page, not the article, has to be what scrolls, or
+ * the footer is unreachable. Wrap `<ArdoRoot>` in an element with the class
+ * `fam-docs-shell`, and these rules hand the scrolling back to the document
+ * and pin the two rails that relied on the inner scroll container.
+ *
+ * The inner hooks are Ardo's stable ones (`#main-content`, `.ardo-sidebar`) or
+ * a direct-child path, because Ardo's own layout class names are hashed. Ardo
+ * re-emits its stylesheet in a route chunk that loads after the root
+ * stylesheet, so load order does not settle the ties: each rule here carries
+ * one selector more than the rule it replaces.
+ *
+ * Load it after `theme.css`. The documentation itself keeps Ardo's look and
+ * its light and dark schemes; the family adds its colors (`theme.css`) and its
+ * chrome, nothing else (ADR-0008).
+ */
+
+:root {
+  /*
+   * The family header bar is 4rem tall (`.bar` in chrome.css). Ardo derives
+   * its sticky offsets, the height of the table of contents and the page's
+   * `scroll-padding-top` from this variable. A site that makes the bar taller
+   * (a second row for search on a phone) raises it to match.
+   */
+  --ardo-layout-headerHeight: 4rem;
+}
+
+.fam-docs-shell > div {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+/*
+ * The layout container reserves room for a fixed header; the family's is
+ * sticky. The gradient continues the sidebar rail past its sticky column,
+ * which is one viewport tall: on a longer page the rail would otherwise stop
+ * mid-page and leave a seam down the left edge.
+ */
+.fam-docs-shell > div > div {
+  padding-top: 0;
+  background: linear-gradient(to right, var(--ardo-color-sidebarRailBg) 0 4rem, transparent 4rem);
+}
+
+/* Below 1024px Ardo hides the rail, so there is nothing to continue. */
+@media (max-width: 1024px) {
+  .fam-docs-shell > div > div {
+    background: none;
+  }
+}
+
+.fam-docs-shell #main-content {
+  overflow: visible;
+}
+
+.fam-docs-shell .ardo-sidebar {
+  position: sticky;
+  top: var(--ardo-layout-headerHeight);
+  align-self: flex-start;
+  height: calc(100vh - var(--ardo-layout-headerHeight));
+}
+
+/* "On this page": its sticky offset assumed a scroll container, not the page. */
+.fam-docs-shell #main-content > div > aside {
+  top: calc(var(--ardo-layout-headerHeight) + var(--ardo-space-xl));
+}

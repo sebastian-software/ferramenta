@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-14
-- Updated: 2026-09-25
+- Updated: 2026-09-30
 - Deciders: Sebastian Werner
 - Amended: 2026-09-06 — membership rule and corrected repository count, see
   [Amendment 2026-09-06](#amendment-2026-09-06)
@@ -10,6 +10,8 @@
   [Amendment 2026-09-07](#amendment-2026-09-07)
 - Amended: 2026-09-25 — standalone applications and independent site design, see
   [Amendment 2026-09-25](#amendment-2026-09-25)
+- Amended: 2026-09-30 — two tiers, and Cuttledoc leaves the registry, see
+  [Amendment 2026-09-30](#amendment-2026-09-30)
 
 ## Context
 
@@ -30,7 +32,7 @@ shared package (today `ferramenta-family`), which ships **finished components**
 plus tokens — not tokens alone. A site may consume selected parts as a versioned
 npm dependency or use a separate design. The family registry
 (`packages/family/src/family.ts`) is the single source of truth for member
-names, jobs, proofs, lineage, status, marks, and outbound links.
+names, jobs, proofs, lineage, status, and outbound links.
 
 Design work precedes extraction: the reference implementation on ferramenta.dev
 defines the system; the package is extracted from it, never the other way
@@ -149,6 +151,46 @@ Markdown links remain outbound catalog surfaces.
 **Current count.** The family now has ten tool members in eleven repositories
 including ferramenta: seven engines and three applications (Palamedes, Dalo,
 and Cuttledoc). Ferrovia remains retired and outside the count.
+
+## Amendment 2026-09-30
+
+**Two tiers.** The family overview no longer presents every member at equal
+rank. The registry has two tiers, and every surface shows them in this order:
+
+- The **engines** are what the family is about: the seven Rust-native engines,
+  ferroni, ferriki, ferromark, ferrolex, ferrocat, ferralk and ferrugo. They
+  share the family's look (ADR-0008) and its icons (ADR-0009).
+- The **applications** are products from the same workshop with a brand of
+  their own: Palamedes and Dalo. The family carries them; it does not dress
+  them. They appear in one band, each on a light card under its own logo, with
+  its brand color in the rule above the card and in its action (`brand` in the
+  registry). An application that runs on family engines leads
+  that band and names them; one that stands alone is "from the same workshop"
+  and claims no more.
+
+This replaces the three subfamilies (pipeline, language, workbench) and the
+registry's `group`. It does not change who owns a project's identity: every
+project still owns its site, and the shared package stays optional.
+
+**Relations are stated, not drawn.** The engines are independent. Where two
+members fit together the registry says how, and the catalog repeats it in a
+sentence: `uses` (a dependency in an engine's code: Ferriki uses Ferroni),
+`pairsWith` (commonly combined, no dependency either way: Ferriki and
+Ferromark), and `runsOn` (an application's engines: Palamedes runs on Ferrocat,
+Ferromark and Ferralk). No surface draws the members as a chain.
+
+**Cuttledoc leaves the registry.** It is no longer listed on the family site,
+in the switcher, the footer, or the generated README blocks and Markdown
+frames. Its repository drops the family theme from its `mdtheme.yaml`; the
+frame directory `packages/family/markdown/cuttledoc/` no longer exists.
+
+**The workshop's links travel with the chrome.** The shared footer carries the
+applications and a "Work with us" column (consulting first, then open source
+and GitHub) on every family site; they are registry facts (`WORKSHOP`), not
+page copy.
+
+**Current count.** Nine members in ten repositories including ferramenta:
+seven engines and two applications.
 
 ## Validation and review triggers
 

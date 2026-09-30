@@ -4,5 +4,5 @@ export type FamilyLinksProps = {
     label?: string;
     className?: string;
 };
-/** Compact family navigation. Mount MarkDefs once in the host page. */
+/** Compact family navigation, for a host page that renders none of the family chrome. */
 export declare function FamilyLinks({ current, label, className, }: FamilyLinksProps): import("react").JSX.Element;

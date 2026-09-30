@@ -1,14 +1,29 @@
 /*
  * ferramenta-family — the display face.
  *
- * Big Shoulders is the family display font (SIL OFL 1.1, see the package
- * README). Loading this file is optional: without it the chrome falls back to
- * the body stack through `var(--display), var(--body)`.
+ * Barlow Condensed is the family display font (SIL OFL 1.1, see NOTICE.md):
+ * the lettering of a machine's data plate. Three weights, Latin subset.
+ * Loading this file is optional: without it the chrome falls back to the body
+ * stack through `var(--display), var(--body)`.
  */
 
 @font-face {
-  font-family: "Big Shoulders";
-  src: url("../fonts/big-shoulders.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Barlow Condensed";
+  src: url("../fonts/barlow-condensed-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("../fonts/barlow-condensed-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("../fonts/barlow-condensed-700.woff2") format("woff2");
+  font-weight: 700;
   font-display: block;
 }

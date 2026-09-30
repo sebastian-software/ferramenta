@@ -1,8 +1,10 @@
-import { type ReactNode, type RefObject, useEffect, useRef } from "react";
+import { type ReactNode, useRef } from "react";
 
-import { FAMILY_SITE, familyGroups, toolHref } from "./family.js";
+import { FAMILY_SITE, familyTiers, type FamilyTool, toolHref } from "./family.js";
+import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
 import { RepoNote } from "./RepoNote.js";
+import { useDismissible } from "./useDismissible.js";
 
 export type ToolSwitcherProps = {
   /**
@@ -22,39 +24,13 @@ export type ToolSwitcherProps = {
   className?: string;
   /**
    * The switcher as the way back to the family, for a site whose brand slot
-   * carries its own lockup: the trigger shows the Ferramenta mark and name
+   * carries its own lockup: the trigger shows the Ferramenta icon and name
    * instead of "Tools", and the flyout opens with a link to the family site.
    * `SiteHeader lockup="project"` sets it; a host header that is not ours sets
    * it itself.
    */
   family?: boolean;
 };
-
-/** A `<details>` flyout is not modal: it closes on an outside click and on Escape. */
-function useDismissible(ref: RefObject<HTMLDetailsElement | null>) {
-  useEffect(() => {
-    function closeOnOutsideClick(event: MouseEvent) {
-      const switcher = ref.current;
-      const target = event.target;
-      if (switcher?.open && target instanceof Node && !switcher.contains(target)) {
-        switcher.removeAttribute("open");
-      }
-    }
-    function closeOnEscape(event: KeyboardEvent) {
-      const switcher = ref.current;
-      if (event.key === "Escape" && switcher?.open) {
-        switcher.removeAttribute("open");
-        switcher.querySelector<HTMLElement>("summary")?.focus();
-      }
-    }
-    document.addEventListener("click", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.removeEventListener("click", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [ref]);
-}
 
 function switcherClasses({ align, className, family }: ToolSwitcherProps) {
   const classes = ["switcher"];
@@ -64,12 +40,14 @@ function switcherClasses({ align, className, family }: ToolSwitcherProps) {
   return classes.join(" ");
 }
 
-/** The trigger's default content: "Tools", or the family's mark and name. */
+/** The trigger's default content: "Tools", or the family's icon and name. */
 function defaultTrigger(family: boolean): ReactNode {
   if (!family) return "Tools";
   return (
     <>
-      <Mark name="ferramenta" size={18} />
+      <span className="fam-tile">
+        <Icon name="ferramenta" size={24} />
+      </span>
       <span>Ferramenta</span>
     </>
   );
@@ -79,8 +57,8 @@ function defaultTrigger(family: boolean): ReactNode {
 function FamilyHome() {
   return (
     <a className="flyhome" href={FAMILY_SITE}>
-      <span className="markplate">
-        <Mark name="ferramenta" size={24} />
+      <span className="fam-tile">
+        <Icon name="ferramenta" size={30} />
       </span>
       <span>
         <b>ferramenta</b>
@@ -90,52 +68,46 @@ function FamilyHome() {
   );
 }
 
-/** The registry's display groups, minus the current project; empty groups drop out. */
-function FlyoutGroups({ current }: { current?: string }) {
-  const { pipeline, language, workbench } = familyGroups(current);
-  const groups = [
-    { label: "Pipeline", tools: pipeline },
-    { label: "Language", tools: language },
-    { label: "Workbench", tools: workbench },
-  ];
-  return groups
-    .filter((group) => group.tools.length > 0)
-    .map((group) => (
-      <div className="flygroup" key={group.label}>
-        <small>{group.label}</small>
-        {group.tools.map((tool) => (
-          <a key={tool.name} href={toolHref(tool)}>
-            <span className="markplate">
-              <Mark name={tool.mark ?? tool.name} size={24} />
-            </span>
-            <span>
-              <b>
-                {tool.name}
-                <RepoNote tool={tool} />
-              </b>
-              <small>{tool.shortJob}</small>
-            </span>
-          </a>
-        ))}
-      </div>
-    ));
+function FlyoutGroup({ label, tools }: { label: string; tools: FamilyTool[] }) {
+  if (tools.length === 0) return null;
+  return (
+    <div className="flygroup">
+      <small>{label}</small>
+      {tools.map((tool) => (
+        <a key={tool.name} href={toolHref(tool)}>
+          <span className="fam-tile">
+            <Icon name={tool.name} size={30} />
+          </span>
+          <span>
+            <b>
+              {tool.name}
+              <RepoNote tool={tool} />
+            </b>
+            <small>{tool.shortJob}</small>
+          </span>
+        </a>
+      ))}
+    </div>
+  );
 }
 
 /**
- * The family-wide tool switcher, grouped the way the family site groups it.
+ * The family-wide tool switcher: the engines, then the applications the
+ * workshop also makes, each tier under its own label.
  *
  * `SiteHeader` renders it, and it also stands on its own: a docs site whose
  * framework owns the header — an Ardo site placing it into
  * `<ArdoHeaderActions>` — renders `<ToolSwitcher current="ferroni" />` there
  * and gets the same flyout. Standing alone it needs only `MarkDefs` on the
- * page and the package's `tokens.css` plus `chrome.css`; it carries its own
- * duotone variables, and the flyout is positioned against the trigger, so the
- * host header's height does not matter.
+ * page and the package's `tokens.css` plus `chrome.css`; the flyout carries its
+ * own colors and is positioned against the trigger, so the host header's
+ * height and theme do not matter.
  */
 export function ToolSwitcher(props: ToolSwitcherProps = {}) {
   const { current, family = false, label } = props;
   const switcherRef = useRef<HTMLDetailsElement>(null);
   useDismissible(switcherRef);
+  const { applications, engines } = familyTiers(current);
 
   return (
     <details className={switcherClasses(props)} ref={switcherRef}>
@@ -146,7 +118,8 @@ export function ToolSwitcher(props: ToolSwitcherProps = {}) {
       <div className="flyout">
         {family && <FamilyHome />}
         {current !== undefined && <p className="switcher-current">Current: {current}</p>}
-        <FlyoutGroups current={current} />
+        <FlyoutGroup label="Engines" tools={engines} />
+        <FlyoutGroup label="Applications" tools={applications} />
       </div>
     </details>
   );

@@ -19,7 +19,7 @@ export default defineConfig({
         twitterCard: "summary_large_image",
       },
 
-      // Toolbox mark (duotone, baked brand colors) — also the favicon source
+      // The family's toolbox, as a picture in an SVG frame (built by design/icons/build-icons.sh) — also the favicon source
       brand: {
         logo: {
           light: "./app/assets/brand/logo-light.svg",

@@ -1,312 +1,663 @@
-# Ferramenta — Design System
+---
+name: Ferramenta
+description: The family look of the Ferramenta engines — a catalog of riveted steel data plates on a light, warm ground, with dark passages in smoked oak and one rust band.
+colors:
+  iron-50: "oklch(0.955 0.007 70)"
+  iron-100: "oklch(0.918 0.01 65)"
+  iron-200: "oklch(0.83 0.011 55)"
+  iron-300: "oklch(0.74 0.013 55)"
+  iron-400: "oklch(0.65 0.015 45)"
+  iron-500: "oklch(0.58 0.016 48)"
+  iron-600: "oklch(0.51 0.019 42)"
+  iron-700: "oklch(0.43 0.02 40)"
+  iron-800: "oklch(0.36 0.02 42)"
+  iron-900: "oklch(0.29 0.02 44)"
+  iron-950: "oklch(0.19 0.012 50)"
+  rust-100: "oklch(0.92 0.025 60)"
+  rust-200: "oklch(0.84 0.06 60)"
+  rust-300: "oklch(0.75 0.095 58)"
+  rust-400: "oklch(0.66 0.115 57)"
+  rust-500: "oklch(0.58 0.115 52)"
+  rust-600: "oklch(0.51 0.109 48)"
+  rust-700: "oklch(0.42 0.095 40)"
+  rust-800: "oklch(0.36 0.086 40)"
+  rust-900: "oklch(0.28 0.065 38)"
+  bg: "oklch(0.955 0.007 70)"
+  bg-dim: "oklch(0.918 0.01 65)"
+  ink: "oklch(0.19 0.012 50)"
+  ink-soft: "oklch(0.43 0.02 40)"
+  line: "oklch(0.83 0.011 55)"
+  line-heavy: "oklch(0.19 0.012 50)"
+  rust: "oklch(0.42 0.095 40)"
+  rust-deep: "oklch(0.36 0.086 40)"
+  on-rust: "oklch(0.955 0.007 70)"
+  rust-fill: "oklch(0.42 0.095 40)"
+  rust-fill-edge: "oklch(0.36 0.086 40)"
+  rust-fill-ink: "oklch(0.955 0.007 70)"
+  rust-fill-soft: "oklch(0.92 0.025 60)"
+  iron: "oklch(0.19 0.012 50)"
+  iron-2: "oklch(0.29 0.02 44)"
+  iron-ink: "oklch(0.955 0.007 70)"
+  iron-soft: "oklch(0.74 0.013 55)"
+  iron-line: "oklch(0.36 0.02 42)"
+  ember: "oklch(0.75 0.095 58)"
+  steel: "oklch(0.65 0.015 45)"
+  steel-ink: "oklch(0.19 0.012 50)"
+  rust-on-steel: "oklch(0.36 0.086 40)"
+  inlay: "oklch(0.19 0.012 50)"
+  inlay-ink: "oklch(0.955 0.007 70)"
+  inlay-soft: "oklch(0.74 0.013 55)"
+  inlay-line: "oklch(0.36 0.02 42)"
+  oak: "oklch(0.29 0.02 44)"
+  code-keyword: "oklch(0.75 0.095 58)"
+  code-type: "oklch(0.83 0.011 55)"
+  code-function: "oklch(0.92 0.025 60)"
+  code-string: "oklch(0.84 0.06 60)"
+  code-comment: "oklch(0.65 0.015 45)"
+typography:
+  display:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "clamp(2.5rem, 6vw, 4.75rem)"
+    fontWeight: 700
+    lineHeight: 0.96
+    letterSpacing: "0.005em"
+  display-name:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "clamp(3.25rem, 8vw, 6rem)"
+    fontWeight: 700
+    lineHeight: 0.96
+    letterSpacing: "0.03em"
+  headline:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "clamp(2.25rem, 4.6vw, 3.5rem)"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "0.01em"
+  title:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "1.625rem"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "0.03em"
+  what:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "clamp(1.5rem, 3vw, 2.25rem)"
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: "0.01em"
+  action:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "0.1em"
+  label:
+    fontFamily: "Barlow Condensed, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: "0.16em"
+  lede:
+    fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "clamp(1.0625rem, 1.5vw, 1.1875rem)"
+    fontWeight: 500
+    lineHeight: 1.55
+  body:
+    fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  mono:
+    fontFamily: "ui-monospace, SF Mono, Cascadia Code, Menlo, Consolas, monospace"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.65
+rounded:
+  none: "0"
+  rivet: "50%"
+  chain-link: "0.3125rem"
+spacing:
+  section: "clamp(4.5rem, 9vw, 7.5rem)"
+  wrap-max: "80rem"
+  wrap-inline: "clamp(1rem, 4vw, 3rem)"
+  plate-inset: "clamp(1.5rem, 4vw, 3.5rem)"
+  rivet-inset: "0.75rem"
+  bar-height: "4rem"
+  target: "2.75rem"
+components:
+  plate:
+    backgroundColor: "{colors.steel}"
+    textColor: "{colors.steel-ink}"
+    rounded: "{rounded.none}"
+    padding: "clamp(2.25rem, 4.5vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem)"
+  hanging-tag-cell:
+    backgroundColor: "{colors.inlay}"
+    textColor: "{colors.inlay-ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.none}"
+    padding: "0.75rem 1rem 0.6875rem"
+  button-primary:
+    backgroundColor: "{colors.iron}"
+    textColor: "{colors.iron-ink}"
+    typography: "{typography.action}"
+    rounded: "{rounded.none}"
+    padding: "0 1.375rem"
+    height: "3.25rem"
+  button-primary-hover:
+    backgroundColor: "{colors.iron-2}"
+  button-ghost:
+    textColor: "{colors.steel-ink}"
+    typography: "{typography.action}"
+    rounded: "{rounded.none}"
+    padding: "0 1.375rem"
+    height: "3.25rem"
+  button-steel:
+    backgroundColor: "{colors.steel}"
+    textColor: "{colors.steel-ink}"
+    typography: "{typography.action}"
+    rounded: "{rounded.none}"
+    padding: "0 1.375rem"
+    height: "3.25rem"
+  install-inlay:
+    backgroundColor: "{colors.inlay}"
+    textColor: "{colors.inlay-ink}"
+    typography: "{typography.mono}"
+    rounded: "{rounded.none}"
+    padding: "0 1.125rem"
+    height: "3.25rem"
+  stamp:
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "0.375rem 0.625rem 0.3125rem"
+  stamp-solid:
+    backgroundColor: "{colors.rust}"
+    textColor: "{colors.on-rust}"
+    rounded: "{rounded.none}"
+    padding: "0.375rem 0.625rem 0.3125rem"
+  stamp-solid-on-material:
+    backgroundColor: "{colors.rust-fill}"
+    textColor: "{colors.rust-fill-ink}"
+    rounded: "{rounded.none}"
+    padding: "0.375rem 0.625rem 0.3125rem"
+  stamp-on-plate:
+    backgroundColor: "{colors.inlay}"
+    textColor: "{colors.inlay-ink}"
+    rounded: "{rounded.none}"
+    padding: "0.375rem 0.625rem 0.3125rem"
+  site-header:
+    backgroundColor: "{colors.iron}"
+    textColor: "{colors.iron-ink}"
+    height: "4rem"
+  oak-band:
+    backgroundColor: "{colors.oak}"
+    textColor: "{colors.iron-ink}"
+    padding: "clamp(4.5rem, 9vw, 7.5rem) 0"
+  application-card:
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "clamp(1.5rem, 3.5vw, 2.75rem)"
+  rust-band:
+    backgroundColor: "{colors.rust-fill}"
+    textColor: "{colors.rust-fill-ink}"
+    padding: "clamp(4.5rem, 9vw, 7.5rem) 0"
+  code-panel:
+    backgroundColor: "{colors.iron}"
+    textColor: "{colors.iron-ink}"
+    typography: "{typography.mono}"
+    rounded: "{rounded.none}"
+    padding: "1.25rem"
+---
 
-Ground truth: the built site ([app/styles/site.css](app/styles/site.css)) and the shared
-chrome and landing kit it consumes ([packages/family/src/](packages/family/src),
-[packages/family/styles/](packages/family/styles)). Approved comp:
-[design/comp/entwurf-c.html](design/comp/entwurf-c.html) (direction "C · Schmiede", chosen from
-three intensity drafts). This file describes the system as built; the tokens, the chrome, the
-landing kit and the marks ship in `ferramenta-family`, so a sibling home page is built from the
-same parts as this one instead of a copy of them.
+# Design System: Ferramenta
 
-## World in one sentence
+Ground truth is the shipped artifact: the tokens
+([packages/family/styles/tokens.css](packages/family/styles/tokens.css)), the landing kit
+([packages/family/styles/landing.css](packages/family/styles/landing.css)), the chrome
+([packages/family/styles/chrome.css](packages/family/styles/chrome.css)), the components in
+[packages/family/src/](packages/family/src), and the pages that stack them
+([app/routes/home.tsx](app/routes/home.tsx), the kit at [app/routes/kit/](app/routes/kit)). The
+decision behind it is [ADR-0008](docs/adr/0008-design-direction-typenschild.md); the icons are
+[ADR-0009](docs/adr/0009-generated-member-icons.md). ADR-0003 and ADR-0005 are superseded. The
+front matter is normative: the two ramps are copied from `tokens.css`, and every role below
+them carries the value of the step it points at. The prose only says where a role goes.
 
-A hardware store: a light brushed-steel shop floor between two dark iron bands, where the
-family's tools hang as duotone metal badges on real hooks — poster-scale condensed type,
-rust as the structural color, zero border-radius, chamfers instead of rounding.
+## Overview
 
-## Color tokens (OKLCH, light / `.dark`)
+**Creative North Star: "The Data Plate"**
 
-Defined on `:root`, overridden on `:root.dark` (Ardo's `ArdoRootLayout` theme bootstrap
-sets `.dark` on `<html>`; storage key `ardo-theme`).
+Every machine carries a data plate that says what it is. The family site is the workshop's
+catalog of such plates: one riveted sheet of brushed steel per engine, read before anything
+else. The direction is named "Typenschild", German for that plate. A page is light and warm,
+with deliberately dark passages in smoked oak, the bench the plates lie on, and it closes on
+one band of dark, oxidized rust. Lettering is a condensed data-plate face; reading text is the
+system face. Each member is one rendered object of forged steel with a single glowing or
+rust-orange element, and the greys of the page are warm because those objects are.
 
-| Token                                                                                 | Light               | Dark                      | Role                                                                          |
-| ------------------------------------------------------------------------------------- | ------------------- | ------------------------- | ----------------------------------------------------------------------------- |
-| `--bg`                                                                                | 0.975 0.005 80      | 0.215 0.009 48            | page ground (under brush texture)                                             |
-| `--bg-dim`                                                                            | 0.945 0.008 78      | 0.23 0.011 48             | hover fills, board ground                                                     |
-| `--ink` / `--ink-soft`                                                                | 0.21 / 0.42         | 0.94 / 0.71               | text                                                                          |
-| `--rust` / `--rust-deep`                                                              | 0.5 0.132 38 / 0.41 | 0.69 0.14 45 / 0.6        | brand accent, primary action                                                  |
-| `--ember`                                                                             | 0.68 0.175 52       | 0.75 0.16 55              | glow, iron-band headings                                                      |
-| `--line` / `--line-heavy`                                                             | 0.86 / 0.28         | 0.31 / 0.85               | hairlines / heavy rules                                                       |
-| `--iron`, `--iron-2`, `--iron-ink`, `--iron-soft`, `--iron-line`                      | dark band palette   | darker variants           | header, beliefs band, footer, flyout                                          |
-| `--duo0…--duo2`, `--duoink`                                                           | tint ramp + outline | dark ramp + light outline | duotone marks; dark set also on iron contexts (header/footer lockups, flyout) |
-| `--plate-rim-*`, `--plate-face-*`, `--plate-sheen`, `--plate-brush`, `--plate-shadow` | warm steel          | gunmetal                  | octagon plate material                                                        |
-| `--hook-dark`, `--hook-light`, `--hook-hole`                                          | burnished           | bright metal              | pegboard hooks                                                                |
-| `--paper`                                                                             | 0.985 0.004 85      | 0.86 0.006 80             | partner-logo carrier plates (dimmed in dark, so they never outshine the page) |
-| `--code-keyword`, `--code-type`, `--code-function`, `--code-string`, `--code-comment` | one set, on iron    | (keyword follows ember)   | syntax colors in the code panel                                               |
+The system is dense where a plate would be dense (names, labels, measured facts) and quiet
+everywhere else. Material gives the pull; restraint and plain language give the trust. It
+refuses the SaaS hero-plus-feature-cards arrangement and the dark developer-tool default.
 
-In dark mode the floor (`--bg` L 0.215) stays visibly above the iron (`--iron` L 0.14): the
-"floor between two iron bands" rhythm must survive without the rust rules.
+**Key Characteristics:**
 
-Rules: rust is structural (rules, stamps, primary action), never a scattered accent.
-Ember is reserved for glow and headings on iron. No grays for secondary text on colored
-surfaces — tinted tokens only.
+- Three materials, one job each: brushed steel, dark oak, rust. Everything else is flat, the
+  dark chrome included.
+- Two ramps hold every color: warm iron greys and oxidized rust.
+- One prop: the riveted plate, with its measured facts on a tag hanging below it.
+- One authored scheme on landing pages; no theme toggle there.
+- Sharp corners; only rivets and chain links are round.
+- What a thing is comes first; where it comes from comes second.
+- Two tiers: engines in the family look, applications on light cards under their own logos.
 
-Shapes, textures and the rhythm are tokens too (`tokens.css`), so no file restates them:
-`--texture-brush` (the fiber of the floor and every iron surface), `--texture-speckle` (rust
-on a plate face), `--ground-vignette`, `--ember-glow`, `--octagon` (plate outline), `--chamfer`
-(the primary action's corner), `--h2-size`, `--h3-size`, `--section-space`.
+### Named Rules
+
+**The Three Materials Rule.** Brushed steel is the plate: what a thing is, and the action.
+Dark oak is the bench: the first viewport and a page's dark bands. Rust is the closing band,
+once per page. Everything else is flat: the header, the footer, flyouts, code panels and
+inlays are dark iron without a texture. A new material, or a second prop beside the plate,
+needs a decision record.
+
+**The Say-What-It-Is-First Rule.** A plate carries the name, the plain "what", what it does,
+and the action. Lineage and measured facts come second: on the hanging tag under a hero, or
+last and quiet in a catalog row. This is a rule for structure, not only for copy.
+
+**The One Scheme Rule.** A landing page is `.fam-page`, which pins the authored light roles
+whatever the visitor's theme. It has no theme toggle. Documentation follows the system scheme
+(or the host's explicit `.light` / `.dark`), and keeps Ardo's layout and shapes; the family
+adds its colors and its chrome, nothing more.
+
+**The Two Tiers Rule.** Engines wear the family look. Applications appear in one band, each on
+a light card under its own logo, with its brand color only in the rule above the card and in
+its action; the family carries them, it does not dress them.
+
+**The Independent Members Rule.** No chain, no pipeline diagram, no entry point. Where two
+members fit together, the row says so in one sentence. The family site states results
+qualitatively and never repeats a figure; figures belong to each project's own page.
+
+## Colors
+
+Two ramps hold every color the family draws with: `iron-50` to `iron-950`, the warm grey of
+blackened steel (hue 40 to 70), and `rust-100` to `rust-900`, oxidized rust from sand to dark
+brown. Steps are numbered as in Tailwind; a higher number is darker. A component never uses a
+step directly. It uses a role, and every role names one step.
+
+### Primary
+
+- **Oxidized Rust** (`rust` = rust-700, with `on-rust` = iron-50 as its text): the settled
+  stamp's fill on the light ground, the line icons that mark a relation, the run sample's
+  arrow, text selection, `accent-color`, the focus ring on the light ground. It follows the
+  scheme on a docs page.
+- **Deep Rust** (`rust-deep` = rust-800): links in running text, the settled stamp's border,
+  display lettering on the light ground (the pull quote of the personal note), and the
+  workshop's link lines.
+- **Rust Fill** (`rust-fill` = rust-700, `rust-fill-edge` = rust-800, `rust-fill-ink` =
+  iron-50, `rust-fill-soft` = rust-100): rust as a surface, the same in every scheme. The
+  closing band's base under its texture, its text and its softer paragraph; the settled
+  stamp's fill, border and text when it sits on a plate or on a dark ground.
+- **Ember** (`ember` = rust-300): rust as it glows on a dark ground. Links on oak and in the
+  chrome, the rule over a principle there, the top edge of a flyout, the keyword in code, the
+  focus ring on every dark surface.
+- **Rust on Steel** (`rust-on-steel` = rust-800): one word of the headline on a plate. Display
+  lettering only; it reaches about 3.5:1 against the steel and is never used for small text.
+
+### Neutral
+
+- **Ground** (`bg` = iron-50) and **Dim Ground** (`bg-dim` = iron-100): the page and an
+  application's card; a section set apart from its neighbors (`tone="dim"`).
+- **Ink** (`ink` = iron-950) and **Soft Ink** (`ink-soft` = iron-700): text and secondary text
+  on the light ground.
+- **Hairline** (`line` = iron-200) and **Heavy Rule** (`line-heavy` = iron-950): 1px row
+  separators; the 3px rule over a principle.
+- **Dark Iron** (`iron` = iron-950, `iron-2` = iron-900, `iron-ink` = iron-50, `iron-soft` =
+  iron-300, `iron-line` = iron-800): the flat dark of the chrome. The header, the footer,
+  flyouts, the code panel and the primary action; the raised or hovered surface; text;
+  secondary text; hairlines. The same in every scheme. The `iron-*` text roles are also the
+  text on oak.
+- **Oak Under** (`oak` = iron-900): the color under the oak texture for the moment before it
+  loads.
+- **Plate Steel** (`steel` = iron-400) and **Plate Ink** (`steel-ink` = iron-950): the color
+  under the steel texture before it loads, and the solid dark text on a plate.
+- **Inlay** (`inlay` = iron-950, `inlay-ink` = iron-50, `inlay-soft` = iron-300, `inlay-line` =
+  iron-800): the dark, flat ground small facts sit on when they are on or under a plate; its
+  text, its labels, its cell dividers.
+- **Code** (`code-keyword` = rust-300, `code-type` = iron-200, `code-function` = rust-100,
+  `code-string` = rust-200, `code-comment` = iron-400): one set from the two ramps, because
+  code always sits on dark iron.
+
+**Docs, dark scheme.** Outside `.fam-page`, when the system or the host asks for dark, the
+page roles move to other steps: `bg` iron-950, `bg-dim` iron-900, `ink` iron-50, `ink-soft`
+iron-300, `line` iron-800, `line-heavy` iron-200, `rust` rust-300, `rust-deep` rust-400,
+`on-rust` iron-950, and `--focus` becomes `ember`. Dark iron, the plate, the inlay and the rust
+fill do not change. Ardo's own neutrals are derived from hue 55 and its brand colors are rust
+steps ([packages/family/styles/theme.css](packages/family/styles/theme.css)).
+
+An application's brand color is not a family token. It comes from the registry
+(`brand.color`, `brand.onColor`) and exists only on that application's card.
+
+### Named Rules
+
+**The Two Ramps Rule.** Every color is a step of `iron` or `rust`, reached through a role. No
+cool grey, no third hue, no literal color in a component. (The only literals the build keeps
+are white and black, for highlights and shadows.)
+
+**The Oxidized Rule.** Rust is dark and oxidized, never a saturated orange field. On the rust
+band the type is plain and light; no display-lettering tricks on rust.
+
+**The Solid Ink Rule.** Text on steel is `steel-ink`, solid. `rust-on-steel` is for display
+lettering only.
+
+**The One Color Rule.** Rust is the only hue the family owns. A second accent does not exist;
+the saturated orange of the rendered icons belongs to the objects, not to the interface.
+
+**The Foreign Logo Rule.** A logo that is not the family's (an application's, Sebastian
+Software's, Sebastian Consulting's) stands on a light ground in its own colors: never on
+steel, oak, rust or the dark chrome, and never recolored.
 
 ## Typography
 
-- **Display**: Big Shoulders (variable, self-hosted `packages/family/fonts/big-shoulders.woff2`,
-  weight 800, uppercase, `line-height 0.98`). All headings, tool names, buttons, board labels.
-  H1 `clamp(var(--fam-title-min, 3.4rem), 9vw, 6rem)`; section H2 `--h2-size`
-  (`clamp(2.3rem, 4.6vw, 3.4rem)`) with a 3px `--line-heavy` bottom rule.
-- **H1 floor**: 3.4rem holds a ten-letter word ("ONIGURUMA,") on a 360px phone in Big
-  Shoulders. A site whose headline starts with a longer word lowers the floor with
-  `--fam-title-min` on `.fam-hero` — never below 2.5rem. The headline breaks a word rather than
-  scroll the page (`overflow-wrap: break-word`), but that is the last line of defense, not a
-  layout.
-- **Loading**: the 36KB WOFF2 is preloaded from the root route and uses `font-display: block`:
-  display copy waits briefly instead of rendering a fallback and swapping; body copy remains
-  immediately visible in the system stack.
-- **Body**: `system-ui` stack, 1.0625rem, line-height 1.6.
-- **Mono**: system mono stack (`ui-monospace…`), only for measured values: versions,
-  registries, partner URLs, the signature. Never as a "technical" costume.
-- **No eyebrows or kickers.** A label above a heading that restates or teases it is out —
-  headings carry their own weight, and on a sibling site the project lockup already says whose
-  page it is. Mono uppercase _labels_ stay, where they name a measured or structural thing
-  beside it: figure labels, assembly terminals, stamps, board and flyout group labels. A code
-  caption is a file name or a command, an identifier: mono, but in its own case. The test: delete the label; if the heading still says everything, it was a kicker.
+**Display Font:** Barlow Condensed (self-hosted, weights 500, 600 and 700, Latin subset, SIL
+OFL 1.1; falls back to the body stack)
+**Body Font:** the system stack (`system-ui`, `-apple-system`, "Segoe UI", Roboto, sans-serif)
+**Label/Mono Font:** the system mono (`ui-monospace`, "SF Mono", "Cascadia Code", Menlo,
+Consolas)
 
-## Materials (the skeuomorphic layer)
+**Character:** Barlow Condensed letters everything a plate would carry: names, headings,
+labels, actions. Reading text stays in the system face and code in the system mono, so only
+one font is bundled. The display face loads with `font-display: block`, and the 700 weight is
+preloaded from the root route.
 
-All CSS/SVG, no image assets; every layer theme-aware:
+### Hierarchy
 
-1. **Body**: anisotropic brushed-metal noise (inline SVG `feTurbulence`,
-   `baseFrequency 0.006 0.28`, `stitchTiles`, alpha 0.11) + soft edge vignette over `--bg`.
-2. **Iron bands** (header, beliefs band, footer): same fiber texture over `--iron`.
-3. **Octagon plates**: rim gradient + inset face (`::before`, same clip-path, inset 2px)
-   carrying sheen (115°), rust-speckle noise (alpha 0.22), 1px brush lines, vertical face
-   gradient; `drop-shadow` (offset+blur — never zero-offset halos).
-4. **Hooks**: shared `#i-hook` symbol — wall-hole ellipse, wire with highlight edge, eyelet
-   ring gripping the plate edge.
-5. **Functional hardware**: slotted steel fasteners anchor the pegboard and the pipeline's
-   chamfered metal chassis. The chassis uses the plate ramp and brush lines at panel scale.
+- **Display** (700, `clamp(2.5rem, 6vw, 4.75rem)`, line-height 0.96, uppercase): the family's
+  headline on the hero plate. A project's own name, which has a "what" line under it, is
+  larger (`clamp(3.25rem, 8vw, 6rem)`, tracking 0.03em).
+- **What** (600, `clamp(1.5rem, 3vw, 2.25rem)`, line-height 1.1, sentence case): what the thing
+  is, directly under its name.
+- **Headline** (700, `clamp(2.25rem, 4.6vw, 3.5rem)`, line-height 1, uppercase): a section's
+  `h2`. No rule under it.
+- **Title** (700, 1.625rem from `--h3-size`, line-height 1.05, tracking 0.03em, uppercase): a
+  principle, a heading inside a run sample's output. A name on a catalog plate runs
+  `clamp(1.75rem, 7vw, 2.125rem)` at tracking 0.035em.
+- **Lede** (system, 500, `clamp(1.0625rem, 1.5vw, 1.1875rem)`, line-height 1.55, max 58ch): the
+  paragraph on the plate.
+- **Body** (system, 400, 1.0625rem, line-height 1.6; measures of 58 to 62ch): reading text. A
+  section intro is 1.125rem in soft ink.
+- **Action** (700, 1.125rem, tracking 0.1em, uppercase): buttons, the catalog's go-link, the
+  workshop's link lines.
+- **Label** (600, 0.75rem to 0.875rem, tracking 0.14 to 0.16em, uppercase): a fact's label, a
+  stamp (700, 0.8125rem), a flyout group, a footer column head.
+- **Mono** (system mono, 0.8125rem to 0.9375rem): code, commands, file names, a release
+  number (tabular figures, so a live value never shifts the line).
 
-Material is limited to the environment, project plates and hooks, and mechanically necessary
-fasteners/chassis. Buttons, ledger rows, copy sections, and generic cards stay flat.
+The smallest type in the landing kit and the chrome is 0.75rem (12px), and only as a label on
+an inlay or on the flat ground.
 
-## The 28px module (pegboard)
+### Named Rules
 
-The board renders the family's real groups (Pipeline 3 / Language 3 / Workbench 2), each
-row headed by a stamped 28px-tall group label. Every plate carries its maturity stamp,
-riveted to the plate's lower edge (absolutely positioned, so no row grows and no hook moves):
-the wall shows what is proven before any ledger does, and because every plate has one, none
-outranks another. A member whose link leads to its repository carries a small GitHub glyph
-after its name. Label rows and 28px gaps keep every hook hole on the wall grid. A row always
-has three columns, so a group of two leaves its third cell empty rather than widening a plate.
+**The Inlay Rule.** Small type never sits on brushed steel or on rust: a texture's streaks cut
+into it. On or under a plate it goes on the dark inlay or on the hanging tag: fact labels, the
+install command, an outlined stamp, what a figure was measured on. As built, nothing below
+1.0625rem sits directly on either material. Oak is the ground that carries light text: it is
+smoked almost to black, so a band's heading, its intro, and a note or stamp legend at
+0.9375rem stand on it in the `iron-*` text roles. Measured on the shipped texture, full ink
+holds about 14:1 at its mean and soft text about 6.7:1, falling to about 4.8:1 on the
+lightest grain. Nothing smaller or softer than that goes on oak.
 
-The board's hole grid is a 28px tile (`background: radial-gradient(…) 0 0 / 28px 28px`). A radial
-gradient draws its hole in the middle of its tile, so a tile at `0 0` puts every hole at 14
-(mod 28) from the padding edge. (The comp offset the tile by 14px as well, which put the holes at
-0 mod 28 — every hook hung between four holes until round 5 of the critique measured the holes
-themselves, not only the hooks. A test now pins the tile position.)
-Everything on the board is a multiple: padding 42px, cells 112×140px, gaps 28px → every hook
-hole lands exactly on a wall hole. The invariant is the hook, not the padding: a hook hangs at
-its cell's top center, and that point must sit at 14 (mod 28) from the board's padding edge on
-both axes. With 112px cells that means padding ≡ 14 (mod 28). The phone board (≤34rem) keeps
-every group on one row of three in 84px cells with no column gap and 56px plates, so its inline
-padding moves to 28 (a cell center is 42px in) while the block padding stays 14 — measured at
-14,14 for all eight hooks. Below 60rem the hero stacks, so the full board never squeezes the
-headline. Change board geometry only in multiples of 28, and re-measure the hook offsets after
-any change.
+**The Plate Lettering Rule.** Display type is uppercase and is for what a plate would carry.
+Two things keep their own case: the "what" line, and an identifier (a file name, a command).
+An application's name is set in the body face, because it is not the family's brand.
 
-## Iconography
+## Layout
 
-- **Project marks**: duotone, 24-grid, derived from Streamline (Duotone set) — recolored to
-  the `--duo*` ramp, caps/joins forced square/miter. One motif per tool (toolbox, anvil+hammer,
-  flame, stamp, corner ruler, drawer cabinet, welding helmet, plus two drawn
-  in-house: a horseshoe magnet for ferralk and type slugs in a composing stick for palamedes).
-  Marks for tools that join later are appended to the
-  sprite in the same construction: 24 grid, two fills plus a 1px outline, square caps. Sprite:
-  [packages/family/src/mark-defs.ts](packages/family/src/mark-defs.ts), mounted once via `<MarkDefs/>`;
-  class `mark`. **License**: Streamline property, not MIT — see THIRD-PARTY-NOTICES.md.
-- **Chrome icons** (chevron, arrow, GitHub, hook, crate, adapter, external, package): line style,
-  1.5/24, square caps, class `icon`. `external` marks a link that leaves the site, `package` a
-  published package. These cover the family home pages, so they need no icon library:
-  `lucide-react` is not used on a family surface. A docs sidebar that still needs more icons
-  than the sprite has is a known exception until those icons are drawn here.
-- Marks sit on `.markplate` octagons (clip-path `polygon(27% 0, 73% 0, 100% 27%, …)`);
-  ledger rows use `.plate` (4.6rem), board 76px, flyout 38px.
+A page is `.fam-page` with full-bleed bands stacked inside it; each band holds one `.wrap`
+(max 80rem, inline padding `clamp(1rem, 4vw, 3rem)`). The rhythm between sections is one token,
+`clamp(4.5rem, 9vw, 7.5rem)`; two neighbors on the same ground are parted by one step, not two
+(the second drops its top padding).
+
+The family page's order, as built: the dark iron bar, the hero plate on oak, the engine
+catalog on the light ground, the applications band on oak, what every engine is held to (the
+principles), the personal note with the workshop's two logos on the dim ground, the rust band,
+the dark iron footer.
+
+- **Hero.** One plate; copy left, the rendered icon right (14 to 18rem) from 64rem up; on a
+  phone the icon moves above the copy (8 to 11rem). The tag hangs from the plate's lower left.
+- **Catalog row.** Below 64rem the name plate stacks over the copy; from 64rem a 24rem plate
+  column sits beside it with a 3.5rem gap. The facts share one set of columns down the page.
+- **Applications.** One column; from 64rem the leading card takes 1.75fr beside 1fr.
+- **Split section.** Heading column beside content (1fr / 1.6fr), stacking below 64rem.
+- **Breakpoints in use:** 22rem, 46rem, 48rem, 54rem, 60rem, 64rem. 64rem is the main one:
+  below it columns stack and a docs section menu appears in the bar.
+
+The page never scrolls sideways (`overflow-x: clip` on `.fam-page`); wide content scrolls in
+its own box. Interactive targets are at least 44px tall in the bar and the link lines.
+
+### Named Rules
+
+**The Light-After-Hero Rule.** Do not pair an oak band directly under the hero when a light
+section can go there. The kit parts two dark passages with an `iron-line` hairline, which
+makes the pairing possible, not preferable.
+
+**The Load Order Rule.** `tokens.css`, `fonts.css`, `theme.css` (then the optional
+`docs.css`), `landing.css`, the site's own stylesheet, `chrome.css` last. The site adjusts the
+kit on equal specificity; the chrome wins its ties. Every landing class is prefixed `fam-`;
+bare elements are styled only inside `.fam-page` and through `:where()`, so a host rule always
+wins. The chrome's unprefixed class names (`site-header`, `bar`, `wrap`, `lockup`, `flyout`,
+`icon`, and the rest listed in the header of `chrome.css`) are part of the package contract.
+See the Gotchas in [AGENTS.md](AGENTS.md).
+
+## Elevation & Depth
+
+Depth belongs to the steel. The flat parts of a page (sections, rows, ledgers, application
+cards, the code panel, the chrome) carry no shadow and are parted by hairlines and ground
+changes. A plate is a physical sheet lying on the bench: a lit top and left edge, a shaded
+bottom and right edge, and a short cast shadow beneath it. An inlay is pressed into the steel.
+A flyout floats under the bar.
+
+### Shadow Vocabulary
+
+- **Plate** (`inset 0 1px 0 rgb(255 255 255 / 0.55), inset 1px 0 0 rgb(255 255 255 / 0.25), inset 0 -1px 0 rgb(0 0 0 / 0.45), inset -1px 0 0 rgb(0 0 0 / 0.25), 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 28px -18px rgb(0 0 0 / 0.55)`):
+  every plate, large or small.
+- **Rivet** (`0 1px 1px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.28)`): the four corner
+  rivets, 0.75rem across, 0.75rem in from each edge, shaded from white through iron-100 and
+  iron-400 to iron-600.
+- **Inlay** (`inset 0 2px 4px rgb(0 0 0 / 0.6)`, plus `0 1px 0 rgb(255 255 255 / 0.3)` for the
+  install line): small facts pressed into a plate.
+- **Object on a plate** (`drop-shadow(0 1px 1px rgb(0 0 0 / 0.5)) drop-shadow(0 8px 8px rgb(0 0 0 / 0.28))`):
+  a member's icon standing on a hero or catalog plate. The small icon casts none.
+- **Primary action** (`inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 16px -10px rgb(0 0 0 / 0.7)`):
+  the dark iron button on a plate.
+- **Flyout** (`0 18px 44px -16px rgb(0 0 0 / 0.7)`): the switcher and the section menu, tied
+  to the bar by a 2px `ember` top edge.
+
+### Motion
+
+- **The one light.** A single reflection crosses every plate and follows the pointer
+  (`--fam-sheen`, a soft-light gradient; `background-position` eases over 0.9s with
+  `cubic-bezier(0.16, 1, 0.3, 1)`).
+- **The tag settles.** The hanging tag sways once on load (2.6s, from 0.9deg to rest) and then
+  hangs still.
+- **Small responses.** An action's arrow slides 4px (0.25s); link and bar colors change over
+  0.2s; a chevron flips when its menu opens.
+- **Reduced motion.** The light stays where it is, the tag does not sway, transitions are off.
+
+### Named Rules
+
+**The One Light Rule.** There is one moving reflection for all plates on a page, mounted once
+by the hero. No second ambient animation.
+
+**The Material-Only Depth Rule.** A shadow means steel. A flat surface never takes one to look
+like a card; an application's card is parted from the oak by its ground and its top rule.
+
+## Shapes
+
+Corners are sharp: every surface, button, stamp, card, panel and tile has a zero radius. Line
+icons are drawn with square caps and miter joins at a 1.5 stroke on a 24 grid. Borders are
+hairlines (1px), the heavy rule over a principle (3px), the brand rule over an application's
+card (4px), and the engraved outline of a ghost action or an outlined stamp (1.5px).
+
+**The Round-in-the-World Rule.** Only what is round in the world is round: rivets (50%) and
+the links of the tag's chain (0.3125rem on a 0.625rem link). The family draws no other curve;
+a foreign logo keeps whatever shape it was drawn in.
+
+Documentation pages keep Ardo's own shapes, including its rounded code blocks and callouts.
+That is the docs shell's form, not the family's, and it does not travel to landing pages.
 
 ## Components
 
-- **SiteHeader**: sticky iron bar, 2px rust bottom rule; lockup (mark + uppercase wordmark),
-  `<details>` Tools flyout (grouped Pipeline/Language/Workbench, mini-plates, short jobs), GitHub, `ArdoThemeToggle`. A skip link precedes the header.
-  On a sibling site `lockup="project"` puts the project's own mark and wordmark in the brand
-  slot — the same construction, so every lockup follows one rule — and the switcher becomes
-  the way back to the family: its trigger shows the Ferramenta mark and name, small and soft,
-  and the flyout opens with the family site. On a phone the lockup drops to 1.2rem and the
-  family trigger to its mark.
-- **Tool ledger** (`ToolLedger`, `.fam-tool`): hairline-separated, grid `[num | plate | who | proof | meta | go]`,
-  the `num` column only in a numbered ledger (`steps`) — unnumbered rows drop it instead of
-  leaving it empty.
-  Each row is an `article` whose `h3` tool name is the link, stretched over the row by `::after`
-  — the whole row stays the target, while a screen reader hears the name instead of every fact.
-  The facts are a `dl`, set as a grid with one fact per line and the labels in one column, so
-  every row scans the same way. A row that leads to a repository rather than a site shows the GitHub
-  glyph in the `go` column and says "GitHub repository" to assistive technology;
-  no step numbers: where a sequence is real (the pipeline), the assembly above the ledger carries
-  it, and the ledger does not repeat it (`steps` stays available for a ledger without one). Proof stays in the successor
-  register (successors) or its new-development counterpart, followed by compact facts from the
-  registry: `Succeeds` (the implementation a successor replaces), `Builds on` (the standards a
-  new development builds on) or `Runs on` (the engines an application runs on), then
-  `Evidence` — a check or a design property, never a feature list and never numbers;
-  visible metadata is the live version (for a Git-only tool, its latest GitHub release), registry availability as icon-plus-label pairs
-  (crate = Rust core on crates.io, adapter = TypeScript/Node package on npm, or "install from Git" when neither exists),
-  and maturity. Members with `role: "application"` (palamedes) are products the family
-  carries, not libraries it publishes: they show `Runs on` (the registry's `runsOn`) instead of
-  `Succeeds`, their own evidence (palamedes: its benchmark against Lingui), and no
-  registry-availability pair, because the row leads to the
-  product's own site rather than to a crate or an adapter. Download counts ride in the fact row.
-  Versions and downloads are prerendered from the deploy and updated live in the browser
-  (`RegistryFacts` around the page: one request to the workshop's metrics service, falling back
-  to the registries for what it did not answer — see ADR-0006) in the page's own tabular mono, so nothing shifts when they arrive. Results
-  stay with each repository (owner boundary). Status stamps are tinted
-  fills (`stable` = rust), versions in tabular mono. ≤64rem stacks; ≤40rem drops the arrow column.
-  What each stamp promises is the registry's `STATUS_MEANING`, shown once as the stamp key at
-  the foot of "What earns the stamp".
-- **Pipeline assembly**: a flat drawing above the pipeline ledger, using the existing project
-  plates and line-style arrows to show the chain as data flow: Markdown with code in → ferroni →
-  ferriki → ferromark → highlighted HTML out (the TextMate grammars are ferroni's configuration,
-  named in the description, not the chain's input). Each stage also works alone, and the
-  section's intro says so. The ends come from the registry
-  (`PIPELINE`) and never say "Application", which is a registry role. Small text on the plate uses
-  `--rust-on-plate` and `--ink-soft-on-plate`, which hold 4.5:1 against the face's worst end in
-  both themes (dark: 4.8:1 and 5.1:1 against `--plate-face-hi`). It is horizontal on wide screens and vertical on narrow ones.
-  A chamfered, four-screw steel chassis makes the chain feel like one assembled machine without
-  turning its stages into separate cards. The nearby prose remains its complete text alternative.
-- **Iron band** (beliefs): full-bleed, ember headings left / prose right, hairline rows, then the
-  stamp key. It sits directly after the hero: the stamps on the wall are explained before the
-  ledgers use them.
-- **Link destinations**: every link to a member — board, switcher, assembly, ledger, job index,
-  footer — goes through the registry's `toolHref`, and when it leads to a repository rather than
-  a site it says so: `RepoNote` for assistive technology everywhere, the GitHub glyph where the
-  surface has room (ledger `go` column, board names).
-- **Why section**: rust pull-quote (display) with an explicit `Written by` author block in the
-  same column, plus prose and goal list (square rust bullets). User-approved addition on top of
-  the comp.
-- **Partners**: transparent SVG logos on `--paper` carrier plates with a 1px `--line` edge,
-  mono link line, and hairline column divider.
-- **The chain, run** (`RunSample`, inside the pipeline section between the chassis and the
-  ledger, so claim and proof share a screen): the pipeline's proof without a figure. Ferromark's
-  own quick start as Markdown in a `CodePanel`, an arrow, and what Ferromark with Ferriki (whose
-  grammar engine is Ferroni) made of it, inserted unedited: a committed artifact from
-  `scripts/render-pipeline-sample.mjs` (`app/data/pipeline-sample.json`), never hand-written.
-  The output caption names the versions it was rendered with, from the artifact, so a newer
-  live version in the ledger below is no contradiction. The output sits on a ruled `--bg-dim`
-  sheet in the page's own type; the highlighted block keeps its theme's token colors
-  (gruvbox-dark-hard: warm, ≥6:1) on our iron. Both panels set code at 0.875rem; the rendered
-  side wraps. On a phone (below 54rem) the input folds into a `<details>` bar in the panel's own
-  iron ("quick-start.md · Markdown source"): the output is the proof, the source is there on
-  request. Both variants are in the markup and CSS shows one, so nothing waits for JavaScript. The rendered side is `inert`: it repeats the
-  input for the eye, so assistive technology reads the input once and never meets the sample's
-  heading as a page heading. The sample quotes a real document, so the API call inside it is
-  content, not the API listing ADR-0004 keeps off overview pages.
-- **Hero actions**: the primary leads to the tools and their proof (`#pipeline`); the board
-  beside it is already the way to a tool by job.
-- **Closing action**: flat and ruled, before partner provenance; no new material carrier. It
-  ends with the **job index** (`JobIndex`, anchor `#jobs`) in the kit's `aside` slot:
-  every member's short job A to Z, a square-dot leader, the tool's mark and name, its stamp —
-  set like the aisle directory of a hardware store, one subgrid so tools and stamps line up.
-  Members are independent: nobody needs the whole chain or a whole group, so the index
-  recommends none and ranks none; the stamp says how far each has come. (It replaced a
-  per-group "start here" pick, which implied an entry point the tools do not have.) It carries
-  the family download tally — a mono number in running text, live-summed in the browser, never
-  a metric tile.
-- **SiteFooter**: iron, lockup + registry-driven columns (Pipeline/Language/Workbench/Company),
-  headed by `h2`s — the footer is its own landmark, outside the page's outline. On the family
-  site the lockup is the family's own name, not "More from Ferramenta", and the member columns
-  are dropped (`members="none"`): the page is itself the family's index and the header's
-  switcher reaches every member, so the footer only carries the company links. A sibling keeps
-  the columns (`"full"`, or `"short"` for short jobs).
-- **Buttons**: `.fam-btn-primary` rust with a single chamfered corner (`--chamfer`), one per
-  view; `.fam-btn-ghost` 1px heavy outline (iron line and ember on iron). Uppercase display type.
+Everything below ships in `ferramenta-family` and is shown live in the kit (`/kit`). A home
+page is these components stacked inside one `.fam-page`.
 
-### The landing kit (`ferramenta-family/landing.css`)
+### The plate (`Plate`, `Rivets`, `HangingTag`, `PlateLight`)
 
-The patterns above, plus the ones the sibling home pages grew, as shared components. Every class
-is prefixed `fam-`; bare elements are only styled inside `.fam-page` and only through `:where()`,
-so a host rule always wins over a kit default. A home page is `.fam-page` with these stacked:
+The family's one prop: a sheet of brushed steel (`steel.webp` over `steel`), riveted at its
+four corners, that says what a thing is. It appears as the hero plate, the name plate of a
+catalog row, and the small plate of an evidence figure; a steel tile (3px padding) under a
+small icon on a dark ground is the same material at icon scale. The hanging tag is a narrow
+plate frame on two chain links holding inlay cells: label over value, two columns on a phone,
+one row from 64rem. A plate that names nothing is not a plate; do not use it as a generic card.
 
-| Component          | Pattern                                                                                                         |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| `.fam-page`        | the shop floor: brushed texture, vignette, `--bg`; body type; `overflow-x: clip`                                |
-| `ProjectHero`      | poster H1 left, a large mark plate right (or the host's `aside` — the pegboard), ember floor glow, install line |
-| `Section`          | ruled H2, intro, optional provenance `note`; `layout="split"` puts the head beside the content                  |
-| `IronBand`         | full-bleed iron under a rust rule; ember H3 rows on hairlines; an `.on-iron` context for marks                  |
-| `PipelineAssembly` | the chassis on four `Fasteners`; stages link to their sites, `current` stamps this site's step                  |
-| `EvidenceFigures`  | mono label, big rust display value, rust left rule, detail and raw measure                                      |
-| `CodePanel`        | code on iron under a rust rule, mono caption, `--code-*` colors; scrolls in its own box                         |
-| `RunSample`        | input `CodePanel`, arrow, the tool\'s real output unedited on a ruled sheet (inert); caption names the versions |
-| `Ledger` + `Stamp` | coverage rows: display name, status stamp, the sentence behind it                                               |
-| `ClosingAction`    | flat, ruled return to the one action; copy and mono link line left, actions or an `aside` list right            |
-| `Pegboard`         | the 28px wall: every member on a hook, grouped, stamped; `current` leaves a site's own member off               |
-| `ToolLedger`       | registry rows with proof, facts, live release; `steps` numbers a real sequence                                  |
-| `JobIndex`         | the aisle directory: job A to Z, leader, tool, stamp; recommends none                                           |
-| `RegistryFacts`    | provides snapshot + live figures (metrics service first) to the three above and `FamilyDownloads`               |
+### Buttons
 
-- **Stamps**: a tinted `--bg-dim` fill with a `--line` hairline, mono uppercase; the settled state
-  (`stable`, `covered`) is solid rust; on iron the open states take `--iron-2` and `--iron-line`.
-  One stamp for the family ledger, coverage ledgers and the current assembly step. `StampKey`
-  renders the registry's meaning for each status.
-- **Evidence figures** show only numbers someone can reproduce; the section's `note` says where
-  and when they were measured. Say what is not covered in the ledger as plainly as what is.
-- **Code panel** is the iron surface at code scale, not a new material: flat `--iron`, no
-  texture, no chamfer. It is focusable so its horizontal scroll is reachable by keyboard.
+- **Shape:** sharp, 3.25rem tall, 1.375rem inline padding, action type.
+- **Primary** (`fam-btn-primary`): dark iron on a plate or on the light ground; one per view.
+  Hover lifts to `iron-2`.
+- **Steel** (`fam-btn-steel`, and the primary on a dark ground): a polished piece of the
+  plate's own steel (the texture under a white veil) with `steel-ink` text. The one action on
+  the rust band and on oak.
+- **Ghost** (`fam-btn-ghost`): a 1.5px engraved outline in the surface's own ink; hover tints
+  the ground 10% black (12% white on a dark ground).
+- **Install line** (`fam-install`): a command in mono on an inlay, beside the actions.
+- **Focus:** a 2px outline, 3px offset: rust on the light ground, `steel-ink` on a plate,
+  `ember` on oak and in the chrome, `rust-fill-ink` on the rust band, the application's own
+  color on its card.
 
-## Content rules
+### The engine catalog (`EngineCatalog`)
 
-- The family registry ([packages/family/src/family.ts](packages/family/src/family.ts))
-  is the single source of truth: names, jobs, proofs, versions, status, links, grouping.
-- Results are claimed qualitatively, never with a figure: "among the fastest", "ahead of
-  globset", "a larger test suite" are fine; speed-up factors, timings, percentages and test
-  counts live in each project's repository and site, where they stay current. No invented social
-  proof, stars, or testimonials.
-- Tool names are capitalized in prose (Ferroni, Ferrocat, Palamedes) — page copy and the
-  registry's prose fields (`proof`, `PIPELINE.description`) alike; identifiers (`name`,
-  `runsOn`), URLs, package names, and crate names stay lowercase. CSS applies
-  uppercase where the visual styling calls for it.
+One hairline-separated row per engine. The name plate carries the rendered icon, the name
+(the link, stretched over the whole plate) and the plain "what", and nothing else: no maturity
+stamp, because the live release beside it already says how far the engine has come. Beside
+the plate, in this order: what it does (largest, in ink), for whom, its lineage sentence, its
+relations as one-line sentences with a small adapter icon in rust, then the measured facts
+last and quiet (labels in the label style, the release in tabular mono), then the go-link in
+action type.
 
-## Ardo integration notes
+### The applications band (`ApplicationsBand`)
 
-- Custom shell via `export const handle = { chrome: false }` on the route; header/footer are
-  route-rendered components.
-- `.ferramenta-site main { overflow: visible; padding: 0 }` — Ardo's docs scroll-container
-  behavior is disabled for this single-page shell (body scrolls; sticky header works).
-- The family chrome lives in `root.tsx`, outside `ArdoRoot`, inside the `.fam-page` wrapper:
-  that makes the header and footer the page's `banner` and `contentinfo` landmarks instead of
-  parts of Ardo's `<main>`. The skip link targets Ardo's `#main-content`; Ardo's own skip link,
-  which sits after the header and fails contrast on the brand amber, is hidden.
-- The page ground is painted by `.fam-page`, not by `body`: Ardo's layout `<main>` paints its own
-  background over the body, which hid the brushed floor and the warm `--bg` until the kit moved
-  the ground onto the page element.
-- Scoped reset `:where(.ferramenta-site) *` (margin 0, border-box) replaces the comp's global
-  reset (Ardo ships no full preflight). It has zero specificity, so it never takes a tie from the
-  kit, the chrome or site.css, whatever the load order.
-- `ssr: { noExternal: ["lucide-react"] }` in vite.config — Ardo uses lucide internally; without
-  bundling, worktree module resolution escapes to a second React copy during prerender.
-- Favicons/social: generated by Ardo from `brand.logo` (baked-color toolbox SVGs in
-  [app/assets/brand/](app/assets/brand)).
+An oak band holding one light card per application: the page ground, ink text, and a 4px rule
+along the top in the application's own color. The logo stands on the card in its own colors;
+the name is set in the body face. An application that runs on family engines leads (wider
+column) and lists them as chips: a small icon on a steel tile, name and job on an inlay; its
+action is filled with its brand color. One that stands alone says so in a sentence and takes
+an outlined action in that color.
 
-## Motion & accessibility
+### Sections, principles, bands (`Section`, `Principles`, `IronBand`)
 
-- One authored moment: board items shift to rust on hover (no positional lift — plates stay on their hooks); arrows slide 3-4px
-  on row hover; assembly stage names turn rust. `prefers-reduced-motion` disables transitions globally.
-- Focus: 2px `--focus` outline, offset 2px — rust on the light shop floor, ember on iron surfaces and in dark mode (≥3:1 everywhere). Contrast held in both themes (soft text ≥ 4.5:1).
-- Browser surfaces carry the palette: text selection is rust with `--on-rust` (ember on iron in
-  code), `accent-color` is rust, the code panel's scrollbar is iron.
-- Targets: the header lockup is 44px tall; footer links get a 24px+ hit area through padding
-  that a negative margin takes back, so the columns keep their rhythm.
-- The page must never scroll horizontally; wide content scrolls in its own container.
+A section is a headline, an optional intro and note, and content on the light or the dim
+ground. Principles sit side by side (two columns from 48rem, three or four from 64rem), each
+under a 3px heavy rule; on oak the rule is `ember`. The dark band (`IronBand`, `fam-band`) is
+a full-bleed oak passage (`oak.webp` over iron-900); everything inside takes the `on-iron`
+colors.
 
-## Sharing & minimum sizes
+### The workshop's logos (site-only, `app/styles/site.css`)
 
-- Social card: `public/social.png` (1200×630), rendered headless from the world by
-  `scripts/render-social-card.mjs` (iron ground, poster headline, a pegboard strip with every
-  member's mark from the registry); wired via Ardo `metadata` + route-level og/twitter tags.
-  Re-render it when the line-up changes: `CHROME=<chromium> node scripts/render-social-card.mjs`.
-- Minimum UI text size on the page: 12px (0.75rem) — board/assembly sublabels, fact labels,
-  stamps. Nothing below.
-- Footer carries a one-line license note (site MIT; tool licenses live in their repositories).
+Under the personal note, on the dim ground: Sebastian Software and Sebastian Consulting, each
+as its own logo in its own colors (3.25rem tall), one sentence in soft ink, and a link line in
+action type in deep rust. Two columns from 48rem, above a hairline.
+
+### The rust band (`WorkWithUs`)
+
+The band a family page closes on: `rust.webp` tiled at 600px over `rust-fill`, a headline in
+`rust-fill-ink` and one sentence in `rust-fill-soft`, both plain light type, a short ruled
+list of offers in display type, and one steel action to the consulting site. No form. Once per
+page.
+
+### Stamps and the stamp legend (`Stamp`, `StampKey`)
+
+For a member's own page; the family page shows neither. A rating lettered like a plate:
+display 700 at 0.8125rem, tracking 0.16em, uppercase, 1.5px outline in the current ink. The
+settled state (`stable`, `covered`) is filled with rust: `rust` on the ground, the
+scheme-independent `rust-fill` set on a plate or on a dark ground. On a plate an outlined
+stamp becomes an inlay, because it is small type. The legend sets each stamp beside the one
+line it promises, from the registry.
+
+### Evidence, code, ledger, closing (`EvidenceFigures`, `CodePanel`, `RunSample`, `Ledger`, `ClosingAction`)
+
+For a member's own page. An evidence figure is a small plate: the figure large
+(`clamp(3rem, 6vw, 4.5rem)`), its label under it, and what it was measured on in an inlay; the
+family site never shows one. The code panel is flat dark iron, without texture: a mono
+caption over a hairline, code at 0.875rem, scrolling in its own focusable box. A run sample
+sets the input panel, an arrow in rust, and the tool's real output on a ruled sheet of the
+page ground; below 54rem the input folds into a bar. A ledger is hairline rows of name, stamp
+and sentence. The closing action is flat: headline, copy, one action, a mono link line.
+
+### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`, `FamilyLinks`)
+
+- **Header:** a sticky dark iron bar, 4rem tall, flat, with a 1px `iron-line` bottom edge. The
+  lockup is the small icon on a steel tile and the uppercase wordmark (1.5rem, tracking
+  0.08em). A site's own links are label-style display type in `iron-soft`, turning `iron-ink`
+  on hover or when current. On a phone the links give way first; one may be kept.
+- **Switcher:** a dark iron flyout listing the engines, then the applications, each tier under
+  a label; every entry is a tile icon, name and short job; hover is `iron-2` with `ember`
+  text. On a member's site the trigger shows the family's name inside a hairline and the
+  flyout opens with the way back to the family. Below 46rem it spans the viewport.
+- **Footer:** flat dark iron. Lockup and one sentence, then the engines, the applications, and
+  "Work with us" in display type with jobs in soft body text; a legal line over a hairline.
+- **Docs shell** (`docs.css`): Ardo's documentation layout under the family bar, in the family's
+  colors (`theme.css`), with a theme toggle in the bar. The toggle exists only there.
+
+### Icons (`Icon`, `Mark`)
+
+Each member is one object, shown as the same rendered picture at three sizes
+([design/icons/README.md](design/icons/README.md)): `hero` (640px) on the plate of a first
+viewport, `rendered` (256px) on a catalog plate, and `small` (96px, the default), shown at 24
+to 48px in the header, the switcher, the footer, a list or a chip. On a dark ground the small
+icon sits on a steel tile, because a dark object on dark iron has no outline. There is no
+vector form. Applications keep their own logos. The chrome's line icons (chevron, arrow,
+GitHub, crate, adapter, external, package) come from one SVG sprite. The textures' sources and
+what each gave up to be a ground for text are in
+[design/textures/README.md](design/textures/README.md).
+
+**The 24 Pixel Rule.** A member's icon is never shown below 24px.
+
+## Do's and Don'ts
+
+### Do:
+
+- **Do** open a page with one plate on oak: name, the plain "what", what it does, the action;
+  hang the measured facts below it on the tag.
+- **Do** keep the three materials to their jobs: brushed steel for plates, dark oak for the
+  first viewport and dark bands, rust for the closing band, once. Keep the chrome flat.
+- **Do** take every color from a role, and every role from a step of the two ramps.
+- **Do** put small type on an inlay or on the tag whenever it would otherwise sit on brushed
+  steel or on rust, and set text on steel in solid `steel-ink`.
+- **Do** build landing pages inside `.fam-page`, in the one authored scheme, with stylesheets
+  in the documented load order and classes in the `fam-` namespace.
+- **Do** follow a hero with a light section.
+- **Do** show engines in the family look and applications on light cards under their own
+  logos, with the brand color only in the top rule and the action.
+- **Do** put a small member icon on a steel tile when the ground is dark.
+- **Do** state what is proven in words on the family site, and leave figures to each project's
+  own page.
+- **Do** say how two members fit together in one sentence in the row.
+- **Do** honor reduced motion: the light stands still and the tag does not sway.
+
+### Don't:
+
+- **Don't** add a material or a second prop without a decision record.
+- **Don't** use a plate for something that names nothing; it is not a generic card.
+- **Don't** set small type on brushed steel or on rust, and don't use `rust-on-steel` below
+  display size.
+- **Don't** make rust a saturated orange field, repeat the rust band on a page, or set
+  display-lettering tricks on rust.
+- **Don't** introduce a cool grey, a third hue, or a literal color outside the two ramps.
+- **Don't** put a texture on the header, the footer, a flyout, a code panel or an inlay.
+- **Don't** round a corner. Only rivets and chain links are round.
+- **Don't** put a foreign logo on steel, oak, rust or the dark chrome, and don't recolor it.
+- **Don't** put a theme toggle on a landing page, or restyle documentation beyond the family's
+  colors and chrome.
+- **Don't** show a member's icon below 24px.
+- **Don't** stamp a maturity rating on an engine's plate on the family page.
+- **Don't** draw the members as a chain or a pipeline, or imply an entry point.
+- **Don't** repeat a factor, timing, percentage or test count on the family site.
+- **Don't** dress an application in the family look, or an engine in a brand of its own.
+- **Don't** pair an oak band directly under the hero when a light section can go there.

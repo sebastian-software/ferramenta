@@ -17,3 +17,7 @@ packages/*/dist
 
 # Local tooling
 .claude
+
+# Review captures and detector output of a design run: evidence for one
+# session, megabytes of screenshots, never part of the repository.
+.impeccable/review

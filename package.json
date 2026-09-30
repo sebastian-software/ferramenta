@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "pnpm build:package && react-router build && node scripts/check-rendered-links.mjs",
+    "build": "pnpm build:package && react-router build && node scripts/prune-sitemap.mjs && node scripts/check-rendered-links.mjs",
     "build:package": "pnpm --filter ferramenta-family build",
     "prepare": "pnpm build:package",
     "preview": "vite preview",
@@ -20,6 +20,7 @@
     "readme:write": "node packages/family/bin/family-readme.mjs --write README.md.src && mise run readme:write",
     "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check && pnpm check:markdown-links && pnpm theme:check",
     "verify:package": "node scripts/verify-package-consumers.mjs",
+    "review": "node scripts/review-site.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs",
     "theme:write": "node scripts/native-theme.mjs --write",

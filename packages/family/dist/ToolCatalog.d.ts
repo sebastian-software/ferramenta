@@ -1,33 +1,27 @@
+import { type ReactNode } from "react";
 import { type FamilyTool } from "./family.js";
-export type PegboardProps = {
-    /** A member whose own site this is: it is left off the wall. */
+export type EngineCatalogProps = {
+    /** A member whose own site this is: it is left out of the catalog. */
     current?: string;
-    /** The navigation landmark's name. */
-    label?: string;
+    /** The engines to show. Defaults to every engine in the registry, in catalog order. */
+    tools?: FamilyTool[];
 };
 /**
- * The pegboard: every member on a hook, grouped the way the family is, each
- * plate stamped with its maturity so none outranks another. Its geometry is
- * the 28px wall grid (see DESIGN.md); it fits the hero's `aside`.
+ * The engine catalog: one row per engine, each with its name plate. Every
+ * engine works on its own; where two fit together, the row says so.
  */
-export declare function Pegboard({ current, label }?: PegboardProps): import("react").JSX.Element;
-export type ToolLedgerProps = {
-    tools: FamilyTool[];
-    /**
-     * Number the rows 01, 02, 03 — only where the order is real, as in the
-     * pipeline's chain. Unnumbered rows drop the column instead of leaving it empty.
-     */
-    steps?: boolean;
-};
-/** The registry ledger: one hairline row per member, with proof, facts and release. */
-export declare function ToolLedger({ steps, tools }: ToolLedgerProps): import("react").JSX.Element;
-export type JobIndexProps = {
-    /** A member whose own site this is: it is left out of the index. */
+export declare function EngineCatalog({ current, tools }?: EngineCatalogProps): import("react").JSX.Element;
+export type ApplicationsBandProps = {
+    id?: string;
+    title?: ReactNode;
+    intro?: ReactNode;
+    /** A member whose own site this is: it is left out. */
     current?: string;
 };
 /**
- * The job index, like the aisle directory by a hardware store's door: every
- * job A to Z, and the tool that does it. Each member works on its own, so the
- * index recommends none; the stamp says how far each has come.
+ * The applications, each on a light card under its own logo and color: the
+ * one place the family shows a brand that is not its own. An application that
+ * runs on family engines leads and names them; one that stands alone is from
+ * the same workshop, and says no more than that.
  */
-export declare function JobIndex({ current }?: JobIndexProps): import("react").JSX.Element;
+export declare function ApplicationsBand({ current, id, intro, title, }?: ApplicationsBandProps): import("react").JSX.Element | null;

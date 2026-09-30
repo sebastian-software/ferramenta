@@ -3,157 +3,171 @@
  * Used by ferramenta.dev and the per-package docs sites for
  * cross-linking, consistent descriptions, and the shared header/footer.
  *
- * Membership rule (ADR-0001 amendment, 2026-09-25): a member is a family
- * engine, a product built on family engines, or a selected standalone
- * Rust-native application. Common ownership alone does not grant membership.
+ * The family has two tiers (ADR-0008). Engines are the Rust-native
+ * infrastructure the family is about; they share the family's look.
+ * Applications are products from the same workshop with a brand of their own;
+ * the family carries them, it does not dress them.
+ *
+ * Every entry says what the member is before where it comes from: `what`,
+ * then `does`, then `audience`. Lineage (`proof`) and the measured facts come
+ * after. A stranger has to understand the thing first.
  */
 export const FAMILY_SITE = "https://ferramenta.dev";
 export const family = [
     {
         name: "ferroni",
-        job: "Oniguruma, continued in Rust",
+        what: "A regex engine",
+        job: "Oniguruma-compatible regex engine",
         shortJob: "Regex engine",
+        does: "Runs the regular expressions that TextMate grammars are written in, with the scanner editors and highlighters drive built in.",
+        audience: "For anyone who tokenizes code the way an editor does.",
         succeeds: "Oniguruma / vscode-oniguruma",
         proof: "Oniguruma made TextMate grammars portable across editors, and its C project ended in April 2025. Ferroni continues the engine in memory-safe Rust, with the vscode-oniguruma scanner built in.",
         evidence: "Oniguruma compatibility oracle",
         version: "1.4.2",
         status: "stable",
-        group: "pipeline",
         repo: "https://github.com/sebastian-software/ferroni",
         docs: "https://ferroni.dev",
     },
     {
         name: "ferriki",
+        what: "A syntax highlighter",
         job: "Shiki-compatible syntax highlighting",
         shortJob: "Syntax highlighting",
+        does: "Highlights code with the grammars and themes your editor uses.",
+        audience: "For docs sites, blogs, and build tools that render code.",
         succeeds: "Shiki",
         proof: "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar contract while moving the engine from JavaScript and WASM to native Rust.",
         evidence: "Mirrored Shiki test suite",
         version: "0.3.0",
         status: "alpha",
-        group: "pipeline",
+        uses: ["ferroni"],
+        pairsWith: ["ferromark"],
         repo: "https://github.com/sebastian-software/ferriki",
         docs: "https://ferriki.dev",
     },
     {
         name: "ferromark",
+        what: "A Markdown renderer",
         job: "Markdown to HTML, sanitized by default",
         shortJob: "Markdown to HTML",
+        does: "Turns Markdown into HTML, sanitized by default, and is among the fastest engines for the job.",
+        audience: "For static sites, docs pipelines, and any app that renders what people write.",
         buildsOn: "CommonMark / GFM",
         proof: "CommonMark settled what Markdown means. Ferromark carries that contract, plus GFM and sanitized output, into a Rust renderer built for speed.",
         evidence: "CommonMark & GFM conformance",
         version: "2.1.1",
         status: "stable",
-        group: "pipeline",
         repo: "https://github.com/sebastian-software/ferromark",
         docs: "https://ferromark.dev",
     },
     {
         name: "ferrolex",
+        what: "A spell checker",
         job: "Spell checking for text and code",
         shortJob: "Spell checking",
+        does: "Checks spelling in prose and in code, and gives the same suggestions every time.",
+        audience: "For editors, linters, and CI checks.",
         succeeds: "Hunspell",
         proof: "Hunspell set the dictionary standard. Ferrolex reads those dictionaries while adding compiled dictionaries, deterministic suggestions, and code-aware checking.",
         evidence: "Hunspell oracle · deterministic suggestion scoring",
         version: "0.4.0",
         status: "alpha",
-        group: "language",
         repo: "https://github.com/sebastian-software/ferrolex",
     },
     {
         name: "ferrocat",
+        what: "A translation catalog engine",
         job: "Translation catalog engine",
         shortJob: "Translation catalogs",
+        does: "Reads, merges, and compiles translation catalogs.",
+        audience: "For teams whose translations live in the repository.",
         buildsOn: "PO / ICU MessageFormat",
         proof: "gettext taught software to speak in catalogs. Ferrocat carries that model into Git and AI workflows, where merges stay conflict-free and human corrections stay authoritative.",
         evidence: "Upstream-derived conformance cases · ahead of GNU msgmerge and common PO libraries",
         version: "3.4.2",
         status: "stable",
-        group: "language",
         repo: "https://github.com/sebastian-software/ferrocat",
         docs: "https://ferrocat.dev",
     },
     {
-        name: "palamedes",
-        job: "Internationalization for TypeScript applications",
-        shortJob: "i18n toolchain",
-        proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
-        evidence: "Checked-in end-to-end benchmark against Lingui",
-        runsOn: ["ferrocat", "ferromark", "ferralk"],
-        version: "1.25.0",
-        status: "stable",
-        group: "language",
-        role: "application",
-        repo: "https://github.com/sebastian-software/palamedes",
-        docs: "https://palamedes.dev",
-    },
-    {
         name: "ferralk",
+        what: "A glob matcher and file walker",
         job: "Glob matching and parallel filesystem walking",
         shortJob: "Glob matching",
+        does: "Matches glob patterns and walks file trees in parallel, ahead of globset and fast-glob.",
+        audience: "For build tools, linters, and anything that starts with a file list.",
         buildsOn: "Glob syntax / .gitignore rules",
         proof: "Every build tool pays for finding files before it does any work. Ferralk keeps zlob's byte-first approach in pure Rust, without Zig or a C ABI, and holds its matcher and walker to a frozen zlob reference.",
         evidence: "Frozen zlob reference · ahead of globset and fast-glob",
         version: "1.0.0",
         status: "stable",
-        group: "workbench",
         repo: "https://github.com/sebastian-software/ferralk",
     },
     {
         name: "ferrugo",
+        what: "A PDF preview renderer",
         job: "PDF previews for untrusted files",
         shortJob: "PDF previews",
+        does: "Renders previews of PDF files you have no reason to trust.",
+        audience: "For upload pipelines and document viewers.",
         buildsOn: "PDF (ISO 32000)",
         proof: "PDF previews have traditionally meant embedding a browser-sized engine. Ferrugo takes a narrower path: render untrusted files under explicit resource limits, without PDFium.",
         evidence: "Bounded memory and time · no PDFium",
         version: "0.5.0",
         status: "early",
-        group: "workbench",
         repo: "https://github.com/sebastian-software/ferrugo",
     },
     {
+        name: "palamedes",
+        what: "An i18n toolchain for TypeScript apps",
+        job: "Internationalization for TypeScript applications",
+        shortJob: "i18n toolchain",
+        does: "Keeps messages where the interface is written, and moves extraction, validation, merging, and compilation onto a native toolchain.",
+        audience: "For TypeScript teams whose catalogs belong to the repository, not to a service.",
+        proof: "Lingui and FormatJS taught JavaScript teams to write messages where the code is, not in a distant resource file. Palamedes keeps that authoring model and moves extraction, validation, merging, and compilation onto a native toolchain, so the catalogs stay owned by the repository instead of by a service.",
+        evidence: "Checked-in end-to-end benchmark against Lingui",
+        runsOn: ["ferrocat", "ferromark", "ferralk"],
+        version: "1.25.0",
+        status: "stable",
+        role: "application",
+        brand: { color: "#0e2a4d", onColor: "#f3eee4" },
+        repo: "https://github.com/sebastian-software/palamedes",
+        docs: "https://palamedes.dev",
+    },
+    {
         name: "dalo",
+        what: "Agent skills for teams, kept as code",
         job: "Team agent skills, versioned and synced as code",
         shortJob: "Agent skills",
+        does: "Keeps team skills in Git, resolves an approved set, and links them into the folders your agents already read.",
+        audience: "For teams that share agent skills and want them reviewed like code.",
         proof: "Dalo keeps team skills in Git, resolves an approved set, and links those skills into the folders supported agents already read.",
         evidence: "Git-backed sources · approvals · deterministic sync",
         runsOn: [],
         version: "0.17.0",
         status: "beta",
-        group: "workbench",
         role: "application",
-        mark: "ferramenta",
+        brand: { color: "#0b1733", onColor: "#eef1f8" },
         repo: "https://github.com/sebastian-software/dalo",
         docs: "https://dalo.sh",
     },
-    {
-        name: "cuttledoc",
-        job: "Local-first speech transcription",
-        shortJob: "Speech transcription",
-        proof: "Cuttledoc brings transcription to a reusable Rust library and native CLI, with on-device processing first and hosted backends available by explicit choice.",
-        evidence: "On-device transcription · reusable Rust library · native CLI",
-        runsOn: [],
-        version: "2.0.0",
-        status: "beta",
-        group: "workbench",
-        role: "application",
-        mark: "ferramenta",
-        repo: "https://github.com/sebastian-software/cuttledoc",
-    },
 ];
 /**
- * The content pipeline beyond its members: what goes in, what comes out, and
- * the sentence that reads the whole assembly for a screen reader. The stages
- * themselves are the `pipeline` group, in array order.
+ * The workshop behind the family: where its code lives, and where the people
+ * who build the engines can be hired. Every family site's footer carries the
+ * consulting link, so it is a registry fact, not page copy.
  */
-export const PIPELINE = {
-    input: { label: "Input", text: "Markdown with code" },
-    output: { label: "Output", text: "Highlighted HTML" },
-    description: "The content pipeline: Markdown with code goes in. Ferroni runs the regular expressions of the TextMate grammars for Ferriki, Ferriki highlights the code, and Ferromark renders the whole document to HTML.",
+export const WORKSHOP = {
+    name: "Sebastian Software",
+    source: "https://github.com/sebastian-software",
+    openSource: "https://oss.sebastian-software.com",
+    consulting: "https://sebastian-consulting.com",
 };
 /**
- * What each maturity stamp promises, in one line. The stamp legend on every
- * family site reads from here, so a status means the same thing everywhere.
+ * What each maturity stamp promises, in one line. A site that shows a stamp
+ * legend (`StampKey`) reads it from here, so a status means the same thing
+ * everywhere.
  */
 export const STATUS_MEANING = {
     stable: "Ready to adopt; its interface is settled.",
@@ -185,14 +199,16 @@ export function displayName(tool) {
     const name = typeof tool === "string" ? tool : tool.name;
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
+/** A member by name. An unknown name is a registry error, not a silent gap. */
+function member(name, context) {
+    const found = family.find((candidate) => candidate.name === name);
+    if (found === undefined)
+        throw new Error(`${context} unknown member: ${name}`);
+    return found;
+}
 /** The members an application runs on. An unknown name is a registry error, not a silent gap. */
 export function runsOnTools(tool) {
-    return (tool.runsOn ?? []).map((name) => {
-        const member = family.find((candidate) => candidate.name === name);
-        if (member === undefined)
-            throw new Error(`${tool.name} runs on unknown member: ${name}`);
-        return member;
-    });
+    return (tool.runsOn ?? []).map((name) => member(name, `${tool.name} runs on`));
 }
 /** True for a member that succeeds an established implementation, false for a new development. */
 export function isSuccessor(tool) {
@@ -202,27 +218,42 @@ export function isSuccessor(tool) {
 export function isEngine(tool) {
     return (tool.role ?? "engine") === "engine";
 }
-/**
- * Members in the order of their short jobs, A to Z: an index to look a job up
- * in. Every member works on its own, so the index ranks none of them; it only
- * answers "which tool does this".
- */
-export function byJob(tools = family) {
-    return [...tools].sort((a, b) => a.shortJob.localeCompare(b.shortJob, "en", { sensitivity: "base" }));
-}
-/** The three display groups of the overview page, in order. */
-export function familyGroups(current) {
-    const tools = relatedTools(current);
-    return {
-        pipeline: tools.filter((tool) => tool.group === "pipeline"),
-        language: tools.filter((tool) => tool.group === "language"),
-        workbench: tools.filter((tool) => tool.group === "workbench"),
-    };
-}
 /** Related tools in catalog order. Unknown project IDs are configuration errors. */
 export function relatedTools(current) {
     if (current !== undefined && !family.some((tool) => tool.name === current)) {
         throw new Error(`Unknown Ferramenta project: ${current}`);
     }
     return family.filter((tool) => tool.name !== current);
+}
+/**
+ * The family's two tiers, in catalog order, without the current project: the
+ * engines, and the applications the workshop also makes.
+ */
+export function familyTiers(current) {
+    const tools = relatedTools(current);
+    return {
+        engines: tools.filter((tool) => isEngine(tool)),
+        applications: tools.filter((tool) => !isEngine(tool)),
+    };
+}
+/**
+ * Every relation a member has to the rest of the family, from both sides: what
+ * it runs on, what runs on it, what it pairs with. Members are independent;
+ * this is where two of them fit together, never a required chain.
+ */
+export function relationsOf(tool) {
+    const dependencies = (candidate) => [
+        ...(candidate.uses ?? []),
+        ...(candidate.runsOn ?? []),
+    ];
+    const runsOn = dependencies(tool).map((name) => member(name, `${tool.name} runs on`));
+    const carries = family.filter((candidate) => dependencies(candidate).includes(tool.name));
+    const pairs = family.filter((candidate) => candidate.name !== tool.name &&
+        ((tool.pairsWith ?? []).includes(candidate.name) ||
+            (candidate.pairsWith ?? []).includes(tool.name)));
+    return [
+        ...runsOn.map((other) => ({ kind: "runs-on", tool: other })),
+        ...pairs.map((other) => ({ kind: "pairs-with", tool: other })),
+        ...carries.map((other) => ({ kind: "carries", tool: other })),
+    ];
 }

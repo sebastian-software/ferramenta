@@ -37,8 +37,13 @@ const REQUIRED_FILES = [
   "markdown/ferromark/footer.md",
   "dist/family.js",
   "styles/chrome.css",
+  "styles/docs.css",
   "styles/landing.css",
-  "fonts/big-shoulders.woff2",
+  "fonts/barlow-condensed-700.woff2",
+  "icons/ferramenta-96.webp",
+  "icons/ferroni.webp",
+  "textures/steel.webp",
+  "textures/oak.webp",
 ];
 
 /** Packs the package into the scratch directory and returns its specifier. */

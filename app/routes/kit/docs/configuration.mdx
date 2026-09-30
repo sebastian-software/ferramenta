@@ -1,0 +1,50 @@
+---
+order: 2
+title: Configuration
+description: A sample documentation page of the Ferramenta kit, for an invented family member.
+sitemap: false
+llms: false
+---
+
+export const meta = () => [{ title: "Configuration — Ferrometro, a sample of the Ferramenta kit" }];
+
+# Configuration
+
+> **A sample page.** Ferrometro is invented to show what a family member's
+> documentation looks like; nothing here is a real tool. [Back to the kit](/kit)
+
+The engine ships with the UCUM unit tables compiled in. Most programs never
+configure anything.
+
+## Unit tables
+
+| Table       | Contents                                | Default |
+| ----------- | --------------------------------------- | ------- |
+| `si`        | Base units, derived units, and prefixes | On      |
+| `customary` | International and US customary units    | On      |
+| `clinical`  | Units used in laboratory data           | Off     |
+
+Turn a table on through a Cargo feature of the same name:
+
+```toml
+[dependencies]
+ferrometro = { version = "0", features = ["clinical"] }
+```
+
+## Your own units
+
+A unit is a name and its definition in terms of units the engine already
+knows.
+
+```rust
+use ferrometro::{Registry, Quantity};
+
+let mut units = Registry::default();
+units.define("smoot", "1.7018 m")?;
+
+let bridge: Quantity = units.parse("364.4 smoot")?;
+assert_eq!(bridge.to("m")?.to_string(), "620.13592 m");
+```
+
+A definition is checked when it is added: a unit defined in terms of itself,
+or of a unit that does not exist, is an error at that line.
