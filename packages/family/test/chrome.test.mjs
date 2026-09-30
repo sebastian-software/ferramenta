@@ -94,7 +94,7 @@ test("the project lockup names the site and moves the family into the switcher",
   assert.ok(html.includes('<a class="lockup" href="/ferroni/">'), "the lockup links the site home");
   assert.ok(
     html.includes(
-      '<span class="fam-icon" data-icon="ferroni" data-form="small" style="--fam-icon-size:40px" aria-hidden="true"></span><span>ferroni</span>',
+      '<span class="fam-icon" data-icon="ferroni" data-form="small" style="--fam-icon-size:48px" aria-hidden="true"></span><span>ferroni</span>',
     ),
     "the project's small icon directly on the bar, then its name",
   );

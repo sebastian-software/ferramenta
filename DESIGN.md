@@ -676,7 +676,7 @@ never draws a chain; a member that stands alone renders nothing.
 ### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`, `FamilyLinks`)
 
 - **Header:** a sticky dark iron bar, 4rem tall, flat, with a 1px `iron-line` bottom edge. The
-  lockup is the small icon (40px; 32px below 46rem) directly on the iron and the uppercase
+  lockup is the small icon (48px; 36px below 46rem), lit for the iron, and the uppercase
   wordmark (1.5rem, tracking 0.08em). A site's own links are label-style display type in `iron-soft`, turning `iron-ink`
   on hover or when current. On a phone the links give way first; one may be kept.
 - **Search** (`site-search`): the host's own search component in the header's actions slot. It
@@ -703,8 +703,11 @@ Each member is one object, shown as the same rendered picture at three sizes
 ([design/icons/README.md](design/icons/README.md)): `hero` (640px) on the plate of a first
 viewport, `rendered` (256px) on a catalog plate, and `small` (96px, the default), shown at 24
 to 48px in the header, the switcher, the footer, a list or a chip, directly on whatever ground
-it stands on: every object carries enough light of its own to read on dark iron, and a tile
-under it was tried and dropped. There is no vector form. Applications keep their own logos. The line icons (chevron, arrow,
+it stands on. On a dark ground (the bar, the footer, the flyout's engines, a dark chip) it is
+lit for the iron: `--fam-icon-lit` lifts it a step (`brightness(1.28) contrast(0.9)
+saturate(1.06)`) and rims it with a hair of `iron-100` light, because the objects were
+rendered for steel; on a light ground it stays as rendered. A tile under it was tried and
+dropped. There is no vector form. Applications keep their own logos. The line icons (chevron, arrow,
 GitHub, crate, adapter, external, package, and a comparison's marks check, half and cross)
 come from one SVG sprite. The textures' sources and
 what each gave up to be a ground for text are in
@@ -728,7 +731,8 @@ what each gave up to be a ground for text are in
 - **Do** follow a hero with a light section.
 - **Do** show engines in the family look and applications on light cards under their own
   logos, with the brand color only in the top rule and the action.
-- **Do** let a small member icon stand directly on its ground, dark iron included.
+- **Do** let a small member icon stand directly on its ground; on dark iron it takes the
+  lit-for-the-iron filter, never a tile.
 - **Do** quote an outside voice verbatim, short, attributed and linked, and only about the
   material.
 - **Do** state what is proven in words on the family site, and leave figures to each project's
