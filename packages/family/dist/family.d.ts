@@ -63,19 +63,13 @@ export type FamilyTool = {
     name: string;
     /**
      * What the member is, as a noun phrase a stranger understands: "A regex
-     * engine". Sentence case; an engine's starts with its article, because pages
-     * list the engines in a sentence. The first thing any surface says after the
-     * name.
+     * engine". Sentence case, with its article, because pages list the engines
+     * in a sentence; a label drops the article (`whatLabel`). The first thing
+     * any surface says after the name.
      */
     what: string;
     /** One-line job description — the subheader under the tool name, the README tables */
     job: string;
-    /**
-     * Terse job label for constrained family navigation surfaces. Sentence case
-     * ("Regex engine"); acronyms keep their capitals ("PDF") and a lowercase
-     * term of art its lowercase ("i18n toolchain").
-     */
-    shortJob: string;
     /** What it does, in one plain sentence. Results qualitatively, never with a figure. */
     does: string;
     /** Who reaches for it, as a sentence starting with "For". */
@@ -132,6 +126,12 @@ export declare const family: FamilyTool[];
  */
 export declare const WORKSHOP: {
     readonly name: "Sebastian Software";
+    /** The legal entity behind the family, for the copyright line every footer carries. */
+    readonly company: "Sebastian Software GmbH";
+    readonly place: "Mainz, Germany";
+    /** The imprint and privacy policy the law asks a site to link; the company site keeps them. */
+    readonly imprint: "https://sebastian-software.com/imprint";
+    readonly privacy: "https://sebastian-software.com/privacy-policy";
     readonly source: "https://github.com/sebastian-software";
     readonly openSource: "https://oss.sebastian-software.com";
     readonly consulting: "https://sebastian-consulting.com";
@@ -159,6 +159,12 @@ export declare function leadsToRepo(tool: FamilyTool): boolean;
  * may run on from a label before it.
  */
 export declare function displayName(tool: FamilyTool | string): string;
+/**
+ * What a member is, as a label without its article: "Regex engine" for the
+ * `what` "A regex engine". A first word with a digit keeps its case ("i18n
+ * toolchain").
+ */
+export declare function whatLabel(tool: FamilyTool): string;
 /** The members an application runs on. An unknown name is a registry error, not a silent gap. */
 export declare function runsOnTools(tool: FamilyTool): FamilyTool[];
 /** True for a member that succeeds an established implementation, false for a new development. */

@@ -28,8 +28,11 @@ shown as the rendered picture everywhere, at three sizes:
 - 96 pixels for every small place: the header, the switcher, a list, a chip. It
   is shown there at 24 to 48 pixels.
 
-On a dark ground the small icon sits on a steel tile, because a dark object on
-dark iron has no outline.
+The small icon stands directly on the dark iron of the chrome. A steel tile
+under it was tried and dropped: the frame made the object smaller and put a
+bright patch in the dark bar, and every object carries enough light of its own
+to read there. The applications' logos are foreign brands drawn for a light
+ground, so the switcher's applications tier is light.
 
 The objects: ferramenta, a toolbox · ferroni, an anvil with a hammer · ferriki,
 a flame in a fire pot · ferromark, a hand stamp · ferrolex, letterpress type ·

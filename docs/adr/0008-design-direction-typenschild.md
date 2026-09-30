@@ -54,8 +54,8 @@ warm because the icons are.
 
 - _Brushed steel_ is the plate: a riveted sheet that says what a thing is and
   carries the action. It is the family's one prop. Small plates repeat it where
-  a thing is named or measured: a catalog row, an evidence figure, the tiles
-  under the icons in the chrome.
+  a thing is named or measured: a catalog row, an evidence figure. The chrome
+  carries no steel: an icon stands directly on the dark iron.
 - _Dark oak_ is the bench the plates lie on: the ground of the first viewport
   and of a page's dark bands. It is smoked almost to black, so its grain is
   there at a second look and light text holds on it.

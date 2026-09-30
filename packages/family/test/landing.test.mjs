@@ -7,7 +7,7 @@ import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { createElement } from "react";
 
-import { assertInOrder, kit, render } from "./helpers.mjs";
+import { assertInOrder, kit, member, render } from "./helpers.mjs";
 /** A minimal fetch Response carrying JSON, for the stubbed registries. */
 const body = (value) => ({ ok: true, json: async () => value });
 
@@ -257,14 +257,15 @@ test("the stamp legend reads every status from the registry", () => {
   assert.ok(html.includes('<span class="fam-stamp" data-tone="solid">stable</span>'));
 });
 
-test("short jobs keep their acronyms: the chrome shows them without a text transform", () => {
+test("labels keep their acronyms and terms of art: the chrome shows them without a text transform", () => {
   for (const tool of kit.family) {
-    assert.doesNotMatch(
-      tool.shortJob,
-      /\b(?:svg|pdf|markdown)\b/u,
-      `${tool.name}: ${tool.shortJob}`,
-    );
+    const label = kit.whatLabel(tool);
+    assert.doesNotMatch(label, /\b(?:svg|pdf|markdown)\b/u, `${tool.name}: ${label}`);
+    assert.doesNotMatch(label, /^An? /u, `${tool.name}: a label carries no article`);
+    assert.match(label, /^[A-Zi]/u, `${tool.name}: sentence case, or a lowercase term of art`);
   }
+  assert.equal(kit.whatLabel(kit.family[0]), "Regex engine");
+  assert.equal(kit.whatLabel(member("palamedes")), "i18n toolchain for TypeScript apps");
 });
 
 test("the registry claims results qualitatively, never with a figure that goes stale", () => {

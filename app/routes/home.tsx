@@ -12,6 +12,7 @@ import {
   RegistryFacts,
   runsOnTools,
   Section,
+  Voices,
   WORKSHOP,
   WorkWithUs,
 } from "ferramenta-family";
@@ -131,6 +132,25 @@ function Workshop() {
   );
 }
 
+/**
+ * What others say about the material, verbatim and linked. Not testimonials:
+ * nobody here speaks about the family, only about building with Rust.
+ */
+const VOICES = [
+  {
+    quote: "…as damn near straight to the metal as you can get while still being portable.",
+    who: "David Heinemeier Hansson",
+    where: "on HEY's mail server, now in Rust · Rails World 2026 keynote",
+    href: "https://www.youtube.com/watch?v=vDjW_dRyKXY&t=3922s",
+  },
+  {
+    quote: "Vibe-coded projects written in Rust are faster, safer, and more likely to work…",
+    who: "Justin Schroeder",
+    where: "on X · August 2026",
+    href: "https://x.com/jpschroeder/status/2094104291321462911",
+  },
+];
+
 /** The personal note: who builds this, and why. Site-only, so it is not in the kit. */
 function Story() {
   return (
@@ -155,6 +175,9 @@ function Story() {
             you&rsquo;d design them for Rust today.
           </p>
         </div>
+      </div>
+      <div className="wrap">
+        <Voices title="The material, in other people's words" voices={VOICES} />
       </div>
       <Workshop />
     </section>

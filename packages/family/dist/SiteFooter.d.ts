@@ -13,7 +13,11 @@ export type SiteFooterProps = {
      * family audit).
      */
     line?: "company" | "family";
-    /** The small print under the columns. */
+    /**
+     * The small print under the columns: the site's license, its build. The
+     * workshop's copyright, imprint and privacy links stand above it on every
+     * footer, so a site does not repeat them here.
+     */
     legal?: ReactNode;
     /**
      * The element to render. `"footer"` (the default) is the contentinfo

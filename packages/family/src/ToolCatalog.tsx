@@ -9,6 +9,7 @@ import {
   relationsOf,
   runsOnTools,
   toolHref,
+  whatLabel,
 } from "./family.js";
 import { type CustomProperties, Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
@@ -110,7 +111,7 @@ function EngineRow({ tool }: { tool: FamilyTool }) {
                 <RepoNote tool={tool} />
               </a>
             </h3>
-            <p className="fam-engine-what">{tool.what}</p>
+            <p className="fam-engine-what">{whatLabel(tool)}</p>
           </div>
         </div>
         <div className="fam-engine-body">
@@ -158,7 +159,7 @@ function brandStyle(tool: FamilyTool): CustomProperties | undefined {
   return { "--fam-app-color": tool.brand.color, "--fam-app-on-color": tool.brand.onColor };
 }
 
-/** The engines an application runs on: each icon on a steel tile, name and job on a dark inlay. */
+/** The engines an application runs on: each icon, name and what it is, on a dark inlay. */
 function RunsOn({ engines }: { engines: FamilyTool[] }) {
   return (
     <>
@@ -166,12 +167,10 @@ function RunsOn({ engines }: { engines: FamilyTool[] }) {
       <ul className="fam-app-runs">
         {engines.map((engine) => (
           <li key={engine.name}>
-            <span className="fam-tile">
-              <Icon name={engine.name} size={28} />
-            </span>
+            <Icon name={engine.name} size={32} />
             <span>
               <b>{engine.name}</b>
-              {engine.shortJob}
+              {whatLabel(engine)}
             </span>
           </li>
         ))}

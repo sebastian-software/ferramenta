@@ -187,8 +187,8 @@ The header and footer are dark iron in every scheme.
   for the header, a list, a chip, shown at 24 to 48px; `rendered` for a catalog
   plate, up to about 128px; `hero` for a first viewport. `chrome.css` places
   the files as background images, so your bundler resolves them like the font.
-  Do not show an icon below 24px. On a dark ground, put it on a steel tile:
-  `<span className="fam-tile"><Icon name="ferroni" size={28} /></span>`.
+  Do not show an icon below 24px. It stands directly on a dark ground; nothing
+  goes under it.
 - **`Mark`** — `name` (a sprite symbol without the `i-` prefix: `arrow`,
   `chev`, `github`, `crate`, `adapter`, `external`, `package`), `className`
   (default `icon`), `size`. A line icon in the text color.
@@ -197,6 +197,9 @@ The header and footer are dark iron in every scheme.
   It shows below `64rem`, where an Ardo docs layout hides its sidebar and a
   phone would otherwise have no way to the other pages; on those widths the
   bar drops the GitHub link, which the footer still carries.
+- Every footer carries the workshop's copyright line with its imprint and
+  privacy links (`WORKSHOP.company`, `WORKSHOP.place`, `WORKSHOP.imprint`,
+  `WORKSHOP.privacy`); a site's `legal` is what comes after it.
 - **`site-search`** — a class, not a component: wrap your framework's search
   field in `<div className="site-search">` inside the `actions` slot. It keeps
   its own look and gets its room from the chrome. Below `64rem` it takes a
@@ -278,6 +281,7 @@ from "X, continued in Rust".
 | `ComparisonBars`   | `caption`, `bars: { label, detail?, value, text?, own? }[]`, `max?` — one measure across the field, every bar with its figure as text                                                                                                                             |
 | `Measured`         | `on`, `machine`, `revision?`, `more?: { label, value }[]`, `children?` (the link to the full report) — where and when a figure was measured                                                                                                                       |
 | `Relations`        | `current` — where a member fits with the others, from the registry: what it runs on, pairs with, carries. Renders nothing for a member that stands alone                                                                                                          |
+| `Voices`           | `title?`, `voices: { quote, who, where, href? }[]` — outside voices on the material, verbatim, attributed and linked; never about the family itself                                                                                                               |
 | `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                                      |
 | `RunSample`        | `input`, `inputCaption`, `inputKind?`, `output` (your tool's real output as trusted HTML, a committed artifact), `outputCaption` — the tool run for real, input beside output; the output is `inert`                                                              |
 | `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                                                                                                  |
@@ -299,7 +303,9 @@ what runs on it, what it pairs with), `WORKSHOP` (the workshop's links),
 `STATUS_MEANING` and `STATUS_ORDER` (what each stamp promises, most settled
 first), `isSuccessor(tool)` (a member with `succeeds`, as opposed to a new
 development with `buildsOn`), `displayName(tool)` (the name as prose writes
-it), `runsOnTools(tool)` (an application's engines; an unknown name throws),
+it), `whatLabel(tool)` (what a member is, without its article: "Regex engine";
+the label under a name wherever there is no room for a sentence),
+`runsOnTools(tool)` (an application's engines; an unknown name throws),
 and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links lead). Every
 surface that links a member says when that is a repository:
 `<RepoNote tool={tool} />` after the name renders the words for assistive
@@ -521,7 +527,7 @@ from the chrome — which also means it wins those ties. It owns these class
 names: `site-header`, `site-footer`, `site-links`, `site-menu`, `site-search`, `bar`, `wrap`, `lockup`,
 `switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
 `flyhome`, `ghlink`, `site-nav`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
-`icon`, `fam-icon`, `fam-tile`, `fam-sr-only`. `landing.css` needs `chrome.css`
+`icon`, `fam-icon`, `fam-sr-only`. `landing.css` needs `chrome.css`
 for `wrap`, `icon`, `fam-icon`, `on-iron` and `fam-sr-only`. It owns every other
 class that starts with `fam-`. The landing kit sets `.fam-page :where(a)` to
 rust and `.on-iron :where(a)` to ember, with underlines for running-text links.
@@ -655,26 +661,29 @@ markers are unaffected by the package name.
 2.0 changes the look, the registry's shape and the way icons are shown. A
 sibling site migrates in one change:
 
-| 1.x                                                                 | 2.0                                                                                              |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `<Mark name="ferroni" />` (a member's mark in the sprite)           | `<Icon name="ferroni" />`; `Mark` is for line icons only and defaults to `className="icon"`      |
-| `ProjectHero mark="ferroni"`, title as a slogan                     | `ProjectHero icon="ferroni" what="…" facts={[…]}`; the title is the name, `what` says what it is |
-| `familyGroups()`, `group`, `PIPELINE`, `byJob()`                    | `familyTiers()`, `relationsOf(tool)`; members have `what`, `does`, `audience`                    |
-| `Pegboard`, `ToolLedger`, `JobIndex`                                | `EngineCatalog`, `ApplicationsBand`                                                              |
-| `PipelineAssembly`, `Fasteners`                                     | removed: no surface draws the members as a chain                                                 |
-| `IronBand rows` right under the hero                                | `<Section><Principles items /></Section>`; `IronBand` stays for a later dark passage             |
-| `fonts/big-shoulders.woff2`                                         | `fonts/barlow-condensed-700.woff2` (and `-500`, `-600`)                                          |
-| A theme toggle on the landing page                                  | none: `.fam-page` has one authored scheme; keep the toggle for docs                              |
-| Your own docs-shell overrides                                       | `ferramenta-family/docs.css` and the class `fam-docs-shell`                                      |
-| The family footer's "Company" column                                | "Work with us": consulting, open source, GitHub                                                  |
-| `ClosingAction` with its actions beside the copy                    | the actions sit under the copy, the link line after them                                         |
-| Your own section menu for docs on a phone                           | `SiteMenu` in the header's `actions` slot                                                        |
-| Your own wrapper and phone rules for search in the bar              | `<div className="site-search">` around the search component                                      |
-| Your own benchmark or feature tables, bars, "measured on" lines     | `ComparisonTable`, `ComparisonBars`, `Measured`                                                  |
-| A "Where it sits" section with `PipelineAssembly`                   | `<Relations current="…" />`                                                                      |
-| Your own two-column grid for code panels                            | the class `fam-code-grid`                                                                        |
-| `fam-btn-primary` in rust, chamfered                                | dark iron, square; `fam-btn-steel` on oak or rust                                                |
-| `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens | removed; see `tokens.css` for the ramps and the roles (`--steel*`, `--inlay*`, `--iron*`)        |
+| 1.x                                                                 | 2.0                                                                                                |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `<Mark name="ferroni" />` (a member's mark in the sprite)           | `<Icon name="ferroni" />`; `Mark` is for line icons only and defaults to `className="icon"`        |
+| `ProjectHero mark="ferroni"`, title as a slogan                     | `ProjectHero icon="ferroni" what="…" facts={[…]}`; the title is the name, `what` says what it is   |
+| `familyGroups()`, `group`, `PIPELINE`, `byJob()`                    | `familyTiers()`, `relationsOf(tool)`; members have `what`, `does`, `audience`                      |
+| `Pegboard`, `ToolLedger`, `JobIndex`                                | `EngineCatalog`, `ApplicationsBand`                                                                |
+| `PipelineAssembly`, `Fasteners`                                     | removed: no surface draws the members as a chain                                                   |
+| `IronBand rows` right under the hero                                | `<Section><Principles items /></Section>`; `IronBand` stays for a later dark passage               |
+| `fonts/big-shoulders.woff2`                                         | `fonts/barlow-condensed-700.woff2` (and `-500`, `-600`)                                            |
+| A theme toggle on the landing page                                  | none: `.fam-page` has one authored scheme; keep the toggle for docs                                |
+| Your own docs-shell overrides                                       | `ferramenta-family/docs.css` and the class `fam-docs-shell`                                        |
+| The family footer's "Company" column                                | "Work with us": consulting, open source, GitHub                                                    |
+| `ClosingAction` with its actions beside the copy                    | the actions sit under the copy, the link line after them                                           |
+| Your own section menu for docs on a phone                           | `SiteMenu` in the header's `actions` slot                                                          |
+| Your own wrapper and phone rules for search in the bar              | `<div className="site-search">` around the search component                                        |
+| Your own benchmark or feature tables, bars, "measured on" lines     | `ComparisonTable`, `ComparisonBars`, `Measured`                                                    |
+| A "Where it sits" section with `PipelineAssembly`                   | `<Relations current="…" />`                                                                        |
+| Your own two-column grid for code panels                            | the class `fam-code-grid`                                                                          |
+| `tool.shortJob`                                                     | `whatLabel(tool)`                                                                                  |
+| A steel tile (`fam-tile`) under a small icon                        | none: the icon stands on the dark ground                                                           |
+| A copyright line in the footer's `legal`                            | the footer carries the workshop's copyright, imprint and privacy links itself; `legal` is the rest |
+| `fam-btn-primary` in rust, chamfered                                | dark iron, square; `fam-btn-steel` on oak or rust                                                  |
+| `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens | removed; see `tokens.css` for the ramps and the roles (`--steel*`, `--inlay*`, `--iron*`)          |
 
 Keep the header and footer outside `.fam-page`, close the home page with
 `<WorkWithUs />`, and check the result against the sample tool page in the kit.

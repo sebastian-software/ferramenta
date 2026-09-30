@@ -69,16 +69,18 @@ test("the engine catalog gives each engine a plate, then what it does, then its 
 
   const ferroni = member("ferroni");
   const row = catalog.slice(catalog.indexOf('id="ferroni"'), catalog.indexOf('id="ferriki"'));
+  // React escapes an apostrophe in text; the registry's prose has them.
+  const text = (prose) => prose.replaceAll("'", "&#x27;");
   assertInOrder(
     row,
     [
       'class="fam-plate fam-engine-plate"',
       'data-icon="ferroni" data-form="rendered"',
       `<a class="fam-engine-link" href="${kit.toolHref(ferroni)}">ferroni</a>`,
-      `<p class="fam-engine-what">${ferroni.what}</p>`,
-      `<p class="fam-engine-does">${ferroni.does}</p>`,
-      ferroni.audience,
-      ferroni.proof,
+      `<p class="fam-engine-what">${kit.whatLabel(ferroni)}</p>`,
+      `<p class="fam-engine-does">${text(ferroni.does)}</p>`,
+      text(ferroni.audience),
+      text(ferroni.proof),
       'class="fam-engine-fits"',
       "<dt>Succeeds</dt>",
       "<dt>Checked against</dt>",
@@ -134,7 +136,9 @@ test("the applications band shows each application in its own colors", () => {
     lead,
     [
       "Palamedes",
-      ...kit.runsOnTools(palamedes).map((engine) => `<b>${engine.name}</b>${engine.shortJob}`),
+      ...kit
+        .runsOnTools(palamedes)
+        .map((engine) => `<b>${engine.name}</b>${kit.whatLabel(engine)}`),
     ],
     "the application that runs on family engines leads, and names them",
   );

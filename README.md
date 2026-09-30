@@ -33,7 +33,7 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 | Tool | Job |
 | --- | --- |
 | [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
-| [dalo](https://dalo.sh) | Team agent skills, versioned and synced as code |
+| [dalo](https://dalo.sh) | Your team's agent setup, versioned like code |
 <!-- ferramenta-family:end -->
 
 ## This repository
