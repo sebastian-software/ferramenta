@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v2.1.0) (2026-10-01)
+
+
+### Features
+
+* add Ardo to family applications ([#101](https://github.com/sebastian-software/ferramenta/issues/101)) ([fc78169](https://github.com/sebastian-software/ferramenta/commit/fc781691d7e6b66704de48b204338be4dc0f31b2))
+
 ## [2.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.2.0...ferramenta-v2.0.0) (2026-10-01)
 
 
