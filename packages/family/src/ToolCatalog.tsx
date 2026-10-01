@@ -6,6 +6,7 @@ import {
   familyTiers,
   type FamilyTool,
   leadsToRepo,
+  plannedRunsOnTools,
   relationsOf,
   runsOnTools,
   toolHref,
@@ -163,10 +164,10 @@ function brandStyle(tool: FamilyTool): CustomProperties | undefined {
 }
 
 /** The engines an application runs on: each icon, name and what it is, on a dark inlay. */
-function RunsOn({ engines }: { engines: FamilyTool[] }) {
+function RunsOn({ engines, planned = false }: { engines: FamilyTool[]; planned?: boolean }) {
   return (
     <>
-      <p className="fam-app-label">Runs on</p>
+      <p className="fam-app-label">{planned ? "Planned engine integration" : "Runs on"}</p>
       <ul className="fam-app-runs">
         {engines.map((engine) => (
           <li key={engine.name}>
@@ -184,10 +185,11 @@ function RunsOn({ engines }: { engines: FamilyTool[] }) {
 
 function ApplicationCard({ tool }: { tool: FamilyTool }) {
   const engines = runsOnTools(tool);
+  const plannedEngines = plannedRunsOnTools(tool);
   return (
     <article
       className="fam-app"
-      data-lead={engines.length > 0 ? "" : undefined}
+      data-lead={engines.length > 0 || plannedEngines.length > 0 ? "" : undefined}
       style={brandStyle(tool)}
     >
       <span className="fam-app-logo">
@@ -197,9 +199,9 @@ function ApplicationCard({ tool }: { tool: FamilyTool }) {
         <h3 className="fam-app-name">{displayName(tool)}</h3>
         <p className="fam-app-job">{tool.job}</p>
         <p>{tool.does}</p>
-        {engines.length > 0 ? (
-          <RunsOn engines={engines} />
-        ) : (
+        {engines.length > 0 && <RunsOn engines={engines} />}
+        {plannedEngines.length > 0 && <RunsOn engines={plannedEngines} planned />}
+        {engines.length === 0 && plannedEngines.length === 0 && (
           <p className="fam-app-note">From the same workshop. It stands on its own.</p>
         )}
         <a className="fam-app-go" href={toolHref(tool)}>
@@ -221,7 +223,7 @@ export type ApplicationsBandProps = {
 /**
  * The applications, each on a light card under its own logo and color: the
  * one place the family shows a brand that is not its own. An application that
- * runs on family engines leads and names them; one that stands alone is from
+ * runs on family engines, or is integrating them, leads and names them; one that stands alone is from
  * the same workshop, and says no more than that.
  */
 export function ApplicationsBand({

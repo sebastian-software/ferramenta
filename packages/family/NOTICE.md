@@ -17,6 +17,9 @@ optional; the chrome falls back to the body stack without it.
 
 ## Logos of other projects
 
-`icons/palamedes.svg` and `icons/dalo.svg` are the logos of the Palamedes and
-Dalo projects. They are shown to identify those projects in the family's
+`icons/palamedes.svg`, `icons/dalo.svg` and `icons/ardo.svg` are the logos of the Palamedes,
+Dalo and Ardo projects. They are shown to identify those projects in the family's
 navigation and belong to them. The GitHub mark in the sprite is GitHub's.
+
+The Ardo logo is copied unchanged from
+[its documentation site source](https://github.com/sebastian-software/ardo/blob/main/docs/app/assets/logo.svg).

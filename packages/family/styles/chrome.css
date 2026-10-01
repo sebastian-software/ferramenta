@@ -822,3 +822,7 @@ details.site-menu {
     display: none;
   }
 }
+
+.fam-icon[data-icon="ardo"] {
+  background-image: url("../icons/ardo.svg");
+}

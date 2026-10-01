@@ -226,3 +226,14 @@ README generation is described in [AGENTS.md](../../AGENTS.md).
 The family site's own root README keeps the catalog overview as project content.
 Its marker generator now writes `README.md.src` before mdtheme adds Sebastian
 branding. It does not consume a sibling frame or duplicate the family footer.
+
+## Amendment 2026-10-01
+
+**Ardo joins as an application.** Ardo is a React documentation framework and
+keeps its own site and logo, alongside Palamedes and Dalo. Its rebuild to use
+Ferromark for Markdown rendering and Ferriki for syntax highlighting is in
+progress. The registry records these engines in `plannedRunsOn`, separately
+from current `runsOn` dependencies; application cards label them as a planned
+integration. Once the integration ships, move them to `runsOn`.
+
+The family now has ten tool members: seven engines and three applications.

@@ -66,6 +66,7 @@ once, first; the commands are in [AGENTS.md](AGENTS.md).
 | --- | --- |
 | [palamedes](https://palamedes.dev) | Internationalization for TypeScript applications |
 | [dalo](https://dalo.sh) | Your team's agent setup, versioned like code |
+| [ardo](https://ardo-docs.dev) | Documentation sites built with React |
 
 ---
 
