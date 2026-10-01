@@ -32,6 +32,7 @@ export type FamilyLineage = {
     succeeds: string;
     buildsOn?: never;
     runsOn?: never;
+    plannedRunsOn?: never;
 } | {
     /**
      * The family engines an application runs on, by `name`. An engine is
@@ -39,6 +40,8 @@ export type FamilyLineage = {
      * Each name must be a family member; [] means it is standalone.
      */
     runsOn: string[];
+    /** Engines planned for an integration in progress, not current dependencies. */
+    plannedRunsOn?: string[];
     succeeds?: never;
     buildsOn?: never;
 } | {
@@ -46,6 +49,7 @@ export type FamilyLineage = {
     buildsOn: string;
     succeeds?: never;
     runsOn?: never;
+    plannedRunsOn?: never;
 };
 /**
  * An application's brand, as far as the family shows it: its logo (an icon
@@ -167,6 +171,8 @@ export declare function displayName(tool: FamilyTool | string): string;
 export declare function whatLabel(tool: FamilyTool): string;
 /** The members an application runs on. An unknown name is a registry error, not a silent gap. */
 export declare function runsOnTools(tool: FamilyTool): FamilyTool[];
+/** The engines planned for an application's integration, separate from its current dependencies. */
+export declare function plannedRunsOnTools(tool: FamilyTool): FamilyTool[];
 /** True for a member that succeeds an established implementation, false for a new development. */
 export declare function isSuccessor(tool: FamilyTool): boolean;
 /** True for members the family builds *with*, false for products it carries. */

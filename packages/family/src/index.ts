@@ -37,6 +37,7 @@ export {
   isEngine,
   isSuccessor,
   leadsToRepo,
+  plannedRunsOnTools,
   relatedTools,
   relationsOf,
   runsOnTools,

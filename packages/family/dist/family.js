@@ -143,6 +143,23 @@ export const family = [
         repo: "https://github.com/sebastian-software/dalo",
         docs: "https://dalo.sh",
     },
+    {
+        name: "ardo",
+        what: "A documentation framework for React",
+        job: "Documentation sites built with React",
+        does: "Builds static documentation sites from Markdown and MDX with React components, navigation and search. A rebuild is underway to use Ferromark for Markdown rendering and Ferriki for syntax highlighting.",
+        audience: "For teams who want documentation in their repository and a site they can customize with React.",
+        proof: "Ardo brings Markdown, MDX and React together in a static documentation site. Its integration of Ferromark and Ferriki is in progress.",
+        evidence: "Static documentation sites · React components · engine integration in progress",
+        runsOn: [],
+        plannedRunsOn: ["ferromark", "ferriki"],
+        version: "4.2.0",
+        status: "stable",
+        role: "application",
+        brand: { color: "#b72a6f", onColor: "#ffffff" },
+        repo: "https://github.com/sebastian-software/ardo",
+        docs: "https://ardo-docs.dev",
+    },
 ];
 /**
  * The workshop behind the family: where its code lives, and where the people
@@ -216,6 +233,10 @@ function member(name, context) {
 /** The members an application runs on. An unknown name is a registry error, not a silent gap. */
 export function runsOnTools(tool) {
     return (tool.runsOn ?? []).map((name) => member(name, `${tool.name} runs on`));
+}
+/** The engines planned for an application's integration, separate from its current dependencies. */
+export function plannedRunsOnTools(tool) {
+    return (tool.plannedRunsOn ?? []).map((name) => member(name, `${tool.name} plans to run on`));
 }
 /** True for a member that succeeds an established implementation, false for a new development. */
 export function isSuccessor(tool) {

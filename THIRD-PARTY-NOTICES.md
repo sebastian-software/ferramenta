@@ -12,8 +12,8 @@ text is in `packages/family/fonts/OFL-Barlow.txt`.
 
 ## Logos of other projects and companies
 
-`packages/family/icons/palamedes.svg` and `dalo.svg` are the logos of the
-Palamedes and Dalo projects, shown to identify them. `app/assets/logos/`
+`packages/family/icons/palamedes.svg`, `dalo.svg` and `ardo.svg` are the logos of the
+Palamedes, Dalo and Ardo projects, shown to identify them. `app/assets/logos/`
 contains the wordmarks of Sebastian Software GmbH and Sebastian Consulting; all
 rights reserved by their owners.
 
@@ -36,3 +36,6 @@ redistribution as standalone assets.
 The published package `ferramenta-family` carries its own terms in
 [NOTICE.md](packages/family/NOTICE.md); it ships the icons, the textures and
 the font.
+
+The Ardo logo is copied unchanged from
+[its documentation site source](https://github.com/sebastian-software/ardo/blob/main/docs/app/assets/logo.svg).

@@ -222,7 +222,8 @@ export function LandingSpecimens() {
       <Caption name="<ApplicationsBand />">
         The applications on light cards: a foreign logo keeps its own colors only on a light ground,
         so the brand shows in the logo, the rule above the card and the action. One that runs on
-        family engines leads and names them.
+        family engines leads and names them. Integrations in progress name the planned engines under
+        a separate label.
       </Caption>
       <ApplicationsBand id="kit-applications" title="What the engines carry" />
 

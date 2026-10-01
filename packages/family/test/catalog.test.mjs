@@ -222,3 +222,23 @@ test("a run sample shows its input once to assistive technology, the output for 
     "inert, unedited",
   );
 });
+
+test("Ardo names its planned engines without claiming a shipped integration", () => {
+  const ardo = member("ardo");
+  assert.deepEqual(kit.runsOnTools(ardo), []);
+  assert.deepEqual(
+    kit.plannedRunsOnTools(ardo).map((tool) => tool.name),
+    ["ferromark", "ferriki"],
+  );
+  assert.deepEqual(relations("ardo"), []);
+  const html = render(kit.ApplicationsBand, { current: "palamedes" });
+  assert.ok(html.includes("Planned engine integration"));
+  assert.ok(html.includes("A rebuild is underway"));
+  assert.ok(html.includes("<b>ferromark</b>"));
+  assert.ok(html.includes("<b>ferriki</b>"));
+  assert.ok(!html.includes('<p class="fam-app-label">Runs on</p>'));
+  assert.throws(
+    () => kit.plannedRunsOnTools({ ...ardo, plannedRunsOn: ["nope"] }),
+    /unknown member: nope/u,
+  );
+});

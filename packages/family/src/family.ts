@@ -36,6 +36,7 @@ export type FamilyLineage =
       succeeds: string;
       buildsOn?: never;
       runsOn?: never;
+      plannedRunsOn?: never;
     }
   | {
       /**
@@ -44,6 +45,8 @@ export type FamilyLineage =
        * Each name must be a family member; [] means it is standalone.
        */
       runsOn: string[];
+      /** Engines planned for an integration in progress, not current dependencies. */
+      plannedRunsOn?: string[];
       succeeds?: never;
       buildsOn?: never;
     }
@@ -52,6 +55,7 @@ export type FamilyLineage =
       buildsOn: string;
       succeeds?: never;
       runsOn?: never;
+      plannedRunsOn?: never;
     };
 
 /**
@@ -270,6 +274,25 @@ export const family: FamilyTool[] = [
     repo: "https://github.com/sebastian-software/dalo",
     docs: "https://dalo.sh",
   },
+  {
+    name: "ardo",
+    what: "A documentation framework for React",
+    job: "Documentation sites built with React",
+    does: "Builds static documentation sites from Markdown and MDX with React components, navigation and search. A rebuild is underway to use Ferromark for Markdown rendering and Ferriki for syntax highlighting.",
+    audience:
+      "For teams who want documentation in their repository and a site they can customize with React.",
+    proof:
+      "Ardo brings Markdown, MDX and React together in a static documentation site. Its integration of Ferromark and Ferriki is in progress.",
+    evidence: "Static documentation sites · React components · engine integration in progress",
+    runsOn: [],
+    plannedRunsOn: ["ferromark", "ferriki"],
+    version: "4.2.0",
+    status: "stable",
+    role: "application",
+    brand: { color: "#b72a6f", onColor: "#ffffff" },
+    repo: "https://github.com/sebastian-software/ardo",
+    docs: "https://ardo-docs.dev",
+  },
 ];
 
 /**
@@ -351,6 +374,11 @@ function member(name: string, context: string): FamilyTool {
 /** The members an application runs on. An unknown name is a registry error, not a silent gap. */
 export function runsOnTools(tool: FamilyTool): FamilyTool[] {
   return (tool.runsOn ?? []).map((name) => member(name, `${tool.name} runs on`));
+}
+
+/** The engines planned for an application's integration, separate from its current dependencies. */
+export function plannedRunsOnTools(tool: FamilyTool): FamilyTool[] {
+  return (tool.plannedRunsOn ?? []).map((name) => member(name, `${tool.name} plans to run on`));
 }
 
 /** True for a member that succeeds an established implementation, false for a new development. */

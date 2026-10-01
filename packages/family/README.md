@@ -310,7 +310,8 @@ first), `isSuccessor(tool)` (a member with `succeeds`, as opposed to a new
 development with `buildsOn`), `displayName(tool)` (the name as prose writes
 it), `whatLabel(tool)` (what a member is, without its article: "Regex engine";
 the label under a name wherever there is no room for a sentence),
-`runsOnTools(tool)` (an application's engines; an unknown name throws),
+`runsOnTools(tool)` (an application's current engines; an unknown name throws),
+`plannedRunsOnTools(tool)` (engines for an integration in progress),
 and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links lead). Every
 surface that links a member says when that is a repository:
 `<RepoNote tool={tool} />` after the name renders the words for assistive
@@ -509,7 +510,9 @@ regex engine"), `does` (one plain sentence), `audience` ("For …"), then `proof
 applications (`role: "application"`, with their own `brand` color). Relations
 are facts, never a chain: `uses` (an engine built on another), `pairsWith`
 (commonly combined, no dependency either way), `runsOn` (an application's
-engines).
+engines). An application integrating engines records them in `plannedRunsOn`
+until the integration ships. `ApplicationsBand` labels these as a planned
+engine integration; `relationsOf()` includes only current dependencies.
 
 Two entry points, because the chrome needs a bundler and the registry does not:
 

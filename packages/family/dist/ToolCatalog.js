@@ -1,6 +1,6 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-import { displayName, familyTiers, leadsToRepo, relationsOf, runsOnTools, toolHref, whatLabel, } from "./family.js";
+import { displayName, familyTiers, leadsToRepo, plannedRunsOnTools, relationsOf, runsOnTools, toolHref, whatLabel, } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
 import { Plate } from "./Plate.js";
@@ -66,17 +66,18 @@ function brandStyle(tool) {
     return { "--fam-app-color": tool.brand.color, "--fam-app-on-color": tool.brand.onColor };
 }
 /** The engines an application runs on: each icon, name and what it is, on a dark inlay. */
-function RunsOn({ engines }) {
-    return (_jsxs(_Fragment, { children: [_jsx("p", { className: "fam-app-label", children: "Runs on" }), _jsx("ul", { className: "fam-app-runs", children: engines.map((engine) => (_jsxs("li", { children: [_jsx(Icon, { name: engine.name, size: 32 }), _jsxs("span", { children: [_jsx("b", { children: engine.name }), whatLabel(engine)] })] }, engine.name))) })] }));
+function RunsOn({ engines, planned = false }) {
+    return (_jsxs(_Fragment, { children: [_jsx("p", { className: "fam-app-label", children: planned ? "Planned engine integration" : "Runs on" }), _jsx("ul", { className: "fam-app-runs", children: engines.map((engine) => (_jsxs("li", { children: [_jsx(Icon, { name: engine.name, size: 32 }), _jsxs("span", { children: [_jsx("b", { children: engine.name }), whatLabel(engine)] })] }, engine.name))) })] }));
 }
 function ApplicationCard({ tool }) {
     const engines = runsOnTools(tool);
-    return (_jsxs("article", { className: "fam-app", "data-lead": engines.length > 0 ? "" : undefined, style: brandStyle(tool), children: [_jsx("span", { className: "fam-app-logo", children: _jsx(Icon, { name: tool.name }) }), _jsxs("div", { children: [_jsx("h3", { className: "fam-app-name", children: displayName(tool) }), _jsx("p", { className: "fam-app-job", children: tool.job }), _jsx("p", { children: tool.does }), engines.length > 0 ? (_jsx(RunsOn, { engines: engines })) : (_jsx("p", { className: "fam-app-note", children: "From the same workshop. It stands on its own." })), _jsxs("a", { className: "fam-app-go", href: toolHref(tool), children: ["Visit ", linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] })] })] }));
+    const plannedEngines = plannedRunsOnTools(tool);
+    return (_jsxs("article", { className: "fam-app", "data-lead": engines.length > 0 || plannedEngines.length > 0 ? "" : undefined, style: brandStyle(tool), children: [_jsx("span", { className: "fam-app-logo", children: _jsx(Icon, { name: tool.name }) }), _jsxs("div", { children: [_jsx("h3", { className: "fam-app-name", children: displayName(tool) }), _jsx("p", { className: "fam-app-job", children: tool.job }), _jsx("p", { children: tool.does }), engines.length > 0 && _jsx(RunsOn, { engines: engines }), plannedEngines.length > 0 && _jsx(RunsOn, { engines: plannedEngines, planned: true }), engines.length === 0 && plannedEngines.length === 0 && (_jsx("p", { className: "fam-app-note", children: "From the same workshop. It stands on its own." })), _jsxs("a", { className: "fam-app-go", href: toolHref(tool), children: ["Visit ", linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] })] })] }));
 }
 /**
  * The applications, each on a light card under its own logo and color: the
  * one place the family shows a brand that is not its own. An application that
- * runs on family engines leads and names them; one that stands alone is from
+ * runs on family engines, or is integrating them, leads and names them; one that stands alone is from
  * the same workshop, and says no more than that.
  */
 export function ApplicationsBand({ current, id = "applications", intro, title = "Applications", } = {}) {
