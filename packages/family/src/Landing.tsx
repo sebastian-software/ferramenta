@@ -3,7 +3,7 @@ import { type ReactNode, useId } from "react";
 import { WORKSHOP } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
-import { HangingTag, type PlateFact, PlateLight, Rivets } from "./Plate.js";
+import { HangingTag, Plate, type PlateFact, PlateLight } from "./Plate.js";
 
 /*
  * The page patterns of a family home page, styled by `landing.css`. Each one
@@ -86,11 +86,10 @@ export function ProjectHero({ aside, facts, icon, ...copy }: ProjectHeroProps) {
     <section className="fam-hero" aria-labelledby={titleId}>
       <PlateLight />
       <div className="wrap">
-        <div className="fam-plate fam-hero-plate">
-          <Rivets />
+        <Plate className="fam-hero-plate">
           <HeroCopy {...copy} titleId={titleId} />
           {side !== undefined && <div className="fam-hero-side">{side}</div>}
-        </div>
+        </Plate>
         {facts !== undefined && facts.length > 0 && <HangingTag facts={facts} />}
       </div>
     </section>
@@ -178,25 +177,21 @@ export function Principles({ items }: { items: Principle[] }) {
   );
 }
 
-/** The old name of `Principle`; an iron band's rows are principles on the dark ground. */
-export type IronBandRow = Principle;
-
 export type IronBandProps = {
   id?: string;
   /** The band's `h2`. */
   title: ReactNode;
   intro?: ReactNode;
-  /** Principles side by side, each under a glowing rule. */
-  rows?: IronBandRow[];
+  /** What stands on the oak: `Principles`, a list, a run sample. */
   children?: ReactNode;
 };
 
 /**
  * The full-bleed dark band between the light sections, in dark oak: a page's
  * one or two deliberately dark passages. Everything inside takes the on-iron
- * colors (`.on-iron`).
+ * colors (`.on-iron`); principles inside it stand under glowing rules.
  */
-export function IronBand({ children, id, intro, rows, title }: IronBandProps) {
+export function IronBand({ children, id, intro, title }: IronBandProps) {
   const titleId = useId();
 
   return (
@@ -206,7 +201,6 @@ export function IronBand({ children, id, intro, rows, title }: IronBandProps) {
           {title}
         </h2>
         {intro !== undefined && <p className="fam-intro">{intro}</p>}
-        {rows !== undefined && rows.length > 0 && <Principles items={rows} />}
         {children}
       </div>
     </section>

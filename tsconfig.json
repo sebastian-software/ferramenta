@@ -18,8 +18,8 @@
   },
   "include": [
     "app/**/*",
-    "packages/*/bin/**/*.mjs",
     "packages/*/lib/**/*.mjs",
+    "packages/*/scripts/**/*.mjs",
     "packages/*/test/**/*.mjs",
     "scripts/**/*.mjs",
     "*.ts",

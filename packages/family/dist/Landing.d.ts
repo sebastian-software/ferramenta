@@ -67,23 +67,20 @@ export type Principle = {
 export declare function Principles({ items }: {
     items: Principle[];
 }): import("react").JSX.Element;
-/** The old name of `Principle`; an iron band's rows are principles on the dark ground. */
-export type IronBandRow = Principle;
 export type IronBandProps = {
     id?: string;
     /** The band's `h2`. */
     title: ReactNode;
     intro?: ReactNode;
-    /** Principles side by side, each under a glowing rule. */
-    rows?: IronBandRow[];
+    /** What stands on the oak: `Principles`, a list, a run sample. */
     children?: ReactNode;
 };
 /**
  * The full-bleed dark band between the light sections, in dark oak: a page's
  * one or two deliberately dark passages. Everything inside takes the on-iron
- * colors (`.on-iron`).
+ * colors (`.on-iron`); principles inside it stand under glowing rules.
  */
-export declare function IronBand({ children, id, intro, rows, title }: IronBandProps): import("react").JSX.Element;
+export declare function IronBand({ children, id, intro, title }: IronBandProps): import("react").JSX.Element;
 export type ClosingActionProps = {
     id?: string;
     title: ReactNode;

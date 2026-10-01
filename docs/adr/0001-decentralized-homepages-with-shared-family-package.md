@@ -128,8 +128,9 @@ is reserved on npm. Nothing about the decision changes — one shared package,
 extracted from the reference implementation, consumed by every sibling site. The
 import specifiers move with the name: `ferramenta-family`,
 `ferramenta-family/registry`, `ferramenta-family/chrome.css` and the other CSS
-entry points. The `ferramenta-readme` binary and the `<!-- ferramenta-family -->`
-README markers keep their spelling.
+entry points. (The `ferramenta-readme` binary and the README markers this
+amendment once mentioned were retired on 2026-10-01; every README takes the
+block as an mdtheme frame from `packages/family/markdown/`.)
 
 ## Amendment 2026-09-25
 
@@ -201,7 +202,6 @@ prove too costly in practice.
 ## References
 
 - [PRODUCT.md](../../PRODUCT.md) — product truth including rollout plan
-- [docs/superpowers/specs/2026-07-11-ardo-config-package-design.md](../superpowers/specs/2026-07-11-ardo-config-package-design.md) — earlier package rename decision
 - [packages/family/src/family.ts](../../packages/family/src/family.ts) — the registry this ADR declares canonical
 
 ## Repository adoption
@@ -221,7 +221,7 @@ The tradeoff is a contributor tool installation and Git access during checks.
 
 This is a living decision. Update this record when the ownership or composition
 contract changes; configuration files own exact versions and revisions.
-See [the contributor workflow](../readme-theme.md).
+README generation is described in [AGENTS.md](../../AGENTS.md).
 
 The family site's own root README keeps the catalog overview as project content.
 Its marker generator now writes `README.md.src` before mdtheme adds Sebastian

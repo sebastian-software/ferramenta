@@ -3,7 +3,7 @@ import { useId } from "react";
 import { displayName, familyTiers, leadsToRepo, relationsOf, runsOnTools, toolHref, whatLabel, } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
-import { Rivets } from "./Plate.js";
+import { Plate } from "./Plate.js";
 import { useToolFacts } from "./RegistryFacts.js";
 import { RepoNote } from "./RepoNote.js";
 /*
@@ -25,8 +25,12 @@ function RelationLine({ relation }) {
         text = _jsxs(_Fragment, { children: [link, " runs on it"] });
     return (_jsxs("li", { children: [_jsx(Mark, { name: "adapter", size: 16 }), _jsx("span", { children: text })] }));
 }
-/** Where a member fits with others. Empty for one that stands entirely alone. */
-function Relations({ tool }) {
+/**
+ * Where a member fits with others, as lines in its catalog row (the exported
+ * `Relations` shows the same facts as chips on a member's own page). Empty for
+ * one that stands entirely alone.
+ */
+function EngineRelations({ tool }) {
     const relations = relationsOf(tool);
     if (relations.length === 0)
         return null;
@@ -45,7 +49,7 @@ function EngineFacts({ tool }) {
  * from. The name is the link, stretched over the plate.
  */
 function EngineRow({ tool }) {
-    return (_jsx("li", { children: _jsxs("article", { className: "fam-engine", id: tool.name, children: [_jsxs("div", { className: "fam-plate fam-engine-plate", children: [_jsx(Rivets, {}), _jsx(Icon, { name: tool.name, form: "rendered" }), _jsxs("div", { children: [_jsx("h3", { className: "fam-engine-name", children: _jsxs("a", { className: "fam-engine-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-engine-what", children: whatLabel(tool) })] })] }), _jsxs("div", { className: "fam-engine-body", children: [_jsx("p", { className: "fam-engine-does", children: tool.does }), _jsx("p", { children: tool.audience }), _jsx("p", { children: tool.proof }), _jsx(Relations, { tool: tool }), _jsx(EngineFacts, { tool: tool }), _jsx("p", { className: "fam-engine-go", children: _jsxs("a", { href: toolHref(tool), children: [linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] }) })] })] }) }));
+    return (_jsx("li", { children: _jsxs("article", { className: "fam-engine", id: tool.name, children: [_jsxs(Plate, { className: "fam-engine-plate", children: [_jsx(Icon, { name: tool.name, form: "rendered" }), _jsxs("div", { children: [_jsx("h3", { className: "fam-engine-name", children: _jsxs("a", { className: "fam-engine-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-engine-what", children: whatLabel(tool) })] })] }), _jsxs("div", { className: "fam-engine-body", children: [_jsx("p", { className: "fam-engine-does", children: tool.does }), _jsx("p", { children: tool.audience }), _jsx("p", { children: tool.proof }), _jsx(EngineRelations, { tool: tool }), _jsx(EngineFacts, { tool: tool }), _jsx("p", { className: "fam-engine-go", children: _jsxs("a", { href: toolHref(tool), children: [linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] }) })] })] }) }));
 }
 /**
  * The engine catalog: one row per engine, each with its name plate. Every

@@ -5,18 +5,16 @@ import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
 import { RepoNote } from "./RepoNote.js";
 import { useDismissible } from "./useDismissible.js";
-function switcherClasses({ align, className, family }) {
+function switcherClasses({ align, family }) {
     const classes = ["switcher"];
     if (align === "start")
         classes.push("switcher-start");
     if (family === true)
         classes.push("switcher-family");
-    if (className !== undefined)
-        classes.push(className);
     return classes.join(" ");
 }
-/** The trigger's default content: "Tools", or the family's icon and name. */
-function defaultTrigger(family) {
+/** The trigger's content: "Tools", or the family's icon and name. */
+function trigger(family) {
     if (!family)
         return "Tools";
     return (_jsxs(_Fragment, { children: [_jsx(Icon, { name: "ferramenta", size: 32 }), _jsx("span", { children: "Ferramenta" })] }));
@@ -39,18 +37,15 @@ function FlyoutGroup({ label, tier, tools, }) {
  * The family-wide tool switcher: the engines, then the applications the
  * workshop also makes, each tier under its own label.
  *
- * `SiteHeader` renders it, and it also stands on its own: a docs site whose
- * framework owns the header — an Ardo site placing it into
- * `<ArdoHeaderActions>` — renders `<ToolSwitcher current="ferroni" />` there
- * and gets the same flyout. Standing alone it needs only `MarkDefs` on the
- * page and the package's `tokens.css` plus `chrome.css`; the flyout carries its
- * own colors and is positioned against the trigger, so the host header's
- * height and theme do not matter.
+ * `SiteHeader` renders it. A page that fills the header's slots itself can
+ * place it too, as the kit's sample header does; it then needs `MarkDefs` on
+ * the page. The flyout carries its own colors and hangs from the trigger, so
+ * where the trigger sits does not matter.
  */
 export function ToolSwitcher(props = {}) {
-    const { current, family = false, label } = props;
+    const { current, family = false } = props;
     const switcherRef = useRef(null);
     useDismissible(switcherRef);
     const { applications, engines } = familyTiers(current);
-    return (_jsxs("details", { className: switcherClasses(props), ref: switcherRef, children: [_jsxs("summary", { "aria-label": family ? "Ferramenta: all tools" : "All tools", children: [label ?? defaultTrigger(family), " ", _jsx(Mark, { name: "chev", className: "chev icon", size: 16 })] }), _jsxs("div", { className: "flyout", children: [family && _jsx(FamilyHome, {}), current !== undefined && _jsxs("p", { className: "switcher-current", children: ["Current: ", current] }), _jsx(FlyoutGroup, { label: "Engines", tier: "engines", tools: engines }), _jsx(FlyoutGroup, { label: "Applications", tier: "applications", tools: applications })] })] }));
+    return (_jsxs("details", { className: switcherClasses(props), ref: switcherRef, children: [_jsxs("summary", { "aria-label": family ? "Ferramenta: all tools" : "All tools", children: [trigger(family), " ", _jsx(Mark, { name: "chev", className: "chev icon", size: 16 })] }), _jsxs("div", { className: "flyout", children: [family && _jsx(FamilyHome, {}), current !== undefined && _jsxs("p", { className: "switcher-current", children: ["Current: ", current] }), _jsx(FlyoutGroup, { label: "Engines", tier: "engines", tools: engines }), _jsx(FlyoutGroup, { label: "Applications", tier: "applications", tools: applications })] })] }));
 }

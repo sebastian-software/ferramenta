@@ -1,4 +1,4 @@
-import { FamilyLinks, SiteFooter, SiteHeader, ToolSwitcher } from "ferramenta-family";
+import { SiteFooter, SiteHeader, ToolSwitcher } from "ferramenta-family";
 
 import { Caption, Chapter, Specimen } from "./Specimen";
 
@@ -49,7 +49,7 @@ export function ChromeSpecimens() {
 
       <Specimen
         name="<ToolSwitcher />"
-        rule="The switcher on its own, for a header the family does not render. It carries its own colors, so the host's theme does not matter."
+        rule="The switcher on its own, as a page places it when it fills the header's slots itself. It carries its own colors and hangs from its trigger."
       >
         <ToolSwitcher align="start" current="ferroni" />
       </Specimen>
@@ -63,13 +63,6 @@ export function ChromeSpecimens() {
           <SiteFooter as="div" current="ferroni" members="short" />
         </div>
       </div>
-
-      <Specimen
-        name="<FamilyLinks />"
-        rule="Compact family navigation for a page that renders none of the chrome. It takes the host's type and link color."
-      >
-        <FamilyLinks current="ferroni" />
-      </Specimen>
     </Chapter>
   );
 }

@@ -108,9 +108,3 @@ export type FamilyFactsOptions = {
 export declare function fetchFamilyFacts(snapshot: RegistrySnapshot, { endpoints, metrics, snapshotGeneratedAt, }?: FamilyFactsOptions): Promise<Record<string, LiveRegistryFacts>>;
 /** `fetchFamilyFacts` after hydration: empty during prerender and until something answers. */
 export declare function useFamilyFacts(snapshot: RegistrySnapshot, options?: FamilyFactsOptions): Record<string, LiveRegistryFacts>;
-/**
- * The live figures for a page, after hydration. Returns an empty map during
- * prerender and until the registries answer, so a component renders its
- * build-time value first and swaps in the live one when it arrives.
- */
-export declare function useLiveRegistry(request: LiveRegistryRequest, endpoints?: RegistryEndpoints): Record<string, LiveRegistryFacts>;

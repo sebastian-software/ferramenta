@@ -12,36 +12,31 @@ export type ToolSwitcherProps = {
    * flyout is omitted; the current project appears as plain text.
    */
   current?: string;
-  /** The trigger's text. Defaults to "Tools"; the accessible name stays "All tools". */
-  label?: ReactNode;
   /**
    * Which edge of the trigger the flyout hangs from. "end" (the default) is
    * right-aligned, for a switcher at the end of a bar; "start" is for a trigger
    * near the left edge, where a right-aligned flyout would run off-screen.
    */
   align?: "end" | "start";
-  /** Extra classes on the `<details>` root, for a host that has to place it. */
-  className?: string;
   /**
    * The switcher as the way back to the family, for a site whose brand slot
    * carries its own lockup: the trigger shows the Ferramenta icon and name
    * instead of "Tools", and the flyout opens with a link to the family site.
-   * `SiteHeader lockup="project"` sets it; a host header that is not ours sets
-   * it itself.
+   * `SiteHeader lockup="project"` sets it; a page that places the switcher
+   * itself sets it too.
    */
   family?: boolean;
 };
 
-function switcherClasses({ align, className, family }: ToolSwitcherProps) {
+function switcherClasses({ align, family }: ToolSwitcherProps) {
   const classes = ["switcher"];
   if (align === "start") classes.push("switcher-start");
   if (family === true) classes.push("switcher-family");
-  if (className !== undefined) classes.push(className);
   return classes.join(" ");
 }
 
-/** The trigger's default content: "Tools", or the family's icon and name. */
-function defaultTrigger(family: boolean): ReactNode {
+/** The trigger's content: "Tools", or the family's icon and name. */
+function trigger(family: boolean): ReactNode {
   if (!family) return "Tools";
   return (
     <>
@@ -102,16 +97,13 @@ function FlyoutGroup({
  * The family-wide tool switcher: the engines, then the applications the
  * workshop also makes, each tier under its own label.
  *
- * `SiteHeader` renders it, and it also stands on its own: a docs site whose
- * framework owns the header — an Ardo site placing it into
- * `<ArdoHeaderActions>` — renders `<ToolSwitcher current="ferroni" />` there
- * and gets the same flyout. Standing alone it needs only `MarkDefs` on the
- * page and the package's `tokens.css` plus `chrome.css`; the flyout carries its
- * own colors and is positioned against the trigger, so the host header's
- * height and theme do not matter.
+ * `SiteHeader` renders it. A page that fills the header's slots itself can
+ * place it too, as the kit's sample header does; it then needs `MarkDefs` on
+ * the page. The flyout carries its own colors and hangs from the trigger, so
+ * where the trigger sits does not matter.
  */
 export function ToolSwitcher(props: ToolSwitcherProps = {}) {
-  const { current, family = false, label } = props;
+  const { current, family = false } = props;
   const switcherRef = useRef<HTMLDetailsElement>(null);
   useDismissible(switcherRef);
   const { applications, engines } = familyTiers(current);
@@ -120,7 +112,7 @@ export function ToolSwitcher(props: ToolSwitcherProps = {}) {
     <details className={switcherClasses(props)} ref={switcherRef}>
       {/* The accessible name keeps the visible word, so a voice user can say it. */}
       <summary aria-label={family ? "Ferramenta: all tools" : "All tools"}>
-        {label ?? defaultTrigger(family)} <Mark name="chev" className="chev icon" size={16} />
+        {trigger(family)} <Mark name="chev" className="chev icon" size={16} />
       </summary>
       <div className="flyout">
         {family && <FamilyHome />}

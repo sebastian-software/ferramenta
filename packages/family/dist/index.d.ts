@@ -11,15 +11,14 @@ export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
  * without React.
  */
 export { displayName, family, FAMILY_SITE, type FamilyBrand, type FamilyLineage, type FamilyRelation, type FamilyRole, type FamilyStatus, familyTiers, type FamilyTool, isEngine, isSuccessor, leadsToRepo, relatedTools, relationsOf, runsOnTools, STATUS_MEANING, STATUS_ORDER, toolHref, whatLabel, WORKSHOP, } from "./family.js";
-export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
 export { Icon, type IconForm, type IconProps } from "./Icon.js";
-export { ClosingAction, type ClosingActionProps, IronBand, type IronBandProps, type IronBandRow, type Principle, Principles, ProjectHero, type ProjectHeroProps, Section, type SectionProps, WorkWithUs, type WorkWithUsProps, } from "./Landing.js";
+export { ClosingAction, type ClosingActionProps, IronBand, type IronBandProps, type Principle, Principles, ProjectHero, type ProjectHeroProps, Section, type SectionProps, WorkWithUs, type WorkWithUsProps, } from "./Landing.js";
 export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Ledger.js";
-export { type FamilyFactsOptions, type FamilyMetrics, fetchFamilyFacts, fetchFamilyMetrics, fetchLiveRegistry, type LiveRegistryFacts, type LiveRegistryRequest, liveRequestFor, METRICS_URL, REGISTRY_ENDPOINTS, type RegistryEndpoints, type RegistrySnapshot, type RegistryStat, type ToolFacts, toolFacts, useFamilyFacts, useLiveRegistry, } from "./LiveRegistry.js";
+export { type FamilyFactsOptions, type FamilyMetrics, fetchFamilyFacts, fetchFamilyMetrics, fetchLiveRegistry, type LiveRegistryFacts, type LiveRegistryRequest, liveRequestFor, METRICS_URL, REGISTRY_ENDPOINTS, type RegistryEndpoints, type RegistrySnapshot, type RegistryStat, type ToolFacts, toolFacts, useFamilyFacts, } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { HangingTag, Plate, type PlateFact, PlateLight, type PlateProps, Rivets } from "./Plate.js";
-export { Count, FamilyDownloads, RegistryFacts, type RegistryFactsProps, useToolFacts, } from "./RegistryFacts.js";
+export { RegistryFacts, type RegistryFactsProps, useToolFacts } from "./RegistryFacts.js";
 export { Relations, type RelationsProps } from "./Relations.js";
 export { RepoNote } from "./RepoNote.js";
 export { RunSample, type RunSampleProps } from "./RunSample.js";

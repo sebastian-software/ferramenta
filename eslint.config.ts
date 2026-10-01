@@ -34,11 +34,6 @@ config.push(
     },
   },
   {
-    // React Router owns this signature.
-    files: ["app/entry.server.tsx"],
-    rules: { "max-params": "off" },
-  },
-  {
     // Tests build their fixtures under `mkdtemp`; the rule is about paths that
     // reach the filesystem from untrusted input, which a temp directory is not.
     // Both layouts: package tests in `test/`, script tests beside their script.

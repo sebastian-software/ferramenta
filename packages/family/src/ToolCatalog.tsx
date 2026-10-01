@@ -13,7 +13,7 @@ import {
 } from "./family.js";
 import { type CustomProperties, Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
-import { Rivets } from "./Plate.js";
+import { Plate } from "./Plate.js";
 import { useToolFacts } from "./RegistryFacts.js";
 import { RepoNote } from "./RepoNote.js";
 
@@ -42,8 +42,12 @@ function RelationLine({ relation }: { relation: FamilyRelation }) {
   );
 }
 
-/** Where a member fits with others. Empty for one that stands entirely alone. */
-function Relations({ tool }: { tool: FamilyTool }) {
+/**
+ * Where a member fits with others, as lines in its catalog row (the exported
+ * `Relations` shows the same facts as chips on a member's own page). Empty for
+ * one that stands entirely alone.
+ */
+function EngineRelations({ tool }: { tool: FamilyTool }) {
   const relations = relationsOf(tool);
   if (relations.length === 0) return null;
   return (
@@ -101,8 +105,7 @@ function EngineRow({ tool }: { tool: FamilyTool }) {
   return (
     <li>
       <article className="fam-engine" id={tool.name}>
-        <div className="fam-plate fam-engine-plate">
-          <Rivets />
+        <Plate className="fam-engine-plate">
           <Icon name={tool.name} form="rendered" />
           <div>
             <h3 className="fam-engine-name">
@@ -113,12 +116,12 @@ function EngineRow({ tool }: { tool: FamilyTool }) {
             </h3>
             <p className="fam-engine-what">{whatLabel(tool)}</p>
           </div>
-        </div>
+        </Plate>
         <div className="fam-engine-body">
           <p className="fam-engine-does">{tool.does}</p>
           <p>{tool.audience}</p>
           <p>{tool.proof}</p>
-          <Relations tool={tool} />
+          <EngineRelations tool={tool} />
           <EngineFacts tool={tool} />
           <p className="fam-engine-go">
             <a href={toolHref(tool)}>

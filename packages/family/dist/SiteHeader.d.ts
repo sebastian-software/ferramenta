@@ -49,8 +49,8 @@ export type SiteHeaderProps = {
     home?: string;
     /**
      * The element to render. `"header"` (the default) is the banner landmark.
-     * Pass `"div"` when the host already provides one — an Ardo site rendering
-     * this inside `<ArdoHeader>` — so the page does not end up with two. The
+     * Pass `"div"` when the host already provides one, or when the chrome is
+     * shown as a specimen (the kit), so the page does not end up with two. The
      * classes, and therefore the styling, are the same either way.
      */
     as?: "div" | "header";

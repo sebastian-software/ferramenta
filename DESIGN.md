@@ -673,7 +673,7 @@ instead (`data-light`: the page ground, ink, a `line` edge that turns `rust`), b
 logo is a foreign brand drawn for a light ground. It names where two members fit together and
 never draws a chain; a member that stands alone renders nothing.
 
-### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`, `FamilyLinks`)
+### Navigation (`SiteHeader`, `ToolSwitcher`, `SiteMenu`, `SiteFooter`)
 
 - **Header:** a sticky dark iron bar, 4rem tall, flat, with a 1px `iron-line` bottom edge. The
   lockup is the small icon (48px; 36px below 46rem) and the uppercase

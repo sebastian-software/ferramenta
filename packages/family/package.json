@@ -8,15 +8,10 @@
     "url": "https://github.com/sebastian-software/ferramenta.git",
     "directory": "packages/family"
   },
-  "bin": {
-    "ferramenta-readme": "./bin/family-readme.mjs"
-  },
   "files": [
-    "bin",
     "dist",
     "fonts",
     "icons",
-    "lib",
     "src",
     "styles",
     "textures",

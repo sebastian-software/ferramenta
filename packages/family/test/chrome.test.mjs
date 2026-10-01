@@ -140,14 +140,9 @@ test("the switcher stands alone, for a host header that is not ours", () => {
   );
 });
 
-test("the switcher takes a trigger label, a start alignment and host classes", () => {
-  const html = render(family.ToolSwitcher, {
-    align: "start",
-    className: "ardo-header-item",
-    label: "Ferramenta",
-  });
-  assert.match(html, /^<details class="switcher switcher-start ardo-header-item">/u);
-  assert.ok(html.includes("Ferramenta"), "the trigger text is the host's");
+test("the switcher takes a start alignment, for a trigger near the left edge", () => {
+  const html = render(family.ToolSwitcher, { align: "start" });
+  assert.match(html, /^<details class="switcher switcher-start">/u);
   assert.ok(html.includes('aria-label="All tools"'), "the accessible name stays");
 });
 
@@ -217,17 +212,6 @@ test("the footer lists the family's two tiers plus the workshop's links", () => 
   assert.ok(html.includes("MIT-licensed"), "the default legal line");
 });
 
-test("the company line drops the family columns (decision D2)", () => {
-  const html = render(family.SiteFooter, { current: "dalo", legal: "Own terms.", line: "company" });
-  assert.ok(html.includes('class="wrap foot foot-company"'));
-  for (const label of ["Engines", "Applications"]) {
-    assert.ok(!html.includes(`>${label}</h2>`), `the company line must not list: ${label}`);
-  }
-  assert.ok(html.includes("<h2>Work with us</h2>"));
-  assert.ok(!html.includes("foot-gap"), "with one column there is no gap heading");
-  assert.ok(html.includes("Own terms."), "the legal line is the consumer's");
-});
-
 test("a family site omits its own footer entry", () => {
   const html = render(family.SiteFooter, { current: "ferrocat" });
   assert.ok(!html.includes('aria-current="page"'));
@@ -264,17 +248,15 @@ test("both entries load in a bare Node process", async () => {
   assert.equal(result.switcher, "function", "the standalone switcher is exported");
 });
 
-test("every related React link has a job and omits the current project", () => {
+test("the footer lists every related member with its job and omits the current project", () => {
   for (const current of family.family) {
-    for (const component of [family.FamilyLinks, family.SiteFooter]) {
-      const html = render(component, { current: current.name });
-      assert.ok(!html.includes(`href="${current.docs ?? current.repo}"`));
-      assert.ok(html.includes('data-icon="ferramenta"'), "the family's toolbox");
-      for (const sibling of family.relatedTools(current.name)) {
-        assert.ok(html.includes(`href="${sibling.docs ?? sibling.repo}"`));
-        const escaped = sibling.job.replaceAll("&", "&amp;").replaceAll("'", "&#x27;");
-        assert.ok(html.includes(escaped));
-      }
+    const html = render(family.SiteFooter, { current: current.name });
+    assert.ok(!html.includes(`href="${current.docs ?? current.repo}"`));
+    assert.ok(html.includes('data-icon="ferramenta"'), "the family's toolbox");
+    for (const sibling of family.relatedTools(current.name)) {
+      assert.ok(html.includes(`href="${sibling.docs ?? sibling.repo}"`));
+      const escaped = sibling.job.replaceAll("&", "&amp;").replaceAll("'", "&#x27;");
+      assert.ok(html.includes(escaped));
     }
   }
 });
@@ -303,7 +285,7 @@ test("every link to a member without a site says it leads to its repository", ()
 test("the family's own index drops the footer's member columns, and headings are its own", () => {
   const index = render(family.SiteFooter, { members: "none" });
   for (const tool of family.family) assert.ok(!index.includes(`href="${family.toolHref(tool)}"`));
-  assert.ok(index.includes('class="wrap foot foot-company"'), "one column less");
+  assert.ok(index.includes('class="wrap foot foot-index"'), "one column less");
   assert.ok(index.includes("<h2>Work with us</h2>"), "the workshop's links stay");
   assert.ok(!/<h3/u.test(render(family.SiteFooter)), "footer headings are h2: its own outline");
 });

@@ -25,10 +25,6 @@ config.overrides = [
       "max-lines-per-function": "off",
     },
   },
-  {
-    files: ["app/entry.server.tsx"],
-    rules: { "max-params": "off" },
-  },
 ];
 
 export default defineConfig(config);

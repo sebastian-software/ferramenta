@@ -1,21 +1,14 @@
 # Design comps
 
-Current code, documentation, commits, and site copy use US English. The
-following German text is intentionally retained as proper names or historical
-working material:
+The approved comps of the current direction, "Typenschild" (ADR-0008), are in
+[2026-10/](2026-10/README.md).
 
-- `Blankstahl`, `Werkbank`, `Schmiede`, and `Maschinenpark` are names in the
-  design vocabulary and ADRs.
-- `entwurf-a.html`, `entwurf-b.html`, and `entwurf-c.html` are historical comps;
-  `Entwurf` means “draft” and remains in their titles and controls.
-- `.impeccable/critique/` contains historical German design critiques and is
-  retained as working material.
+`Typenschild`, `Cor-Ten`, `Schattenwand`, `Schmiede`, `Blankstahl`, `Werkbank`
+and `Maschinenpark` are German names in the design vocabulary and the ADRs;
+site copy, code and documentation are US English. The historical German design
+critiques in `.impeccable/critique/` are working material of the design tooling.
 
-- `Typenschild`, `Cor-Ten` and `Schattenwand` name the three directions of the
-  October 2026 redesign ([2026-10/](2026-10/README.md)).
-
-`2026-10/typenschild-home.html` and `2026-10/typenschild-tool.html` are the
-approved comps of the current direction (ADR-0008). `entwurf-c.html` was the
-approved comp of the direction before it ("Schmiede", ADR-0003); it and the
-other comps remain available for historical comparison. These artifacts are not
-current localized site copy.
+The comps of the direction before it ("Schmiede", ADR-0003 and ADR-0005,
+`entwurf-*.html`) and of the two directions set aside in the October 2026 round
+were removed from the tree on 2026-09-30. They are in Git history before the
+tag `design-residue-2026-09-30`.

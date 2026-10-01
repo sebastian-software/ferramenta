@@ -1,0 +1,137 @@
+<!doctype html>
+<!--
+  The social card of ferramenta.dev (public/social.png, 1200×630): the dark oak
+  bench, one riveted plate with the headline and the family's toolbox, and
+  every engine's icon below it. It is a page, so a browser renders it; nothing
+  here is code of its own. Re-render it when the line-up changes, after
+  updating the strip below (one figure per engine, in catalog order):
+
+    python3 -m http.server 4180 &
+    npx playwright screenshot --viewport-size=1200,630 --wait-for-timeout=1500 \
+      http://localhost:4180/design/social/card.html public/social.png
+
+  (`npx playwright install chromium` once, first.) The page is served rather
+  than opened as a file so the package's font loads.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ferramenta social card</title>
+    <link rel="stylesheet" href="../../packages/family/styles/tokens.css" />
+    <link rel="stylesheet" href="../../packages/family/styles/fonts.css" />
+    <link rel="stylesheet" href="../../packages/family/styles/landing.css" />
+    <link rel="stylesheet" href="../../packages/family/styles/chrome.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: var(--oak) url("../../packages/family/textures/oak.webp") center / cover;
+        color: var(--iron-ink);
+        font-family: var(--body);
+      }
+      .plate {
+        position: absolute;
+        inset: 44px 44px auto;
+        height: 382px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 32px;
+        padding: 0 56px 0 64px;
+      }
+      .plate::after {
+        transition: none;
+      }
+      small {
+        display: block;
+        margin-bottom: 18px;
+        font: 600 26px/1 var(--display);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      h1 {
+        font: 700 86px/0.95 var(--display);
+        letter-spacing: 0.005em;
+        text-transform: uppercase;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--rust-on-steel);
+      }
+      .plate img {
+        width: 300px;
+        height: 300px;
+        filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.5)) drop-shadow(0 14px 14px rgb(0 0 0 / 0.3));
+      }
+      .strip {
+        position: absolute;
+        inset: auto 44px 34px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+      }
+      figure {
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+      }
+      figure img {
+        width: 88px;
+        height: 88px;
+      }
+      figcaption {
+        font: 700 22px/1 var(--display);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fam-plate plate">
+      <i class="fam-rivet" data-corner="tl"></i>
+      <i class="fam-rivet" data-corner="tr"></i>
+      <i class="fam-rivet" data-corner="br"></i>
+      <i class="fam-rivet" data-corner="bl"></i>
+      <div>
+        <small>Ferramenta</small>
+        <h1>The engines under your tools, rebuilt in <em>Rust</em>.</h1>
+      </div>
+      <img src="../../packages/family/icons/ferramenta.webp" alt="" />
+    </div>
+    <div class="strip">
+      <figure>
+        <img src="../../packages/family/icons/ferroni-256.webp" alt="" />
+        <figcaption>ferroni</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferriki-256.webp" alt="" />
+        <figcaption>ferriki</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferromark-256.webp" alt="" />
+        <figcaption>ferromark</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferrolex-256.webp" alt="" />
+        <figcaption>ferrolex</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferrocat-256.webp" alt="" />
+        <figcaption>ferrocat</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferralk-256.webp" alt="" />
+        <figcaption>ferralk</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/icons/ferrugo-256.webp" alt="" />
+        <figcaption>ferrugo</figcaption>
+      </figure>
+    </div>
+  </body>
+</html>
