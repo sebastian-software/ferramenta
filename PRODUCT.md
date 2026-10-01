@@ -33,7 +33,8 @@ A workshop's family of Rust-native engines, each built to the standard its field
 - The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. No surface shows the members as a chain.
 - Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki) and ferrolex (Hunspell); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), and ferrugo. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
 - Maturity is the registry's hand-set `status`. The family page does not stamp it on the engines: the live release beside each one already says how far it has come. A project's own site may show it (`Stamp`, `StampKey`). Keep it in step with releases.
-- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, oak or rust.
+- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, oak or rust; in the switcher the applications' tier is light for that reason.
+- The legal entity is Sebastian Software GmbH, Mainz, Germany. Every footer carries its copyright line and links the imprint and privacy policy on the company site; the family sites host neither page themselves.
 - Project sites live with their projects. The engines' sites take the family look from the package, one by one, Ferroni first; until a site has migrated it runs the 1.x package. Each application's site is its own.
 - This repo holds the family site, the kit (`/kit`), and the shared package.
 
@@ -64,6 +65,7 @@ A workshop's family of Rust-native engines, each built to the standard its field
 - Live registry figures: versions are fetched at every deploy (and nightly), then updated in the visitor's browser. They come from the registry at the moment they are shown.
 - Assets: the member icons and their masters (`packages/family/icons/`, `design/icons/`), the textures (`packages/family/textures/`), the bundled Barlow Condensed weights, the brand mark (`app/assets/brand/`), the social card (`public/social.png`), and the approved comps (`design/comp/2026-10/`).
 - The personal layer: the origin story (qooxdoo heritage, giving back) and a signed note are on the family site.
+- Outside voices on the material: what people the field listens to have said about building with Rust, quoted verbatim, short, attributed and linked to the source (`Voices` on the family page). They speak about Rust, never about the family.
 - Absent, and never to be invented: stars, user counts, customer logos, testimonials, press. The family is young; there is no social proof.
 
 ## Product Principles

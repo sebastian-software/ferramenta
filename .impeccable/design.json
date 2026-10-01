@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-30T15:40:25.311Z",
+  "generatedAt": "2026-09-30T19:32:35.900Z",
   "title": "Design System: Ferramenta",
   "extensions": {
     "colorMeta": {
@@ -928,11 +928,6 @@
         "purpose": "The polished steel button on rust or oak."
       },
       {
-        "name": "steel-tile",
-        "value": "inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45)",
-        "purpose": "The steel tile under a small icon on a dark ground."
-      },
-      {
         "name": "chain-link",
         "value": "0 1px 2px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(0 0 0 / 0.3)",
         "purpose": "The two links the tag hangs on."
@@ -1062,9 +1057,9 @@
       "name": "Site Header",
       "kind": "nav",
       "refersTo": "site-header",
-      "description": "The flat dark iron bar: the small icon on a steel tile, the wordmark, the site's own links in label lettering.",
-      "html": "<header class=\"ds-header\"><a class=\"ds-lockup\" href=\"#\"><span class=\"ds-tile\"></span><span>Ferramenta</span></a><nav class=\"ds-links\"><a href=\"#\">Engines</a><a href=\"#\">Applications</a><a href=\"#\">Work with us</a></nav></header>",
-      "css": ".ds-header { display: flex; align-items: center; gap: 1.5rem; min-height: 4rem; padding-inline: 1.5rem; background: var(--iron); color: var(--iron-ink); border-bottom: 1px solid var(--iron-line); } .ds-lockup { display: flex; align-items: center; gap: 0.625rem; min-height: 44px; color: inherit; text-decoration: none; font: 700 1.5rem/1 var(--display), var(--body); letter-spacing: 0.08em; text-transform: uppercase; } .ds-tile { display: inline-block; width: 34px; height: 34px; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45); } .ds-links { display: flex; align-items: center; gap: 1.5rem; margin-left: auto; } .ds-links a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.375rem; color: var(--iron-soft); font: 600 1.0625rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color 0.2s; } .ds-links a:hover { color: var(--iron-ink); } .ds-header a:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }"
+      "description": "The flat dark iron bar: the small icon directly on the iron (shown as a placeholder box), the wordmark, the site's own links in label lettering.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-lockup\" href=\"#\"><span class=\"ds-icon\"></span><span>Ferramenta</span></a><nav class=\"ds-links\"><a href=\"#\">Engines</a><a href=\"#\">Applications</a><a href=\"#\">Work with us</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 1.5rem; min-height: 4rem; padding-inline: 1.5rem; background: var(--iron); color: var(--iron-ink); border-bottom: 1px solid var(--iron-line); } .ds-lockup { display: flex; align-items: center; gap: 0.625rem; min-height: 44px; color: inherit; text-decoration: none; font: 700 1.5rem/1 var(--display), var(--body); letter-spacing: 0.08em; text-transform: uppercase; } .ds-icon { display: inline-block; width: 40px; height: 40px; background: radial-gradient(circle at 50% 55%, var(--ember) 0 28%, var(--iron-2) 30% 60%, transparent 62%); } .ds-links { display: flex; align-items: center; gap: 1.5rem; margin-left: auto; } .ds-links a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.375rem; color: var(--iron-soft); font: 600 1.0625rem/1 var(--display), var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color 0.2s; } .ds-links a:hover { color: var(--iron-ink); } .ds-header a:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }"
     },
     {
       "name": "Application Card",
@@ -1093,9 +1088,16 @@
       "name": "Relation Chip",
       "kind": "chip",
       "refersTo": "relation-chip",
-      "description": "A related member as a link: its icon on a steel tile (shown here as the tile alone), name and job on a dark inlay.",
-      "html": "<a class=\"ds-chip\" href=\"#\"><span class=\"ds-chip-tile\"></span><span><b>Ferroni</b>Regex engine</span></a>",
-      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.375rem 0.875rem 0.375rem 0.375rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 0 0 0 1px var(--inlay-line); text-decoration: none; font-family: var(--body); } .ds-chip:hover { box-shadow: inset 0 0 0 1px var(--ember); } .ds-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; } .ds-chip-tile { display: inline-block; width: 34px; height: 34px; background: var(--steel); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(0 0 0 / 0.45); } .ds-chip span:last-child { display: grid; font-size: 0.8125rem; line-height: 1.25; } .ds-chip b { font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.06em; text-transform: uppercase; }"
+      "description": "A related member as a link: its small icon (a placeholder box here), name and what-label on a dark inlay. An application's chip is light.",
+      "html": "<a class=\"ds-chip\" href=\"#\"><span class=\"ds-chip-icon\"></span><span><b>Ferroni</b>Regex engine</span></a> <a class=\"ds-chip ds-chip-light\" href=\"#\"><span class=\"ds-chip-icon\"></span><span><b>Palamedes</b>i18n toolchain</span></a>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.375rem 0.875rem 0.375rem 0.375rem; background: var(--inlay); color: var(--inlay-ink); box-shadow: inset 0 0 0 1px var(--inlay-line); text-decoration: none; font-family: var(--body); } .ds-chip:hover { box-shadow: inset 0 0 0 1px var(--ember); } .ds-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; } .ds-chip-icon { display: inline-block; width: 32px; height: 32px; background: radial-gradient(circle at 50% 55%, var(--ember) 0 28%, var(--iron-2) 30% 60%, transparent 62%); } .ds-chip-light { background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); } .ds-chip-light:hover { box-shadow: inset 0 0 0 1px var(--rust); } .ds-chip span:last-child { display: grid; font-size: 0.8125rem; line-height: 1.25; } .ds-chip b { font: 700 1.125rem/1 var(--display), var(--body); letter-spacing: 0.06em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Voice",
+      "kind": "custom",
+      "description": "An outside voice on the material, verbatim and attributed: the words in the display face under a heavy rule, the source small and linked.",
+      "html": "<blockquote class=\"ds-voice\"><p>“Rust is the first language that gave us memory safety without a garbage collector.”</p><footer><cite>A. Person</cite><a href=\"#\">A conference keynote, 2026</a></footer></blockquote>",
+      "css": ".ds-voice { max-width: 22rem; margin: 0; padding-top: 1.25rem; border-top: 3px solid var(--line-heavy); color: var(--ink); font-family: var(--body); } .ds-voice p { margin: 0; max-width: 28ch; font: 600 clamp(1.375rem, 2.2vw, 1.75rem) / 1.15 var(--display), var(--body); letter-spacing: 0.01em; text-wrap: balance; } .ds-voice footer { display: grid; margin-top: 1rem; font-size: 0.9375rem; line-height: 1.4; color: var(--ink-soft); } .ds-voice cite { font-style: normal; font-weight: 600; color: var(--ink); } .ds-voice a { color: var(--rust-deep); text-underline-offset: 0.18em; } .ds-voice a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }"
     },
     {
       "name": "Principle",
@@ -1117,7 +1119,7 @@
     "northStar": "The Data Plate",
     "overview": "Every machine carries a data plate that says what it is. The family site is the workshop's catalog of such plates: one riveted sheet of brushed steel per engine, read before anything else. The direction is named \"Typenschild\", German for that plate. A page is light and warm, with deliberately dark passages in smoked oak, the bench the plates lie on, and it closes on one band of dark, oxidized rust. Lettering is a condensed data-plate face; reading text is the system face. Each member is one rendered object of forged steel with a single glowing or rust-orange element, and the greys of the page are warm because those objects are.\n\nThe system is dense where a plate would be dense (names, labels, measured facts) and quiet everywhere else. Material gives the pull; restraint and plain language give the trust. It refuses the SaaS hero-plus-feature-cards arrangement and the dark developer-tool default.",
     "keyCharacteristics": [
-      "Three materials, one job each: brushed steel, dark oak, rust. Everything else is flat, the dark chrome included.",
+      "Three materials, one job each: brushed steel, dark oak, rust. Everything else is flat, the dark chrome included, which carries no steel.",
       "Two ramps hold every color: warm iron greys and oxidized rust.",
       "One prop: the riveted plate, with its measured facts on a tag hanging below it.",
       "One authored scheme on landing pages; no theme toggle there.",
@@ -1235,7 +1237,8 @@
       "**Do** build landing pages inside `.fam-page`, in the one authored scheme, with stylesheets in the documented load order and classes in the `fam-` namespace.",
       "**Do** follow a hero with a light section.",
       "**Do** show engines in the family look and applications on light cards under their own logos, with the brand color only in the top rule and the action.",
-      "**Do** put a small member icon on a steel tile when the ground is dark.",
+      "**Do** let a small member icon stand directly on its ground, dark iron included.",
+      "**Do** quote an outside voice verbatim, short, attributed and linked, and only about the material.",
       "**Do** state what is proven in words on the family site, and leave figures to each project's own page.",
       "**Do** say how two members fit together in one sentence in the row, or as chips under \"Runs on\", \"Pairs with\" and \"Carries\" on a member's page.",
       "**Do** put a pattern two members' sites need into the package, with a specimen in the kit.",
@@ -1258,6 +1261,8 @@
       "**Don't** repeat a factor, timing, percentage or test count on the family site.",
       "**Don't** put a comparison on a plate or a texture, or state a mark by color alone.",
       "**Don't** use a real member's figures or a real contender's name in a kit specimen.",
+      "**Don't** put words in anyone's mouth about the family, or invent stars, counts, testimonials or press.",
+      "**Don't** put a steel tile or any other frame under a small icon.",
       "**Don't** dress an application in the family look, or an engine in a brand of its own.",
       "**Don't** pair an oak band directly under the hero when a light section can go there."
     ]

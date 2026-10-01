@@ -4,11 +4,11 @@ The source of every icon in `packages/family/icons/`. Each member has one
 object (ADR-0009), shown as a rendered picture at three sizes: on a hero plate,
 on a catalog plate, and small in the chrome.
 
-| Path                  | What it is                                                                        |
-| --------------------- | --------------------------------------------------------------------------------- |
-| `masters/<name>.webp` | The master, as generated, on a transparent ground                                 |
-| `build-icons.sh`      | Masters → `<name>.webp` (640px), `-256.webp` and `-96.webp`, trimmed and centered |
-| `kit-sample/`         | The master of the kit's invented sample tool; its files go to `app/assets/kit/`   |
+| Path                  | What it is                                                                          |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| `masters/<name>.webp` | The master, as generated, on a transparent ground                                   |
+| `build-icons.sh`      | Masters → `<name>.webp` (640px), `-256.webp` and `-96.webp` (lit for the dark iron) |
+| `kit-sample/`         | The master of the kit's invented sample tool; its files go to `app/assets/kit/`     |
 
 The masters are the only source the shipped files can be rebuilt from. They
 were generated on 2026-09-30 with the Codex CLI image tool. Every raster, master

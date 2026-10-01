@@ -1,6 +1,6 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-import { displayName, familyTiers, leadsToRepo, relationsOf, runsOnTools, toolHref, } from "./family.js";
+import { displayName, familyTiers, leadsToRepo, relationsOf, runsOnTools, toolHref, whatLabel, } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
 import { Plate } from "./Plate.js";
@@ -49,7 +49,7 @@ function EngineFacts({ tool }) {
  * from. The name is the link, stretched over the plate.
  */
 function EngineRow({ tool }) {
-    return (_jsx("li", { children: _jsxs("article", { className: "fam-engine", id: tool.name, children: [_jsxs(Plate, { className: "fam-engine-plate", children: [_jsx(Icon, { name: tool.name, form: "rendered" }), _jsxs("div", { children: [_jsx("h3", { className: "fam-engine-name", children: _jsxs("a", { className: "fam-engine-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-engine-what", children: tool.what })] })] }), _jsxs("div", { className: "fam-engine-body", children: [_jsx("p", { className: "fam-engine-does", children: tool.does }), _jsx("p", { children: tool.audience }), _jsx("p", { children: tool.proof }), _jsx(EngineRelations, { tool: tool }), _jsx(EngineFacts, { tool: tool }), _jsx("p", { className: "fam-engine-go", children: _jsxs("a", { href: toolHref(tool), children: [linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] }) })] })] }) }));
+    return (_jsx("li", { children: _jsxs("article", { className: "fam-engine", id: tool.name, children: [_jsxs(Plate, { className: "fam-engine-plate", children: [_jsx(Icon, { name: tool.name, form: "rendered" }), _jsxs("div", { children: [_jsx("h3", { className: "fam-engine-name", children: _jsxs("a", { className: "fam-engine-link", href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }) }), _jsx("p", { className: "fam-engine-what", children: whatLabel(tool) })] })] }), _jsxs("div", { className: "fam-engine-body", children: [_jsx("p", { className: "fam-engine-does", children: tool.does }), _jsx("p", { children: tool.audience }), _jsx("p", { children: tool.proof }), _jsx(EngineRelations, { tool: tool }), _jsx(EngineFacts, { tool: tool }), _jsx("p", { className: "fam-engine-go", children: _jsxs("a", { href: toolHref(tool), children: [linkLabel(tool), " ", _jsx(Mark, { name: "arrow", size: 18 })] }) })] })] }) }));
 }
 /**
  * The engine catalog: one row per engine, each with its name plate. Every
@@ -65,9 +65,9 @@ function brandStyle(tool) {
         return undefined;
     return { "--fam-app-color": tool.brand.color, "--fam-app-on-color": tool.brand.onColor };
 }
-/** The engines an application runs on: each icon on a steel tile, name and job on a dark inlay. */
+/** The engines an application runs on: each icon, name and what it is, on a dark inlay. */
 function RunsOn({ engines }) {
-    return (_jsxs(_Fragment, { children: [_jsx("p", { className: "fam-app-label", children: "Runs on" }), _jsx("ul", { className: "fam-app-runs", children: engines.map((engine) => (_jsxs("li", { children: [_jsx("span", { className: "fam-tile", children: _jsx(Icon, { name: engine.name, size: 28 }) }), _jsxs("span", { children: [_jsx("b", { children: engine.name }), engine.shortJob] })] }, engine.name))) })] }));
+    return (_jsxs(_Fragment, { children: [_jsx("p", { className: "fam-app-label", children: "Runs on" }), _jsx("ul", { className: "fam-app-runs", children: engines.map((engine) => (_jsxs("li", { children: [_jsx(Icon, { name: engine.name, size: 32 }), _jsxs("span", { children: [_jsx("b", { children: engine.name }), whatLabel(engine)] })] }, engine.name))) })] }));
 }
 function ApplicationCard({ tool }) {
     const engines = runsOnTools(tool);

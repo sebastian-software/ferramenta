@@ -71,12 +71,13 @@ html {
   display: none;
 }
 
-/* The personal note: who builds this, and why. */
+/* The personal note: who builds this, and why. The pull quote's rules are scoped to the
+   grid, so the outside voices under it keep the kit's own quote style. */
 .story-grid {
   display: grid;
   gap: 2rem;
 }
-.story blockquote p {
+.story-grid blockquote p {
   font-family: var(--display), var(--body);
   font-weight: var(--disp-weight);
   font-size: clamp(2rem, 4.4vw, 3.5rem);
@@ -85,12 +86,12 @@ html {
   text-transform: uppercase;
   color: var(--rust-deep);
 }
-.story blockquote footer {
+.story-grid blockquote footer {
   display: grid;
   margin-top: 1.5rem;
   line-height: 1.35;
 }
-.story blockquote span,
+.story-grid blockquote span,
 .story-body {
   color: var(--ink-soft);
 }

@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { FAMILY_SITE, familyTiers, toolHref, WORKSHOP } from "./family.js";
+import { FAMILY_SITE, familyTiers, toolHref, whatLabel, WORKSHOP, } from "./family.js";
 import { Icon } from "./Icon.js";
 import { RepoNote } from "./RepoNote.js";
 const DEFAULT_LEGAL = "This site is MIT-licensed; each tool states its own license in its repository.";
 function ToolList({ jobs, tools }) {
-    return (_jsx("ul", { children: tools.map((tool) => (_jsxs("li", { children: [_jsxs("a", { href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }), _jsx("span", { className: "family-job", children: jobs === "short" ? tool.shortJob : tool.job })] }, tool.name))) }));
+    return (_jsx("ul", { children: tools.map((tool) => (_jsxs("li", { children: [_jsxs("a", { href: toolHref(tool), children: [tool.name, _jsx(RepoNote, { tool: tool })] }), _jsx("span", { className: "family-job", children: jobs === "short" ? whatLabel(tool) : tool.job })] }, tool.name))) }));
 }
 /**
  * The workshop's own links. Consulting comes first: most visitors meet the
@@ -20,7 +20,7 @@ function WorkshopList() {
  */
 function FooterLockup({ current }) {
     const home = current === undefined;
-    return (_jsxs("div", { children: [_jsxs("a", { className: "lockup", href: home ? "/" : FAMILY_SITE, children: [_jsx("span", { className: "fam-tile", children: _jsx(Icon, { name: "ferramenta", size: 26 }) }), home ? "ferramenta" : "More from Ferramenta"] }), _jsxs("p", { children: ["Rust-native engines by ", WORKSHOP.name, ", built to the standards their fields agreed on."] })] }));
+    return (_jsxs("div", { children: [_jsxs("a", { className: "lockup", href: home ? "/" : FAMILY_SITE, children: [_jsx(Icon, { name: "ferramenta", size: 36 }), home ? "ferramenta" : "More from Ferramenta"] }), _jsxs("p", { children: ["Rust-native engines by ", WORKSHOP.name, ", built to the standards their fields agreed on."] })] }));
 }
 /**
  * The footer's columns: the engines, then the applications and the workshop
@@ -37,5 +37,5 @@ function FooterColumns({ current, members, }) {
 /** The dark footer: lockup, the two tiers from the registry, the workshop's links. */
 export function SiteFooter({ as = "footer", current, legal = DEFAULT_LEGAL, members = "full", } = {}) {
     const Root = as;
-    return (_jsx(Root, { className: "site-footer", children: _jsxs("div", { className: members === "none" ? "wrap foot foot-index" : "wrap foot", children: [_jsx(FooterLockup, { current: current }), _jsx(FooterColumns, { current: current, members: members }), _jsx("p", { className: "foot-legal", children: legal })] }) }));
+    return (_jsx(Root, { className: "site-footer", children: _jsxs("div", { className: members === "none" ? "wrap foot foot-index" : "wrap foot", children: [_jsx(FooterLockup, { current: current }), _jsx(FooterColumns, { current: current, members: members }), _jsxs("p", { className: "foot-legal", children: [_jsxs("span", { className: "foot-copyright", children: ["\u00A9 ", new Date().getFullYear(), " ", WORKSHOP.company, ", ", WORKSHOP.place, " \u00B7", " ", _jsx("a", { href: WORKSHOP.imprint, children: "Imprint" }), " \u00B7 ", _jsx("a", { href: WORKSHOP.privacy, children: "Privacy" })] }), legal] })] }) }));
 }

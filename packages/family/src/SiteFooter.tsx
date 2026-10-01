@@ -1,6 +1,13 @@
 import type { ElementType, ReactNode } from "react";
 
-import { FAMILY_SITE, familyTiers, type FamilyTool, toolHref, WORKSHOP } from "./family.js";
+import {
+  FAMILY_SITE,
+  familyTiers,
+  type FamilyTool,
+  toolHref,
+  whatLabel,
+  WORKSHOP,
+} from "./family.js";
 import { Icon } from "./Icon.js";
 import { RepoNote } from "./RepoNote.js";
 
@@ -14,7 +21,11 @@ export type SiteFooterProps = {
    * site's root. Leave it out on ferramenta.dev itself.
    */
   current?: string;
-  /** The small print under the columns. */
+  /**
+   * The small print under the columns: the site's license, its build. The
+   * workshop's copyright, imprint and privacy links stand above it on every
+   * footer, so a site does not repeat them here.
+   */
   legal?: ReactNode;
   /**
    * The element to render. `"footer"` (the default) is the contentinfo
@@ -25,7 +36,7 @@ export type SiteFooterProps = {
   as?: "div" | "footer";
   /**
    * The family columns. `"full"` (the default) lists every member with the
-   * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
+   * registry's `job`; `"short"` with what it is (`whatLabel`); `"none"` drops the
    * columns, for a page that is itself the family's index (ferramenta.dev).
    */
   members?: "full" | "none" | "short";
@@ -40,7 +51,7 @@ function ToolList({ jobs, tools }: { jobs: "full" | "short"; tools: FamilyTool[]
             {tool.name}
             <RepoNote tool={tool} />
           </a>
-          <span className="family-job">{jobs === "short" ? tool.shortJob : tool.job}</span>
+          <span className="family-job">{jobs === "short" ? whatLabel(tool) : tool.job}</span>
         </li>
       ))}
     </ul>
@@ -78,9 +89,7 @@ function FooterLockup({ current }: { current?: string }) {
   return (
     <div>
       <a className="lockup" href={home ? "/" : FAMILY_SITE}>
-        <span className="fam-tile">
-          <Icon name="ferramenta" size={26} />
-        </span>
+        <Icon name="ferramenta" size={36} />
         {home ? "ferramenta" : "More from Ferramenta"}
       </a>
       <p>Rust-native engines by {WORKSHOP.name}, built to the standards their fields agreed on.</p>
@@ -140,7 +149,14 @@ export function SiteFooter({
       <div className={members === "none" ? "wrap foot foot-index" : "wrap foot"}>
         <FooterLockup current={current} />
         <FooterColumns current={current} members={members} />
-        <p className="foot-legal">{legal}</p>
+        <p className="foot-legal">
+          {/* The copyright and the two links a site in the EU has to carry; the company site keeps the pages. */}
+          <span className="foot-copyright">
+            © {new Date().getFullYear()} {WORKSHOP.company}, {WORKSHOP.place} ·{" "}
+            <a href={WORKSHOP.imprint}>Imprint</a> · <a href={WORKSHOP.privacy}>Privacy</a>
+          </span>
+          {legal}
+        </p>
       </div>
     </Root>
   );

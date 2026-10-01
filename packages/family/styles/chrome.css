@@ -9,8 +9,8 @@
  * These class names are part of the package contract: `site-header`,
  * `site-footer`, `site-links`, `site-menu`, `bar`, `wrap`, `lockup`, `switcher`, `flyout`,
  * `flygroup`, `ghlink`, `site-nav`, `switcher-start`, `switcher-family`,
- * `flyhome`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `icon`, `fam-icon`,
- * `fam-tile`, `fam-sr-only`. Loading last means this file wins those ties, so
+ * `flyhome`, `on-iron`, `foot`, `foot-gap`, `foot-legal`, `foot-copyright`,
+ * `icon`, `fam-icon`, `fam-sr-only`. Loading last means this file wins those ties, so
  * a site that needs one of the names for its own elements should scope or
  * rename it.
  */
@@ -159,21 +159,6 @@
 
 .fam-icon[data-form="hero"][data-icon="ferrugo"] {
   background-image: url("../icons/ferrugo.webp");
-}
-
-/*
- * A small tile of the plate steel under an icon. On a dark ground a dark object
- * loses its outline, so the chrome shows every icon on one.
- */
-.fam-tile {
-  display: inline-grid;
-  flex: none;
-  place-items: center;
-  padding: 3px;
-  background: var(--steel) url("../textures/steel.webp") center / 400%;
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.55),
-    inset 0 -1px 0 rgb(0 0 0 / 0.45);
 }
 
 /* The chrome is dark in every scheme, so its focus ring is always the glowing one. */
@@ -465,6 +450,33 @@ details.site-menu {
   border-top: 1px solid var(--iron-line);
 }
 
+/*
+ * The applications stand on the light ground, to the panel's edges: their
+ * logos are foreign brands, drawn for a light ground, and on the iron they
+ * either vanish or fight it. The family's own ink and rust rule there.
+ */
+.flygroup[data-tier="applications"] {
+  margin: 0.25rem -0.5rem -0.5rem;
+  padding: 0.25rem 0.5rem 0.5rem;
+  border-top: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.flygroup[data-tier="applications"] > small,
+.flyout .flygroup[data-tier="applications"] a small {
+  color: var(--ink-soft);
+}
+
+.flyout .flygroup[data-tier="applications"] a {
+  color: var(--ink);
+}
+
+.flyout .flygroup[data-tier="applications"] a:hover {
+  background: var(--bg-dim);
+  color: var(--rust);
+}
+
 .flygroup > small {
   grid-column: 1 / -1;
   display: block;
@@ -515,6 +527,10 @@ details.site-menu {
   text-decoration: none;
   padding: 0.5rem 0.6rem;
   font-size: 0.92rem;
+}
+
+.flyout a > .fam-icon {
+  flex: none;
 }
 
 .flyout a:hover {
@@ -661,6 +677,13 @@ details.site-menu {
   font-size: 0.875rem;
 }
 
+/* The workshop's copyright, on its own line above a site's legal text. */
+.foot-copyright {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--iron-ink);
+}
+
 /*
  * The legal line spans every column, so the 34ch measure `.foot p` sets for the
  * lockup's paragraph would wrap a long one into a narrow strip. Two classes,
@@ -708,7 +731,13 @@ details.site-menu {
   }
 
   .lockup {
+    gap: 0.5rem;
     font-size: 1.25rem;
+  }
+
+  /* The lockup's icon shrinks with its wordmark. */
+  .lockup > .fam-icon {
+    inline-size: 36px;
   }
 
   nav.site-nav {
@@ -719,7 +748,7 @@ details.site-menu {
     display: none;
   }
 
-  .site-header .switcher-family summary > span:not(.fam-tile) {
+  .site-header .switcher-family summary > span:not(.fam-icon) {
     display: none;
   }
 
@@ -789,7 +818,7 @@ details.site-menu {
 }
 
 @media (max-width: 22rem) {
-  .lockup > span:not(.fam-tile) {
+  .lockup > span:not(.fam-icon) {
     display: none;
   }
 }

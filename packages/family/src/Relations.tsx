@@ -1,4 +1,12 @@
-import { family, type FamilyRelation, type FamilyTool, relationsOf, toolHref } from "./family.js";
+import {
+  family,
+  type FamilyRelation,
+  type FamilyTool,
+  isEngine,
+  relationsOf,
+  toolHref,
+  whatLabel,
+} from "./family.js";
 import { Icon } from "./Icon.js";
 
 /** The heading of each kind of relation, in the order a page shows them. */
@@ -8,16 +16,15 @@ const KINDS: Array<{ kind: FamilyRelation["kind"]; label: string }> = [
   { kind: "carries", label: "Carries" },
 ];
 
+/** A related member. An application's chip is light: its logo is a foreign brand, drawn for a light ground. */
 function Chip({ tool }: { tool: FamilyTool }) {
   return (
     <li>
-      <a className="fam-chip" href={toolHref(tool)}>
-        <span className="fam-tile">
-          <Icon name={tool.name} size={28} />
-        </span>
+      <a className="fam-chip" data-light={isEngine(tool) ? undefined : ""} href={toolHref(tool)}>
+        <Icon name={tool.name} size={32} />
         <span>
           <b>{tool.name}</b>
-          {tool.shortJob}
+          {whatLabel(tool)}
         </span>
       </a>
     </li>

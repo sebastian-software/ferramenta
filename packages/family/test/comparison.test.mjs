@@ -201,3 +201,28 @@ test("a header carries the host's search, on a row of its own where the bar is f
     "the docs layout clears the taller header",
   );
 });
+
+test("an outside voice is quoted verbatim, named, and linked to where it was said", () => {
+  const html = render(kit.Voices, {
+    title: "Others on the material",
+    voices: [
+      {
+        quote: "Short and checkable.",
+        who: "A Person",
+        where: "a talk · 2026",
+        href: "https://example.com/talk",
+      },
+      { quote: "Unlinked.", who: "B Person", where: "somewhere" },
+    ],
+  });
+  assertInOrder(
+    html,
+    [
+      '<div class="fam-voices"><h3 class="fam-voices-title">Others on the material</h3><ul class="fam-voices-list">',
+      '<li><blockquote cite="https://example.com/talk"><p>“Short and checkable.”</p><footer><cite>A Person</cite><a href="https://example.com/talk">a talk · 2026</a></footer></blockquote></li>',
+      "<li><blockquote><p>“Unlinked.”</p><footer><cite>B Person</cite><span>somewhere</span></footer></blockquote></li>",
+    ],
+    "each voice with its words in quotation marks, its name, and its source",
+  );
+  assert.ok(!render(kit.Voices, { voices: [] }).includes("<h3"), "no title unless given");
+});

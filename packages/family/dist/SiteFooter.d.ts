@@ -6,7 +6,11 @@ export type SiteFooterProps = {
      * site's root. Leave it out on ferramenta.dev itself.
      */
     current?: string;
-    /** The small print under the columns. */
+    /**
+     * The small print under the columns: the site's license, its build. The
+     * workshop's copyright, imprint and privacy links stand above it on every
+     * footer, so a site does not repeat them here.
+     */
     legal?: ReactNode;
     /**
      * The element to render. `"footer"` (the default) is the contentinfo
@@ -17,7 +21,7 @@ export type SiteFooterProps = {
     as?: "div" | "footer";
     /**
      * The family columns. `"full"` (the default) lists every member with the
-     * registry's `job`; `"short"` with its `shortJob`; `"none"` drops the
+     * registry's `job`; `"short"` with what it is (`whatLabel`); `"none"` drops the
      * columns, for a page that is itself the family's index (ferramenta.dev).
      */
     members?: "full" | "none" | "short";

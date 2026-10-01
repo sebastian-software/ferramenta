@@ -1,6 +1,6 @@
 import { type ReactNode, useRef } from "react";
 
-import { FAMILY_SITE, familyTiers, type FamilyTool, toolHref } from "./family.js";
+import { FAMILY_SITE, familyTiers, type FamilyTool, toolHref, whatLabel } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
 import { RepoNote } from "./RepoNote.js";
@@ -40,9 +40,7 @@ function trigger(family: boolean): ReactNode {
   if (!family) return "Tools";
   return (
     <>
-      <span className="fam-tile">
-        <Icon name="ferramenta" size={24} />
-      </span>
+      <Icon name="ferramenta" size={32} />
       <span>Ferramenta</span>
     </>
   );
@@ -52,9 +50,7 @@ function trigger(family: boolean): ReactNode {
 function FamilyHome() {
   return (
     <a className="flyhome" href={FAMILY_SITE}>
-      <span className="fam-tile">
-        <Icon name="ferramenta" size={30} />
-      </span>
+      <Icon name="ferramenta" size={36} />
       <span>
         <b>ferramenta</b>
         <small>the family site</small>
@@ -63,22 +59,33 @@ function FamilyHome() {
   );
 }
 
-function FlyoutGroup({ label, tools }: { label: string; tools: FamilyTool[] }) {
+/**
+ * One tier of the flyout. The applications' group stands on a light ground:
+ * their logos are foreign brands, drawn for one, and on the dark iron they
+ * either vanish or fight it.
+ */
+function FlyoutGroup({
+  label,
+  tier,
+  tools,
+}: {
+  label: string;
+  tier: "applications" | "engines";
+  tools: FamilyTool[];
+}) {
   if (tools.length === 0) return null;
   return (
-    <div className="flygroup">
+    <div className="flygroup" data-tier={tier}>
       <small>{label}</small>
       {tools.map((tool) => (
         <a key={tool.name} href={toolHref(tool)}>
-          <span className="fam-tile">
-            <Icon name={tool.name} size={30} />
-          </span>
+          <Icon name={tool.name} size={36} />
           <span>
             <b>
               {tool.name}
               <RepoNote tool={tool} />
             </b>
-            <small>{tool.shortJob}</small>
+            <small>{whatLabel(tool)}</small>
           </span>
         </a>
       ))}
@@ -110,8 +117,8 @@ export function ToolSwitcher(props: ToolSwitcherProps = {}) {
       <div className="flyout">
         {family && <FamilyHome />}
         {current !== undefined && <p className="switcher-current">Current: {current}</p>}
-        <FlyoutGroup label="Engines" tools={engines} />
-        <FlyoutGroup label="Applications" tools={applications} />
+        <FlyoutGroup label="Engines" tier="engines" tools={engines} />
+        <FlyoutGroup label="Applications" tier="applications" tools={applications} />
       </div>
     </details>
   );
