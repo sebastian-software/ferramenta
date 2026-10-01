@@ -24,21 +24,18 @@ function FooterLockup({ current }) {
 }
 /**
  * The footer's columns: the engines, then the applications and the workshop
- * (unless the page is the family's own index, or the site is on the company
- * line). Headings are h2: the footer is its own landmark, outside the page's
- * outline.
+ * (only the workshop when the page is the family's own index). Headings are
+ * h2: the footer is its own landmark, outside the page's outline.
  */
-function FooterColumns({ current, line, members, }) {
-    if (line === "company" || members === "none") {
+function FooterColumns({ current, members, }) {
+    if (members === "none") {
         return (_jsxs("div", { children: [_jsx("h2", { children: "Work with us" }), _jsx(WorkshopList, {})] }));
     }
     const { applications, engines } = familyTiers(current);
-    const jobs = members;
-    return (_jsxs(_Fragment, { children: [_jsxs("div", { children: [_jsx("h2", { children: "Engines" }), _jsx(ToolList, { jobs: jobs, tools: engines })] }), _jsxs("div", { children: [applications.length > 0 && (_jsxs(_Fragment, { children: [_jsx("h2", { children: "Applications" }), _jsx(ToolList, { jobs: jobs, tools: applications })] })), _jsx("h2", { className: applications.length > 0 ? "foot-gap" : undefined, children: "Work with us" }), _jsx(WorkshopList, {})] })] }));
+    return (_jsxs(_Fragment, { children: [_jsxs("div", { children: [_jsx("h2", { children: "Engines" }), _jsx(ToolList, { jobs: members, tools: engines })] }), _jsxs("div", { children: [applications.length > 0 && (_jsxs(_Fragment, { children: [_jsx("h2", { children: "Applications" }), _jsx(ToolList, { jobs: members, tools: applications })] })), _jsx("h2", { className: applications.length > 0 ? "foot-gap" : undefined, children: "Work with us" }), _jsx(WorkshopList, {})] })] }));
 }
 /** The dark footer: lockup, the two tiers from the registry, the workshop's links. */
-export function SiteFooter({ as = "footer", current, legal = DEFAULT_LEGAL, line = "family", members = "full", } = {}) {
+export function SiteFooter({ as = "footer", current, legal = DEFAULT_LEGAL, members = "full", } = {}) {
     const Root = as;
-    const columns = line === "family" && members !== "none";
-    return (_jsx(Root, { className: "site-footer", children: _jsxs("div", { className: columns ? "wrap foot" : "wrap foot foot-company", children: [_jsx(FooterLockup, { current: current }), _jsx(FooterColumns, { current: current, line: line, members: members }), _jsx("p", { className: "foot-legal", children: legal })] }) }));
+    return (_jsx(Root, { className: "site-footer", children: _jsxs("div", { className: members === "none" ? "wrap foot foot-index" : "wrap foot", children: [_jsx(FooterLockup, { current: current }), _jsx(FooterColumns, { current: current, members: members }), _jsx("p", { className: "foot-legal", children: legal })] }) }));
 }

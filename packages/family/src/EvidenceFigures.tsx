@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Rivets } from "./Plate.js";
+import { Plate } from "./Plate.js";
 
 export type EvidenceFigure = {
   /** What was measured. Also the row's key, so keep it unique. */
@@ -23,8 +23,7 @@ export function EvidenceFigures({ figures }: { figures: EvidenceFigure[] }) {
   return (
     <dl className="fam-figures">
       {figures.map((figure) => (
-        <div key={figure.label} className="fam-plate fam-figure">
-          <Rivets />
+        <Plate key={figure.label} className="fam-figure">
           <dt>{figure.label}</dt>
           <dd className="fam-figure-value">{figure.value}</dd>
           {(figure.detail !== undefined || figure.measure !== undefined) && (
@@ -33,7 +32,7 @@ export function EvidenceFigures({ figures }: { figures: EvidenceFigure[] }) {
               {figure.measure !== undefined && <span>{figure.measure}</span>}
             </dd>
           )}
-        </div>
+        </Plate>
       ))}
     </dl>
   );

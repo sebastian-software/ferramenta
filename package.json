@@ -15,21 +15,21 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "check:markdown-links": "node scripts/check-markdown-links.mjs",
-    "readme:check": "node packages/family/bin/family-readme.mjs --check README.md.src && mise run readme:check",
-    "readme:write": "node packages/family/bin/family-readme.mjs --write README.md.src && mise run readme:write",
+    "check:markdown-links": "mise run links:check",
+    "readme:check": "mise run readme:check",
+    "readme:write": "mise run readme:write",
     "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check && pnpm check:markdown-links && pnpm theme:check",
     "verify:package": "node scripts/verify-package-consumers.mjs",
     "review": "node scripts/review-site.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs",
-    "theme:write": "node scripts/native-theme.mjs --write",
-    "theme:check": "node scripts/native-theme.mjs --check"
+    "theme:write": "node packages/family/scripts/native-theme.mjs --write",
+    "theme:check": "node packages/family/scripts/native-theme.mjs --check"
   },
   "dependencies": {
     "ardo": "^4.2.0",
     "ferramenta-family": "workspace:*",
-    "isbot": "^5.2.2",
+    "isbot": "^5",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router": "^8.4.0"

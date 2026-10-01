@@ -56,14 +56,14 @@ export function HangingTag({ facts }: { facts: PlateFact[] }) {
     <div className="fam-hanger">
       <i className="fam-link" data-side="left" aria-hidden="true" />
       <i className="fam-link" data-side="right" aria-hidden="true" />
-      <dl className="fam-plate fam-tag">
+      <Plate as="dl" className="fam-tag" rivets={false}>
         {facts.map((fact) => (
           <div key={fact.label}>
             <dt>{fact.label}</dt>
             <dd>{fact.value}</dd>
           </div>
         ))}
-      </dl>
+      </Plate>
     </div>
   );
 }

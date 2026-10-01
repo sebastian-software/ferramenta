@@ -360,28 +360,3 @@ export function useFamilyFacts(
   }, [key]);
   return facts;
 }
-
-/**
- * The live figures for a page, after hydration. Returns an empty map during
- * prerender and until the registries answer, so a component renders its
- * build-time value first and swaps in the live one when it arrives.
- */
-export function useLiveRegistry(
-  request: LiveRegistryRequest,
-  endpoints: RegistryEndpoints = REGISTRY_ENDPOINTS,
-): Record<string, LiveRegistryFacts> {
-  const [facts, setFacts] = useState<Record<string, LiveRegistryFacts>>({});
-  const key = JSON.stringify([request, endpoints]);
-  useEffect(() => {
-    let current = true;
-    void fetchLiveRegistry(request, endpoints).then((live) => {
-      if (current) setFacts(live);
-    });
-    return () => {
-      current = false;
-    };
-    // Keyed on the request's value: the objects themselves are new on every render.
-    // oxlint-disable-next-line react-hooks/exhaustive-deps -- `key` is their serialized value
-  }, [key]);
-  return facts;
-}

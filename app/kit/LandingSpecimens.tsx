@@ -233,7 +233,9 @@ export function LandingSpecimens() {
       <div className="wrap kit-gap">
         <Principles items={principles} />
       </div>
-      <IronBand title="The same, on the oak bench" rows={principles} />
+      <IronBand title="The same, on the oak bench">
+        <Principles items={principles} />
+      </IronBand>
 
       <Proof />
       <ComparisonSpecimens />

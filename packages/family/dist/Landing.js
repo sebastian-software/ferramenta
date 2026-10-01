@@ -3,7 +3,7 @@ import { useId } from "react";
 import { WORKSHOP } from "./family.js";
 import { Icon } from "./Icon.js";
 import { Mark } from "./Mark.js";
-import { HangingTag, PlateLight, Rivets } from "./Plate.js";
+import { HangingTag, Plate, PlateLight } from "./Plate.js";
 /** The copy on the hero plate: the name, what it is, the lede, and the action row. */
 function HeroCopy({ actions, install, lede, title, titleId, what, }) {
     const hasActions = actions !== undefined || install !== undefined;
@@ -18,7 +18,7 @@ export function ProjectHero({ aside, facts, icon, ...copy }) {
     let side = aside;
     if (side === undefined && icon !== undefined)
         side = _jsx(Icon, { name: icon, form: "hero" });
-    return (_jsxs("section", { className: "fam-hero", "aria-labelledby": titleId, children: [_jsx(PlateLight, {}), _jsxs("div", { className: "wrap", children: [_jsxs("div", { className: "fam-plate fam-hero-plate", children: [_jsx(Rivets, {}), _jsx(HeroCopy, { ...copy, titleId: titleId }), side !== undefined && _jsx("div", { className: "fam-hero-side", children: side })] }), facts !== undefined && facts.length > 0 && _jsx(HangingTag, { facts: facts })] })] }));
+    return (_jsxs("section", { className: "fam-hero", "aria-labelledby": titleId, children: [_jsx(PlateLight, {}), _jsxs("div", { className: "wrap", children: [_jsxs(Plate, { className: "fam-hero-plate", children: [_jsx(HeroCopy, { ...copy, titleId: titleId }), side !== undefined && _jsx("div", { className: "fam-hero-side", children: side })] }), facts !== undefined && facts.length > 0 && _jsx(HangingTag, { facts: facts })] })] }));
 }
 /** A section on the light ground: display heading, intro, content. */
 export function Section({ children, className, id, intro, layout = "stack", note, title, tone = "floor", }) {
@@ -33,11 +33,11 @@ export function Principles({ items }) {
 /**
  * The full-bleed dark band between the light sections, in dark oak: a page's
  * one or two deliberately dark passages. Everything inside takes the on-iron
- * colors (`.on-iron`).
+ * colors (`.on-iron`); principles inside it stand under glowing rules.
  */
-export function IronBand({ children, id, intro, rows, title }) {
+export function IronBand({ children, id, intro, title }) {
     const titleId = useId();
-    return (_jsx("section", { className: "fam-band on-iron", id: id, "aria-labelledby": titleId, children: _jsxs("div", { className: "wrap", children: [_jsx("h2", { className: "fam-heading", id: titleId, children: title }), intro !== undefined && _jsx("p", { className: "fam-intro", children: intro }), rows !== undefined && rows.length > 0 && _jsx(Principles, { items: rows }), children] }) }));
+    return (_jsx("section", { className: "fam-band on-iron", id: id, "aria-labelledby": titleId, children: _jsxs("div", { className: "wrap", children: [_jsx("h2", { className: "fam-heading", id: titleId, children: title }), intro !== undefined && _jsx("p", { className: "fam-intro", children: intro }), children] }) }));
 }
 /**
  * The flat return to the one action the page is for — no plate, no new

@@ -45,14 +45,12 @@ export {
   toolHref,
   WORKSHOP,
 } from "./family.js";
-export { FamilyLinks, type FamilyLinksProps } from "./FamilyLinks.js";
 export { Icon, type IconForm, type IconProps } from "./Icon.js";
 export {
   ClosingAction,
   type ClosingActionProps,
   IronBand,
   type IronBandProps,
-  type IronBandRow,
   type Principle,
   Principles,
   ProjectHero,
@@ -80,18 +78,11 @@ export {
   type ToolFacts,
   toolFacts,
   useFamilyFacts,
-  useLiveRegistry,
 } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export { HangingTag, Plate, type PlateFact, PlateLight, type PlateProps, Rivets } from "./Plate.js";
-export {
-  Count,
-  FamilyDownloads,
-  RegistryFacts,
-  type RegistryFactsProps,
-  useToolFacts,
-} from "./RegistryFacts.js";
+export { RegistryFacts, type RegistryFactsProps, useToolFacts } from "./RegistryFacts.js";
 export { Relations, type RelationsProps } from "./Relations.js";
 export { RepoNote } from "./RepoNote.js";
 export { RunSample, type RunSampleProps } from "./RunSample.js";

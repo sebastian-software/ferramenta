@@ -66,9 +66,9 @@ from a new drawing, not from the dropped redraws.
 
 - The package no longer ships Streamline-derived assets. Its `NOTICE.md` covers
   the font only. The repository still holds Streamline material in the
-  historical comps (`design/comp/entwurf-*.html`) and the archived shortlist
-  (`design/archive/icon-candidates/`); `THIRD-PARTY-NOTICES.md` keeps the terms
-  for those paths.
+  historical comps and the archived shortlist, both removed from the tree on
+  2026-09-30 (Git history before the tag `design-residue-2026-09-30`);
+  `THIRD-PARTY-NOTICES.md` records the terms that still apply to it there.
 - Icons are files (`icons/<name>.webp`, `-256.webp`, `-96.webp`) placed by
   `chrome.css` as background images; the `Icon` component renders them. The
   sprite (`mark-defs.ts`) keeps only the chrome's own line icons.

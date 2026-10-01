@@ -116,14 +116,6 @@ function checkConsumer(label, prepare) {
     run("pnpm", ["install", "--ignore-workspace"], scratch);
     copyFileSync(new URL("consumer-check.mjs", import.meta.url), join(scratch, "check.mjs"));
     process.stdout.write(run("node", ["check.mjs"], scratch));
-
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is this script's own mkdtemp scratch directory
-    writeFileSync(join(scratch, "README.md"), "# consumer\n\nA thing.\n");
-    const binary = join(scratch, "node_modules", "ferramenta-family", "bin", "family-readme.mjs");
-    run("node", [binary, "--current", "ferralk", "--write", "README.md"], scratch);
-    process.stdout.write(
-      run("node", [binary, "--current", "ferralk", "--check", "README.md"], scratch),
-    );
   } finally {
     rmSync(scratch, { force: true, recursive: true });
   }

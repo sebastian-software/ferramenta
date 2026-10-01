@@ -11,15 +11,14 @@ export { EvidenceFigures } from "./EvidenceFigures.js";
  * without React.
  */
 export { displayName, family, FAMILY_SITE, familyTiers, isEngine, isSuccessor, leadsToRepo, relatedTools, relationsOf, runsOnTools, STATUS_MEANING, STATUS_ORDER, toolHref, WORKSHOP, } from "./family.js";
-export { FamilyLinks } from "./FamilyLinks.js";
 export { Icon } from "./Icon.js";
 export { ClosingAction, IronBand, Principles, ProjectHero, Section, WorkWithUs, } from "./Landing.js";
 export { Ledger, Stamp, StampKey } from "./Ledger.js";
-export { fetchFamilyFacts, fetchFamilyMetrics, fetchLiveRegistry, liveRequestFor, METRICS_URL, REGISTRY_ENDPOINTS, toolFacts, useFamilyFacts, useLiveRegistry, } from "./LiveRegistry.js";
+export { fetchFamilyFacts, fetchFamilyMetrics, fetchLiveRegistry, liveRequestFor, METRICS_URL, REGISTRY_ENDPOINTS, toolFacts, useFamilyFacts, } from "./LiveRegistry.js";
 export { MARK_DEFS } from "./mark-defs.js";
 export { Mark, MarkDefs } from "./Mark.js";
 export { HangingTag, Plate, PlateLight, Rivets } from "./Plate.js";
-export { Count, FamilyDownloads, RegistryFacts, useToolFacts, } from "./RegistryFacts.js";
+export { RegistryFacts, useToolFacts } from "./RegistryFacts.js";
 export { Relations } from "./Relations.js";
 export { RepoNote } from "./RepoNote.js";
 export { RunSample } from "./RunSample.js";

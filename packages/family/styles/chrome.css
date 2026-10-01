@@ -583,8 +583,8 @@ details.site-menu {
   gap: 2.5rem 3rem;
 }
 
-/* No family columns — the company line (decision D2), or `members="none"`: one column less. */
-.foot.foot-company {
+/* No family columns (`members="none"`, the family's own index): one column less. */
+.foot.foot-index {
   grid-template-columns: 1.2fr 1fr;
 }
 
@@ -692,7 +692,7 @@ details.site-menu {
 
 @media (max-width: 60rem) {
   .foot,
-  .foot.foot-company {
+  .foot.foot-index {
     grid-template-columns: 1fr;
   }
 }

@@ -1,8 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { nativeFrame } from "../../../scripts/lib/native-theme.mjs";
-import { loadRegistry } from "../lib/family-readme.mjs";
+import { loadRegistry, nativeFrame } from "../lib/family-readme.mjs";
 
 const registry = await loadRegistry();
 for (const current of registry.family) {
@@ -19,6 +18,11 @@ for (const current of registry.family) {
     assert.ok(!footer.includes("\r"));
   });
 }
+test("the family site's frame is a footer only: it does not introduce itself as part of itself", () => {
+  const frame = nativeFrame(registry, null);
+  assert.deepEqual(Object.keys(frame), ["footer"]);
+  assert.match(frame.footer, /^## /u);
+});
 test("unknown identities fail rather than silently include a self-link", () => {
   assert.throws(() => nativeFrame(registry, "typo"), /Unknown Ferramenta project/u);
 });

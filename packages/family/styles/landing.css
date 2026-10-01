@@ -820,8 +820,7 @@ a.fam-engine-link::after {
 }
 
 /* A release changes live: tabular mono, so a new value never shifts the line. */
-.fam-engine-version,
-.fam-count {
+.fam-engine-version {
   font-family: var(--mono);
   font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;

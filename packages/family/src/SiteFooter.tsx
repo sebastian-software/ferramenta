@@ -14,19 +14,12 @@ export type SiteFooterProps = {
    * site's root. Leave it out on ferramenta.dev itself.
    */
   current?: string;
-  /**
-   * Which line the site belongs to. "family" (the default) lists the family
-   * members; "company" is for the tools that share the workshop but not the
-   * engines — they carry the workshop links alone (decision D2 of the 2026-09
-   * family audit).
-   */
-  line?: "company" | "family";
   /** The small print under the columns. */
   legal?: ReactNode;
   /**
    * The element to render. `"footer"` (the default) is the contentinfo
-   * landmark. Pass `"div"` when the host already provides one — an Ardo site
-   * rendering this inside `<ArdoFooter>` — so the page does not end up with
+   * landmark. Pass `"div"` when the host already provides one, or when the
+   * chrome is shown as a specimen (the kit), so the page does not end up with
    * two. The classes, and therefore the styling, are the same either way.
    */
   as?: "div" | "footer";
@@ -97,16 +90,14 @@ function FooterLockup({ current }: { current?: string }) {
 
 /**
  * The footer's columns: the engines, then the applications and the workshop
- * (unless the page is the family's own index, or the site is on the company
- * line). Headings are h2: the footer is its own landmark, outside the page's
- * outline.
+ * (only the workshop when the page is the family's own index). Headings are
+ * h2: the footer is its own landmark, outside the page's outline.
  */
 function FooterColumns({
   current,
-  line,
   members,
-}: { current?: string } & Required<Pick<SiteFooterProps, "line" | "members">>) {
-  if (line === "company" || members === "none") {
+}: { current?: string } & Required<Pick<SiteFooterProps, "members">>) {
+  if (members === "none") {
     return (
       <div>
         <h2>Work with us</h2>
@@ -115,18 +106,17 @@ function FooterColumns({
     );
   }
   const { applications, engines } = familyTiers(current);
-  const jobs = members;
   return (
     <>
       <div>
         <h2>Engines</h2>
-        <ToolList jobs={jobs} tools={engines} />
+        <ToolList jobs={members} tools={engines} />
       </div>
       <div>
         {applications.length > 0 && (
           <>
             <h2>Applications</h2>
-            <ToolList jobs={jobs} tools={applications} />
+            <ToolList jobs={members} tools={applications} />
           </>
         )}
         <h2 className={applications.length > 0 ? "foot-gap" : undefined}>Work with us</h2>
@@ -141,17 +131,15 @@ export function SiteFooter({
   as = "footer",
   current,
   legal = DEFAULT_LEGAL,
-  line = "family",
   members = "full",
 }: SiteFooterProps = {}) {
   const Root: ElementType = as;
-  const columns = line === "family" && members !== "none";
 
   return (
     <Root className="site-footer">
-      <div className={columns ? "wrap foot" : "wrap foot foot-company"}>
+      <div className={members === "none" ? "wrap foot foot-index" : "wrap foot"}>
         <FooterLockup current={current} />
-        <FooterColumns current={current} line={line} members={members} />
+        <FooterColumns current={current} members={members} />
         <p className="foot-legal">{legal}</p>
       </div>
     </Root>

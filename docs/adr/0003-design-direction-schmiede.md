@@ -26,7 +26,8 @@ dot with no function is a defect). Everything else stays flat so type and
 content lead.
 
 Exact tokens, materials, and module rules live in DESIGN.md; the approved comp
-is preserved in `design/comp/entwurf-c.html`.
+is preserved in Git history (`design/comp/entwurf-c.html` before the tag
+`design-residue-2026-09-30`).
 
 ## Decision drivers
 
@@ -65,4 +66,4 @@ material layer starts spreading beyond its three carriers.
 ## References
 
 - [DESIGN.md](../../DESIGN.md) — the system this direction produced
-- [design/comp/entwurf-c.html](../../design/comp/entwurf-c.html) — approved comp (A/B kept as reference)
+- `design/comp/entwurf-c.html` (in Git history before the tag `design-residue-2026-09-30`) — approved comp (A/B kept as reference)

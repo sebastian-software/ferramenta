@@ -110,7 +110,10 @@ test("principles stand side by side, on the ground or in a dark oak band", () =>
     render(kit.Principles, { items }),
     '<ul class="fam-principles" data-count="1"><li><h3>Same engine</h3><p>Verified.</p></li></ul>',
   );
-  const html = render(kit.IronBand, { rows: items, title: "Carried forward" });
+  const html = render(kit.IronBand, {
+    children: createElement(kit.Principles, { items }),
+    title: "Carried forward",
+  });
   assert.match(html, /^<section class="fam-band on-iron"/u);
   assert.ok(html.includes('<ul class="fam-principles" data-count="1">'));
   assert.ok(!render(kit.IronBand, { title: "T" }).includes("fam-principles"), "no empty list");

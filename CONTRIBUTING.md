@@ -7,8 +7,8 @@ Thanks for helping improve Ferramenta. This repository contains the
 
 - Read [AGENTS.md](AGENTS.md) for the repository map, commands, and local
   constraints.
-- Read [docs/readme-standard.md](docs/readme-standard.md) for the README
-  contract shared by Ferramenta tools.
+- The README contract shared by Ferramenta tools is in the
+  [package README](packages/family/README.md#native-markdown-theme).
 - Read [docs/adr/](docs/adr/README.md) before changing an established
   direction; ADRs record the decisions and their rationale.
 - For security reports, follow [SECURITY.md](SECURITY.md). General support is
@@ -44,8 +44,9 @@ Use conventional commit messages. Tool facts come from
 [`packages/family/src/family.ts`](packages/family/src/family.ts); do not
 hardcode them in components or README tables.
 
-The family README block is generated. Run `pnpm readme:write` when registry
-facts change and keep the generated block between its markers. The shared
+The family README frames in `packages/family/markdown/` are generated. Run
+`pnpm theme:write` when registry facts change, then `pnpm readme:write` for
+this repository's README, which takes its frame through mdtheme. The shared
 package output in `packages/family/dist/` is committed for Git consumers; run
 `pnpm build:package` after changing its sources and include the resulting
 output in the same change. Do not hand-edit generated output.

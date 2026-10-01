@@ -1,3 +1,6 @@
+[tools]
+lychee = "0.24.2"
+
 [tools."github:sebastian-software/mdtheme"]
 version = "0.4.0"
 version_prefix = "mdtheme-v"
@@ -24,3 +27,12 @@ description = "Guard pushes with the project's installed mdtheme version"
 shell = "bash -c"
 env = { MISE_OFFLINE = "true" }
 run = 'binary=$(mise which mdtheme) && "$binary" pre-push'
+
+# Repository-relative links in tracked Markdown, with the pinned lychee. The
+# site's own pages (app/routes) are left to Ardo's link check: a link that
+# starts with `/` is a route there, not a file.
+[tasks."links:check"]
+description = "Check repository-relative links in tracked Markdown files with the pinned lychee"
+shell = "bash -c"
+env = { MISE_OFFLINE = "true" }
+run = 'binary=$(mise which lychee) && git ls-files -z -- "*.md" ":!app/routes" | xargs -0 "$binary" --offline --no-progress --root-dir "$PWD" --'

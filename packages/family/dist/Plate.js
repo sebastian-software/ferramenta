@@ -22,7 +22,7 @@ export function Plate({ as = "div", children, className, rivets = true }) {
  * the thing is, the tag says what it is checked against.
  */
 export function HangingTag({ facts }) {
-    return (_jsxs("div", { className: "fam-hanger", children: [_jsx("i", { className: "fam-link", "data-side": "left", "aria-hidden": "true" }), _jsx("i", { className: "fam-link", "data-side": "right", "aria-hidden": "true" }), _jsx("dl", { className: "fam-plate fam-tag", children: facts.map((fact) => (_jsxs("div", { children: [_jsx("dt", { children: fact.label }), _jsx("dd", { children: fact.value })] }, fact.label))) })] }));
+    return (_jsxs("div", { className: "fam-hanger", children: [_jsx("i", { className: "fam-link", "data-side": "left", "aria-hidden": "true" }), _jsx("i", { className: "fam-link", "data-side": "right", "aria-hidden": "true" }), _jsx(Plate, { as: "dl", className: "fam-tag", rivets: false, children: facts.map((fact) => (_jsxs("div", { children: [_jsx("dt", { children: fact.label }), _jsx("dd", { children: fact.value })] }, fact.label))) })] }));
 }
 let lights = 0;
 function followPointer(event) {

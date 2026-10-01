@@ -26,6 +26,3 @@ ADR-0001 amendments of
 [2026-09-25](0001-decentralized-homepages-with-shared-family-package.md#amendment-2026-09-25)
 and
 [2026-09-30](0001-decentralized-homepages-with-shared-family-package.md#amendment-2026-09-30).
-
-Earlier implementation specs (a different artifact: task-scoped designs, not
-durable decisions) live in [docs/superpowers/specs/](../superpowers/specs/).
