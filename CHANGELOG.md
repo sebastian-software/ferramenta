@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.2.0...ferramenta-v2.0.0) (2026-10-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **family:** one way per job for 2.0, residue out ([#100](https://github.com/sebastian-software/ferramenta/issues/100))
+* **family:** ferramenta-family 2.0 removes the groups, the pipeline constants, `Pegboard`, `ToolLedger`, `JobIndex`, `PipelineAssembly` and `Fasteners`, and members' marks leave the sprite for `Icon`. See "Moving from 1.x" in the package README.
+
+### Features
+
+* **family:** light the small icons for the dark iron ([#99](https://github.com/sebastian-software/ferramenta/issues/99)) ([0537f20](https://github.com/sebastian-software/ferramenta/commit/0537f205d375dca2939b18d7d5d23e8fd6fe9e7b))
+* **family:** one way per job for 2.0, residue out ([#100](https://github.com/sebastian-software/ferramenta/issues/100)) ([20e61cc](https://github.com/sebastian-software/ferramenta/commit/20e61ccda3d42174ba45e7132a229845c722c7a4))
+* **family:** plain labels, icons without tiles, a light applications tier, voices ([#98](https://github.com/sebastian-software/ferramenta/issues/98)) ([db5a4a7](https://github.com/sebastian-software/ferramenta/commit/db5a4a754e0fa779d645ec43be43414ea0ef46e8))
+* **family:** redesign as "Typenschild" with a two-tier registry and generated icons ([#96](https://github.com/sebastian-software/ferramenta/issues/96)) ([452a771](https://github.com/sebastian-software/ferramenta/commit/452a77163f5268286850514fb185aa993571f000))
+* **family:** shared comparison, provenance, relations and search patterns ([#97](https://github.com/sebastian-software/ferramenta/issues/97)) ([e9f22aa](https://github.com/sebastian-software/ferramenta/commit/e9f22aa1f62abc436bb878d5e690895f0edff5fd))
+
+
+### Bug Fixes
+
+* **family:** link pipeline tools to dev domains ([#94](https://github.com/sebastian-software/ferramenta/issues/94)) ([a72ef45](https://github.com/sebastian-software/ferramenta/commit/a72ef45c08e20f02bfbc2bf7ca9faf5711f8d323))
+
 ## [1.2.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.1.0...ferramenta-v1.2.0) (2026-09-25)
 
 
