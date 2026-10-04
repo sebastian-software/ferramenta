@@ -10,10 +10,13 @@
  * fallback snapshot for local and CI builds. Run `pnpm stats:refresh` to
  * update that snapshot by hand.
  *
- * A family name is not proof of family ownership: both registries hand out
- * names first come, first served. Every hit is therefore checked against the
- * organization's accounts (scripts/registry-ownership.mjs), and a package owned
- * by someone else is treated as absent rather than rendered as ours.
+ * A member is looked up under the names it is published as (`packageName`:
+ * the registry entry's `packages` override, else its `name`), and the snapshot
+ * stays keyed by member. A family name is not proof of family ownership: both
+ * registries hand out names first come, first served. Every hit is therefore
+ * checked against the organization's accounts (scripts/registry-ownership.mjs),
+ * and a package owned by someone else is treated as absent rather than
+ * rendered as ours.
  *
  * A registry that does not answer is a third case, distinct from both. The
  * previous value is carried forward for that package instead — a 429 must never
@@ -24,7 +27,7 @@ import { join } from "node:path";
 
 import { family } from "../packages/family/dist/family.js";
 import { createRegistryFetcher } from "./lib/registry-fetch.mjs";
-import { classifyOwnership, OURS, UNKNOWN } from "./registry-ownership.mjs";
+import { classifyOwnership, lookupNames, OURS, UNKNOWN } from "./registry-ownership.mjs";
 
 const here = import.meta.dirname;
 const OUT = join(here, "..", "app", "data", "registry-stats.json");
@@ -188,18 +191,18 @@ async function loadPrevious() {
   }
 }
 
-const names = family.map((tool) => tool.name);
-
-if (names.length === 0) throw new Error("the family registry is empty");
+if (family.length === 0) throw new Error("the family registry is empty");
 
 const previous = await loadPrevious();
 const tools = {};
-for (const name of names) {
+for (const tool of family) {
+  const { name } = tool;
+  const lookup = lookupNames(tool);
   const before = previous[name] ?? { crates: null, npm: null, release: null };
   // Sequential on purpose: the shared fetcher keeps crates.io requests one second apart.
-  const crate = await crates(name);
-  const adapter = await npm(name, before.npm);
-  const latest = await release(name);
+  const crate = await crates(lookup.crate);
+  const adapter = await npm(lookup.npm, before.npm);
+  const latest = await release(lookup.repo);
   tools[name] = {
     crates: crate === UNRESOLVED ? before.crates : crate,
     npm: adapter === UNRESOLVED ? before.npm : adapter,
@@ -208,8 +211,11 @@ for (const name of names) {
   const c = tools[name].crates;
   const n = tools[name].npm;
   const r = tools[name].release;
+  // A package published under another name is logged with it.
+  const crateLabel = lookup.crate === name ? "crates" : `crates ${lookup.crate}`;
+  const npmLabel = lookup.npm === name ? "npm" : `npm ${lookup.npm}`;
   console.log(
-    `${name.padEnd(10)} ${c ? `crates ${c.version} (${c.downloads})` : "crates —"}  ${n ? `npm ${n.version}${n.placeholder ? " (reserved name)" : ` (${n.lastMonth}/mo)`}` : "npm —"}  ${r ? `release ${r.version}` : "release —"}`,
+    `${name.padEnd(10)} ${c ? `${crateLabel} ${c.version} (${c.downloads})` : `${crateLabel} —`}  ${n ? `${npmLabel} ${n.version}${n.placeholder ? " (reserved name)" : ` (${n.lastMonth}/mo)`}` : `${npmLabel} —`}  ${r ? `release ${r.version}` : "release —"}`,
   );
 }
 

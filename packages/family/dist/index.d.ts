@@ -10,7 +10,7 @@ export { type EvidenceFigure, EvidenceFigures } from "./EvidenceFigures.js";
  * its own chrome — import `ferramenta-family/registry` instead: the same data
  * without React.
  */
-export { displayName, family, FAMILY_SITE, type FamilyBrand, type FamilyLineage, type FamilyRelation, type FamilyRole, type FamilyStatus, familyTiers, type FamilyTool, isEngine, isSuccessor, leadsToRepo, plannedRunsOnTools, relatedTools, relationsOf, runsOnTools, STATUS_MEANING, STATUS_ORDER, toolHref, whatLabel, WORKSHOP, } from "./family.js";
+export { displayName, family, FAMILY_SITE, type FamilyBrand, type FamilyLineage, type FamilyRegistry, type FamilyRelation, type FamilyRole, type FamilyStatus, familyTiers, type FamilyTool, isEngine, isSuccessor, leadsToRepo, packageName, plannedRunsOnTools, relatedTools, relationsOf, runsOnTools, STATUS_MEANING, STATUS_ORDER, toolHref, whatLabel, WORKSHOP, } from "./family.js";
 export { Icon, type IconForm, type IconProps } from "./Icon.js";
 export { ClosingAction, type ClosingActionProps, IronBand, type IronBandProps, type Principle, Principles, ProjectHero, type ProjectHeroProps, Section, type SectionProps, WorkWithUs, type WorkWithUsProps, } from "./Landing.js";
 export { Ledger, type LedgerEntry, Stamp, StampKey, type StampProps } from "./Ledger.js";

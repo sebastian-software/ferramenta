@@ -2,12 +2,15 @@
 
 - Status: accepted
 - Date: 2026-08-20
+- Updated: 2026-10-04
 - Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
 - Amended: 2026-09-24 — facts fetched at every deploy and updated live in the browser, see
   [Amendment 2026-09-24](#amendment-2026-09-24)
 - Amended: 2026-09-24 — live figures from the workshop's metrics service first, see
   [Amendment 2026-09-24 (metrics service)](#amendment-2026-09-24-metrics-service)
+- Amended: 2026-10-04 — members looked up under their published package names, see
+  [Amendment 2026-10-04](#amendment-2026-10-04)
 
 ## Context
 
@@ -157,7 +160,7 @@ registry requests above, for the packages its snapshot verified. Whatever
 answers nowhere keeps its prerendered value. A site passes `metrics={false}`
 to skip the service.
 
-A tool that ships only from Git (ferriki, ferrolex) has no registry version.
+A tool that ships only from Git (ferrolex today) has no registry version.
 Its version is its latest GitHub release, the one GitHub marks "Latest", with
 the semver taken from the tag. The metrics service carries it as
 `github.<repo>.release`, and the build snapshot records it from GitHub's
@@ -166,6 +169,30 @@ for an offline build; it no longer has to be kept in step with releases.
 
 Visitors' browsers then contact the workshop's own domain instead of crates.io
 and npm; the service logs nothing beyond an ordinary CDN request.
+
+## Amendment 2026-10-04
+
+A member's package does not always carry the member's name. Ferriki ships its
+crate as `ferriki` but its npm package as `@ferriki/core`; the unscoped
+`ferriki` on npm is an unpublished name. Looked up by `name` alone, that
+package was never found, so the family pages showed Ferriki without it.
+
+**The registry names the published package where it differs.** A member may
+carry `packages`, an override by registry (`packages: { npm: "@ferriki/core" }`),
+and `packageName(tool, registry)` resolves it, falling back to `name`. Every
+lookup goes through it: the stats refresh on crates.io and npm, including the
+ownership check, which applies to the package actually asked for; the live
+request (`liveRequestFor`); and the metrics document, which keys packages by
+their published names. Repositories are still looked up by `name`. The snapshot
+and the live facts stay keyed by member, so no component changes. An override
+is set only where the registry's package provably carries another name; on
+this date that is Ferriki's npm package alone. Palamedes publishes many scoped
+packages and holds its unscoped name as a reserved placeholder; with no single
+package that stands for it, it gets none.
+
+npm's bulk downloads endpoint does not take scoped packages, so a scoped
+package's monthly downloads are a request of their own; the unscoped names
+still share one bulk request.
 
 ## References
 

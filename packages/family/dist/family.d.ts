@@ -13,6 +13,8 @@
  * after. A stranger has to understand the thing first.
  */
 export type FamilyStatus = "alpha" | "beta" | "early" | "stable";
+/** The package registries a member can be published on, keyed as the registry snapshot keys them. */
+export type FamilyRegistry = "crates" | "npm";
 /**
  * What a member is. Engines are reusable infrastructure; applications are
  * user-facing products. Their lineage records any engine dependencies.
@@ -97,6 +99,14 @@ export type FamilyTool = {
      * this only renders when the build could not reach crates.io or npm.
      */
     version: string;
+    /**
+     * The names a member is published under where they differ from `name`, by
+     * registry: `{ npm: "@ferriki/core" }`. Every registry lookup (the stats
+     * refresh, the live figures) asks for `packageName(tool, registry)`, which
+     * falls back to `name`. Set one only where the registry's package provably
+     * carries another name.
+     */
+    packages?: Partial<Record<FamilyRegistry, string>>;
     /** Maturity, shown as a stamp next to the name */
     status: FamilyStatus;
     /** Defaults to "engine" — applications set this explicitly. */
@@ -148,6 +158,12 @@ export declare const WORKSHOP: {
 export declare const STATUS_MEANING: Record<FamilyStatus, string>;
 /** Maturity order, most settled first. */
 export declare const STATUS_ORDER: FamilyStatus[];
+/**
+ * The name a member is published under on a registry: its `packages` override,
+ * else its `name`. Every registry lookup goes through this, so a member whose
+ * package carries another name ("@ferriki/core") is asked for under that name.
+ */
+export declare function packageName(tool: FamilyTool, registry: FamilyRegistry): string;
 /** Where a member's links lead: its own site once it exists, its repository until then. */
 export declare function toolHref(tool: FamilyTool): string;
 /**

@@ -38,6 +38,7 @@ export const family = [
         proof: "Shiki brought editor-grade highlighting to the web. Ferriki keeps its familiar HTML API and moves the engine to native Rust, without WebAssembly or regex translation, so Rust programs can use it directly and a Vite build can ship highlighted HTML instead of a highlighter.",
         evidence: "Mirrored Shiki test suite · ahead of Shiki in HTML throughput",
         version: "0.11.0",
+        packages: { npm: "@ferriki/core" },
         status: "beta",
         uses: ["ferroni"],
         pairsWith: ["ferromark"],
@@ -191,6 +192,14 @@ export const STATUS_MEANING = {
 };
 /** Maturity order, most settled first. */
 export const STATUS_ORDER = ["stable", "beta", "alpha", "early"];
+/**
+ * The name a member is published under on a registry: its `packages` override,
+ * else its `name`. Every registry lookup goes through this, so a member whose
+ * package carries another name ("@ferriki/core") is asked for under that name.
+ */
+export function packageName(tool, registry) {
+    return tool.packages?.[registry] ?? tool.name;
+}
 /** Where a member's links lead: its own site once it exists, its repository until then. */
 export function toolHref(tool) {
     return tool.docs ?? tool.repo;
