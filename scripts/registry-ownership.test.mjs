@@ -1,13 +1,36 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { family } from "../packages/family/dist/family.js";
 import {
   classifyOwnership,
   FOREIGN,
+  lookupNames,
   ORG_TEAM_PREFIX,
   OURS,
   UNKNOWN,
 } from "./registry-ownership.mjs";
+
+const member = (name) => family.find((tool) => tool.name === name);
+
+test("a member is looked up under its published package names, else under its name", () => {
+  // Ferriki's npm package is scoped; the unscoped name is not its package.
+  assert.deepEqual(lookupNames(member("ferriki")), {
+    crate: "ferriki",
+    npm: "@ferriki/core",
+    repo: "ferriki",
+  });
+  assert.deepEqual(lookupNames(member("ferromark")), {
+    crate: "ferromark",
+    npm: "ferromark",
+    repo: "ferromark",
+  });
+  assert.deepEqual(
+    lookupNames({ name: "example", packages: { crates: "example-core" } }),
+    { crate: "example-core", npm: "example", repo: "example" },
+    "each registry falls back on its own",
+  );
+});
 
 test("a package published by an org account is ours", () => {
   assert.equal(classifyOwnership(["swernerx"]), OURS);

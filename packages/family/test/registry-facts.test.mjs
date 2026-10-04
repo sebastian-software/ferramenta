@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { kit } from "./helpers.mjs";
+import { kit, member } from "./helpers.mjs";
 
 test("registry facts: live over snapshot over fallback, and only owned packages are asked for", () => {
   const tool = kit.family.find((member) => member.name === "ferrocat");
@@ -41,8 +41,25 @@ test("registry facts: live over snapshot over fallback, and only owned packages 
     ferriki: { crates: null, npm: { version: "1", lastMonth: 1 } },
   });
   assert.deepEqual(request.crates, ["ferroni", "ferrocat"]);
-  assert.deepEqual(request.npm, ["ferriki"], "npm only where no crate carries the version");
+  assert.deepEqual(
+    request.npm,
+    ["@ferriki/core"],
+    "npm only where no crate carries the version, under the published name",
+  );
   assert.deepEqual(kit.liveRequestFor({ stranger: stat }), { crates: [], npm: [] });
+});
+
+test("a member is published under its override, else under its name", () => {
+  const ferriki = member("ferriki");
+  assert.equal(kit.packageName(ferriki, "npm"), "@ferriki/core");
+  assert.equal(kit.packageName(ferriki, "crates"), "ferriki", "no crate override, so its name");
+  assert.equal(kit.packageName(member("ferromark"), "npm"), "ferromark");
+  for (const tool of kit.family) {
+    for (const [registry, name] of Object.entries(tool.packages ?? {})) {
+      assert.notEqual(name, tool.name, `${tool.name}: an override that repeats the name`);
+      assert.match(name, /^[@a-z0-9][a-z0-9./_-]*$/u, `${tool.name} ${registry}: a package name`);
+    }
+  }
 });
 
 const body = (value) => ({ ok: true, json: async () => value });
@@ -141,4 +158,68 @@ test("with the metrics service down, the page falls back to the registries", asy
     {},
     "nothing verified, nothing asked, nothing shown",
   );
+});
+
+test("live facts for a member published under another name are asked for under it", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    if (String(url) === kit.METRICS_URL) {
+      return body({
+        ...metricsDoc(),
+        crates: { ferriki: { version: "9.4.0", downloads: 3, recentDownloads: 1 } },
+        npm: {
+          "@ferriki/core": { version: "9.4.1", monthlyDownloads: 8 },
+          ferriki: { version: "0.0.1", monthlyDownloads: 99 },
+        },
+      });
+    }
+    throw new Error("unexpected request");
+  });
+  const facts = await kit.fetchFamilyFacts({});
+  assert.deepEqual(facts.ferriki, {
+    crates: { version: "9.4.0", downloads: 3 },
+    npm: { version: "9.4.1", lastMonth: 8 },
+    release: { version: "9.3.0" },
+  });
+  assert.deepEqual(calls, [kit.METRICS_URL]);
+});
+
+test("a scoped npm package is asked for on its own, and its facts land on its member", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(String(url));
+    const { npmDownloads, npmRegistry } = kit.REGISTRY_ENDPOINTS;
+    if (String(url) === `${npmDownloads}/point/last-month/@ferriki/core`) {
+      return body({ downloads: 8, package: "@ferriki/core" });
+    }
+    if (String(url) === `${npmDownloads}/point/last-month/ferromark,ardo`) {
+      return body({ ferromark: { downloads: 7 }, ardo: { downloads: 6 } });
+    }
+    if (String(url) === `${npmRegistry}/${encodeURIComponent("@ferriki/core")}/latest`) {
+      return body({ version: "9.4.1" });
+    }
+    if (String(url).endsWith("/latest")) return body({ version: "3.0.0" });
+    return { ok: false, json: async () => ({}) };
+  });
+  const live = await kit.fetchLiveRegistry({
+    crates: [],
+    npm: ["ferromark", "@ferriki/core", "ardo"],
+  });
+  assert.deepEqual(live["@ferriki/core"], { npm: { version: "9.4.1", lastMonth: 8 } });
+  assert.deepEqual(live.ferromark, { npm: { version: "3.0.0", lastMonth: 7 } });
+  assert.equal(
+    calls.filter((url) => url.includes("/point/last-month/")).length,
+    2,
+    "one bulk request for the unscoped names, one for the scoped package",
+  );
+
+  const adapter = { crates: null, npm: { version: "1", lastMonth: 1 } };
+  const facts = await kit.fetchFamilyFacts(
+    { ferriki: adapter, ferromark: adapter },
+    { metrics: false },
+  );
+  assert.deepEqual(facts.ferriki, { npm: { version: "9.4.1", lastMonth: 8 } });
+  assert.equal(facts["@ferriki/core"], undefined, "keyed by member, not by package");
+  assert.equal(kit.toolFacts(member("ferriki"), adapter, facts.ferriki).version, "9.4.1");
 });

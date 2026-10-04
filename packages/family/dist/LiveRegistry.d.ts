@@ -9,7 +9,10 @@ export type RegistryEndpoints = {
     npmDownloads: string;
 };
 export declare const REGISTRY_ENDPOINTS: RegistryEndpoints;
-/** The packages to look up. Pass only names the build verified as the family's own. */
+/**
+ * The packages to look up, under their published names (`packageName`). Pass
+ * only names the build verified as the family's own.
+ */
 export type LiveRegistryRequest = {
     crates: string[];
     npm: string[];
@@ -29,9 +32,9 @@ export type LiveRegistryFacts = {
     };
 };
 /**
- * Fetches the current figures for the requested packages. Resolves with
- * whatever answered; a registry that did not answer simply leaves its
- * packages out, so the caller keeps the values it already shows.
+ * Fetches the current figures for the requested packages, keyed by package
+ * name. Resolves with whatever answered; a registry that did not answer simply
+ * leaves its packages out, so the caller keeps the values it already shows.
  */
 export declare function fetchLiveRegistry(request: LiveRegistryRequest, endpoints?: RegistryEndpoints): Promise<Record<string, LiveRegistryFacts>>;
 /** One member in a build-time snapshot, as `ferramenta.dev`'s stats script writes it. */
@@ -68,9 +71,10 @@ export type ToolFacts = {
     adapter: boolean;
 };
 /**
- * The packages worth asking for live: every verified crate, and npm only for a
- * member without one — the crate's version is the one shown, so asking npm for
- * it too would be a request whose answer never reaches the page.
+ * The packages worth asking for live, under their published names: every
+ * verified crate, and npm only for a member without one — the crate's version
+ * is the one shown, so asking npm for it too would be a request whose answer
+ * never reaches the page.
  */
 export declare function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest;
 /**

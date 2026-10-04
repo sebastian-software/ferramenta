@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { family, type FamilyTool } from "./family.js";
+import { family, type FamilyTool, packageName } from "./family.js";
 
 /*
  * Live registry figures, fetched by the visitor's browser after the page has
@@ -25,7 +25,10 @@ export const REGISTRY_ENDPOINTS: RegistryEndpoints = {
   npmDownloads: "https://api.npmjs.org/downloads",
 };
 
-/** The packages to look up. Pass only names the build verified as the family's own. */
+/**
+ * The packages to look up, under their published names (`packageName`). Pass
+ * only names the build verified as the family's own.
+ */
 export type LiveRegistryRequest = { crates: string[]; npm: string[] };
 
 export type LiveRegistryFacts = {
@@ -81,34 +84,72 @@ async function liveCrates(names: string[], root: string) {
   return facts;
 }
 
+/**
+ * The downloads requests for `names`: one bulk request for the unscoped names,
+ * and one of its own for each scoped package ("@ferriki/core"), which the bulk
+ * endpoint does not take.
+ */
+function downloadsRequests(names: string[]): string[][] {
+  const unscoped = names.filter((name) => !name.startsWith("@"));
+  const scoped = names.filter((name) => name.startsWith("@")).map((name) => [name]);
+  return unscoped.length > 0 ? [unscoped, ...scoped] : scoped;
+}
+
+/** A name in a downloads path: a scoped one as npm spells it ("@scope/name"), any other encoded. */
+function downloadsPathName(name: string): string {
+  return name.startsWith("@") ? name : encodeURIComponent(name);
+}
+
+/** Last-month downloads from one answer: a map for several names, a single point for one. */
+function downloadsIn(points: unknown, names: string[]): Partial<Record<string, number>> {
+  const downloads: Partial<Record<string, number>> = {};
+  if (!isRecord(points)) return downloads;
+  for (const name of names) {
+    const point = names.length === 1 ? points : points[name];
+    const count = isRecord(point) ? countAt(point, "downloads") : undefined;
+    if (count !== undefined) downloads[name] = count;
+  }
+  return downloads;
+}
+
+/** Last-month downloads by package name. */
+async function monthlyDownloads(
+  names: string[],
+  root: string,
+): Promise<Partial<Record<string, number>>> {
+  const requests = downloadsRequests(names);
+  const answers = await Promise.all(
+    requests.map(async (request) =>
+      json(`${root}/point/last-month/${request.map((name) => downloadsPathName(name)).join(",")}`),
+    ),
+  );
+  const downloads: Partial<Record<string, number>> = {};
+  for (const [index, request] of requests.entries()) {
+    Object.assign(downloads, downloadsIn(answers[index], request));
+  }
+  return downloads;
+}
+
 async function liveNpm(names: string[], endpoints: RegistryEndpoints) {
   const facts: Record<string, LiveRegistryFacts["npm"]> = {};
   if (names.length === 0) return facts;
-  const list = names.map((name) => encodeURIComponent(name)).join(",");
-  const points = await json(`${endpoints.npmDownloads}/point/last-month/${list}`);
-  // The bulk endpoint answers a map for several names, a single point for one.
-  const downloadsOf = (name: string): number | undefined => {
-    if (!isRecord(points)) return;
-    if (names.length === 1) return countAt(points, "downloads");
-    const point = points[name];
-    return isRecord(point) ? countAt(point, "downloads") : undefined;
-  };
+  const downloads = await monthlyDownloads(names, endpoints.npmDownloads);
   const latest = await Promise.all(
     names.map(async (name) => json(`${endpoints.npmRegistry}/${encodeURIComponent(name)}/latest`)),
   );
   for (const [index, name] of names.entries()) {
     const answer = latest[index];
     const version = isRecord(answer) ? textAt(answer, "version") : undefined;
-    const lastMonth = downloadsOf(name);
+    const lastMonth = downloads[name];
     if (version !== undefined && lastMonth !== undefined) facts[name] = { version, lastMonth };
   }
   return facts;
 }
 
 /**
- * Fetches the current figures for the requested packages. Resolves with
- * whatever answered; a registry that did not answer simply leaves its
- * packages out, so the caller keeps the values it already shows.
+ * Fetches the current figures for the requested packages, keyed by package
+ * name. Resolves with whatever answered; a registry that did not answer simply
+ * leaves its packages out, so the caller keeps the values it already shows.
  */
 export async function fetchLiveRegistry(
   request: LiveRegistryRequest,
@@ -165,16 +206,36 @@ export type ToolFacts = {
 };
 
 /**
- * The packages worth asking for live: every verified crate, and npm only for a
- * member without one — the crate's version is the one shown, so asking npm for
- * it too would be a request whose answer never reaches the page.
+ * The packages worth asking for live, under their published names: every
+ * verified crate, and npm only for a member without one — the crate's version
+ * is the one shown, so asking npm for it too would be a request whose answer
+ * never reaches the page.
  */
 export function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest {
-  const names = family.map((tool) => tool.name);
   return {
-    crates: names.filter((name) => snapshot[name]?.crates != null),
-    npm: names.filter((name) => snapshot[name]?.crates == null && hasAdapter(snapshot[name])),
+    crates: family
+      .filter((tool) => snapshot[tool.name]?.crates != null)
+      .map((tool) => packageName(tool, "crates")),
+    npm: family
+      .filter((tool) => snapshot[tool.name]?.crates == null && hasAdapter(snapshot[tool.name]))
+      .map((tool) => packageName(tool, "npm")),
   };
+}
+
+/** Facts keyed by package name, regrouped under the members that publish them. */
+function byMember(
+  packages: Partial<Record<string, LiveRegistryFacts>>,
+): Record<string, LiveRegistryFacts> {
+  const facts: Record<string, LiveRegistryFacts> = {};
+  for (const tool of family) {
+    const member: LiveRegistryFacts = {};
+    const crates = packages[packageName(tool, "crates")]?.crates;
+    const npm = packages[packageName(tool, "npm")]?.npm;
+    if (crates !== undefined) member.crates = crates;
+    if (npm !== undefined) member.npm = npm;
+    if (Object.keys(member).length > 0) facts[tool.name] = member;
+  }
+  return facts;
 }
 
 /** A snapshot entry made from live facts alone, for a site that has no snapshot. */
@@ -240,10 +301,14 @@ function metricsEntry(section: unknown, name: string): Record<string, unknown> {
   return isRecord(entry) ? entry : {};
 }
 
-/** A member's crate and npm package from the metrics document, as live facts. */
-function metricsFacts(doc: Record<string, unknown>, name: string): LiveRegistryFacts {
-  const crate = metricsEntry(doc.crates, name);
-  const pkg = metricsEntry(doc.npm, name);
+/**
+ * A member's crate and npm package from the metrics document, as live facts.
+ * The document keys packages by their published names and repositories by
+ * their own; a member's repository carries its `name`.
+ */
+function metricsFacts(doc: Record<string, unknown>, tool: FamilyTool): LiveRegistryFacts {
+  const crate = metricsEntry(doc.crates, packageName(tool, "crates"));
+  const pkg = metricsEntry(doc.npm, packageName(tool, "npm"));
   const facts: LiveRegistryFacts = {};
   const version = textAt(crate, "version");
   const downloads = countAt(crate, "downloads");
@@ -253,7 +318,7 @@ function metricsFacts(doc: Record<string, unknown>, name: string): LiveRegistryF
   if (npmVersion !== undefined && lastMonth !== undefined) {
     facts.npm = { version: npmVersion, lastMonth };
   }
-  const repo = metricsEntry(doc.github, name);
+  const repo = metricsEntry(doc.github, tool.name);
   const release = isRecord(repo.release) ? textAt(repo.release, "version") : undefined;
   if (release !== undefined) facts.release = { version: release };
   return facts;
@@ -264,9 +329,9 @@ export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<Fam
   const doc = await json(url, { cache: "no-cache" });
   if (!isRecord(doc) || doc.schema !== 1 || !isRecord(doc.sources)) return null;
   const facts: Record<string, LiveRegistryFacts> = {};
-  for (const { name } of family) {
-    const member = metricsFacts(doc, name);
-    if (Object.keys(member).length > 0) facts[name] = member;
+  for (const tool of family) {
+    const member = metricsFacts(doc, tool);
+    if (Object.keys(member).length > 0) facts[tool.name] = member;
   }
   return {
     generatedAt: textAt(doc, "generatedAt"),
@@ -303,7 +368,9 @@ export async function fetchFamilyFacts(
     : null;
   const direct = unanswered(liveRequestFor(snapshot), fromMetrics);
   const fromRegistries =
-    direct.crates.length + direct.npm.length > 0 ? await fetchLiveRegistry(direct, endpoints) : {};
+    direct.crates.length + direct.npm.length > 0
+      ? byMember(await fetchLiveRegistry(direct, endpoints))
+      : {};
   return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
 }
 

@@ -323,9 +323,10 @@ corners, no figures on the family site — are in the family's
 `RegistryFacts` uses `fetchFamilyFacts` / `useFamilyFacts`: one request to the
 metrics service first, then direct registry requests only for sources it did
 not answer. `fetchFamilyMetrics` reads just that service; `fetchLiveRegistry`
-asks crates.io and npm directly. The registry helpers `toolFacts`,
-`liveRequestFor`, `REGISTRY_ENDPOINTS` and `relatedTools`, and the SVG symbol
-list `MARK_DEFS`, are exported too.
+asks crates.io and npm directly, keyed by package name. The registry helpers
+`toolFacts`, `liveRequestFor` (the packages to ask for, under their published
+names), `packageName`, `REGISTRY_ENDPOINTS` and `relatedTools`, and the SVG
+symbol list `MARK_DEFS`, are exported too.
 
 ## Patterns the sites share
 
@@ -512,7 +513,10 @@ are facts, never a chain: `uses` (an engine built on another), `pairsWith`
 (commonly combined, no dependency either way), `runsOn` (an application's
 engines). An application integrating engines records them in `plannedRunsOn`
 until the integration ships. `ApplicationsBand` labels these as a planned
-engine integration; `relationsOf()` includes only current dependencies.
+engine integration; `relationsOf()` includes only current dependencies. A
+member whose package carries another name on a registry says so in `packages`
+(`{ npm: "@ferriki/core" }`); `packageName(tool, "crates" | "npm")` returns
+that name, else `name`, and every registry lookup goes through it.
 
 Two entry points, because the chrome needs a bundler and the registry does not:
 
