@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v2.1.0) (2026-10-19)
+
+
+### Features
+
+* add Ardo to family applications ([#101](https://github.com/sebastian-software/ferramenta/issues/101)) ([fc78169](https://github.com/sebastian-software/ferramenta/commit/fc781691d7e6b66704de48b204338be4dc0f31b2))
+* **family:** add Ferra design kit and final page designs ([#104](https://github.com/sebastian-software/ferramenta/issues/104)) ([8697a07](https://github.com/sebastian-software/ferramenta/commit/8697a079b02e745a8e2dedca87d8f2e0877b94cb))
+* **registry:** describe Ferriki's Rust crate and Vite build-time macros, mark it beta ([#103](https://github.com/sebastian-software/ferramenta/issues/103)) ([ac62a60](https://github.com/sebastian-software/ferramenta/commit/ac62a60b4cbc335c7475d525ee12fc8614c35a1e))
+
 ## [2.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.2.0...ferramenta-v2.0.0) (2026-10-01)
 
 
