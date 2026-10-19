@@ -3,13 +3,13 @@
 The source code of this repository is MIT licensed (see [LICENSE](LICENSE)).
 The following bundled assets carry their own terms and are **not** covered by the MIT license:
 
-## IBM Plex Sans (editorial heading font)
+## IBM Plex Sans (Ferra heading font)
 
-The canonical `design/editorial/fonts/ibm-plex-sans-600.woff2` and its package
-copy under `packages/family/editorial/fonts/` are IBM Plex Sans Semibold by IBM,
+The canonical `design/ferra/fonts/ibm-plex-sans-600.woff2` and its package
+copy under `packages/family/ferra/fonts/` are IBM Plex Sans Semibold by IBM,
 licensed under the SIL Open Font License 1.1. The license and a manifest with
 the pinned upstream revision and hashes accompany both copies. Native previews
-under `designs/current/` and the Ferramenta preview snapshot these same assets.
+under `designs/` resolve these same shipped assets directly, without extra copies.
 
 ## Barlow Condensed (font)
 

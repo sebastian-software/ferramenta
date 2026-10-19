@@ -1,6 +1,0 @@
-{
-  "primaryFindings": [],
-  "advisoryCount": 36,
-  "advisoryKinds": ["design-system-color", "design-system-font-size"],
-  "scopeNote": "The review gallery and raster concepts intentionally explore a new visual direction outside the shipped DESIGN.md palette and type ramp. Production files and design records are unchanged."
-}

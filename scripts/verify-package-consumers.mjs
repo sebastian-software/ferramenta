@@ -47,22 +47,22 @@ const REQUIRED_FILES = [
 ];
 
 // The npm route checks the current working package; the Git route intentionally
-// checks HEAD, which can predate an uncommitted additive entry.
-const EDITORIAL_FILES = [
-  "dist/editorial.js",
-  "dist/editorial.d.ts",
-  "styles/editorial.css",
-  "styles/editorial-tokens.css",
-  "styles/editorial-fonts.css",
-  "editorial/fonts/ibm-plex-sans-600.woff2",
-  "editorial/fonts/OFL-IBM-Plex.txt",
-  "styles/editorial-assets.css",
-  "editorial/manifest.json",
-  "editorial/ferramenta/favicon.ico",
-  "editorial/textures/paper.webp",
-  "editorial/brands/sebastian-software.svg",
-  "editorial/brands/sebastian-consulting.svg",
-  "EDITORIAL.md",
+// checks the exact tracked package at HEAD.
+const FERRA_FILES = [
+  "dist/ferra.js",
+  "dist/ferra.d.ts",
+  "styles/ferra.css",
+  "styles/ferra-tokens.css",
+  "styles/ferra-fonts.css",
+  "ferra/fonts/ibm-plex-sans-600.woff2",
+  "ferra/fonts/OFL-IBM-Plex.txt",
+  "styles/ferra-assets.css",
+  "ferra/manifest.json",
+  "ferra/ferramenta/favicon.ico",
+  "ferra/textures/paper.webp",
+  "ferra/brands/sebastian-software.svg",
+  "ferra/brands/sebastian-consulting.svg",
+  "FERRA.md",
 ];
 
 /** Packs the package into the scratch directory and returns its specifier. */
@@ -72,7 +72,7 @@ function packTarball(scratch) {
   const tarball = readdirSync(scratch).find((entry) => entry.endsWith(".tgz"));
   if (tarball === undefined) throw new Error("pnpm pack produced no tarball");
   const shipped = run("tar", ["-tzf", join(scratch, tarball)]).split("\n");
-  for (const file of [...REQUIRED_FILES, ...EDITORIAL_FILES]) {
+  for (const file of [...REQUIRED_FILES, ...FERRA_FILES]) {
     if (!shipped.includes(`package/${file}`)) throw new Error(`the npm tarball is missing ${file}`);
   }
   return `file:./${tarball}`;
@@ -87,7 +87,7 @@ function exportTrackedFiles(scratch) {
     repository,
   );
   const shipped = run("tar", ["-tf", archive]).split("\n");
-  for (const file of REQUIRED_FILES) {
+  for (const file of [...REQUIRED_FILES, ...FERRA_FILES]) {
     if (!shipped.includes(`packages/family/${file}`)) {
       throw new Error(
         `Git carries no packages/family/${file} at HEAD — a git consumer would install a broken package`,

@@ -226,16 +226,16 @@ components:
 
 # Design System: Ferramenta
 
-The approved warm editorial direction is available as an additive shared kit
-([ADR-0010](docs/adr/0010-warm-editorial-family-kit.md)). Its canonical values
-are in [design/editorial/tokens.json](design/editorial/tokens.json), and its
-components and adoption steps are in the [editorial consumer guide](packages/family/EDITORIAL.md).
-The editorial entry uses IBM Plex Sans Semibold (600) for headings, system UI
+The approved Ferra direction is available as an additive shared kit
+([ADR-0010](docs/adr/0010-ferra-design-system.md)). Its canonical values
+are in [design/ferra/tokens.json](design/ferra/tokens.json), and its
+components and adoption steps are in the [Ferra consumer guide](packages/family/FERRA.md).
+The Ferra entry uses IBM Plex Sans Semibold (600) for headings, system UI
 for body text and system monospace for code. Plex is served locally as WOFF2
 with its OFL license. Native previews of all eight brands and six core subpages
-live in [designs/current](designs/current/README.md).
+live in [designs](designs/README.md).
 The front matter and the legacy system below continue to describe the existing
-package-root entry; they do not override the scoped `--fe-` contract.
+package-root entry; they do not override the scoped `--ferra-` contract.
 
 Ground truth is the shipped artifact: the tokens
 ([packages/family/styles/tokens.css](packages/family/styles/tokens.css)), the landing kit

@@ -44,8 +44,8 @@ export default function KitPage() {
               <Link to={SAMPLE.docs}>documentation</Link>.
             </p>
             <p>
-              The new <Link to="/kit/editorial/">warm editorial kit</Link> contains the approved
-              lighter palette, textures, identities and opt-in page components.
+              The new <Link to="/kit/ferra/">Ferra kit</Link> contains the approved lighter palette,
+              textures, identities and opt-in page components.
             </p>
             <ul className="kit-toc">
               {chapters.map((chapter) => (

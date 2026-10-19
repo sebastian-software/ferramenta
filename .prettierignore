@@ -11,7 +11,3 @@ packages/family/markdown/**
 
 # mdtheme checks the generated README byte for byte.
 /README.md
-
-# Frozen repository evidence keeps its original bytes and recorded source hashes.
-designs/round-07-family-expansion/sources/**
-designs/round-08-ferramenta/sources/**

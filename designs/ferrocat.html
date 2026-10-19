@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferrocat · Overview</title>
+    <link rel="icon" href="../packages/family/ferra/ferrocat/favicon.ico" />
+    <link rel="stylesheet" href="../packages/family/styles/ferra.css" />
+    <link rel="stylesheet" href="../design/ferra/preview.css" />
+  </head>
+  <body>
+    <div class="ferra-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="ferra-header ferra-wrap">
+        <a href="ferrocat.html" class="ferra-brand"
+          ><span
+            class="ferra-mark"
+            data-product="ferrocat"
+            style="--ferra-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferrocat</span></a
+        >
+        <nav class="ferra-nav" aria-label="Main">
+          <a href="ferrocat.html" aria-current="page">Overview</a
+          ><a href="https://ferrocat.dev">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="ferra-hero ferra-wrap" aria-labelledby="_R_b_">
+          <div class="ferra-hero-copy">
+            <h1 id="_R_b_">Translations that stay in order.</h1>
+            <p class="ferra-subtitle">A translation catalog engine</p>
+            <div class="ferra-lede">
+              <p>
+                Read, update, review and compile translation catalogs in Rust. Keep message
+                identity, translator context and human edits visible.
+              </p>
+            </div>
+            <div class="ferra-actions">
+              <a href="#start-with-the-catalog" class="ferra-action" data-variant="primary"
+                >Get started</a
+              ><a href="https://ferrocat.dev" class="ferra-action" data-variant="secondary"
+                >Read the documentation</a
+              >
+            </div>
+          </div>
+          <div class="ferra-hero-art">
+            <span class="ferra-instrument" data-product="ferrocat" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="same-message-context-intact"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="same-message-context-intact-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Working example</p>
+              <div>Identity survives translation.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="same-message-context-intact-title">Same message. Context intact</h2>
+              <div class="ferra-columns">
+                <figure class="ferra-code">
+                  <figcaption>
+                    <span>PO entry</span><span class="ferra-code-file">.po</span>
+                  </figcaption>
+                  <pre tabindex="0"><code>msgctxt &quot;button&quot;
+msgid &quot;Open&quot;
+msgstr &quot;Ouvrir&quot;</code></pre>
+                </figure>
+                <figure class="ferra-specimen">
+                  <figcaption>Identity and value</figcaption>
+                  <div class="ferra-specimen-output">
+                    <dl>
+                      <dt>Context</dt>
+                      <dd>button</dd>
+                      <dt>Source</dt>
+                      <dd>Open</dd>
+                      <dt>Translation</dt>
+                      <dd>Ouvrir</dd>
+                    </dl>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="give-the-catalog-a-reliable-core"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="give-the-catalog-a-reliable-core-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Catalogs</p>
+              <div>Storage and message semantics are explicit.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="give-the-catalog-a-reliable-core-title">Give the catalog a reliable core</h2>
+              <p>
+                Ferrocat handles Gettext PO, ICU MessageFormat v1 and FCL catalogs. Keep source
+                text, contexts, translations, origins, plural forms and obsolete entries in a model
+                the application can inspect. FCL uses one canonical entry per line for Git review
+                and automation. PO remains useful where translator tools read the file directly.
+                Format conversion is a distinct operation with explicit source and target modes.
+              </p>
+              <div class="ferra-table-region" role="region" aria-labelledby="_R_5ar_" tabindex="0">
+                <table class="ferra-table">
+                  <caption id="_R_5ar_">
+                    Give the catalog a reliable core
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Operation</th>
+                      <th scope="col">Explicit inputs</th>
+                      <th scope="col">Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Update</th>
+                      <td>New source messages and an existing catalog</td>
+                      <td>Predictable identity-based update</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Three-way merge</th>
+                      <td>Ancestor, ours and theirs</td>
+                      <td>Deletion-aware merge and structured conflicts</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Audit</th>
+                      <td>Source and target catalog sets</td>
+                      <td>Missing-message and ICU diagnostics</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Compile</th>
+                      <td>Requested locale and fallback policy</td>
+                      <td>Runtime artifact with resolution reporting</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="keep-edits-authoritative"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="keep-edits-authoritative-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Collaboration</p>
+              <div>Automation has a visible boundary.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="keep-edits-authoritative-title">Keep edits authoritative</h2>
+              <p>
+                Merge updates without fuzzy guessing or hidden identity changes. A three-way merge
+                preserves deletions and reports modify/delete conflicts instead of silently choosing
+                a winner. Machine-managed value metadata can detect later hand edits. High-level
+                writers clear machine metadata when a person edits the value. Human corrections
+                remain reviewable catalog data.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="check-the-message-before-it-ships"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="check-the-message-before-it-ships-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Release checks</p>
+              <div>Structure matters as much as wording.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="check-the-message-before-it-ships-title">
+                Check the message before it ships
+              </h2>
+              <p>
+                Analyze placeholders, formatters, plural/select branches and rich-text tags. Audit
+                missing locales, empty or stale translations, obsolete entries and metadata
+                conflicts. Coverage and review reports support translator handoffs and release
+                gates. ICU scope is MessageFormat v1. Host frameworks own extraction, runtime
+                adapters and UI integration; Ferrocat supplies the catalog semantics underneath
+                them.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="start-with-the-catalog"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="start-with-the-catalog-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Get started</p>
+              <div>One Rust entry point.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="start-with-the-catalog-title">Start with the catalog</h2>
+              <figure class="ferra-code">
+                <figcaption><span>Install</span></figcaption>
+                <pre tabindex="0"><code>cargo add ferrocat
+Use the umbrella crate for application code. For a non-Rust release gate, install ferrocat-cli and run ferrocat audit with explicit source and target catalogs.</code></pre>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="ferra-section ferra-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="ferra-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="ferra-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="ferra-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="ferra-footer ferra-wrap">
+        <div class="ferra-footer-brand">
+          <a href="ferrocat.html" class="ferra-brand"
+            ><span
+              class="ferra-mark"
+              data-product="ferrocat"
+              style="--ferra-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferrocat</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="ferra-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../design/ferra/content/ferrocat-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

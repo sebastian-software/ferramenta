@@ -1,0 +1,93 @@
+[
+  {
+    "product": "ferromark",
+    "file": "ferromark.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferromark-home.md"
+  },
+  {
+    "product": "ferroni",
+    "file": "ferroni.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferroni-home.md"
+  },
+  {
+    "product": "ferromark",
+    "file": "ferromark-start.html",
+    "type": "start",
+    "title": "Start with Rust",
+    "source": "design/ferra/content/ferromark-start.md"
+  },
+  {
+    "product": "ferromark",
+    "file": "ferromark-rendering.html",
+    "type": "core",
+    "title": "Rendering and metadata",
+    "source": "design/ferra/content/ferromark-rendering.md"
+  },
+  {
+    "product": "ferromark",
+    "file": "ferromark-benchmarks.html",
+    "type": "benchmarks",
+    "title": "Parser benchmarks",
+    "source": "design/ferra/content/ferromark-benchmarks.md"
+  },
+  {
+    "product": "ferroni",
+    "file": "ferroni-start.html",
+    "type": "start",
+    "title": "Start with Rust",
+    "source": "design/ferra/content/ferroni-start.md"
+  },
+  {
+    "product": "ferroni",
+    "file": "ferroni-scanner.html",
+    "type": "core",
+    "title": "The scanner",
+    "source": "design/ferra/content/ferroni-scanner.md"
+  },
+  {
+    "product": "ferroni",
+    "file": "ferroni-benchmarks.html",
+    "type": "benchmarks",
+    "title": "Regex benchmarks",
+    "source": "design/ferra/content/ferroni-benchmarks.md"
+  },
+  {
+    "product": "ferriki",
+    "file": "ferriki.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferriki-home.md"
+  },
+  {
+    "product": "ferrolex",
+    "file": "ferrolex.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferrolex-home.md"
+  },
+  {
+    "product": "ferrocat",
+    "file": "ferrocat.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferrocat-home.md"
+  },
+  {
+    "product": "ferralk",
+    "file": "ferralk.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferralk-home.md"
+  },
+  {
+    "product": "ferrugo",
+    "file": "ferrugo.html",
+    "type": "overview",
+    "title": "Overview",
+    "source": "design/ferra/content/ferrugo-home.md"
+  }
+]

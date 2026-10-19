@@ -1,9 +1,0 @@
-{
-  "createdAt": "2026-10-19",
-  "kind": "browser-review-screenshot",
-  "file": "review-home.jpg",
-  "url": "http://127.0.0.1:48623/round-08-ferramenta/index.html#top",
-  "geometry": "1136x1411 JPEG",
-  "sha256": "4934755fd58a589837b3ed8a86a84bd1ac6edf5f241af021db19b3701dfe35e7",
-  "note": "Default browser viewport, with temporary responsive overrides reset. Native HTML homepage using original Imagegen hero and exact family icons."
-}

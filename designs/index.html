@@ -1,405 +1,416 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="ferra-tokens">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <title>Ferramenta · Local design explorations</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --paper: #fcfbf8;
-        --ink: #36413a;
-        --soft: #5e655e;
-        --line: #cdd0c8;
-        --oxide: #914e2d;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font:
-          15px/1.5 system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-      }
-      main {
-        max-width: 1680px;
-        margin: auto;
-        padding: 30px clamp(18px, 3vw, 52px) 38px;
-      }
-      header {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 24px;
-        margin: 22px 0 26px;
-      }
-      .brand {
-        margin: 0 0 10px;
-        font-weight: 600;
-      }
-      h1 {
-        font-size: clamp(28px, 3vw, 44px);
-        line-height: 1.1;
-        letter-spacing: -0.035em;
-        font-weight: 450;
-        margin: 0 0 10px;
-      }
-      .intro {
-        margin: 0;
-        color: var(--soft);
-        max-width: 72ch;
-      }
-      .meta {
-        margin: 0;
-        max-width: 28ch;
-        flex-shrink: 0;
-        color: var(--soft);
-        font-size: 13px;
-      }
-      a {
-        color: inherit;
-        text-underline-offset: 3px;
-      }
-      a:focus-visible {
-        outline: 3px solid var(--oxide);
-        outline-offset: 5px;
-      }
-      nav {
-        display: flex;
-        gap: 22px;
-        flex-wrap: wrap;
-        font-size: 13px;
-      }
-      nav a[aria-current] {
-        color: var(--oxide);
-        font-weight: 650;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 30px 22px;
-      }
-      article {
-        min-width: 0;
-      }
-      .preview {
-        display: block;
-        background: #fff;
-        border: 1px solid var(--line);
-        text-decoration: none;
-      }
-      .preview:hover {
-        border-color: var(--oxide);
-      }
-      .preview img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1075/1463;
-        object-fit: contain;
-      }
-      .caption {
-        display: grid;
-        grid-template-columns: 24px 1fr;
-        gap: 8px;
-        padding-top: 12px;
-      }
-      .number {
-        font-size: 13px;
-        color: var(--oxide);
-        padding-top: 2px;
-        font-variant-numeric: tabular-nums;
-      }
-      h2 {
-        font-size: 15px;
-        line-height: 1.3;
-        font-weight: 600;
-        margin: 0 0 4px;
-      }
-      h2 a {
-        text-decoration: none;
-      }
-      h2 a:hover {
-        text-decoration: underline;
-      }
-      .caption p {
-        margin: 0;
-        color: var(--soft);
-        font-size: 12px;
-        line-height: 1.45;
-      }
-      .caption .product {
-        font-size: 11px;
-        margin-bottom: 4px;
-      }
-      .asset-section {
-        border-top: 1px solid var(--line);
-        padding-top: 25px;
-        margin-top: 32px;
-      }
-      .asset-section > h2 {
-        font-size: 23px;
-        font-weight: 450;
-        margin-bottom: 12px;
-      }
-      .asset-section > p {
-        color: var(--soft);
-        max-width: 80ch;
-        margin-top: 0;
-      }
-      .assets {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px;
-      }
-      .assets img {
-        aspect-ratio: 2/1;
-        object-fit: cover;
-      }
-      .assets .cutout img {
-        object-fit: contain;
-      }
-      .assets h3 {
-        font-size: 15px;
-        margin: 10px 0 4px;
-      }
-      .assets p {
-        font-size: 13px;
-        margin: 0;
-        color: var(--soft);
-      }
-      footer {
-        border-top: 1px solid var(--line);
-        margin-top: 30px;
-        padding-top: 16px;
-        display: flex;
-        gap: 20px;
-        justify-content: space-between;
-        color: var(--soft);
-        font-size: 12px;
-      }
-      footer p {
-        margin: 0;
-        max-width: 90ch;
-      }
-      .rounds {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 30px;
-        margin-top: 32px;
-      }
-      .rounds .preview img {
-        aspect-ratio: 2/1;
-        object-fit: cover;
-        object-position: top;
-      }
-      .rounds h2 {
-        font-size: 24px;
-        font-weight: 450;
-        margin: 15px 0 8px;
-      }
-      .rounds p {
-        max-width: 65ch;
-        color: var(--soft);
-      }
-      @media (max-width: 1050px) {
-        .grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-        .meta {
-          max-width: 23ch;
-        }
-        header {
-          align-items: flex-start;
-        }
-      }
-      @media (max-width: 680px) {
-        .grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 26px 16px;
-        }
-        header {
-          display: block;
-        }
-        .meta {
-          margin-top: 15px;
-          max-width: none;
-        }
-        main {
-          padding-top: 20px;
-        }
-        .caption {
-          grid-template-columns: 20px 1fr;
-          gap: 4px;
-        }
-        h2 {
-          font-size: 14px;
-        }
-        .assets,
-        .rounds {
-          grid-template-columns: 1fr;
-        }
-        footer {
-          display: block;
-        }
-        footer a {
-          display: inline-block;
-          margin-top: 8px;
-        }
-      }
-      @media (max-width: 360px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <meta name="robots" content="noindex,nofollow" />
+    <meta
+      name="description"
+      content="Focused tools for text, code and documents. Choose the engine your work needs, with a shared standard of care and a contract of its own."
+    />
+    <title>Ferramenta · A family of Rust engines</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../packages/family/ferra/ferramenta/mark-32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="64x64"
+      href="../packages/family/ferra/ferramenta/mark-64.png"
+    />
+    <link rel="alternate icon" href="../packages/family/ferra/ferramenta/favicon.ico" />
+    <link rel="apple-touch-icon" href="../packages/family/ferra/ferramenta/apple-touch-icon.png" />
+    <link rel="stylesheet" href="../design/ferra/family-preview.css" />
+    <link rel="stylesheet" href="../packages/family/styles/ferra.css" />
   </head>
   <body>
-    <main>
-      <header>
-        <div>
-          <p class="brand">Ferramenta</p>
-          <h1>Local design explorations.</h1>
-          <p class="intro">
-            Homepage concepts, material directions and product logos for the Ferramenta family.
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="top" class="wrap site-header">
+      <a class="brand" href="index.html" aria-label="Ferramenta home"
+        ><img
+          src="../packages/family/ferra/ferramenta/mark-64.png"
+          width="64"
+          height="64"
+          alt=""
+        />Ferramenta</a
+      >
+      <nav aria-label="Main">
+        <a href="#engines">Engines</a><a href="#choosing">Choosing an engine</a
+        ><a href="#workshop">The workshop</a
+        ><a href="https://github.com/sebastian-software">GitHub</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="wrap hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Ferramenta.</h1>
+          <p class="subtitle">A family of Rust engines.</p>
+          <p class="hero-intro">
+            Focused tools for text, code and documents. Choose the engine your work needs, with a
+            shared standard of care and a contract of its own.
           </p>
+          <div class="actions">
+            <a class="button button-primary" href="#engines">Explore the engines</a
+            ><a class="button" href="https://github.com/sebastian-software">Source on GitHub</a>
+          </div>
         </div>
-        <p class="meta">October 18–19, 2026<br />Light themes only<br />Imagegen concept studies</p>
-      </header>
-      <section class="asset-section">
-        <h2>Ferramenta · The family homepage</h2>
-        <p>
-          A shared entrance for all seven engines, with an original precision-register graphic, its
-          own rendered F logo and a complete warm editorial homepage.
-        </p>
-        <nav aria-label="Ferramenta family homepage">
-          <a href="current/index.html">Current HTML designs · Plex and system UI</a>
-          <a href="round-08-ferramenta/index.html">Open the family homepage</a>
-          <a href="round-08-ferramenta/concept.html">Complete Imagegen design</a>
-          <a href="round-08-ferramenta/identity.html">Family logo and seven engine icons</a>
-          <a href="round-08-ferramenta/BRIEF.md">Design brief</a>
-        </nav>
+        <figure class="hero-art">
+          <img
+            src="../packages/family/ferra/ferramenta/instrument.webp"
+            width="1774"
+            height="887"
+            alt="A precision register with seven separate removable tool inserts: pattern rail, token comb, document plate, letterform tile, catalog leaves, branching path and preview aperture."
+            fetchpriority="high"
+          />
+        </figure>
       </section>
-      <section class="asset-section">
-        <h2>Family expansion · Five more engines</h2>
-        <p>
-          Ferriki, Ferrolex, Ferrocat, Ferralk and Ferrugo: a meaningful instrument graphic,
-          rendered icon/favicon kit and full homepage for each, in the approved warm editorial
-          family.
-        </p>
-        <nav aria-label="Family expansion">
-          <a href="round-07-family-expansion/index.html">Graphics, icons and five homepages</a>
-          <a href="round-07-family-expansion/icons.html">Icons at 32–128px</a>
-          <a href="round-07-family-expansion/BRIEF.md">Shared brief and meanings</a>
-          <a href="family-coverage.json">Seven-engine design coverage</a>
-        </nav>
-      </section>
-      <section class="asset-section">
-        <h2>Ferromark and Ferroni · Eight warm editorial core pages</h2>
-        <p>
-          The approved warm homepage direction, extended to getting started, the core function and
-          benchmarks for both products. Includes the design brief, Imagegen prompts, texture
-          masters, instruments, logos and favicons.
-        </p>
-        <nav aria-label="Combined design direction">
-          <a href="round-06-warm-specimen/index.html">Compare all eight core pages</a>
-          <a href="round-06-warm-specimen/ferromark.html">Ferromark</a>
-          <a href="round-06-warm-specimen/ferroni.html">Ferroni</a>
-          <a href="round-06-warm-specimen/BRIEF.md">Shared design brief</a>
-          <a href="round-06-warm-specimen/assets/README.md">Assets and texture masters</a>
-        </nav>
-      </section>
-      <section class="asset-section">
-        <h2>Round 05 · Color and material directions</h2>
-        <p>
-          Two paired material systems explore color, texture, reading grounds and evidence tables.
-          Warm Paper &amp; pewter is the material reference for the combined direction above.
-        </p>
-        <nav aria-label="Material directions">
-          <a href="round-05-material-directions/index.html">Compare the four material studies</a>
-          <a href="round-05-material-directions/index.html#a">Paper &amp; pewter</a>
-          <a href="round-05-material-directions/index.html#b">Porcelain &amp; titanium</a>
-        </nav>
-      </section>
-      <section class="asset-section">
-        <h2>Round 04 · Whole-page design directions</h2>
-        <p>
-          Three paired Imagegen directions for Ferromark and Ferroni. Complete compositions
-          reconsider editorial hierarchy, worked examples, charts and table design together. Working
-          specimen, images 31 and 32 with narrow left introductions, is the selected layout.
-        </p>
-        <nav aria-label="New visual directions">
-          <a href="round-04-design-directions/index.html">Compare all six layout concepts</a
-          ><a href="round-04-design-directions/index.html#a">A · Editorial folio</a
-          ><a href="round-04-design-directions/index.html#b">B · Working specimen</a
-          ><a href="round-04-design-directions/index.html#c">C · Measured narrative</a>
-        </nav>
-      </section>
-      <section class="asset-section">
-        <h2>HTML baseline and logo kit</h2>
-        <p>
-          Shared spacing, wider reading columns, generous whitespace and compact product logos. Open
-          the live HTML compositions at any width.
-        </p>
-        <nav aria-label="Current designs">
-          <a href="homepages/ferromark.html">Ferromark homepage</a
-          ><a href="homepages/ferroni.html">Ferroni homepage</a
-          ><a href="logos/index.html">Logos and favicons</a
-          ><a href="homepages/DESIGN-NOTES.md">Shared layout notes</a>
-        </nav>
-      </section>
-      <section class="rounds" aria-label="Design rounds">
-        <article>
-          <a class="preview" href="round-01-light-mechanics/index.html"
-            ><img
-              src="round-01-light-mechanics/01-precision-bench-ferromark.png"
-              alt="Round 01: light mechanics, warm wood and fine metal"
-          /></a>
-          <h2><a href="round-01-light-mechanics/index.html">Round 01: Light mechanics</a></h2>
-          <p>
-            Concepts 01–10. Warm wood, light metal, diverse page structures. Includes the final
-            images, three earlier variants, a gallery and the prompt set.
+      <section id="engines" class="wrap family-story" aria-labelledby="engines-title">
+        <aside class="margin-note">
+          <h2>The engines</h2>
+          <p>Seven independent engines.<br />One workshop.</p>
+        </aside>
+        <div class="story">
+          <h2 id="engines-title">Seven engines, each with a job.</h2>
+          <p class="lede">
+            Each engine has its own scope, documentation and repository. Start with the task in
+            front of you.
           </p>
-        </article>
-        <article>
-          <a class="preview" href="round-02-precision-rust/index.html"
-            ><img
-              src="round-02-precision-rust/11-micrometer-bridge-ferromark.png"
-              alt="Round 02: Precision Rust, satin steel and clean oxide inlays"
-          /></a>
-          <h2><a href="round-02-precision-rust/index.html">Round 02: Precision Rust</a></h2>
-          <p>
-            Concepts 11–20. Rust-native positioning, satin steel, controlled oxide and fine
-            fasteners. Includes three separate material and illustration assets.
-          </p>
-        </article>
-        <article>
-          <a class="preview" href="round-03-core-pages/index.html"
-            ><img
-              src="homepages/ferromark-desktop.png"
-              alt="Round 03: coordinated core-page designs for Ferromark and Ferroni"
-          /></a>
-          <h2><a href="round-03-core-pages/index.html">Round 03: Core pages</a></h2>
-          <p>
-            Designs 21–28. Four complete pages per project, meaningful mechanical objects, readable
-            source copy and recorded benchmark evidence.
-          </p>
-        </article>
+          <div class="engine-grid">
+            <article class="engine" id="ferroni" aria-labelledby="ferroni-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferroni/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferroni-name">Ferroni</h3>
+                  <p class="engine-role">A regex engine</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Runs Oniguruma&#39;s regular expressions in Rust, lookbehind, backreferences, named
+                groups and Unicode classes included, with the multi-pattern scanner that editors and
+                highlighters drive built in.
+              </p>
+              <div class="engine-links">
+                <a href="ferroni.html">Explore Ferroni</a
+                ><a href="https://ferroni.dev">Project site</a>
+              </div>
+            </article>
+            <article class="engine" id="ferriki" aria-labelledby="ferriki-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferriki/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferriki-name">Ferriki</h3>
+                  <p class="engine-role">A syntax highlighter</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Highlights code with the grammars and themes your editor uses, from Node.js, from
+                Rust, or at build time in Vite.
+              </p>
+              <div class="engine-links">
+                <a href="ferriki.html">Explore Ferriki</a
+                ><a href="https://ferriki.dev">Project site</a>
+              </div>
+            </article>
+            <article class="engine" id="ferromark" aria-labelledby="ferromark-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferromark/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferromark-name">Ferromark</h3>
+                  <p class="engine-role">A Markdown renderer</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Turns Markdown into HTML, sanitized by default, and is among the fastest engines for
+                the job.
+              </p>
+              <div class="engine-links">
+                <a href="ferromark.html">Explore Ferromark</a
+                ><a href="https://ferromark.dev">Project site</a>
+              </div>
+            </article>
+            <article class="engine" id="ferrolex" aria-labelledby="ferrolex-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferrolex/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferrolex-name">Ferrolex</h3>
+                  <p class="engine-role">A spell checker</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Checks spelling in prose and in code, and gives the same suggestions every time.
+              </p>
+              <div class="engine-links">
+                <a href="ferrolex.html">Explore Ferrolex</a
+                ><a href="https://github.com/sebastian-software/ferrolex">Repository</a>
+              </div>
+            </article>
+            <article class="engine" id="ferrocat" aria-labelledby="ferrocat-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferrocat/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferrocat-name">Ferrocat</h3>
+                  <p class="engine-role">A translation catalog engine</p>
+                </div>
+              </div>
+              <p class="engine-description">Reads, merges, and compiles translation catalogs.</p>
+              <div class="engine-links">
+                <a href="ferrocat.html">Explore Ferrocat</a
+                ><a href="https://ferrocat.dev">Project site</a>
+              </div>
+            </article>
+            <article class="engine" id="ferralk" aria-labelledby="ferralk-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferralk/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferralk-name">Ferralk</h3>
+                  <p class="engine-role">A glob matcher and file walker</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Matches glob patterns and walks file trees in parallel, ahead of globset and
+                fast-glob.
+              </p>
+              <div class="engine-links">
+                <a href="ferralk.html">Explore Ferralk</a
+                ><a href="https://github.com/sebastian-software/ferralk">Repository</a>
+              </div>
+            </article>
+            <article class="engine" id="ferrugo" aria-labelledby="ferrugo-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferrugo/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferrugo-name">Ferrugo</h3>
+                  <p class="engine-role">A PDF preview renderer</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Renders previews of PDF files you have no reason to trust.
+              </p>
+              <div class="engine-links">
+                <a href="ferrugo.html">Explore Ferrugo</a
+                ><a href="https://github.com/sebastian-software/ferrugo">Repository</a>
+              </div>
+            </article>
+            <aside class="catalog-note">
+              <strong>Your task decides<br />where to start.</strong>Choose an engine for the work
+              it does. There is no required starting point for the family.
+            </aside>
+          </div>
+        </div>
       </section>
-      <footer>
-        <p>
-          Local exploration files. Production components, tokens and accepted design decisions are
-          maintained separately.
-        </p>
-        <a href="README.md">Contents and provenance</a>
-      </footer>
+      <section id="choosing" class="material" aria-labelledby="choosing-title">
+        <div class="wrap family-story">
+          <aside class="margin-note">
+            <h2>Familiar contracts</h2>
+            <p>Know what you are choosing.</p>
+          </aside>
+          <div class="story">
+            <h2 id="choosing-title">Familiar inputs.<br />Explicit boundaries.</h2>
+            <p class="lede">
+              The engines work with established formats and contracts. Compatibility evidence
+              belongs with each project, where its scope and limitations can be read in full.
+            </p>
+            <table class="reference-table">
+              <caption class="sr-only">
+                The seven engines, their familiar foundations and the evidence in each repository.
+              </caption>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Engine</th>
+                  <th scope="col">Familiar foundation</th>
+                  <th scope="col">Evidence to look for</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="ferroni.html">Ferroni</a></th>
+                  <td>Oniguruma regular expressions</td>
+                  <td>Compatibility oracle</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferriki.html">Ferriki</a></th>
+                  <td>TextMate grammars and editor themes</td>
+                  <td>Mirrored Shiki tests</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferromark.html">Ferromark</a></th>
+                  <td>CommonMark and GFM</td>
+                  <td>Conformance cases</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferrolex.html">Ferrolex</a></th>
+                  <td>Hunspell dictionaries</td>
+                  <td>Deterministic suggestion scoring</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferrocat.html">Ferrocat</a></th>
+                  <td>PO and ICU MessageFormat</td>
+                  <td>Upstream-derived conformance cases</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferralk.html">Ferralk</a></th>
+                  <td>Glob syntax and .gitignore rules</td>
+                  <td>Frozen zlob reference</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferrugo.html">Ferrugo</a></th>
+                  <td>PDF</td>
+                  <td>Explicit memory and time limits</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="table-note">Read each project's evidence and limits before adopting it.</p>
+          </div>
+        </div>
+      </section>
+      <section id="workshop" class="wrap family-story workshop" aria-labelledby="workshop-title">
+        <aside class="margin-note">
+          <h2>The workshop</h2>
+          <p>Built with care.<br />Adopted independently.</p>
+        </aside>
+        <div class="story">
+          <h2 id="workshop-title">Shared workmanship.<br />Independent tools.</h2>
+          <div class="prose-columns">
+            <div>
+              <h3>Take the tool you need.</h3>
+              <p>
+                The family is a way to find related work, not a required stack. Each engine keeps a
+                focused purpose. Where two fit together, their documentation explains the
+                relationship.
+              </p>
+              <p>
+                Ferriki uses Ferroni for pattern matching and pairs with Ferromark for highlighted
+                documents. Ferromark does not require Ferriki.
+              </p>
+            </div>
+            <div>
+              <h3>Keep the evidence close.</h3>
+              <p>
+                Read the reference tests, compatibility notes and measurements in each repository.
+                That is where the conditions stay attached to the claim and where limitations can be
+                checked against your workload.
+              </p>
+              <p>
+                Use the engine's own documentation to understand the interfaces and boundaries that
+                matter to your application.
+              </p>
+            </div>
+          </div>
+          <p class="workshop-line">Built by Sebastian Software in Mainz, Germany.</p>
+        </div>
+      </section>
+      <div class="ferra-page workshop-references">
+        <section
+          id="workshop-links"
+          class="ferra-section ferra-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="ferra-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="ferra-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="ferra-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
+    <footer class="wrap site-footer">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Ferramenta home"
+          ><img
+            src="../packages/family/ferra/ferramenta/mark-64.png"
+            width="64"
+            height="64"
+            alt=""
+          />Ferramenta</a
+        >
+        <p>Rust engines from one workshop.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="https://github.com/sebastian-software">GitHub</a
+        ><a href="https://sebastian-software.com/imprint">Imprint</a
+        ><a href="https://sebastian-software.com/privacy-policy">Privacy</a>
+      </nav>
+    </footer>
   </body>
 </html>

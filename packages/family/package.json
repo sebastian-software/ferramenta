@@ -18,8 +18,8 @@
     "NOTICE.md",
     "README.md",
     "markdown",
-    "editorial",
-    "EDITORIAL.md"
+    "ferra",
+    "FERRA.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -46,14 +46,14 @@
     "./icons/*": "./icons/*",
     "./textures/*": "./textures/*",
     "./package.json": "./package.json",
-    "./editorial": {
-      "types": "./dist/editorial.d.ts",
-      "default": "./dist/editorial.js"
+    "./ferra": {
+      "types": "./dist/ferra.d.ts",
+      "default": "./dist/ferra.js"
     },
-    "./editorial.css": "./styles/editorial.css",
-    "./editorial-tokens.css": "./styles/editorial-tokens.css",
-    "./editorial-fonts.css": "./styles/editorial-fonts.css",
-    "./editorial-assets/*": "./editorial/*"
+    "./ferra.css": "./styles/ferra.css",
+    "./ferra-tokens.css": "./styles/ferra-tokens.css",
+    "./ferra-fonts.css": "./styles/ferra-fonts.css",
+    "./ferra-assets/*": "./ferra/*"
   },
   "publishConfig": {
     "access": "public",

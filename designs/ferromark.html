@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferromark · Overview</title>
+    <link rel="icon" href="../packages/family/ferra/ferromark/favicon.ico" />
+    <link rel="stylesheet" href="../packages/family/styles/ferra.css" />
+    <link rel="stylesheet" href="../design/ferra/preview.css" />
+  </head>
+  <body>
+    <div class="ferra-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="ferra-header ferra-wrap">
+        <a href="ferromark.html" class="ferra-brand"
+          ><span
+            class="ferra-mark"
+            data-product="ferromark"
+            style="--ferra-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferromark</span></a
+        >
+        <nav class="ferra-nav" aria-label="Main">
+          <a href="ferromark.html" aria-current="page">Overview</a
+          ><a href="ferromark-start.html">Start with Rust</a
+          ><a href="ferromark-rendering.html">Rendering and metadata</a
+          ><a href="ferromark-benchmarks.html">Parser benchmarks</a
+          ><a href="https://ferromark.dev">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="ferra-hero ferra-wrap" aria-labelledby="_R_b_">
+          <div class="ferra-hero-copy">
+            <h1 id="_R_b_">Ferromark.</h1>
+            <p class="ferra-subtitle">Markdown, ready for your pipeline.</p>
+            <div class="ferra-lede">
+              <p>
+                Turn Markdown into HTML and the metadata around it. A focused Rust engine for the
+                documents that get complicated.
+              </p>
+            </div>
+            <div class="ferra-actions">
+              <a href="ferromark-start.html" class="ferra-action" data-variant="primary"
+                >Start with Rust</a
+              ><a href="https://ferromark.dev" class="ferra-action" data-variant="secondary"
+                >Read the documentation</a
+              >
+            </div>
+          </div>
+          <div class="ferra-hero-art">
+            <span class="ferra-instrument" data-product="ferromark" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="see-what-a-document-becomes"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="see-what-a-document-becomes-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Rendering</p>
+              <div>From Markdown to structured HTML and metadata.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="see-what-a-document-becomes-title">See what a document becomes</h2>
+              <div class="ferra-columns">
+                <figure class="ferra-code">
+                  <figcaption>
+                    <span>Markdown input</span><span class="ferra-code-file">.md</span>
+                  </figcaption>
+                  <pre tabindex="0"><code># Release notes
+
+- Clear structure
+- Useful metadata</code></pre>
+                </figure>
+                <figure class="ferra-specimen">
+                  <figcaption>Rendered output</figcaption>
+                  <div class="ferra-specimen-output">
+                    <h3>Release notes</h3>
+                    <ul>
+                      <li>Clear structure</li>
+                      <li>Useful metadata</li>
+                    </ul>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="correctness-is-a-contract"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="correctness-is-a-contract-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Output policy</p>
+              <div>Correct handling for real documents.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="correctness-is-a-contract-title">Correctness is a contract</h2>
+              <p>
+                A Markdown engine has to earn trust on the awkward document: a nested list, a
+                reference that moves, a table with real content, or a footnote added at the last
+                minute. Ferromark starts with CommonMark and GFM, then makes the publishing features
+                explicit.
+              </p>
+              <p>
+                Specification profiles turn off publishing extras so that conformance can be checked
+                on its own terms. Optional heading IDs, front matter and footnotes belong to a
+                documented output contract. A change to that contract deserves a record, not an
+                accidental difference hidden in a faster implementation.
+              </p>
+              <figure class="ferra-specimen">
+                <figcaption>Correctness is a contract</figcaption>
+                <div class="ferra-specimen-output">
+                  <dl>
+                    <dt>Front matter</dt>
+                    <dd>extracted as raw text</dd>
+                    <dt>Heading IDs</dt>
+                    <dd>configurable output</dd>
+                    <dt>Footnotes</dt>
+                    <dd>document references and notes</dd>
+                    <dt>Rendering hooks</dt>
+                    <dd>your application decides</dd>
+                  </dl>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="speed-with-the-conditions-attached"
+          class="ferra-section"
+          data-surface="pewter"
+          aria-labelledby="speed-with-the-conditions-attached-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Measurements</p>
+              <div>Performance, with the conditions attached.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="speed-with-the-conditions-attached-title">
+                Speed, with the conditions attached
+              </h2>
+              <figure class="ferra-bars">
+                <figcaption>
+                  Fresh throughput, relative to Ferromark v2; higher is faster
+                </figcaption>
+                <ul>
+                  <li data-highlight="true">
+                    <span class="ferra-bar-label">Ferromark v2</span
+                    ><span class="ferra-bar-value">1.00×</span
+                    ><span class="ferra-bar-track" aria-hidden="true"
+                      ><span style="width: 100%"></span
+                    ></span>
+                  </li>
+                  <li>
+                    <span class="ferra-bar-label">Ferromark v1</span
+                    ><span class="ferra-bar-value">0.48×</span
+                    ><span class="ferra-bar-track" aria-hidden="true"
+                      ><span style="width: 48%"></span
+                    ></span>
+                  </li>
+                  <li>
+                    <span class="ferra-bar-label">pulldown-cmark</span
+                    ><span class="ferra-bar-value">0.38×</span
+                    ><span class="ferra-bar-track" aria-hidden="true"
+                      ><span style="width: 38%"></span
+                    ></span>
+                  </li>
+                  <li>
+                    <span class="ferra-bar-label">md4c</span
+                    ><span class="ferra-bar-value">0.29×</span
+                    ><span class="ferra-bar-track" aria-hidden="true"
+                      ><span style="width: 28.999999999999996%"></span
+                    ></span>
+                  </li>
+                  <li>
+                    <span class="ferra-bar-label">Bun native</span
+                    ><span class="ferra-bar-value">0.17×</span
+                    ><span class="ferra-bar-track" aria-hidden="true"
+                      ><span style="width: 17%"></span
+                    ></span>
+                  </li>
+                </ul>
+              </figure>
+              <p>
+                Measured September 21, 2026 · Apple M1 Pro · revision 39b1f0b7 50 documents with
+                equivalent HTML across five engines.
+              </p>
+              <p>
+                A useful comparison starts by checking the output. The frozen corpus contains 57
+                documents; the score shown here uses the 50-document agreement subset. The other
+                cases remain visible as diagnostics instead of being normalized into the score.
+              </p>
+              <p>
+                Fresh and reuse are separate lifecycles. These figures describe the recorded input,
+                configuration and machine; they are not a promise about every workload.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="recognition-is-not-permission"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="recognition-is-not-permission-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Compatibility</p>
+              <div>Recognize content without granting permission.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="recognition-is-not-permission-title">Recognition is not permission</h2>
+              <p>
+                The engine can recognize raw HTML without granting permission to emit it. Choose the
+                output policy for the source your application accepts.
+              </p>
+              <div class="ferra-table-region" role="region" aria-labelledby="_R_alb_" tabindex="0">
+                <table class="ferra-table">
+                  <caption id="_R_alb_">
+                    Recognition is not permission
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">API</th>
+                      <th scope="col">Default</th>
+                      <th scope="col">For untrusted Markdown</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rust</th>
+                      <td>Raw HTML passthrough</td>
+                      <td>Enable sanitize</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Node.js</th>
+                      <td>Escaped HTML and filtered URL schemes</td>
+                      <td>Keep renderPolicy: &#x27;untrusted&#x27;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Custom hooks and highlighter HTML are written verbatim. They must escape untrusted
+                values themselves. A rendering policy is an integration decision, not a badge on a
+                parser.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="the-document-beyond-paragraphs"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="the-document-beyond-paragraphs-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">The document</p>
+              <div>More than paragraphs.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="the-document-beyond-paragraphs-title">The document, beyond paragraphs</h2>
+              <p>
+                Publishing needs structure as well as markup. Extract front matter as raw text; let
+                the application interpret YAML or TOML. Configure heading IDs and footnotes for the
+                site you are building. Tables can carry the classes, captions and column structure
+                that your CSS needs.
+              </p>
+              <p>
+                Ferromark leaves templates, translation, routing and syntax highlighting outside the
+                core. That boundary keeps the renderer focused and gives the surrounding pipeline
+                room to make its own decisions.
+              </p>
+              <figure class="ferra-specimen">
+                <figcaption>The document, beyond paragraphs</figcaption>
+                <div class="ferra-specimen-output">
+                  <dl>
+                    <dt>Render one document</dt>
+                    <dd>to_html()</dd>
+                    <dt>Choose output policy</dt>
+                    <dd>to_html_with_options()</dd>
+                    <dt>Inspect structure</dt>
+                    <dd>Allocator + Parser + HtmlRenderer</dd>
+                    <dt>Customize output</dt>
+                    <dd>HtmlRenderHooks</dd>
+                  </dl>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="build-the-pipeline-that-fits"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="build-the-pipeline-that-fits-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Get started</p>
+              <div>Use it your way.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="build-the-pipeline-that-fits-title">Build the pipeline that fits</h2>
+              <p>
+                Start with the Rust crate, or use the native engine through Node.js. Pair Ferromark
+                with Ferriki when your documents need syntax highlighting; neither engine requires
+                the other.
+              </p>
+              <figure class="ferra-code">
+                <figcaption><span>Install</span></figcaption>
+                <pre tabindex="0"><code>cargo add ferromark</code></pre>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="ferra-section ferra-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="ferra-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="ferra-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="ferra-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="ferra-footer ferra-wrap">
+        <div class="ferra-footer-brand">
+          <a href="ferromark.html" class="ferra-brand"
+            ><span
+              class="ferra-mark"
+              data-product="ferromark"
+              style="--ferra-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferromark</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="ferra-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../design/ferra/content/ferromark-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

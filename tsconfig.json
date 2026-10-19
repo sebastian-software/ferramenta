@@ -22,7 +22,7 @@
     "packages/*/scripts/**/*.mjs",
     "packages/*/test/**/*.mjs",
     "scripts/**/*.mjs",
-    "design/editorial/**/*.mjs",
+    "design/ferra/**/*.mjs",
     "*.ts",
     "*.config.ts"
   ],

@@ -1,0 +1,69 @@
+/* Specimen framing only; the actual page and component styles come from the package. */
+.ferra-kit .ferra-kit-swatches {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ferra-space-6);
+  list-style: none;
+  padding: 0;
+  margin-block: var(--ferra-space-8);
+}
+.ferra-kit .ferra-kit-swatch {
+  display: block;
+  height: 4rem;
+  border: 1px solid var(--ferra-border);
+  margin-block-end: var(--ferra-space-3);
+}
+.ferra-kit .ferra-kit-swatches code {
+  font-size: 0.8125rem;
+}
+.ferra-kit .ferra-kit-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--ferra-space-8);
+  margin-block: var(--ferra-space-12);
+}
+.ferra-kit .ferra-kit-sizes figcaption {
+  font-size: var(--ferra-text-small);
+  margin-block-start: var(--ferra-space-3);
+}
+.ferra-kit .ferra-kit-identities {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ferra-space-12) var(--ferra-space-8);
+  list-style: none;
+  padding: 0;
+  margin-block: var(--ferra-space-12);
+}
+.ferra-kit .ferra-kit-identities li {
+  display: grid;
+  gap: var(--ferra-space-4);
+  font-size: var(--ferra-text-small);
+}
+.ferra-kit .ferra-kit-instruments {
+  margin-block: var(--ferra-space-8);
+}
+.ferra-kit .ferra-kit-instruments summary {
+  cursor: pointer;
+  padding-block: var(--ferra-space-3);
+  min-height: var(--ferra-target);
+}
+.ferra-kit .ferra-kit-instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ferra-space-12);
+  margin-block: var(--ferra-space-8);
+}
+.ferra-kit .ferra-kit-instrument-grid figcaption {
+  margin-block-start: var(--ferra-space-4);
+  font-size: var(--ferra-text-small);
+}
+@media (max-width: 47.5rem) {
+  .ferra-kit .ferra-kit-swatches,
+  .ferra-kit .ferra-kit-identities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ferra-kit .ferra-kit-instrument-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
