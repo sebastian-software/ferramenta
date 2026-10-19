@@ -17,7 +17,9 @@
     "textures",
     "NOTICE.md",
     "README.md",
-    "markdown"
+    "markdown",
+    "ferra",
+    "FERRA.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -43,7 +45,15 @@
     "./fonts/*": "./fonts/*",
     "./icons/*": "./icons/*",
     "./textures/*": "./textures/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./ferra": {
+      "types": "./dist/ferra.d.ts",
+      "default": "./dist/ferra.js"
+    },
+    "./ferra.css": "./styles/ferra.css",
+    "./ferra-tokens.css": "./styles/ferra-tokens.css",
+    "./ferra-fonts.css": "./styles/ferra-fonts.css",
+    "./ferra-assets/*": "./ferra/*"
   },
   "publishConfig": {
     "access": "public",

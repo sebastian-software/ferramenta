@@ -1,0 +1,48 @@
+/* Generated from design/ferra/tokens.json. */
+.ferra-page,
+.ferra-tokens {
+  --ferra-paper: #f4f0e6;
+  --ferra-reading: #fbfaf6;
+  --ferra-pewter: #dcddd6;
+  --ferra-ink: #29362f;
+  --ferra-muted: #5c655b;
+  --ferra-oxide: #88492f;
+  --ferra-background: var(--ferra-paper);
+  --ferra-surface: var(--ferra-reading);
+  --ferra-text: var(--ferra-ink);
+  --ferra-text-secondary: var(--ferra-muted);
+  --ferra-accent: var(--ferra-oxide);
+  --ferra-on-accent: var(--ferra-reading);
+  --ferra-border: color-mix(in srgb, var(--ferra-ink) 22%, var(--ferra-paper));
+  --ferra-accent-hover: color-mix(in srgb, var(--ferra-oxide) 85%, var(--ferra-ink));
+  --ferra-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ferra-font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --ferra-font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --ferra-text-small: 0.875rem;
+  --ferra-text-body: 1.0625rem;
+  --ferra-text-lead: 1.125rem;
+  --ferra-text-title: 1.5625rem;
+  --ferra-text-heading: clamp(1.875rem, 3.2vw, 2.6875rem);
+  --ferra-text-display: clamp(2.625rem, 7.3vw, 6rem);
+  --ferra-leading-body: 1.7;
+  --ferra-leading-heading: 1.13;
+  --ferra-space-1: 0.25rem;
+  --ferra-space-2: 0.5rem;
+  --ferra-space-3: 0.75rem;
+  --ferra-space-4: 1rem;
+  --ferra-space-6: 1.5rem;
+  --ferra-space-8: 2rem;
+  --ferra-space-12: 3rem;
+  --ferra-space-16: 4rem;
+  --ferra-space-18: 4.5rem;
+  --ferra-space-24: 6rem;
+  --ferra-space-32: 8rem;
+  --ferra-width: 86rem;
+  --ferra-gutter: clamp(1.5rem, 4.5vw, 4.25rem);
+  --ferra-margin-width: 10.5rem;
+  --ferra-column-gap: clamp(2.625rem, 5vw, 4.5rem);
+  --ferra-section-gap: clamp(5.5rem, 9vw, 8rem);
+  --ferra-measure: 68ch;
+  --ferra-radius: 0.1875rem;
+  --ferra-target: 2.75rem;
+}

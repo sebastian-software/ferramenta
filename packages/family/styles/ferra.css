@@ -1,0 +1,521 @@
+@import "./ferra-tokens.css";
+@import "./ferra-assets.css";
+@import "./ferra-fonts.css";
+
+/* Opt-in styles: no root tokens, global reset or legacy component overrides. */
+.ferra-page {
+  color-scheme: light;
+  color: var(--ferra-text);
+  background: var(--ferra-background) url("../ferra/textures/paper.webp") center / cover no-repeat;
+  background-attachment: fixed;
+  font: 400 var(--ferra-text-body) / var(--ferra-leading-body) var(--ferra-font-sans);
+  text-align: start;
+}
+.ferra-page :where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+.ferra-page :where(p, figure, ul, pre) {
+  margin: 0;
+}
+.ferra-page p + p {
+  margin-block-start: var(--ferra-space-4);
+}
+.ferra-page :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--ferra-text);
+  font-family: var(--ferra-font-display);
+  font-weight: 600;
+  line-height: var(--ferra-leading-heading);
+  text-transform: none;
+  margin: 0;
+}
+.ferra-page h1 {
+  font-size: var(--ferra-text-display);
+  letter-spacing: -0.055em;
+}
+.ferra-page h2 {
+  font-size: var(--ferra-text-heading);
+  letter-spacing: -0.035em;
+}
+.ferra-page h3 {
+  font-size: var(--ferra-text-title);
+  letter-spacing: -0.025em;
+}
+.ferra-page a {
+  color: inherit;
+  text-underline-offset: 0.24em;
+  text-decoration-thickness: 1px;
+}
+.ferra-page a:hover {
+  color: var(--ferra-accent);
+}
+.ferra-page :focus-visible {
+  outline: 3px solid var(--ferra-accent);
+  outline-offset: 5px;
+}
+.ferra-page .ferra-wrap {
+  width: 100%;
+  max-width: var(--ferra-width);
+  padding-inline: var(--ferra-gutter);
+  margin-inline: auto;
+}
+.ferra-page .ferra-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--ferra-space-8);
+  min-height: 6.75rem;
+}
+.ferra-page .ferra-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ferra-space-3);
+  text-decoration: none;
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.ferra-page .ferra-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ferra-space-2) var(--ferra-space-8);
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  text-decoration: none;
+}
+.ferra-mark {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--ferra-mark-size, 3rem);
+  height: var(--ferra-mark-size, 3rem);
+  background: center / contain no-repeat;
+  vertical-align: middle;
+}
+.ferra-instrument {
+  display: block;
+  width: 100%;
+  background: center / contain no-repeat;
+}
+.ferra-page .ferra-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: var(--ferra-space-8);
+  align-items: center;
+  padding-block: var(--ferra-space-18) var(--ferra-section-gap);
+}
+.ferra-page .ferra-hero-copy,
+.ferra-page .ferra-hero-art {
+  min-width: 0;
+}
+.ferra-page .ferra-subtitle {
+  font-size: clamp(1.625rem, 3.1vw, 2.4375rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  margin-block: var(--ferra-space-3) var(--ferra-space-6);
+}
+.ferra-page .ferra-lede {
+  max-width: 42ch;
+  color: var(--ferra-text-secondary);
+  font-size: var(--ferra-text-lead);
+}
+.ferra-page .ferra-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ferra-space-4);
+  margin-block-start: var(--ferra-space-8);
+}
+.ferra-page .ferra-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ferra-target);
+  padding: var(--ferra-space-3) var(--ferra-space-6);
+  border: 1px solid var(--ferra-accent);
+  border-radius: var(--ferra-radius);
+  font-size: var(--ferra-text-small);
+  font-weight: 500;
+  text-decoration: none;
+  background: var(--ferra-accent);
+  color: var(--ferra-on-accent);
+}
+.ferra-page .ferra-action:hover {
+  background: var(--ferra-accent-hover);
+  color: var(--ferra-on-accent);
+}
+.ferra-page .ferra-action[data-variant="secondary"] {
+  background: transparent;
+  color: var(--ferra-text);
+}
+.ferra-page .ferra-action[data-variant="secondary"]:hover {
+  background: var(--ferra-surface);
+}
+.ferra-page .ferra-section-layout {
+  display: grid;
+  grid-template-columns: var(--ferra-margin-width) minmax(0, 1fr);
+  gap: var(--ferra-column-gap);
+  padding-block: 0 var(--ferra-section-gap);
+}
+.ferra-page .ferra-section {
+  scroll-margin-block-start: var(--ferra-space-8);
+}
+.ferra-page .ferra-margin {
+  font-size: var(--ferra-text-small);
+  color: var(--ferra-text-secondary);
+  line-height: 1.6;
+  padding-block-start: var(--ferra-space-1);
+  max-width: 19ch;
+}
+.ferra-page .ferra-label {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  margin-block-end: var(--ferra-space-4);
+}
+.ferra-page .ferra-story {
+  min-width: 0;
+}
+.ferra-page .ferra-story > p {
+  max-width: var(--ferra-measure);
+  margin-block-start: var(--ferra-space-6);
+}
+.ferra-page .ferra-section[data-surface="pewter"] {
+  background: var(--ferra-pewter) url("../ferra/textures/pewter.webp") center / cover no-repeat;
+  background-attachment: fixed;
+}
+.ferra-page .ferra-section[data-surface="plain"] {
+  background: var(--ferra-surface);
+}
+.ferra-page .ferra-section[data-surface="pewter"] .ferra-section-layout,
+.ferra-page .ferra-section[data-surface="plain"] .ferra-section-layout {
+  padding-block: var(--ferra-space-24);
+}
+.ferra-page .ferra-section[data-surface="pewter"] + .ferra-section .ferra-section-layout,
+.ferra-page .ferra-section[data-surface="plain"] + .ferra-section .ferra-section-layout {
+  padding-block-start: var(--ferra-section-gap);
+}
+.ferra-page .ferra-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ferra-column-gap);
+  margin-block-start: var(--ferra-space-12);
+}
+.ferra-page .ferra-columns > * {
+  min-width: 0;
+}
+.ferra-page .ferra-columns h3 {
+  margin-block-end: var(--ferra-space-6);
+}
+.ferra-page .ferra-engine-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ferra-space-18) var(--ferra-column-gap);
+  margin-block-start: var(--ferra-space-16);
+}
+.ferra-page .ferra-engine {
+  min-width: 0;
+  font-size: 1rem;
+}
+.ferra-page .ferra-engine-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--ferra-space-4);
+  margin-block-end: var(--ferra-space-6);
+}
+.ferra-page .ferra-engine-role {
+  color: var(--ferra-text-secondary);
+  font-size: var(--ferra-text-small);
+  line-height: 1.45;
+  margin-block-start: var(--ferra-space-2);
+}
+.ferra-page .ferra-engine-audience {
+  color: var(--ferra-text-secondary);
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-engine > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  margin-block-start: var(--ferra-space-3);
+  color: var(--ferra-accent);
+}
+.ferra-page .ferra-repo-hint {
+  white-space: pre;
+}
+.ferra-page .ferra-table-region {
+  max-width: 100%;
+  overflow: auto;
+  margin-block-start: var(--ferra-space-8);
+}
+.ferra-page .ferra-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ferra-text-small);
+  line-height: 1.6;
+  text-align: start;
+}
+.ferra-page .ferra-table caption {
+  text-align: start;
+  padding-block-end: var(--ferra-space-6);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ferra-text);
+}
+.ferra-page .ferra-table th,
+.ferra-page .ferra-table td {
+  text-align: start;
+  vertical-align: top;
+  padding: var(--ferra-space-4) var(--ferra-space-6) var(--ferra-space-4) 0;
+  border-block-end: 1px solid var(--ferra-border);
+}
+.ferra-page .ferra-table th {
+  font-weight: 500;
+}
+.ferra-page .ferra-table thead th {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ferra-text-secondary);
+}
+.ferra-page .ferra-code {
+  margin-block: var(--ferra-space-8);
+  border: 1px solid var(--ferra-border);
+  border-radius: var(--ferra-radius);
+  background: var(--ferra-surface);
+  overflow: hidden;
+}
+.ferra-page .ferra-specimen {
+  margin-block: var(--ferra-space-8);
+  border: 1px solid var(--ferra-border);
+  border-radius: var(--ferra-radius);
+  background: var(--ferra-surface);
+  overflow: hidden;
+}
+.ferra-page .ferra-specimen figcaption {
+  padding: var(--ferra-space-3) var(--ferra-space-4);
+  border-block-end: 1px solid var(--ferra-border);
+  font-size: var(--ferra-text-small);
+  font-weight: 500;
+}
+.ferra-page .ferra-specimen-output {
+  padding: var(--ferra-space-6);
+  overflow-wrap: anywhere;
+}
+.ferra-page .ferra-specimen-output ul {
+  padding-inline-start: var(--ferra-space-6);
+  margin-block-start: var(--ferra-space-6);
+}
+.ferra-page .ferra-specimen-output :is(code, pre) {
+  font-family: var(--ferra-font-mono);
+  white-space: pre-wrap;
+}
+.ferra-page .ferra-specimen-output mark {
+  background: color-mix(in srgb, var(--ferra-accent) 15%, var(--ferra-surface));
+  color: var(--ferra-text);
+  padding-inline: var(--ferra-space-1);
+}
+.ferra-page .ferra-columns > :is(.ferra-code, .ferra-specimen) {
+  margin-block: 0;
+}
+.ferra-page .ferra-code figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ferra-space-4);
+  padding: var(--ferra-space-3) var(--ferra-space-4);
+  border-block-end: 1px solid var(--ferra-border);
+  font-size: var(--ferra-text-small);
+  font-weight: 500;
+}
+.ferra-page .ferra-code-file {
+  color: var(--ferra-text-secondary);
+  font-weight: 400;
+}
+.ferra-page .ferra-code pre {
+  overflow: auto;
+  padding: var(--ferra-space-6);
+  font: 0.875rem / 1.8 var(--ferra-font-mono);
+  color: var(--ferra-text);
+  background: var(--ferra-surface);
+}
+.ferra-page .ferra-code code {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  padding: 0;
+}
+.ferra-page .ferra-bars {
+  margin-block: var(--ferra-space-8);
+}
+.ferra-page .ferra-bars figcaption {
+  font-weight: 500;
+  margin-block-end: var(--ferra-space-6);
+}
+.ferra-page .ferra-bars ul {
+  list-style: none;
+  padding: 0;
+}
+.ferra-page .ferra-bars li {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) 5rem minmax(0, 2fr);
+  gap: var(--ferra-space-4);
+  align-items: center;
+  padding-block: var(--ferra-space-3);
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-bar-value {
+  font-variant-numeric: tabular-nums;
+}
+.ferra-page .ferra-bar-track {
+  background: var(--ferra-border);
+  height: 1.25rem;
+}
+.ferra-page .ferra-bar-track > span {
+  display: block;
+  background: var(--ferra-text-secondary);
+  height: 100%;
+}
+.ferra-page .ferra-bars li[data-highlight] .ferra-bar-track > span {
+  background: var(--ferra-accent);
+}
+.ferra-page .ferra-measure-note {
+  margin-block-start: var(--ferra-space-6);
+  color: var(--ferra-text-secondary);
+  font-size: 0.8125rem;
+  max-width: var(--ferra-measure);
+}
+.ferra-page .ferra-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ferra-space-8);
+  padding-block: var(--ferra-space-8) var(--ferra-space-12);
+}
+.ferra-page .ferra-workshop-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ferra-space-16) var(--ferra-column-gap);
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--ferra-space-16);
+}
+.ferra-page .ferra-workshop-links li {
+  min-width: 0;
+}
+.ferra-page .ferra-workshop-links a {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--ferra-space-6);
+  height: 100%;
+  text-decoration: none;
+}
+.ferra-page .ferra-workshop-logo {
+  display: block;
+  width: 15rem;
+  max-width: 100%;
+  height: 2.8125rem;
+  background-position: left center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-block-end: var(--ferra-space-2);
+}
+.ferra-page .ferra-workshop-links p {
+  color: var(--ferra-text-secondary);
+  max-width: 38ch;
+}
+.ferra-page .ferra-workshop-action {
+  color: var(--ferra-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.24em;
+  margin-block-start: auto;
+  padding-block-start: var(--ferra-space-2);
+}
+.ferra-page .ferra-footer-brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ferra-space-6);
+}
+.ferra-page .ferra-footer-brand p {
+  color: var(--ferra-text-secondary);
+  font-size: 0.8125rem;
+}
+.ferra-page .ferra-footer .ferra-brand {
+  font-size: 1.3125rem;
+}
+.ferra-page .ferra-footer .ferra-mark {
+  --ferra-mark-size: 2.5rem !important;
+}
+@media (max-width: 65.625rem) {
+  .ferra-page .ferra-header {
+    flex-wrap: wrap;
+    padding-block: var(--ferra-space-6);
+  }
+  .ferra-page .ferra-section-layout {
+    --ferra-margin-width: 8.4375rem;
+    --ferra-column-gap: 2.625rem;
+  }
+  .ferra-page .ferra-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+  .ferra-page .ferra-engine-heading {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 47.5rem) {
+  .ferra-page {
+    font-size: 1rem;
+  }
+  .ferra-page h1 {
+    font-size: clamp(2.625rem, 10.4vw, 4.75rem);
+  }
+  .ferra-page .ferra-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ferra-space-12);
+    padding-block-start: var(--ferra-space-12);
+  }
+  .ferra-page .ferra-subtitle {
+    max-width: 20ch;
+  }
+  .ferra-page .ferra-section-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ferra-space-8);
+  }
+  .ferra-page .ferra-margin {
+    max-width: 42ch;
+  }
+  .ferra-page .ferra-engine-grid,
+  .ferra-page .ferra-workshop-links,
+  .ferra-page .ferra-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ferra-space-12);
+  }
+  .ferra-page .ferra-engine-heading {
+    flex-wrap: nowrap;
+  }
+  .ferra-page .ferra-bars li {
+    grid-template-columns: minmax(0, 1fr) 5rem;
+    gap: var(--ferra-space-2);
+  }
+  .ferra-page .ferra-bar-track {
+    grid-column: 1 / -1;
+  }
+  .ferra-page .ferra-section[data-surface="pewter"] .ferra-section-layout,
+  .ferra-page .ferra-section[data-surface="plain"] .ferra-section-layout {
+    padding-block: var(--ferra-space-16);
+  }
+}
+@media (max-width: 30rem) {
+  .ferra-page .ferra-header .ferra-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ferra-space-2) var(--ferra-space-6);
+    width: 100%;
+  }
+  .ferra-page .ferra-action {
+    padding-inline: var(--ferra-space-4);
+  }
+}

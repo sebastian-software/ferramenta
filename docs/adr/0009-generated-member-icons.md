@@ -5,6 +5,13 @@
 - Deciders: Sebastian Werner
 - Supersedes: ADR-0002
 
+## Amendment 2026-10-19
+
+The new Ferra entry is governed by [ADR-0010](0010-ferra-design-system.md).
+This record continues to describe the existing package entry and its assets.
+The new entry has its own light materials, refined marks and page structures,
+so existing consumers can migrate deliberately.
+
 ## Context
 
 The family's marks were duotone icons derived from Streamline (ADR-0002). They

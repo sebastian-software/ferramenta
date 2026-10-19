@@ -150,6 +150,20 @@ export declare const WORKSHOP: {
     readonly openSource: "https://oss.sebastian-software.com";
     readonly consulting: "https://sebastian-consulting.com";
 };
+/** Shared cross-references; each name keeps its original logo and destination. */
+export declare const WORKSHOP_REFERENCES: readonly [{
+    readonly id: "software";
+    readonly name: "Sebastian Software";
+    readonly href: "https://oss.sebastian-software.com";
+    readonly description: "Production-grade open-source projects across several languages: the wider workshop this family comes from.";
+    readonly action: "Explore the open-source projects";
+}, {
+    readonly id: "consulting";
+    readonly name: "Sebastian Consulting";
+    readonly href: "https://sebastian-consulting.com";
+    readonly description: "The people behind the engines, for hire: integration, support, and long-term maintenance.";
+    readonly action: "Work with the team";
+}];
 /**
  * What each maturity stamp promises, in one line. A site that shows a stamp
  * legend (`StampKey`) reads it from here, so a status means the same thing

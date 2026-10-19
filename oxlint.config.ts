@@ -18,6 +18,10 @@ config.ignorePatterns = [
 config.overrides = [
   ...(config.overrides ?? []),
   {
+    files: ["packages/family/src/family.ts"],
+    rules: { "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }] },
+  },
+  {
     files: ["app/**/*.tsx"],
     rules: {
       complexity: "off",

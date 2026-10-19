@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferralk · Overview</title>
+    <link rel="icon" href="../packages/family/ferra/ferralk/favicon.ico" />
+    <link rel="stylesheet" href="../packages/family/styles/ferra.css" />
+    <link rel="stylesheet" href="../design/ferra/preview.css" />
+  </head>
+  <body>
+    <div class="ferra-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="ferra-header ferra-wrap">
+        <a href="ferralk.html" class="ferra-brand"
+          ><span
+            class="ferra-mark"
+            data-product="ferralk"
+            style="--ferra-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferralk</span></a
+        >
+        <nav class="ferra-nav" aria-label="Main">
+          <a href="ferralk.html" aria-current="page">Overview</a
+          ><a href="https://github.com/sebastian-software/ferralk">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="ferra-hero ferra-wrap" aria-labelledby="_R_b_">
+          <div class="ferra-hero-copy">
+            <h1 id="_R_b_">Find the files. Skip the rest.</h1>
+            <p class="ferra-subtitle">A glob matcher and file walker</p>
+            <div class="ferra-lede">
+              <p>
+                Match glob patterns and walk filesystem trees in parallel. Let the include pattern
+                rule out work before directories are opened.
+              </p>
+            </div>
+            <div class="ferra-actions">
+              <a href="#start-at-the-right-layer" class="ferra-action" data-variant="primary"
+                >Get started</a
+              ><a
+                href="https://github.com/sebastian-software/ferralk"
+                class="ferra-action"
+                data-variant="secondary"
+                >Source on GitHub</a
+              >
+            </div>
+          </div>
+          <div class="ferra-hero-art">
+            <span class="ferra-instrument" data-product="ferralk" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="read-the-tree-through-the-pattern"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="read-the-tree-through-the-pattern-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Working example</p>
+              <div>Selection starts before the file list.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="read-the-tree-through-the-pattern-title">
+                Read the tree through the pattern
+              </h2>
+              <div class="ferra-columns">
+                <figure class="ferra-code">
+                  <figcaption><span>File tree</span></figcaption>
+                  <pre tabindex="0"><code>src/
+  lib.rs
+  generated/
+    cache.rs
+tests/
+  spec.rs</code></pre>
+                </figure>
+                <figure class="ferra-specimen">
+                  <figcaption>Selection</figcaption>
+                  <div class="ferra-specimen-output">
+                    <dl>
+                      <dt>Include</dt>
+                      <dd><code>src/**/*.rs</code></dd>
+                      <dt>Exclude</dt>
+                      <dd><code>**/generated/**</code></dd>
+                      <dt>Result</dt>
+                      <dd><code>src/lib.rs</code></dd>
+                    </dl>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="prune-from-the-include-pattern"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="prune-from-the-include-pattern-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Traversal</p>
+              <div>Do less filesystem work.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="prune-from-the-include-pattern-title">Prune from the include pattern</h2>
+              <p>
+                A scoped include pattern identifies the roots that can match. Ferralk uses that
+                information while walking, rather than treating selection only as a filter on an
+                already visited tree. Filenames remain raw bytes and native Path values from
+                directory reads to matches. Consumers do not lose filenames to a forced UTF-8
+                conversion.
+              </p>
+              <div class="ferra-table-region" role="region" aria-labelledby="_R_5ar_" tabindex="0">
+                <table class="ferra-table">
+                  <caption id="_R_5ar_">
+                    Prune from the include pattern
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Surface</th>
+                      <th scope="col">Use it for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">ferralk-glob</th>
+                      <td>Compile a pattern once and match paths or bytes</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">ferralk</th>
+                      <td>Walk and select filesystem entries in parallel</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Git-ignore support</th>
+                      <td>Explicit ignore behavior checked against Git</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Walk options</th>
+                      <td>Explicit hidden-file, symlink, metadata, sorting and error policies</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="choose-the-pattern-contract"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="choose-the-pattern-contract-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Glob semantics</p>
+              <div>Keep switches visible.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="choose-the-pattern-contract-title">Choose the pattern contract</h2>
+              <p>
+                A single star stays inside one path component in the shell-style contract.
+                PatternOptions::walker() enables recursive stars, braces and extglobs for standalone
+                matching, just as the walker does. Default standalone pattern options intentionally
+                keep those syntax extensions off. Choose options when moving an existing matcher
+                rather than assuming every library reads the same pattern alike.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="measure-the-work-you-actually-do"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="measure-the-work-you-actually-do-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Evidence</p>
+              <div>Conditions belong beside results.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="measure-the-work-you-actually-do-title">Measure the work you actually do</h2>
+              <p>
+                The matcher and walker are checked against a frozen zlob reference. Ignore verdicts
+                are replayed against Git itself. Recorded benchmarks describe concrete tree shapes,
+                cache conditions, hosts and worker budgets; they are not a promise of one universal
+                ranking. The matcher crate forbids unsafe. The broader workspace records its named,
+                limited exceptions explicitly.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="start-at-the-right-layer"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="start-at-the-right-layer-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Get started</p>
+              <div>Matching and walking are separate.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="start-at-the-right-layer-title">Start at the right layer</h2>
+              <figure class="ferra-code">
+                <figcaption><span>Install</span></figcaption>
+                <pre tabindex="0"><code>cargo add ferralk
+Depend on ferralk-glob alone when the application already has the paths and needs matching without traversal dependencies.</code></pre>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="ferra-section ferra-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="ferra-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="ferra-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="ferra-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="ferra-footer ferra-wrap">
+        <div class="ferra-footer-brand">
+          <a href="ferralk.html" class="ferra-brand"
+            ><span
+              class="ferra-mark"
+              data-product="ferralk"
+              style="--ferra-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferralk</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="ferra-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../design/ferra/content/ferralk-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

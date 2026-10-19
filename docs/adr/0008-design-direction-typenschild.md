@@ -5,6 +5,13 @@
 - Deciders: Sebastian Werner
 - Supersedes: ADR-0005 (and with it the direction of ADR-0003)
 
+## Amendment 2026-10-19
+
+The new Ferra entry is governed by [ADR-0010](0010-ferra-design-system.md).
+This record continues to describe the existing package entry and its assets.
+The new entry has its own light materials, refined marks and page structures,
+so existing consumers can migrate deliberately.
+
 ## Context
 
 The "Schmiede" direction (ADR-0003, extended by ADR-0005) gave the family a

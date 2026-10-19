@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of approved built-in Imagegen master",
+  "role": "Transparent mark; padding normalization and Lanczos resize only. Alpha threshold measures bounds and never changes color pixels.",
+  "source": "design/ferra/masters/ferromark/mark.png",
+  "sourceSha256": "c2786f038fe9900a2b3212a5a0cbd20c90aa74d7150db3ddf43d46b150ccfaf9",
+  "prompt": "Use case: logo-brand. Asset type: a single final transparent product logo symbol for Ferromark, a Rust Markdown-to-HTML document library in the Ferramenta family. Create one compact, immediately recognizable precision-metal signet, designed to stay distinct at 32 and 64 pixels. The concept is two offset document leaves held in a small registration bracket: two broad upright rectangular metal leaves with a gently clipped upper corner, the front leaf bright satin steel, the rear leaf a restrained warm oxide copper tone, seated in one simple graphite steel L-shaped registration corner. It represents source and rendered document being aligned. Near-frontal view with only a very slight three-dimensional depth, square overall silhouette, no long horizontal base. Brushed satin steel, dark graphite cut edges, one muted oxide element. Elegant, warm, finely engineered, quiet premium industrial craft. Very simple broad geometry, generous negative spaces, bold clean silhouette; no etched lines, no screws, no microscopic details. No gradients as a graphic background, no flames, gears, hammer, heraldic shield or letters. No wordmark or any text. One object centered occupying about 82% of a square transparent canvas, even soft studio lighting, crisp edges and only a faint tight contact shadow; actual transparent alpha everywhere else. This is a logo master, not a presentation board or website screenshot.",
+  "geometry": "512x512",
+  "sha256": "41aa530e9d76a97975a1e94456b8e51b73d109ae7c397e520f2ef2cc6a86d7ae"
+}

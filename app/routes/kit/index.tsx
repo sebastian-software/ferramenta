@@ -43,6 +43,10 @@ export default function KitPage() {
               <Link to={SAMPLE.home}>tool&rsquo;s home page</Link> and its{" "}
               <Link to={SAMPLE.docs}>documentation</Link>.
             </p>
+            <p>
+              The new <Link to="/kit/ferra/">Ferra kit</Link> contains the approved lighter palette,
+              textures, identities and opt-in page components.
+            </p>
             <ul className="kit-toc">
               {chapters.map((chapter) => (
                 <li key={chapter.id}>

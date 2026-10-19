@@ -21,6 +21,11 @@ config.unshift({
 // Deliberate overrides on top of the org config.
 config.push(
   {
+    // Keep the complete family and workshop registry together as its records grow.
+    files: ["packages/family/src/family.ts"],
+    rules: { "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }] },
+  },
+  {
     // The page is one long, flat composition of the design system's sections
     // (DESIGN.md); splitting it into helper components to satisfy a line budget
     // would hide the document structure the comp is reviewed against.

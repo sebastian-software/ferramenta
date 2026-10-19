@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "product": "Ferralk",
+  "role": "transparent rendered product mark master, designed for 32\u201364px use",
+  "meaning": "One compact Y-shaped satin-steel branching path in a graphite square corner, with a broad oxide gate marking the selected upper branch and a short flat stop on the other. Three or four major geometric shapes, open negative space, reads as path selection at 32px. No microscopic directory icons or tiny route nodes.",
+  "prompt": "Use case: logo-brand. Asset type: one original transparent rendered product mark for Ferralk, usable as a favicon at 32, 48 and 64 pixels.\nImage 1 is the new Ferralk Branch-selecting path gate, a SEMANTIC and material reference. Image 2 is the existing Ferromark mark and Image 3 the existing Ferroni mark: exact FAMILY ICON STYLE references for metal, graphite contour, restrained oxide, lighting and visual weight. Do not copy their product silhouettes. The marks are rendered material pictures, not vector line icons.\n\nDesign the deliberately simplified mark described here:\nOne compact Y-shaped satin-steel branching path in a graphite square corner, with a broad oxide gate marking the selected upper branch and a short flat stop on the other. Three or four major geometric shapes, open negative space, reads as path selection at 32px. No microscopic directory icons or tiny route nodes.\n\nIt must express a glob matcher and file walker and be derived from the logic of its hero instrument, without miniaturizing the whole machine. Make a compact, distinctive, balanced silhouette that reads clearly on warm white at 32px. Front-facing or extremely shallow three-quarter view, broad solid satin-steel faces, dark warm graphite sides and edge contrast, a restrained rust-brown oxide component. Match the references' quiet warm studio light and shallow material depth. Keep negative gaps generous enough to survive downsampling. No tiny fasteners, grain that hides the silhouette, ruler ticks, captions, product-name lettering, initials-as-wordmarks, extra decoration, cartoon mascot or app tile backdrop. The letter-like glyph in the Ferrolex tile, if requested, is an intentional broad structural part of that mark.\n\nOutput a single centered square master with 8\u201310% clear padding around the complete shape, no clipping. Genuine transparent background and transparent internal negative spaces. No opaque white, grey or black background, checkerboard, floating shadow plate, framing badge, website, presentation board or multi-size contact sheet. Preserve the original rendered steel/oxide appearance; no glow, neon, dirty rust or dark-theme scene.",
+  "transparentBackgroundRequested": true,
+  "references": [
+    {
+      "file": "assets/ferralk/hero.png",
+      "role": "semantic and material reference for this product"
+    },
+    {
+      "file": "../logos/ferromark/mark-master.png",
+      "role": "rendered family icon style reference"
+    },
+    {
+      "file": "../logos/ferroni/mark-master.png",
+      "role": "rendered family icon style reference"
+    }
+  ],
+  "width": 1254,
+  "height": 1254,
+  "sha256": "b9792fbc5481cb866baf23a9808504e02f2ae46b1ac4acd09f61c953fdeb898b",
+  "geometry": "1254x1254",
+  "approvedSource": "designs/round-07-family-expansion/assets/ferralk/mark-master.png",
+  "copiedUnchanged": true
+}

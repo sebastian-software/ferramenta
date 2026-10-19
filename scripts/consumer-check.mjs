@@ -7,6 +7,7 @@
  * components do is the package's own test suite's business.
  */
 import { EngineCatalog, family, ProjectHero, SiteFooter, SiteHeader } from "ferramenta-family";
+import { FerraEngineCatalog, FerraWorkshop } from "ferramenta-family/ferra";
 import { familyTiers } from "ferramenta-family/registry";
 import { existsSync, readFileSync } from "node:fs";
 import { createElement } from "react";
@@ -62,3 +63,27 @@ for (const name of ["chrome.css", "landing.css"]) {
 }
 
 console.log(`rendered the chrome and the landing kit for ${family.length} family members`);
+
+// The opt-in entry must work without reaching back into the workspace.
+const html = render(FerraEngineCatalog, {});
+expect(html.includes('class="ferra-engine"'), "the ferra catalog did not render");
+const workshop = render(FerraWorkshop, {});
+expect(
+  workshop.includes('aria-label="Sebastian Software"'),
+  "the software cross-reference is missing",
+);
+expect(
+  workshop.includes('aria-label="Sebastian Consulting"'),
+  "the consulting cross-reference is missing",
+);
+const sheet = new URL(import.meta.resolve("ferramenta-family/ferra.css"));
+for (const name of ["ferra.css", "ferra-tokens.css", "ferra-assets.css", "ferra-fonts.css"]) {
+  const fileUrl = new URL(name, sheet);
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- a stylesheet inside the installed package
+  const css = readFileSync(fileUrl, "utf8");
+  for (const [, file] of css.matchAll(/url\("(\.\.\/[^"]+)"\)/gu)) {
+    expect(isShipped(file, fileUrl), `${name} references an unshipped asset: ${file}`);
+  }
+}
+expect(isShipped("../ferra/ferramenta/favicon.ico", sheet), "the family favicon is missing");
+console.log("rendered the additive ferra entry and verified its shipped assets");

@@ -1,0 +1,14 @@
+{
+  "title": "Ferramenta.",
+  "subtitle": "A family of Rust engines.",
+  "intro": "Focused tools for text, code and documents. Choose the engine your work needs, with a shared standard of care and a contract of its own.",
+  "references": {
+    "ferroni": ["Oniguruma regular expressions", "Compatibility oracle"],
+    "ferriki": ["TextMate grammars and editor themes", "Mirrored Shiki tests"],
+    "ferromark": ["CommonMark and GFM", "Conformance cases"],
+    "ferrolex": ["Hunspell dictionaries", "Deterministic suggestion scoring"],
+    "ferrocat": ["PO and ICU MessageFormat", "Upstream-derived conformance cases"],
+    "ferralk": ["Glob syntax and .gitignore rules", "Frozen zlob reference"],
+    "ferrugo": ["PDF", "Explicit memory and time limits"]
+  }
+}
