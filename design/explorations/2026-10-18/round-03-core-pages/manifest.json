@@ -1,0 +1,149 @@
+{
+  "created": "2026-10-18",
+  "mode": "built-in Imagegen",
+  "basis": [
+    "round-02/11 Micrometer bridge",
+    "round-02/14 Calibration sheet",
+    "round-01 editorial content and explanatory engine"
+  ],
+  "kind": "eight coordinated full-page visual designs",
+  "pages": [
+    {
+      "id": "21",
+      "slug": "ferromark-home",
+      "file": "21-ferromark-home-v2.png",
+      "product": "Ferromark",
+      "title": "Overview",
+      "asset": "document-register",
+      "mode": "Persuade",
+      "sources": [
+        "../ferromark/homepage/app/routes/home.tsx",
+        "../ferromark/homepage/app/routes/guide/features.mdx"
+      ],
+      "copy": "content/ferromark-home-v2.md",
+      "view": "ferromark-home.html",
+      "previousFile": "21-ferromark-home.png",
+      "previousCopy": "content/ferromark-home.md",
+      "revision": "Editorial body: text, examples, chart/table; hero retained"
+    },
+    {
+      "id": "22",
+      "slug": "ferromark-start",
+      "file": "22-ferromark-start.png",
+      "product": "Ferromark",
+      "title": "Start with Rust",
+      "asset": "document-register",
+      "mode": "Read",
+      "sources": ["../ferromark/homepage/app/routes/rust/getting-started.mdx"],
+      "copy": "content/ferromark-start.md",
+      "view": "ferromark-start.html"
+    },
+    {
+      "id": "23",
+      "slug": "ferromark-rendering",
+      "file": "23-ferromark-rendering.png",
+      "product": "Ferromark",
+      "title": "Rendering & metadata",
+      "asset": "document-register",
+      "mode": "Read",
+      "sources": [
+        "../ferromark/homepage/app/routes/guide/rendering.mdx",
+        "../ferromark/homepage/app/routes/guide/features.mdx"
+      ],
+      "copy": "content/ferromark-rendering.md",
+      "view": "ferromark-rendering.html"
+    },
+    {
+      "id": "24",
+      "slug": "ferromark-benchmarks",
+      "file": "24-ferromark-benchmarks.png",
+      "product": "Ferromark",
+      "title": "Benchmarks",
+      "asset": "document-register",
+      "mode": "Read",
+      "sources": [
+        "../ferromark/homepage/app/routes/guide/benchmarks.mdx",
+        "../ferromark/homepage/app/data/native-benchmarks.json"
+      ],
+      "copy": "content/ferromark-benchmarks.md",
+      "view": "ferromark-benchmarks.html"
+    },
+    {
+      "id": "25",
+      "slug": "ferroni-home",
+      "file": "25-ferroni-home-v2.png",
+      "product": "Ferroni",
+      "title": "Overview",
+      "asset": "pattern-comparator",
+      "mode": "Persuade",
+      "sources": [
+        "../ferroni/docs/app/routes/home.tsx",
+        "../ferroni/docs/app/routes/home-bottom-sections.tsx"
+      ],
+      "copy": "content/ferroni-home-v2.md",
+      "view": "ferroni-home.html",
+      "previousFile": "25-ferroni-home.png",
+      "previousCopy": "content/ferroni-home.md",
+      "revision": "Editorial body: text, examples, chart/table; hero retained"
+    },
+    {
+      "id": "26",
+      "slug": "ferroni-start",
+      "file": "26-ferroni-start.png",
+      "product": "Ferroni",
+      "title": "Start with Rust",
+      "asset": "pattern-comparator",
+      "mode": "Read",
+      "sources": ["../ferroni/docs/app/routes/guide/getting-started.mdx"],
+      "copy": "content/ferroni-start.md",
+      "view": "ferroni-start.html"
+    },
+    {
+      "id": "27",
+      "slug": "ferroni-scanner",
+      "file": "27-ferroni-scanner.png",
+      "product": "Ferroni",
+      "title": "The scanner",
+      "asset": "pattern-comparator",
+      "mode": "Read",
+      "sources": ["../ferroni/docs/app/routes/guide/getting-started.mdx"],
+      "copy": "content/ferroni-scanner.md",
+      "view": "ferroni-scanner.html"
+    },
+    {
+      "id": "28",
+      "slug": "ferroni-benchmarks",
+      "file": "28-ferroni-benchmarks.png",
+      "product": "Ferroni",
+      "title": "Benchmarks",
+      "asset": "pattern-comparator",
+      "mode": "Read",
+      "sources": [
+        "../ferroni/docs/app/routes/perf/regex-workloads.mdx",
+        "../ferroni/docs/app/data/production-summary.json"
+      ],
+      "copy": "content/ferroni-benchmarks.md",
+      "view": "ferroni-benchmarks.html"
+    }
+  ],
+  "assets": [
+    {
+      "id": "document-register",
+      "file": "assets/document-register.png",
+      "product": "Ferromark",
+      "meaning": "A registration bridge aligns a source document with its rendered sheet; a separate thin index leaf represents document metadata.",
+      "transparent": true
+    },
+    {
+      "id": "pattern-comparator",
+      "file": "assets/pattern-comparator.png",
+      "product": "Ferroni",
+      "meaning": "Parallel pattern cassettes feed one scanning carriage; a pointer locates the next match on a text ribbon.",
+      "transparent": true
+    }
+  ],
+  "evidence": [
+    "evidence/ferromark-native-benchmarks.json",
+    "evidence/ferroni-production-summary.json"
+  ]
+}

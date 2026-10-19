@@ -5,3 +5,10 @@
 # Keep the generated README check identical across Git checkout platforms.
 /README.md text eol=lf
 /README.md.src text eol=lf
+
+# Preserve upstream license bytes, including whitespace covered by provenance hashes.
+**/OFL-*.txt -text -whitespace
+
+# Frozen cross-repository evidence is verified against original byte hashes.
+designs/round-07-family-expansion/sources/** -text -whitespace
+designs/round-08-ferramenta/sources/** -text -whitespace

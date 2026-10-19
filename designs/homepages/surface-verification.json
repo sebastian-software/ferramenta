@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-19",
+  "checks": [
+    {
+      "bands": ["rgb(240, 243, 240)", "rgb(247, 244, 238)"],
+      "overflow": false,
+      "title": "Ferromark · Homepage layout study",
+      "width": 390
+    },
+    {
+      "bands": ["rgb(240, 243, 240)", "rgb(247, 244, 238)"],
+      "overflow": false,
+      "title": "Ferromark · Homepage layout study",
+      "width": 1440
+    },
+    {
+      "bands": ["rgb(247, 244, 238)", "rgb(240, 243, 240)"],
+      "overflow": false,
+      "title": "Ferroni · Homepage layout study",
+      "width": 390
+    },
+    {
+      "bands": ["rgb(247, 244, 238)", "rgb(240, 243, 240)"],
+      "overflow": false,
+      "title": "Ferroni · Homepage layout study",
+      "width": 1440
+    }
+  ]
+}

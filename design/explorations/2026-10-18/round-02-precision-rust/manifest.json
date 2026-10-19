@@ -1,0 +1,98 @@
+{
+  "created": "2026-10-18",
+  "mode": "built-in Imagegen",
+  "kind": "visual exploration",
+  "sharedPrompt": "prompts.md",
+  "concepts": [
+    {
+      "id": "11",
+      "name": "Micrometer bridge",
+      "product": "Ferromark",
+      "file": "11-micrometer-bridge-ferromark.png",
+      "idea": "An asymmetric introduction and a thin precision bridge connect a wide Markdown specimen to its rendered result."
+    },
+    {
+      "id": "12",
+      "name": "Steel spine",
+      "product": "Ferroni",
+      "file": "12-steel-spine-ferroni.png",
+      "idea": "A slender vertical steel spine organizes left navigation, a live-looking regex specimen and right margin notes."
+    },
+    {
+      "id": "13",
+      "name": "Turned concentricity",
+      "product": "Ferroni",
+      "file": "13-turned-concentricity-ferroni.png",
+      "idea": "A centered circular precision bearing gives the page its geometry, followed by a horizontal regex demonstration."
+    },
+    {
+      "id": "14",
+      "name": "Calibration sheet",
+      "product": "Ferromark",
+      "file": "14-calibration-sheet-ferromark.png",
+      "idea": "A quiet specification-led homepage opens with the document contract, while a tiny metal macro carries the brand."
+    },
+    {
+      "id": "15",
+      "name": "Precision shims",
+      "product": "Ferromark",
+      "file": "15-precision-shims-ferromark.png",
+      "idea": "A thin exploded stack of steel document leaves sits between the product introduction and publishing features."
+    },
+    {
+      "id": "16",
+      "name": "Instrument panorama",
+      "product": "Ferroni",
+      "file": "16-instrument-panorama-ferroni.png",
+      "idea": "A panoramic view of a tiny adjustment mechanism opens the page, with product identity and actions in an offset caption."
+    },
+    {
+      "id": "17",
+      "name": "Machined specimen",
+      "product": "Ferromark",
+      "file": "17-machined-specimen-ferromark.png",
+      "idea": "The document preview leads; a thin steel separation detail and tiny screws express precision inside the working surface."
+    },
+    {
+      "id": "18",
+      "name": "Oxide inlay",
+      "product": "Ferroni",
+      "file": "18-oxide-inlay-ferroni.png",
+      "idea": "One elegant rust-colored inlay crossing a silver fold creates a spare, architectural page."
+    },
+    {
+      "id": "19",
+      "name": "Rust field guide",
+      "product": "Ferromark",
+      "file": "19-rust-field-guide-ferromark.png",
+      "idea": "An open handbook composition pairs editorial explanation with a large annotated document sample and a small material study."
+    },
+    {
+      "id": "20",
+      "name": "Fine assembly",
+      "product": "Ferroni",
+      "file": "20-fine-assembly-ferroni.png",
+      "idea": "A central vertical exploded micro-assembly and surrounding syntax notes organize a light, precise product introduction."
+    }
+  ],
+  "assets": [
+    {
+      "id": "steel",
+      "name": "Fine brushed steel",
+      "file": "assets/fine-brushed-steel.png",
+      "transparent": false
+    },
+    {
+      "id": "oxide",
+      "name": "Sealed oxide patina",
+      "file": "assets/sealed-oxide-patina.png",
+      "transparent": false
+    },
+    {
+      "id": "assembly",
+      "name": "Precision flexure assembly",
+      "file": "assets/precision-flexure-cutout.png",
+      "transparent": true
+    }
+  ]
+}

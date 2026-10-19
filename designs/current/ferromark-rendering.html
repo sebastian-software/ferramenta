@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferromark · Rendering and metadata</title>
+    <link rel="icon" href="assets/editorial/ferromark/favicon.ico" />
+    <link rel="stylesheet" href="assets/styles/editorial.css" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body>
+    <div class="fe-page live-document">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="fe-header fe-wrap">
+        <a href="ferromark.html" class="fe-brand"
+          ><span
+            class="fe-mark"
+            data-product="ferromark"
+            style="--fe-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferromark</span></a
+        >
+        <nav class="fe-nav" aria-label="Main">
+          <a href="ferromark.html">Overview</a><a href="ferromark-start.html">Start with Rust</a
+          ><a href="ferromark-rendering.html" aria-current="page">Rendering and metadata</a
+          ><a href="ferromark-benchmarks.html">Parser benchmarks</a
+          ><a href="https://ferromark.dev">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <div class="live-docs-header fe-wrap">
+          <nav class="live-side-nav" aria-label="Product pages">
+            <a href="ferromark.html">Overview</a><a href="ferromark-start.html">Start with Rust</a
+            ><a href="ferromark-rendering.html" aria-current="page">Rendering and metadata</a
+            ><a href="ferromark-benchmarks.html">Parser benchmarks</a
+            ><a href="https://ferromark.dev">Project documentation</a>
+          </nav>
+          <section class="fe-hero fe-wrap" aria-labelledby="_R_4b_">
+            <div class="fe-hero-copy">
+              <h1 id="_R_4b_">Rendering and metadata</h1>
+              <p class="fe-subtitle">
+                A document becomes HTML, structure and the metadata around it.
+              </p>
+              <div class="fe-lede"></div>
+            </div>
+            <div class="fe-hero-art">
+              <span class="fe-instrument" data-product="ferromark" aria-hidden="true"></span>
+            </div>
+          </section>
+          <nav class="live-side-nav" aria-label="On this page">
+            <p>On this page</p>
+            <a href="#one-document-distinct-outputs">One document, distinct outputs</a
+            ><a href="#what-the-engine-gives-you">What the engine gives you</a
+            ><a href="#recognition-is-not-permission">Recognition is not permission</a
+            ><a href="#profiles-and-limits">Profiles and limits</a>
+          </nav>
+        </div>
+        <section
+          id="one-document-distinct-outputs"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="one-document-distinct-outputs-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">One document, distinct outputs</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="one-document-distinct-outputs-title">One document, distinct outputs</h2>
+              <figure class="fe-code">
+                <figcaption><span>Markdown source</span></figcaption>
+                <pre tabindex="0"><code>---
+
+title: Release notes
+---
+
+# Installation
+
+A useful note.[^detail]
+
+[^detail]: Details belong here.</code></pre>
+              </figure>
+              <figure class="fe-specimen">
+                <figcaption>The documented contract</figcaption>
+                <div class="fe-specimen-output">
+                  <dl>
+                    <dt>HTML</dt>
+                    <dd>document markup and optional heading IDs</dd>
+                    <dt>Metadata</dt>
+                    <dd>raw front matter and document structure</dd>
+                    <dt>Your application</dt>
+                    <dd>YAML/TOML interpretation, routing and styling</dd>
+                  </dl>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="what-the-engine-gives-you"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="what-the-engine-gives-you-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">What the engine gives you</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="what-the-engine-gives-you-title">What the engine gives you</h2>
+              <p>
+                Front matter is extracted as text, not parsed as YAML or TOML. Heading IDs and
+                footnotes are publishing features you configure. Rendering hooks connect your own
+                output decisions.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="recognition-is-not-permission"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="recognition-is-not-permission-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Recognition is not permission</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="recognition-is-not-permission-title">Recognition is not permission</h2>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_3b3_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_3b3_">
+                    Recognition is not permission
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">API</th>
+                      <th scope="col">Default</th>
+                      <th scope="col">For untrusted input</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rust</th>
+                      <td>Raw HTML passthrough</td>
+                      <td>Enable sanitize</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Node.js</th>
+                      <td>Escaped raw HTML, filtered URL schemes</td>
+                      <td>Keep renderPolicy: &#x27;untrusted&#x27;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Custom renderer hooks and highlighter HTML are written verbatim. They must escape
+                untrusted values themselves.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="profiles-and-limits"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="profiles-and-limits-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Profiles and limits</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="profiles-and-limits-title">Profiles and limits</h2>
+              <p>
+                Specification profiles disable publishing extras. Block nesting defaults to 100
+                levels; exceeding the limit returns a parse error. Configuration · Correctness
+                checks · API reference
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="fe-section fe-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="fe-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="fe-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="fe-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="fe-footer fe-wrap">
+        <div class="fe-footer-brand">
+          <a href="ferromark.html" class="fe-brand"
+            ><span
+              class="fe-mark"
+              data-product="ferromark"
+              style="--fe-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferromark</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="fe-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../round-06-warm-specimen/ferromark-rendering.html">Original image comp</a
+          ><a href="../round-06-warm-specimen/content/ferromark-rendering.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

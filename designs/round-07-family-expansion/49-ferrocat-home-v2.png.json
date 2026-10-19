@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "product": "Ferrocat",
+  "role": "targeted final hierarchy and source-content correction to family homepage",
+  "previousFile": "49-ferrocat-home.png",
+  "prompt": "Use case: precise-object-edit. Asset type: final consistency and content correction to one complete homepage comp.\nImage 1 is the exact Ferrocat full-page edit target. Image 2 is the approved Ferromark homepage, a HERO TYPOGRAPHIC HIERARCHY reference only.\nKeep the entire Ferrocat page composition, warm paper and pewter textures, margin-introduction rail, hero instrument identity and position, product icon, body type, spacing, sections, tables, footer and all unaffected content unchanged.\nMake only these corrections:\n1. Match the approved product-name-first hero hierarchy. The largest hero headline must be \"Ferrocat.\" as the product name, like \"Ferromark.\" in Image 2. Below it put the smaller purpose headline \"Translations that stay in order.\". Keep \"A translation catalog engine.\" as a quieter descriptive line or integrated with the existing description. Preserve the existing actions and descriptive body. Fit this within the existing left hero text area; do not move or replace the instrument or shift the lower-page alignment. If the product-name-first hierarchy already exists, preserve it.\n2. In the working example preserve the left navigation-button entry: msgctxt \"button\", msgid \"Open\", msgstr \"Ouvrir\". Replace ONLY the right example with an English-context/French-status entry. Its panel title must be \"Status label\"; the three exact PO lines must be msgctxt \"status\", msgid \"Open\", msgstr \"Ouvert\". Keep annotations translator context / source text / translated value where shown. Do not use Appuyer, which does not mean Open. This change demonstrates why context disambiguates source text.\nDo not change any unrelated text, example, API, numeric datum or layout. Do not import Ferromark's logo, name, content or document instrument. Output the complete corrected Ferrocat full page, uncropped, with no frame.",
+  "references": [
+    {
+      "file": "49-ferrocat-home.png",
+      "role": "exact full-page edit target; retain all unaffected design and content"
+    },
+    {
+      "file": "../round-06-warm-specimen/39-warm-specimen-ferromark.png",
+      "role": "approved product-name-first hero typography reference only"
+    }
+  ],
+  "sourceCopy": "content/ferrocat-home.md",
+  "sourceSnapshot": "sources/ferrocat-README.md",
+  "width": 793,
+  "height": 1981,
+  "sha256": "15188dc11d0e0d8392958f24c0318ab2a6826fb7795b9580ae8361e03df49bf0"
+}

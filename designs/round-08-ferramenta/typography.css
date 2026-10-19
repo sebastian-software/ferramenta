@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "Study Instrument";
+  src: url("assets/type-study/instrument-sans-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+:root {
+  --study-body: system-ui, sans-serif;
+  --study-heading: "IBM Plex Sans", system-ui, sans-serif;
+}
+:root[data-heading-font="helvetica"] {
+  --study-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+:root[data-body-font="helvetica"] {
+  --study-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+:root[data-heading-font="plex"] {
+  --study-heading: "IBM Plex Sans", system-ui, sans-serif;
+}
+:root[data-heading-font="instrument"] {
+  --study-heading: "Study Instrument", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+:root[data-body-font="system"] {
+  --study-body: system-ui, sans-serif;
+}
+.type-study {
+  font-family: var(--study-body);
+}
+.type-study .fe-page {
+  --fe-font-sans: var(--study-body);
+  --fe-font-display: var(--study-heading);
+}
+.type-study :is(h1, h2, h3) {
+  font-family: var(--study-heading);
+}
+.type-controls {
+  padding-block: 36px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px 64px;
+  background: var(--inlay);
+}
+.type-controls h2 {
+  font:
+    600 21px / 1.2 system-ui,
+    sans-serif;
+  letter-spacing: 0;
+  margin-bottom: 12px;
+}
+.type-controls p {
+  font:
+    400 14px / 1.6 system-ui,
+    sans-serif;
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+}
+.type-controls form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: start;
+}
+.type-controls label {
+  display: grid;
+  gap: 8px;
+  font:
+    500 13px / 1.5 system-ui,
+    sans-serif;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.type-controls select {
+  min-height: 44px;
+  width: 100%;
+  font:
+    400 14px / 1.4 system-ui,
+    sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 10px;
+}
+.type-controls select:focus-visible {
+  outline: 3px solid var(--oxide);
+  outline-offset: 4px;
+}
+.type-controls .type-study-note {
+  grid-column: 1 / -1;
+  max-width: 100ch;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .type-controls {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}

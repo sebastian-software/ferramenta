@@ -1,0 +1,14 @@
+{
+  "createdAt": "2026-10-19",
+  "product": "Ferriki",
+  "source": "mark-master.png",
+  "generatedWith": "ImageMagick export of built-in Imagegen master",
+  "prompt": "Use case: logo-brand. Asset type: one original transparent rendered product mark for Ferriki, usable as a favicon at 32, 48 and 64 pixels.\nImage 1 is the new Ferriki Token and theme register, a SEMANTIC and material reference. Image 2 is the existing Ferromark mark and Image 3 the existing Ferroni mark: exact FAMILY ICON STYLE references for metal, graphite contour, restrained oxide, lighting and visual weight. Do not copy their product silhouettes. The marks are rendered material pictures, not vector line icons.\n\nDesign the deliberately simplified mark described here:\nA compact satin-steel palette cassette with four broad code-token segments in a staggered two-row arrangement: a long steel segment and a short oxide tile above, two separated steel segments below. A single graphite keyed corner supports them. The staggered token silhouette must be distinct from Ferroni\\u2019s three parallel tracks and diagonal pointer. Four or five major shapes maximum, bold negative space, no separate scanning pointer. No microscopic code lettering, screws or ruler ticks.\n\nIt must express a syntax highlighter and be derived from the logic of its hero instrument, without miniaturizing the whole machine. Make a compact, distinctive, balanced silhouette that reads clearly on warm white at 32px. Front-facing or extremely shallow three-quarter view, broad solid satin-steel faces, dark warm graphite sides and edge contrast, a restrained rust-brown oxide component. Match the references' quiet warm studio light and shallow material depth. Keep negative gaps generous enough to survive downsampling. No tiny fasteners, grain that hides the silhouette, ruler ticks, captions, product-name lettering, initials-as-wordmarks, extra decoration, cartoon mascot or app tile backdrop. The letter-like glyph in the Ferrolex tile, if requested, is an intentional broad structural part of that mark.\n\nOutput a single centered square master with 8\u201310% clear padding around the complete shape, no clipping. Genuine transparent background and transparent internal negative spaces. No opaque white, grey or black background, checkerboard, floating shadow plate, framing badge, website, presentation board or multi-size contact sheet. Preserve the original rendered steel/oxide appearance; no glow, neon, dirty rust or dark-theme scene.",
+  "role": "Apple touch icon",
+  "size": 180,
+  "derivation": "Mark on the light study ground with platform-safe padding.",
+  "geometry": "180x180",
+  "sha256": "4851518f495526458c71c448850984cef8b48bfbaed87f90baacdb2cc5c7a1e9",
+  "width": 180,
+  "height": 180
+}

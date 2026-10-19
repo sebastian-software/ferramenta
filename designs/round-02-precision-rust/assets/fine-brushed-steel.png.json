@@ -1,0 +1,7 @@
+{
+  "prompt": "Use case: photorealistic-natural\nAsset type: reusable material texture master for light-theme Ferramenta developer websites.\nPrimary request: one square edge-to-edge macro photograph of immaculate fine brushed stainless steel, satin silver, extremely fine even horizontal grain, subtly warm neutral reflections. Light neutral silver values, quiet enough as a secondary UI material detail. Precise elegant instrument-grade metal, not industrial grunge. Head-on orthographic flat surface, soft perfectly even diffuse illumination, no hotspot, no vignette, no shadows, no perspective, no visible panel edges, no objects, screws, text, labels, logos or borders. Uniform illumination and grain at opposite edges to support later tiling. Output just the photographic material, not a swatch board or website. No extra content. No artificially dramatic streaks.",
+  "createdAt": "2026-10-18",
+  "generatedWith": "built-in Imagegen",
+  "role": "material texture or reusable illustration",
+  "transparentBackground": false
+}

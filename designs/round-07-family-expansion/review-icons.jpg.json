@@ -1,0 +1,10 @@
+{
+  "kind": "browser-review-screenshot",
+  "file": "review-icons.jpg",
+  "url": "http://127.0.0.1:48623/round-07-family-expansion/icons.html#ferriki",
+  "width": 1136,
+  "height": 1411,
+  "sha256": "c8943a6749aa8a3c10040e75c09eb05d66af5b5d9cdcf0c74943e4e014fbae76",
+  "note": "Default browser viewport after responsive overrides were reset. Five new marks at 32, 48, 64 and 128 CSS pixels.",
+  "mimeType": "image/jpeg"
+}

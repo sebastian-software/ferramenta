@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferroni · Regex benchmarks</title>
+    <link rel="icon" href="assets/editorial/ferroni/favicon.ico" />
+    <link rel="stylesheet" href="assets/styles/editorial.css" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body>
+    <div class="fe-page live-document">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="fe-header fe-wrap">
+        <a href="ferroni.html" class="fe-brand"
+          ><span
+            class="fe-mark"
+            data-product="ferroni"
+            style="--fe-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferroni</span></a
+        >
+        <nav class="fe-nav" aria-label="Main">
+          <a href="ferroni.html">Overview</a><a href="ferroni-start.html">Start with Rust</a
+          ><a href="ferroni-scanner.html">The scanner</a
+          ><a href="ferroni-benchmarks.html" aria-current="page">Regex benchmarks</a
+          ><a href="https://ferroni.dev">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <div class="live-docs-header fe-wrap">
+          <nav class="live-side-nav" aria-label="Product pages">
+            <a href="ferroni.html">Overview</a><a href="ferroni-start.html">Start with Rust</a
+            ><a href="ferroni-scanner.html">The scanner</a
+            ><a href="ferroni-benchmarks.html" aria-current="page">Regex benchmarks</a
+            ><a href="https://ferroni.dev">Project documentation</a>
+          </nav>
+          <section class="fe-hero fe-wrap" aria-labelledby="_R_4b_">
+            <div class="fe-hero-copy">
+              <h1 id="_R_4b_">Regex benchmarks</h1>
+              <p class="fe-subtitle">Check the output before measuring the time.</p>
+              <div class="fe-lede">
+                <p class="live-measurement">
+                  <span>Measured October 15, 2026 · revision 1c8d45f</span
+                  ><span>Blacksmith VMs: macOS ARM64 and Linux x86-64</span
+                  ><span>21 tasks · 513 inputs</span><span>Compile · First use · Steady reuse</span>
+                </p>
+              </div>
+            </div>
+            <div class="fe-hero-art">
+              <span class="fe-instrument" data-product="ferroni" aria-hidden="true"></span>
+            </div>
+          </section>
+          <nav class="live-side-nav" aria-label="On this page">
+            <p>On this page</p>
+            <a href="#steady-reuse">Steady reuse</a
+            ><a href="#where-the-tradeoff-sits">Where the tradeoff sits</a
+            ><a href="#same-output-first">Same output first</a
+            ><a href="#how-the-result-is-assembled">How the result is assembled</a>
+          </nav>
+        </div>
+        <section
+          id="steady-reuse"
+          class="fe-section"
+          data-surface="pewter"
+          aria-labelledby="steady-reuse-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Steady reuse</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="steady-reuse-title">Steady reuse</h2>
+              <p>
+                Ferroni throughput relative to each engine. Higher is faster. Each row is a pairwise
+                comparison on tasks both engines can run.
+              </p>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_5aj_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_5aj_">
+                    Steady reuse
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Comparator</th>
+                      <th scope="col">macOS ARM64</th>
+                      <th scope="col">Linux x86-64</th>
+                      <th scope="col">Tasks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">C Oniguruma</th>
+                      <td>3.44×</td>
+                      <td>2.75×</td>
+                      <td>21</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Onigmo</th>
+                      <td>3.92×</td>
+                      <td>3.61×</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PCRE2 interpreter</th>
+                      <td>2.07×</td>
+                      <td>1.85×</td>
+                      <td>21</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PCRE2 JIT</th>
+                      <td>0.70×</td>
+                      <td>0.63×</td>
+                      <td>21</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="where-the-tradeoff-sits"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="where-the-tradeoff-sits-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Where the tradeoff sits</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="where-the-tradeoff-sits-title">Where the tradeoff sits</h2>
+              <p>
+                C Oniguruma compiles patterns faster. Ferroni pays off when a prepared pattern runs
+                many times. PCRE2 JIT is faster in these steady-reuse aggregates.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="same-output-first"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="same-output-first-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Same output first</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="same-output-first-title">Same output first</h2>
+              <p>
+                An engine that rejects a pattern or returns a different result is excluded from that
+                task before timing. These are isolated regex steps, not full applications.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="how-the-result-is-assembled"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="how-the-result-is-assembled-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">How the result is assembled</p>
+              <div>Read the example and its conditions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="how-the-result-is-assembled-title">How the result is assembled</h2>
+              <p>
+                Three processes per platform, separate VMs, 30 samples per phase. Ratios are
+                geometric means within task families, then across families. Rows cover different
+                task sets and are not a universal ranking.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="fe-section fe-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="fe-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="fe-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="fe-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="fe-footer fe-wrap">
+        <div class="fe-footer-brand">
+          <a href="ferroni.html" class="fe-brand"
+            ><span
+              class="fe-mark"
+              data-product="ferroni"
+              style="--fe-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferroni</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="fe-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../round-06-warm-specimen/ferroni-benchmarks.html">Original image comp</a
+          ><a href="../round-06-warm-specimen/content/ferroni-benchmarks.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

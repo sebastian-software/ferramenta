@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Ferromark · Homepage layout study</title>
+    <link rel="stylesheet" href="homepage.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../logos/ferromark/mark-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="../logos/ferromark/mark-64.png" />
+    <link rel="icon" href="../logos/ferromark/favicon.ico" sizes="32x32 48x48 64x64" />
+    <link rel="apple-touch-icon" href="../logos/ferromark/apple-touch-icon.png" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="ferromark.html"
+        ><img src="../logos/ferromark/mark-128.png" width="40" height="40" alt="" /><span
+          >Ferromark</span
+        ></a
+      >
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="ferromark.html" aria-current="page">Overview</a
+        ><a href="../round-03-core-pages/ferromark-start.html">Start with Rust</a
+        ><a href="../round-03-core-pages/ferromark-rendering.html">Rendering</a
+        ><a href="../round-03-core-pages/ferromark-benchmarks.html">Benchmarks</a
+        ><a href="https://github.com/sebastian-software/ferromark">GitHub</a>
+      </nav>
+      <a class="family-link" href="../index.html">The Ferramenta family</a>
+    </header>
+    <main id="content" class="wrap">
+      <section class="hero" aria-labelledby="project-title">
+        <div class="hero-copy">
+          <p class="hero-label">Rust-native</p>
+          <h1 id="project-title">Ferromark</h1>
+          <p class="hero-subtitle">Markdown, ready for your pipeline.</p>
+          <p class="hero-description">
+            Turn Markdown into HTML and the metadata around it. A focused Rust engine for the
+            documents that get complicated.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="../round-03-core-pages/ferromark-start.html"
+              >Start with Rust</a
+            ><a class="button button-secondary" href="https://ferromark.dev/node/getting-started/"
+              >Node.js guide</a
+            >
+          </div>
+        </div>
+        <figure class="hero-object">
+          <img
+            src="../round-03-core-pages/assets/document-register.png"
+            alt="A precision registration bridge aligning source, rendered output and a separate metadata leaf"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <strong>One source. HTML and document metadata.</strong><br />A registration bridge
+            aligns the source and rendered sheet. The separate oxide leaf stands for extracted
+            metadata.
+          </figcaption>
+        </figure>
+      </section>
+      <section class="demo" aria-labelledby="demo-title">
+        <header>
+          <h2 id="demo-title">See what a document becomes</h2>
+          <p>A simple document, rendered with Ferromark.</p>
+        </header>
+        <div class="demo-columns">
+          <div class="tool-panel">
+            <div class="panel-label"><span>Markdown input</span><span>Markdown</span></div>
+            <pre class="panel-content"><code># Release notes
+
+- Clear structure
+- Useful metadata</code></pre>
+          </div>
+          <div class="tool-panel">
+            <div class="panel-label"><span>Rendered preview</span><span>HTML</span></div>
+            <div class="panel-content">
+              <h3>Release notes</h3>
+              <ul>
+                <li>Clear structure</li>
+                <li>Useful metadata</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="reading-sequence">
+        <section class="story story-intro">
+          <article class="prose">
+            <h2>Correctness is a contract</h2>
+            <p>
+              A Markdown engine has to earn trust on the awkward document: a nested list, a
+              reference that moves, a table with real content, or a footnote added at the last
+              minute. Ferromark starts with CommonMark and GFM, then makes the publishing features
+              explicit.
+            </p>
+            <p>
+              Specification profiles turn off publishing extras so that conformance can be checked
+              on its own terms. Optional heading IDs, front matter and footnotes belong to a
+              documented output contract. A change to that contract deserves a record, not an
+              accidental difference hidden in a faster implementation.
+            </p>
+            <div class="actions">
+              <a class="text-link" href="../round-03-core-pages/ferromark-rendering.html"
+                >Inspect correctness</a
+              ><a class="text-link" href="../round-03-core-pages/ferromark-rendering.html"
+                >Explore syntax</a
+              >
+            </div>
+          </article>
+          <aside>
+            <h3>Publishing details</h3>
+            <dl class="ledger">
+              <div>
+                <dt>Front matter</dt>
+                <dd>Extracted as raw text</dd>
+              </div>
+              <div>
+                <dt>Heading IDs</dt>
+                <dd>Configurable output</dd>
+              </div>
+              <div>
+                <dt>Footnotes</dt>
+                <dd>Document references and notes</dd>
+              </div>
+              <div>
+                <dt>Rendering hooks</dt>
+                <dd>Your application decides</dd>
+              </div>
+            </dl>
+          </aside>
+        </section>
+        <section class="story story-evidence">
+          <figure aria-labelledby="speed-title">
+            <h2 id="speed-title">Speed, with the conditions attached</h2>
+            <p class="chart-label">Fresh throughput, relative to Ferromark v2. Higher is faster.</p>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span>Ferromark v2</span>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" style="--value: 100%"></div>
+                </div>
+                <output>1.00×</output>
+              </div>
+              <div class="bar-row">
+                <span>Ferromark v1</span>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" style="--value: 48%"></div>
+                </div>
+                <output>0.48×</output>
+              </div>
+              <div class="bar-row">
+                <span>pulldown-cmark</span>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" style="--value: 38%"></div>
+                </div>
+                <output>0.38×</output>
+              </div>
+              <div class="bar-row">
+                <span>md4c</span>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" style="--value: 28.999999999999996%"></div>
+                </div>
+                <output>0.29×</output>
+              </div>
+              <div class="bar-row">
+                <span>Bun native</span>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" style="--value: 17%"></div>
+                </div>
+                <output>0.17×</output>
+              </div>
+            </div>
+          </figure>
+          <div>
+            <p class="note">
+              Measured September 21, 2026 · Apple M1 Pro · revision 39b1f0b7<br />50 documents with
+              equivalent HTML across five engines.
+            </p>
+            <div class="prose">
+              <p>
+                A useful comparison starts by checking the output. The frozen corpus contains 57
+                documents; the score shown here uses the 50-document agreement subset. The other
+                cases remain visible as diagnostics instead of being normalized into the score.
+              </p>
+              <p>
+                Fresh and reuse are separate lifecycles. These figures describe the recorded input,
+                configuration and machine; they are not a promise about every workload.
+              </p>
+              <div class="actions">
+                <a class="text-link" href="../round-03-core-pages/ferromark-benchmarks.html"
+                  >Read the measurements and exact flags</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="story policy">
+          <article class="prose">
+            <h2>Recognition is not permission</h2>
+            <p>
+              The engine can recognize raw HTML without granting permission to emit it. Choose the
+              output policy for the source your application accepts.
+            </p>
+          </article>
+          <div>
+            <div
+              class="table-scroll"
+              role="region"
+              aria-label="Rendering defaults by API"
+              tabindex="0"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">API</th>
+                    <th scope="col">Default</th>
+                    <th scope="col">For untrusted Markdown</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Rust</th>
+                    <td>Raw HTML passthrough</td>
+                    <td>Enable <code>sanitize</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Node.js</th>
+                    <td>Escaped HTML and filtered URL schemes</td>
+                    <td>Keep <code>renderPolicy: 'untrusted'</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">
+              Custom hooks and highlighter HTML are written verbatim. They must escape untrusted
+              values themselves.<br />A rendering policy is an integration decision, not a badge on
+              a parser.
+            </p>
+            <div class="actions">
+              <a class="text-link" href="../round-03-core-pages/ferromark-rendering.html"
+                >Choose your rendering policy</a
+              >
+            </div>
+          </div>
+        </section>
+        <section class="story story-notebook">
+          <article class="prose">
+            <h2>The document, beyond paragraphs</h2>
+            <p>
+              Publishing needs structure as well as markup. Extract front matter as raw text; let
+              the application interpret YAML or TOML. Configure heading IDs and footnotes for the
+              site you are building. Tables can carry the classes, captions and column structure
+              that your CSS needs.
+            </p>
+            <p>
+              Ferromark leaves templates, translation, routing and syntax highlighting outside the
+              core. That boundary keeps the renderer focused and gives the surrounding pipeline room
+              to make its own decisions.
+            </p>
+            <div class="actions">
+              <a class="text-link" href="../round-03-core-pages/ferromark-rendering.html"
+                >Explore rendering and metadata</a
+              >
+            </div>
+          </article>
+          <aside>
+            <h3>API notebook</h3>
+            <dl class="notebook">
+              <dt>Render one document</dt>
+              <dd><code>to_html()</code></dd>
+              <dt>Choose output policy</dt>
+              <dd><code>to_html_with_options()</code></dd>
+              <dt>Inspect structure</dt>
+              <dd><code>Allocator + Parser + HtmlRenderer</code></dd>
+              <dt>Customize output</dt>
+              <dd><code>HtmlRenderHooks</code></dd>
+            </dl>
+          </aside>
+        </section>
+        <section class="story">
+          <article class="prose">
+            <h2>Build the pipeline that fits</h2>
+            <p>
+              Start with the Rust crate, or use the native engine through Node.js. Pair Ferromark
+              with Ferriki when your documents need syntax highlighting; neither engine requires the
+              other.
+            </p>
+            <div class="actions">
+              <a class="button button-primary" href="../round-03-core-pages/ferromark-start.html"
+                >Start with Rust</a
+              ><a class="text-link" href="https://ferromark.dev/node/getting-started/"
+                >Node.js guide</a
+              ><a class="text-link" href="https://github.com/sebastian-software/ferriki"
+                >Meet Ferriki</a
+              >
+            </div>
+          </article>
+          <aside class="install">
+            <h3>Start with Rust</h3>
+            <pre><code>cargo add ferromark</code></pre>
+          </aside>
+        </section>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <div>
+        <a class="brand" href="ferromark.html"
+          ><img src="../logos/ferromark/mark-128.png" width="32" height="32" alt="" /><span
+            >Ferromark</span
+          ></a
+        >
+        <p>Part of Ferramenta.<br />Rust-native developer engines.</p>
+      </div>
+      <nav aria-label="Footer pages">
+        <a href="ferromark.html" aria-current="page">Overview</a
+        ><a href="../round-03-core-pages/ferromark-start.html">Start with Rust</a
+        ><a href="../round-03-core-pages/ferromark-rendering.html">Rendering</a
+        ><a href="../round-03-core-pages/ferromark-benchmarks.html">Benchmarks</a>
+      </nav>
+      <nav aria-label="Project and company">
+        <a href="https://github.com/sebastian-software/ferromark">GitHub</a
+        ><a href="https://sebastian-software.com/imprint">Imprint</a
+        ><a href="https://sebastian-software.com/privacy-policy">Privacy</a>
+      </nav>
+      <div>
+        <a href="../index.html">The Ferramenta family</a>
+        <p>Focused tools for a more<br />capable open web.</p>
+      </div>
+    </footer>
+    <aside class="review-links" aria-label="Local design study">
+      <a href="ferroni.html">Compare Ferroni</a
+      ><a href="../logos/index.html">Logos &amp; favicons</a
+      ><a href="../round-03-core-pages/index.html">All eight page designs</a
+      ><a href="DESIGN-NOTES.md">Layout notes</a>
+    </aside>
+  </body>
+</html>

@@ -31,8 +31,10 @@ run = 'binary=$(mise which mdtheme) && "$binary" pre-push'
 # Repository-relative links in tracked Markdown, with the pinned lychee. The
 # site's own pages (app/routes) are left to Ardo's link check: a link that
 # starts with `/` is a route there, not a file.
+# Frozen upstream README snapshots retain links relative to their original
+# repositories; only the authored Ferramenta documentation is checked here.
 [tasks."links:check"]
 description = "Check repository-relative links in tracked Markdown files with the pinned lychee"
 shell = "bash -c"
 env = { MISE_OFFLINE = "true" }
-run = 'binary=$(mise which lychee) && git ls-files -z -- "*.md" ":!app/routes" | xargs -0 "$binary" --offline --no-progress --root-dir "$PWD" --'
+run = 'binary=$(mise which lychee) && git ls-files -z -- "*.md" ":!app/routes" ":!designs/round-07-family-expansion/sources" | xargs -0 "$binary" --offline --no-progress --root-dir "$PWD" --'

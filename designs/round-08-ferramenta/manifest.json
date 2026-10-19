@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-10-19",
+  "product": "Ferramenta",
+  "slug": "ferramenta",
+  "kind": "Family homepage, original instrument and rendered logo/favicon kit",
+  "generatedWith": "built-in Imagegen",
+  "direction": "Warm editorial specimen",
+  "brief": "BRIEF.md",
+  "homepage": "index.html",
+  "comp": "52-ferramenta-home.png",
+  "compView": "concept.html",
+  "identity": "identity.html",
+  "products": [
+    {
+      "name": "Ferramenta",
+      "slug": "ferramenta"
+    }
+  ],
+  "engines": ["ferroni", "ferriki", "ferromark", "ferrolex", "ferrocat", "ferralk", "ferrugo"],
+  "assets": {
+    "hero": "assets/ferramenta/hero.png",
+    "master": "assets/ferramenta/mark-master.png",
+    "favicon": "assets/ferramenta/favicon.ico",
+    "wordmark": "assets/ferramenta/logo-lockup.png"
+  },
+  "sourceEvidence": "sources/manifest.json",
+  "localOnly": true,
+  "uncommitted": true,
+  "verification": {
+    "browser": "browser-verification.json",
+    "assets": "asset-verification.json",
+    "screenshot": "review-home.jpg"
+  }
+}

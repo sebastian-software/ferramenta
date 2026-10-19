@@ -1,0 +1,44 @@
+{
+  "direction": "Warm editorial specimen",
+  "approvedAt": "2026-10-19",
+  "products": [
+    {
+      "id": "ferramenta",
+      "meaning": "Seven independent tool inserts share a precision register."
+    },
+    {
+      "id": "ferroni",
+      "meaning": "A pattern comparator scans aligned pattern rails."
+    },
+    {
+      "id": "ferriki",
+      "meaning": "A token register maps syntax groups through a theme."
+    },
+    {
+      "id": "ferromark",
+      "meaning": "A document register aligns source structure with rendered output."
+    },
+    {
+      "id": "ferrolex",
+      "meaning": "A wordform gauge compares a type tile with its dictionary profile."
+    },
+    {
+      "id": "ferrocat",
+      "meaning": "Indexed catalog leaves align by message identity."
+    },
+    {
+      "id": "ferralk",
+      "meaning": "A path gate selects a branch and stops another before traversal."
+    },
+    {
+      "id": "ferrugo",
+      "meaning": "An aperture turns a source document into a bounded preview."
+    }
+  ],
+  "materials": ["paper", "pewter"],
+  "references": [
+    "designs/round-06-warm-specimen",
+    "designs/round-07-family-expansion",
+    "designs/round-08-ferramenta"
+  ]
+}

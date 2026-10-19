@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-19",
+  "checks": [
+    {
+      "bands": [
+        {
+          "accent": "#7f4026",
+          "gradient": "linear-gradient(118deg, rgb(250, 251, 249) 0%, rgb(237, 240, 237) 34%, rgb(252, 252, 250) 70%, rgb(231, 235, 231) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.22",
+          "repeat": "no-repeat",
+          "texture": "url(\"http://127.0.0.1:48623/round-02-precision-rust/assets/fine-brushed-steel.png\")",
+          "textureSize": "cover"
+        },
+        {
+          "accent": "#7f4026",
+          "gradient": "radial-gradient(at 18% 15%, rgb(255, 253, 249) 0%, rgb(245, 240, 229) 53%, rgb(253, 251, 247) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.5",
+          "repeat": "repeat",
+          "texture": "url(\"http://127.0.0.1:48623/homepages/assets/paper-grain.svg\")",
+          "textureSize": "240px 240px"
+        }
+      ],
+      "overflow": false,
+      "storyGap": "96px",
+      "title": "Ferromark · Homepage layout study",
+      "width": 351
+    },
+    {
+      "bands": [
+        {
+          "accent": "#7f4026",
+          "gradient": "linear-gradient(118deg, rgb(250, 251, 249) 0%, rgb(237, 240, 237) 34%, rgb(252, 252, 250) 70%, rgb(231, 235, 231) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.22",
+          "repeat": "no-repeat",
+          "texture": "url(\"http://127.0.0.1:48623/round-02-precision-rust/assets/fine-brushed-steel.png\")",
+          "textureSize": "cover"
+        },
+        {
+          "accent": "#7f4026",
+          "gradient": "radial-gradient(at 18% 15%, rgb(255, 253, 249) 0%, rgb(245, 240, 229) 53%, rgb(253, 251, 247) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.5",
+          "repeat": "repeat",
+          "texture": "url(\"http://127.0.0.1:48623/homepages/assets/paper-grain.svg\")",
+          "textureSize": "240px 240px"
+        }
+      ],
+      "overflow": false,
+      "storyGap": "160px",
+      "title": "Ferromark · Homepage layout study",
+      "width": 1296
+    },
+    {
+      "bands": [
+        {
+          "accent": "#7f4026",
+          "gradient": "radial-gradient(at 18% 15%, rgb(255, 253, 249) 0%, rgb(245, 240, 229) 53%, rgb(253, 251, 247) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.5",
+          "repeat": "repeat",
+          "texture": "url(\"http://127.0.0.1:48623/homepages/assets/paper-grain.svg\")",
+          "textureSize": "240px 240px"
+        },
+        {
+          "accent": "#7f4026",
+          "gradient": "linear-gradient(118deg, rgb(250, 251, 249) 0%, rgb(237, 240, 237) 34%, rgb(252, 252, 250) 70%, rgb(231, 235, 231) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.22",
+          "repeat": "no-repeat",
+          "texture": "url(\"http://127.0.0.1:48623/round-02-precision-rust/assets/fine-brushed-steel.png\")",
+          "textureSize": "cover"
+        }
+      ],
+      "overflow": false,
+      "storyGap": "96px",
+      "title": "Ferroni · Homepage layout study",
+      "width": 351
+    },
+    {
+      "bands": [
+        {
+          "accent": "#7f4026",
+          "gradient": "radial-gradient(at 18% 15%, rgb(255, 253, 249) 0%, rgb(245, 240, 229) 53%, rgb(253, 251, 247) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.5",
+          "repeat": "repeat",
+          "texture": "url(\"http://127.0.0.1:48623/homepages/assets/paper-grain.svg\")",
+          "textureSize": "240px 240px"
+        },
+        {
+          "accent": "#7f4026",
+          "gradient": "linear-gradient(118deg, rgb(250, 251, 249) 0%, rgb(237, 240, 237) 34%, rgb(252, 252, 250) 70%, rgb(231, 235, 231) 100%)",
+          "ink": "#4d5851",
+          "opacity": "0.22",
+          "repeat": "no-repeat",
+          "texture": "url(\"http://127.0.0.1:48623/round-02-precision-rust/assets/fine-brushed-steel.png\")",
+          "textureSize": "cover"
+        }
+      ],
+      "overflow": false,
+      "storyGap": "160px",
+      "title": "Ferroni · Homepage layout study",
+      "width": 1296
+    }
+  ]
+}

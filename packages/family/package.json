@@ -17,7 +17,9 @@
     "textures",
     "NOTICE.md",
     "README.md",
-    "markdown"
+    "markdown",
+    "editorial",
+    "EDITORIAL.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -43,7 +45,15 @@
     "./fonts/*": "./fonts/*",
     "./icons/*": "./icons/*",
     "./textures/*": "./textures/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./editorial": {
+      "types": "./dist/editorial.d.ts",
+      "default": "./dist/editorial.js"
+    },
+    "./editorial.css": "./styles/editorial.css",
+    "./editorial-tokens.css": "./styles/editorial-tokens.css",
+    "./editorial-fonts.css": "./styles/editorial-fonts.css",
+    "./editorial-assets/*": "./editorial/*"
   },
   "publishConfig": {
     "access": "public",

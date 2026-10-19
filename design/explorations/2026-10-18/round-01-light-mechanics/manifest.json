@@ -1,0 +1,91 @@
+{
+  "created": "2026-10-18",
+  "mode": "built-in Imagegen",
+  "sourceFiles": [
+    "/Users/sebastian/Workspace/ferromark/homepage/app/routes/home.tsx",
+    "/Users/sebastian/Workspace/ferroni/docs/app/routes/home.tsx",
+    "/Users/sebastian/Workspace/ferramenta/packages/family/src/family.ts"
+  ],
+  "concepts": [
+    {
+      "id": "01",
+      "name": "Precision bench",
+      "label": "Precision bench",
+      "product": "Ferromark",
+      "file": "01-precision-bench-ferromark.png",
+      "idea": "Asymmetric product hero, pale ash and a fine metal assembly, followed by a wide document sample."
+    },
+    {
+      "id": "02",
+      "name": "Measuring instrument",
+      "label": "Measuring instrument",
+      "product": "Ferroni",
+      "file": "02-measuring-instrument-ferroni.png",
+      "idea": "A slim vertical navigation rail and an instrument-like regex work area, with evidence in the side margin."
+    },
+    {
+      "id": "03",
+      "name": "Technical journal",
+      "label": "Technical journal",
+      "product": "Ferromark",
+      "file": "03-technical-journal-ferromark-v2.png",
+      "idea": "Centered typographic opening, a panoramic material study, then a spacious editorial narrative."
+    },
+    {
+      "id": "04",
+      "name": "White drawing board",
+      "label": "White drawing board",
+      "product": "Ferroni",
+      "file": "04-white-drawing-board-ferroni-v2.png",
+      "idea": "A central orthographic mechanism with surrounding product explanations and a clean lower specification band."
+    },
+    {
+      "id": "05",
+      "name": "Document first",
+      "label": "Document first",
+      "product": "Ferromark",
+      "file": "05-document-first-ferromark.png",
+      "idea": "The input and rendered result are the opening, with the explanation and runtime choice below."
+    },
+    {
+      "id": "06",
+      "name": "Component catalogue",
+      "label": "Component catalogue",
+      "product": "Ferroni",
+      "file": "06-component-catalogue-ferroni.png",
+      "idea": "A technical product sheet: a quiet object photograph, readable specification table and full-width install drawer."
+    },
+    {
+      "id": "07",
+      "name": "Folded aluminum",
+      "label": "Folded aluminum",
+      "product": "Ferromark",
+      "file": "07-folded-aluminum-ferromark.png",
+      "idea": "A diagonal fold organizes the composition, with staggered content instead of a conventional rectangular hero."
+    },
+    {
+      "id": "08",
+      "name": "Open technical manual",
+      "label": "Open technical manual",
+      "product": "Ferroni",
+      "file": "08-open-technical-manual-ferroni.png",
+      "idea": "A two-page manual structure with a narrative on the left and an annotated running example on the right."
+    },
+    {
+      "id": "09",
+      "name": "Modular workshop",
+      "label": "Modular workshop",
+      "product": "Ferromark",
+      "file": "09-modular-workshop-ferromark-v2.png",
+      "idea": "An offset modular composition with distinct content shapes and a restrained horizontal material rail."
+    },
+    {
+      "id": "10",
+      "name": "Light and shadow",
+      "label": "Light and shadow",
+      "product": "Ferroni",
+      "file": "10-light-and-shadow-ferroni.png",
+      "idea": "A restrained photographic opening with an offset caption, followed by a large horizontal regex specimen."
+    }
+  ]
+}

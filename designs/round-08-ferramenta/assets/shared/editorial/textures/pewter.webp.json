@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of approved built-in Imagegen master",
+  "role": "Optimized approved surface; cover a single field instead of tiling visible seams.",
+  "source": "design/editorial/masters/pewter.png",
+  "sourceSha256": "0235426f7f6c5e2311aa47f000546bef0088d9618dbfbefff8237e16328f447f",
+  "prompt": "Use case: stylized-concept. Asset type: reusable material texture master for a web design family.\nInput Image 1 is the approved warm editorial Ferromark homepage, a MATERIAL REFERENCE only. Ignore its composition, objects and text; extract only the specified surface character.\nCreate a reusable very light warm matte pewter material texture for broad technical measurement/evidence spreads. Match the light satin pewter evidence band in the supplied approved homepage. Base color close to #DCDDD6. Refined microscopic diagonal finishing grain with extremely restrained metallic grazing light: a subtle physical change of luminosity over the grain, no artificial color gradient clouds. Top-down flat material scan, no perspective. Clean precision finishing, very light and neutral-warm, no dark edges or hotspots, no scratches, distress, rust stains, dirt, rivets, bolts, seams, embossed text, objects or symbols. Keep all areas light enough for dark small data and footnotes. No vignette. Output one full-frame wide material texture, with uniform fine grain across the entire frame.\nThe material must belong to the same warm, refined precision-engineering family. This is the bitmap asset itself, not a website mockup or a photo of a sheet on a desk. No frame or transparency.",
+  "geometry": "1672x941",
+  "sha256": "aaa396deada9a54ec5078cfdc46f36ed2a1cb31ae54a893d0ddcb79b12d0a15d"
+}

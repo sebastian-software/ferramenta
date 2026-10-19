@@ -1,0 +1,17 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "ImageMagick contact-sheet assembly of original engine exports",
+  "role": "Labeled identity reference for the family homepage prompt",
+  "sources": [
+    "assets/engines/ferroni-128.png",
+    "assets/engines/ferriki-128.png",
+    "assets/engines/ferromark-128.png",
+    "assets/engines/ferrolex-128.png",
+    "assets/engines/ferrocat-128.png",
+    "assets/engines/ferralk-128.png",
+    "assets/engines/ferrugo-128.png"
+  ],
+  "derivation": "Arrange unchanged 128px icons in a seven-column montage and typeset the product names on the approved paper ground.",
+  "geometry": "1246x212",
+  "sha256": "3d6299ffa8c78769c43b1139989ca13c494c64b20203f9cd84845c23e7606ecd"
+}

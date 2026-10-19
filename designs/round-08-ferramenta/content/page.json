@@ -1,0 +1,23 @@
+{
+  "title": "Ferramenta.",
+  "subtitle": "A family of Rust engines.",
+  "intro": "Focused tools for text, code and documents. Choose the engine your work needs, with a shared standard of care and a contract of its own.",
+  "cards": {
+    "ferroni": "Oniguruma regular expressions and a multi-pattern scanner in Rust.",
+    "ferriki": "Highlight code with the grammars and themes your editor uses.",
+    "ferromark": "Turn Markdown into HTML, with CommonMark and GFM as the reference.",
+    "ferrolex": "Check prose and code with Hunspell dictionaries and deterministic suggestions.",
+    "ferrocat": "Read, merge and compile translation catalogs.",
+    "ferralk": "Match glob patterns and walk file trees in parallel.",
+    "ferrugo": "Render PDF previews under explicit resource limits."
+  },
+  "references": {
+    "ferroni": ["Oniguruma regular expressions", "Compatibility oracle"],
+    "ferriki": ["TextMate grammars and editor themes", "Mirrored Shiki tests"],
+    "ferromark": ["CommonMark and GFM", "Conformance cases"],
+    "ferrolex": ["Hunspell dictionaries", "Deterministic suggestion scoring"],
+    "ferrocat": ["PO and ICU MessageFormat", "Upstream-derived conformance cases"],
+    "ferralk": ["Glob syntax and .gitignore rules", "Frozen zlob reference"],
+    "ferrugo": ["PDF", "Explicit memory and time limits"]
+  }
+}

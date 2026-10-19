@@ -1,0 +1,27 @@
+[
+  {
+    "product": "Ferriki",
+    "mark32VisibleBounds": "28x20",
+    "faviconFrames": "32x32 48x48 64x64"
+  },
+  {
+    "product": "Ferrolex",
+    "mark32VisibleBounds": "28x26",
+    "faviconFrames": "32x32 48x48 64x64"
+  },
+  {
+    "product": "Ferrocat",
+    "mark32VisibleBounds": "28x22",
+    "faviconFrames": "32x32 48x48 64x64"
+  },
+  {
+    "product": "Ferralk",
+    "mark32VisibleBounds": "28x26",
+    "faviconFrames": "32x32 48x48 64x64"
+  },
+  {
+    "product": "Ferrugo",
+    "mark32VisibleBounds": "28x28",
+    "faviconFrames": "32x32 48x48 64x64"
+  }
+]

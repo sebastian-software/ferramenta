@@ -1,0 +1,150 @@
+{
+  "createdAt": "2026-10-19",
+  "updatedAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "kind": "eight coordinated warm editorial core-page visual designs",
+  "status": "approved homepage direction extended to six core subpages",
+  "brief": "BRIEF.md",
+  "palette": {
+    "paper": "#F4F0E6",
+    "inlay": "#FBFAF6",
+    "pewter": "#DCDDD6",
+    "ink": "#29362F",
+    "muted": "#5C655B",
+    "accent": "#88492F"
+  },
+  "pages": [
+    {
+      "id": 39,
+      "product": "Ferromark",
+      "slug": "ferromark-home",
+      "file": "39-warm-specimen-ferromark.png",
+      "view": "ferromark.html",
+      "layout": "../round-04-design-directions/31-working-specimen-ferromark.png",
+      "material": "../round-05-material-directions/35-paper-pewter-ferromark.png",
+      "sourceCopy": "content/ferromark-home.md",
+      "productSlug": "ferromark",
+      "type": "overview",
+      "title": "Overview",
+      "sourceSnapshot": "../round-04-design-directions/content/ferromark.md",
+      "promptSidecar": "39-warm-specimen-ferromark.png.json"
+    },
+    {
+      "id": 40,
+      "product": "Ferroni",
+      "slug": "ferroni-home",
+      "file": "40-warm-specimen-ferroni.png",
+      "view": "ferroni.html",
+      "layout": "../round-04-design-directions/32-working-specimen-ferroni.png",
+      "material": "../round-05-material-directions/36-paper-pewter-ferroni.png",
+      "sourceCopy": "content/ferroni-home.md",
+      "productSlug": "ferroni",
+      "type": "overview",
+      "title": "Overview",
+      "sourceSnapshot": "../round-04-design-directions/content/ferroni.md",
+      "promptSidecar": "40-warm-specimen-ferroni.png.json"
+    },
+    {
+      "id": 41,
+      "product": "Ferromark",
+      "productSlug": "ferromark",
+      "slug": "ferromark-start",
+      "type": "start",
+      "title": "Start with Rust",
+      "file": "41-ferromark-start.png",
+      "view": "ferromark-start.html",
+      "layout": "../round-03-core-pages/22-ferromark-start.png",
+      "style": "39-warm-specimen-ferromark.png",
+      "sourceCopy": "content/ferromark-start.md",
+      "promptSidecar": "41-ferromark-start.png.json"
+    },
+    {
+      "id": 42,
+      "product": "Ferromark",
+      "productSlug": "ferromark",
+      "slug": "ferromark-rendering",
+      "type": "core",
+      "title": "Rendering and metadata",
+      "file": "42-ferromark-rendering.png",
+      "view": "ferromark-rendering.html",
+      "layout": "../round-03-core-pages/23-ferromark-rendering.png",
+      "style": "39-warm-specimen-ferromark.png",
+      "sourceCopy": "content/ferromark-rendering.md",
+      "promptSidecar": "42-ferromark-rendering.png.json"
+    },
+    {
+      "id": 43,
+      "product": "Ferromark",
+      "productSlug": "ferromark",
+      "slug": "ferromark-benchmarks",
+      "type": "benchmarks",
+      "title": "Parser benchmarks",
+      "file": "43-ferromark-benchmarks.png",
+      "view": "ferromark-benchmarks.html",
+      "layout": "../round-03-core-pages/24-ferromark-benchmarks.png",
+      "style": "39-warm-specimen-ferromark.png",
+      "sourceCopy": "content/ferromark-benchmarks.md",
+      "promptSidecar": "43-ferromark-benchmarks.png.json"
+    },
+    {
+      "id": 44,
+      "product": "Ferroni",
+      "productSlug": "ferroni",
+      "slug": "ferroni-start",
+      "type": "start",
+      "title": "Start with Rust",
+      "file": "44-ferroni-start.png",
+      "view": "ferroni-start.html",
+      "layout": "../round-03-core-pages/26-ferroni-start.png",
+      "style": "40-warm-specimen-ferroni.png",
+      "sourceCopy": "content/ferroni-start.md",
+      "promptSidecar": "44-ferroni-start.png.json"
+    },
+    {
+      "id": 45,
+      "product": "Ferroni",
+      "productSlug": "ferroni",
+      "slug": "ferroni-scanner",
+      "type": "core",
+      "title": "The scanner",
+      "file": "45-ferroni-scanner-v2.png",
+      "view": "ferroni-scanner.html",
+      "layout": "../round-03-core-pages/27-ferroni-scanner.png",
+      "style": "40-warm-specimen-ferroni.png",
+      "sourceCopy": "content/ferroni-scanner.md",
+      "promptSidecar": "45-ferroni-scanner-v2.png.json",
+      "previousFile": "45-ferroni-scanner.png"
+    },
+    {
+      "id": 46,
+      "product": "Ferroni",
+      "productSlug": "ferroni",
+      "slug": "ferroni-benchmarks",
+      "type": "benchmarks",
+      "title": "Regex benchmarks",
+      "file": "46-ferroni-benchmarks-v2.png",
+      "view": "ferroni-benchmarks.html",
+      "layout": "../round-03-core-pages/28-ferroni-benchmarks.png",
+      "style": "40-warm-specimen-ferroni.png",
+      "sourceCopy": "content/ferroni-benchmarks.md",
+      "promptSidecar": "46-ferroni-benchmarks-v2.png.json",
+      "previousFile": "46-ferroni-benchmarks.png"
+    }
+  ],
+  "textures": [
+    {
+      "material": "Warm paper",
+      "file": "assets/paper-master.png"
+    },
+    {
+      "material": "Matte pewter",
+      "file": "assets/pewter-master.png"
+    }
+  ],
+  "assets": "assets/manifest.json",
+  "evidence": [
+    "evidence/ferromark-native-benchmarks.json",
+    "evidence/ferroni-production-summary.json"
+  ],
+  "reviewGenerator": "build-review.mjs"
+}

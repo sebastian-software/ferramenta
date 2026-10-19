@@ -325,6 +325,26 @@ export const WORKSHOP = {
   consulting: "https://sebastian-consulting.com",
 } as const;
 
+/** Shared cross-references; each name keeps its original logo and destination. */
+export const WORKSHOP_REFERENCES = [
+  {
+    id: "software",
+    name: "Sebastian Software",
+    href: WORKSHOP.openSource,
+    description:
+      "Production-grade open-source projects across several languages: the wider workshop this family comes from.",
+    action: "Explore the open-source projects",
+  },
+  {
+    id: "consulting",
+    name: "Sebastian Consulting",
+    href: WORKSHOP.consulting,
+    description:
+      "The people behind the engines, for hire: integration, support, and long-term maintenance.",
+    action: "Work with the team",
+  },
+] as const;
+
 /**
  * What each maturity stamp promises, in one line. A site that shows a stamp
  * legend (`StampKey`) reads it from here, so a status means the same thing

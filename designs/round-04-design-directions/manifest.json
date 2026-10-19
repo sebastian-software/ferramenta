@@ -1,0 +1,107 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "kind": "three paired holistic homepage directions",
+  "brief": "BRIEF.md",
+  "pages": [
+    {
+      "id": 29,
+      "key": "a",
+      "direction": "Editorial folio",
+      "product": "Ferromark",
+      "slug": "ferromark",
+      "file": "29-editorial-folio-ferromark.png",
+      "view": "a-ferromark.html",
+      "sourceCopy": "content/ferromark.md",
+      "intent": "A spacious technical magazine with an asymmetric editorial hierarchy and tables treated as publication typography.",
+      "promptSidecar": "29-editorial-folio-ferromark.png.json",
+      "referenceRoles": [
+        "existing meaningful document-register hero asset",
+        "existing Ferromark product symbol"
+      ]
+    },
+    {
+      "id": 30,
+      "key": "a",
+      "direction": "Editorial folio",
+      "product": "Ferroni",
+      "slug": "ferroni",
+      "file": "30-editorial-folio-ferroni.png",
+      "view": "a-ferroni.html",
+      "sourceCopy": "content/ferroni.md",
+      "intent": "A spacious technical magazine with an asymmetric editorial hierarchy and tables treated as publication typography.",
+      "promptSidecar": "30-editorial-folio-ferroni.png.json",
+      "referenceRoles": [
+        "29-editorial-folio-ferromark.png as sibling visual-system reference",
+        "existing meaningful pattern-comparator hero asset",
+        "existing Ferroni product symbol"
+      ]
+    },
+    {
+      "id": 31,
+      "key": "b",
+      "direction": "Working specimen",
+      "product": "Ferromark",
+      "slug": "ferromark",
+      "file": "31-working-specimen-ferromark.png",
+      "view": "b-ferromark.html",
+      "sourceCopy": "content/ferromark.md",
+      "intent": "A precision handbook whose worked examples organize the page, with annotated technical data rather than generic dashboard tables.",
+      "promptSidecar": "31-working-specimen-ferromark.png.json",
+      "referenceRoles": [
+        "existing meaningful document-register hero asset",
+        "existing Ferromark product symbol"
+      ]
+    },
+    {
+      "id": 32,
+      "key": "b",
+      "direction": "Working specimen",
+      "product": "Ferroni",
+      "slug": "ferroni",
+      "file": "32-working-specimen-ferroni.png",
+      "view": "b-ferroni.html",
+      "sourceCopy": "content/ferroni.md",
+      "intent": "A precision handbook whose worked examples organize the page, with annotated technical data rather than generic dashboard tables.",
+      "promptSidecar": "32-working-specimen-ferroni.png.json",
+      "referenceRoles": [
+        "31-working-specimen-ferromark.png as sibling visual-system reference",
+        "existing meaningful pattern-comparator hero asset",
+        "existing Ferroni product symbol"
+      ]
+    },
+    {
+      "id": 33,
+      "key": "c",
+      "direction": "Measured narrative",
+      "product": "Ferromark",
+      "slug": "ferromark",
+      "file": "33-measured-narrative-ferromark.png",
+      "view": "c-ferromark.html",
+      "sourceCopy": "content/ferromark.md",
+      "intent": "A warmer, type-led editorial page with broad reading passages and evidence presented as a designed spread.",
+      "promptSidecar": "33-measured-narrative-ferromark.png.json",
+      "referenceRoles": [
+        "existing meaningful document-register hero asset",
+        "existing Ferromark product symbol"
+      ]
+    },
+    {
+      "id": 34,
+      "key": "c",
+      "direction": "Measured narrative",
+      "product": "Ferroni",
+      "slug": "ferroni",
+      "file": "34-measured-narrative-ferroni-v2.png",
+      "view": "c-ferroni.html",
+      "sourceCopy": "content/ferroni.md",
+      "intent": "A warmer, type-led editorial page with broad reading passages and evidence presented as a designed spread.",
+      "previousFile": "34-measured-narrative-ferroni.png",
+      "promptSidecar": "34-measured-narrative-ferroni-v2.png.json",
+      "referenceRoles": [
+        "full-page concept as edit target",
+        "pattern-comparator instrument as the correct hero object"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "role": "targeted benchmark data-cell correction in coordinated core subpage",
+  "product": "Ferroni",
+  "title": "Regex benchmarks",
+  "prompt": "Use case: precise-object-edit. Asset type: one numeric data-cell correction in the complete Ferroni benchmark subpage comp.\nImage 1 is the exact edit target. Preserve the entire warm-paper page, all typography, illustration, layout, table dimensions, notes, navigation, logo and footer. Change ONLY the incorrect cell at row \"Onigmo\", column \"Linux x86-64\" in the Steady reuse table. It currently reads \"3.91\u00d7\"; it MUST read exactly \"3.61\u00d7\". Use the same numeral font, size, color and alignment. The Onigmo row must read: Onigmo | 3.92\u00d7 | 3.61\u00d7 | 20. Do not change any other value or text. All other rows are already correct. Output the complete full-page corrected comp, no crop.",
+  "editTarget": "46-ferroni-benchmarks.png",
+  "previousFile": "46-ferroni-benchmarks.png",
+  "references": [
+    {
+      "file": "46-ferroni-benchmarks.png",
+      "role": "exact full-page edit target; correct only Onigmo Linux x86-64 value to 3.61\u00d7"
+    }
+  ],
+  "sourceCopy": "content/ferroni-benchmarks.md",
+  "width": 887,
+  "height": 1774,
+  "sha256": "92472e2502e2ab2a11c03199c8f8e6839c63af113e8bd75ed900e69d8aa4ad3e"
+}

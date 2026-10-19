@@ -1,0 +1,169 @@
+{
+  "checkedAt": "2026-10-19T15:15:17.767Z",
+  "responsive": [
+    {
+      "columns": "272.014px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 320,
+      "tableRight": 296,
+      "tableRows": 7,
+      "width": 320
+    },
+    {
+      "columns": "342.014px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 390,
+      "tableRight": 366,
+      "tableRows": 7,
+      "width": 390
+    },
+    {
+      "columns": "582.413px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 640,
+      "tableRight": 611,
+      "tableRows": 7,
+      "width": 640
+    },
+    {
+      "columns": "239.844px 239.844px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 768,
+      "tableRight": 733,
+      "tableRows": 7,
+      "width": 768
+    },
+    {
+      "columns": "356.632px 356.632px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 1024,
+      "tableRight": 978,
+      "tableRows": 7,
+      "width": 1024
+    },
+    {
+      "columns": "430.408px 430.417px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 1280,
+      "tableRight": 1222,
+      "tableRows": 7,
+      "width": 1280
+    },
+    {
+      "columns": "471.215px 471.215px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 1440,
+      "tableRight": 1343,
+      "tableRows": 7,
+      "width": 1440
+    },
+    {
+      "columns": "468.012px 468.012px",
+      "engineCount": 7,
+      "loaded": true,
+      "overflow": false,
+      "scrollWidth": 1920,
+      "tableRight": 1580,
+      "tableRows": 7,
+      "width": 1920
+    },
+    {
+      "loaded": true,
+      "overflow": false,
+      "page": "identity",
+      "width": 320
+    },
+    {
+      "loaded": true,
+      "overflow": false,
+      "page": "identity",
+      "width": 390
+    },
+    {
+      "navColumns": "82.5781px 115.825px",
+      "overflow": false,
+      "page": "home-after-mobile-nav-refinement",
+      "width": 320
+    },
+    {
+      "navColumns": "82.5781px 115.825px",
+      "overflow": false,
+      "page": "home-after-mobile-nav-refinement",
+      "width": 390
+    }
+  ],
+  "anchors": [
+    {
+      "hash": "#engines",
+      "overflow": false,
+      "table": "13px",
+      "viewport": 390
+    },
+    {
+      "hash": "#choosing",
+      "overflow": false,
+      "table": "13px",
+      "viewport": 390
+    },
+    {
+      "hash": "#workshop",
+      "overflow": false,
+      "table": "13px",
+      "viewport": 390
+    }
+  ],
+  "viewers": [
+    {
+      "loaded": true,
+      "title": "Ferromark · Overview · Warm editorial design",
+      "url": "http://127.0.0.1:48623/round-06-warm-specimen/ferromark.html"
+    }
+  ],
+  "comp": {
+    "loaded": true,
+    "src": "52-ferramenta-home.png",
+    "url": "http://127.0.0.1:48623/round-08-ferramenta/concept.html"
+  },
+  "identity": {
+    "allLoaded": true,
+    "engineIcons": 7,
+    "icons": [
+      {
+        "loaded": true,
+        "size": 32,
+        "src": "assets/ferramenta/mark-32.png"
+      },
+      {
+        "loaded": true,
+        "size": 48,
+        "src": "assets/ferramenta/mark-48.png"
+      },
+      {
+        "loaded": true,
+        "size": 64,
+        "src": "assets/ferramenta/mark-64.png"
+      },
+      {
+        "loaded": true,
+        "size": 128,
+        "src": "assets/ferramenta/mark-128.png"
+      }
+    ],
+    "overflow": false,
+    "url": "http://127.0.0.1:48623/round-08-ferramenta/identity.html"
+  }
+}

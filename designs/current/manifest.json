@@ -1,0 +1,118 @@
+{
+  "typography": {
+    "headings": "IBM Plex Sans",
+    "weight": 600,
+    "body": "system-ui",
+    "code": "system monospace",
+    "localFonts": true
+  },
+  "family": "index.html",
+  "pages": [
+    {
+      "product": "ferromark",
+      "file": "ferromark.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-06-warm-specimen/content/ferromark-home.md",
+      "original": "../round-06-warm-specimen/ferromark.html"
+    },
+    {
+      "product": "ferroni",
+      "file": "ferroni.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-06-warm-specimen/content/ferroni-home.md",
+      "original": "../round-06-warm-specimen/ferroni.html"
+    },
+    {
+      "product": "ferromark",
+      "file": "ferromark-start.html",
+      "type": "start",
+      "title": "Start with Rust",
+      "source": "designs/round-06-warm-specimen/content/ferromark-start.md",
+      "original": "../round-06-warm-specimen/ferromark-start.html"
+    },
+    {
+      "product": "ferromark",
+      "file": "ferromark-rendering.html",
+      "type": "core",
+      "title": "Rendering and metadata",
+      "source": "designs/round-06-warm-specimen/content/ferromark-rendering.md",
+      "original": "../round-06-warm-specimen/ferromark-rendering.html"
+    },
+    {
+      "product": "ferromark",
+      "file": "ferromark-benchmarks.html",
+      "type": "benchmarks",
+      "title": "Parser benchmarks",
+      "source": "designs/round-06-warm-specimen/content/ferromark-benchmarks.md",
+      "original": "../round-06-warm-specimen/ferromark-benchmarks.html"
+    },
+    {
+      "product": "ferroni",
+      "file": "ferroni-start.html",
+      "type": "start",
+      "title": "Start with Rust",
+      "source": "designs/round-06-warm-specimen/content/ferroni-start.md",
+      "original": "../round-06-warm-specimen/ferroni-start.html"
+    },
+    {
+      "product": "ferroni",
+      "file": "ferroni-scanner.html",
+      "type": "core",
+      "title": "The scanner",
+      "source": "designs/round-06-warm-specimen/content/ferroni-scanner.md",
+      "original": "../round-06-warm-specimen/ferroni-scanner.html"
+    },
+    {
+      "product": "ferroni",
+      "file": "ferroni-benchmarks.html",
+      "type": "benchmarks",
+      "title": "Regex benchmarks",
+      "source": "designs/round-06-warm-specimen/content/ferroni-benchmarks.md",
+      "original": "../round-06-warm-specimen/ferroni-benchmarks.html"
+    },
+    {
+      "product": "ferriki",
+      "file": "ferriki.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-07-family-expansion/content/ferriki-home.md",
+      "original": "../round-07-family-expansion/ferriki.html"
+    },
+    {
+      "product": "ferrolex",
+      "file": "ferrolex.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-07-family-expansion/content/ferrolex-home.md",
+      "original": "../round-07-family-expansion/ferrolex.html"
+    },
+    {
+      "product": "ferrocat",
+      "file": "ferrocat.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-07-family-expansion/content/ferrocat-home.md",
+      "original": "../round-07-family-expansion/ferrocat.html"
+    },
+    {
+      "product": "ferralk",
+      "file": "ferralk.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-07-family-expansion/content/ferralk-home.md",
+      "original": "../round-07-family-expansion/ferralk.html"
+    },
+    {
+      "product": "ferrugo",
+      "file": "ferrugo.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "designs/round-07-family-expansion/content/ferrugo-home.md",
+      "original": "../round-07-family-expansion/ferrugo.html"
+    }
+  ],
+  "source": "design/editorial/build-previews.mjs",
+  "note": "Native HTML translations of the approved image studies. Original images and evidence are retained unchanged."
+}

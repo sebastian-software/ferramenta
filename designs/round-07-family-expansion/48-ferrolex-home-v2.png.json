@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "product": "Ferrolex",
+  "role": "targeted final hierarchy and source-content correction to family homepage",
+  "previousFile": "48-ferrolex-home.png",
+  "prompt": "Use case: precise-object-edit. Asset type: final consistency and content correction to one complete homepage comp.\nImage 1 is the exact Ferrolex full-page edit target. Image 2 is the approved Ferromark homepage, a HERO TYPOGRAPHIC HIERARCHY reference only.\nKeep the entire Ferrolex page composition, warm paper and pewter textures, margin-introduction rail, hero instrument identity and position, product icon, body type, spacing, sections, tables, footer and all unaffected content unchanged.\nMake only these corrections:\n1. Match the approved product-name-first hero hierarchy. The largest hero headline must be \"Ferrolex.\" as the product name, like \"Ferromark.\" in Image 2. Below it put the smaller purpose headline \"Spelling, with a clear contract.\". Keep \"A spell checker.\" as a quieter descriptive line or integrated with the existing description. Preserve the existing actions and descriptive body. Fit this within the existing left hero text area; do not move or replace the instrument or shift the lower-page alignment. If the product-name-first hierarchy already exists, preserve it.\n2. Make the two illustrative terminal cases unambiguous and correct. The FIRST command ends in precision and its result is precision \u2014 recognized. The SECOND command ends in precison (the eight-letter misspelling p r e c i s o n), and its result is precison \u2014 unrecognized. Never label the correctly spelled precision as unrecognized. The dictionary still contains only precision and durable. Show clear readable spelling. The existing large Ferrolex product-name hero already has the correct hierarchy; preserve it.\nDo not change any unrelated text, example, API, numeric datum or layout. Do not import Ferromark's logo, name, content or document instrument. Output the complete corrected Ferrolex full page, uncropped, with no frame.",
+  "references": [
+    {
+      "file": "48-ferrolex-home.png",
+      "role": "exact full-page edit target; retain all unaffected design and content"
+    },
+    {
+      "file": "../round-06-warm-specimen/39-warm-specimen-ferromark.png",
+      "role": "approved product-name-first hero typography reference only"
+    }
+  ],
+  "sourceCopy": "content/ferrolex-home.md",
+  "sourceSnapshot": "sources/ferrolex-README.md",
+  "width": 813,
+  "height": 1933,
+  "sha256": "213906fdb94565e6111aef9eb053ca2b3fc5bfebb393806579775a86e986dcd5"
+}

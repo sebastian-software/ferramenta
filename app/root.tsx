@@ -180,6 +180,7 @@ finish review, the verdict, and DESIGN.md
 export default function Root() {
   const { pathname } = useLocation();
   const inKit = pathname.startsWith("/kit");
+  const editorialKit = pathname.replace(/\/$/u, "") === "/kit/editorial";
   const sample = isSamplePath(pathname);
   const docs = isSampleDocsPath(pathname);
 
@@ -187,13 +188,13 @@ export default function Root() {
   // page's banner and contentinfo landmarks rather than parts of Ardo's <main>.
   return (
     <>
-      <a className="skip-link" href="#main-content">
+      <a className="skip-link" href={editorialKit ? "#editorial-main" : "#main-content"}>
         Skip to content
       </a>
       <MarkDefs />
       {/* The kit is public but not for search results: React hoists this into the head. */}
       {inKit && <meta name="robots" content="noindex" />}
-      {sample ? <SampleHeader docs={docs} /> : <FamilyHeader inKit={inKit} />}
+      {!editorialKit && (sample ? <SampleHeader docs={docs} /> : <FamilyHeader inKit={inKit} />)}
       {docs ? (
         <div className="fam-docs-shell">
           <ArdoRoot config={config}>
@@ -213,7 +214,7 @@ export default function Root() {
       ) : (
         <ArdoRoot config={config} className="ferramenta-site" />
       )}
-      {sample ? (
+      {editorialKit ? null : sample ? (
         <SiteFooter legal="A sample page of the Ferramenta kit. Ferrometro is invented; nothing on it is a real tool or a real measurement." />
       ) : (
         <SiteFooter members="short" />

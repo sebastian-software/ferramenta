@@ -46,6 +46,25 @@ const REQUIRED_FILES = [
   "textures/oak.webp",
 ];
 
+// The npm route checks the current working package; the Git route intentionally
+// checks HEAD, which can predate an uncommitted additive entry.
+const EDITORIAL_FILES = [
+  "dist/editorial.js",
+  "dist/editorial.d.ts",
+  "styles/editorial.css",
+  "styles/editorial-tokens.css",
+  "styles/editorial-fonts.css",
+  "editorial/fonts/ibm-plex-sans-600.woff2",
+  "editorial/fonts/OFL-IBM-Plex.txt",
+  "styles/editorial-assets.css",
+  "editorial/manifest.json",
+  "editorial/ferramenta/favicon.ico",
+  "editorial/textures/paper.webp",
+  "editorial/brands/sebastian-software.svg",
+  "editorial/brands/sebastian-consulting.svg",
+  "EDITORIAL.md",
+];
+
 /** Packs the package into the scratch directory and returns its specifier. */
 function packTarball(scratch) {
   run("pnpm", ["pack", "--pack-destination", scratch], packageDirectory);
@@ -53,7 +72,7 @@ function packTarball(scratch) {
   const tarball = readdirSync(scratch).find((entry) => entry.endsWith(".tgz"));
   if (tarball === undefined) throw new Error("pnpm pack produced no tarball");
   const shipped = run("tar", ["-tzf", join(scratch, tarball)]).split("\n");
-  for (const file of REQUIRED_FILES) {
+  for (const file of [...REQUIRED_FILES, ...EDITORIAL_FILES]) {
     if (!shipped.includes(`package/${file}`)) throw new Error(`the npm tarball is missing ${file}`);
   }
   return `file:./${tarball}`;

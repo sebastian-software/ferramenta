@@ -6,6 +6,27 @@ So are the member icons in `icons/`, the textures in `textures/`, and the line
 icons in `src/mark-defs.ts`: they were made for this family (ADR-0009). The
 following bundled assets carry their own terms.
 
+The original rendered identities, instruments and textures in `editorial/` were
+also made for this family and are MIT licensed (ADR-0010). Their wordmarks are
+rendered images or real page text; the package includes no Helvetica font file.
+The separately identified workshop logos below retain their own ownership.
+
+## Sebastian Software and Sebastian Consulting logos
+
+`editorial/brands/sebastian-software.svg` and `sebastian-consulting.svg` are
+copied unchanged from this repository's original `app/assets/logos/` files.
+They identify Sebastian Software GmbH and Sebastian Consulting. All rights
+in these marks remain with their owners; the package's MIT license does not
+grant trademark rights. Preserve their original colors on a flat light ground.
+
+## IBM Plex Sans (editorial heading font)
+
+`editorial/fonts/ibm-plex-sans-600.woff2` is IBM Plex Sans Semibold by IBM,
+licensed under the SIL Open Font License 1.1. The unchanged license text ships
+as `editorial/fonts/OFL-IBM-Plex.txt`. Its pinned upstream source and hashes
+are recorded in `editorial/fonts/manifest.json`. The editorial stylesheet
+serves the font locally; body text uses the system UI stack.
+
 ## Barlow Condensed (font)
 
 `fonts/barlow-condensed-500.woff2`, `-600.woff2` and `-700.woff2` are weights of

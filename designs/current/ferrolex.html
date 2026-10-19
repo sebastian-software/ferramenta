@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferrolex · Overview</title>
+    <link rel="icon" href="assets/editorial/ferrolex/favicon.ico" />
+    <link rel="stylesheet" href="assets/styles/editorial.css" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body>
+    <div class="fe-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="fe-header fe-wrap">
+        <a href="ferrolex.html" class="fe-brand"
+          ><span
+            class="fe-mark"
+            data-product="ferrolex"
+            style="--fe-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferrolex</span></a
+        >
+        <nav class="fe-nav" aria-label="Main">
+          <a href="ferrolex.html" aria-current="page">Overview</a
+          ><a href="https://github.com/sebastian-software/ferrolex">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="fe-hero fe-wrap" aria-labelledby="_R_b_">
+          <div class="fe-hero-copy">
+            <h1 id="_R_b_">Spelling, with a clear contract.</h1>
+            <p class="fe-subtitle">A spell checker</p>
+            <div class="fe-lede">
+              <p>
+                Check wordforms and get deterministic suggestions from a Rust engine that reads
+                existing Hunspell dictionaries.
+              </p>
+            </div>
+            <div class="fe-actions">
+              <a href="#try-the-engine" class="fe-action" data-variant="primary">Get started</a
+              ><a
+                href="https://github.com/sebastian-software/ferrolex"
+                class="fe-action"
+                data-variant="secondary"
+                >Source on GitHub</a
+              >
+            </div>
+          </div>
+          <div class="fe-hero-art">
+            <span class="fe-instrument" data-product="ferrolex" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="a-dictionary-makes-the-decision"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="a-dictionary-makes-the-decision-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Working example</p>
+              <div>The words are explicit.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="a-dictionary-makes-the-decision-title">A dictionary makes the decision</h2>
+              <div class="fe-columns">
+                <figure class="fe-code">
+                  <figcaption>
+                    <span>Plain word list</span><span class="fe-code-file">words.txt</span>
+                  </figcaption>
+                  <pre tabindex="0"><code>precision
+durable</code></pre>
+                </figure>
+                <figure class="fe-specimen">
+                  <figcaption>Exact word-list recognition</figcaption>
+                  <div class="fe-specimen-output">
+                    <dl>
+                      <dt>precision</dt>
+                      <dd>Recognized</dd>
+                      <dt>precison</dt>
+                      <dd>Not recognized</dd>
+                    </dl>
+                    <p>Plain word lists use exact matching, including casing, by default.</p>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="wordforms-not-just-a-bag-of-strings"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="wordforms-not-just-a-bag-of-strings-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Dictionaries</p>
+              <div>Keep the useful language model.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="wordforms-not-just-a-bag-of-strings-title">
+                Wordforms, not just a bag of strings
+              </h2>
+              <p>
+                Hunspell dictionaries describe more than a list of base words. Ferrolex loads
+                existing dictionary and affix data without linking the native Hunspell library.
+                Reviewed compatibility is recorded for exact pinned dictionaries and probes. This is
+                not a blanket claim of complete Hunspell compatibility. Check the locale matrix for
+                the dictionary you intend to ship.
+              </p>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_5ar_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_5ar_">
+                    Wordforms, not just a bag of strings
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Dictionary path</th>
+                      <th scope="col">What it provides</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Plain word list</th>
+                      <td>Explicit words and exact matching</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Hunspell dictionary and affixes</th>
+                      <td>Dictionary-defined wordform behavior</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Compiled dictionary</th>
+                      <td>A prepared dictionary representation</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Verified catalog and downloader</th>
+                      <td>Caller-controlled local dictionary acquisition</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="suggestions-that-can-be-reviewed"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="suggestions-that-can-be-reviewed-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Suggestions</p>
+              <div>Deterministic decisions.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="suggestions-that-can-be-reviewed-title">Suggestions that can be reviewed</h2>
+              <p>
+                The same dictionary and input produce the same suggestion ordering. Keep suggestion
+                behavior visible in tests and review it against real text rather than assuming a
+                language model will repair the result. Optional normalization is an explicit library
+                policy. It is separate from future case-folding behavior.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="let-the-integration-own-the-format"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="let-the-integration-own-the-format-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Boundaries</p>
+              <div>Extract the right text first.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="let-the-integration-own-the-format-title">
+                Let the integration own the format
+              </h2>
+              <p>
+                A Markdown tool extracts prose. A code-aware integration decides which identifiers
+                or comments belong in the check. Ferrolex owns dictionary loading, word checks and
+                suggestions; the caller owns document parsing and language context. The Rust engine
+                is the product core. The direct Node.js binding is release-gated but not yet
+                published to npm in this source snapshot. C ABI, Python, LSP and editor integrations
+                remain evaluation prototypes.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="try-the-engine"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="try-the-engine-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Get started</p>
+              <div>Bring a dictionary.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="try-the-engine-title">Try the engine</h2>
+              <figure class="fe-code">
+                <figcaption><span>Install</span></figcaption>
+                <pre tabindex="0"><code>cargo install ferrolex-cli
+Then check a plain-text word list or an existing Hunspell dictionary. The project is pre-1.0; public APIs may change in minor releases.</code></pre>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="fe-section fe-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="fe-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="fe-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="fe-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="fe-footer fe-wrap">
+        <div class="fe-footer-brand">
+          <a href="ferrolex.html" class="fe-brand"
+            ><span
+              class="fe-mark"
+              data-product="ferrolex"
+              style="--fe-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferrolex</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="fe-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../round-07-family-expansion/ferrolex.html">Original image comp</a
+          ><a href="../round-07-family-expansion/content/ferrolex-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

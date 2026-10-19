@@ -1,0 +1,67 @@
+[
+  {
+    "product": "Ferriki",
+    "hero": {
+      "dimensions": [1774, 887],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    },
+    "master": {
+      "dimensions": [1254, 1254],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    }
+  },
+  {
+    "product": "Ferrolex",
+    "hero": {
+      "dimensions": [1774, 887],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    },
+    "master": {
+      "dimensions": [1254, 1254],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0.00392157)"
+    }
+  },
+  {
+    "product": "Ferrocat",
+    "hero": {
+      "dimensions": [1774, 887],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    },
+    "master": {
+      "dimensions": [1254, 1254],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    }
+  },
+  {
+    "product": "Ferralk",
+    "hero": {
+      "dimensions": [1774, 887],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    },
+    "master": {
+      "dimensions": [1254, 1254],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0.00392157)"
+    }
+  },
+  {
+    "product": "Ferrugo",
+    "hero": {
+      "dimensions": [1536, 1024],
+      "opaque": "False",
+      "corner": "srgba(1,1,1,0.00392157)"
+    },
+    "master": {
+      "dimensions": [1254, 1254],
+      "opaque": "False",
+      "corner": "srgba(0,0,0,0)"
+    }
+  }
+]

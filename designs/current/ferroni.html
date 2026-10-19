@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferroni · Overview</title>
+    <link rel="icon" href="assets/editorial/ferroni/favicon.ico" />
+    <link rel="stylesheet" href="assets/styles/editorial.css" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body>
+    <div class="fe-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="fe-header fe-wrap">
+        <a href="ferroni.html" class="fe-brand"
+          ><span
+            class="fe-mark"
+            data-product="ferroni"
+            style="--fe-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferroni</span></a
+        >
+        <nav class="fe-nav" aria-label="Main">
+          <a href="ferroni.html" aria-current="page">Overview</a
+          ><a href="ferroni-start.html">Start with Rust</a
+          ><a href="ferroni-scanner.html">The scanner</a
+          ><a href="ferroni-benchmarks.html">Regex benchmarks</a
+          ><a href="https://ferroni.dev">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="fe-hero fe-wrap" aria-labelledby="_R_b_">
+          <div class="fe-hero-copy">
+            <h1 id="_R_b_">Ferroni.</h1>
+            <p class="fe-subtitle">Oniguruma regex, in memory-safe Rust.</p>
+            <div class="fe-lede">
+              <p>
+                Run familiar patterns, from lookbehind to recursion, and the scanner that syntax
+                highlighters drive.
+              </p>
+            </div>
+            <div class="fe-actions">
+              <a href="ferroni-start.html" class="fe-action" data-variant="primary"
+                >Start with Rust</a
+              ><a href="https://ferroni.dev" class="fe-action" data-variant="secondary"
+                >Read the documentation</a
+              >
+            </div>
+          </div>
+          <div class="fe-hero-art">
+            <span class="fe-instrument" data-product="ferroni" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="see-what-the-pattern-finds"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="see-what-the-pattern-finds-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Working example</p>
+              <div>Read the pattern and its result.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="see-what-the-pattern-finds-title">See what the pattern finds</h2>
+              <div class="fe-columns">
+                <figure class="fe-code">
+                  <figcaption><span>Pattern and source</span></figcaption>
+                  <pre tabindex="0"><code>(?&lt;=item-)\d+
+
+item-104 item-208</code></pre>
+                </figure>
+                <figure class="fe-specimen">
+                  <figcaption>Matches</figcaption>
+                  <div class="fe-specimen-output">
+                    <p>item-<mark>104</mark> item-<mark>208</mark></p>
+                    <p>The lookbehind checks the prefix; the match contains the digits.</p>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="patterns-carry-a-contract"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="patterns-carry-a-contract-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">The contract</p>
+              <div>Familiar expressions, explicit behavior.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="patterns-carry-a-contract-title">Patterns carry a contract</h2>
+              <p>
+                A regex engine is more than a way to find a word. Existing grammars and applications
+                depend on how lookbehind, captured text, Unicode properties and recursive patterns
+                behave. Rewriting the expression can change that behavior just as surely as changing
+                the engine.
+              </p>
+              <p>
+                Ferroni continues Oniguruma&#x27;s expressive syntax in Rust. Choose it when that
+                compatibility matters: an editor grammar, a highlighter, or a search that depends on
+                a feature the regex crate deliberately leaves out. The point is to run the pattern
+                your tool already understands, with behavior you can inspect.
+              </p>
+              <p>Selected executable syntax checks:</p>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_ikr_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_ikr_">
+                    Patterns carry a contract
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Feature</th>
+                      <th scope="col">Ferroni</th>
+                      <th scope="col">Rust regex</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Lookahead and lookbehind</th>
+                      <td>Yes</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Backreferences</th>
+                      <td>Yes</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Unicode character properties</th>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>These examples describe selected checks, not every possible pattern.</p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="one-line-several-patterns-the-next-match"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="one-line-several-patterns-the-next-match-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">The scanner</p>
+              <div>Many patterns. The next leftmost match.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="one-line-several-patterns-the-next-match-title">
+                One line. Several patterns. The next match.
+              </h2>
+              <p>
+                A TextMate grammar compiles a set of patterns, then asks which one matches next from
+                a position in the line. The scanner returns the leftmost match, the index of the
+                pattern that found it, and capture ranges. The tokenizer resumes at the previous
+                match&#x27;s end.
+              </p>
+              <figure class="fe-specimen">
+                <figcaption>One line. Several patterns. The next match.</figcaption>
+                <div class="fe-specimen-output">
+                  <dl>
+                    <dt>Source</dt>
+                    <dd>const answer = 42 // note</dd>
+                    <dt>Patterns</dt>
+                    <dd>0 keywords, 1 strings, 2 comments, 3 numbers</dd>
+                  </dl>
+                </div>
+              </figure>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_el3_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_el3_">
+                    One line. Several patterns. The next match.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Resume at byte</th>
+                      <th scope="col">Next match</th>
+                      <th scope="col">Pattern index</th>
+                      <th scope="col">Byte range</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">0</th>
+                      <td>const</td>
+                      <td>0</td>
+                      <td>0..5</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td>42</td>
+                      <td>3</td>
+                      <td>15..17</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">17</th>
+                      <td>// note</td>
+                      <td>2</td>
+                      <td>18..25</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                The regular scanner uses byte offsets. Explicit UTF-16 methods support editor text
+                models. For a zero-width match, advance at a character boundary before asking again.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="continued-with-care"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="continued-with-care-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Compatibility</p>
+              <div>Continued with care.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="continued-with-care-title">Continued with care</h2>
+              <p>
+                Oniguruma&#x27;s C project ended in April 2025. Ferroni continues the engine in
+                Rust, preserving its syntax and pattern semantics for the supported encodings.
+                Compatibility checks compare behavior against the original; the history stays
+                visible with the implementation.
+              </p>
+              <p>
+                A smaller system is not automatically a better fit for every pattern. Rust&#x27;s
+                regex crate makes a different tradeoff: it leaves out constructs such as lookaround
+                and backreferences to offer predictable linear-time searching. Ferroni keeps the
+                expressive contract and gives callers controls for expensive searches.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="reuse-changes-the-picture"
+          class="fe-section"
+          data-surface="pewter"
+          aria-labelledby="reuse-changes-the-picture-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Measurements</p>
+              <div>Reuse changes the picture.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="reuse-changes-the-picture-title">Reuse changes the picture</h2>
+              <p>Ferroni throughput relative to each comparator; higher is faster.</p>
+              <div class="fe-table-region" role="region" aria-labelledby="_R_alj_" tabindex="0">
+                <table class="fe-table">
+                  <caption id="_R_alj_">
+                    Reuse changes the picture
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Comparator</th>
+                      <th scope="col">macOS ARM64</th>
+                      <th scope="col">Linux x86-64</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">C Oniguruma</th>
+                      <td>3.44×</td>
+                      <td>2.75×</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PCRE2 JIT</th>
+                      <td>0.70×</td>
+                      <td>0.63×</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Steady reuse · 21 tasks per pair · 513 corpus inputs Measured October 15, 2026 ·
+                revision 1c8d45f Blacksmith VMs: macOS ARM64 and Linux x86-64.
+              </p>
+              <p>
+                Compile, first use and steady reuse answer different questions. C Oniguruma compiles
+                patterns faster. Ferroni pays off when a prepared pattern runs many times. PCRE2 JIT
+                remains faster in the steady-reuse aggregates shown here.
+              </p>
+              <p>
+                Every task checks expected output before timing. These are isolated regex steps, not
+                complete application benchmarks, and each row describes a pairwise task set.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="put-a-boundary-around-the-work"
+          class="fe-section"
+          data-surface="paper"
+          aria-labelledby="put-a-boundary-around-the-work-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Limits</p>
+              <div>Bound the work your application accepts.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="put-a-boundary-around-the-work-title">Put a boundary around the work</h2>
+              <p>
+                Memory safety does not make every pattern cheap. For untrusted patterns or text,
+                choose retry budgets and supported time limits; the fallible search methods
+                distinguish a reached limit from no match. Browser WebAssembly searches use retry
+                limits instead of timeouts.
+              </p>
+              <p>
+                Keep those controls close to the place that accepts input, then reuse compiled
+                patterns where the workload allows it.
+              </p>
+              <p>Start with Rust cargo add ferroni</p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="fe-section fe-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="fe-editorial fe-wrap">
+            <aside class="fe-margin">
+              <p class="fe-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="fe-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="fe-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="fe-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="fe-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="fe-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="fe-footer fe-wrap">
+        <div class="fe-footer-brand">
+          <a href="ferroni.html" class="fe-brand"
+            ><span
+              class="fe-mark"
+              data-product="ferroni"
+              style="--fe-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferroni</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="fe-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../round-06-warm-specimen/ferroni.html">Original image comp</a
+          ><a href="../round-06-warm-specimen/content/ferroni-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -22,6 +22,7 @@
     "packages/*/scripts/**/*.mjs",
     "packages/*/test/**/*.mjs",
     "scripts/**/*.mjs",
+    "design/editorial/**/*.mjs",
     "*.ts",
     "*.config.ts"
   ],

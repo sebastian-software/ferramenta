@@ -1,0 +1,111 @@
+/* Preview framing only. Typography, materials and content components come from the package. */
+body {
+  margin: 0;
+}
+.fe-page .fe-nav a[aria-current="page"],
+.fe-page .live-side-nav a[aria-current="page"] {
+  color: var(--fe-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+}
+.fe-page .live-skip {
+  position: fixed;
+  z-index: 10;
+  inset-block-start: var(--fe-space-3);
+  inset-inline-start: var(--fe-space-4);
+  background: var(--fe-surface);
+  padding: var(--fe-space-3) var(--fe-space-6);
+  transform: translateY(-180%);
+}
+.fe-page .live-skip:focus {
+  transform: none;
+}
+.fe-page .live-docs-header {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr) 9rem;
+  gap: var(--fe-space-8);
+  align-items: start;
+  padding-block: var(--fe-space-18) var(--fe-section-gap);
+}
+.fe-page .live-docs-header .fe-hero {
+  padding: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+}
+.fe-page .live-docs-header h1 {
+  font-size: clamp(2.625rem, 4.8vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+.fe-page .live-docs-header .fe-subtitle {
+  font-size: var(--fe-text-lead);
+  line-height: var(--fe-leading-body);
+  letter-spacing: 0;
+}
+.fe-page .live-side-nav {
+  display: grid;
+  font-size: var(--fe-text-small);
+  gap: var(--fe-space-2);
+}
+.fe-page .live-side-nav a {
+  min-height: var(--fe-target);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.fe-page .live-side-nav p {
+  font-weight: 600;
+  margin-block-end: var(--fe-space-3);
+}
+.fe-page .live-measurement {
+  font-size: var(--fe-text-small);
+  line-height: 1.8;
+}
+.fe-page .live-measurement span {
+  display: block;
+}
+.fe-page .fe-story > .fe-specimen {
+  max-width: var(--fe-measure);
+}
+.fe-page .fe-specimen-output dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--fe-space-3) var(--fe-space-6);
+  font-size: var(--fe-text-small);
+}
+.fe-page .fe-specimen-output dt {
+  color: var(--fe-text-secondary);
+}
+.fe-page .fe-specimen-output dd {
+  margin: 0;
+}
+@media (max-width: 65.625rem) {
+  .fe-page .live-docs-header {
+    grid-template-columns: 8rem minmax(0, 1fr);
+  }
+  .fe-page .live-side-nav[aria-label="On this page"] {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fe-space-3) var(--fe-space-6);
+  }
+  .fe-page .live-side-nav[aria-label="On this page"] p {
+    width: 100%;
+  }
+}
+@media (max-width: 47.5rem) {
+  .fe-page .live-docs-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fe-page .live-docs-header > .live-side-nav:first-child {
+    display: none;
+  }
+  .fe-page .live-docs-header .fe-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fe-page .live-docs-header .fe-hero-art {
+    max-width: 25rem;
+  }
+  .fe-page .live-side-nav[aria-label="On this page"] {
+    grid-column: 1;
+  }
+}

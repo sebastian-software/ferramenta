@@ -1,0 +1,12 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "CUA browser screenshot of the local HTML composition",
+  "source": "ferroni.html",
+  "stylesheet": "homepage.css",
+  "role": "mobile review capture",
+  "cssViewportWidth": 390,
+  "width": 390,
+  "height": 7241,
+  "sha256": "76671abe6e4246caa74f51d036845e828dadea93b81bbde48a268338286d3825",
+  "revision": "Decorative section backgrounds removed; clean HTML baseline"
+}

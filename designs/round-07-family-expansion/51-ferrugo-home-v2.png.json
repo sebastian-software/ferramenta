@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "built-in Imagegen",
+  "product": "Ferrugo",
+  "role": "targeted final hierarchy and source-content correction to family homepage",
+  "previousFile": "51-ferrugo-home.png",
+  "prompt": "Use case: precise-object-edit. Asset type: final consistency and content correction to one complete homepage comp.\nImage 1 is the exact Ferrugo full-page edit target. Image 2 is the approved Ferromark homepage, a HERO TYPOGRAPHIC HIERARCHY reference only.\nKeep the entire Ferrugo page composition, warm paper and pewter textures, margin-introduction rail, hero instrument identity and position, product icon, body type, spacing, sections, tables, footer and all unaffected content unchanged.\nMake only these corrections:\n1. Match the approved product-name-first hero hierarchy. The largest hero headline must be \"Ferrugo.\" as the product name, like \"Ferromark.\" in Image 2. Below it put the smaller purpose headline \"Previews. With boundaries.\". Keep \"A PDF preview renderer.\" as a quieter descriptive line or integrated with the existing description. Preserve the existing actions and descriptive body. Fit this within the existing left hero text area; do not move or replace the instrument or shift the lower-page alignment. If the product-name-first hierarchy already exists, preserve it.\n2. REMOVE the invented JSON configuration panel in the Resource policy spread. It currently invents memory_limit_mb and timeout_ms values and option names which were not part of the supplied source. Replace that same panel area with a clean three-row conceptual policy ledger, no JSON and no defaults: \"Preview size | Explicit output dimensions\"; \"Memory budget | Chosen by the caller\"; \"Time budget | Chosen by the caller\". Caption: \"Resource policy overview\". Retain the verified CLI example --max-edge 256 in the working example above, its maximum-edge note, and all other prose. Do not invent any resource field names, memory values, time values or safety guarantee.\nDo not change any unrelated text, example, API, numeric datum or layout. Do not import Ferromark's logo, name, content or document instrument. Output the complete corrected Ferrugo full page, uncropped, with no frame.",
+  "references": [
+    {
+      "file": "51-ferrugo-home.png",
+      "role": "exact full-page edit target; retain all unaffected design and content"
+    },
+    {
+      "file": "../round-06-warm-specimen/39-warm-specimen-ferromark.png",
+      "role": "approved product-name-first hero typography reference only"
+    }
+  ],
+  "sourceCopy": "content/ferrugo-home.md",
+  "sourceSnapshot": "sources/ferrugo-README.md",
+  "width": 864,
+  "height": 1821,
+  "sha256": "fc3aa793e5a6f82d3b0d5ae48fb895f98bb59173167569e767a1fcc69d7c4f73"
+}

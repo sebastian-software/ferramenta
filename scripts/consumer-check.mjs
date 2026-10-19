@@ -62,3 +62,40 @@ for (const name of ["chrome.css", "landing.css"]) {
 }
 
 console.log(`rendered the chrome and the landing kit for ${family.length} family members`);
+
+// HEAD may still carry the older package while an additive entry is prepared.
+// Every installed package that advertises the new entry must render it and
+// carry all of its CSS-resolved images without reaching back into the workspace.
+const packageUrl = new URL(import.meta.resolve("ferramenta-family/package.json"));
+// eslint-disable-next-line security/detect-non-literal-fs-filename -- the installed package's exported manifest
+const packageManifest = JSON.parse(readFileSync(packageUrl, "utf8"));
+if (packageManifest.exports["./editorial"]) {
+  const editorial = await import("ferramenta-family/editorial");
+  const html = render(editorial.EditorialEngineCatalog, {});
+  expect(html.includes('class="fe-engine"'), "the editorial catalog did not render");
+  const workshop = render(editorial.EditorialWorkshop, {});
+  expect(
+    workshop.includes('aria-label="Sebastian Software"'),
+    "the software cross-reference is missing",
+  );
+  expect(
+    workshop.includes('aria-label="Sebastian Consulting"'),
+    "the consulting cross-reference is missing",
+  );
+  const sheet = new URL(import.meta.resolve("ferramenta-family/editorial.css"));
+  for (const name of [
+    "editorial.css",
+    "editorial-tokens.css",
+    "editorial-assets.css",
+    "editorial-fonts.css",
+  ]) {
+    const fileUrl = new URL(name, sheet);
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- a stylesheet inside the installed package
+    const css = readFileSync(fileUrl, "utf8");
+    for (const [, file] of css.matchAll(/url\("(\.\.\/[^"]+)"\)/gu)) {
+      expect(isShipped(file, fileUrl), `${name} references an unshipped asset: ${file}`);
+    }
+  }
+  expect(isShipped("../editorial/ferramenta/favicon.ico", sheet), "the family favicon is missing");
+  console.log("rendered the additive editorial entry and verified its shipped assets");
+}

@@ -1,0 +1,12 @@
+{
+  "createdAt": "2026-10-19",
+  "generatedWith": "CUA browser screenshot of the local HTML composition",
+  "source": "ferromark.html",
+  "stylesheet": "homepage.css",
+  "role": "desktop review capture",
+  "cssViewportWidth": 1440,
+  "width": 1440,
+  "height": 4538,
+  "sha256": "76823690b5202916a34a670a794facf2528c1822a398492b147e42ff9bc39f61",
+  "revision": "Decorative section backgrounds removed; clean HTML baseline"
+}

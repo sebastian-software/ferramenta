@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-10-19",
+  "role": "frozen primary repository evidence",
+  "files": [
+    {
+      "file": "sources/ferriki-README.md",
+      "original": "/Users/sebastian/Workspace/ferriki/README.md",
+      "sha256": "043f9548b951b23b0de3ceaabcb75f26fdcc7e6ae8d60be63dc3b9a1f1dc1e4c"
+    },
+    {
+      "file": "sources/ferrolex-README.md",
+      "original": "/Users/sebastian/Workspace/ferrolex/README.md",
+      "sha256": "1a41a77c3e542a8c34a3a8619543e14cd3f24dec708f4a1f53a075538b4db96a"
+    },
+    {
+      "file": "sources/ferrocat-README.md",
+      "original": "/Users/sebastian/Workspace/ferrocat/README.md",
+      "sha256": "1cb7e1fbbeaaa02644fe4d399ec1703320f3e4c5caf553b5f6b4b8c33dbf08bc"
+    },
+    {
+      "file": "sources/ferralk-README.md",
+      "original": "/Users/sebastian/Workspace/ferralk/README.md",
+      "sha256": "36f81c14e64a188f9da1bcdb7d9d86209909d49d42a254b126d220b3dbbfef90"
+    },
+    {
+      "file": "sources/ferrugo-README.md",
+      "original": "/Users/sebastian/Workspace/ferrugo/README.md",
+      "sha256": "09a8c8e5f7a62fc2bcfb9e54b9403e3e8727e8479f76206343e4c1bb486f7158"
+    },
+    {
+      "file": "sources/family-registry.ts",
+      "original": "/Users/sebastian/Workspace/ferramenta/packages/family/src/family.ts",
+      "sha256": "bdee762cd6ee562e9b24f738fd0c63eafb938271b1db68f360bf7736034e7c57"
+    }
+  ]
+}
