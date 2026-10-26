@@ -1,0 +1,14 @@
+{
+  "name": "ferromark-docs-reference",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ardo dev",
+    "build": "ardo build",
+    "preview": "ardo preview"
+  },
+  "dependencies": {
+    "ardo": "^6.0.0",
+    "ferramenta-family": "file:../../packages/family"
+  }
+}

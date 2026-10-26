@@ -1,0 +1,109 @@
+/* Ardo is an adapter here; the shared package only knows React and Ferra roles. */
+.ferra-tokens.ferromark-theme,
+.ferromark-docs {
+  --ardo-color-brand: var(--ferra-accent);
+  --ardo-color-brandInk: var(--ferra-accent);
+  --ardo-color-ring: var(--ferra-accent);
+  --ardo-color-bg: var(--ferra-background);
+  --ardo-color-bgSoft: var(--ferra-surface);
+  --ardo-color-bgMute: var(--ferra-surface);
+  --ardo-color-text: var(--ferra-text);
+  --ardo-color-textLight: var(--ferra-text-secondary);
+  --ardo-color-textLighter: var(--ferra-text-secondary);
+  --ardo-color-border: var(--ferra-border);
+  --ardo-color-borderLight: var(--ferra-border);
+  --ardo-color-codeBg: var(--ferra-surface);
+  --ardo-color-codeBorder: var(--ferra-border);
+  --ardo-font-family: var(--ferra-font-sans);
+  --ardo-font-familyHeading: var(--ferra-font-display);
+  --ardo-font-mono: var(--ferra-font-mono);
+  min-height: 100dvh;
+}
+.ferromark-navigation {
+  display: grid;
+  gap: var(--ferra-space-2);
+  font: 400 var(--ferra-text-small) / var(--ferra-leading-body) var(--ferra-font-sans);
+}
+.ferromark-navigation p {
+  font-weight: 600;
+}
+.ferromark-navigation a {
+  display: flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  text-decoration: none;
+}
+.ferromark-navigation a[aria-current="page"] {
+  color: var(--ferra-accent);
+  text-decoration: underline;
+}
+html {
+  scroll-padding-top: 2rem;
+}
+.ferromark-docs .ferromark-skip {
+  position: fixed;
+  z-index: 100;
+  inset-block-start: var(--ferra-space-3);
+  inset-inline-start: var(--ferra-space-4);
+  background: var(--ferra-surface);
+  padding: var(--ferra-space-3) var(--ferra-space-6);
+  transform: translateY(-200%);
+}
+.ferromark-docs .ferromark-skip:focus {
+  transform: none;
+}
+.ferromark-docs .ferromark-shell {
+  width: 100%;
+}
+.ferromark-docs .ferra-header {
+  flex-wrap: nowrap;
+  gap: var(--ferra-space-4);
+}
+.ferromark-docs .ferra-header > .ferra-nav {
+  margin-inline-start: auto;
+}
+.ferromark-docs .ferromark-search {
+  min-width: var(--ferra-target);
+  min-height: var(--ferra-target);
+}
+.ferromark-docs .ferra-docs-outline .ardo-toc {
+  position: static;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.ferromark-docs .ferra-docs-outline ul {
+  list-style: none;
+  padding: 0;
+}
+.ferromark-docs .ferra-docs-outline h3 {
+  font: 600 var(--ferra-text-small) / var(--ferra-leading-body) var(--ferra-font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.ferromark-docs .ardo-code-block {
+  border-radius: 0;
+  box-shadow: none;
+}
+.ferromark-docs .ferra-story > :where(div, figure, p) + :where(p, div, figure) {
+  margin-block-start: var(--ferra-space-6);
+}
+.ferromark-docs .ferra-story > div {
+  max-width: var(--ferra-measure);
+}
+.ferromark-docs .ferromark-continue {
+  padding-block: var(--ferra-space-16) var(--ferra-section-gap);
+}
+.ferromark-docs .ferromark-continue p {
+  margin-block-start: var(--ferra-space-6);
+  max-width: var(--ferra-measure);
+}
+@media (max-width: 64rem) {
+  .ferromark-docs .ferra-header > .ferra-nav {
+    display: none;
+  }
+  .ferromark-docs .ferra-header-actions {
+    margin-inline-start: auto;
+  }
+}

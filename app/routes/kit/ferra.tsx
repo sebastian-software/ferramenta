@@ -6,6 +6,7 @@ import {
   FerraBars,
   FerraCode,
   FerraColumns,
+  FerraDocsLayout,
   FerraEngineCatalog,
   FerraFooter,
   FerraHeader,
@@ -249,6 +250,42 @@ export default function FerraKit() {
             </FerraCode>
           </FerraColumns>
         </FerraSection>
+        <FerraDocsLayout
+          aria-labelledby="docs-specimen-title"
+          hero={
+            <header>
+              <h2 id="docs-specimen-title">A Ferrometro guide.</h2>
+              <p>A fictional reading page, composed with host-owned navigation and an outline.</p>
+            </header>
+          }
+          navigation={
+            <nav aria-label="Sample documentation">
+              <p>Ferrometro</p>
+              <a href="#sample-input" aria-current="page">
+                Getting started
+              </a>
+            </nav>
+          }
+          outline={
+            <nav aria-label="Sample page outline">
+              <p>On this page</p>
+              <a href="#sample-input-title">Choose an input.</a>
+            </nav>
+          }
+        >
+          <FerraSection
+            id="sample-input"
+            label="Documentation"
+            intro="An invented tool, showing the shared reading layout."
+            title="Choose an input."
+            surface="pewter"
+          >
+            <p>
+              The host supplies the hero, navigation and outline. The package keeps their responsive
+              arrangement and leaves the main landmark to the host.
+            </p>
+          </FerraSection>
+        </FerraDocsLayout>
         <FerraSection
           id="evidence"
           label="Evidence"

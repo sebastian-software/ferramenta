@@ -57,6 +57,7 @@ available for pages awaiting migration.
 | `FerraLogo`, `FerraMark`     | Real typeset name and rendered mark; marks at 32/48/64/128 CSS px                                                 |
 | `FerraInstrument`            | The distinct functional hero graphic for an engine or Ferramenta                                                  |
 | `FerraHero`                  | Product name, plain-language role, introduction, actions and artwork                                              |
+| `FerraDocsLayout`            | Compact reading-page hero between host-owned product navigation and outline, followed by full-width sections      |
 | `FerraSection`               | Narrow left introduction and broad main story; paper, pewter or plain surface                                     |
 | `FerraColumns`               | Two generous reading columns, stacked on narrow screens                                                           |
 | `FerraAction`                | A native link styled as a primary or secondary action                                                             |
@@ -76,6 +77,26 @@ adds information beyond nearby text. Override a hero's `art` with a meaningful
 worked example when appropriate. Do not repeat large instruments throughout the
 body. The catalog's optional `hrefFor(tool)` changes only navigation; all facts
 still come from the registry.
+
+## Documentation pages
+
+`FerraDocsLayout` composes a narrow product navigation, compact hero and outline
+above the reading sections. Supply React nodes through `navigation`, `hero` and
+`outline`, then place `FerraSection` elements in `children`. The host supplies
+named navigation landmarks, current-link state and the single main landmark;
+the layout renders an article and accepts native article props, including an
+ID for a DOM-based outline to scope its heading query. On narrow screens the
+outline moves below the hero and the product navigation is hidden: the host
+must also expose those links in its mobile navigation.
+
+`FerraHeader.actions` accepts host-owned search and mobile navigation controls.
+The package has no Ardo dependency. For an executable Ardo 6 adapter, see the
+[Ferromark reference](../../examples/ferromark-docs/README.md): it combines
+`ArdoRoot.components`, `ArdoHeaderSearch`, `ArdoMobileNavigation` and a scoped
+`ArdoTOC source="dom"`. DOM outlines include Markdown and mounted component
+headings after hydration; this does not add component-title props to build-time
+search metadata. The fictional specimen at `/kit/ferra/` also uses the exported
+layout.
 
 ## Tokens and materials
 

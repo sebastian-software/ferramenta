@@ -1,0 +1,81 @@
+/* The host supplies navigation widgets; layout and reading rhythm belong to Ferra. */
+.ferra-page .ferra-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ferra-space-3);
+}
+.ferra-page .ferra-docs-header {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr) 9rem;
+  gap: var(--ferra-space-8);
+  align-items: start;
+  padding-block: var(--ferra-space-18) var(--ferra-section-gap);
+}
+.ferra-docs-header > div {
+  min-width: 0;
+}
+.ferra-docs .ferra-docs-hero .ferra-hero {
+  padding: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+}
+.ferra-docs .ferra-docs-hero h1 {
+  font-size: clamp(2.625rem, 4.8vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+.ferra-docs .ferra-docs-hero .ferra-subtitle {
+  font-size: var(--ferra-text-lead);
+  line-height: var(--ferra-leading-body);
+  letter-spacing: 0;
+}
+.ferra-docs-navigation nav,
+.ferra-docs-outline nav {
+  display: grid;
+  font-size: var(--ferra-text-small);
+  gap: var(--ferra-space-2);
+}
+.ferra-docs-navigation a,
+.ferra-docs-outline a {
+  min-height: var(--ferra-target);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.ferra-docs-navigation p,
+.ferra-docs-outline p {
+  font-weight: 600;
+  margin-block-end: var(--ferra-space-3);
+}
+.ferra-docs-navigation a[aria-current="page"],
+.ferra-docs-outline a[aria-current="location"] {
+  color: var(--ferra-accent);
+  text-decoration: underline;
+}
+.ferra-docs :where(h2, h3, h4, section[id]) {
+  scroll-margin-block-start: var(--ferra-space-8);
+}
+@media (max-width: 65.625rem) {
+  .ferra-page .ferra-docs-header {
+    grid-template-columns: 8rem minmax(0, 1fr);
+  }
+  .ferra-docs-header .ferra-docs-outline {
+    grid-column: 2;
+  }
+}
+@media (max-width: 47.5rem) {
+  .ferra-page .ferra-docs-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ferra-docs-header .ferra-docs-navigation {
+    display: none;
+  }
+  .ferra-docs .ferra-docs-hero .ferra-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ferra-docs .ferra-docs-hero .ferra-hero-art {
+    max-width: 25rem;
+  }
+  .ferra-docs-header .ferra-docs-outline {
+    grid-column: 1;
+  }
+}

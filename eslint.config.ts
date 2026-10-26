@@ -6,7 +6,7 @@ const config = await getEslintConfig({ react: true, node: true, oxlint: true });
 config.unshift({
   ignores: [
     "**/dist/**",
-    "build/**",
+    "**/build/**",
     ".react-router/**",
     "coverage/**",
     "node_modules/**",
@@ -29,7 +29,7 @@ config.push(
     // The page is one long, flat composition of the design system's sections
     // (DESIGN.md); splitting it into helper components to satisfy a line budget
     // would hide the document structure the comp is reviewed against.
-    files: ["app/**/*.tsx"],
+    files: ["app/**/*.tsx", "examples/*/app/**/*.tsx"],
     rules: {
       complexity: "off",
       "max-lines": "off",

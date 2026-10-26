@@ -1,0 +1,116 @@
+---
+title: Start with Rust
+description: Render your first document, then choose the API your pipeline needs.
+---
+
+export const handle = { layout: "bare", chrome: false };
+
+<FerraSection id="install" label="01 / Install" intro="Add the Markdown renderer to your Rust project." title="Install Ferromark.">
+
+```sh
+cargo add ferromark
+```
+
+Ferromark renders Markdown as HTML. Start with one document, then choose options
+and output hooks as your application grows.
+
+</FerraSection>
+
+<FerraSection id="first-document" label="02 / Render" intro="A string in. HTML out." title="Render your first document." surface="pewter">
+
+```rust title="src/main.rs"
+fn main() -> Result<(), ferromark::ParseError> {
+    let html = ferromark::to_html("Hello, **world**!")?;
+    println!("{html}");
+    Ok(())
+}
+```
+
+The rendered HTML is `<p>Hello, <strong>world</strong>!</p>`.
+
+<FerraSpecimen caption="Rendered output">
+
+Hello, **world**!
+
+</FerraSpecimen>
+
+</FerraSection>
+
+<FerraSection id="api" label="03 / Choose" intro="Match the API to the work your pipeline needs." title="Choose your API.">
+
+<FerraTable caption="Rust rendering APIs">
+  <thead>
+    <tr>
+      <th scope="col">Task</th>
+      <th scope="col">API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Render one document</th>
+      <td>
+        <code>to_html()</code>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Choose syntax and output policy</th>
+      <td>
+        <code>to_html_with_options()</code>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Append to an existing string</th>
+      <td>
+        <code>to_html_into()</code>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Inspect document structure</th>
+      <td>
+        <code>Allocator + Parser + HtmlRenderer</code>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Customize output</th>
+      <td>
+        <code>HtmlRenderHooks</code>
+      </td>
+    </tr>
+  </tbody>
+</FerraTable>
+
+Use the [Rust API reference](https://docs.rs/ferromark/latest/ferromark/) for
+signatures and complete examples.
+
+</FerraSection>
+
+<FerraSection id="trust" label="04 / Trust" intro="Choose an explicit policy before rendering untrusted input." title="Choose your trust policy." surface="plain">
+
+Rust preserves raw HTML by default. For untrusted Markdown, enable
+`HtmlRendererOptions::sanitize`:
+
+```rust
+use ferromark::{to_html_with_options, HtmlRendererOptions, ParserOptions};
+
+let render_options = HtmlRendererOptions {
+    sanitize: true,
+    ..Default::default()
+};
+let html = to_html_with_options("Hello, **world**!", ParserOptions::default(), render_options).unwrap();
+```
+
+The Node.js API has different defaults. Read the
+[rendering policy](https://ferromark.dev/guide/rendering/) before accepting
+untrusted input.
+
+</FerraSection>
+
+<section className="ferromark-continue ferra-wrap">
+
+## Continue
+
+Read about [rendering and metadata](https://ferromark.dev/guide/rendering/),
+check the [benchmarks](https://ferromark.dev/benchmarks/), or explore the
+[Rust API reference](https://docs.rs/ferromark/latest/ferromark/).
+
+</section>

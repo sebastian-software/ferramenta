@@ -21,6 +21,8 @@ export type FerraHeaderProps = {
     home: string;
     nav?: ReactNode;
     navLabel?: string;
+    /** Host-owned search and mobile navigation controls. */
+    actions?: ReactNode;
 };
 export type FerraFooterProps = {
     product?: FerraProduct;

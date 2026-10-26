@@ -6,7 +6,7 @@ const config = getOxlintConfig({ react: true, node: true }) as OxlintConfig;
 
 config.ignorePatterns = [
   "**/dist/**",
-  "build/**",
+  "**/build/**",
   ".react-router/**",
   "coverage/**",
   "node_modules/**",
@@ -22,7 +22,7 @@ config.overrides = [
     rules: { "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }] },
   },
   {
-    files: ["app/**/*.tsx"],
+    files: ["app/**/*.tsx", "examples/*/app/**/*.tsx"],
     rules: {
       complexity: "off",
       "max-lines": "off",
