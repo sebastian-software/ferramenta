@@ -14,6 +14,15 @@
           "jsonpath": "$.version"
         }
       ]
+    },
+    "packages/native": {
+      "release-type": "node",
+      "component": "ferramenta-native",
+      "changelog-path": "CHANGELOG.md",
+      "include-component-in-tag": true,
+      "initial-version": "0.1.0",
+      "bump-minor-pre-major": true
     }
-  }
+  },
+  "separate-pull-requests": true
 }

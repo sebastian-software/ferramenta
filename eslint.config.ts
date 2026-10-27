@@ -21,6 +21,14 @@ config.unshift({
 // Deliberate overrides on top of the org config.
 config.push(
   {
+    // Native tooling resolves only reviewed product configuration and generated target paths.
+    files: ["packages/native/**/*.mjs"],
+    rules: {
+      "security/detect-non-literal-fs-filename": "off",
+      "security/detect-non-literal-require": "off",
+    },
+  },
+  {
     // Keep the complete family and workshop registry together as its records grow.
     files: ["packages/family/src/family.ts"],
     rules: { "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }] },

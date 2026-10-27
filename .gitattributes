@@ -8,3 +8,6 @@
 
 # Preserve upstream license bytes, including whitespace covered by provenance hashes.
 **/OFL-*.txt -text -whitespace
+
+# Shared native sources are compared byte for byte on every platform.
+/packages/native/** text eol=lf

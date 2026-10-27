@@ -19,6 +19,7 @@
   "include": [
     "app/**/*",
     "packages/*/lib/**/*.mjs",
+    "packages/native/**/*.mjs",
     "packages/*/scripts/**/*.mjs",
     "packages/*/test/**/*.mjs",
     "scripts/**/*.mjs",

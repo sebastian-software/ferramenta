@@ -1,0 +1,39 @@
+{
+  "name": "ferramenta-native",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Shared native Node.js package tooling for the Ferramenta engines",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebastian-software/ferramenta.git",
+    "directory": "packages/native"
+  },
+  "files": [
+    "src",
+    "runtime",
+    "README.md",
+    "LICENSE",
+    "scripts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./targets": "./src/targets.mjs",
+    "./build": "./src/build.mjs",
+    "./packages": "./src/packages.mjs",
+    "./publish": "./src/publish.mjs",
+    "./runtime": "./runtime/native.mjs",
+    "./registry": "./src/registry.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
