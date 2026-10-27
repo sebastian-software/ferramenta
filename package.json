@@ -21,6 +21,7 @@
     "test": "node --test \"scripts/**/*.test.mjs\" \"packages/*/test/**/*.test.mjs\" && pnpm readme:check && pnpm check:markdown-links && pnpm theme:check",
     "verify:package": "node scripts/verify-package-consumers.mjs",
     "review": "node scripts/review-site.mjs",
+    "docs:ferromark": "pnpm build:package && node scripts/ferromark-docs.mjs",
     "agent:check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test",
     "stats:refresh": "node scripts/refresh-registry-stats.mjs",
     "theme:write": "node packages/family/scripts/native-theme.mjs --write",

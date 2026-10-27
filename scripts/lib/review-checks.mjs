@@ -13,7 +13,7 @@ export function sidewaysScroll() {
 
 /** Problems of the header bar: it wraps, an item leaves the gutter, is too small to tap, or two overlap. */
 export function barProblems() {
-  const bar = document.querySelector(".site-header .bar");
+  const bar = document.querySelector(".site-header .bar, .ferra-header");
   if (bar === null) return ["there is no header bar"];
   const width = document.documentElement.clientWidth;
   const phone = width < 768;
@@ -32,7 +32,10 @@ export function barProblems() {
   const overlaps = (first, second) =>
     second.box.left < first.box.right - 1 && second.box.top < first.box.bottom;
   return [
-    ...(row > 72 ? ["the header bar wraps onto a second row"] : []),
+    // Ferra deliberately wraps its navigation on small screens; the original fixed bar cannot.
+    ...(row > 72 && !bar.matches(".ferra-header")
+      ? ["the header bar wraps onto a second row"]
+      : []),
     ...items.filter((item) => outside(item.box)).map((item) => `${item.name} leaves the gutter`),
     ...items
       .filter((item) => phone && item.box.height < 44)

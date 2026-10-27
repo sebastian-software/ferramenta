@@ -74,6 +74,7 @@ export function FerraHeader({
   home,
   nav,
   navLabel = "Main",
+  actions,
 }: FerraHeaderProps) {
   return (
     <header className="ferra-header ferra-wrap">
@@ -82,6 +83,9 @@ export function FerraHeader({
         <nav className="ferra-nav" aria-label={navLabel}>
           {nav}
         </nav>
+      ) : null}
+      {actions !== undefined && actions !== null ? (
+        <div className="ferra-header-actions">{actions}</div>
       ) : null}
     </header>
   );

@@ -16,6 +16,7 @@ export {
   FerraTable,
   FerraWorkshop,
 } from "./FerraComponents.js";
+export { FerraDocsLayout, type FerraDocsLayoutProps } from "./FerraDocsLayout.js";
 export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
 export type {
   FerraActionProps,

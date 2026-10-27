@@ -17,8 +17,8 @@ export function FerraLogo({ product = "ferramenta", className, ...props }) {
 export function FerraInstrument({ product, label, className }) {
     return (_jsx("span", { className: classes("ferra-instrument", className), "data-product": product, role: label !== undefined && label.length > 0 ? "img" : undefined, "aria-label": label, "aria-hidden": label !== undefined && label.length > 0 ? undefined : true }));
 }
-export function FerraHeader({ product = "ferramenta", home, nav, navLabel = "Main", }) {
-    return (_jsxs("header", { className: "ferra-header ferra-wrap", children: [_jsx(FerraLogo, { product: product, href: home }), nav !== undefined && nav !== null ? (_jsx("nav", { className: "ferra-nav", "aria-label": navLabel, children: nav })) : null] }));
+export function FerraHeader({ product = "ferramenta", home, nav, navLabel = "Main", actions, }) {
+    return (_jsxs("header", { className: "ferra-header ferra-wrap", children: [_jsx(FerraLogo, { product: product, href: home }), nav !== undefined && nav !== null ? (_jsx("nav", { className: "ferra-nav", "aria-label": navLabel, children: nav })) : null, actions !== undefined && actions !== null ? (_jsx("div", { className: "ferra-header-actions", children: actions })) : null] }));
 }
 export function FerraFooter({ product = "ferramenta", home, children }) {
     return (_jsxs("footer", { className: "ferra-footer ferra-wrap", children: [_jsxs("div", { className: "ferra-footer-brand", children: [_jsx(FerraLogo, { product: product, href: home }), _jsx("p", { children: product === "ferramenta" ? "Rust engines from one workshop." : "Part of Ferramenta." })] }), _jsxs("nav", { className: "ferra-nav", "aria-label": "Footer", children: [_jsx("a", { href: WORKSHOP.source, children: "GitHub" }), _jsx("a", { href: WORKSHOP.imprint, children: "Imprint" }), _jsx("a", { href: WORKSHOP.privacy, children: "Privacy" }), children] })] }));

@@ -90,6 +90,45 @@ test("code remains escaped text in a keyboard-reachable scroll box", () => {
   assert.ok(!html.includes("<script>"));
 });
 
+test("documentation composition preserves host landmarks, heading IDs and navigation state", () => {
+  const html = render(ferra.FerraDocsLayout, {
+    id: "sample-article",
+    "aria-labelledby": "sample-title",
+    hero: createElement("h1", { id: "sample-title" }, "Sample guide"),
+    navigation: createElement(
+      "nav",
+      { "aria-label": "Product" },
+      createElement("a", { href: "/guide/", "aria-current": "page" }, "Guide"),
+    ),
+    outline: createElement(
+      "nav",
+      { "aria-label": "On this page" },
+      createElement("a", { href: "#input-title" }, "Choose an input"),
+    ),
+    children: createElement(
+      ferra.FerraSection,
+      {
+        id: "input",
+        label: "Input",
+        intro: "Known inputs.",
+        title: "Choose an input",
+      },
+      "Sample prose.",
+    ),
+  });
+  assert.ok(html.startsWith('<article id="sample-article" aria-labelledby="sample-title"'));
+  assert.ok(!html.includes("<main"));
+  assert.ok(html.includes('href="/guide/" aria-current="page"'));
+  assert.ok(html.includes('id="input-title"'));
+  assert.ok(html.includes('href="#input-title"'));
+  const header = render(ferra.FerraHeader, {
+    home: "/",
+    nav: createElement("a", { href: "/guide/" }, "Guide"),
+    actions: createElement("button", { type: "button" }, "Search"),
+  });
+  assert.ok(header.includes('</nav><div class="ferra-header-actions"><button'));
+});
+
 test("bars keep textual values, handle zero and reject invalid measurements", () => {
   const item = { id: "one", label: "Sample", value: 0, displayValue: "0 units" };
   const html = render(ferra.FerraBars, { caption: "Fictional sample data", items: [item] });
@@ -122,7 +161,7 @@ test("the additive entry, tokens and every CSS asset travel in the package", asy
     for (const asset of [product.mark, product.instrument, product.favicon])
       await access(new URL(`../ferra/${asset}`, import.meta.url));
   }
-  for (const name of ["ferra.css", "ferra-assets.css", "ferra-fonts.css"]) {
+  for (const name of ["ferra.css", "ferra-docs.css", "ferra-assets.css", "ferra-fonts.css"]) {
     const css = await readFile(new URL(`../styles/${name}`, import.meta.url), "utf8");
     for (const [, file] of css.matchAll(/url\("(\.\.\/[^"]+)"\)/gu))
       await access(new URL(`../styles/${file}`, import.meta.url));

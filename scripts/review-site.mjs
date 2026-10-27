@@ -33,6 +33,7 @@ const out = new URL("../.impeccable/review/", import.meta.url);
 const PAGES = [
   { name: "home", path: "/" },
   { name: "kit", path: "/kit/" },
+  { name: "ferra-kit", path: "/kit/ferra/" },
   { name: "kit-tool", path: "/kit/tool/" },
   { name: "kit-docs", path: "/kit/docs/getting-started/" },
   { name: "kit-docs-benchmarks", path: "/kit/docs/benchmarks/" },
