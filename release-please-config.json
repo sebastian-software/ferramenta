@@ -23,5 +23,6 @@
       "initial-version": "0.1.0",
       "bump-minor-pre-major": true
     }
-  }
+  },
+  "separate-pull-requests": true
 }
