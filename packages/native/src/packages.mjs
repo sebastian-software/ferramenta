@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
 import { nativePackages } from "./targets.mjs";
 
@@ -63,7 +62,10 @@ export async function verifyPlatform(config, id) {
   assert.equal(manifest.version, main.version);
   const binary = path.join(directory, target.binaryName);
   const binaryInfo = await stat(binary);
-  assert.ok(binaryInfo.size > 0, `Empty addon: ${binary}`);
+  assert.ok(
+    binaryInfo.isFile() && binaryInfo.size > (config.minimumBinarySize ?? 0),
+    `Empty or unexpectedly small addon: ${binary}`,
+  );
   for (const filename of config.licenses) await stat(path.join(directory, filename));
   if (target.libc === "glibc" && process.platform === "linux") verifyGlibc(binary);
   return { name: target.packageName, version: main.version, path: directory };
@@ -111,20 +113,4 @@ export async function releasePackages(config) {
     })),
     { name: main.name, version: main.version, path: config.packageDir },
   ];
-}
-
-export async function generateReleaseHelpers(workspace, { check = false } = {}) {
-  const root = workspace instanceof URL ? fileURLToPath(workspace) : workspace;
-  const source = await readFile(new URL("registry.mjs", import.meta.url), "utf8");
-  const filename = path.join(root, "scripts/native-registry.mjs");
-  if (check)
-    assert.equal(
-      await readFile(filename, "utf8"),
-      source,
-      `Regenerate ${filename} with ferramenta-native`,
-    );
-  else {
-    await mkdir(path.dirname(filename), { recursive: true });
-    await writeFile(filename, source);
-  }
 }

@@ -1,34 +1,12 @@
 # ferramenta-native
 
-Shared native Node.js packaging for the Ferramenta engines. The package owns
-platform metadata, a generated standalone loader, the napi-rs build driver,
-platform manifests, glibc checks, packed-consumer checks, and source-pinned npm
-publication recovery. It has no React or engine dependency.
-
-Each product supplies `native-npm.config.mjs`: its package paths, existing npm
-names, binary filename pattern, licenses, and workspace dependency policy.
-`generatePackages` and `generateRuntime` write the reviewed consumer artifacts;
-`--check` callers compare them byte for byte. The generated runtime travels with
-the product, so end users do not install this development dependency.
-
-`runBuild` uses one `pnpm exec napi build` path with locked Cargo dependencies.
-GNU Linux uses napi-rs's glibc 2.17 toolchain; musl uses cargo-zigbuild. Products
-prepare their own assets before the build and may supply a trained PGO environment.
-`stageAddon` associates the output with a supported target and copies its types
-and license files. Diagnostic builds use isolated directories.
-
-`verifyPackedConsumer` installs the actual main/platform tarballs into a scratch
-project with install scripts disabled, runs a product smoke probe, then removes
-the binary and proves that loading fails. `createNpmPublisher` reuses an existing
-version only when npm provenance identifies the configured repository, workflow,
-release commit, and tarball digest. Each product retains its release gate and
-OIDC permissions; this package does not publish on installation.
+Shared native Node.js build and release tooling for the Ferramenta engines.
+Products provide `native-npm.config.mjs`; this private development package owns
+the implementation. It has no engine, website, or install-time dependency.
 
 ## Install and update
 
-This is a private development package installed directly from Git. It has no
-registry release cycle. Add it to the product's Node workspace (or its pnpm
-catalog) with a full Ferramenta commit SHA:
+Install the ready-to-run package through a full Ferramenta Git commit:
 
 ```json
 {
@@ -38,43 +16,86 @@ catalog) with a full Ferramenta commit SHA:
 }
 ```
 
-Run `pnpm install` and commit the manifest and lockfile. A normal or frozen
-installation fetches the helper sources automatically; contributors need no
-submodule, sibling checkout, build approval or release credentials. This package
-has no dependencies or install hooks and does not build the Ferramenta website.
-To adopt a fix, change the commit SHA and regenerate the lockfile. The generated
-runtime and platform files are still reviewed in each product's pull request.
+Commit the manifest and pnpm lockfile. Contributors run their normal frozen
+install; no submodule, sibling checkout, toolkit release, or build approval is
+needed. Scripts and Actions come from that one dependency pin. The historical
+`0.1.0` npm release is no longer used by these consumers.
 
-The previously published `0.1.0` npm archive remains historical. Current Git
-consumers do not use it, and this package has no Release Please component or npm
-publish job. Product packages retain their independent registry releases.
+## Product configuration
 
-## Shared CI build
+The configuration names the facade and platform directories, existing npm names,
+binary filenames, licenses and dependency policy. Its optional sections declare:
 
-After installing Node workspace dependencies, call the composite action from
-the same Git package:
+- `pack`: required, allowed and forbidden files, plus the unpacked-size budget and optional `platformRequired` files.
+- `consumer`: a native smoke probe, installed-package tests and product assertions.
+- `release`: repository, tag prefix, Cargo version files, exact dependency pins,
+  required CI jobs, additional npm packages and product asset checks.
+
+Product probes assert APIs, grammars, Vite behavior or rendering output. The
+shared harness owns temporary directories, packing, installation, subprocesses,
+cleanup and the missing-binary control. Generated runtime copies ship with the
+facade so end users never install this tooling package.
+
+## Commands
+
+Run from the product's Node workspace. Each command reads
+`native-npm.config.mjs`; `--config` selects another reviewed configuration.
+
+| Command                                                     | Contract                                                                                                             |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `ferramenta-native generate [--check]`                      | Generate or check platform manifests and the standalone runtime                                                      |
+| `ferramenta-native matrix`                                  | Emit the shared build matrix with product additions                                                                  |
+| `ferramenta-native platform <id>`                           | Check version, binary, licenses and the glibc floor                                                                  |
+| `ferramenta-native pack [--all-targets]`                    | Pack with pnpm and inspect the actual archives and content budgets                                                   |
+| `ferramenta-native consumer [--directory artifacts]`        | Install real facade/sidecar archives offline, run product probes, then remove the binary and require loading to fail |
+| `ferramenta-native metadata [--metadata-only --tag v1.2.3]` | Validate configured Cargo/npm versions and dependency pins                                                           |
+| `ferramenta-native stage <id>`                              | Bind a native artifact to its checked-out commit and SHA-256 digest                                                  |
+| `ferramenta-native restore`                                 | Validate the complete artifact set before promoting any binary                                                       |
+| `ferramenta-native source resolve\|verify\|ci`              | Resolve tags and require successful push/main CI for the exact source commit                                         |
+| `ferramenta-native publish --directory artifacts`           | Publish the validated archives in sidecar, facade, then adapter order                                                |
+| `ferramenta-native verify-public`                           | Observe versions, provenance and dist-tags, verify source attestations, and exercise public installations            |
+
+Release commands use `NATIVE_SOURCE_SHA`, `NATIVE_RELEASE_TAG` and the GitHub
+workflow environment. Publishing requires an explicit command with npm OIDC
+permissions; installation never publishes anything. Registry observation allows
+propagation delays, checks packages concurrently, and reports a failed publisher
+once. Public install failures retain bounded, credential-redacted diagnostics.
+
+New publication recovery accepts existing versions only when their npm
+provenance matches the repository, workflow, release commit and tarball digest.
+A configured version cutoff preserves Ferromark's older main-dispatched retry
+contract; it cannot enable that weaker historical path for subsequent releases.
+New retries dispatch from the exact release tag to bind npm provenance to it.
+
+## Shared Actions
+
+After the initial checkout and pnpm/Node setup, install workspace dependencies
+and use the package-local Actions:
 
 ```yaml
-- name: Build native addon
-  uses: ./node/node_modules/ferramenta-native/actions/build-native
+- uses: ./node/node_modules/ferramenta-native/actions/build-native
   with:
     target: ${{ matrix.target }}
     libc: ${{ matrix.libc }}
-  env:
-    EXAMPLE_RUST_TARGET: ${{ matrix.target }}
+    platform-id: ${{ matrix.id }}
+    source-sha: ${{ github.sha }}
+    test-command: ${{ matrix.native && 'pnpm test' || '' }}
 ```
 
-The action sets up Rust, the target, and Zig/cargo-zigbuild for musl, then runs
-the product's `pnpm build:native` command. The caller can select the Rust
-toolchain and extra components, workspace path, and build command. Asset
-preparation, PGO training, platform checks, functional tests, artifacts and
-release permissions remain explicit in the product. For Ferromark, pass
-`rust-components: llvm-tools` and retain `FERROMARK_PGO` from its native matrix.
+`build-native` sets Rust and Zig/cargo-zigbuild, builds and verifies the addon,
+runs configured product tests, and uploads a source/digest receipt when given a
+source SHA. PGO remains opt-in through the product build environment; callers
+can request `llvm-tools` and retain target-specific training exclusions.
 
-GitHub must read the product's workflow before dependencies are installed, so
-runner selection and the initial checkout/pnpm/Node setup remain in that
-workflow. Shared actions and JavaScript use one Git pin from the dependency;
-there is no separately versioned reusable workflow. Historical release retries
-can retain their original setup when the release predates this dependency.
+`release-native` downloads the complete artifact set, verifies all receipts,
+runs product preparation, validates metadata, packs all packages, exercises the
+host and Alpine musl archives, and optionally publishes and verifies npm. Its
+`publish` input defaults to `false`, so CI rehearses the same path without
+registry writes. `prepare-command` handles product assets and adapter checks.
+
+Workflows retain job dependencies, runner selection, initial tool setup,
+permissions and release approval policy. Historical retries load tooling and
+configuration from the immutable workflow checkout and rebase package paths to
+the immutable release source. There is no separately versioned reusable workflow.
 
 Run `node --test packages/native/test/*.test.mjs` from the Ferramenta root.
