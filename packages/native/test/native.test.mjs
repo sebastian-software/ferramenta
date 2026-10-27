@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -7,6 +8,7 @@ import { pathToFileURL } from "node:url";
 
 import { createNativeLoader, linuxLibc, nativeTarget } from "../runtime/native.mjs";
 import {
+  archiveManifest,
   buildArguments,
   generatePackages,
   generateReleaseHelpers,
@@ -17,6 +19,26 @@ import {
   runBuild,
   targetForTriple,
 } from "../src/index.mjs";
+
+test("packed metadata is read from an absolute archive path, including drive prefixes", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "native packed metadata "));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const directory = path.join(root, "package");
+  await mkdir(directory);
+  const manifest = { name: "@example/core", version: "1.0.0" };
+  const filename = path.join(root, "package.tgz");
+  const pack = () =>
+    execFileSync("tar", ["-czf", "package.tgz", "package/package.json"], { cwd: root });
+  await writeFile(path.join(directory, "package.json"), JSON.stringify(manifest));
+  pack();
+  assert.deepEqual(archiveManifest(filename), manifest);
+  await writeFile(
+    path.join(directory, "package.json"),
+    JSON.stringify({ ...manifest, optionalDependencies: { "@example/native": "workspace:*" } }),
+  );
+  pack();
+  assert.throws(() => archiveManifest(filename), /Unresolved dependency protocol/);
+});
 
 test("all supported targets have one unambiguous Rust, npm, and runtime identity", () => {
   assert.equal(NATIVE_TARGETS.length, 7);
