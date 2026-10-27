@@ -84,7 +84,10 @@ export function verifyGlibc(filename) {
 }
 
 export function archiveManifest(filename) {
-  const result = spawnSync("tar", ["-xOzf", filename, "package/package.json"], {
+  // GNU tar treats a Windows drive prefix as a remote host. Keep the archive
+  // argument local by selecting its directory separately.
+  const result = spawnSync("tar", ["-xOzf", path.basename(filename), "package/package.json"], {
+    cwd: path.dirname(filename),
     encoding: "utf8",
   });
   if (result.error) throw result.error;
