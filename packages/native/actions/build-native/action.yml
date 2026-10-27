@@ -1,0 +1,50 @@
+name: Build native npm addon
+description: Set up the shared Rust and libc toolchains and build an engine's native addon.
+
+inputs:
+  target:
+    description: Rust target triple from the shared native matrix.
+    required: true
+  libc:
+    description: Set to musl to install Zig and cargo-zigbuild.
+    default: ""
+  rust-toolchain:
+    description: Rust toolchain selected by the product.
+    default: stable
+  rust-components:
+    description: Additional Rust components, such as llvm-tools for PGO.
+    default: ""
+  working-directory:
+    description: Node workspace relative to the repository root.
+    default: node
+  command:
+    description: Product build command, including its asset preparation and PGO training.
+    default: pnpm build:native
+
+runs:
+  using: composite
+  steps:
+    - name: Set Rust target
+      uses: dtolnay/rust-toolchain@2c7215f132e9ebf062739d9130488b56d53c060c # master
+      with:
+        toolchain: ${{ inputs.rust-toolchain }}
+        targets: ${{ inputs.target }}
+        components: ${{ inputs.rust-components }}
+    - name: Set up Zig for musl
+      if: inputs.libc == 'musl'
+      uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2
+      with:
+        version: 0.15.2
+    - name: Install cargo-zigbuild
+      if: inputs.libc == 'musl'
+      uses: taiki-e/install-action@e67fa11c4b9316fa714ddf0abed07a0c3143b95b # v2
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        tool: cargo-zigbuild
+    - name: Build native addon
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_BUILD_COMMAND: ${{ inputs.command }}
+      run: bash -e -o pipefail -c "$NATIVE_BUILD_COMMAND"

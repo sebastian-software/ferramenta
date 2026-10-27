@@ -24,19 +24,57 @@ version only when npm provenance identifies the configured repository, workflow,
 release commit, and tarball digest. Each product retains its release gate and
 OIDC permissions; this package does not publish on installation.
 
-## Initial rollout
+## Install and update
 
-Version 0.1.0 is not published yet. Consumers carry the identical packed toolkit
-as `node/vendor/ferramenta-native-0.1.0-<digest>.tgz`, pinned by their package-manager
-lockfiles. This bootstraps independently installable review branches without
-paths to another repository or a nonexistent registry version. After publishing
-0.1.0 from the Ferramenta release tag, replace the file specifier with the exact
-registry version and regenerate each lockfile; remove its bootstrap archive.
+This is a private development package installed directly from Git. It has no
+registry release cycle. Add it to the product's Node workspace (or its pnpm
+catalog) with a full Ferramenta commit SHA:
+
+```json
+{
+  "devDependencies": {
+    "ferramenta-native": "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/native"
+  }
+}
+```
+
+Run `pnpm install` and commit the manifest and lockfile. A normal or frozen
+installation fetches the helper sources automatically; contributors need no
+submodule, sibling checkout, build approval or release credentials. This package
+has no dependencies or install hooks and does not build the Ferramenta website.
+To adopt a fix, change the commit SHA and regenerate the lockfile. The generated
+runtime and platform files are still reviewed in each product's pull request.
+
+The previously published `0.1.0` npm archive remains historical. Current Git
+consumers do not use it, and this package has no Release Please component or npm
+publish job. Product packages retain their independent registry releases.
+
+## Shared CI build
+
+After installing Node workspace dependencies, call the composite action from
+the same Git package:
+
+```yaml
+- name: Build native addon
+  uses: ./node/node_modules/ferramenta-native/actions/build-native
+  with:
+    target: ${{ matrix.target }}
+    libc: ${{ matrix.libc }}
+  env:
+    EXAMPLE_RUST_TARGET: ${{ matrix.target }}
+```
+
+The action sets up Rust, the target, and Zig/cargo-zigbuild for musl, then runs
+the product's `pnpm build:native` command. The caller can select the Rust
+toolchain and extra components, workspace path, and build command. Asset
+preparation, PGO training, platform checks, functional tests, artifacts and
+release permissions remain explicit in the product. For Ferromark, pass
+`rust-components: llvm-tools` and retain `FERROMARK_PGO` from its native matrix.
+
+GitHub must read the product's workflow before dependencies are installed, so
+runner selection and the initial checkout/pnpm/Node setup remain in that
+workflow. Shared actions and JavaScript use one Git pin from the dependency;
+there is no separately versioned reusable workflow. Historical release retries
+can retain their original setup when the release predates this dependency.
 
 Run `node --test packages/native/test/*.test.mjs` from the Ferramenta root.
-
-The tooling has its own Release Please component and `ferramenta-native-v` tags.
-Bootstrap the npm package and its Trusted Publisher for this repository's
-`publish.yml` / `npm-release` environment before setting
-`NATIVE_NPM_PUBLISH_ENABLED=true`. The initial packed development dependencies
-are retained until their exact toolkit version exists in the registry.
