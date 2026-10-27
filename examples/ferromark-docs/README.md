@@ -7,7 +7,7 @@ Ardo versions. This reference is excluded from the production build and marked
 `noindex`.
 
 Until Ardo 6 is published, point the runner at a built Ardo checkout containing
-the composition APIs (Ardo PR #417):
+the composition APIs, MDX projection fixes and current JSX theme APIs:
 
 ```sh
 ARDO_PACKAGE=/absolute/path/to/ardo/packages/ardo pnpm docs:ferromark dev
@@ -20,6 +20,15 @@ the example's ignored `node_modules` and links the supplied Ardo package without
 changing that checkout. It refuses to replace an existing different Ardo install.
 After Ardo 6 is published, installing this isolated project's dependencies also
 supports its ordinary `dev`, `build` and `preview` scripts.
+
+The production checks use Ardo 4 and do not install this isolated project's
+unreleased dependencies. After preparing the reference with the runner, check
+its TypeScript and type-aware lint separately from the repository root:
+
+```sh
+pnpm exec tsc --noEmit -p examples/ferromark-docs/tsconfig.json
+pnpm exec eslint --no-ignore examples/ferromark-docs/app/root.tsx examples/ferromark-docs/ardo.config.ts --max-warnings=0
+```
 
 The Markdown route supplies prose and worked examples. `ArdoRoot.components`
 adds family components to the default set and replaces only the article wrapper.
@@ -34,15 +43,9 @@ and mobile navigation. The package owns the reading layout and responsive
 rhythm, with no Ardo dependency. Links to the remaining Ferromark documentation
 use the live site; they are not empty local stubs.
 
-Known Ardo integration gap: an internal Markdown link inside JSX, such as
-`<section>…[Start](/rust/getting-started/)…</section>`, currently breaks the
-`llms-full.txt` build. Ardo rewrites the destination with angle brackets, which
-the subsequent MDX projection rejects. The reference index uses a native `<a>`
-for that link. External Markdown links and the page's DOM outline work normally.
-
-The built-in search finds Markdown prose, but its excerpts still include MDX
-component tags, props and `export const handle`. Searching for `sanitize`
-demonstrates this on the starting page. This needs an Ardo search-index fix
-before production adoption; DOM heading discovery does not change the
-build-time search projection. Neither gap is patched through private Ardo APIs
-in this reference.
+The initial integration exposed two upstream bugs, now fixed in Ardo:
+[internal Markdown links inside JSX broke LLM exports](https://github.com/sebastian-software/ardo/issues/421),
+and [search excerpts included MDX syntax](https://github.com/sebastian-software/ardo/issues/422).
+The index uses an ordinary Markdown link again. Use a checkout containing those
+fixes when validating the reference; neither behavior is patched through private
+Ardo APIs here. The HTML shell uses the current `colorScheme` and `icon` props.

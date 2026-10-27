@@ -113,9 +113,9 @@ const components = { wrapper: Article, FerraSection, FerraSpecimen, FerraTable }
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <ArdoRootLayout
-      theme="light"
+      colorScheme="light"
       className="ferra-tokens ferromark-theme"
-      favicon={favicon}
+      icon={favicon}
       iconBasePath={false}
     >
       <meta name="robots" content="noindex, nofollow" />
