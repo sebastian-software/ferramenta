@@ -80,7 +80,11 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
-  packages/native: {}
+  packages/native:
+    dependencies:
+      cross-spawn:
+        specifier: 7.0.6
+        version: 7.0.6
 
 packages:
 

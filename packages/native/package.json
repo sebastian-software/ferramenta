@@ -39,6 +39,9 @@
   "scripts": {
     "test": "node --test test/*.test.mjs"
   },
+  "dependencies": {
+    "cross-spawn": "7.0.6"
+  },
   "engines": {
     "node": ">=22.13.0"
   }

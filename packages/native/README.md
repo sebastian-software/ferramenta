@@ -2,7 +2,9 @@
 
 Shared native Node.js build and release tooling for the Ferramenta engines.
 Products provide `native-npm.config.mjs`; this private development package owns
-the implementation. It has no engine, website, or install-time dependency.
+the implementation. It has no engine or website dependency and requires no install-time build.
+`cross-spawn` owns Windows command-shim argument handling, including spaces in
+archive and checkout paths.
 
 ## Install and update
 
