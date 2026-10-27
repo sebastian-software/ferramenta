@@ -1,4 +1,4 @@
-import { spawnSync } from "node:child_process";
+import crossSpawn from "cross-spawn";
 import { copyFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 
@@ -33,17 +33,12 @@ export function buildArguments(options) {
   return args;
 }
 
-export function runBuild(options, { spawn = spawnSync } = {}) {
-  const result = spawn(
-    process.platform === "win32" ? "pnpm.cmd" : "pnpm",
-    buildArguments(options),
-    {
-      cwd: options.cwd,
-      env: options.env ?? process.env,
-      shell: process.platform === "win32",
-      stdio: "inherit",
-    },
-  );
+export function runBuild(options, { spawn = crossSpawn.sync } = {}) {
+  const result = spawn("pnpm", buildArguments(options), {
+    cwd: options.cwd,
+    env: options.env ?? process.env,
+    stdio: "inherit",
+  });
   if (result.error) throw result.error;
   if (result.status !== 0) throw new Error(`Native addon build failed with exit ${result.status}`);
 }

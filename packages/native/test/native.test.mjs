@@ -11,7 +11,6 @@ import {
   archiveManifest,
   buildArguments,
   generatePackages,
-  generateReleaseHelpers,
   generateRuntime,
   NATIVE_TARGETS,
   nativeMatrix,
@@ -145,16 +144,7 @@ test("a missing addon retains lookup causes; a broken present addon cannot silen
   );
 });
 
-test("the generated release helper can run without an installed tooling dependency", async (t) => {
-  const root = await mkdtemp(path.join(tmpdir(), "native-release-helper-"));
-  t.after(() => rm(root, { recursive: true, force: true }));
-  await generateReleaseHelpers(root);
-  await generateReleaseHelpers(root, { check: true });
-  const helper = await import(pathToFileURL(path.join(root, "scripts/native-registry.mjs")).href);
-  assert.equal(
-    helper.registryVersionUrl("@example/core", "1.0.0"),
-    "https://registry.npmjs.org/%40example%2Fcore/1.0.0",
-  );
+test("the native matrix has exactly the runtime targets", () => {
   assert.deepEqual(
     nativeMatrix().include.map((target) => target.id),
     NATIVE_TARGETS.map((target) => target.id),

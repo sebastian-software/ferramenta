@@ -21,6 +21,25 @@ inputs:
     description: Product build command, including its asset preparation and PGO training.
     default: pnpm build:native
 
+  platform-id:
+    description: Platform package to verify after building.
+    default: ""
+  config:
+    description: Product configuration relative to the Node workspace.
+    default: native-npm.config.mjs
+  root-directory:
+    description: Release source checkout, relative to github.workspace.
+    default: .
+  test-command:
+    description: Product tests for a runner that can load the addon.
+    default: ""
+  source-sha:
+    description: Validated release commit; when set, upload a source-bound artifact.
+    default: ""
+  retention-days:
+    description: Native artifact retention.
+    default: "7"
+
 runs:
   using: composite
   steps:
@@ -48,3 +67,40 @@ runs:
       env:
         NATIVE_BUILD_COMMAND: ${{ inputs.command }}
       run: bash -e -o pipefail -c "$NATIVE_BUILD_COMMAND"
+    - name: Verify native platform package
+      if: inputs.platform-id != ''
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_ROOT: ${{ github.workspace }}/${{ inputs.root-directory }}
+        NATIVE_PLATFORM: ${{ inputs.platform-id }}
+      run: node "$NATIVE_TOOL" platform "$NATIVE_PLATFORM" --config "$NATIVE_CONFIG" --root "$NATIVE_ROOT"
+    - name: Run native product tests
+      if: inputs.test-command != ''
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TEST_COMMAND: ${{ inputs.test-command }}
+      run: bash -e -o pipefail -c "$NATIVE_TEST_COMMAND"
+    - name: Bind native artifact to its source and digest
+      id: artifact
+      if: inputs.source-sha != ''
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_ROOT: ${{ github.workspace }}/${{ inputs.root-directory }}
+        NATIVE_PLATFORM: ${{ inputs.platform-id }}
+        NATIVE_SOURCE_SHA: ${{ inputs.source-sha }}
+      run: node "$NATIVE_TOOL" stage "$NATIVE_PLATFORM" --config "$NATIVE_CONFIG" --root "$NATIVE_ROOT"
+    - name: Upload native artifact
+      if: inputs.source-sha != ''
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      with:
+        name: native-${{ inputs.platform-id }}
+        path: ${{ steps.artifact.outputs.directory }}
+        if-no-files-found: error
+        retention-days: ${{ inputs.retention-days }}

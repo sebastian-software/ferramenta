@@ -9,6 +9,9 @@
     "url": "https://github.com/sebastian-software/ferramenta.git",
     "directory": "packages/native"
   },
+  "bin": {
+    "ferramenta-native": "./src/cli.mjs"
+  },
   "files": [
     "src",
     "runtime",
@@ -24,10 +27,20 @@
     "./packages": "./src/packages.mjs",
     "./publish": "./src/publish.mjs",
     "./runtime": "./runtime/native.mjs",
-    "./registry": "./src/registry.mjs"
+    "./registry": "./src/registry.mjs",
+    "./pack": "./src/pack.mjs",
+    "./consumer": "./src/consumer.mjs",
+    "./publication": "./src/publication.mjs",
+    "./release": "./src/release.mjs",
+    "./release-source": "./src/release-source.mjs",
+    "./artifacts": "./src/artifacts.mjs",
+    "./cli": "./src/cli.mjs"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "cross-spawn": "7.0.6"
   },
   "engines": {
     "node": ">=22.13.0"

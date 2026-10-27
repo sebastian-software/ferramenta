@@ -22,6 +22,9 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "24"
+      # The native archive contract exercises real pnpm packing on every OS.
+      - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
+      - run: pnpm --filter ferramenta-native install --frozen-lockfile --ignore-scripts
       - run: node --test packages/native/test/*.test.mjs
 
   check:

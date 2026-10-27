@@ -14,7 +14,9 @@ engine and N-API binding but needs an independently installable npm product.
 
 Ferramenta owns `packages/native` (`ferramenta-native`) as a separate development
 package. It owns one target table, standalone runtime generation, napi-rs build
-arguments, platform manifests, packed-consumer checks and npm release recovery.
+arguments, platform manifests, archive and consumer checks, source/digest-bound
+artifacts, release metadata validation, exact-commit CI gates, npm publication
+ordering and public release verification.
 It has no dependency on the family website package or any engine.
 
 Each product keeps its public API, native binding, assets, licenses, functional
@@ -29,13 +31,17 @@ the resolved source and integrity. Updating the helper needs a Git commit and
 dependency update, not a toolkit registry release. Installation requires no
 submodule setup or build hooks; the package contains ready-to-run JavaScript.
 
-The same dependency ships a composite GitHub Action for Rust target setup, musl
-toolchains and the product's native build command. Product workflows bootstrap
+The same dependency ships composite GitHub Actions for native builds and the
+complete native npm release lifecycle. Product workflows bootstrap
 pnpm and Node before calling the installed action. There is one shared source
 pin for scripts and CI steps, with no separately versioned reusable workflow.
 Product-specific preparation, PGO training and functional tests remain in the
 engine repositories. Historical release retries may retain their setup when the
-tag predates the shared package.
+tag predates the shared package. Product configuration declares file budgets,
+required CI jobs, versioned Cargo files and optional adapter packages. Functional
+probes remain product-owned; their common execution harness is shared. A bounded
+legacy recovery policy retains existing Ferromark releases while new releases
+require source-pinned npm provenance.
 
 The toolkit has no Release Please component or npm publish job. Its initial
 `0.1.0` registry release remains historical; current consumers use Git. Product
@@ -52,3 +58,5 @@ packaging decision; this change makes no performance claim.
 
 - 2026-10-27: Use a commit-pinned pnpm Git dependency and package-local CI action
   to avoid toolkit releases and additional contributor setup.
+
+- 2026-10-27: Move package checks and the native npm CI/release lifecycle into the same Git dependency; keep product policy in configuration and preserve historical recovery.

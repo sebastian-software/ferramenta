@@ -1,0 +1,92 @@
+name: Release native npm packages
+description: Verify source-bound artifacts, pack and exercise every package, then publish and verify npm.
+inputs:
+  source-sha:
+    description: Validated release source commit.
+    required: true
+  tag:
+    description: Validated release tag.
+    default: ""
+  working-directory:
+    description: Node workspace relative to github.workspace.
+    default: node
+  config:
+    description: Product configuration relative to the Node workspace.
+    default: native-npm.config.mjs
+  prepare-command:
+    description: Product wrapper and asset preparation before packing.
+    default: ""
+  publish:
+    description: Publish only in the protected release job. False performs a rehearsal.
+    default: "false"
+  test-musl:
+    description: Exercise musl here unless a dependent CI job exercises the same archives.
+    default: "true"
+  musl-package-tests:
+    description: Run configured installed-package tests in Alpine as well as the smoke probe.
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: Set npm CLI for Trusted Publishing and dist-tag recovery
+      if: inputs.publish == 'true'
+      shell: bash
+      run: npm install --global npm@11.21.0
+    - name: Download all native artifacts
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+      with:
+        pattern: native-*
+        path: ${{ inputs.working-directory }}/native-artifacts
+    - name: Restore verified native artifacts
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_SOURCE_SHA: ${{ inputs.source-sha }}
+      run: node "$NATIVE_TOOL" restore --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE"
+    - name: Prepare product wrappers and assets
+      if: inputs.prepare-command != ''
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_PREPARE_COMMAND: ${{ inputs.prepare-command }}
+      run: bash -e -o pipefail -c "$NATIVE_PREPARE_COMMAND"
+    - name: Validate and pack the complete release
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_RELEASE_TAG: ${{ inputs.tag }}
+      run: |
+        node "$NATIVE_TOOL" metadata --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE" --tag "$NATIVE_RELEASE_TAG"
+        node "$NATIVE_TOOL" pack --all-targets --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE"
+        node "$NATIVE_TOOL" consumer --directory artifacts --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE"
+    - name: Exercise the packed musl addon in Alpine
+      if: inputs.test-musl == 'true'
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_PACKAGE_TESTS: ${{ inputs.musl-package-tests }}
+      run: |
+        args=()
+        if [ "$NATIVE_PACKAGE_TESTS" = true ]; then args+=(--package-tests); fi
+        docker run --rm --volume "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE:ro" \
+          --workdir "$PWD" node:24-alpine \
+          node "$NATIVE_TOOL" consumer --directory artifacts --target linux-x64-musl \
+          --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE" "${args[@]}"
+    - name: Publish and verify the release
+      if: inputs.publish == 'true'
+      shell: bash
+      working-directory: ${{ github.workspace }}/${{ inputs.working-directory }}
+      env:
+        NATIVE_TOOL: ${{ github.action_path }}/../../src/cli.mjs
+        NATIVE_CONFIG: ${{ inputs.config }}
+        NATIVE_SOURCE_SHA: ${{ inputs.source-sha }}
+        NATIVE_RELEASE_TAG: ${{ inputs.tag }}
+      run: |
+        node "$NATIVE_TOOL" publish --directory artifacts --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE"
+        NPM_PUBLISH_RESULT=success node "$NATIVE_TOOL" verify-public --config "$NATIVE_CONFIG" --root "$GITHUB_WORKSPACE"
