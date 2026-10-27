@@ -79,7 +79,8 @@ export async function packRelease(
   });
   const platforms = [];
   for (const entry of nativePackages(config).filter((entry) => allTargets || entry.id === target)) {
-    await verifyPlatform(config, entry.id);
+    // Host packs exercise a contributor build; the complete release must meet the ABI floor.
+    await verifyPlatform(config, entry.id, { releaseAbi: allTargets });
     const archive = packPackage(path.join(config.platformDir, entry.id), directory);
     assert.equal(archive.manifest.name, entry.packageName);
     assert.equal(archive.manifest.version, main.manifest.version);

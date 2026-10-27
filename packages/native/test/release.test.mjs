@@ -1,14 +1,23 @@
 /* eslint-disable max-lines-per-function, max-statements -- Each test keeps its complete release fixture and failure sequence together. */
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, readdir, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import {
+  copyFile,
+  mkdir,
+  mkdtemp,
+  readdir,
+  readFile,
+  rm,
+  symlink,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
-import { packPackage, verifyArchive } from "../src/pack.mjs";
+import { packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
 import { verifyNpmPublication } from "../src/publication.mjs";
 import { verifyGitHubRelease } from "../src/release-source.mjs";
 import {
@@ -176,6 +185,40 @@ test("packing inspects the actual archive, including a path with spaces and cont
   const files = await readdir(output);
   assert.equal(files.length, 1);
 });
+
+test(
+  "host packing accepts modern glibc while release packing retains the ABI floor",
+  {
+    skip: process.platform !== "linux" || !process.report.getReport().header.glibcVersionRuntime,
+  },
+  async (t) => {
+    const { config } = await fixture(t);
+    // Use a real host ELF with versioned symbols from the host libc.
+    const info = execFileSync("readelf", ["--version-info", "/usr/bin/env"], { encoding: "utf8" });
+    if (
+      ![...info.matchAll(/\bGLIBC_(\d+)\.(\d+)/g)].some(
+        ([, major, minor]) => Number(major) > 2 || (Number(major) === 2 && Number(minor) > 17),
+      )
+    ) {
+      t.skip("The host ELF already satisfies the published ABI floor");
+      return;
+    }
+    for (const target of nativePackages(config)) {
+      const directory = path.join(config.platformDir, target.id);
+      await writeFile(path.join(directory, "LICENSE"), "license fixture");
+      if (target.libc === "glibc")
+        await copyFile("/usr/bin/env", path.join(directory, target.binaryName));
+    }
+    const target = `linux-${process.arch}-gnu`;
+    const output = path.join(config.rootDir, "host archives");
+    const packed = await packRelease(config, { directory: output, target });
+    assert.equal(packed.platforms.length, 1);
+    await assert.rejects(
+      packRelease(config, { directory: output, allTargets: true }),
+      /requires glibc newer than 2.17/,
+    );
+  },
+);
 
 test("a release must be published on GitHub in the channel its tag declares", () => {
   verifyGitHubRelease(
