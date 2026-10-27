@@ -1,10 +1,11 @@
 /* eslint-disable max-lines-per-function, max-statements -- Each test keeps its complete release fixture and failure sequence together. */
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readdir, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
 import { packPackage, verifyArchive } from "../src/pack.mjs";
@@ -78,6 +79,40 @@ async function fixture(t) {
   ]);
   return { config, sourceSha: git(["rev-parse", "HEAD"]), git };
 }
+
+test("the CLI stages receipts and GitHub outputs through a PNPM-style directory link", async (t) => {
+  const { config, sourceSha } = await fixture(t);
+  const source = fileURLToPath(new URL("../src", import.meta.url));
+  const linked = path.join(config.rootDir, "linked sdk");
+  await symlink(source, linked, "junction");
+  const filename = path.join(config.rootDir, "config.mjs");
+  await writeFile(filename, `export default ${JSON.stringify(config)};`);
+  const output = path.join(config.rootDir, "github-output");
+  const target = nativePackages(config)[0];
+  const directory = path.join(config.rootDir, "staged");
+  execFileSync(
+    process.execPath,
+    [
+      path.join(linked, "cli.mjs"),
+      "stage",
+      target.id,
+      "--config",
+      filename,
+      "--directory",
+      directory,
+    ],
+    {
+      env: { ...process.env, NATIVE_SOURCE_SHA: sourceSha, GITHUB_OUTPUT: output },
+      encoding: "utf8",
+    },
+  );
+  const artifact = path.join(directory, `native-${target.id}`);
+  assert.equal(await readFile(output, "utf8"), `directory=${artifact}\n`);
+  assert.equal(
+    JSON.parse(await readFile(path.join(artifact, "source.json"), "utf8")).sourceSha,
+    sourceSha,
+  );
+});
 
 test("native artifacts reject foreign sources and tampering before promoting any binary", async (t) => {
   const { config, sourceSha } = await fixture(t);

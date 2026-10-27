@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable max-lines-per-function, max-statements, complexity, sonarjs/cognitive-complexity -- CLI dispatch keeps each checked command visible in one place. */
 import assert from "node:assert/strict";
+import { realpathSync } from "node:fs";
 import { appendFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -130,7 +131,7 @@ export async function runNativeCommand(configuration, argv) {
   }
 }
 
-if (process.argv[1] === import.meta.filename) {
+if (process.argv[1] && realpathSync(process.argv[1]) === import.meta.filename) {
   try {
     const { values } = parseArgs({
       strict: false,
