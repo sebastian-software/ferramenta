@@ -5,6 +5,7 @@ import {
   FerraAction,
   FerraApplications,
   FerraBars,
+  FerraBenchmarkTable,
   FerraCode,
   FerraColumns,
   FerraDocsLayout,
@@ -316,7 +317,7 @@ export default function FerraKit() {
             These are fictional measurements for the invented sample tool Ferrometro. They
             demonstrate the components and make no claim about any engine.
           </p>
-          <FerraTable caption="Illustrative time per document; lower is faster">
+          <FerraBenchmarkTable caption="Illustrative time per document; lower is faster">
             <thead>
               <tr>
                 <th scope="col">Workload</th>
@@ -339,7 +340,7 @@ export default function FerraKit() {
                 <td>Warm run, one document</td>
               </tr>
             </tbody>
-          </FerraTable>
+          </FerraBenchmarkTable>
           <FerraBars
             caption="Illustrative throughput, relative units; higher is faster"
             items={[

@@ -1,3 +1,4 @@
+export { FerraBenchmarkTable } from "./FerraBenchmarkTable.js";
 export { FerraApplications, FerraEngineCatalog } from "./FerraCatalog.js";
 export { FerraAction, FerraBars, FerraCode, FerraColumns, FerraFooter, FerraHeader, FerraHero, FerraInstrument, FerraLogo, FerraMark, FerraPage, FerraSection, FerraSpecimen, FerraTable, FerraWorkshop, } from "./FerraComponents.js";
 export { FerraContents, type FerraContentsItem, type FerraContentsProps } from "./FerraContents.js";

@@ -1,3 +1,4 @@
+export { FerraBenchmarkTable } from "./FerraBenchmarkTable.js";
 export { FerraApplications, FerraEngineCatalog } from "./FerraCatalog.js";
 export {
   FerraAction,
