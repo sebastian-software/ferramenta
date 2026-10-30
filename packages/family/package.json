@@ -51,6 +51,7 @@
       "default": "./dist/ferra.js"
     },
     "./ferra.css": "./styles/ferra.css",
+    "./ferra-ardo.css": "./styles/ferra-ardo.css",
     "./ferra-tokens.css": "./styles/ferra-tokens.css",
     "./ferra-fonts.css": "./styles/ferra-fonts.css",
     "./ferra-assets/*": "./ferra/*"

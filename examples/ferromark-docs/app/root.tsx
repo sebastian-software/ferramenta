@@ -2,11 +2,11 @@ import { type ReactNode, useState } from "ardo/react";
 import { useArdoPageData, useArdoPath } from "ardo/runtime";
 import { ArdoHeaderSearch, ArdoMobileNavigation, ArdoRoot, ArdoRootLayout, ArdoTOC } from "ardo/ui";
 import {
-  FerraDocsLayout,
   FerraFooter,
+  FerraGuideNavigation,
   FerraHeader,
-  FerraHero,
   FerraPage,
+  FerraReadingLayout,
   FerraSection,
   FerraSpecimen,
   FerraTable,
@@ -14,8 +14,7 @@ import {
 import favicon from "ferramenta-family/ferra-assets/ferromark/favicon.ico?url";
 import { family, toolHref } from "ferramenta-family/registry";
 import "ferramenta-family/ferra.css";
-
-import "./style.css";
+import "ferramenta-family/ferra-ardo.css";
 
 const product = family.find((tool) => tool.name === "ferromark");
 if (product === undefined) throw new Error("Ferromark is missing from the family registry.");
@@ -48,10 +47,10 @@ function ProductLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 function ProductNavigation({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <nav className="ferromark-navigation" aria-label="Product pages">
+    <FerraGuideNavigation aria-label="Product pages">
       <p>Ferromark</p>
       <ProductLinks onNavigate={onNavigate} />
-    </nav>
+    </FerraGuideNavigation>
   );
 }
 
@@ -79,7 +78,6 @@ function Header() {
             />
           </ArdoMobileNavigation>
           <ArdoHeaderSearch
-            className="ferromark-search"
             variant="icon"
             onActivate={() => {
               setOpen(false);
@@ -94,16 +92,17 @@ function Header() {
 function Article({ children }: { children: ReactNode }) {
   const page = useArdoPageData();
   return (
-    <FerraDocsLayout
+    <FerraReadingLayout
       id="ferromark-article"
       navigation={<ProductNavigation />}
       outline={<ArdoTOC source="dom" scope="#ferromark-article" />}
-      hero={
-        <FerraHero product="ferromark" title={page?.title} what={page?.frontmatter.description} />
-      }
     >
+      <header>
+        <p>Ferromark / Guide</p>
+        <h1>{page?.title}</h1>
+      </header>
       {children}
-    </FerraDocsLayout>
+    </FerraReadingLayout>
   );
 }
 
@@ -114,7 +113,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <ArdoRootLayout
       colorScheme="light"
-      className="ferra-tokens ferromark-theme"
+      className="ferra-tokens ferra-ardo"
       icon={favicon}
       iconBasePath={false}
     >
@@ -126,16 +125,12 @@ export function Layout({ children }: { children: ReactNode }) {
 
 export default function Root() {
   return (
-    <FerraPage className="ferromark-docs">
-      <a className="ferromark-skip" href="#main-content">
-        Skip to content
-      </a>
-      <Header />
+    <FerraPage className="ferra-site">
       <ArdoRoot
-        header={false}
+        header={<Header />}
         sidebar={false}
         footer={false}
-        className="ferromark-shell"
+        className="ferra-ardo-shell"
         scrollMode="document"
         components={components}
       />

@@ -26,8 +26,7 @@ import { WORKSHOP } from "ferramenta-family/registry";
 import { isSampleDocsPath, isSamplePath, SAMPLE, SAMPLE_DOCS } from "./kit/sample";
 import { SITE_DESCRIPTION } from "./site-metadata";
 import "ferramenta-family/ferra.css";
-
-import "./styles/ferra-site.css";
+import "ferramenta-family/ferra-ardo.css";
 import "ferramenta-family/tokens.css";
 import "ferramenta-family/fonts.css";
 import "ferramenta-family/theme.css";
@@ -149,7 +148,7 @@ export default function Root() {
       <FerraPage className="ferra-site">
         <MarkDefs />
         <ArdoRoot
-          className="ferra-shell"
+          className="ferra-ardo-shell"
           scrollMode="document"
           sidebar={false}
           header={

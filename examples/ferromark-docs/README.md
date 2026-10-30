@@ -1,7 +1,7 @@
 # Ferromark documentation reference
 
-An executable implementation of [the approved Rust starting-page design](../../designs/ferromark-start.html).
-It consumes `FerraDocsLayout` from the family package and Ardo's v6 composition
+An executable reference for the shared Ferra reading layout.
+It consumes `FerraReadingLayout` from the family package and Ardo's v6 composition
 APIs. The Ferramenta homepage also uses Ardo 6 and Ferra. This reference remains
 excluded from the production build and marked `noindex`.
 
@@ -31,7 +31,7 @@ pnpm exec eslint --no-ignore examples/ferromark-docs/app/root.tsx examples/ferro
 
 The Markdown route supplies prose and worked examples. `ArdoRoot.components`
 adds family components to the default set and replaces only the article wrapper.
-The wrapper supplies `FerraDocsLayout` with the hero, product navigation and
+The wrapper supplies `FerraReadingLayout` with the document, product navigation and
 `ArdoTOC source="dom"`. Its scoped outline discovers both component headings and
 the Markdown “Continue” heading. The outline is populated after hydration;
 component-title props are not build-time search metadata. Real prose remains
@@ -46,3 +46,6 @@ The initial integration exposed two upstream bugs, now fixed in Ardo:
 [internal Markdown links inside JSX broke LLM exports](https://github.com/sebastian-software/ardo/issues/421),
 and [search excerpts included MDX syntax](https://github.com/sebastian-software/ardo/issues/422).
 The index uses an ordinary Markdown link again. Both fixes ship in Ardo 6; neither behavior is patched through private Ardo APIs here. The HTML shell uses the current `colorScheme` and `icon` props.
+
+The reference has no local CSS. `ferra.css` owns the reading surface and typography;
+`ferra-ardo.css` owns framework token mapping and shell integration.

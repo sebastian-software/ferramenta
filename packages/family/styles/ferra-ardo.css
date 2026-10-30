@@ -1,0 +1,102 @@
+/* Ardo owns routing and the main landmark; Ferra owns the authored light scheme. */
+.ferra-tokens.ferra-ardo,
+.ferra-site {
+  --ardo-color-brand: var(--ferra-accent);
+  --ardo-color-brandDark: var(--ferra-accent-hover);
+  --ardo-color-brandSubtle: var(--ferra-card-footer);
+  --ardo-color-brandGradient: var(--ferra-accent);
+  --ardo-color-brandInk: var(--ferra-on-accent);
+  --ardo-color-ring: var(--ferra-accent);
+  --ardo-color-bg: var(--ferra-editorial-background);
+  --ardo-color-bgSoft: var(--ferra-card-surface);
+  --ardo-color-bgMute: var(--ferra-card-footer);
+  --ardo-color-text: var(--ferra-text);
+  --ardo-color-textLight: var(--ferra-text-secondary);
+  --ardo-color-textLighter: var(--ferra-text-secondary);
+  --ardo-color-border: var(--ferra-border);
+  --ardo-color-borderLight: var(--ferra-border);
+  --ardo-color-codeBg: var(--ferra-card-surface);
+  --ardo-color-codeBorder: var(--ferra-border);
+  --ardo-font-family: var(--ferra-font-sans);
+  --ardo-font-familyHeading: var(--ferra-font-display);
+  --ardo-font-mono: var(--ferra-font-mono);
+}
+
+.ferra-page.ferra-site {
+  --ferra-width: 100rem;
+  --ferra-gutter: clamp(1rem, 2vw, 2rem);
+  background: var(--ferra-editorial-background);
+}
+.ferra-page.ferra-site .ferra-header {
+  min-height: 5.25rem;
+  gap: var(--ferra-space-6);
+}
+.ferra-page.ferra-site .ferra-brand {
+  font-size: 1.875rem;
+}
+.ferra-page.ferra-site .ferra-header > .ferra-nav {
+  margin-inline-start: auto;
+  font-size: 1rem;
+  gap: var(--ferra-space-6);
+}
+.ferra-page .ferra-ardo-shell {
+  min-height: 0;
+  background: transparent;
+}
+.ferra-page .ferra-ardo-shell > div {
+  padding-block-start: 0;
+}
+.ferra-page .ferra-ardo-shell #main-content {
+  min-width: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+.ferra-page .ferra-ardo-shell > a[href="#main-content"] {
+  background: var(--ferra-accent);
+  color: var(--ferra-on-accent);
+}
+.ferra-page .ferra-reading-outline .ardo-toc {
+  position: static;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.ferra-page .ferra-reading-outline ul {
+  list-style: none;
+  padding: 0;
+}
+.ferra-page .ferra-reading-outline h3 {
+  font: 600 var(--ferra-text-small)/1.4 var(--ferra-font-sans);
+  margin-block-end: var(--ferra-space-3);
+}
+@media (max-width: 64rem) {
+  .ferra-page.ferra-site .ferra-header > .ferra-nav {
+    display: none;
+  }
+  .ferra-page.ferra-site .ferra-header-actions {
+    margin-inline-start: auto;
+  }
+}
+@media (max-width: 30rem) {
+  .ferra-page.ferra-site .ferra-brand {
+    font-size: 1.5rem;
+    gap: var(--ferra-space-2);
+  }
+  .ferra-page.ferra-site .ferra-brand .ferra-mark {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .ferra-page.ferra-site .ferra-header {
+    gap: var(--ferra-space-2);
+  }
+  .ferra-page.ferra-site .ferra-header-actions {
+    gap: var(--ferra-space-1);
+  }
+}
+
+.ferra-ardo .ferra-prose pre {
+  margin: 0;
+  padding: var(--ferra-space-4);
+}

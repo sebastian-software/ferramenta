@@ -139,3 +139,25 @@ test("benchmark tables retain native groups, context and missing-result labels",
   assert.ok(html.includes('href="#sample-source"'));
   assert.ok(html.includes("Not measured"));
 });
+
+test("product stories attach metadata and continuous reading retains native content", () => {
+  const article = render(ferra.FerraArticle, {
+    title: "Fictional engine",
+    art: createElement("img", { src: "/sample.png", alt: "Sample" }),
+    meta: createElement("p", null, "Sample conditions"),
+    children: createElement("p", null, "Host-owned copy"),
+  });
+  assert.ok(article.indexOf("/sample.png") < article.indexOf("Fictional engine"));
+  assert.ok(article.includes('class="ferra-engine-meta"'));
+  assert.ok(article.includes('tabindex="-1"'));
+  const page = render(ferra.FerraReadingLayout, {
+    id: "sample-reading",
+    navigation: createElement("nav", { "aria-label": "Sample guide" }, "Pages"),
+    outline: createElement("nav", { "aria-label": "Sample outline" }, "Headings"),
+    children: createElement("h1", null, "Sample title"),
+  });
+  assert.ok(page.includes('id="sample-reading"'));
+  assert.ok(page.includes('class="ferra-prose"'));
+  assert.ok(!page.includes("<main"));
+  assert.ok(page.includes('aria-label="Sample guide"'));
+});

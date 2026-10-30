@@ -1,3 +1,11 @@
+export {
+  FerraArticle,
+  FerraChoices,
+  FerraFeatureGrid,
+  FerraGuideNavigation,
+  FerraMedia,
+  FerraTabs,
+} from "./FerraArticle.js";
 export { FerraBenchmarkTable } from "./FerraBenchmarkTable.js";
 export { FerraApplications, FerraEngineCatalog } from "./FerraCatalog.js";
 export {
@@ -34,7 +42,10 @@ export {
   FerraSoftCard,
   type FerraSoftCardProps,
 } from "./FerraEditorial.js";
+export { FerraExample, FerraToggle } from "./FerraExample.js";
 export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
+
+export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
 export type {
   FerraActionProps,
   FerraBar,
