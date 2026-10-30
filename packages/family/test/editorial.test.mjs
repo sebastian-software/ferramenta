@@ -114,3 +114,28 @@ test("related aspects share one named complementary card with individually linke
   }
   assert.equal((html.match(/class="ferra-note-section"/gu) ?? []).length, 2);
 });
+
+test("benchmark tables retain native groups, context and missing-result labels", () => {
+  const html = render(ferra.FerraBenchmarkTable, {
+    id: "sample-comparison",
+    caption: createElement("span", null, "Fictional latency in ms; lower is faster"),
+    children: createElement(
+      "tbody",
+      { "aria-label": "Sample platform" },
+      createElement(
+        "tr",
+        null,
+        createElement("th", { scope: "row" }, "Sample workload"),
+        createElement("td", null, createElement("a", { href: "#sample-source" }, "1.2 ms")),
+        createElement("td", null, "Not measured"),
+      ),
+    ),
+  });
+  assert.ok(html.includes('role="region"'));
+  assert.ok(html.includes('tabindex="0"'));
+  assert.ok(html.includes('id="sample-comparison"'));
+  assert.ok(html.includes('class="ferra-table ferra-benchmark-table"'));
+  assert.ok(html.includes('aria-label="Sample platform"'));
+  assert.ok(html.includes('href="#sample-source"'));
+  assert.ok(html.includes("Not measured"));
+});

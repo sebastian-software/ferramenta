@@ -213,11 +213,11 @@ export function FerraAction({
 }
 
 /** Native children preserve the consumer's column and row header relationships. */
-export function FerraTable({ caption, children }: FerraTableProps) {
+export function FerraTable({ caption, children, className, ...props }: FerraTableProps) {
   const id = useId();
   return (
     <div className="ferra-table-region" role="region" aria-labelledby={id} tabIndex={0}>
-      <table className="ferra-table">
+      <table {...props} className={classes("ferra-table", className)}>
         <caption id={id}>{caption}</caption>
         {children}
       </table>

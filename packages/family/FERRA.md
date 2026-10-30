@@ -74,6 +74,7 @@ available for pages awaiting migration.
 | `FerraCode`                  | Captioned, escaped code with keyboard-reachable horizontal scrolling                                              |
 | `FerraSpecimen`              | Captioned light reading surface for actual worked-example output                                                  |
 | `FerraTable`                 | Captioned native table in a named, focusable scroll region                                                        |
+| `FerraBenchmarkTable`        | A keyboard-scrollable comparison table retaining native row groups, platform columns, units and source links      |
 | `FerraBars`                  | Relative bars with visible values and a slot for measurement conditions                                           |
 
 Use native `thead`, `tbody`, `th` and `td` children in `FerraTable`. Keep row
@@ -287,3 +288,7 @@ The new entry is additive. Existing icons, documentation themes, Markdown frames
 and package-root components are unchanged. Import the new stylesheet once and
 adopt the new wrapper and layout on a page deliberately; loading it does not
 restyle an old page. See [ADR-0010](https://github.com/sebastian-software/ferramenta/blob/main/docs/adr/0010-ferra-design-system.md).
+
+### Benchmark comparisons
+
+`FerraBenchmarkTable` uses `FerraTable` and accepts native table attributes, a React caption and native table children. Keep platform columns, row groups, source links, units, missing-result labels and interpretation in the consuming project. A named focusable region scrolls wide comparisons without widening the page. Values are never normalized or replaced with zero by the component. The kit uses fictional measurements.

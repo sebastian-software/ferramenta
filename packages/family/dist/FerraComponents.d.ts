@@ -14,7 +14,7 @@ export declare function FerraSection({ title, label, intro, surface, children, c
 export declare function FerraColumns({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export declare function FerraAction({ variant, className, children, ...props }: FerraActionProps): import("react").JSX.Element;
 /** Native children preserve the consumer's column and row header relationships. */
-export declare function FerraTable({ caption, children }: FerraTableProps): import("react").JSX.Element;
+export declare function FerraTable({ caption, children, className, ...props }: FerraTableProps): import("react").JSX.Element;
 export declare function FerraCode({ caption, file, children }: FerraCodeProps): import("react").JSX.Element;
 /** A reading surface for the actual output of a worked example. */
 export declare function FerraSpecimen({ caption, children }: FerraTableProps): import("react").JSX.Element;

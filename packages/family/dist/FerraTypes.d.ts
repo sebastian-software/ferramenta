@@ -56,9 +56,9 @@ export type FerraEngineCatalogProps = {
     hrefFor?: (tool: (typeof family)[number]) => string;
 };
 export type FerraTableProps = {
-    caption: string;
+    caption: ReactNode;
     children: ReactNode;
-};
+} & Omit<ComponentPropsWithoutRef<"table">, "children">;
 export type FerraCodeProps = {
     caption: string;
     file?: string;

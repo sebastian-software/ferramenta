@@ -55,6 +55,14 @@
   outline: 3px solid var(--ferra-accent);
   outline-offset: 5px;
 }
+.ferra-page .icon {
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
 .ferra-page .ferra-wrap {
   width: 100%;
   max-width: var(--ferra-width);
@@ -522,4 +530,36 @@
   .ferra-page .ferra-action {
     padding-inline: var(--ferra-space-4);
   }
+}
+
+/* Native table markup retains each consumer's row groups, units and evidence links. */
+.ferra-page .ferra-benchmark-table {
+  min-width: 38rem;
+  font-variant-numeric: tabular-nums;
+}
+.ferra-page .ferra-benchmark-table :is(th, td) {
+  padding: var(--ferra-space-3) var(--ferra-space-4);
+  vertical-align: middle;
+}
+.ferra-page .ferra-benchmark-table :is(th, td):not(:first-child) {
+  text-align: end;
+}
+.ferra-page .ferra-benchmark-table th[scope="row"] {
+  min-width: 12rem;
+}
+.ferra-page .ferra-benchmark-table th[scope="rowgroup"] {
+  text-align: start;
+  background: var(--ferra-card-footer);
+  font-weight: 600;
+}
+.ferra-page .ferra-benchmark-table tfoot td {
+  text-align: start;
+  color: var(--ferra-text-secondary);
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-benchmark-table a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  color: var(--ferra-accent);
 }
