@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-10-29",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrolink",
+  "role": "Transparent rendered product mark master",
+  "meaning": "Two compact rounded-square satin-steel and oxide-copper links, threaded through one another in perpendicular planes. Separate watertight bodies, broad rounded rectangular bars, visible clearance, balanced icon mass, directional softbox reflections, and transparent apertures.",
+  "prompt": "Two compact rounded-square satin-steel and oxide-copper links, threaded through one another in perpendicular planes. Separate watertight bodies, broad rounded rectangular bars, visible clearance, balanced icon mass, directional softbox reflections, and transparent apertures.",
+  "source": "design/ferra/blender/ferrolink.py",
+  "sourceSha256": "50356fc83d8ef21542369c6f6b00291893781c16746f43db68416c249acab969",
+  "constructionSources": {
+    "design/ferra/blender/ferrolink.py": "50356fc83d8ef21542369c6f6b00291893781c16746f43db68416c249acab969",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7"
+  },
+  "scene": "design/ferra/blender/ferrolink.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Satin metals; directional softboxes; restrained metallic thin film; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "8dcd67360a800355277727212a0d2fbeec859ab70733cf8fc02e30ad772130b2",
+  "geometry": "1600x1600",
+  "geometryVerification": [
+    {
+      "bodies": ["Closed steel link", "Closed copper link"],
+      "linkingNumber": -1.000215,
+      "sampledMinimumCenterlineDistance": 0.74,
+      "minimumCenterlineDistanceBound": 0.703333,
+      "conservativeSurfaceClearance": 0.131319,
+      "intersectingTriangles": 0
+    }
+  ]
+}

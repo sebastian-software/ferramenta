@@ -12,6 +12,8 @@
 | [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [ferrolink](https://github.com/sebastian-software/ferrolink) | Links, anchors and assets checked against the finished build |
+| [ferrigura](https://github.com/sebastian-software/ferrigura) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 

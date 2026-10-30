@@ -1,6 +1,6 @@
 ---
 name: Ferramenta
-description: The family look of the Ferramenta engines — a catalog of riveted steel data plates on a light, warm ground, with dark passages in smoked oak and one rust band.
+description: Ferra is the current family homepage design; the original plate-and-oak system remains available for existing consumers.
 colors:
   iron-50: "oklch(0.955 0.007 70)"
   iron-100: "oklch(0.918 0.01 65)"
@@ -226,13 +226,31 @@ components:
 
 # Design System: Ferramenta
 
+The production homepage uses **Ferra** (ADR-0010): warm paper, occasional light
+pewter, oxide actions, IBM Plex Sans Semibold headings and system UI body text.
+Its current tokens and component rules live in
+[the Ferra guide](packages/family/FERRA.md) and `design/ferra/tokens.json`;
+[the final designs](designs/README.md) provide the visual reference.
+`/kit/ferra/` renders the exported components, including live-release catalog
+facts and applications under their original logos on a flat light surface.
+
+Ferra's ten compact marks are native Blender objects with polished steel,
+warm copper, controlled studio reflections, and shallow changes of plane.
+Their familiar motifs stay legible at 32, 48, and 64px. Editable scenes and
+reproducible construction scripts live in `design/ferra/blender/`; broad bevels
+and visible openings carry the depth instead of miniature mechanical detail.
+
+The inventory below documents the original package entry, still used by the
+original `/kit/` and its fictional sample tool and documentation. It remains a
+compatibility contract for sibling sites awaiting migration.
+
 The approved Ferra direction is available as an additive shared kit
 ([ADR-0010](docs/adr/0010-ferra-design-system.md)). Its canonical values
 are in [design/ferra/tokens.json](design/ferra/tokens.json), and its
 components and adoption steps are in the [Ferra consumer guide](packages/family/FERRA.md).
 The Ferra entry uses IBM Plex Sans Semibold (600) for headings, system UI
 for body text and system monospace for code. Plex is served locally as WOFF2
-with its OFL license. Native previews of all eight brands and six core subpages
+with its OFL license. Native previews of all family identities and six core subpages
 live in [designs](designs/README.md).
 The front matter and the legacy system below continue to describe the existing
 package-root entry; they do not override the scoped `--ferra-` contract.

@@ -13,12 +13,12 @@ Software; this repo itself is TypeScript/React.
 
 ```sh
 pnpm install        # pnpm 11 workspace; `prepare` builds the workspace package
-pnpm dev            # dev server on :5173
+pnpm dev            # Ardo dev server on :5173
 pnpm build          # builds the workspace package and site, then checks rendered page links
 pnpm preview        # serves the production build on :4173
 pnpm lint           # oxlint, then type-aware eslint (eslint-config-setup)
 pnpm format         # oxfmt --write .   (pnpm format:check in CI)
-pnpm typecheck      # react-router typegen && tsc --noEmit
+pnpm typecheck      # tsc --noEmit (extends ardo/tsconfig)
 pnpm test           # node --test, the README contracts, the Markdown link check (lychee, via mise) and the theme check
 pnpm readme:write   # README.md is generated: edit README.md.src, then this (mise install --locked once, first)
 pnpm verify:package # installs ferramenta-family in a scratch project (npm tarball + tracked files at HEAD)
@@ -27,8 +27,7 @@ pnpm review         # a real browser over the build (needs CHROME=<chromium>): e
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
-`pnpm build` (TypeScript, prerender, Ardo's content link check, the sitemap
-prune that takes the `noindex` kit out, and the rendered page-fragment check) is
+`pnpm build` (TypeScript, prerender, Ardo's content link check, native sitemap exclusions for the `noindex` kit, and the rendered page-fragment check) is
 the main gate;
 `pnpm test` adds the registry-ownership unit tests and the README family-block
 contract. `.github/workflows/ci.yml` runs that gate on every pull
@@ -36,27 +35,26 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path                                   | Owns                                                                                                                                                                                                                                                                                                            |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/root.tsx`                         | The shell of every page: the family header and footer (outside `ArdoRoot`), the direction contract, the kit's `noindex`, and the docs shell for the sample documentation                                                                                                                                        |
-| `app/routes/home.tsx`                  | The family page, composed from the package's landing kit: hero plate, engine catalog, applications band, principles, the personal note with the workshop's logos, work with us                                                                                                                                  |
-| `app/routes/kit/`, `app/kit/`          | The design library at `/kit` (public, `noindex`): tokens, materials, icons, chrome and landing kit rendered from the package, plus a sample tool page and sample docs for an invented tool (`app/kit/sample.ts`)                                                                                                |
-| `app/styles/site.css`, `kit.css`       | Only what the family site does not share: the personal note, Ardo shell fixes; the kit's specimen frames and the sample tool's icon                                                                                                                                                                             |
-| `packages/family/src/`                 | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite) — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `ComparisonTable`, `Relations`, `WorkWithUs`, …) |
-| `packages/family/styles/`              | `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css` — and the optional `docs.css` for an Ardo docs layout                                                                           |
-| `packages/family/icons/`, `textures/`  | The member icons (one rendered picture at 640, 256 and 96px) and the three textures (steel, oak, rust). Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                                 |
-| `design/icons/`, `design/textures/`    | Masters, prompts and build scripts for the icons and textures (ADR-0009). A new member's icon starts here                                                                                                                                                                                                       |
-| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                                                                       |
-| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                                                                       |
-| `scripts/render-pipeline-sample.mjs`   | Runs Ferromark + Ferriki on the sample and writes `app/data/pipeline-sample.json` (needs `FERROMARK=` and `FERRIKI=` package paths); never hand-edit the output. The kit shows it as the `RunSample` specimen                                                                                                   |
-| `design/social/card.html`              | The social card as a page; `public/social.png` is a browser screenshot of it (the command is in the file's head). Update its strip when the line-up changes                                                                                                                                                     |
-| `scripts/review-site.mjs`              | `pnpm review`: drives a headless Chromium over the build, checks layout at eight widths, the flyouts, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI; run it before a design change is called done)                                                                     |
-| `scripts/prune-sitemap.mjs`            | Removes the `noindex` kit from the built sitemap (a `.tsx` route cannot opt out through frontmatter)                                                                                                                                                                                                            |
-| `packages/family/`                     | `ferramenta-family` — the published package: registry, chrome, landing kit, icons, tokens, textures, font. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links                                                                          |
-| `design/comp/2026-10/`                 | The approved comps of the redesign (`typenschild-*.html`, ADR-0008). The earlier directions and comps are in Git history before the tag `design-residue-2026-09-30`                                                                                                                                             |
-| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                                                                                                                     |
-| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (tokens, materials, component rules)                                                                                                                                                                                                                                              |
-| `THIRD-PARTY-NOTICES.md`               | Licensing: the font and the foreign logos                                                                                                                                                                                                                                                                       |
+| Path                                               | Owns                                                                                                                                                                                                                                                                                                            |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/root.tsx`                                     | The shell of every page: Ferra header through Ardo's header slot, footer outside its main landmark, the kit's `noindex`, and the docs shell for the sample documentation                                                                                                                                        |
+| `app/routes/home.tsx`                              | The family page, composed from the package's landing kit: hero plate, engine catalog, applications band, principles, the personal note with the workshop's logos, work with us                                                                                                                                  |
+| `app/routes/kit/`, `app/kit/`                      | The design library at `/kit` (public, `noindex`): tokens, materials, icons, chrome and landing kit rendered from the package, plus a sample tool page and sample docs for an invented tool (`app/kit/sample.ts`)                                                                                                |
+| `app/styles/ferra-site.css`, `site.css`, `kit.css` | Ardo shell integration for the Ferra homepage and original kit; specimen frames and the sample tool's icon                                                                                                                                                                                                      |
+| `packages/family/src/`                             | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite) — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `ComparisonTable`, `Relations`, `WorkWithUs`, …) |
+| `packages/family/styles/`                          | `ferra.css` for the current homepage. Original entry: `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css` — and the optional `docs.css` for an Ardo docs layout                     |
+| `packages/family/icons/`, `textures/`              | The member icons (one rendered picture at 640, 256 and 96px) and the three textures (steel, oak, rust). Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                                 |
+| `design/icons/`, `design/textures/`                | Masters, prompts and build scripts for the icons and textures (ADR-0009). A new member's icon starts here                                                                                                                                                                                                       |
+| `scripts/verify-package-consumers.mjs`             | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                                                                       |
+| `scripts/refresh-registry-stats.mjs`               | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                                                                       |
+| `scripts/render-pipeline-sample.mjs`               | Runs Ferromark + Ferriki on the sample and writes `app/data/pipeline-sample.json` (needs `FERROMARK=` and `FERRIKI=` package paths); never hand-edit the output. The kit shows it as the `RunSample` specimen                                                                                                   |
+| `design/social/card.html`                          | The social card as a page; `public/social.png` is a browser screenshot of it (the command is in the file's head). Update its strip when the line-up changes                                                                                                                                                     |
+| `scripts/review-site.mjs`                          | `pnpm review`: drives a headless Chromium over the build, checks layout at eight widths, the flyouts, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI; run it before a design change is called done)                                                                     |
+| `packages/family/`                                 | `ferramenta-family` — the published package: registry, chrome, landing kit, icons, tokens, textures, font. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links                                                                          |
+| `design/comp/2026-10/`                             | The approved comps of the redesign (`typenschild-*.html`, ADR-0008). The earlier directions and comps are in Git history before the tag `design-residue-2026-09-30`                                                                                                                                             |
+| `docs/adr/`                                        | Decision records — **read before changing direction**, they are constraints                                                                                                                                                                                                                                     |
+| `PRODUCT.md` / `DESIGN.md`                         | Product truth / design system (tokens, materials, component rules)                                                                                                                                                                                                                                              |
+| `THIRD-PARTY-NOTICES.md`                           | Licensing: the font and the foreign logos                                                                                                                                                                                                                                                                       |
 
 ## Rules
 
@@ -107,7 +105,7 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   that goes stale here and belong in each project's repository (a test
   enforces it on `evidence` and `proof`). No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
-- Design changes respect DESIGN.md and ADR-0008: three materials with one job
+- Original-entry design changes respect DESIGN.md and ADR-0008 (Ferra follows ADR-0010 and `packages/family/FERRA.md`): three materials with one job
   each (brushed steel for plates, dark oak under them in the first viewport
   and the dark bands, rust for the closing band); everything else flat, the
   dark iron chrome included; small type never on steel or rust (it goes on an
@@ -160,17 +158,19 @@ embed-prompt`).
 
 ## Gotchas (hard-won)
 
-- **Custom shell**: `root.tsx` exports `handle = { chrome: false }`, which
-  disables Ardo's default header/footer on every route. Without it you get a
-  double header. The family header and footer render in `root.tsx`, outside
-  `ArdoRoot`, so they are real landmarks; a route renders only its content.
+- **Ardo 6 shell**: `ardo.config.ts` owns build metadata; JSX owns chrome,
+  icons and theming. `ArdoRoot` supplies the main landmark. Pass custom headers
+  through `header`, disable its default footer, and render the family footer
+  outside its main. Set `sidebar={false}` where no sidebar is wanted.
+- **Ferra adoption**: the homepage consumes `ferramenta-family/ferra` and
+  `ferra.css` (ADR-0010). The original kit and sample pages retain the original
+  entry and styles. Keep both sets of components independently consumable.
 - **Landing routes are bare**: a `.tsx` route exports
-  `handle = { layout: "bare" }` and wraps its content in `.fam-page`.
+  `handle = { layout: "bare" }` and uses `.ferra-page` on the homepage or `.fam-page` in the original kit.
   Documentation routes (`.mdx`) keep Ardo's layout and must not sit inside
   `.fam-page`: it pins the light scheme, and docs follow the system's.
-- **The page ground is `.fam-page`**, not `body`: Ardo's layout `<main>` paints
-  its own background. The wrapper is in each landing route, as on a sibling's
-  site, not in `root.tsx`.
+- **Page grounds are scoped**: `.ferra-page` wraps the homepage shell in `root.tsx`;
+  `.fam-page` wraps each original landing route. Ardo's main background is cleared by the corresponding shell stylesheet.
 - **Ardo layout quirks**: `.ferramenta-site main` gets `overflow: visible` and
   `padding: 0` overrides in site.css — Ardo's docs-style scroll container and
   fixed-header spacing otherwise break the sticky header and full-bleed bands.
@@ -187,15 +187,11 @@ embed-prompt`).
 - **Icons are CSS background images** (`.fam-icon[data-icon="…"]` in
   chrome.css), so the consumer's bundler resolves the files. A member without
   its three rules shows a blank tile; a test checks every registry member.
-- **`ssr: { noExternal: ["lucide-react"] }`** in vite.config: Ardo uses lucide
-  internally; without bundling, prerender inside a git worktree resolves a
-  second React copy from the parent checkout and crashes with a useContext
-  error. Do not remove.
-- **`vite preview` and a path without its trailing slash**: `/kit/tool` is
-  answered with the home page's prerendered HTML until the client router takes
-  over. GitHub Pages redirects to `/kit/tool/`; when capturing screenshots
-  locally, use the trailing slash.
-- `app/routes.ts` is auto-generated by Ardo — don't edit.
+- **No React Router**: Ardo 6 owns static rendering and React/Vite. Use
+  `ardo/react`, `ardo/runtime` links and `useArdoPath`, and `ArdoMetaFunction`.
+  There is no `app/routes.ts`, router config or separate Vite config.
+- **Preview paths**: Ardo's preview serves the prerendered documents. Use
+  trailing slashes for page captures, as the public static host does.
 - The dev/preview/comps server ports live in `.claude/launch.json` (gitignored).
 
 ---

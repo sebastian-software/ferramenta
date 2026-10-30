@@ -1,0 +1,59 @@
+.ferra-page .ferra-engine-facts {
+  display: grid;
+  gap: var(--ferra-space-3);
+  font-size: var(--ferra-text-small);
+  margin-block: var(--ferra-space-6);
+}
+.ferra-page .ferra-engine-facts div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--ferra-space-3);
+}
+.ferra-page .ferra-engine-facts dt {
+  color: var(--ferra-text-secondary);
+}
+.ferra-page .ferra-engine-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.ferra-page .ferra-engine-relations {
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--ferra-space-4);
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-applications {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ferra-column-gap);
+  margin-block-start: var(--ferra-space-12);
+}
+.ferra-page .ferra-application {
+  min-width: 0;
+  padding: var(--ferra-space-8);
+  background: var(--ferra-surface);
+  border: 1px solid var(--ferra-border);
+}
+.ferra-page .ferra-application p {
+  margin-block: var(--ferra-space-4);
+}
+.ferra-page .ferra-application-logo {
+  display: block;
+  height: 3rem;
+  background: left center / contain no-repeat;
+  margin-block-end: var(--ferra-space-6);
+}
+.ferra-application-logo[data-brand="palamedes"] {
+  background-image: url("../icons/palamedes.svg");
+}
+.ferra-application-logo[data-brand="dalo"] {
+  background-image: url("../icons/dalo.svg");
+}
+.ferra-application-logo[data-brand="ardo"] {
+  background-image: url("../icons/ardo.svg");
+}
+@media (max-width: 47.5rem) {
+  .ferra-page .ferra-applications {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

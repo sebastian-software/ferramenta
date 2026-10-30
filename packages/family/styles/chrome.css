@@ -161,6 +161,30 @@
   background-image: url("../icons/ferrugo.webp");
 }
 
+.fam-icon[data-icon="ferrolink"] {
+  background-image: url("../icons/ferrolink-96.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferrolink"] {
+  background-image: url("../icons/ferrolink-256.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferrolink"] {
+  background-image: url("../icons/ferrolink.webp");
+}
+
+.fam-icon[data-icon="ferrigura"] {
+  background-image: url("../icons/ferrigura-96.webp");
+}
+
+.fam-icon[data-form="rendered"][data-icon="ferrigura"] {
+  background-image: url("../icons/ferrigura-256.webp");
+}
+
+.fam-icon[data-form="hero"][data-icon="ferrigura"] {
+  background-image: url("../icons/ferrigura.webp");
+}
+
 /* The chrome is dark in every scheme, so its focus ring is always the glowing one. */
 .site-header,
 .site-footer,

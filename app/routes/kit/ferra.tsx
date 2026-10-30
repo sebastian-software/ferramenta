@@ -1,8 +1,9 @@
-import type { MetaFunction } from "react-router";
+import type { ArdoMetaFunction as MetaFunction } from "ardo/runtime";
 
 import {
   FERRA_PRODUCTS,
   FerraAction,
+  FerraApplications,
   FerraBars,
   FerraCode,
   FerraColumns,
@@ -54,6 +55,7 @@ export default function FerraKit() {
             <a href="#foundations">Foundations</a>
             <a href="#identities">Identities</a>
             <a href="#layouts">Layouts</a>
+            <a href="/kit/ferra/instruments/">Instrument comparison</a>
             <a href="/kit/">Original kit</a>
           </>
         }
@@ -161,7 +163,7 @@ export default function FerraKit() {
         <FerraSection
           id="identities"
           label="Identities"
-          intro="One family, eight distinct rendered marks."
+          intro="One family, a distinct rendered mark for every engine."
           title="A clear mark for every tool."
           surface="pewter"
         >
@@ -184,13 +186,24 @@ export default function FerraKit() {
           <ul className="ferra-kit-identities">
             {FERRA_PRODUCTS.map((product) => (
               <li key={product}>
-                <FerraMark product={product} size={64} />
                 <span>{displayName(product)}</span>
+                <div className="ferra-kit-mark-scales">
+                  {([32, 48, 64] as const).map((size) => (
+                    <figure key={size}>
+                      <FerraMark
+                        product={product}
+                        size={size}
+                        label={`${displayName(product)} mark at ${size}px`}
+                      />
+                      <figcaption>{size} px</figcaption>
+                    </figure>
+                  ))}
+                </div>
               </li>
             ))}
           </ul>
           <details className="ferra-kit-instruments">
-            <summary>See all eight instrument graphics</summary>
+            <summary>See all instrument graphics</summary>
             <div className="ferra-kit-instrument-grid">
               {FERRA_PRODUCTS.map((product) => (
                 <figure key={product}>
@@ -203,6 +216,9 @@ export default function FerraKit() {
               ))}
             </div>
           </details>
+          <p>
+            <a href="/kit/ferra/instruments/">Compare the original and rebuilt hero instruments</a>.
+          </p>
           <p>
             <a href={favicon} download>
               Download the Ferramenta favicon
@@ -345,7 +361,7 @@ export default function FerraKit() {
           id="catalog"
           label="Family catalog"
           intro="Names, roles and destinations come from the shared registry."
-          title="Seven engines, one source of facts."
+          title="Every engine, one source of facts."
         >
           <p>
             <code>FerraEngineCatalog</code> reads the registry directly. The applications keep their
@@ -358,6 +374,14 @@ export default function FerraKit() {
               System UI for reading, system monospace for code. One local webfont at weight 600.
             </p>
           </FerraSpecimen>
+        </FerraSection>
+        <FerraSection
+          id="applications"
+          label="Applications"
+          intro="Independent brands on light reading surfaces."
+          title="The applications keep their identity."
+        >
+          <FerraApplications />
         </FerraSection>
         <FerraWorkshop id="workshop-links" />
       </div>

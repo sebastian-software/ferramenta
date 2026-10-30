@@ -147,7 +147,7 @@ test("relations name where a member fits with the others, and nothing for one th
     ],
     "what it runs on, then what it pairs with",
   );
-  assert.ok(!ferriki.includes("Carries"), "no empty group");
+  assert.ok(ferriki.includes("<dt>Carries</dt>"), "Ardo uses the released highlighter");
   assert.ok(render(kit.Relations, { current: "ferroni" }).includes("<dt>Carries</dt>"));
   assert.equal(render(kit.Relations, { current: "ferrugo" }), "", "a member that stands alone");
   assert.equal(render(kit.Relations, { current: "nope" }), "", "an unknown name renders nothing");

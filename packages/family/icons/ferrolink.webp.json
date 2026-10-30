@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Compatibility icon for the original package entry; resampled from the same Ferra mark master.",
+  "source": "design/ferra/masters/ferrolink/mark.png",
+  "sourceSha256": "8dcd67360a800355277727212a0d2fbeec859ab70733cf8fc02e30ad772130b2",
+  "prompt": "Two compact rounded-square satin-steel and oxide-copper links, threaded through one another in perpendicular planes. Separate watertight bodies, broad rounded rectangular bars, visible clearance, balanced icon mass, directional softbox reflections, and transparent apertures.",
+  "geometry": "640x640",
+  "sha256": "bbf3cc4642b83e205d5bf7569e2ec4c4ff0a51ad72b2ece64cfcf93713bbd1eb"
+}

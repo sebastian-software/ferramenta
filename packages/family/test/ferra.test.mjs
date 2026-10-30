@@ -23,6 +23,22 @@ test("the Ferra catalog follows the engine registry and links to the declared de
   assert.ok(local.includes('href="/preview/ferroni/"'));
 });
 
+test("the Ferra entry preserves application brands, engine relations and release snapshots", () => {
+  const applications = render(ferra.FerraApplications, {});
+  for (const tool of kit.family.filter((tool) => !kit.isEngine(tool))) {
+    assert.ok(applications.includes(`data-brand="${tool.name}"`));
+    assert.ok(applications.includes(`href="${kit.toolHref(tool)}"`));
+  }
+  const catalog = render(kit.RegistryFacts, {
+    snapshot: { ferroni: { crates: { version: "99.0.0", downloads: 1 } } },
+    children: createElement(ferra.FerraEngineCatalog, {}),
+  });
+  assert.ok(catalog.includes("v99.0.0"));
+  assert.ok(catalog.includes("Pairs with "));
+  assert.ok(catalog.includes("Used by "));
+  assert.ok(catalog.includes(kit.family.find((tool) => tool.name === "ferroni").evidence));
+});
+
 test("marks are decorative beside text and named when used alone", () => {
   const decorative = render(ferra.FerraMark, { product: "ferramenta", size: 32 });
   assert.ok(decorative.includes('aria-hidden="true"'));
@@ -161,7 +177,13 @@ test("the additive entry, tokens and every CSS asset travel in the package", asy
     for (const asset of [product.mark, product.instrument, product.favicon])
       await access(new URL(`../ferra/${asset}`, import.meta.url));
   }
-  for (const name of ["ferra.css", "ferra-docs.css", "ferra-assets.css", "ferra-fonts.css"]) {
+  for (const name of [
+    "ferra.css",
+    "ferra-docs.css",
+    "ferra-catalog.css",
+    "ferra-assets.css",
+    "ferra-fonts.css",
+  ]) {
     const css = await readFile(new URL(`../styles/${name}`, import.meta.url), "utf8");
     for (const [, file] of css.matchAll(/url\("(\.\.\/[^"]+)"\)/gu))
       await access(new URL(`../styles/${file}`, import.meta.url));

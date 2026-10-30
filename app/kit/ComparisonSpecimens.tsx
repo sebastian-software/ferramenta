@@ -1,3 +1,4 @@
+import { ArdoLink as Link } from "ardo/runtime";
 import {
   CodePanel,
   ComparisonBars,
@@ -7,7 +8,6 @@ import {
   Section,
   Voices,
 } from "ferramenta-family";
-import { Link } from "react-router";
 
 import { SAMPLE } from "./sample";
 import {

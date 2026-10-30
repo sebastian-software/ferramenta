@@ -1,6 +1,6 @@
 # Ferra page designs
 
-[Open Ferramenta and its seven engines](index.html).
+[Open Ferramenta and its engines](index.html).
 
 These are native HTML previews of the Ferra direction.
 Headings use IBM Plex Sans Semibold (600), body text uses system UI, and code
@@ -17,6 +17,8 @@ License; the pages make no external font requests.
 | Ferrocat   | [Overview](ferrocat.html)  |                               |                                       |                                         |
 | Ferralk    | [Overview](ferralk.html)   |                               |                                       |                                         |
 | Ferrugo    | [Overview](ferrugo.html)   |                               |                                       |                                         |
+| Ferrolink  | [Overview](ferrolink.html) |                               |                                       |                                         |
+| Ferrigura  | [Overview](ferrigura.html) |                               |                                       |                                         |
 
 The pages render the final shared components and assets as native HTML. The
 family entrance keeps its authored composition, while engine and workshop facts
@@ -39,6 +41,4 @@ python3 -m http.server 48625 --bind 127.0.0.1
 ```
 
 Edit `design/ferra/` and package sources instead of generated HTML.
-`manifest.json` records every page source and the selected typography. These
-files prepare the final direction; live site adoption awaits the upcoming
-Ardo release.
+`manifest.json` records every page source and the selected typography. The family homepage now adopts this direction on Ardo 6. Engine sites migrate separately.

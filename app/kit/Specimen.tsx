@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from "ardo/react";
 
 /** A chapter of the kit: a display heading on the ground, its specimens below. */
 export function Chapter({

@@ -1,51 +1,51 @@
 {
-  "generatedAt": "2026-10-04T21:51:11Z",
+  "generatedAt": "2026-10-29T22:08:25Z",
   "tools": {
     "ferroni": {
       "crates": {
-        "version": "1.8.1",
-        "downloads": 4060,
-        "recentDownloads": 3760,
-        "updated": "2026-10-01"
+        "version": "2.8.0",
+        "downloads": 14551,
+        "recentDownloads": 13823,
+        "updated": "2026-10-26"
       },
       "npm": null,
       "release": {
-        "version": "1.8.1",
-        "publishedAt": "2026-10-01T15:32:36Z"
+        "version": "2.8.0",
+        "publishedAt": "2026-10-26T19:44:55Z"
       }
     },
     "ferriki": {
       "crates": {
-        "version": "0.11.0",
-        "downloads": 528,
-        "recentDownloads": 528,
-        "updated": "2026-10-04"
+        "version": "1.3.0",
+        "downloads": 3362,
+        "recentDownloads": 3362,
+        "updated": "2026-10-27"
       },
       "npm": {
-        "version": "0.11.0",
-        "lastMonth": 0,
+        "version": "1.3.0",
+        "lastMonth": 3628,
         "placeholder": false
       },
       "release": {
-        "version": "0.11.0",
-        "publishedAt": "2026-10-04T12:50:45Z"
+        "version": "1.3.0",
+        "publishedAt": "2026-10-27T07:06:12Z"
       }
     },
     "ferromark": {
       "crates": {
-        "version": "3.1.0",
-        "downloads": 5514,
-        "recentDownloads": 4967,
-        "updated": "2026-10-03"
+        "version": "3.7.0",
+        "downloads": 9045,
+        "recentDownloads": 7322,
+        "updated": "2026-10-27"
       },
       "npm": {
-        "version": "3.1.0",
-        "lastMonth": 304,
+        "version": "3.7.0",
+        "lastMonth": 1799,
         "placeholder": false
       },
       "release": {
-        "version": "3.1.0",
-        "publishedAt": "2026-10-03T20:32:51Z"
+        "version": "3.7.0",
+        "publishedAt": "2026-10-27T21:52:31Z"
       }
     },
     "ferrolex": {
@@ -59,8 +59,8 @@
     "ferrocat": {
       "crates": {
         "version": "3.4.2",
-        "downloads": 7678,
-        "recentDownloads": 4912,
+        "downloads": 9622,
+        "recentDownloads": 5276,
         "updated": "2026-08-06"
       },
       "npm": null,
@@ -72,8 +72,8 @@
     "ferralk": {
       "crates": {
         "version": "1.1.0",
-        "downloads": 1062,
-        "recentDownloads": 1062,
+        "downloads": 2550,
+        "recentDownloads": 2550,
         "updated": "2026-09-25"
       },
       "npm": null,
@@ -86,12 +86,12 @@
       "crates": {
         "version": "0.5.0",
         "downloads": 91,
-        "recentDownloads": 27,
+        "recentDownloads": 19,
         "updated": "2026-07-05"
       },
       "npm": {
         "version": "0.0.1",
-        "lastMonth": 11,
+        "lastMonth": 8,
         "placeholder": true
       },
       "release": {
@@ -99,36 +99,77 @@
         "publishedAt": "2026-07-05T20:45:39Z"
       }
     },
-    "palamedes": {
-      "crates": null,
+    "ferrolink": {
+      "crates": {
+        "version": "0.2.1",
+        "downloads": 32,
+        "recentDownloads": 32,
+        "updated": "2026-10-23"
+      },
       "npm": {
-        "version": "1.25.0",
-        "lastMonth": 2173,
+        "version": "0.2.1",
+        "lastMonth": 778,
+        "placeholder": false
+      },
+      "release": {
+        "version": "0.2.1",
+        "publishedAt": "2026-10-23T22:11:37Z"
+      }
+    },
+    "ferrigura": {
+      "crates": {
+        "version": "0.3.0",
+        "downloads": 578,
+        "recentDownloads": 578,
+        "updated": "2026-10-27"
+      },
+      "npm": null,
+      "release": {
+        "version": "0.3.0",
+        "publishedAt": "2026-10-28T14:27:30Z"
+      }
+    },
+    "palamedes": {
+      "crates": {
+        "version": "2.0.0",
+        "downloads": 22,
+        "recentDownloads": 22,
+        "updated": "2026-10-29"
+      },
+      "npm": {
+        "version": "2.0.0",
+        "lastMonth": 53,
         "placeholder": true
       },
       "release": {
-        "version": "1.25.0",
-        "publishedAt": "2026-09-09T08:34:58Z"
+        "version": "2.0.0",
+        "publishedAt": "2026-10-29T16:09:57Z"
       }
     },
     "dalo": {
       "crates": {
-        "version": "1.3.0",
-        "downloads": 559,
-        "recentDownloads": 515,
-        "updated": "2026-09-30"
+        "version": "1.11.0",
+        "downloads": 682,
+        "recentDownloads": 408,
+        "updated": "2026-10-26"
       },
       "npm": null,
-      "release": null
+      "release": {
+        "version": "1.11.0",
+        "publishedAt": "2026-10-26T08:43:02Z"
+      }
     },
     "ardo": {
       "crates": null,
       "npm": {
-        "version": "5.0.0",
-        "lastMonth": 0,
+        "version": "6.0.0",
+        "lastMonth": 4631,
         "placeholder": false
       },
-      "release": null
+      "release": {
+        "version": "6.0.0",
+        "publishedAt": "2026-10-29T21:10:31Z"
+      }
     }
   }
 }

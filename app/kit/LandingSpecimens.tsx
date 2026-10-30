@@ -1,3 +1,4 @@
+import { ArdoLink as Link } from "ardo/runtime";
 import {
   ApplicationsBand,
   ClosingAction,
@@ -17,7 +18,6 @@ import {
   StampKey,
   WorkWithUs,
 } from "ferramenta-family";
-import { Link } from "react-router";
 
 import pipelineSample from "../data/pipeline-sample.json";
 import { ComparisonSpecimens } from "./ComparisonSpecimens";

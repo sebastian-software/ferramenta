@@ -25,7 +25,7 @@
 }
 .ferra-instrument[data-product="ferromark"] {
   background-image: url("../ferra/ferromark/instrument.webp");
-  aspect-ratio: 1536 / 1024;
+  aspect-ratio: 1600 / 800;
 }
 .ferra-mark[data-product="ferrolex"] {
   background-image: url("../ferra/ferrolex/mark.webp");
@@ -53,7 +53,21 @@
 }
 .ferra-instrument[data-product="ferrugo"] {
   background-image: url("../ferra/ferrugo/instrument.webp");
-  aspect-ratio: 1536 / 1024;
+  aspect-ratio: 1600 / 800;
+}
+.ferra-mark[data-product="ferrolink"] {
+  background-image: url("../ferra/ferrolink/mark.webp");
+}
+.ferra-instrument[data-product="ferrolink"] {
+  background-image: url("../ferra/ferrolink/instrument.webp");
+  aspect-ratio: 1600 / 800;
+}
+.ferra-mark[data-product="ferrigura"] {
+  background-image: url("../ferra/ferrigura/mark.webp");
+}
+.ferra-instrument[data-product="ferrigura"] {
+  background-image: url("../ferra/ferrigura/instrument.webp");
+  aspect-ratio: 1600 / 800;
 }
 .ferra-workshop-logo[data-brand="software"] {
   background-image: url("../ferra/brands/sebastian-software.svg");

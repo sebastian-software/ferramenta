@@ -7,7 +7,7 @@
 /* eslint-disable security/detect-non-literal-fs-filename -- every path is resolved beneath the served root and checked against it */
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { extname, join, normalize, sep } from "node:path";
+import { extname, join, normalize, resolve, sep } from "node:path";
 
 const TYPES = {
   ".css": "text/css",
@@ -26,8 +26,9 @@ const TYPES = {
 /** The file a request path names under `root`, or what to answer instead. */
 export function resolveRequest(root, requestPath) {
   const path = normalize(decodeURIComponent(requestPath.split("?")[0]));
-  const file = join(root, path);
-  if (file !== root && !file.startsWith(root + sep)) return { status: 403 };
+  const directory = resolve(root);
+  const file = join(directory, path);
+  if (file !== directory && !file.startsWith(directory + sep)) return { status: 403 };
   if (!existsSync(file)) return { status: 404 };
   if (!statSync(file).isDirectory()) return { status: 200, file };
   if (!path.endsWith("/")) return { status: 301, location: `${path}/` };

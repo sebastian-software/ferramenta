@@ -1,0 +1,612 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferralk",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A branching file-path gate has three open machined rails, three tabbed file leaves, a copper pivoting selector aligned with the middle branch, and a graphite stop that closes the lower branch early. The pivot, knurled screw, bearing collars, graduated rails, and separate endpoint feet make selection and pruning physically legible. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A branching file-path gate has three open machined rails, three tabbed file leaves, a copper pivoting selector aligned with the middle branch, and a graphite stop that closes the lower branch early. The pivot, knurled screw, bearing collars, graduated rails, and separate endpoint feet make selection and pruning physically legible. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferralk.py",
+  "sourceSha256": "a58af36bfdb583e953bfc0a260eb348bff69c5ccd366095a0192b48508a31ad7",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferralk.py": "a58af36bfdb583e953bfc0a260eb348bff69c5ccd366095a0192b48508a31ad7",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferralk-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "3a3cfac7c1a3243e0cc23f44109b18398b87313949bf699b4e5e7e7d2bc6f193",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Common file-tree root rail",
+      "closedManifold": true,
+      "volume": 0.146459489,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper directory branch",
+      "closedManifold": true,
+      "volume": 0.192823261,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Selected middle directory branch",
+      "closedManifold": true,
+      "volume": 0.171788693,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pruned lower directory branch",
+      "closedManifold": true,
+      "volume": 0.192823257,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint foot",
+      "closedManifold": true,
+      "volume": 0.034170004,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint machined cap",
+      "closedManifold": true,
+      "volume": 0.034309122,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint foot.001",
+      "closedManifold": true,
+      "volume": 0.034170004,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint machined cap.001",
+      "closedManifold": true,
+      "volume": 0.034309122,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint foot.002",
+      "closedManifold": true,
+      "volume": 0.034170004,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint machined cap.002",
+      "closedManifold": true,
+      "volume": 0.034309122,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint foot.003",
+      "closedManifold": true,
+      "volume": 0.034170004,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Branch endpoint machined cap.003",
+      "closedManifold": true,
+      "volume": 0.034309122,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 1 end bearing",
+      "closedManifold": true,
+      "volume": 0.03026962,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 1 tabbed file",
+      "closedManifold": true,
+      "volume": 0.037439464,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Reachable file 1 tabbed file groove floor 0",
+      "closedManifold": true,
+      "volume": 5.3945e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 1 tabbed file groove floor 1",
+      "closedManifold": true,
+      "volume": 4.1399e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 2 end bearing",
+      "closedManifold": true,
+      "volume": 0.03026962,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 2 tabbed file",
+      "closedManifold": true,
+      "volume": 0.037439465,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Reachable file 2 tabbed file groove floor 0",
+      "closedManifold": true,
+      "volume": 5.3945e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 2 tabbed file groove floor 1",
+      "closedManifold": true,
+      "volume": 4.1399e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 3 end bearing",
+      "closedManifold": true,
+      "volume": 0.03026962,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 3 tabbed file",
+      "closedManifold": true,
+      "volume": 0.037439464,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Reachable file 3 tabbed file groove floor 0",
+      "closedManifold": true,
+      "volume": 5.3945e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Reachable file 3 tabbed file groove floor 1",
+      "closedManifold": true,
+      "volume": 4.1399e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Selector main pivot bearing",
+      "closedManifold": true,
+      "volume": 0.061325505,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper pattern-selection lever",
+      "closedManifold": true,
+      "volume": 0.064047778,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Pattern gate pivot adjuster spindle",
+      "closedManifold": true,
+      "volume": 0.0025435,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster thrust washer",
+      "closedManifold": true,
+      "volume": 0.001268405,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster knurled hub",
+      "closedManifold": true,
+      "volume": 0.010371728,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern gate pivot adjuster center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Pattern gate pivot adjuster center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Selected path locating pin",
+      "closedManifold": true,
+      "volume": 0.005274381,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Selected path pin retainer washer",
+      "closedManifold": true,
+      "volume": 0.000407448,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Selected path pin retainer socket head",
+      "closedManifold": true,
+      "volume": 0.000480487,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Selected path pin retainer dark socket floor",
+      "closedManifold": true,
+      "volume": 1.7528e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Early traversal graphite stop",
+      "closedManifold": true,
+      "volume": 0.049418846,
+      "machinedPockets": 4
+    },
+    {
+      "body": "Early traversal graphite stop groove floor 0",
+      "closedManifold": true,
+      "volume": 2.76e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Early traversal graphite stop groove floor 1",
+      "closedManifold": true,
+      "volume": 2.76e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Early traversal graphite stop groove floor 2",
+      "closedManifold": true,
+      "volume": 2.76e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Early traversal graphite stop groove floor 3",
+      "closedManifold": true,
+      "volume": 2.76e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale",
+      "closedManifold": true,
+      "volume": 0.023811418,
+      "machinedPockets": 16
+    },
+    {
+      "body": "Root path reference scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root path reference scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root gate anchor washer",
+      "closedManifold": true,
+      "volume": 0.001043361,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Root gate anchor socket head",
+      "closedManifold": true,
+      "volume": 0.001934717,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Root gate anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 4.4364e-5,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferralk/pre-blender-instrument.png",
+    "sourceSha256": "0907c1d1ae224b4568a48b467e03c0318a2e01a29931fc8251a91a74f9482e8f",
+    "promptSidecar": "design/ferra/concepts/ferralk/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

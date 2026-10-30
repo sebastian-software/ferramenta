@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef } from "react";
-import type { FerraActionProps, FerraBarsProps, FerraCodeProps, FerraEngineCatalogProps, FerraFooterProps, FerraHeaderProps, FerraHeroProps, FerraInstrumentProps, FerraLogoProps, FerraMarkProps, FerraSectionProps, FerraTableProps } from "./FerraTypes.js";
+import type { FerraActionProps, FerraBarsProps, FerraCodeProps, FerraFooterProps, FerraHeaderProps, FerraHeroProps, FerraInstrumentProps, FerraLogoProps, FerraMarkProps, FerraSectionProps, FerraTableProps } from "./FerraTypes.js";
 /** One authored light scheme; the stylesheet has no global reset. */
 export declare function FerraPage({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export declare function FerraMark({ product, label, size, className }: FerraMarkProps): import("react").JSX.Element;
@@ -13,8 +13,6 @@ export declare function FerraHero({ product, title, what, children, actions, art
 export declare function FerraSection({ title, label, intro, surface, children, className, id, ...props }: FerraSectionProps): import("react").JSX.Element;
 export declare function FerraColumns({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export declare function FerraAction({ variant, className, children, ...props }: FerraActionProps): import("react").JSX.Element;
-/** Registry facts remain authoritative even when a preview overrides the destinations. */
-export declare function FerraEngineCatalog({ hrefFor }: FerraEngineCatalogProps): import("react").JSX.Element;
 /** Native children preserve the consumer's column and row header relationships. */
 export declare function FerraTable({ caption, children }: FerraTableProps): import("react").JSX.Element;
 export declare function FerraCode({ caption, file, children }: FerraCodeProps): import("react").JSX.Element;

@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferrugo/first-blender-instrument.png",
+  "sourceSha256": "b85a0cc0d9fa76fbce5f3fa9eb62ece4aa3b5345c0ef7a30dafb4a4d0e5510cd",
+  "prompt": "A bounded-preview instrument pairs an upright engraved source document with a smaller matching layout inside a real machined aperture frame. Two open alignment rails, a copper dimension stop, a screw-driven preview carriage, calibration ticks, retained corner screws, and supporting shoes make the source-to-preview relationship explicit. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "e709ca3459bf59fa376daa4887a1770ce90e24dd5f8ffa3d0ba1a85bfbc22749",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferrugo/instrument.png"
+}

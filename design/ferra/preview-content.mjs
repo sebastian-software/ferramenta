@@ -5,7 +5,8 @@ import {
   FerraSpecimen,
   FerraTable,
 } from "ferramenta-family/ferra";
-import { createElement as h } from "react";
+
+import { createElement as h } from "./preview-runtime.mjs";
 
 export const slug = (value) =>
   value
@@ -238,8 +239,13 @@ function relativeBars(raw, caption) {
   });
 }
 
+function openingSection(product, section) {
+  const example = examples[product];
+  return example === undefined ? bodyBlocks(section.raw, section.title) : [example()];
+}
+
 export function renderSection(product, section, { index, home }) {
-  if (home && index === 0) return [examples[product]()];
+  if (home && index === 0) return openingSection(product, section);
   if (product === "ferromark" && section.title === "Speed, with the conditions attached") {
     const conditions = section.raw.slice(section.raw.indexOf("Measured September"));
     return [

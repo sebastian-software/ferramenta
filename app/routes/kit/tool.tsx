@@ -1,5 +1,6 @@
-import type { MetaFunction } from "react-router";
+import type { ArdoMetaFunction as MetaFunction } from "ardo/runtime";
 
+import { ArdoLink as Link } from "ardo/runtime";
 import {
   ClosingAction,
   CodePanel,
@@ -15,7 +16,6 @@ import {
   WORKSHOP,
   WorkWithUs,
 } from "ferramenta-family";
-import { Link } from "react-router";
 
 import { SAMPLE } from "../../kit/sample";
 import {

@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-10-19
+- Updated: 2026-10-30
 - Amends: ADR-0008 and ADR-0009 for the Ferra entry
 
 ## Context
@@ -9,7 +10,7 @@
 The approved design studies replace the heavy plate-and-oak treatment with a
 lighter mechanical language: warm paper, matte pewter, restrained oxide,
 generous gutters and a narrow introductory margin beside the main story.
-Ferra coordinates pages and identities for Ferramenta and all seven engines.
+Ferra coordinates pages and identities for Ferramenta and all engines.
 The shared library must make those assets and page structures
 available to sibling sites.
 
@@ -22,12 +23,14 @@ been adapted to the new layouts.
 Add `ferramenta-family/ferra` and `ferramenta-family/ferra.css` as a
 complete, independently importable kit. Its `ferra-` classes and `--ferra-` tokens
 are scoped to its page wrapper. Existing entries retain their current behavior;
-sites adopt the new kit explicitly. No automatic production-page migration or
-package publication is part of this preparation.
+sites adopt the new kit explicitly. Consumers opt in explicitly; package publication and sibling-site migration remain separate actions.
 
-Adoption on the live family and engine sites is deferred until the upcoming
-Ardo release. This change prepares the shared library, kit and local designs;
-it does not upgrade Ardo or migrate the existing production pages.
+The family homepage adopts Ferra with the published Ardo 6 release. Ardo owns
+React, Vite, static rendering and its single main landmark; the root supplies
+Ferra chrome, keeps the footer outside main, and opts out of the generated
+sidebar. The shared package remains independent of Ardo. The original kit and
+its fictional sample pages stay available for consumers awaiting migration.
+Engine sites adopt Ferra separately in their own repositories.
 
 The new direction uses one authored light scheme. Fine paper is the reading
 ground; light pewter is an occasional material section; oxide marks actions
@@ -41,9 +44,29 @@ provenance pins the upstream revision and hashes.
 
 Rendered logos and instrument graphics have different jobs. Each compact mark
 holds at 32–64px. Each hero instrument describes the library's work. Ferramenta's
-seven-position register represents independently selectable tools, never a
+precision register represents independently selectable tools, never a
 required processing chain. Original masters and prompts live in
 `design/ferra/`; package exports are reproducible optimized derivatives.
+
+Mechanical parts may be modeled and rendered in Blender, retaining their
+editable scene and construction script beside the raster masters. Ferrolink
+uses this path because its closed chain links require verifiable topology and
+clearance. The source script checks that adjacent links are connected without
+intersecting. This changes the asset authoring method, preserving the rendered
+identity format, materials, and consumer contract.
+
+The large instruments use low machined plates with rounded plan corners,
+crisp edge breaks and recessed fasteners, substantial tool heads and varied solid
+sections rather than uniformly thin plates. Their oxide accents may carry a
+weathered dark red-brown corrosion: granular rust islands with broken edges,
+pitted normal relief, and dull oxidized metal between the raised crusts. The
+oxide is rough and matte against polished stainless steel. Recessed oxide
+letter inlays preserve legibility. Ferriki's theme
+output may use muted green and blue enamel, and Ferrugo's document faces may
+use warm ivory, following their original functional color. These are authored
+instrument materials; the page palette and compact marks keep their existing
+contracts. The review page retains the original concepts, first Blender pass,
+and refined Blender pass as three distinct comparison columns.
 
 The package owns tokens, textures, identities and shared React page structures:
 chrome, hero, margin sections, columns, engine catalog, actions, code, tables and
@@ -62,7 +85,7 @@ retain their separate brands.
 - `/kit/ferra/` renders the actual exported components and assets. Package
   tests cover SSR, semantics and shipped files; browser review covers responsive
   layouts, keyboard access and the original kit's continued behavior.
-- `designs/` renders Ferramenta, all seven engine homepages and the six
+- `designs/` renders Ferramenta, all engine homepages and the six
   core subpages as native HTML with the selected fonts. Styles and assets resolve
   directly from the shared package. Only the final design is included; earlier
   studies and alternate typography are outside this kit.

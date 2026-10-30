@@ -17,6 +17,10 @@ async function site() {
 test("a directory answers with its index, and only with its trailing slash", async () => {
   const root = await site();
   try {
+    assert.deepEqual(resolveRequest(`${root}/`, "/"), {
+      status: 200,
+      file: join(root, "index.html"),
+    });
     assert.deepEqual(resolveRequest(root, "/"), { status: 200, file: join(root, "index.html") });
     assert.deepEqual(resolveRequest(root, "/kit/tool/?x=1"), {
       status: 200,

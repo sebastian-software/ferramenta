@@ -2,7 +2,7 @@
   "direction": "Warm paper and pewter; refined precision mechanics",
   "products": {
     "ferramenta": {
-      "meaning": "Seven independent tool inserts share a precision register.",
+      "meaning": "Independent tool inserts share a precision register.",
       "mark": "ferramenta/mark.webp",
       "instrument": "ferramenta/instrument.webp",
       "ratio": 2,
@@ -29,7 +29,7 @@
       "meaning": "A document register aligns source structure with rendered output.",
       "mark": "ferromark/mark.webp",
       "instrument": "ferromark/instrument.webp",
-      "ratio": 1.5,
+      "ratio": 2,
       "favicon": "ferromark/favicon.ico",
       "sizes": [32, 48, 64, 128, 256, 512]
     },
@@ -61,8 +61,24 @@
       "meaning": "An aperture turns a source document into a bounded preview.",
       "mark": "ferrugo/mark.webp",
       "instrument": "ferrugo/instrument.webp",
-      "ratio": 1.5,
+      "ratio": 2,
       "favicon": "ferrugo/favicon.ico",
+      "sizes": [32, 48, 64, 128, 256, 512]
+    },
+    "ferrolink": {
+      "meaning": "Interlocking links and a continuity gauge verify references between documents.",
+      "mark": "ferrolink/mark.webp",
+      "instrument": "ferrolink/instrument.webp",
+      "ratio": 2,
+      "favicon": "ferrolink/favicon.ico",
+      "sizes": [32, 48, 64, 128, 256, 512]
+    },
+    "ferrigura": {
+      "meaning": "Connected diagram nodes turn a textual graph into a precisely arranged drawing.",
+      "mark": "ferrigura/mark.webp",
+      "instrument": "ferrigura/instrument.webp",
+      "ratio": 2,
+      "favicon": "ferrigura/favicon.ico",
       "sizes": [32, 48, 64, 128, 256, 512]
     }
   },

@@ -71,6 +71,19 @@ function eventOnce(connection, sessionId, method) {
 /** What a review does with one tab. */
 function pageApi(connection, sessionId) {
   const send = (method, params) => connection.send(method, params, sessionId);
+  const errors = [];
+  connection.listeners.add((message) => {
+    if (message.sessionId !== sessionId) return;
+    if (message.method === "Runtime.exceptionThrown") {
+      const detail = message.params.exceptionDetails;
+      errors.push(detail.exception?.description ?? detail.text);
+    }
+    if (message.method === "Runtime.consoleAPICalled" && message.params.type === "error") {
+      errors.push(
+        message.params.args.map((argument) => argument.value ?? argument.description).join(" "),
+      );
+    }
+  });
   const evaluate = async (expression) => {
     const { exceptionDetails, result } = await send("Runtime.evaluate", {
       awaitPromise: true,
@@ -82,6 +95,7 @@ function pageApi(connection, sessionId) {
   };
   return {
     evaluate,
+    errors: () => [...errors],
     async viewport(width, height) {
       await send("Emulation.setDeviceMetricsOverride", {
         deviceScaleFactor: 1,
@@ -96,6 +110,7 @@ function pageApi(connection, sessionId) {
       });
     },
     async open(url) {
+      errors.length = 0;
       const loaded = eventOnce(connection, sessionId, "Page.loadEventFired");
       await send("Page.navigate", { url });
       await loaded;

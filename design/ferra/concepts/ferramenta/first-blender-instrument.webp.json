@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferramenta/first-blender-instrument.png",
+  "sourceSha256": "6487ff3eb3b71932332df948e2b280375e110ab0b8f51e8fa2e27f48bac810b4",
+  "prompt": "A seven-position precision register holds independent removable inserts: a pattern cassette, token comb, engraved document, letterform tile, catalog leaves, branch gate, and preview aperture. Keyed sockets, flush hex fasteners, small locating pins, replaceable feet, and a copper registration slide make the fixture mechanically explicit. The inserts are independent tools, not a processing chain. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "3429a4c4239e9b1f29969ae559308596ed37ce87d8ccb55c084dc577e0a63158",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferramenta/instrument.png"
+}

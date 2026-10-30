@@ -98,6 +98,20 @@
       "type": "overview",
       "title": "Overview",
       "source": "design/ferra/content/ferrugo-home.md"
+    },
+    {
+      "product": "ferrolink",
+      "file": "ferrolink.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "design/ferra/content/ferrolink-home.md"
+    },
+    {
+      "product": "ferrigura",
+      "file": "ferrigura.html",
+      "type": "overview",
+      "title": "Overview",
+      "source": "design/ferra/content/ferrigura-home.md"
     }
   ],
   "source": "design/ferra/build-previews.mjs",

@@ -8,6 +8,8 @@ export const FERRA_PRODUCTS = [
   "ferrocat",
   "ferralk",
   "ferrugo",
+  "ferrolink",
+  "ferrigura",
 ] as const;
 export type FerraProduct = (typeof FERRA_PRODUCTS)[number];
 

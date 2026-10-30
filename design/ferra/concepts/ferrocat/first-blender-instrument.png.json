@@ -1,0 +1,930 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrocat",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A catalog collator holds two banks of separately spaced, indexed metal leaves around one copper resolved leaf. Engraved message rows, varied index tabs, a central keyed alignment channel, registration comb, screw adjuster, and open bank cradles express matching catalog entries and preserving an authoritative correction. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A catalog collator holds two banks of separately spaced, indexed metal leaves around one copper resolved leaf. Engraved message rows, varied index tabs, a central keyed alignment channel, registration comb, screw adjuster, and open bank cradles express matching catalog entries and preserving an authoritative correction. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferrocat.py",
+  "sourceSha256": "07c42e008dfdf5b0e86060e0bf43ad6682318c585eec8a19c93b10299f4bd026",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferrocat.py": "07c42e008dfdf5b0e86060e0bf43ad6682318c585eec8a19c93b10299f4bd026",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferrocat-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "1fa8c338b02723700908c5eaf43464993c4d5d516b46377578996fedb70b8161",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Catalog bank -1 base",
+      "closedManifold": true,
+      "volume": 0.619700474,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 retaining lip",
+      "closedManifold": true,
+      "volume": 0.046887208,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 retaining lip.001",
+      "closedManifold": true,
+      "volume": 0.046887208,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 1 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.075677652,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 1 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 1 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 1 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 2 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.081446079,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 2 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 2 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 2 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 3 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.087214501,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 3 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 3 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 3 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 4 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.092982929,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 4 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 4 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 4 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 5 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.098751353,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 5 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 5 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 5 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 6 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.104519781,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 6 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 6 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 6 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 7 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.110288205,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank -1 leaf 7 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 7 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 leaf 7 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 front anchor washer",
+      "closedManifold": true,
+      "volume": 0.000445943,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 front anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000549031,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Catalog bank -1 front anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.9158e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 front anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000445943,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank -1 front anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000549031,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Catalog bank -1 front anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.9158e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 base",
+      "closedManifold": true,
+      "volume": 0.619700474,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 retaining lip",
+      "closedManifold": true,
+      "volume": 0.046887208,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 retaining lip.001",
+      "closedManifold": true,
+      "volume": 0.046887208,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 1 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.075677652,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 1 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 1 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 1 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 2 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.081446079,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 2 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 2 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 2 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 3 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.087214501,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 3 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 3 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 3 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 4 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.092982929,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 4 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 4 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 4 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 5 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.098751353,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 5 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 5 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 5 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 6 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.104519781,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 6 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 6 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 6 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 7 tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.110288205,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Catalog bank 1 leaf 7 tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 7 tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 leaf 7 tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 front anchor washer",
+      "closedManifold": true,
+      "volume": 0.000445943,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 front anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000549031,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Catalog bank 1 front anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.9158e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 front anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000445943,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog bank 1 front anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000549031,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Catalog bank 1 front anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.9158e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog identity alignment rail",
+      "closedManifold": true,
+      "volume": 0.026936068,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog identity alignment rail.001",
+      "closedManifold": true,
+      "volume": 0.026936068,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Resolved leaf keyed shoe",
+      "closedManifold": true,
+      "volume": 0.106003019,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Authoritative copper catalog leaf tabbed leaf",
+      "closedManifold": true,
+      "volume": 0.105811223,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Authoritative copper catalog leaf tabbed leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Authoritative copper catalog leaf tabbed leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000181621,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Authoritative copper catalog leaf tabbed leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000139709,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Identity registration comb",
+      "closedManifold": true,
+      "volume": 0.09147046,
+      "machinedPockets": 21
+    },
+    {
+      "body": "Catalog merge registration screw spindle",
+      "closedManifold": true,
+      "volume": 0.001675377,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw thrust washer",
+      "closedManifold": true,
+      "volume": 0.00083388,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw knurled hub",
+      "closedManifold": true,
+      "volume": 0.006837024,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog merge registration screw center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Catalog merge registration screw center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale",
+      "closedManifold": true,
+      "volume": 0.041431307,
+      "machinedPockets": 25
+    },
+    {
+      "body": "Catalog alignment scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog alignment scale groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrocat/pre-blender-instrument.png",
+    "sourceSha256": "0a1f68fea24e00bb63167711e85f272001633eee3fbb0de45b695bc6f43542b3",
+    "promptSidecar": "design/ferra/concepts/ferrocat/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

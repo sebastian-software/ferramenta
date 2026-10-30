@@ -1,0 +1,59 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrigura",
+  "role": "Transparent rendered product mark master",
+  "meaning": "A substantial one-to-two hierarchy diagram evolved from the supplied UML-style reference and retained Imagegen material concept: one large polished oxide-copper rectangular parent above two polished steel children, a square on the left and a circle on the right. Their different silhouettes identify the nodes without letters or small markings. One chunky graphite-metal orthogonal bus and two exposed drops physically enter the node bodies. Broad crowned faces, rolling bevels, real solid thickness, restrained three-quarter depth, directional softbox reflections, and transparent negative space. A roughly square envelope and three large nodes preserve visual weight at small icon sizes.",
+  "prompt": "A substantial one-to-two hierarchy diagram evolved from the supplied UML-style reference and retained Imagegen material concept: one large polished oxide-copper rectangular parent above two polished steel children, a square on the left and a circle on the right. Their different silhouettes identify the nodes without letters or small markings. One chunky graphite-metal orthogonal bus and two exposed drops physically enter the node bodies. Broad crowned faces, rolling bevels, real solid thickness, restrained three-quarter depth, directional softbox reflections, and transparent negative space. A roughly square envelope and three large nodes preserve visual weight at small icon sizes.",
+  "source": "design/ferra/blender/ferrigura.py",
+  "sourceSha256": "e83fc079a4bedf8f51ce854df228a47f3ad8ccf648bb78c226f65bbb29cbac05",
+  "constructionSources": {
+    "design/ferra/blender/ferrigura.py": "e83fc079a4bedf8f51ce854df228a47f3ad8ccf648bb78c226f65bbb29cbac05",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7"
+  },
+  "scene": "design/ferra/blender/ferrigura.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Polished steel, warm oxide copper, and graphite rails; gently crowned faces; rolling bevels; directional softboxes and a narrow face-reflection strip; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "8eba21d067ccfe9d6da29e83574621521951b3d61cdad3d8366dec23d8248dac",
+  "geometry": "1600x1600",
+  "geometryVerification": [
+    {
+      "body": "Large rectangular copper parent",
+      "closedManifold": true,
+      "positiveVolume": 0.706584
+    },
+    {
+      "body": "Square steel child",
+      "closedManifold": true,
+      "positiveVolume": 0.416098
+    },
+    {
+      "body": "Circular steel child",
+      "closedManifold": true,
+      "positiveVolume": 0.402247
+    },
+    {
+      "body": "Continuous graphite hierarchy bus",
+      "closedManifold": true,
+      "positiveVolume": 0.102384
+    },
+    {
+      "topology": "one rectangular parent, one shared bus, one square child, one circular child",
+      "nodeCount": 3,
+      "railBodyCount": 1
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrigura/hierarchy.png",
+    "sourceSha256": "4d7c4076db67bdadecc6fd4e51aedcadc40d35366160511762a93eb7d8bb58bc",
+    "promptSidecar": "design/ferra/concepts/ferrigura/hierarchy.png.json"
+  },
+  "designRefinements": [
+    "Replace the concept's circular parent with a substantial rectangular copper node.",
+    "Reduce the hierarchy to two larger steel children, one square and one circular, with no letters."
+  ],
+  "diagramReference": {
+    "source": "design/ferra/concepts/ferrigura/hierarchy-reference.jpg",
+    "sourceSha256": "7c4d1f1ef98edf5da2cdb68e69813ec065c06465e787870c526348cb4fb1c567"
+  }
+}

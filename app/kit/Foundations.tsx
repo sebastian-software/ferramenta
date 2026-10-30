@@ -185,7 +185,7 @@ function Type() {
               <code>fam-heading</code>
               A section&rsquo;s heading
             </dt>
-            <dd className="kit-type-h2">Seven engines, each for one job</dd>
+            <dd className="kit-type-h2">Independent engines, each for one job</dd>
           </div>
           <div>
             <dt>

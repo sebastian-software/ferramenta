@@ -34,6 +34,7 @@ const PAGES = [
   { name: "home", path: "/" },
   { name: "kit", path: "/kit/" },
   { name: "ferra-kit", path: "/kit/ferra/" },
+  { name: "ferra-instruments", path: "/kit/ferra/instruments/" },
   { name: "kit-tool", path: "/kit/tool/" },
   { name: "kit-docs", path: "/kit/docs/getting-started/" },
   { name: "kit-docs-benchmarks", path: "/kit/docs/benchmarks/" },
@@ -43,11 +44,11 @@ const WIDTHS = [320, 360, 390, 768, 1024, 1280, 1440, 1920];
 /** The order a keyboard walks the home page's bar in. */
 const HOME_TAB_ORDER = [
   "Skip to content",
-  "ferramenta",
+  "Ferramenta",
   "Engines",
+  "Choosing an engine",
   "Applications",
   "Work with us",
-  "GitHub",
 ];
 
 const failures = [];
@@ -75,6 +76,10 @@ async function save(name, png) {
 async function reviewLayout(page, { name, url, width }) {
   await page.viewport(width, 900);
   await page.open(url);
+  expect(
+    page.errors().length === 0,
+    `${name} at ${width}px: browser errors: ${page.errors().join("; ")}`,
+  );
   const scroll = await page.evaluate(call(sidewaysScroll));
   const inBar = await page.evaluate(call(barProblems));
   const onPlates = await page.evaluate(call(plateProblems));
@@ -153,11 +158,11 @@ async function reviewKeyboard(page, origin) {
   await save("home-1440-focus", await page.screenshot());
 }
 
-/** The tag sways and the reflection follows the pointer; both stand still on request. */
+/** The original landing kit still moves on request, and rests for reduced motion. */
 async function reviewMotion(page, origin) {
   await page.viewport(1440, 900);
   await page.media({ "prefers-reduced-motion": "no-preference" });
-  await page.open(`${origin}/`);
+  await page.open(`${origin}/kit/tool/`);
   const resting = await page.evaluate(call(motion));
   await page.move(1300, 400);
   const moved = await page.evaluate(call(motion));
@@ -165,7 +170,7 @@ async function reviewMotion(page, origin) {
   expect(moved.sheen !== resting.sheen, "motion: the reflection does not follow the pointer");
 
   await page.media({ "prefers-reduced-motion": "reduce" });
-  await page.open(`${origin}/`);
+  await page.open(`${origin}/kit/tool/`);
   const reduced = await page.evaluate(call(motion));
   await page.move(200, 400);
   const afterMove = await page.evaluate(call(motion));
