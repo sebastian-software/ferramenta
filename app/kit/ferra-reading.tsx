@@ -2,9 +2,13 @@ import { useState } from "ardo/react";
 import {
   FerraArticle,
   FerraChoices,
+  FerraEditorialRow,
   FerraExample,
   FerraFeatureGrid,
   FerraGuideNavigation,
+  FerraNote,
+  FerraProductLead,
+  FerraProductPage,
   FerraReadingLayout,
   FerraTabs,
   FerraToggle,
@@ -104,5 +108,31 @@ export function ProductStorySpecimen() {
         <p>{enabled ? "Sample output with context." : "Sample output."}</p>
       </FerraExample>
     </FerraArticle>
+  );
+}
+
+export function ProductPageSpecimen() {
+  return (
+    <FerraProductPage id="product-page-specimen">
+      <FerraProductLead
+        headingLevel={2}
+        title="A fictional instrument, ready to use."
+        introduction="Ferrometro shows the shared product composition with sample content."
+        art={<p>Host-owned illustration or worked example</p>}
+        byline="A fictional project for the design kit."
+        meta={<p>Sample release information belongs to the project.</p>}
+      >
+        <a href="#product-story">Explore the fictional example</a>
+      </FerraProductLead>
+      <FerraEditorialRow
+        notes={<FerraNote title="Context beside the story">A related design decision.</FerraNote>}
+      >
+        <FerraArticle title="A broad story, with room for its context.">
+          <p>
+            The product page has no contents rail. Examples and comparisons can use its full width.
+          </p>
+        </FerraArticle>
+      </FerraEditorialRow>
+    </FerraProductPage>
   );
 }

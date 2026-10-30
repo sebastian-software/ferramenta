@@ -7,5 +7,6 @@ export { FerraDocsLayout, type FerraDocsLayoutProps } from "./FerraDocsLayout.js
 export { FerraEditorial, type FerraEditorialProps, FerraEditorialRow, type FerraEditorialRowProps, FerraEngineArticle, type FerraEngineArticleProps, FerraNote, type FerraNoteProps, FerraNotes, type FerraNotesProps, FerraReleaseFacts, FerraSoftCard, type FerraSoftCardProps, } from "./FerraEditorial.js";
 export { FerraExample, FerraToggle } from "./FerraExample.js";
 export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
+export { FerraProductLead, type FerraProductLeadProps, FerraProductPage, } from "./FerraProductPage.js";
 export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
 export type { FerraActionProps, FerraBar, FerraBarsProps, FerraCodeProps, FerraEngineCatalogProps, FerraFooterProps, FerraHeaderProps, FerraHeroProps, FerraInstrumentProps, FerraLogoProps, FerraMarkProps, FerraSectionProps, FerraTableProps, } from "./FerraTypes.js";

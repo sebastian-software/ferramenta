@@ -28,7 +28,11 @@ import { displayName } from "ferramenta-family/registry";
 import "ferramenta-family/ferra.css";
 
 import "../../styles/ferra-kit.css";
-import { ProductStorySpecimen, ReadingSpecimen } from "../../kit/ferra-reading";
+import {
+  ProductPageSpecimen,
+  ProductStorySpecimen,
+  ReadingSpecimen,
+} from "../../kit/ferra-reading";
 import { FerraEditorialSpecimen } from "../../kit/FerraEditorialSpecimen";
 
 export const handle = { layout: "bare" };
@@ -272,6 +276,7 @@ export default function FerraKit() {
         </FerraSection>
         <FerraEditorialSpecimen />
         <ProductStorySpecimen />
+        <ProductPageSpecimen />
         <ReadingSpecimen />
         <FerraDocsLayout
           aria-labelledby="docs-specimen-title"

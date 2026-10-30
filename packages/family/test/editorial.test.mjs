@@ -164,3 +164,27 @@ test("product stories attach metadata and continuous reading retains native cont
   assert.ok(!page.includes("<main"));
   assert.ok(page.includes('aria-label="Sample guide"'));
 });
+
+test("product homepages keep one purpose and entry points without a contents rail", () => {
+  const product = render(ferra.FerraProductPage, {
+    children: createElement(
+      ferra.FerraProductLead,
+      {
+        id: "sample-product",
+        title: "Sample product",
+        introduction: "A fictional engine",
+        art: createElement("img", { src: "/sample.png", alt: "Sample" }),
+        meta: "Sample release",
+      },
+      createElement("a", { href: "/guide/" }, "Get started"),
+    ),
+  });
+  assert.ok(!product.includes("<main"));
+  assert.ok(!product.includes("ferra-editorial-navigation"));
+  assert.ok(product.includes('aria-labelledby="sample-product-title"'));
+  assertInOrder(
+    product,
+    ['<h1 id="sample-product-title">', "Get started", "/sample.png", "Sample release"],
+    "the product introduction keeps its purpose, illustration and entry points together",
+  );
+});

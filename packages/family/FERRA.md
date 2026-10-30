@@ -133,10 +133,19 @@ The fictional specimen at `/kit/ferra/#editorial` uses these exact exports with 
 
 ## Product stories and documentation
 
-Use `FerraArticle` for an image-first product story with an optional attached
-`meta` footer. `FerraEditorial`, `FerraContents`, `FerraEditorialRow`, and the
-note components provide the same article and margin-note composition used by
-the family homepage. `FerraFeatureGrid`, `FerraMedia`, `FerraChoices`, and
+Use `FerraProductPage` for a sibling project's homepage. Its bounded reading
+flow has no contents rail: stories can occupy the full width or use
+`FerraEditorialRow` for an article and related margin notes. The family catalog
+keeps its separate `FerraEditorial` contents column; documentation keeps its
+own navigation.
+
+`FerraProductLead` places the purpose, runtime entry points, and optional byline
+beside a host-owned instrument or worked example. Its optional `meta` footer
+attaches release facts to the introduction. Use it once, for the page's H1.
+At narrow widths the title and entry points precede the illustration, keeping the primary action near the purpose.
+
+Use `FerraArticle` for a product story with an optional illustration and attached
+`meta` footer. `FerraFeatureGrid`, `FerraMedia`, `FerraChoices`, and
 `FerraTabs` keep common content and runtime choices inside the system.
 
 `FerraExample` combines source, host-owned controls, and actual rendered output.
