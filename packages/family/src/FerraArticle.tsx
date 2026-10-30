@@ -6,6 +6,8 @@ type ArticleProps = {
   title: ReactNode;
   introduction?: ReactNode;
   art?: ReactNode;
+  /** A decorative line symbol beside the article's visible heading. */
+  icon?: ReactNode;
   meta?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"article">, "title">;
 
@@ -14,6 +16,7 @@ export function FerraArticle({
   title,
   introduction,
   art,
+  icon,
   meta,
   children,
   className,
@@ -31,6 +34,11 @@ export function FerraArticle({
     >
       <div className="ferra-article-content">
         {art !== undefined && <div className="ferra-article-art">{art}</div>}
+        {icon !== undefined && (
+          <div className="ferra-article-icon" aria-hidden="true">
+            {icon}
+          </div>
+        )}
         <header className="ferra-article-heading">
           <h2 id={headingId}>{title}</h2>
           {introduction !== undefined && <p>{introduction}</p>}

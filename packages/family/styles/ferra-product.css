@@ -2,36 +2,35 @@
 .ferra-page .ferra-product-page.ferra-wrap {
   max-width: 78rem;
   display: grid;
-  gap: var(--ferra-space-8);
+  gap: var(--ferra-space-16);
   padding-block: var(--ferra-space-6) var(--ferra-space-16);
 }
-.ferra-page .ferra-soft-card.ferra-product-lead {
-  padding: 0;
-  scroll-margin-block-start: var(--ferra-space-6);
-}
 .ferra-page .ferra-product-lead-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: var(--ferra-space-6) var(--ferra-space-8);
-  padding: var(--ferra-space-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ferra-space-8);
+  text-align: center;
+}
+.ferra-page .ferra-product-lead-heading {
+  width: 100%;
 }
 .ferra-page .ferra-product-lead-heading :is(h1, h2) {
   font-size: var(--ferra-text-editorial-display);
-  max-width: 20ch;
   letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 .ferra-page .ferra-product-lead-heading p {
-  margin-block-start: var(--ferra-space-6);
-  max-width: 48ch;
+  max-width: 68ch;
+  margin: var(--ferra-space-6) auto 0;
   color: var(--ferra-text-secondary);
   font-size: var(--ferra-text-lead);
   line-height: 1.6;
 }
 .ferra-page .ferra-product-lead-art {
-  grid-column: 2;
-  grid-row: 1 / 3;
   display: grid;
-  align-content: center;
+  place-items: center;
+  width: min(100%, 44rem);
   min-width: 0;
 }
 .ferra-page .ferra-product-lead-art .ferra-instrument {
@@ -39,12 +38,16 @@
 }
 .ferra-page .ferra-product-lead-copy {
   min-width: 0;
+  max-width: var(--ferra-measure);
 }
 .ferra-page .ferra-product-lead-copy > * + * {
   margin-block-start: var(--ferra-space-6);
 }
 .ferra-page .ferra-product-lead-copy > :first-child {
   margin-block-start: 0;
+}
+.ferra-page .ferra-product-lead-copy :is(.ferra-actions, .ferra-install) {
+  justify-content: center;
 }
 .ferra-page .ferra-product-byline {
   font-size: var(--ferra-text-small);
@@ -53,12 +56,52 @@
 .ferra-page .ferra-product-lead .ferra-engine-meta {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: var(--ferra-space-3) var(--ferra-space-6);
+  margin-block-start: var(--ferra-space-8);
+  padding: 0;
+  background: none;
 }
 .ferra-page .ferra-product-lead .ferra-engine-meta > p {
   margin: 0;
+}
+.ferra-page .ferra-product-page .ferra-columns {
+  margin-block-start: 0;
+  gap: var(--ferra-editorial-gap);
+  align-items: stretch;
+}
+.ferra-page .ferra-product-page .ferra-article {
+  display: flex;
+  flex-direction: column;
+}
+.ferra-page .ferra-product-page .ferra-article-content {
+  flex: 1;
+}
+.ferra-page .ferra-article-icon {
+  display: grid;
+  place-items: center;
+  width: var(--ferra-space-16);
+  height: var(--ferra-space-16);
+  margin-block-end: var(--ferra-space-6);
+  border-radius: 50%;
+  background: var(--ferra-selected);
+  color: var(--ferra-accent);
+}
+.ferra-page .ferra-product-page .ferra-engine-meta,
+.ferra-page .ferra-product-page .ferra-note-section,
+.ferra-page .ferra-product-page .ferra-example {
+  border-block-start: 0;
+}
+.ferra-page .ferra-product-page .ferra-example {
+  margin-block-start: var(--ferra-space-16);
+  padding-block-start: 0;
+}
+.ferra-page .ferra-product-page .ferra-toggle {
+  border-block-end: 0;
+}
+.ferra-page .ferra-product-page .ferra-toggle + .ferra-toggle {
+  margin-block-start: var(--ferra-space-4);
 }
 .ferra-page .ferra-product-page .ferra-feature-grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
@@ -66,17 +109,8 @@
 .ferra-page .ferra-product-page .ferra-editorial-row .ferra-feature-grid {
   grid-template-columns: minmax(0, 1fr);
 }
-@media (max-width: 56rem) {
-  .ferra-page .ferra-product-lead-body {
-    grid-template-columns: minmax(0, 1fr);
-    padding: var(--ferra-space-6);
-  }
-  .ferra-page .ferra-product-lead-art {
-    grid-column: auto;
-    grid-row: auto;
-    justify-items: center;
-  }
-  .ferra-page .ferra-product-lead-art .ferra-instrument {
-    max-width: 28rem;
+@media (max-width: 44rem) {
+  .ferra-page .ferra-product-lead-heading p {
+    font-size: 1rem;
   }
 }

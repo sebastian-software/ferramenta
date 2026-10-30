@@ -184,7 +184,7 @@ test("product homepages keep one purpose and entry points without a contents rai
   assert.ok(product.includes('aria-labelledby="sample-product-title"'));
   assertInOrder(
     product,
-    ['<h1 id="sample-product-title">', "Get started", "/sample.png", "Sample release"],
+    ["/sample.png", '<h1 id="sample-product-title">', "Get started", "Sample release"],
     "the product introduction keeps its purpose, illustration and entry points together",
   );
 });

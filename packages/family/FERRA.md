@@ -139,13 +139,15 @@ flow has no contents rail: stories can occupy the full width or use
 keeps its separate `FerraEditorial` contents column; documentation keeps its
 own navigation.
 
-`FerraProductLead` places the purpose, runtime entry points, and optional byline
-beside a host-owned instrument or worked example. Its optional `meta` footer
-attaches release facts to the introduction. Use it once, for the page's H1.
-At narrow widths the title and entry points precede the illustration, keeping the primary action near the purpose.
+`FerraProductLead` places a moderately sized instrument or worked example above
+the centered title, introduction, runtime entry points, and optional byline.
+Its optional `meta` footer holds release facts without a divider. Use it once,
+for the page's H1. This reading order also holds at narrow widths. The product
+composition uses generous section spacing instead of horizontal divider rules.
 
 Use `FerraArticle` for a product story with an optional illustration and attached
-`meta` footer. `FerraFeatureGrid`, `FerraMedia`, `FerraChoices`, and
+`meta` footer. Its optional decorative `icon` supplies a small line symbol for
+a feature card. `FerraFeatureGrid`, `FerraMedia`, `FerraChoices`, and
 `FerraTabs` keep common content and runtime choices inside the system.
 
 `FerraExample` combines source, host-owned controls, and actual rendered output.

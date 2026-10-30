@@ -1,7 +1,5 @@
 import { type ComponentPropsWithoutRef, type ReactNode, useId } from "react";
 
-import { FerraSoftCard } from "./FerraEditorial.js";
-
 /** A product's continuous reading flow, without the family catalog's contents rail. */
 export function FerraProductPage({ className, ...props }: ComponentPropsWithoutRef<"div">) {
   return (
@@ -22,7 +20,7 @@ export type FerraProductLeadProps = {
   meta?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"section">, "title">;
 
-/** The purpose and entry points face the instrument; release facts share their footer. */
+/** An editorial cover: instrument, purpose, introduction, entry points and byline. */
 export function FerraProductLead({
   title,
   introduction,
@@ -38,13 +36,13 @@ export function FerraProductLead({
   const headingId = props.id === undefined ? generatedId : `${props.id}-title`;
   const Heading = headingLevel === 1 ? "h1" : "h2";
   return (
-    <FerraSoftCard
+    <section
       {...props}
-      as="section"
       className={["ferra-product-lead", className].filter(Boolean).join(" ")}
       aria-labelledby={headingId}
     >
       <div className="ferra-product-lead-body">
+        <div className="ferra-product-lead-art">{art}</div>
         <header className="ferra-product-lead-heading">
           <Heading id={headingId}>{title}</Heading>
           <p>{introduction}</p>
@@ -53,9 +51,8 @@ export function FerraProductLead({
           {children}
           {byline !== undefined && <p className="ferra-product-byline">{byline}</p>}
         </div>
-        <div className="ferra-product-lead-art">{art}</div>
       </div>
       {meta !== undefined && <footer className="ferra-engine-meta">{meta}</footer>}
-    </FerraSoftCard>
+    </section>
   );
 }

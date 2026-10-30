@@ -1,12 +1,12 @@
 import { useState } from "ardo/react";
+import { Mark } from "ferramenta-family";
 import {
   FerraArticle,
   FerraChoices,
-  FerraEditorialRow,
+  FerraColumns,
   FerraExample,
   FerraFeatureGrid,
   FerraGuideNavigation,
-  FerraNote,
   FerraProductLead,
   FerraProductPage,
   FerraReadingLayout,
@@ -124,15 +124,14 @@ export function ProductPageSpecimen() {
       >
         <a href="#product-story">Explore the fictional example</a>
       </FerraProductLead>
-      <FerraEditorialRow
-        notes={<FerraNote title="Context beside the story">A related design decision.</FerraNote>}
-      >
-        <FerraArticle title="A broad story, with room for its context.">
-          <p>
-            The product page has no contents rail. Examples and comparisons can use its full width.
-          </p>
+      <FerraColumns>
+        <FerraArticle title="A focused tool." icon={<Mark name="document" size={28} />}>
+          <p>The project supplies the facts and the examples.</p>
         </FerraArticle>
-      </FerraEditorialRow>
+        <FerraArticle title="A shared presentation." icon={<Mark name="pen" size={28} />}>
+          <p>The package owns the surfaces, typography and generous section spacing.</p>
+        </FerraArticle>
+      </FerraColumns>
     </FerraProductPage>
   );
 }

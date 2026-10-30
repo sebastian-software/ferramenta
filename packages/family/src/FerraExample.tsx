@@ -27,13 +27,15 @@ export function FerraExample({
         <h3 id={id}>{title}</h3>
         {introduction !== undefined && <p>{introduction}</p>}
       </header>
+      <div className="ferra-example-controls">{controls}</div>
       <div className="ferra-example-grid">
-        <div className="ferra-example-controls">{controls}</div>
-        <div className="ferra-example-preview">
+        <div className="ferra-example-source">
           <p className="ferra-example-label">Source</p>
           <pre>
             <code>{source}</code>
           </pre>
+        </div>
+        <div className="ferra-example-preview">
           <p className="ferra-example-label">Result</p>
           <div className="ferra-example-result">{children}</div>
         </div>

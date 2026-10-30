@@ -210,6 +210,7 @@
 .ferra-page .ferra-toggle[aria-pressed="false"] .icon {
   visibility: hidden;
 }
+.ferra-page .ferra-example-source,
 .ferra-page .ferra-example-preview {
   padding: var(--ferra-space-6);
   border-radius: var(--ferra-space-2);
@@ -221,11 +222,14 @@
   font-weight: 600;
   color: var(--ferra-text-secondary);
 }
-.ferra-page .ferra-example-preview pre {
+.ferra-page .ferra-example-source pre {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   margin-block: var(--ferra-space-3) var(--ferra-space-6);
   font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-example-controls {
+  margin-block-end: var(--ferra-space-8);
 }
 .ferra-page .ferra-example-result {
   margin-block-start: var(--ferra-space-3);

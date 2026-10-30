@@ -10,5 +10,5 @@ export type FerraProductLeadProps = {
     byline?: ReactNode;
     meta?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"section">, "title">;
-/** The purpose and entry points face the instrument; release facts share their footer. */
+/** An editorial cover: instrument, purpose, introduction, entry points and byline. */
 export declare function FerraProductLead({ title, introduction, art, headingLevel, byline, meta, children, className, ...props }: FerraProductLeadProps): import("react").JSX.Element;

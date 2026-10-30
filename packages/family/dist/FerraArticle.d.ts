@@ -3,10 +3,12 @@ type ArticleProps = {
     title: ReactNode;
     introduction?: ReactNode;
     art?: ReactNode;
+    /** A decorative line symbol beside the article's visible heading. */
+    icon?: ReactNode;
     meta?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"article">, "title">;
 /** An image-first story with an attached evidence footer; the host owns its content. */
-export declare function FerraArticle({ title, introduction, art, meta, children, className, ...props }: ArticleProps): import("react").JSX.Element;
+export declare function FerraArticle({ title, introduction, art, icon, meta, children, className, ...props }: ArticleProps): import("react").JSX.Element;
 export declare function FerraFeatureGrid({ items, }: {
     items: ReadonlyArray<{
         heading: string;
