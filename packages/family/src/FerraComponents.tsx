@@ -39,10 +39,15 @@ export function FerraMark({ product, label, size = 48, className }: FerraMarkPro
   );
 }
 
-export function FerraLogo({ product = "ferramenta", className, ...props }: FerraLogoProps) {
+export function FerraLogo({
+  product = "ferramenta",
+  mark = true,
+  className,
+  ...props
+}: FerraLogoProps) {
   return (
     <a {...props} className={classes("ferra-brand", className)}>
-      <FerraMark product={product} />
+      {mark && <FerraMark product={product} />}
       <span>{displayName(product)}</span>
     </a>
   );
@@ -62,6 +67,7 @@ export function FerraInstrument({ product, label, className }: FerraInstrumentPr
 
 export function FerraHeader({
   product = "ferramenta",
+  mark,
   home,
   nav,
   navLabel = "Main",
@@ -69,7 +75,7 @@ export function FerraHeader({
 }: FerraHeaderProps) {
   return (
     <header className="ferra-header ferra-wrap">
-      <FerraLogo product={product} href={home} />
+      <FerraLogo product={product} href={home} mark={mark} />
       {nav !== undefined && nav !== null ? (
         <nav className="ferra-nav" aria-label={navLabel}>
           {nav}

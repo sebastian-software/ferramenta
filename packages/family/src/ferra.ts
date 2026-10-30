@@ -16,7 +16,23 @@ export {
   FerraTable,
   FerraWorkshop,
 } from "./FerraComponents.js";
+export { FerraContents, type FerraContentsItem, type FerraContentsProps } from "./FerraContents.js";
 export { FerraDocsLayout, type FerraDocsLayoutProps } from "./FerraDocsLayout.js";
+export {
+  FerraEditorial,
+  type FerraEditorialProps,
+  FerraEditorialRow,
+  type FerraEditorialRowProps,
+  FerraEngineArticle,
+  type FerraEngineArticleProps,
+  FerraNote,
+  type FerraNoteProps,
+  FerraNotes,
+  type FerraNotesProps,
+  FerraReleaseFacts,
+  FerraSoftCard,
+  type FerraSoftCardProps,
+} from "./FerraEditorial.js";
 export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
 export type {
   FerraActionProps,

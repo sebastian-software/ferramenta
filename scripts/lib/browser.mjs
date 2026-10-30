@@ -118,8 +118,15 @@ function pageApi(connection, sessionId) {
       await evaluate("document.fonts.ready.then(() => new Promise((r) => setTimeout(r, 700)))");
     },
     async press(key, code = key) {
-      const event = { code, key, windowsVirtualKeyCode: key === "Tab" ? 9 : 27 };
-      await send("Input.dispatchKeyEvent", { ...event, type: "keyDown" });
+      const virtualKeys = { Tab: 9, Escape: 27, Enter: 13, " ": 32 };
+      const event = { code, key, windowsVirtualKeyCode: virtualKeys[key] ?? 0 };
+      const text = key === "Enter" ? "\r" : key === " " ? " " : undefined;
+      await send("Input.dispatchKeyEvent", {
+        ...event,
+        type: "keyDown",
+        text,
+        unmodifiedText: text,
+      });
       await send("Input.dispatchKeyEvent", { ...event, type: "keyUp" });
     },
     async move(x, y) {

@@ -3,6 +3,7 @@
 @import "./ferra-fonts.css";
 @import "./ferra-docs.css";
 @import "./ferra-catalog.css";
+@import "./ferra-editorial.css";
 
 /* Opt-in styles: no root tokens, global reset or legacy component overrides. */
 .ferra-page {
@@ -69,6 +70,7 @@
 }
 .ferra-page .ferra-brand {
   display: inline-flex;
+  min-height: var(--ferra-target);
   align-items: center;
   gap: var(--ferra-space-3);
   text-decoration: none;

@@ -11,6 +11,25 @@ export function sidewaysScroll() {
   return Math.max(0, root.scrollWidth - root.clientWidth);
 }
 
+/** Editorial cells retain their text, and every instrument precedes its product title. */
+export function editorialProblems() {
+  const problems = [];
+  for (const card of document.querySelectorAll(".ferra-soft-card")) {
+    const edge = card.getBoundingClientRect();
+    for (const text of card.querySelectorAll("h2, h3, p, dl")) {
+      const box = text.getBoundingClientRect();
+      if (box.left < edge.left - 1 || box.right > edge.right + 1)
+        problems.push("text leaves a soft card");
+    }
+  }
+  for (const article of document.querySelectorAll(".ferra-engine-article")) {
+    const art = article.querySelector(".ferra-engine-art").getBoundingClientRect();
+    const title = article.querySelector("h2").getBoundingClientRect();
+    if (art.bottom > title.top + 1) problems.push("an instrument is not above its product title");
+  }
+  return problems;
+}
+
 /** Problems of the header bar: it wraps, an item leaves the gutter, is too small to tap, or two overlap. */
 export function barProblems() {
   const bar = document.querySelector(".site-header .bar, .ferra-header");

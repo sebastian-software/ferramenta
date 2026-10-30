@@ -27,6 +27,7 @@ import { displayName } from "ferramenta-family/registry";
 import "ferramenta-family/ferra.css";
 
 import "../../styles/ferra-kit.css";
+import { FerraEditorialSpecimen } from "../../kit/FerraEditorialSpecimen";
 
 export const handle = { layout: "bare" };
 export const meta: MetaFunction = () => [
@@ -55,6 +56,7 @@ export default function FerraKit() {
             <a href="#foundations">Foundations</a>
             <a href="#identities">Identities</a>
             <a href="#layouts">Layouts</a>
+            <a href="#editorial">Soft cards</a>
             <a href="/kit/ferra/instruments/">Instrument comparison</a>
             <a href="/kit/">Original kit</a>
           </>
@@ -266,6 +268,7 @@ export default function FerraKit() {
             </FerraCode>
           </FerraColumns>
         </FerraSection>
+        <FerraEditorialSpecimen />
         <FerraDocsLayout
           aria-labelledby="docs-specimen-title"
           hero={

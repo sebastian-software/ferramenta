@@ -230,7 +230,12 @@ The production homepage uses **Ferra** (ADR-0010): warm paper, occasional light
 pewter, oxide actions, IBM Plex Sans Semibold headings and system UI body text.
 Its current tokens and component rules live in
 [the Ferra guide](packages/family/FERRA.md) and `design/ferra/tokens.json`;
-[the final designs](designs/README.md) provide the visual reference.
+[the final designs](designs/README.md) retain the earlier product-page references.
+The family overview now follows the [preferred soft-cell composition](design/ferra/concepts/ferramenta/soft-cell-refinement-2026-10-30/preferred-reference.png):
+an ungrouped illustrated contents column, restrained headings, generous light
+cards, image-first product articles and source-backed margin notes. Warm off-white cards sit on pale pewter, with reduced article padding and a subtly tinted attached metadata footer. Each engine shares its row with one card containing two aspects; the workshop note sits beside the introduction. Applications have individual soft cards under an unframed section heading. No inverted
+panels or thematic product categories are part of this homepage. The original
+Ferra sections remain independently consumable.
 `/kit/ferra/` renders the exported components, including live-release catalog
 facts and applications under their original logos on a flat light surface.
 

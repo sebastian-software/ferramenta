@@ -7,6 +7,7 @@
   --ferra-ink: #29362f;
   --ferra-muted: #5c655b;
   --ferra-oxide: #88492f;
+  --ferra-white: #ffffff;
   --ferra-background: var(--ferra-paper);
   --ferra-surface: var(--ferra-reading);
   --ferra-text: var(--ferra-ink);
@@ -15,6 +16,12 @@
   --ferra-on-accent: var(--ferra-reading);
   --ferra-border: color-mix(in srgb, var(--ferra-ink) 22%, var(--ferra-paper));
   --ferra-accent-hover: color-mix(in srgb, var(--ferra-oxide) 85%, var(--ferra-ink));
+  --ferra-editorial-background: color-mix(in srgb, var(--ferra-reading) 72%, var(--ferra-pewter));
+  --ferra-selected: color-mix(in srgb, var(--ferra-accent) 7%, var(--ferra-surface));
+  --ferra-card-surface: color-mix(in srgb, var(--ferra-white) 40%, var(--ferra-reading));
+  --ferra-card-footer: color-mix(in srgb, var(--ferra-pewter) 32%, var(--ferra-card-surface));
+  --ferra-card-edge: color-mix(in srgb, var(--ferra-ink) 8%, transparent);
+  --ferra-card-shadow: color-mix(in srgb, var(--ferra-ink) 5%, transparent);
   --ferra-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ferra-font-display: "IBM Plex Sans", system-ui, sans-serif;
   --ferra-font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -26,6 +33,8 @@
   --ferra-text-display: clamp(2.625rem, 7.3vw, 6rem);
   --ferra-leading-body: 1.7;
   --ferra-leading-heading: 1.13;
+  --ferra-text-editorial-display: clamp(2rem, 3.4vw, 3.25rem);
+  --ferra-text-editorial-title: clamp(1.875rem, 2.6vw, 2.625rem);
   --ferra-space-1: 0.25rem;
   --ferra-space-2: 0.5rem;
   --ferra-space-3: 0.75rem;
@@ -45,4 +54,7 @@
   --ferra-measure: 68ch;
   --ferra-radius: 0.1875rem;
   --ferra-target: 2.75rem;
+  --ferra-card-radius: 1.25rem;
+  --ferra-card-padding: clamp(0.75rem, 2.4vw, 2.25rem);
+  --ferra-editorial-gap: clamp(1rem, 1.6vw, 1.5rem);
 }

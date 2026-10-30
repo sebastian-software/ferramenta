@@ -63,6 +63,14 @@ available for pages awaiting migration.
 | `FerraAction`                | A native link styled as a primary or secondary action                                                             |
 | `FerraApplications`          | Applications with their original logos on flat light surfaces, reading the shared registry                        |
 | `FerraEngineCatalog`         | All registered engines with their actual roles, descriptions and destinations                                     |
+| `FerraSoftCard`              | A rounded light reading surface with native div, article, aside or section semantics                              |
+| `FerraEditorial`             | A contents column beside a continuous reading flow, inside the host's main landmark                               |
+| `FerraEditorialRow`          | An article beside its related notes; the notes follow the article on narrow screens                               |
+| `FerraContents`              | An ungrouped, scroll-aware list with icons and descriptions, disclosed on smaller screens                         |
+| `FerraEngineArticle`         | An image-first product article, registry-owned overview copy, release facts and relations                         |
+| `FerraReleaseFacts`          | Current version and explicitly labeled crates.io lifetime downloads; unavailable totals remain absent             |
+| `FerraNotes`                 | Several sourced aspects in one complementary card beside an article                                               |
+| `FerraNote`                  | A named complementary note with an optional source link                                                           |
 | `FerraCode`                  | Captioned, escaped code with keyboard-reachable horizontal scrolling                                              |
 | `FerraSpecimen`              | Captioned light reading surface for actual worked-example output                                                  |
 | `FerraTable`                 | Captioned native table in a named, focusable scroll region                                                        |
@@ -81,6 +89,46 @@ still come from the registry. It retains each engine's evidence, lineage and
 relations. Wrap the catalog in `RegistryFacts` from the package root to render
 a build-time snapshot and refresh releases after hydration; without a provider,
 the registry's fallback versions remain available.
+
+## Editorial homepages
+
+The family homepage follows the [preferred soft-cell reference](../../design/ferra/concepts/ferramenta/soft-cell-refinement-2026-10-30/preferred-reference.png): light surfaces, restrained headings, generous inner space, image-first product stories and contextual margin notes. The contents lists independent engines without thematic categories. The earlier narrow label margin and `FerraHero` remain available for other compositions.
+
+```tsx
+import { MarkDefs, RegistryFacts } from "ferramenta-family";
+import {
+  FerraContents,
+  FerraEditorial,
+  FerraEditorialRow,
+  FerraEngineArticle,
+  FerraNotes,
+} from "ferramenta-family/ferra";
+
+<RegistryFacts snapshot={snapshot} snapshotGeneratedAt={generatedAt}>
+  <MarkDefs />
+  <FerraEditorial navigation={<FerraContents items={contents} />}>
+    <header className="ferra-editorial-intro">
+      <h1>The purpose of this workshop.</h1>
+      <p>Introduce the work and the people behind it.</p>
+    </header>
+    <FerraEditorialRow
+      notes={<FerraNotes label={`About ${tool.name}`} notes={tool.editorial.notes} />}
+    >
+      <FerraEngineArticle tool={tool} />
+    </FerraEditorialRow>
+  </FerraEditorial>
+</RegistryFacts>;
+```
+
+`FerraSoftCard` accepts native div attributes and an optional `as` of `article`, `aside`, `section` or `div`. Supply the matching heading and accessible name when choosing a landmark. It adds a surface, padding and radius, without inventing interaction. `FerraNote` provides its own named heading. `FerraNotes` collects several sourced sections inside one named complementary card. Set `--ferra-card-padding` on a host region for narrower notes; the component owns its internal spacing while the host owns placement. All surfaces stay light. Editorial cards use a warm off-white surface against a pale pewter ground. The opening explains the choice of Rust, compatibility work and independent adoption, and links the legal workshop name to its open-source portfolio. The reduced article padding is separate from the wider margin-note padding; its attached metadata footer spans the full card width with a subtle downward tint.
+
+Contents items have `href`, `label`, `description` and an optional `product` for a decorative family mark. Same-page entries track document position independently of their list order. At narrow widths a native button controls the single list; Enter or Space toggles it, Escape closes it and returns focus, and choosing an anchor closes the list and focuses the article. Desktop contents remain available in a sticky, vertically scrollable column. The layout supplies no second main landmark.
+
+Each engine's optional `editorial` registry entry owns its short navigation description, subtitle, introduction, presentation order and source-backed `notes` array. The homepage shows two short aspects per engine in one adjacent card. The order is a reading choice, never a required processing chain. `FerraEngineArticle` shows the instrument before the name, subtitle and introduction; `art` can supply a host-owned worked example. The workshop note belongs beside the introduction. Applications have a standalone section heading and individual soft cards, without a surrounding card. The host mounts `MarkDefs` once for the shared line icons. `FerraHeader mark={false}` selects wordmark-only chrome without changing other consumers.
+
+The release facts use the existing `RegistryFacts` provider and OSS Metrics merge policy. Crate downloads are lifetime totals, not people or active installations. Do not freeze versions or download counts in authored copy. A member without a verified crate does not show a fabricated zero.
+
+The fictional specimen at `/kit/ferra/#editorial` uses these exact exports with sample copy and release data. Build shared source and its committed `dist` together before shipping a consumer update.
 
 ## Documentation pages
 
