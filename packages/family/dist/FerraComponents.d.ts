@@ -3,9 +3,9 @@ import type { FerraActionProps, FerraBarsProps, FerraCodeProps, FerraFooterProps
 /** One authored light scheme; the stylesheet has no global reset. */
 export declare function FerraPage({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export declare function FerraMark({ product, label, size, className }: FerraMarkProps): import("react").JSX.Element;
-export declare function FerraLogo({ product, className, ...props }: FerraLogoProps): import("react").JSX.Element;
+export declare function FerraLogo({ product, mark, className, ...props }: FerraLogoProps): import("react").JSX.Element;
 export declare function FerraInstrument({ product, label, className }: FerraInstrumentProps): import("react").JSX.Element;
-export declare function FerraHeader({ product, home, nav, navLabel, actions, }: FerraHeaderProps): import("react").JSX.Element;
+export declare function FerraHeader({ product, mark, home, nav, navLabel, actions, }: FerraHeaderProps): import("react").JSX.Element;
 export declare function FerraFooter({ product, home, children }: FerraFooterProps): import("react").JSX.Element;
 /** Place before the footer; original outside brands belong on a flat, light ground. */
 export declare function FerraWorkshop({ id, className, }?: Pick<ComponentPropsWithoutRef<"section">, "className" | "id">): import("react").JSX.Element;

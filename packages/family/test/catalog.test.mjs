@@ -233,7 +233,10 @@ test("Ardo names the native engines shipped in its static documentation build", 
     kit.runsOnTools(ardo).map((tool) => tool.name),
     ["ferromark", "ferriki", "ferrolink"],
   );
-  assert.deepEqual(kit.plannedRunsOnTools(ardo), []);
+  assert.deepEqual(
+    kit.plannedRunsOnTools(ardo).map((tool) => tool.name),
+    ["ferrigura"],
+  );
   assert.deepEqual(relations("ardo"), [
     "runs-on ferromark",
     "runs-on ferriki",
@@ -243,7 +246,7 @@ test("Ardo names the native engines shipped in its static documentation build", 
   assert.ok(html.includes('<p class="fam-app-label">Runs on</p>'));
   assert.ok(html.includes("<b>ferromark</b>"));
   assert.ok(html.includes("<b>ferriki</b>"));
-  assert.ok(!html.includes("Planned engine integration"));
+  assert.ok(html.includes("Planned engine integration"));
   assert.ok(!html.includes("A rebuild is underway"));
   assert.throws(
     () => kit.plannedRunsOnTools({ ...ardo, plannedRunsOn: ["nope"] }),

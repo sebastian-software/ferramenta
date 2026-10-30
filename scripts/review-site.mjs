@@ -16,6 +16,7 @@ import { launchBrowser } from "./lib/browser.mjs";
 import {
   barProblems,
   comparisonProblems,
+  editorialProblems,
   flyoutState,
   focused,
   motion,
@@ -42,14 +43,7 @@ const PAGES = [
 /** Phones from the narrowest still in use, a tablet, and desktops up to a wide one. */
 const WIDTHS = [320, 360, 390, 768, 1024, 1280, 1440, 1920];
 /** The order a keyboard walks the home page's bar in. */
-const HOME_TAB_ORDER = [
-  "Skip to content",
-  "Ferramenta",
-  "Engines",
-  "Choosing an engine",
-  "Applications",
-  "Work with us",
-];
+const HOME_TAB_ORDER = ["Skip to content", "Ferramenta", "Engines", "Workshop", "GitHub"];
 
 const failures = [];
 let checks = 0;
@@ -84,10 +78,70 @@ async function reviewLayout(page, { name, url, width }) {
   const inBar = await page.evaluate(call(barProblems));
   const onPlates = await page.evaluate(call(plateProblems));
   const inComparisons = await page.evaluate(call(comparisonProblems));
-  const problems = [...inBar, ...onPlates, ...inComparisons];
+  const inEditorial = await page.evaluate(call(editorialProblems));
+  const problems = [...inBar, ...onPlates, ...inComparisons, ...inEditorial];
   expect(scroll === 0, `${name} at ${width}px: the page scrolls sideways by ${scroll}px`);
   expect(problems.length === 0, `${name} at ${width}px: ${problems.join("; ")}`);
   await save(`${name}-${width}`, await page.screenshot({ fullPage: true }));
+  if (name === "home" && [390, 1024, 1440].includes(width))
+    await save(`${name}-${width}-opening`, await page.screenshot());
+}
+
+async function reviewDesktopContents(page, origin) {
+  await page.viewport(1024, 900);
+  await page.open(`${origin}/`);
+  const articles = await page.evaluate(`document.querySelectorAll('.ferra-engine-article').length`);
+  const entries = await page.evaluate(`document.querySelectorAll('.ferra-contents-list a').length`);
+  expect(entries === articles && articles > 0, "editorial contents: every article has one entry");
+  // The contents and article orders intentionally differ; location follows document geometry.
+  for (const id of ["ferriki", "ferrocat", "ferrigura"]) {
+    await page.evaluate(`document.querySelector('.ferra-contents a[href="#${id}"]').click()`);
+    await page.evaluate("new Promise((resolve) => setTimeout(resolve, 120))");
+    const active = await page.evaluate(
+      `document.querySelector('.ferra-contents [aria-current="location"]')?.getAttribute('href')`,
+    );
+    expect(active === `#${id}`, `editorial contents: ${id} is current after navigation`);
+  }
+}
+
+async function reviewMobileContents(page, origin) {
+  await page.viewport(390, 900);
+  await page.open(`${origin}/`);
+  await page.evaluate(`document.querySelector('.ferra-contents-toggle').focus()`);
+  await page.press("Enter");
+  await page.evaluate(
+    "new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))",
+  );
+  const open = await page.evaluate(
+    `document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded')`,
+  );
+  expect(open === "true", "mobile contents: Enter opens the disclosure");
+  expect(
+    (await page.evaluate(call(sidewaysScroll))) === 0,
+    "mobile contents: expanded list fits the viewport",
+  );
+  await save("home-390-contents-open", await page.screenshot());
+  await page.press("Escape");
+  const closed = await page.evaluate(
+    `document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded') === 'false' && document.activeElement.matches('.ferra-contents-toggle')`,
+  );
+  expect(closed, "mobile contents: Escape closes the list and retains trigger focus");
+}
+
+async function reviewContentsChoice(page) {
+  await page.press("Enter");
+  await page.evaluate(
+    "new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))",
+  );
+  await page.evaluate(`document.querySelector('.ferra-contents a[href="#ferrocat"]').click()`);
+  await page.evaluate("new Promise((resolve) => setTimeout(resolve, 120))");
+  const chosen = await page.evaluate(
+    `({closed: document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded') === 'false', hash: location.hash, focus: document.activeElement.id})`,
+  );
+  expect(
+    chosen.closed && chosen.hash === "#ferrocat" && chosen.focus === "ferrocat",
+    "mobile contents: choosing an engine closes the list and focuses its article",
+  );
 }
 
 /** Opens a flyout and checks the open panel; leaves it open. */
@@ -211,6 +265,9 @@ try {
   await reviewSwitchers(page, server.origin);
   await reviewDocsMenu(page, server.origin);
   await reviewKeyboard(page, server.origin);
+  await reviewDesktopContents(page, server.origin);
+  await reviewMobileContents(page, server.origin);
+  await reviewContentsChoice(page);
   await reviewMotion(page, server.origin);
 } finally {
   await browser.close();

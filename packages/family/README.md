@@ -14,6 +14,13 @@ all engine identities and instruments, favicon kits and shared page
 components. See the [consumer guide](FERRA.md) and the live specimen at
 `/kit/ferra/`. Existing entries keep their current appearance during adoption.
 
+The Ferra entry also exports the soft-card editorial composition used by the
+family overview: `FerraSoftCard`, `FerraEditorial`, `FerraEditorialRow`,
+`FerraContents`, `FerraEngineArticle`, `FerraNote`, `FerraNotes` and `FerraReleaseFacts`.
+The registry owns the article copy and source links; the existing facts provider
+supplies releases and labeled download totals. The fictional specimen at
+`/kit/ferra/#editorial` shows the same components.
+
 > **2.0 is a breaking release** (ADR-0008, ADR-0009): a new look, a registry
 > with two tiers instead of three groups, and icons as pictures instead of
 > sprite symbols. See [Moving from 1.x](#moving-from-1x). ferramenta.dev

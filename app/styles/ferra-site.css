@@ -1,20 +1,94 @@
 /* Ardo owns the main landmark; the shared Ferra kit owns its page composition. */
-.ferra-site .ferra-shell {
+.ferra-page.ferra-site {
+  --ferra-width: 100rem;
+  --ferra-gutter: clamp(1rem, 2vw, 2rem);
+  background: var(--ferra-editorial-background);
+}
+.ferra-page.ferra-site .ferra-header {
+  min-height: 5.25rem;
+  gap: var(--ferra-space-2) var(--ferra-space-8);
+}
+.ferra-page.ferra-site .ferra-brand {
+  font-size: 2rem;
+}
+.ferra-page.ferra-site .ferra-nav {
+  font-size: 1rem;
+}
+.ferra-page.ferra-site .ferra-header .ferra-nav {
+  display: flex;
+  width: auto;
+  gap: var(--ferra-space-6);
+}
+.ferra-page.ferra-site .ferra-editorial-byline {
+  font-size: var(--ferra-text-small);
+  margin-block-start: var(--ferra-space-4);
+}
+.ferra-page.ferra-site .ferra-editorial-context {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--ferra-space-8);
+  padding-block: var(--ferra-space-4) var(--ferra-space-8);
+}
+.ferra-page.ferra-site .ferra-editorial-context h2 {
+  font-size: var(--ferra-text-lead);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+.ferra-page.ferra-site .ferra-editorial-context p {
+  margin-block-start: var(--ferra-space-3);
+  max-width: var(--ferra-measure);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ferra-text-secondary);
+}
+.ferra-page.ferra-site .ferra-editorial-closing h2 {
+  font-size: var(--ferra-text-editorial-title);
+}
+.ferra-page.ferra-site .ferra-editorial-closing {
+  margin-block-start: var(--ferra-space-16);
+}
+.ferra-page.ferra-site .ferra-editorial-closing > p {
+  max-width: var(--ferra-measure);
+  color: var(--ferra-text-secondary);
+  margin-block: var(--ferra-space-6);
+}
+.ferra-page.ferra-site .ferra-editorial-closing .ferra-application {
+  border-radius: var(--ferra-card-radius);
+}
+.ferra-page.ferra-site .ferra-editorial-workshop-links {
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--ferra-space-16);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--ferra-space-8);
+}
+.ferra-page.ferra-site .ferra-editorial-workshop-links a {
+  display: grid;
+  gap: var(--ferra-space-4);
+  text-decoration: none;
+  font-size: var(--ferra-text-small);
+  padding: var(--ferra-space-8);
+  border-radius: var(--ferra-card-radius);
+  background: var(--ferra-card-surface);
+  box-shadow: 0 2px 8px var(--ferra-card-shadow);
+}
+.ferra-page.ferra-site .ferra-shell {
   min-height: 0;
   background: transparent;
 }
-.ferra-site .ferra-shell > div {
+.ferra-page.ferra-site .ferra-shell > div {
   padding-block-start: 0;
 }
-.ferra-site #main-content {
+.ferra-page.ferra-site #main-content {
   min-width: 0;
   padding: 0;
   background: transparent;
 }
-.ferra-site .ferra-shell > a[href="#main-content"] {
+.ferra-page.ferra-site .ferra-shell > a[href="#main-content"] {
   color: var(--ferra-on-accent);
   background: var(--ferra-accent);
 }
-.ferra-site .ferra-story .ferra-columns p {
+.ferra-page.ferra-site .ferra-story .ferra-columns p {
   margin-block-start: var(--ferra-space-6);
 }

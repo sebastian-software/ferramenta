@@ -25,6 +25,15 @@ surfaces, IBM Plex Sans headings, rendered instruments and shared components
 come from `ferramenta-family/ferra`. The original `/kit/` remains a reference
 for existing consumers; `/kit/ferra/` shows the current shared components.
 
+The opening names Sebastian Software GmbH and links its open-source portfolio. It explains why the workshop chooses Rust, how compatibility is checked and why each engine can be adopted independently.
+
+The family overview uses light soft cards, a single ungrouped engine contents
+list, and image-first product articles with related workshop and architecture
+notes. Each engine has one adjacent card with two sourced aspects; its version and downloads sit in an attached footer. The workshop introduction sits beside the opening paragraph, and applications have individual cards under an unframed section heading. The canonical registry owns editorial descriptions and source links as
+well as tool facts. Releases and labeled crate-download totals remain live.
+The sidebar becomes a keyboard-operable disclosure on small screens; related
+notes follow their articles in reading order.
+
 ## Positioning
 
 A workshop's family of Rust-native engines, each built to the standard its field already agreed on (CommonMark, PO files, ICU MessageFormat, Hunspell dictionaries, TextMate grammars, ISO 32000). Much of this infrastructure was written decades ago, in C or across several languages; most of the family is its next generation. Successors match an established implementation and are proven against it differentially (Oniguruma, Shiki and Hunspell oracles); new developments hold themselves to the standards they build on. All earn trust in the open.

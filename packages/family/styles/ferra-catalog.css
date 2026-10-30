@@ -24,15 +24,13 @@
 }
 .ferra-page .ferra-applications {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--ferra-column-gap);
-  margin-block-start: var(--ferra-space-12);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--ferra-editorial-gap);
+  margin-block-start: var(--ferra-space-8);
 }
 .ferra-page .ferra-application {
   min-width: 0;
-  padding: var(--ferra-space-8);
-  background: var(--ferra-surface);
-  border: 1px solid var(--ferra-border);
+  --ferra-card-padding: var(--ferra-space-8);
 }
 .ferra-page .ferra-application p {
   margin-block: var(--ferra-space-4);

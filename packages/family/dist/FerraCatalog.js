@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { displayName, familyTiers, plannedRunsOnTools, relationsOf, runsOnTools, toolHref, } from "./family.js";
 import { FerraMark } from "./FerraComponents.js";
+import { FerraSoftCard } from "./FerraEditorial.js";
 import { isFerraProduct } from "./FerraIdentity.js";
 import { useToolFacts } from "./RegistryFacts.js";
 function EngineFacts({ tool }) {
@@ -26,6 +27,6 @@ export function FerraApplications() {
     return (_jsx("div", { className: "ferra-applications", children: familyTiers().applications.map((tool) => {
             const engines = runsOnTools(tool);
             const planned = plannedRunsOnTools(tool);
-            return (_jsxs("article", { className: "ferra-application", children: [_jsx("span", { className: "ferra-application-logo", "data-brand": tool.name, role: "img", "aria-label": displayName(tool) }), _jsx("h3", { children: displayName(tool) }), _jsxs("p", { children: [tool.what, ". ", tool.does] }), _jsx("p", { children: tool.audience }), engines.length > 0 && (_jsxs("p", { children: ["Runs on ", engines.map((engine) => displayName(engine)).join(", "), "."] })), planned.length > 0 && (_jsxs("p", { children: ["Planned engine integration:", " ", planned.map((engine) => displayName(engine)).join(", "), "."] })), _jsxs("a", { href: toolHref(tool), children: ["Explore ", displayName(tool)] })] }, tool.name));
+            return (_jsxs(FerraSoftCard, { as: "article", className: "ferra-application", children: [_jsx("span", { className: "ferra-application-logo", "data-brand": tool.name, role: "img", "aria-label": displayName(tool) }), _jsx("h3", { children: displayName(tool) }), _jsxs("p", { children: [tool.what, ". ", tool.does] }), _jsx("p", { children: tool.audience }), engines.length > 0 && (_jsxs("p", { children: ["Runs on ", engines.map((engine) => displayName(engine)).join(", "), "."] })), planned.length > 0 && (_jsxs("p", { children: ["Planned engine integration:", " ", planned.map((engine) => displayName(engine)).join(", "), "."] })), _jsxs("a", { href: toolHref(tool), children: ["Explore ", displayName(tool)] })] }, tool.name));
         }) }));
 }

@@ -10,6 +10,7 @@ import {
   toolHref,
 } from "./family.js";
 import { FerraMark } from "./FerraComponents.js";
+import { FerraSoftCard } from "./FerraEditorial.js";
 import { isFerraProduct } from "./FerraIdentity.js";
 import { useToolFacts } from "./RegistryFacts.js";
 
@@ -91,7 +92,7 @@ export function FerraApplications() {
         const engines = runsOnTools(tool);
         const planned = plannedRunsOnTools(tool);
         return (
-          <article className="ferra-application" key={tool.name}>
+          <FerraSoftCard as="article" className="ferra-application" key={tool.name}>
             <span
               className="ferra-application-logo"
               data-brand={tool.name}
@@ -113,7 +114,7 @@ export function FerraApplications() {
               </p>
             )}
             <a href={toolHref(tool)}>Explore {displayName(tool)}</a>
-          </article>
+          </FerraSoftCard>
         );
       })}
     </div>

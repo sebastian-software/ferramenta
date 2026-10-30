@@ -21,6 +21,7 @@ import { MarkDefs, SiteFooter, SiteHeader, SiteMenu, ToolSwitcher } from "ferram
 import { FerraFooter, FerraHeader, FerraPage } from "ferramenta-family/ferra";
 import touchIcon from "ferramenta-family/ferra-assets/ferramenta/apple-touch-icon.png?url";
 import favicon from "ferramenta-family/ferra-assets/ferramenta/favicon.ico?url";
+import { WORKSHOP } from "ferramenta-family/registry";
 
 import { isSampleDocsPath, isSamplePath, SAMPLE, SAMPLE_DOCS } from "./kit/sample";
 import { SITE_DESCRIPTION } from "./site-metadata";
@@ -146,6 +147,7 @@ export default function Root() {
   if (!inKit) {
     return (
       <FerraPage className="ferra-site">
+        <MarkDefs />
         <ArdoRoot
           className="ferra-shell"
           scrollMode="document"
@@ -153,12 +155,12 @@ export default function Root() {
           header={
             <FerraHeader
               home="/"
+              mark={false}
               nav={
                 <>
                   <a href="/#engines">Engines</a>
-                  <a href="/#choosing">Choosing an engine</a>
-                  <a href="/#applications">Applications</a>
-                  <a href="/#work">Work with us</a>
+                  <a href="/#workshop">Workshop</a>
+                  <a href={WORKSHOP.source}>GitHub</a>
                 </>
               }
             />

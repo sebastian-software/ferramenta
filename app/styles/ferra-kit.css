@@ -1,4 +1,21 @@
 /* Specimen framing only; the actual page and component styles come from the package. */
+.ferra-kit .ferra-kit-editorial > header {
+  margin-block-end: var(--ferra-space-8);
+}
+.ferra-kit .ferra-kit-editorial > header p {
+  margin-block-start: var(--ferra-space-6);
+  max-width: var(--ferra-measure);
+}
+.ferra-kit .ferra-kit-ruler {
+  width: 100%;
+  fill: var(--ferra-pewter);
+  stroke: var(--ferra-text-secondary);
+  stroke-width: 2;
+}
+.ferra-kit .ferra-kit-ruler-index {
+  stroke: var(--ferra-accent);
+  stroke-width: 5;
+}
 .ferra-kit .ferra-kit-swatches {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

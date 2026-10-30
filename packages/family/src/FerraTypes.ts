@@ -13,6 +13,8 @@ export type FerraMarkProps = {
 
 export type FerraLogoProps = {
   product?: FerraProduct;
+  /** Wordmark-only chrome for an editorial page. */
+  mark?: boolean;
 } & Omit<ComponentPropsWithoutRef<"a">, "children">;
 
 export type FerraInstrumentProps = {
@@ -23,6 +25,7 @@ export type FerraInstrumentProps = {
 
 export type FerraHeaderProps = {
   product?: FerraProduct;
+  mark?: boolean;
   home: string;
   nav?: ReactNode;
   navLabel?: string;

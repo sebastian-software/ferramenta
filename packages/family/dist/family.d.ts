@@ -64,6 +64,19 @@ export type FamilyBrand = {
     /** Text on that color. */
     onColor: string;
 };
+export type FamilyEditorialNote = {
+    title: string;
+    body: string;
+    href: string;
+};
+export type FamilyEditorial = {
+    /** Presentation order, never a required adoption sequence. */
+    order: number;
+    navigation: string;
+    subtitle: string;
+    introduction: string;
+    notes: [FamilyEditorialNote, ...FamilyEditorialNote[]];
+};
 export type FamilyTool = {
     /** Package/repo name, e.g. "ferriki" */
     name: string;
@@ -76,6 +89,8 @@ export type FamilyTool = {
     what: string;
     /** One-line job description — the subheader under the tool name, the README tables */
     job: string;
+    /** Overview copy and source-backed aspects, shared by editorial consumers. */
+    editorial?: FamilyEditorial;
     /** What it does, in one plain sentence. Results qualitatively, never with a figure. */
     does: string;
     /** Who reaches for it, as a sentence starting with "For". */
