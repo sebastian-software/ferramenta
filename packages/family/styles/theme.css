@@ -15,7 +15,6 @@
   --ardo-color-codeBg: var(--iron-50);
   --ardo-color-codeBorder: var(--iron-200);
   --ardo-color-brand: var(--rust-700);
-  --ardo-color-brandLight: var(--rust-600);
   --ardo-color-brandDark: var(--rust-800);
   --ardo-color-brandSubtle: var(--rust-100);
   --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-700) 0%, var(--rust-800) 100%);
@@ -29,7 +28,6 @@
   --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
   --ardo-color-codeBorder: var(--iron-800);
   --ardo-color-brand: var(--rust-300);
-  --ardo-color-brandLight: var(--rust-200);
   --ardo-color-brandDark: var(--rust-400);
   --ardo-color-brandSubtle: var(--rust-900);
   --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);
@@ -43,7 +41,6 @@
     --ardo-color-codeBg: color-mix(in oklch, var(--iron-950) 82%, black);
     --ardo-color-codeBorder: var(--iron-800);
     --ardo-color-brand: var(--rust-300);
-    --ardo-color-brandLight: var(--rust-200);
     --ardo-color-brandDark: var(--rust-400);
     --ardo-color-brandSubtle: var(--rust-900);
     --ardo-color-brandGradient: linear-gradient(135deg, var(--rust-300) 0%, var(--rust-400) 100%);

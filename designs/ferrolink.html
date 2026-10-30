@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Ferrolink · Overview</title>
+    <link rel="icon" href="../packages/family/ferra/ferrolink/favicon.ico" />
+    <link rel="stylesheet" href="../packages/family/styles/ferra.css" />
+    <link rel="stylesheet" href="../design/ferra/preview.css" />
+  </head>
+  <body>
+    <div class="ferra-page live-home">
+      <a class="live-skip" href="#content">Skip to content</a>
+      <header class="ferra-header ferra-wrap">
+        <a href="ferrolink.html" class="ferra-brand"
+          ><span
+            class="ferra-mark"
+            data-product="ferrolink"
+            style="--ferra-mark-size: 48px"
+            aria-hidden="true"
+          ></span
+          ><span>Ferrolink</span></a
+        >
+        <nav class="ferra-nav" aria-label="Main">
+          <a href="ferrolink.html" aria-current="page">Overview</a
+          ><a href="https://github.com/sebastian-software/ferrolink">Project documentation</a
+          ><a href="index.html#engines">The Ferramenta family</a>
+        </nav>
+      </header>
+      <main id="content">
+        <section class="ferra-hero ferra-wrap" aria-labelledby="_R_b_">
+          <div class="ferra-hero-copy">
+            <h1 id="_R_b_">A link checker for static builds.</h1>
+            <p class="ferra-subtitle">A link checker for static sites</p>
+            <div class="ferra-lede">
+              <p>
+                Check page links, asset references and anchors against the HTML your site actually
+                deploys. No server or network requests are needed.
+              </p>
+            </div>
+            <div class="ferra-actions">
+              <a href="#use-it-in-your-build" class="ferra-action" data-variant="primary"
+                >Get started</a
+              ><a
+                href="https://github.com/sebastian-software/ferrolink"
+                class="ferra-action"
+                data-variant="secondary"
+                >Source on GitHub</a
+              >
+            </div>
+          </div>
+          <div class="ferra-hero-art">
+            <span class="ferra-instrument" data-product="ferrolink" aria-hidden="true"></span>
+          </div>
+        </section>
+        <section
+          id="check-the-finished-site"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="check-the-finished-site-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">The contract</p>
+              <div>A focused engine, with explicit boundaries.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="check-the-finished-site-title">Check the finished site.</h2>
+              <p>
+                Run Ferrolink after rendering, when every page and asset has its final location. It
+                resolves references across pages and checks fragments against the target document.
+              </p>
+              <figure class="ferra-code">
+                <figcaption><span>Code</span></figcaption>
+                <pre tabindex="0"><code>ferrolink check build/client</code></pre>
+              </figure>
+              <p>
+                Deployment base paths, redirects and version destinations are part of the check.
+                External URLs are counted but never fetched.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="keep-the-boundary-clear"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="keep-the-boundary-clear-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">The contract</p>
+              <div>A focused engine, with explicit boundaries.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="keep-the-boundary-clear-title">Keep the boundary clear.</h2>
+              <p>
+                Ferrolink validates references inside a static build. It does not crawl the public
+                web or decide whether an external service is available. A missing target fails the
+                check; a problem running the check is reported separately.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="use-it-in-your-build"
+          class="ferra-section"
+          data-surface="paper"
+          aria-labelledby="use-it-in-your-build-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">The contract</p>
+              <div>A focused engine, with explicit boundaries.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="use-it-in-your-build-title">Use it in your build.</h2>
+              <p>
+                The repository documents the Rust command-line tool, Node.js API and Vite plugin.
+                Read their options and release notes before adding the check to a deployment gate.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="workshop-links"
+          class="ferra-section ferra-workshop"
+          data-surface="plain"
+          aria-labelledby="workshop-links-title"
+        >
+          <div class="ferra-section-layout ferra-wrap">
+            <aside class="ferra-margin">
+              <p class="ferra-label">Beyond the engines</p>
+              <div>The people and projects behind Ferramenta.</div>
+            </aside>
+            <div class="ferra-story">
+              <h2 id="workshop-links-title">From the same workshop.</h2>
+              <ul class="ferra-workshop-links">
+                <li>
+                  <a href="https://oss.sebastian-software.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="software"
+                      role="img"
+                      aria-label="Sebastian Software"
+                    ></span>
+                    <p>
+                      Production-grade open-source projects across several languages: the wider
+                      workshop this family comes from.
+                    </p>
+                    <span class="ferra-workshop-action">Explore the open-source projects</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://sebastian-consulting.com"
+                    ><span
+                      class="ferra-workshop-logo"
+                      data-brand="consulting"
+                      role="img"
+                      aria-label="Sebastian Consulting"
+                    ></span>
+                    <p>
+                      The people behind the engines, for hire: integration, support, and long-term
+                      maintenance.
+                    </p>
+                    <span class="ferra-workshop-action">Work with the team</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="ferra-footer ferra-wrap">
+        <div class="ferra-footer-brand">
+          <a href="ferrolink.html" class="ferra-brand"
+            ><span
+              class="ferra-mark"
+              data-product="ferrolink"
+              style="--ferra-mark-size: 48px"
+              aria-hidden="true"
+            ></span
+            ><span>Ferrolink</span></a
+          >
+          <p>Part of Ferramenta.</p>
+        </div>
+        <nav class="ferra-nav" aria-label="Footer">
+          <a href="https://github.com/sebastian-software">GitHub</a
+          ><a href="https://sebastian-software.com/imprint">Imprint</a
+          ><a href="https://sebastian-software.com/privacy-policy">Privacy</a
+          ><a href="../design/ferra/content/ferrolink-home.md">Source copy</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

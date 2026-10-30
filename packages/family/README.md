@@ -10,7 +10,7 @@ rendered from this package, with a sample tool page and sample documentation.
 
 The approved lighter direction is available through `ferramenta-family/ferra`
 and `ferramenta-family/ferra.css`. It includes the warm paper/pewter tokens,
-all eight rendered identities and instruments, favicon kits and shared page
+all engine identities and instruments, favicon kits and shared page
 components. See the [consumer guide](FERRA.md) and the live specimen at
 `/kit/ferra/`. Existing entries keep their current appearance during adoption.
 

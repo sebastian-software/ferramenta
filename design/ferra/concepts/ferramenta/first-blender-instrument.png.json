@@ -1,0 +1,757 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferramenta",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A seven-position precision register holds independent removable inserts: a pattern cassette, token comb, engraved document, letterform tile, catalog leaves, branch gate, and preview aperture. Keyed sockets, flush hex fasteners, small locating pins, replaceable feet, and a copper registration slide make the fixture mechanically explicit. The inserts are independent tools, not a processing chain. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A seven-position precision register holds independent removable inserts: a pattern cassette, token comb, engraved document, letterform tile, catalog leaves, branch gate, and preview aperture. Keyed sockets, flush hex fasteners, small locating pins, replaceable feet, and a copper registration slide make the fixture mechanically explicit. The inserts are independent tools, not a processing chain. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferramenta.py",
+  "sourceSha256": "390f9ebe166fb0f44f2920a4c59dc854d0195b420fa28eb590b2ae8c1f9757dd",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferramenta.py": "390f9ebe166fb0f44f2920a4c59dc854d0195b420fa28eb590b2ae8c1f9757dd",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferramenta-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "6487ff3eb3b71932332df948e2b280375e110ab0b8f51e8fa2e27f48bac810b4",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Independent tool register graphite lower edge",
+      "closedManifold": true,
+      "volume": 2.147241693,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register steel bed",
+      "closedManifold": true,
+      "volume": 2.079191197,
+      "machinedPockets": 7
+    },
+    {
+      "body": "Independent tool register isolated foot",
+      "closedManifold": true,
+      "volume": 0.004930097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor washer",
+      "closedManifold": true,
+      "volume": 0.000528144,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000705072,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Independent tool register bed anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 2.2634e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register isolated foot.001",
+      "closedManifold": true,
+      "volume": 0.004930097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000528144,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000705072,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Independent tool register bed anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 2.2634e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register isolated foot.002",
+      "closedManifold": true,
+      "volume": 0.004930097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor washer.002",
+      "closedManifold": true,
+      "volume": 0.000528144,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor socket head.002",
+      "closedManifold": true,
+      "volume": 0.000705072,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Independent tool register bed anchor dark socket floor.002",
+      "closedManifold": true,
+      "volume": 2.2634e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register isolated foot.003",
+      "closedManifold": true,
+      "volume": 0.004930097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor washer.003",
+      "closedManifold": true,
+      "volume": 0.000528144,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Independent tool register bed anchor socket head.003",
+      "closedManifold": true,
+      "volume": 0.000705072,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Independent tool register bed anchor dark socket floor.003",
+      "closedManifold": true,
+      "volume": 2.2634e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 1 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 1 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf",
+      "closedManifold": true,
+      "volume": 0.0782381,
+      "machinedPockets": 10
+    },
+    {
+      "body": "Oxide cassette spine",
+      "closedManifold": true,
+      "volume": 0.012137087,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 7",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 8",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern reference cassette leaf groove floor 9",
+      "closedManifold": true,
+      "volume": 1.4598e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 2 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 2 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Syntax registration comb leaf",
+      "closedManifold": true,
+      "volume": 0.057469027,
+      "machinedPockets": 5
+    },
+    {
+      "body": "Copper token inset 0",
+      "closedManifold": true,
+      "volume": 0.000213111,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper token inset 1",
+      "closedManifold": true,
+      "volume": 0.000213111,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper token inset 2",
+      "closedManifold": true,
+      "volume": 0.000213111,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper token inset 3",
+      "closedManifold": true,
+      "volume": 0.000213111,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper token inset 4",
+      "closedManifold": true,
+      "volume": 0.000213111,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 3 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 3 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf",
+      "closedManifold": true,
+      "volume": 0.079342331,
+      "machinedPockets": 7
+    },
+    {
+      "body": "Structured document insert leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000215422,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 6.2325e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 6.2325e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 4.5878e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 5.3669e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 5.3669e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured document insert leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 3.4625e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 4 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 4 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform insert leaf",
+      "closedManifold": true,
+      "volume": 0.049244582,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Insert 5 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 5 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf",
+      "closedManifold": true,
+      "volume": 0.038042525,
+      "machinedPockets": 6
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf -1 leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf",
+      "closedManifold": true,
+      "volume": 0.038042525,
+      "machinedPockets": 6
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Catalog leaf 1 leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 1.8362e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper catalog hinge",
+      "closedManifold": true,
+      "volume": 0.00723259,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 6 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 6 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Steel branching insert",
+      "closedManifold": true,
+      "volume": 0.068147426,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper branch selector",
+      "closedManifold": true,
+      "volume": 0.001718413,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 7 graphite socket liner",
+      "closedManifold": true,
+      "volume": 0.023955606,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Insert 7 locating tongue",
+      "closedManifold": true,
+      "volume": 0.024286904,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bounded preview insert leaf",
+      "closedManifold": true,
+      "volume": 0.034185523,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Copper preview insert",
+      "closedManifold": true,
+      "volume": 0.009355028,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Front registration track",
+      "closedManifold": true,
+      "volume": 0.033131545,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper sliding registration tab",
+      "closedManifold": true,
+      "volume": 0.021576132,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale",
+      "closedManifold": true,
+      "volume": 0.066180732,
+      "machinedPockets": 40
+    },
+    {
+      "body": "Register fine scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 25",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 26",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 27",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 28",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 29",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 30",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 31",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 32",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 33",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 34",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 35",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 36",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 37",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 38",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Register fine scale groove floor 39",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferramenta/pre-blender-instrument.png",
+    "sourceSha256": "aa165ad5b04ff754f21e7ea63c5b48e102625e74243d2e0c6ccc09ab42c268e1",
+    "promptSidecar": "design/ferra/concepts/ferramenta/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "letteringSource": "Blender bundled Bfont converted to recessed mesh geometry; no additional font file is shipped.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

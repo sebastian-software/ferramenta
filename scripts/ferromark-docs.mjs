@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 const project = new URL("../examples/ferromark-docs/", import.meta.url);
 const dependencies = new URL("node_modules/", project);
 const family = new URL("../packages/family/", import.meta.url);
-const ardo = process.env.ARDO_PACKAGE;
+const ardo =
+  process.env.ARDO_PACKAGE ?? fileURLToPath(new URL("../node_modules/ardo", import.meta.url));
 
 // All writes are confined to this example's ignored node_modules; ARDO_PACKAGE is read-only.
 /* eslint-disable security/detect-non-literal-fs-filename */

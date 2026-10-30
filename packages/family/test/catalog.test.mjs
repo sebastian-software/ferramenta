@@ -42,11 +42,15 @@ const relations = (name) =>
   kit.relationsOf(member(name)).map((relation) => `${relation.kind} ${relation.tool.name}`);
 
 test("relations are read from both sides, and never imply a chain", () => {
-  assert.deepEqual(relations("ferriki"), ["runs-on ferroni", "pairs-with ferromark"]);
-  assert.deepEqual(relations("ferroni"), ["carries ferriki"]);
+  assert.deepEqual(relations("ferriki"), [
+    "runs-on ferroni",
+    "pairs-with ferromark",
+    "carries ardo",
+  ]);
+  assert.deepEqual(relations("ferroni"), ["carries ferriki", "carries ferrolink"]);
   assert.deepEqual(
     relations("ferromark"),
-    ["pairs-with ferriki", "carries palamedes"],
+    ["pairs-with ferriki", "carries palamedes", "carries ardo"],
     "Ferromark pairs with Ferriki; it does not depend on it",
   );
   assert.deepEqual(relations("ferrolex"), [], "a member that stands alone has none");
@@ -223,20 +227,24 @@ test("a run sample shows its input once to assistive technology, the output for 
   );
 });
 
-test("Ardo names its planned engines without claiming a shipped integration", () => {
+test("Ardo names the native engines shipped in its static documentation build", () => {
   const ardo = member("ardo");
-  assert.deepEqual(kit.runsOnTools(ardo), []);
   assert.deepEqual(
-    kit.plannedRunsOnTools(ardo).map((tool) => tool.name),
-    ["ferromark", "ferriki"],
+    kit.runsOnTools(ardo).map((tool) => tool.name),
+    ["ferromark", "ferriki", "ferrolink"],
   );
-  assert.deepEqual(relations("ardo"), []);
+  assert.deepEqual(kit.plannedRunsOnTools(ardo), []);
+  assert.deepEqual(relations("ardo"), [
+    "runs-on ferromark",
+    "runs-on ferriki",
+    "runs-on ferrolink",
+  ]);
   const html = render(kit.ApplicationsBand, { current: "palamedes" });
-  assert.ok(html.includes("Planned engine integration"));
-  assert.ok(html.includes("A rebuild is underway"));
+  assert.ok(html.includes('<p class="fam-app-label">Runs on</p>'));
   assert.ok(html.includes("<b>ferromark</b>"));
   assert.ok(html.includes("<b>ferriki</b>"));
-  assert.ok(!html.includes('<p class="fam-app-label">Runs on</p>'));
+  assert.ok(!html.includes("Planned engine integration"));
+  assert.ok(!html.includes("A rebuild is underway"));
   assert.throws(
     () => kit.plannedRunsOnTools({ ...ardo, plannedRunsOn: ["nope"] }),
     /unknown member: nope/u,

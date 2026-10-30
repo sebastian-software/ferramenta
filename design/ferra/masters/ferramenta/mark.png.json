@@ -1,13 +1,45 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferramenta",
-  "role": "transparent family registration-fixture mark",
-  "prompt": "Use case: logo-brand.\nAsset type: original transparent rendered family logo mark for Ferramenta, legible at 32\u201364px.\nInput Image 1 is the Ferromark mark and Image 2 the Ferroni mark. They are references for MATERIAL, render craft, warm graphite backing, controlled steel highlights and restrained oxide accents. Create a DIFFERENT mark for the family itself; do not reuse either engine's silhouette. The dark-looking viewer background is not requested.\n\nPrimary request: a compact F-shaped precision registration fixture. A bold upright satin-steel spine with two broad horizontal arms opens to the right, forming an unmistakable capital-F silhouette. The two open keyed bays have large clear negative space. A short warm rust-brown oxide removable insert is docked on the end of the upper arm. A thin graphite backing echoes the F shape with controlled depth; it must not fill the bays. The common registration fixture represents one workshop and independently selectable tools.\nOnly three or four major shapes. Entire mark compact and approximately square, strongly readable at 32px. Simple broad surfaces with subtle brushed steel grain and carefully finished bevels. No diagonal pointer, parallel scanner tracks, page-leaf shape, individual engine symbols, gears, wrench, shield or tiny screw detail. This is a refined render, not a flat vector or text glyph on a square.\nCamera: nearly frontal, very slight three-quarter depth, whole object in focus. Warm studio light from upper left. Neutral steel, warm graphite, one muted oxide insert. No orange glow or copper shine. Centered complete object with 10% clear margin. No wordmark, caption, text, watermark, app tile background, opaque floor or background color.\nGenuine transparent alpha background including spaces between arms; preserve soft object edges. Output only the original family mark.",
+  "role": "Transparent native Blender product mark master",
+  "meaning": "A single polished steel F-shaped precision register, with two open keyed bays, a warm copper removable insert on its upper arm, and an open graphite backing. Continuous machined geometry, rounded rims, a compact square envelope, and real shallow depth. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "prompt": "A single polished steel F-shaped precision register, with two open keyed bays, a warm copper removable insert on its upper arm, and an open graphite backing. Continuous machined geometry, rounded rims, a compact square envelope, and real shallow depth. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "source": "design/ferra/blender/ferramenta.py",
+  "sourceSha256": "85c535185286f210961407a096cbdfad1a8a7145dc3170e9a6c97ed982eb76e7",
+  "constructionSources": {
+    "design/ferra/blender/ferramenta.py": "85c535185286f210961407a096cbdfad1a8a7145dc3170e9a6c97ed982eb76e7",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "scene": "design/ferra/blender/ferramenta.blend",
   "transparentBackgroundRequested": true,
-  "references": ["../logos/ferromark/mark-master.png", "../logos/ferroni/mark-master.png"],
-  "sha256": "9106d653192156a2949e6c7861250e5a4b146fc4ac910f25ae5560125729f681",
-  "geometry": "1254x1254",
-  "approvedSource": "designs/round-08-ferramenta/assets/ferramenta/mark-master.png",
-  "copiedUnchanged": true
+  "renderProfile": "Polished steel and oxide copper; graphite registrations; real bevels; directional softboxes and a narrow face-reflection strip; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "02096630f698dc6a5c1ef1939f556d8dd0449a139791008701c8e6b223bbe795",
+  "geometry": "1600x1600",
+  "geometryVerification": [
+    {
+      "body": "Open graphite F backing",
+      "closedManifold": true,
+      "volume": 0.464424,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Continuous polished steel F",
+      "closedManifold": true,
+      "volume": 0.616235,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Removable copper insert",
+      "closedManifold": true,
+      "volume": 0.053459,
+      "machinedOpenings": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferramenta/pre-blender-mark.png",
+    "sourceSha256": "9106d653192156a2949e6c7861250e5a4b146fc4ac910f25ae5560125729f681",
+    "promptSidecar": "design/ferra/concepts/ferramenta/pre-blender-mark.png.json"
+  }
 }

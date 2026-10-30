@@ -13,11 +13,10 @@ import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createElement as h } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 
 import { familyPreview } from "./family-preview.mjs";
 import { paragraph, parseCopy, renderSection } from "./preview-content.mjs";
+import { createElement as h, renderToStaticMarkup } from "./preview-runtime.mjs";
 
 const repository = fileURLToPath(new URL("../../", import.meta.url));
 const output = join(repository, "designs");
@@ -248,5 +247,5 @@ const format = spawnSync(
 );
 if (format.status !== 0) throw new Error(format.stderr || format.stdout);
 console.log(
-  `Built ${records.length + 1} native previews: Ferramenta, seven engine homes and six core pages.`,
+  `Built ${records.length + 1} native previews: Ferramenta, ${records.filter((record) => record.type === "overview").length} engine homes and six core pages.`,
 );

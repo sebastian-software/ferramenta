@@ -1,136 +1,120 @@
 <!doctype html>
 <!--
-  The social card of ferramenta.dev (public/social.png, 1200×630): the dark oak
-  bench, one riveted plate with the headline and the family's toolbox, and
-  every engine's icon below it. It is a page, so a browser renders it; nothing
+  The social card of ferramenta.dev (public/social.png, 1200×630): the Ferra
+  paper ground, the family register and every engine's compact mark. It is a page, so a browser renders it; nothing
   here is code of its own. Re-render it when the line-up changes, after
   updating the strip below (one figure per engine, in catalog order):
 
-    python3 -m http.server 4180 &
-    npx playwright screenshot --viewport-size=1200,630 --wait-for-timeout=1500 \
-      http://localhost:4180/design/social/card.html public/social.png
+    CHROME=/absolute/path/to/chromium pnpm social:write
 
-  (`npx playwright install chromium` once, first.) The page is served rather
-  than opened as a file so the package's font loads.
+  The renderer serves the repository so the local font and package assets load.
 -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Ferramenta social card</title>
-    <link rel="stylesheet" href="../../packages/family/styles/tokens.css" />
-    <link rel="stylesheet" href="../../packages/family/styles/fonts.css" />
-    <link rel="stylesheet" href="../../packages/family/styles/landing.css" />
-    <link rel="stylesheet" href="../../packages/family/styles/chrome.css" />
+    <link rel="stylesheet" href="../../packages/family/styles/ferra.css" />
     <style>
       * {
         box-sizing: border-box;
         margin: 0;
       }
-      body {
-        position: relative;
+      body.ferra-page {
         width: 1200px;
         height: 630px;
         overflow: hidden;
-        background: var(--oak) url("../../packages/family/textures/oak.webp") center / cover;
-        color: var(--iron-ink);
-        font-family: var(--body);
+        padding: 56px 64px;
       }
-      .plate {
-        position: absolute;
-        inset: 44px 44px auto;
-        height: 382px;
+      .hero {
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr 1.2fr;
         align-items: center;
         gap: 32px;
-        padding: 0 56px 0 64px;
+        min-height: 350px;
       }
-      .plate::after {
-        transition: none;
+      .ferra-page h1 {
+        font-size: 76px;
       }
-      small {
-        display: block;
-        margin-bottom: 18px;
-        font: 600 26px/1 var(--display);
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+      .subtitle {
+        font-size: 30px;
+        line-height: 1.3;
+        margin-block: 18px;
       }
-      h1 {
-        font: 700 86px/0.95 var(--display);
-        letter-spacing: 0.005em;
-        text-transform: uppercase;
+      .address {
+        font-size: 20px;
+        color: var(--ferra-accent);
       }
-      h1 em {
-        font-style: normal;
-        color: var(--rust-on-steel);
-      }
-      .plate img {
-        width: 300px;
-        height: 300px;
-        filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.5)) drop-shadow(0 14px 14px rgb(0 0 0 / 0.3));
+      .hero img {
+        width: 100%;
       }
       .strip {
-        position: absolute;
-        inset: auto 44px 34px;
         display: grid;
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(9, 1fr);
+        margin-block-start: 46px;
+        padding-block-start: 28px;
+        border-block-start: 1px solid var(--ferra-border);
       }
       figure {
         display: grid;
         justify-items: center;
-        gap: 8px;
+        gap: 12px;
       }
       figure img {
-        width: 88px;
-        height: 88px;
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
       }
       figcaption {
-        font: 700 22px/1 var(--display);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 600;
       }
     </style>
   </head>
-  <body>
-    <div class="fam-plate plate">
-      <i class="fam-rivet" data-corner="tl"></i>
-      <i class="fam-rivet" data-corner="tr"></i>
-      <i class="fam-rivet" data-corner="br"></i>
-      <i class="fam-rivet" data-corner="bl"></i>
+  <body class="ferra-page">
+    <div class="hero">
       <div>
-        <small>Ferramenta</small>
-        <h1>The engines under your tools, rebuilt in <em>Rust</em>.</h1>
+        <h1>Ferramenta.</h1>
+        <p class="subtitle">A family of Rust engines.</p>
+        <p class="address">ferramenta.dev</p>
       </div>
-      <img src="../../packages/family/icons/ferramenta.webp" alt="" />
+      <img src="../../packages/family/ferra/ferramenta/instrument.webp" alt="" />
     </div>
     <div class="strip">
       <figure>
-        <img src="../../packages/family/icons/ferroni-256.webp" alt="" />
-        <figcaption>ferroni</figcaption>
+        <img src="../../packages/family/ferra/ferroni/mark-128.png" alt="" />
+        <figcaption>Ferroni</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferriki-256.webp" alt="" />
-        <figcaption>ferriki</figcaption>
+        <img src="../../packages/family/ferra/ferriki/mark-128.png" alt="" />
+        <figcaption>Ferriki</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferromark-256.webp" alt="" />
-        <figcaption>ferromark</figcaption>
+        <img src="../../packages/family/ferra/ferromark/mark-128.png" alt="" />
+        <figcaption>Ferromark</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferrolex-256.webp" alt="" />
-        <figcaption>ferrolex</figcaption>
+        <img src="../../packages/family/ferra/ferrolex/mark-128.png" alt="" />
+        <figcaption>Ferrolex</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferrocat-256.webp" alt="" />
-        <figcaption>ferrocat</figcaption>
+        <img src="../../packages/family/ferra/ferrocat/mark-128.png" alt="" />
+        <figcaption>Ferrocat</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferralk-256.webp" alt="" />
-        <figcaption>ferralk</figcaption>
+        <img src="../../packages/family/ferra/ferralk/mark-128.png" alt="" />
+        <figcaption>Ferralk</figcaption>
       </figure>
       <figure>
-        <img src="../../packages/family/icons/ferrugo-256.webp" alt="" />
-        <figcaption>ferrugo</figcaption>
+        <img src="../../packages/family/ferra/ferrugo/mark-128.png" alt="" />
+        <figcaption>Ferrugo</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/ferra/ferrolink/mark-128.png" alt="" />
+        <figcaption>Ferrolink</figcaption>
+      </figure>
+      <figure>
+        <img src="../../packages/family/ferra/ferrigura/mark-128.png" alt="" />
+        <figcaption>Ferrigura</figcaption>
       </figure>
     </div>
   </body>

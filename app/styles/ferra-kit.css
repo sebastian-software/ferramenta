@@ -29,7 +29,7 @@
 }
 .ferra-kit .ferra-kit-identities {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--ferra-space-12) var(--ferra-space-8);
   list-style: none;
   padding: 0;
@@ -39,6 +39,18 @@
   display: grid;
   gap: var(--ferra-space-4);
   font-size: var(--ferra-text-small);
+}
+.ferra-kit .ferra-kit-mark-scales {
+  display: flex;
+  align-items: end;
+  gap: var(--ferra-space-4);
+}
+.ferra-kit .ferra-kit-mark-scales figure {
+  margin: 0;
+}
+.ferra-kit .ferra-kit-mark-scales figcaption {
+  margin-block-start: var(--ferra-space-3);
+  color: var(--ferra-text-secondary);
 }
 .ferra-kit .ferra-kit-instruments {
   margin-block: var(--ferra-space-8);
@@ -59,11 +71,11 @@
   font-size: var(--ferra-text-small);
 }
 @media (max-width: 47.5rem) {
-  .ferra-kit .ferra-kit-swatches,
-  .ferra-kit .ferra-kit-identities {
+  .ferra-kit .ferra-kit-swatches {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .ferra-kit .ferra-kit-instrument-grid {
+  .ferra-kit .ferra-kit-instrument-grid,
+  .ferra-kit .ferra-kit-identities {
     grid-template-columns: minmax(0, 1fr);
   }
 }

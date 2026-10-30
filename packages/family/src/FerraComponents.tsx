@@ -4,7 +4,6 @@ import type {
   FerraActionProps,
   FerraBarsProps,
   FerraCodeProps,
-  FerraEngineCatalogProps,
   FerraFooterProps,
   FerraHeaderProps,
   FerraHeroProps,
@@ -15,15 +14,7 @@ import type {
   FerraTableProps,
 } from "./FerraTypes.js";
 
-import {
-  displayName,
-  family,
-  isEngine,
-  toolHref,
-  WORKSHOP,
-  WORKSHOP_REFERENCES,
-} from "./family.js";
-import { type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
+import { displayName, family, WORKSHOP, WORKSHOP_REFERENCES } from "./family.js";
 
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
@@ -212,38 +203,6 @@ export function FerraAction({
     <a {...props} className={classes("ferra-action", className)} data-variant={variant}>
       {children}
     </a>
-  );
-}
-
-/** Registry facts remain authoritative even when a preview overrides the destinations. */
-export function FerraEngineCatalog({ hrefFor = toolHref }: FerraEngineCatalogProps) {
-  return (
-    <div className="ferra-engine-grid">
-      {family
-        .filter((tool) => isEngine(tool))
-        .map((tool) => {
-          if (!isFerraProduct(tool.name)) throw new Error(`Missing ferra identity: ${tool.name}`);
-          const product: FerraProduct = tool.name;
-          const name = displayName(tool);
-          return (
-            <article className="ferra-engine" key={tool.name}>
-              <div className="ferra-engine-heading">
-                <FerraMark product={product} size={64} />
-                <div>
-                  <h3>{name}</h3>
-                  <p className="ferra-engine-role">{tool.what}</p>
-                </div>
-              </div>
-              <p>{tool.does}</p>
-              <p className="ferra-engine-audience">{tool.audience}</p>
-              <a href={hrefFor(tool)}>
-                Explore {name}
-                {tool.docs === undefined && <span className="ferra-repo-hint"> on GitHub</span>}
-              </a>
-            </article>
-          );
-        })}
-    </div>
   );
 }
 

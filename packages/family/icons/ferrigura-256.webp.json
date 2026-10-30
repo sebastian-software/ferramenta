@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Compatibility icon for the original package entry; resampled from the same Ferra mark master.",
+  "source": "design/ferra/masters/ferrigura/mark.png",
+  "sourceSha256": "8eba21d067ccfe9d6da29e83574621521951b3d61cdad3d8366dec23d8248dac",
+  "prompt": "A substantial one-to-two hierarchy diagram evolved from the supplied UML-style reference and retained Imagegen material concept: one large polished oxide-copper rectangular parent above two polished steel children, a square on the left and a circle on the right. Their different silhouettes identify the nodes without letters or small markings. One chunky graphite-metal orthogonal bus and two exposed drops physically enter the node bodies. Broad crowned faces, rolling bevels, real solid thickness, restrained three-quarter depth, directional softbox reflections, and transparent negative space. A roughly square envelope and three large nodes preserve visual weight at small icon sizes.",
+  "geometry": "256x256",
+  "sha256": "e1d650a71f378a7fa18958c637d11931964c0e9f1b5bbb3b25b2b01be98a6fa1"
+}

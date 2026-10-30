@@ -1,0 +1,558 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrigura",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "An open diagram-layout fixture connects three steel rectangular nodes through one copper decision diamond. Solid graphite orthogonal rails enter fitted node ports; sliding registration collars, real frame recesses, blank metal faces, small corner socket screws, and restrained changes of plane make the diagram a physically coherent three-dimensional object. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "An open diagram-layout fixture connects three steel rectangular nodes through one copper decision diamond. Solid graphite orthogonal rails enter fitted node ports; sliding registration collars, real frame recesses, blank metal faces, small corner socket screws, and restrained changes of plane make the diagram a physically coherent three-dimensional object. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferrigura.py",
+  "sourceSha256": "12654fc9d50d07d47ad1b6022ac8ac4d6812e95b78a9bcffe142eba50a3248b8",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferrigura.py": "12654fc9d50d07d47ad1b6022ac8ac4d6812e95b78a9bcffe142eba50a3248b8",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferrigura-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "918303f99bd92798d8b2947139ff76a72407bd4d6ab1cb3b39e05d2da2dc8fb6",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Source diagram node graphite rear rim",
+      "closedManifold": true,
+      "volume": 0.350145828,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node broad crowned metal face",
+      "closedManifold": true,
+      "volume": 0.23329736,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket washer",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket socket head",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source diagram node corner socket dark socket floor",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket washer.001",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket socket head.001",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source diagram node corner socket dark socket floor.001",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket washer.002",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket socket head.002",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source diagram node corner socket dark socket floor.002",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket washer.003",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source diagram node corner socket socket head.003",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source diagram node corner socket dark socket floor.003",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node graphite rear rim",
+      "closedManifold": true,
+      "volume": 0.197045482,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node broad crowned metal face",
+      "closedManifold": true,
+      "volume": 0.133267548,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket washer",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket socket head",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Copper decision node corner socket dark socket floor",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket washer.001",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket socket head.001",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Copper decision node corner socket dark socket floor.001",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket washer.002",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket socket head.002",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Copper decision node corner socket dark socket floor.002",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket washer.003",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper decision node corner socket socket head.003",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Copper decision node corner socket dark socket floor.003",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node graphite rear rim",
+      "closedManifold": true,
+      "volume": 0.336066952,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node broad crowned metal face",
+      "closedManifold": true,
+      "volume": 0.224481171,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket washer",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket socket head",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Upper diagram node corner socket dark socket floor",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket washer.001",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket socket head.001",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Upper diagram node corner socket dark socket floor.001",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket washer.002",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket socket head.002",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Upper diagram node corner socket dark socket floor.002",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket washer.003",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upper diagram node corner socket socket head.003",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Upper diagram node corner socket dark socket floor.003",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node graphite rear rim",
+      "closedManifold": true,
+      "volume": 0.336066952,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node broad crowned metal face",
+      "closedManifold": true,
+      "volume": 0.224481171,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket washer",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket socket head",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Lower diagram node corner socket dark socket floor",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket washer.001",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket socket head.001",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Lower diagram node corner socket dark socket floor.001",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket washer.002",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket socket head.002",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Lower diagram node corner socket dark socket floor.002",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket washer.003",
+      "closedManifold": true,
+      "volume": 0.000146583,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Lower diagram node corner socket socket head.003",
+      "closedManifold": true,
+      "volume": 0.000106962,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Lower diagram node corner socket dark socket floor.003",
+      "closedManifold": true,
+      "volume": 6.438e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source to decision",
+      "closedManifold": true,
+      "volume": 0.031807491,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Shared decision stem",
+      "closedManifold": true,
+      "volume": 0.013687747,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Decision to upper node",
+      "closedManifold": true,
+      "volume": 0.034783227,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Decision to lower node",
+      "closedManifold": true,
+      "volume": 0.03552789,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port registration collar",
+      "closedManifold": true,
+      "volume": 0.005503163,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Node port collar clamp dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port registration collar.001",
+      "closedManifold": true,
+      "volume": 0.005503163,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp washer.001",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp socket head.001",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Node port collar clamp dark socket floor.001",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port registration collar.002",
+      "closedManifold": true,
+      "volume": 0.005503163,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp washer.002",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp socket head.002",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Node port collar clamp dark socket floor.002",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port registration collar.003",
+      "closedManifold": true,
+      "volume": 0.005503163,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp washer.003",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp socket head.003",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Node port collar clamp dark socket floor.003",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port registration collar.004",
+      "closedManifold": true,
+      "volume": 0.005503163,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp washer.004",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Node port collar clamp socket head.004",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Node port collar clamp dark socket floor.004",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration block",
+      "closedManifold": true,
+      "volume": 0.013601729,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration screw washer",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration screw socket head",
+      "closedManifold": true,
+      "volume": 0.000184831,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Elbow registration screw dark socket floor",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration block.001",
+      "closedManifold": true,
+      "volume": 0.013601729,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration screw washer.001",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Elbow registration screw socket head.001",
+      "closedManifold": true,
+      "volume": 0.00018483,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Elbow registration screw dark socket floor.001",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrigura/pre-blender-instrument.png",
+    "sourceSha256": "2f1bf3845d775baf9cfc90baf11548537362832cf31005625f902336e73e2213",
+    "promptSidecar": "design/ferra/concepts/ferrigura/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

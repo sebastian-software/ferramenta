@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "built-in Imagegen",
+  "product": "Ferrigura",
+  "role": "Hierarchy concept for native Blender reconstruction",
+  "references": [
+    {
+      "source": "design/ferra/concepts/ferrigura/hierarchy-reference.jpg",
+      "sourceSha256": "7c4d1f1ef98edf5da2cdb68e69813ec065c06465e787870c526348cb4fb1c567",
+      "role": "User-supplied hierarchy topology and silhouette"
+    },
+    {
+      "source": "packages/family/ferra/ferrolink/mark-512.png",
+      "sourceSha256": "202b4f231f46fdc9b44c59cdc405b95d58744b24f73620655842a42ae7c9708f",
+      "role": "Approved family metal, depth, and reflections"
+    }
+  ],
+  "transparentBackgroundRequested": true,
+  "prompt": "Use case: stylized-concept. Asset type: one bold compact 3D logo concept for Ferrigura, a Mermaid/UML diagram renderer, to reproduce as actual Blender geometry. Image 1 is the user's desired hierarchy diagram and is the authority for the TOPOLOGY AND SILHOUETTE: one large round parent at the top, an orthogonal central trunk and shared horizontal branch, then exactly THREE round children in one aligned bottom row. Image 2 is the approved Ferrolink family mark and is the authority for polished silver steel, rich warm brown copper, real metal thickness, smooth machined bevels, broad elegant studio reflections, and high-quality 3D craft. Do not copy chain links.\nReinterpret the user's extremely clear diagram as one substantial metallic hierarchy sculpture. Use ONE large round copper parent medallion centered above THREE large round silver-steel child medallions. Make the nodes filled, broad-faced, gently crowned metallic discs with strong rounded rims and convincing edge thickness. The medallion faces remain completely blank. These are simple diagram nodes, not spheres or coins with markings. Join them with chunky, dark graphite-metal orthogonal rails: one central parent stem, one shared horizontal bus, three short downward stems. All connections must be clear and physically joined, no floating endpoints. Preserve the exact one-to-three hierarchy in the reference. Use generous simple forms and useful short exposed connections. The child discs nearly span the width together, with clear modest gaps between them. The large parent and broad children fill a roughly square envelope; avoid a sparse, fine, miniature-looking diagram.\nCamera: almost frontal with a shallow three-quarter turn, so the hierarchy is immediately recognizable and the real 3D edge thickness and reflections remain visible. One coherent arrangement in one shallow plane; no extreme tilts or detached pieces. Warm polished steel and brown copper as in image 2, darker side faces, controlled luminous softbox bands, dark graphite rails for strong contrast. No tiny details, screws, text, letters, arrowheads, labels, additional nodes, diamonds, rounded rectangles, background board, app tile, frame, floor or watermark. One complete centered object with about 8 percent transparent margin. Actual transparent alpha throughout the background and between the nodes and rails.",
+  "sha256": "4d7c4076db67bdadecc6fd4e51aedcadc40d35366160511762a93eb7d8bb58bc"
+}

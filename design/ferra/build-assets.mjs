@@ -25,7 +25,9 @@ function provenance(file, source, role) {
     `${file}.json`,
     `${JSON.stringify(
       {
-        generatedWith: "ImageMagick export of approved built-in Imagegen master",
+        generatedWith: original.generatedWith.startsWith("Blender ")
+          ? `ImageMagick export of ${original.generatedWith} master`
+          : "ImageMagick export of approved built-in Imagegen master",
         role,
         source: `design/ferra/${source.slice(root.length + 1)}`,
         sourceSha256: createHash("sha256").update(readFileSync(source)).digest("hex"),
@@ -46,10 +48,50 @@ const assetManifest = {
   brands: {},
   typography: font,
 };
+const instrumentsOnly = process.argv.includes("--instruments-only");
+const selected = new Set(process.argv.slice(2).filter((id) => id !== "--instruments-only"));
+for (const id of selected) {
+  if (!manifest.products.some((product) => product.id === id))
+    throw new Error(`Unknown product: ${id}`);
+}
 const rules = [];
-for (const { id, meaning } of manifest.products) {
+function registerProduct(id, meaning, hero) {
+  const [width, height] = magick(["identify", "-format", "%w %h", hero]).split(" ").map(Number);
+  assetManifest.products[id] = {
+    meaning,
+    mark: `${id}/mark.webp`,
+    instrument: `${id}/instrument.webp`,
+    ratio: width / height,
+    favicon: `${id}/favicon.ico`,
+    sizes,
+  };
+  rules.push(
+    `.ferra-mark[data-product="${id}"] { background-image: url("../ferra/${id}/mark.webp"); }`,
+    `.ferra-instrument[data-product="${id}"] { background-image: url("../ferra/${id}/instrument.webp"); aspect-ratio: ${width} / ${height}; }`,
+  );
+}
+function exportInstrument(id, meaning, folder) {
+  const instrument = join(root, "masters", id, "instrument.png");
+  const hero = join(folder, "instrument.webp");
+  magick([instrument, "-resize", "1600x1200>", "-quality", "90", hero]);
+  provenance(
+    hero,
+    instrument,
+    "Optimized transparent instrument; resample and WebP encoding only.",
+  );
+  registerProduct(id, meaning, hero);
+}
+for (const { id, meaning, compatibilityIcon = false } of manifest.products) {
   const folder = join(output, id);
   mkdirSync(folder, { recursive: true });
+  if (selected.size > 0 && !selected.has(id)) {
+    registerProduct(id, meaning, join(folder, "instrument.webp"));
+    continue;
+  }
+  if (instrumentsOnly) {
+    exportInstrument(id, meaning, folder);
+    continue;
+  }
   const master = join(root, "masters", id, "mark.png");
   const bounds = magick([
     master,
@@ -109,38 +151,52 @@ for (const { id, meaning } of manifest.products) {
     touch,
   ]);
   provenance(touch, master, "180px Apple touch icon on warm paper.");
-  const instrument = join(root, "masters", id, "instrument.png");
-  const hero = join(folder, "instrument.webp");
-  magick([instrument, "-resize", "1600x1200>", "-quality", "90", hero]);
-  provenance(
-    hero,
-    instrument,
-    "Optimized transparent instrument; resample and WebP encoding only.",
-  );
-  const [width, height] = magick(["identify", "-format", "%w %h", hero]).split(" ").map(Number);
-  assetManifest.products[id] = {
-    meaning,
-    mark: `${id}/mark.webp`,
-    instrument: `${id}/instrument.webp`,
-    ratio: width / height,
-    favicon: `${id}/favicon.ico`,
-    sizes,
-  };
-  rules.push(
-    `.ferra-mark[data-product="${id}"] { background-image: url("../ferra/${id}/mark.webp"); }`,
-    `.ferra-instrument[data-product="${id}"] { background-image: url("../ferra/${id}/instrument.webp"); aspect-ratio: ${width} / ${height}; }`,
-  );
+  // Newly added members use their Ferra mark in the original chrome as well.
+  // Older members retain their existing icon masters and visual contract.
+  if (compatibilityIcon) {
+    const icons = fileURLToPath(new URL("../../packages/family/icons/", import.meta.url));
+    for (const size of [96, 256, 640]) {
+      const file = join(icons, `${id}${size === 640 ? "" : `-${size}`}.webp`);
+      magick([
+        master,
+        "-crop",
+        bounds,
+        "+repage",
+        "-background",
+        "none",
+        "-gravity",
+        "center",
+        "-extent",
+        "%[fx:ceil(max(w,h)/0.875)]x%[fx:ceil(max(w,h)/0.875)]",
+        "-filter",
+        "Lanczos",
+        "-resize",
+        `${size}x${size}`,
+        "-quality",
+        "90",
+        file,
+      ]);
+      provenance(
+        file,
+        master,
+        "Compatibility icon for the original package entry; resampled from the same Ferra mark master.",
+      );
+    }
+  }
+  exportInstrument(id, meaning, folder);
 }
 for (const material of manifest.materials) {
   mkdirSync(join(output, "textures"), { recursive: true });
   const master = join(root, "masters", `${material}.png`);
   const file = join(output, "textures", `${material}.webp`);
-  magick([master, "-quality", "90", file]);
-  provenance(
-    file,
-    master,
-    "Optimized approved surface; cover a single field instead of tiling visible seams.",
-  );
+  if (!instrumentsOnly) {
+    magick([master, "-quality", "90", file]);
+    provenance(
+      file,
+      master,
+      "Optimized approved surface; cover a single field instead of tiling visible seams.",
+    );
+  }
   assetManifest.materials[material] = `textures/${material}.webp`;
 }
 // These original workshop logos are copied byte for byte, without raster conversion or recoloring.
@@ -192,7 +248,9 @@ writeFileSync(
   )}\n}\n`,
 );
 console.log(
-  `Exported ${manifest.products.length} identities and instruments, two textures and CSS/JSON tokens.`,
+  instrumentsOnly
+    ? `Exported ${selected.size || manifest.products.length} instrument assets and refreshed CSS/JSON references.`
+    : `Exported ${manifest.products.length} identities and instruments, two textures and CSS/JSON tokens.`,
 );
 const formatter = spawnSync(
   fileURLToPath(new URL("../../node_modules/.bin/oxfmt", import.meta.url)),

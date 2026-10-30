@@ -1,25 +1,818 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferrolex",
-  "role": "transparent meaningful homepage hero instrument",
-  "subject": "Wordform proofing gauge",
-  "meaning": "A precision wordform proofing gauge made from satin steel and a restrained oxide reference insert. A low, compact horizontal rail holds four interchangeable letterpress-like type blocks with broad simple engraved letter-form strokes. A clean stepped profile gauge above them fits the intended wordform; one small movable oxide alignment stop shows the checked position. One spare narrow affix block fits into a keyed slot at the side of the same assembly. This is an elegant proofing and dictionary/affix comparison instrument, not a printing press. Show broad enough letterform geometry to imply words without relying on readable text. Few robust components, one integrated object, no magnifying glass, robot face, dirty typewriter, weapon or giant machinery.",
-  "prompt": "Use case: stylized-concept. Asset type: reusable transparent homepage hero illustration for Ferrolex, a spell checker.\nInput Image 1 is the existing Ferromark document-register instrument and Image 2 the Ferroni pattern-comparator instrument. Both are MATERIAL, CAMERA AND FAMILY CRAFT references only. Create a distinct new instrument, not a copy of either geometry. Their black-looking image-viewer backdrop is not a requested background; the output must have genuine alpha transparency.\n\nPrimary subject: Wordform proofing gauge.\nA precision wordform proofing gauge made from satin steel and a restrained oxide reference insert. A low, compact horizontal rail holds four interchangeable letterpress-like type blocks with broad simple engraved letter-form strokes. A clean stepped profile gauge above them fits the intended wordform; one small movable oxide alignment stop shows the checked position. One spare narrow affix block fits into a keyed slot at the side of the same assembly. This is an elegant proofing and dictionary/affix comparison instrument, not a printing press. Show broad enough letterform geometry to imply words without relying on readable text. Few robust components, one integrated object, no magnifying glass, robot face, dirty typewriter, weapon or giant machinery.\n\nRender as one believable fine-mechanical bench instrument. Satin brushed steel, warm graphite edge structure, one restrained rust-brown oxide component. Warm neutral highlights, soft studio daylight from upper left, physically restrained reflections. Refined, light, precise, durable and carefully machined; no violence, grunge, dirt, dramatic darkness or heavy industrial aesthetic. Keep the meaning readable through a few clear components and their physical relationship, rather than a dense accumulation of generic screws. Use only a few discreet real fasteners.\nComposition: three-quarter orthographic-like view from slightly above, matching the existing family reference camera. Center the complete isolated object in a moderately wide landscape composition, with 8\u201312% clear margin around every edge and no clipping. Keep the whole object in focus. A faint local contact shadow is allowed as semi-transparent alpha; no opaque floor, background gradient, black matte, presentation board or text labels. No product wordmark, caption, watermark or interface. Genuine transparent background, including open spaces between components. Output only the original reusable graphic asset.",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A wordform proofing gauge holds four replaceable engraved type blocks beneath a stepped dictionary-profile bridge. A copper sliding stop, a spare upright affix insert, keyed block seats, hex fasteners, a knurled adjuster, and engraved scales describe wordform and affix comparison. Large uppercase Blender letterforms are recessed into substantial steel blocks and filled with textured rust-brown oxide inlays. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A wordform proofing gauge holds four replaceable engraved type blocks beneath a stepped dictionary-profile bridge. A copper sliding stop, a spare upright affix insert, keyed block seats, hex fasteners, a knurled adjuster, and engraved scales describe wordform and affix comparison. Large uppercase Blender letterforms are recessed into substantial steel blocks and filled with textured rust-brown oxide inlays. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferrolex.py",
+  "sourceSha256": "17c14f443830cb64078dbb1ae0c85fd604b0eba3a4596a3cec4661fe85fda6f6",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferrolex.py": "17c14f443830cb64078dbb1ae0c85fd604b0eba3a4596a3cec4661fe85fda6f6",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/hero_instruments.py": "0653ff5ff5e05ef1e9c4e1f216d82f45014b8df8b24adeb68b76a0cd3c133474",
+    "design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-forms-approved-plates.py": "4935383a0bc8c805a54a87c2473329d19beb4fbcbf86da30d0d729f7afd06fff"
+  },
+  "scene": "design/ferra/blender/heroes/ferrolex.blend",
   "transparentBackgroundRequested": true,
-  "references": [
+  "renderProfile": "Low brushed polished steel mounting plates with separately rounded plan corners, narrow edge breaks and true counterbores, slightly brighter red-brown granular corrosion islands over dull oxidized metal with burnt oxide rims, three normal layers for broken crust edges, pits and dry grain, varying roughness and metallic response; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "4ff7279d267abdfe1ea207909e481fa604f762e7c160cc0e1c0d5411dde9ff9c",
+  "geometry": "2400x1200",
+  "geometryVerification": [
     {
-      "file": "../round-06-warm-specimen/assets/document-register.png",
-      "role": "material, light and craft reference"
+      "body": "Wordform proofing gauge machined mounting plate",
+      "closedManifold": true,
+      "volume": 4.983496726,
+      "machinedPockets": 8
     },
     {
-      "file": "../round-06-warm-specimen/assets/pattern-comparator.png",
-      "role": "material, camera and fine-mechanical family reference"
+      "body": "Wordform proofing gauge flush bed anchor counterbore floor",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor recessed sleeve washer",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor flush socket head",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor dark hex floor",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor counterbore floor.001",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor recessed sleeve washer.001",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor flush socket head.001",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor dark hex floor.001",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor counterbore floor.002",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor recessed sleeve washer.002",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor flush socket head.002",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor dark hex floor.002",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor counterbore floor.003",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor recessed sleeve washer.003",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor flush socket head.003",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Wordform proofing gauge flush bed anchor dark hex floor.003",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "A type block lower key",
+      "closedManifold": true,
+      "volume": 0.135927151,
+      "machinedPockets": 0
+    },
+    {
+      "body": "A type block steel face",
+      "closedManifold": true,
+      "volume": 0.372723538,
+      "machinedPockets": 1
+    },
+    {
+      "body": "A recessed oxide inlay",
+      "closedManifold": true,
+      "volume": 0.00215609,
+      "machinedPockets": 0
+    },
+    {
+      "body": "F type block lower key",
+      "closedManifold": true,
+      "volume": 0.135927151,
+      "machinedPockets": 0
+    },
+    {
+      "body": "F type block steel face",
+      "closedManifold": true,
+      "volume": 0.375174435,
+      "machinedPockets": 1
+    },
+    {
+      "body": "F recessed oxide inlay",
+      "closedManifold": true,
+      "volume": 0.001650782,
+      "machinedPockets": 0
+    },
+    {
+      "body": "N type block lower key",
+      "closedManifold": true,
+      "volume": 0.135927151,
+      "machinedPockets": 0
+    },
+    {
+      "body": "N type block steel face",
+      "closedManifold": true,
+      "volume": 0.369841087,
+      "machinedPockets": 1
+    },
+    {
+      "body": "N recessed oxide inlay",
+      "closedManifold": true,
+      "volume": 0.002750373,
+      "machinedPockets": 0
+    },
+    {
+      "body": "E type block lower key",
+      "closedManifold": true,
+      "volume": 0.135927151,
+      "machinedPockets": 0
+    },
+    {
+      "body": "E type block steel face",
+      "closedManifold": true,
+      "volume": 0.373103768,
+      "machinedPockets": 1
+    },
+    {
+      "body": "E recessed oxide inlay",
+      "closedManifold": true,
+      "volume": 0.002077697,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary profile support",
+      "closedManifold": true,
+      "volume": 0.124346154,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary support cap washer",
+      "closedManifold": true,
+      "volume": 0.000834281,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary support cap socket head",
+      "closedManifold": true,
+      "volume": 0.00138814,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Dictionary support cap dark socket floor",
+      "closedManifold": true,
+      "volume": 3.5555e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary profile support.001",
+      "closedManifold": true,
+      "volume": 0.124346154,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary support cap washer.001",
+      "closedManifold": true,
+      "volume": 0.000834281,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Dictionary support cap socket head.001",
+      "closedManifold": true,
+      "volume": 0.00138814,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Dictionary support cap dark socket floor.001",
+      "closedManifold": true,
+      "volume": 3.5555e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Machined stepped profile bar",
+      "closedManifold": true,
+      "volume": 0.603702386,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper profile stop rear",
+      "closedManifold": true,
+      "volume": 0.078192172,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper profile stop front foot",
+      "closedManifold": true,
+      "volume": 0.008873877,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw spindle",
+      "closedManifold": true,
+      "volume": 0.00108995,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw thrust washer",
+      "closedManifold": true,
+      "volume": 0.000541125,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw knurled hub",
+      "closedManifold": true,
+      "volume": 0.004452096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Profile stop screw center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Profile stop screw center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Affix insert side holder",
+      "closedManifold": true,
+      "volume": 0.040944578,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Spare affix insert leaf",
+      "closedManifold": true,
+      "volume": 0.058704362,
+      "machinedPockets": 4
+    },
+    {
+      "body": "Spare affix insert leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 9.238e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Spare affix insert leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 9.238e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Spare affix insert leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 9.238e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Spare affix insert leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 9.238e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale",
+      "closedManifold": true,
+      "volume": 0.080204717,
+      "machinedPockets": 41
+    },
+    {
+      "body": "Wordform reference scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 25",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 26",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 27",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 28",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 29",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 30",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 31",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 32",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 33",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 34",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 35",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 36",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 37",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 38",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 39",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Wordform reference scale groove floor 40",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
     }
   ],
-  "width": 1774,
-  "height": 887,
-  "sha256": "e335fd336e083015b7e723e8b9d77fe2467580ad866aa3da8d7fbd44bed1d67d",
-  "approvedSource": "designs/round-07-family-expansion/assets/ferrolex/hero.png",
-  "copiedUnchanged": true
+  "revision": "Second Blender pass refined: low machined plates with rounded plan corners, narrow edge breaks and recessed fasteners, large tool heads, a turned source assembly, a conveyor sorter, and slightly brighter granular rust.",
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrolex/pre-blender-instrument.png",
+    "sourceSha256": "e335fd336e083015b7e723e8b9d77fe2467580ad866aa3da8d7fbd44bed1d67d",
+    "promptSidecar": "design/ferra/concepts/ferrolex/pre-blender-instrument.png.json"
+  },
+  "previousRevision": {
+    "source": "design/ferra/concepts/ferrolex/first-blender-instrument.png",
+    "sourceSha256": "63c2bc556fa3139088caadef8c0db179f8c9fa4ef47b4990253a70476615f661"
+  },
+  "materialReference": "Procedural corrosion follows the supplied weathered-rust photograph as visual inspiration. No photographic texture is used.",
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "letteringSource": "Blender bundled Bfont converted to recessed mesh geometry; no additional font file is shipped."
 }

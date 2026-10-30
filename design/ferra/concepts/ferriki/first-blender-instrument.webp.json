@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferriki/first-blender-instrument.png",
+  "sourceSha256": "863dca1170f07cab1e76309fb84eb00363b0e8a29366034c19351670f390772a",
+  "prompt": "A token-and-theme register carries repeated engraved token groups through a transverse registration comb. The output groups use copper, graphite, and steel inlays. A keyed theme cassette, knurled adjustment wheel, guide rods, comb teeth, engraved calibration marks, and retained feed spool form one detailed mechanical assembly. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "b13e6e831ef05f5ea09b1ea12e075c97d820805eae03cc46c537fb09d38d35ad",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferriki/instrument.png"
+}

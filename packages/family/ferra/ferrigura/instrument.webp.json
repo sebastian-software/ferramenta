@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/masters/ferrigura/instrument.png",
+  "sourceSha256": "f3cf96a1adb5bd3ee2b459ffe4ac96a63d26a4a1dd49e6d8167959b39fbbe323",
+  "prompt": "A compact roller-and-slat conveyor diagram sorts document billets through a central diamond-shaped transfer deck and a substantial pivoting switch blade. One straight incoming belt branches into two deliberately aligned output belts: a square process billet and a round storage billet make the diagram roles visibly different. Thick chamfered beds, straight side rails, retained end rollers, oxide drive caps, etched document marks and separate support shoes form one coherent mechanical sorter. The illustration represents branching and layout within Ferrigura, not a pipeline between family members. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "e71909067aaf5cf0f89e4f51507b9afcda0fd654d6588d8ee26cb95ad7712280"
+}

@@ -1,17 +1,1159 @@
 {
-  "prompt": "Use case: product-mockup\nAsset type: reusable transparent hero object for Ferroni, an Oniguruma-compatible regex engine and multi-pattern scanner in Rust.\nPrimary request: design a meaningful fine-mechanical PATTERN COMPARATOR INSTRUMENT. An extremely slender horizontal stainless linear guide carries a miniature scanning head over a thin text ribbon. At the left, three very thin removable pattern cassettes stand PARALLEL in a small satin-metal holder; one cassette edge is warm stabilized oxide. The carriage has a fine rust-brown pointer that lines up with one highlighted slot in the ribbon, illustrating the next matching span selected across multiple patterns. At the right, two small oxide registration marks indicate separate matched spans. The functional metaphor must be visually inferable: stored patterns, a scanning head moving across source text, an indexed match position. One coherent small tabletop instrument, not a random sculpture.\nUse the reference screenshots' premium clean brushed steel, controlled rust-brown inlay, tiny flush screw anchors and calm light reflections. Thin members, fine tolerances, mechanically plausible guide and carriage; a little of the first-round Ferroni engine's explanatory character without its bulky pipework. No large cogwheels, boiler pipes, thick housing, anvils, flames, dirt or grunge. Genuine transparent alpha background with whole device and ample margin, three-quarter top-front view, soft studio lighting, no baked-in floor. No text, labels, logo or numbers; source ribbon only has small engraved neutral letter-like marks and match slots. An independent hero asset, not a webpage.\nInput references: images 1 and 2 are material and refinement references only.",
-  "createdAt": "2026-10-18",
-  "generatedWith": "built-in Imagegen",
-  "role": "semantic project hero object",
-  "meaning": "Parallel pattern cassettes feed one scanning carriage; a pointer locates the next match on a text ribbon.",
-  "styleReferences": [
-    "../../round-02-precision-rust/11-micrometer-bridge-ferromark.png",
-    "../../round-02-precision-rust/14-calibration-sheet-ferromark.png"
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferroni",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A pattern comparator holds three deep, independent book-like pattern cassettes beside a genuine linear guide on a low machined mounting plate with rounded plan corners and flush fasteners. A large bored carriage and thick angled yoke carry a broad oxide contact tool over a recessed text ribbon. Fine graduations, short match inlays, cassette edge engravings, collars, washers, and socket screws explain storage, scanning, and the selected match position. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A pattern comparator holds three deep, independent book-like pattern cassettes beside a genuine linear guide on a low machined mounting plate with rounded plan corners and flush fasteners. A large bored carriage and thick angled yoke carry a broad oxide contact tool over a recessed text ribbon. Fine graduations, short match inlays, cassette edge engravings, collars, washers, and socket screws explain storage, scanning, and the selected match position. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferroni.py",
+  "sourceSha256": "861108ee80f094ce6832bb29f53e8b55e5a6cdb866a65c3c766fe27e6677d732",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferroni.py": "861108ee80f094ce6832bb29f53e8b55e5a6cdb866a65c3c766fe27e6677d732",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/hero_instruments.py": "0653ff5ff5e05ef1e9c4e1f216d82f45014b8df8b24adeb68b76a0cd3c133474",
+    "design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-forms-approved-plates.py": "4935383a0bc8c805a54a87c2473329d19beb4fbcbf86da30d0d729f7afd06fff"
+  },
+  "scene": "design/ferra/blender/heroes/ferroni.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Low brushed polished steel mounting plates with separately rounded plan corners, narrow edge breaks and true counterbores, slightly brighter red-brown granular corrosion islands over dull oxidized metal with burnt oxide rims, three normal layers for broken crust edges, pits and dry grain, varying roughness and metallic response; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "8bd4973e1726d6c4abe6ca96d214674fb62eb0c8165a1a078147fd6558ca0ef5",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Substantial pattern comparator machined mounting plate",
+      "closedManifold": true,
+      "volume": 5.597097406,
+      "machinedPockets": 4
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor counterbore floor",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor recessed sleeve washer",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor flush socket head",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor dark hex floor",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor counterbore floor.001",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor recessed sleeve washer.001",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor flush socket head.001",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor dark hex floor.001",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor counterbore floor.002",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor recessed sleeve washer.002",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor flush socket head.002",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor dark hex floor.002",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor counterbore floor.003",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor recessed sleeve washer.003",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor flush socket head.003",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial pattern comparator flush bed anchor dark hex floor.003",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Deep pattern book holder",
+      "closedManifold": true,
+      "volume": 0.262217739,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Standing pattern book 1 deep core",
+      "closedManifold": true,
+      "volume": 0.116089547,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 front cover",
+      "closedManifold": true,
+      "volume": 0.015981362,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Standing pattern book 1 rear cover",
+      "closedManifold": true,
+      "volume": 0.017066363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 oxide spine",
+      "closedManifold": true,
+      "volume": 0.069151312,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 fore-edge page seam 0",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 fore-edge page seam 1",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 fore-edge page seam 2",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 fore-edge page seam 3",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 fore-edge page seam 4",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 front cover groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000159097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 1 front cover groove floor 1",
+      "closedManifold": true,
+      "volume": 8.8387e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 0 washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 0 socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Pattern book cap 0 dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 deep core",
+      "closedManifold": true,
+      "volume": 0.116089547,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 front cover",
+      "closedManifold": true,
+      "volume": 0.015981362,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Standing pattern book 2 rear cover",
+      "closedManifold": true,
+      "volume": 0.017066363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 oxide spine",
+      "closedManifold": true,
+      "volume": 0.069151312,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 fore-edge page seam 0",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 fore-edge page seam 1",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 fore-edge page seam 2",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 fore-edge page seam 3",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 fore-edge page seam 4",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 front cover groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000159097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 2 front cover groove floor 1",
+      "closedManifold": true,
+      "volume": 8.8387e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 1 washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 1 socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Pattern book cap 1 dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 deep core",
+      "closedManifold": true,
+      "volume": 0.116089547,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 front cover",
+      "closedManifold": true,
+      "volume": 0.015981362,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Standing pattern book 3 rear cover",
+      "closedManifold": true,
+      "volume": 0.017066363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 oxide spine",
+      "closedManifold": true,
+      "volume": 0.069151312,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 fore-edge page seam 0",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 fore-edge page seam 1",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 fore-edge page seam 2",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 fore-edge page seam 3",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 fore-edge page seam 4",
+      "closedManifold": true,
+      "volume": 9.04e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 front cover groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000159097,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Standing pattern book 3 front cover groove floor 1",
+      "closedManifold": true,
+      "volume": 8.8387e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 2 washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pattern book cap 2 socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Pattern book cap 2 dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Heavy guide bearing pedestal",
+      "closedManifold": true,
+      "volume": 0.081206065,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Guide pedestal cap washer",
+      "closedManifold": true,
+      "volume": 0.00094543,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Guide pedestal cap socket head",
+      "closedManifold": true,
+      "volume": 0.001671281,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Guide pedestal cap dark socket floor",
+      "closedManifold": true,
+      "volume": 4.0239e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Heavy guide bearing pedestal.001",
+      "closedManifold": true,
+      "volume": 0.081206065,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Guide pedestal cap washer.001",
+      "closedManifold": true,
+      "volume": 0.00094543,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Guide pedestal cap socket head.001",
+      "closedManifold": true,
+      "volume": 0.001671281,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Guide pedestal cap dark socket floor.001",
+      "closedManifold": true,
+      "volume": 4.0239e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Main comparator linear guide",
+      "closedManifold": true,
+      "volume": 0.163709335,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon",
+      "closedManifold": true,
+      "volume": 0.336457052,
+      "machinedPockets": 51
+    },
+    {
+      "body": "Recessed text ribbon groove floor 0",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 1",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 2",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 3",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 4",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 5",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 6",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 7",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 8",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 9",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 10",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 11",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 12",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 13",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 14",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 15",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 16",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 17",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 18",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 19",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 20",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 21",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 22",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 23",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 24",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 25",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 26",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 27",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 28",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 29",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 30",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 31",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 32",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 33",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 34",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 35",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 36",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 37",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 38",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 39",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 40",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 41",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 42",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 43",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 44",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 45",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 46",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 47",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 48",
+      "closedManifold": true,
+      "volume": 5.6967e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 49",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed text ribbon groove floor 50",
+      "closedManifold": true,
+      "volume": 3.5412e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Oxide match span",
+      "closedManifold": true,
+      "volume": 0.001319958,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Oxide match span.001",
+      "closedManifold": true,
+      "volume": 0.000689399,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Deep scanner carriage block",
+      "closedManifold": true,
+      "volume": 0.420914492,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Broad scanner pivot drum",
+      "closedManifold": true,
+      "volume": 0.078239432,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Heavy angled scanner yoke",
+      "closedManifold": true,
+      "volume": 0.304104792,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad oxide scanning-arm inlay",
+      "closedManifold": true,
+      "volume": 0.009329649,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Deep oxide contact tool",
+      "closedManifold": true,
+      "volume": 0.030393624,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad retained scanning shoe",
+      "closedManifold": true,
+      "volume": 0.005279487,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large scanner pivot anchor washer",
+      "closedManifold": true,
+      "volume": 0.00160539,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large scanner pivot anchor socket head",
+      "closedManifold": true,
+      "volume": 0.003671806,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Large scanner pivot anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 6.8004e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Tool retained end washer",
+      "closedManifold": true,
+      "volume": 0.000852323,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Tool retained end socket head",
+      "closedManifold": true,
+      "volume": 0.001432915,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Tool retained end dark socket floor",
+      "closedManifold": true,
+      "volume": 3.6316e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale",
+      "closedManifold": true,
+      "volume": 0.08519247,
+      "machinedPockets": 51
+    },
+    {
+      "body": "Comparator front scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 25",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 26",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 27",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 28",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 29",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 30",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 31",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 32",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 33",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 34",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 35",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 36",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 37",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 38",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 39",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 40",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 41",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 42",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 43",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 44",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 45",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 46",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 47",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 48",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 49",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Comparator front scale groove floor 50",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    }
   ],
-  "transparentBackground": true,
-  "width": 1774,
-  "height": 887,
-  "sha256": "3d90fce0cc862772db3a60397825f0d2a7794833b4efd8910909c36fac3a67e3",
-  "approvedSource": "designs/round-06-warm-specimen/assets/pattern-comparator.png",
-  "copiedUnchanged": true
+  "revision": "Second Blender pass refined: low machined plates with rounded plan corners, narrow edge breaks and recessed fasteners, large tool heads, a turned source assembly, a conveyor sorter, and slightly brighter granular rust.",
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferroni/pre-blender-instrument.png",
+    "sourceSha256": "3d90fce0cc862772db3a60397825f0d2a7794833b4efd8910909c36fac3a67e3",
+    "promptSidecar": "design/ferra/concepts/ferroni/pre-blender-instrument.png.json"
+  },
+  "previousRevision": {
+    "source": "design/ferra/concepts/ferroni/first-blender-instrument.png",
+    "sourceSha256": "16949c6257ca63ac5b7b023e8c27af436e37b97b9c7c58affa8711455ccb1490"
+  },
+  "materialReference": "Procedural corrosion follows the supplied weathered-rust photograph as visual inspiration. No photographic texture is used.",
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made."
 }

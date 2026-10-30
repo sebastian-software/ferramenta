@@ -1,7 +1,7 @@
-import type { MetaFunction } from "react-router";
+import type { ArdoMetaFunction as MetaFunction } from "ardo/runtime";
 
+import { ArdoLink as Link } from "ardo/runtime";
 import { RegistryFacts } from "ferramenta-family";
-import { Link } from "react-router";
 
 import registryStats from "../../data/registry-stats.json";
 import { ChromeSpecimens } from "../../kit/ChromeSpecimens";

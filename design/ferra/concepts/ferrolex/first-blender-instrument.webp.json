@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferrolex/first-blender-instrument.png",
+  "sourceSha256": "63c2bc556fa3139088caadef8c0db179f8c9fa4ef47b4990253a70476615f661",
+  "prompt": "A wordform proofing gauge holds four replaceable engraved type blocks beneath a stepped dictionary-profile bridge. A copper sliding stop, a spare upright affix insert, keyed block seats, hex fasteners, a knurled adjuster, and engraved scales describe wordform and affix comparison. Individual built-in Blender letterforms are cut into the steel, not printed on it. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "c9d2fddf324748aaff7be31ecc61f46e747752aa1c8982d650f84f2cd6d1e4c6",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferrolex/instrument.png"
+}

@@ -20,6 +20,11 @@ What the page should lead to, in this order: a visit to Palamedes, the product b
 
 The shared package `ferramenta-family` gives every engine's site the same look: chrome, landing kit, icons, tokens, textures and the display face. The applications keep a brand of their own.
 
+The homepage adopts the light Ferra design system on Ardo 6. Its paper and pewter
+surfaces, IBM Plex Sans headings, rendered instruments and shared components
+come from `ferramenta-family/ferra`. The original `/kit/` remains a reference
+for existing consumers; `/kit/ferra/` shows the current shared components.
+
 ## Positioning
 
 A workshop's family of Rust-native engines, each built to the standard its field already agreed on (CommonMark, PO files, ICU MessageFormat, Hunspell dictionaries, TextMate grammars, ISO 32000). Much of this infrastructure was written decades ago, in C or across several languages; most of the family is its next generation. Successors match an established implementation and are proven against it differentially (Oniguruma, Shiki and Hunspell oracles); new developments hold themselves to the standards they build on. All earn trust in the open.
@@ -27,11 +32,11 @@ A workshop's family of Rust-native engines, each built to the standard its field
 ## Operating Context
 
 - The registry (`packages/family/src/family.ts`) is the source of truth for names, jobs, what each member is and does, lineage, status, relations, and links. Versions and download counts are fetched live (ADR-0006), so this file names no versions.
-- Two tiers (ADR-0001, amendment of 2026-09-30). Ten members as of 2026-10-01.
-  - **Engines**, seven: **ferroni** (a regex engine; continues Oniguruma, whose C project ended in April 2025), **ferriki** (a syntax highlighter; Shiki-compatible), **ferromark** (a Markdown renderer; CommonMark and GFM), **ferrolex** (a spell checker; reads Hunspell dictionaries), **ferrocat** (a translation catalog engine; PO and ICU MessageFormat), **ferralk** (a glob matcher and file walker; checked against a frozen zlob reference), **ferrugo** (a PDF preview renderer for untrusted files).
-  - **Applications**, three: **palamedes** (i18n for TypeScript apps; runs on ferrocat, ferromark and ferralk), **dalo** (team agent skills, versioned and synced as code; standalone), and **ardo** (React documentation sites; integration of ferromark and ferriki is in progress). They carry their own brand; the family shows them in one band, each on a light card under its own logo.
-- The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. Ardo records its planned engines separately in `plannedRunsOn` until the integration ships. No surface shows the members as a chain.
-- Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki) and ferrolex (Hunspell); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), and ferrugo. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
+- Two tiers (ADR-0001, amendment of 2026-09-30). Twelve members as of 2026-10-29.
+  - **Engines**, nine: **ferroni** (a regex engine; continues Oniguruma, whose C project ended in April 2025), **ferriki** (a syntax highlighter; Shiki-compatible), **ferromark** (a Markdown renderer; CommonMark and GFM), **ferrolex** (a spell checker; reads Hunspell dictionaries), **ferrocat** (a translation catalog engine; PO and ICU MessageFormat), **ferralk** (a glob matcher and file walker; checked against a frozen zlob reference), **ferrugo** (a PDF preview renderer for untrusted files), **ferrolink** (a static-build link checker), **ferrigura** (a Mermaid-to-SVG diagram renderer without a browser).
+  - **Applications**, three: **palamedes** (i18n for TypeScript apps; runs on ferrocat, ferromark and ferralk), **dalo** (team agent skills, versioned and synced as code; standalone), and **ardo** (React documentation sites; runs on ferromark, ferriki and ferrolink). They carry their own brand; the family shows them in one band, each on a light card under its own logo.
+- The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. Ferrolink uses Ferralk and Ferroni. Ardo runs on Ferromark, Ferriki and Ferrolink. No surface shows the members as a chain.
+- Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki), ferrolex (Hunspell) and ferrigura (Mermaid); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), ferrugo and ferrolink. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
 - Maturity is the registry's hand-set `status`. The family page does not stamp it on the engines: the live release beside each one already says how far it has come. A project's own site may show it (`Stamp`, `StampKey`). Keep it in step with releases.
 - The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, oak or rust; in the switcher the applications' tier is light for that reason.
 - The legal entity is Sebastian Software GmbH, Mainz, Germany. Every footer carries its copyright line and links the imprint and privacy policy on the company site; the family sites host neither page themselves.
@@ -45,7 +50,7 @@ A workshop's family of Rust-native engines, each built to the standard its field
 - A landing page has one authored color scheme and no theme toggle (ADR-0008). Documentation follows the system scheme.
 - Member icons are generated for this family and are its own (ADR-0009). A new member needs a rendered master before it joins the catalog. Icons are pictures at three sizes and are never shown below 24 pixels; a vector form, and with it a favicon that scales cleanly, is open.
 - The kit is public and `noindex`. Its sample pages are about an invented tool, so they repeat no real member's facts or figures.
-- `lucide-react` is not used in our own UI (it remains an internal Ardo dependency); the package's line icons (arrow, chevron, GitHub, crate, adapter, external, package) cover the family's pages.
+- Ardo 6 supplies its own Core icons; `lucide-react` is no longer a dependency. the package's line icons (arrow, chevron, GitHub, crate, adapter, external, package) cover the family's pages.
 
 ## Brand Commitments
 

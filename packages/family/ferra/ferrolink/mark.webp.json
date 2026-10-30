@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Lossless WebP of the 256px mark for CSS display at 32–128px.",
+  "source": "design/ferra/masters/ferrolink/mark.png",
+  "sourceSha256": "8dcd67360a800355277727212a0d2fbeec859ab70733cf8fc02e30ad772130b2",
+  "prompt": "Two compact rounded-square satin-steel and oxide-copper links, threaded through one another in perpendicular planes. Separate watertight bodies, broad rounded rectangular bars, visible clearance, balanced icon mass, directional softbox reflections, and transparent apertures.",
+  "geometry": "256x256",
+  "sha256": "b172ce10f48f7f2eb1f3f48e014a9d86bbb7441dd282c4c8b103e7afceb8dde4"
+}

@@ -1,0 +1,103 @@
+/* Review-only framing; all three columns show the actual retained or exported assets. */
+.ferra-instrument-review .ferra-instrument-intro {
+  max-width: 66rem;
+  padding-block: var(--ferra-space-16) var(--ferra-space-12);
+}
+.ferra-instrument-review .ferra-instrument-eyebrow {
+  color: var(--ferra-text-secondary);
+  font-size: var(--ferra-text-small);
+  margin-block: 0 var(--ferra-space-4);
+}
+.ferra-instrument-review .ferra-instrument-intro h1 {
+  font-size: var(--ferra-text-display);
+  max-width: 13ch;
+  margin: 0;
+}
+.ferra-instrument-review .ferra-instrument-deck {
+  font-size: var(--ferra-text-lead);
+  color: var(--ferra-accent);
+  margin-block: var(--ferra-space-6);
+}
+.ferra-instrument-review .ferra-instrument-intro > p {
+  max-width: 60ch;
+}
+.ferra-instrument-review .ferra-instrument-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ferra-space-2) var(--ferra-space-6);
+  margin-block-start: var(--ferra-space-8);
+}
+.ferra-instrument-review .ferra-instrument-jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+}
+.ferra-instrument-review .ferra-instrument-studies {
+  display: grid;
+  gap: var(--ferra-space-16);
+  padding-block-end: var(--ferra-space-18);
+}
+.ferra-instrument-review .ferra-instrument-study {
+  scroll-margin-top: var(--ferra-space-6);
+}
+.ferra-instrument-review .ferra-instrument-study-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ferra-space-4);
+  padding-block: var(--ferra-space-6);
+  border-block-start: 1px solid var(--ferra-border);
+}
+.ferra-instrument-review .ferra-instrument-study-heading > span {
+  color: var(--ferra-text-secondary);
+  font-family: var(--ferra-font-mono);
+  font-size: var(--ferra-text-small);
+}
+.ferra-instrument-review .ferra-instrument-study-heading h2 {
+  font-size: var(--ferra-text-heading);
+  margin: 0;
+}
+.ferra-instrument-review .ferra-instrument-study-heading > a {
+  margin-inline-start: auto;
+  font-size: var(--ferra-text-small);
+  min-height: var(--ferra-target);
+  display: inline-flex;
+  align-items: center;
+}
+.ferra-instrument-review .ferra-instrument-pair {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ferra-space-8);
+}
+.ferra-instrument-review .ferra-instrument-pair figure {
+  min-width: 0;
+  margin: 0;
+}
+.ferra-instrument-review .ferra-instrument-pair figcaption {
+  display: grid;
+  gap: var(--ferra-space-2);
+  padding-block-end: var(--ferra-space-4);
+  font-size: var(--ferra-text-small);
+}
+.ferra-instrument-review .ferra-instrument-pair figcaption span {
+  color: var(--ferra-text-secondary);
+}
+.ferra-instrument-review .ferra-instrument-pair figure > a {
+  display: block;
+  background: var(--ferra-reading);
+}
+.ferra-instrument-review .ferra-instrument-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: contain;
+}
+@media (width < 64rem) {
+  .ferra-instrument-review .ferra-instrument-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ferra-instrument-review .ferra-instrument-study-heading > a {
+    margin-inline-start: 0;
+  }
+}

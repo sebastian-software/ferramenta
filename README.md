@@ -13,11 +13,12 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
 ## This repository
 
-The site is built with [Ardo](https://github.com/sebastian-software/ardo) and deployed to
+The site is built with [Ardo 6](https://github.com/sebastian-software/ardo) and deployed to
 GitHub Pages on every push to `main`. The family registry
 ([packages/family/src/family.ts](packages/family/src/family.ts)) is the single
-source of truth for tool names, jobs, versions, and links; the approved design comp lives
-in [design/comp/](design/comp/). Icon and font assets carry their own terms — see
+source of truth for tool names, jobs, versions, and links. The homepage uses the shared
+[Ferra design system](packages/family/FERRA.md); the approved designs live in
+[designs/](designs/README.md). The original kit remains available at `/kit/`. Icon and font assets carry their own terms — see
 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 Working on this repo (human or agent)? Start with [AGENTS.md](AGENTS.md); durable
@@ -59,6 +60,8 @@ once, first; the commands are in [AGENTS.md](AGENTS.md).
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
 | [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [ferrolink](https://github.com/sebastian-software/ferrolink) | Links, anchors and assets checked against the finished build |
+| [ferrigura](https://github.com/sebastian-software/ferrigura) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 

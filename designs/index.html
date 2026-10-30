@@ -71,10 +71,10 @@
       <section id="engines" class="wrap family-story" aria-labelledby="engines-title">
         <aside class="margin-note">
           <h2>The engines</h2>
-          <p>Seven independent engines.<br />One workshop.</p>
+          <p>Independent engines.<br />One workshop.</p>
         </aside>
         <div class="story">
-          <h2 id="engines-title">Seven engines, each with a job.</h2>
+          <h2 id="engines-title">Independent engines, each with a job.</h2>
           <p class="lede">
             Each engine has its own scope, documentation and repository. Start with the task in
             front of you.
@@ -230,6 +230,49 @@
                 ><a href="https://github.com/sebastian-software/ferrugo">Repository</a>
               </div>
             </article>
+            <article class="engine" id="ferrolink" aria-labelledby="ferrolink-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferrolink/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferrolink-name">Ferrolink</h3>
+                  <p class="engine-role">A link checker for static sites</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Checks page links, asset references and anchors in static HTML builds, without a
+                server or network requests.
+              </p>
+              <div class="engine-links">
+                <a href="ferrolink.html">Explore Ferrolink</a
+                ><a href="https://github.com/sebastian-software/ferrolink">Repository</a>
+              </div>
+            </article>
+            <article class="engine" id="ferrigura" aria-labelledby="ferrigura-name">
+              <div class="engine-heading">
+                <img
+                  src="../packages/family/ferra/ferrigura/mark-128.png"
+                  width="128"
+                  height="128"
+                  alt=""
+                />
+                <div>
+                  <h3 id="ferrigura-name">Ferrigura</h3>
+                  <p class="engine-role">A diagram renderer</p>
+                </div>
+              </div>
+              <p class="engine-description">
+                Renders Mermaid diagram text as SVG in Rust, with embedded fonts and no browser.
+              </p>
+              <div class="engine-links">
+                <a href="ferrigura.html">Explore Ferrigura</a
+                ><a href="https://github.com/sebastian-software/ferrigura">Repository</a>
+              </div>
+            </article>
             <aside class="catalog-note">
               <strong>Your task decides<br />where to start.</strong>Choose an engine for the work
               it does. There is no required starting point for the family.
@@ -251,7 +294,7 @@
             </p>
             <table class="reference-table">
               <caption class="sr-only">
-                The seven engines, their familiar foundations and the evidence in each repository.
+                The engines, their familiar foundations and the evidence in each repository.
               </caption>
               <colgroup>
                 <col />
@@ -268,38 +311,51 @@
               <tbody>
                 <tr>
                   <th scope="row"><a href="ferroni.html">Ferroni</a></th>
-                  <td>Oniguruma regular expressions</td>
-                  <td>Compatibility oracle</td>
+                  <td>Oniguruma / vscode-oniguruma</td>
+                  <td>Oniguruma compatibility oracle</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferriki.html">Ferriki</a></th>
-                  <td>TextMate grammars and editor themes</td>
-                  <td>Mirrored Shiki tests</td>
+                  <td>Shiki</td>
+                  <td>Mirrored Shiki test suite · ahead of Shiki in HTML throughput</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferromark.html">Ferromark</a></th>
-                  <td>CommonMark and GFM</td>
-                  <td>Conformance cases</td>
+                  <td>CommonMark / GFM</td>
+                  <td>CommonMark &amp; GFM conformance</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferrolex.html">Ferrolex</a></th>
-                  <td>Hunspell dictionaries</td>
-                  <td>Deterministic suggestion scoring</td>
+                  <td>Hunspell</td>
+                  <td>Hunspell oracle · deterministic suggestion scoring</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferrocat.html">Ferrocat</a></th>
-                  <td>PO and ICU MessageFormat</td>
-                  <td>Upstream-derived conformance cases</td>
+                  <td>PO / ICU MessageFormat</td>
+                  <td>
+                    Upstream-derived conformance cases · ahead of GNU msgmerge and common PO
+                    libraries
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferralk.html">Ferralk</a></th>
-                  <td>Glob syntax and .gitignore rules</td>
-                  <td>Frozen zlob reference</td>
+                  <td>Glob syntax / .gitignore rules</td>
+                  <td>Frozen zlob reference · ahead of globset and fast-glob</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="ferrugo.html">Ferrugo</a></th>
-                  <td>PDF</td>
-                  <td>Explicit memory and time limits</td>
+                  <td>PDF (ISO 32000)</td>
+                  <td>Bounded memory and time · no PDFium</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferrolink.html">Ferrolink</a></th>
+                  <td>HTML references / static-host URL resolution</td>
+                  <td>Cross-page anchors · deployment-path and redirect checks</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="ferrigura.html">Ferrigura</a></th>
+                  <td>Mermaid</td>
+                  <td>Mermaid parser oracle · SVG geometry checked in Chromium</td>
                 </tr>
               </tbody>
             </table>

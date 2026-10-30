@@ -4,7 +4,7 @@
   "products": [
     {
       "id": "ferramenta",
-      "meaning": "Seven independent tool inserts share a precision register."
+      "meaning": "Independent tool inserts share a precision register."
     },
     {
       "id": "ferroni",
@@ -33,6 +33,16 @@
     {
       "id": "ferrugo",
       "meaning": "An aperture turns a source document into a bounded preview."
+    },
+    {
+      "id": "ferrolink",
+      "meaning": "Interlocking links and a continuity gauge verify references between documents.",
+      "compatibilityIcon": true
+    },
+    {
+      "id": "ferrigura",
+      "meaning": "Connected diagram nodes turn a textual graph into a precisely arranged drawing.",
+      "compatibilityIcon": true
     }
   ],
   "materials": ["paper", "pewter"],

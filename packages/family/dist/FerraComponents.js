@@ -1,7 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-import { displayName, family, isEngine, toolHref, WORKSHOP, WORKSHOP_REFERENCES, } from "./family.js";
-import { isFerraProduct } from "./FerraIdentity.js";
+import { displayName, family, WORKSHOP, WORKSHOP_REFERENCES } from "./family.js";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 /** One authored light scheme; the stylesheet has no global reset. */
 export function FerraPage({ className, ...props }) {
@@ -42,18 +41,6 @@ export function FerraColumns({ className, ...props }) {
 }
 export function FerraAction({ variant = "primary", className, children, ...props }) {
     return (_jsx("a", { ...props, className: classes("ferra-action", className), "data-variant": variant, children: children }));
-}
-/** Registry facts remain authoritative even when a preview overrides the destinations. */
-export function FerraEngineCatalog({ hrefFor = toolHref }) {
-    return (_jsx("div", { className: "ferra-engine-grid", children: family
-            .filter((tool) => isEngine(tool))
-            .map((tool) => {
-            if (!isFerraProduct(tool.name))
-                throw new Error(`Missing ferra identity: ${tool.name}`);
-            const product = tool.name;
-            const name = displayName(tool);
-            return (_jsxs("article", { className: "ferra-engine", children: [_jsxs("div", { className: "ferra-engine-heading", children: [_jsx(FerraMark, { product: product, size: 64 }), _jsxs("div", { children: [_jsx("h3", { children: name }), _jsx("p", { className: "ferra-engine-role", children: tool.what })] })] }), _jsx("p", { children: tool.does }), _jsx("p", { className: "ferra-engine-audience", children: tool.audience }), _jsxs("a", { href: hrefFor(tool), children: ["Explore ", name, tool.docs === undefined && _jsx("span", { className: "ferra-repo-hint", children: " on GitHub" })] })] }, tool.name));
-        }) }));
 }
 /** Native children preserve the consumer's column and row header relationships. */
 export function FerraTable({ caption, children }) {
