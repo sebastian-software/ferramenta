@@ -180,6 +180,10 @@ test("the additive entry, tokens and every CSS asset travel in the package", asy
   for (const name of [
     "ferra.css",
     "ferra-docs.css",
+    "ferra-ardo.css",
+    "ferra-reading.css",
+    "ferra-stories.css",
+    "ferra-product.css",
     "ferra-catalog.css",
     "ferra-assets.css",
     "ferra-fonts.css",

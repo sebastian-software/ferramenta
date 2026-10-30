@@ -139,3 +139,52 @@ test("benchmark tables retain native groups, context and missing-result labels",
   assert.ok(html.includes('href="#sample-source"'));
   assert.ok(html.includes("Not measured"));
 });
+
+test("product stories attach metadata and continuous reading retains native content", () => {
+  const article = render(ferra.FerraArticle, {
+    id: "sample-story",
+    title: "Fictional engine",
+    art: createElement("img", { src: "/sample.png", alt: "Sample" }),
+    meta: createElement("p", null, "Sample conditions"),
+    children: createElement("p", null, "Host-owned copy"),
+  });
+  assert.ok(article.indexOf("/sample.png") < article.indexOf("Fictional engine"));
+  assert.ok(article.includes('class="ferra-engine-meta"'));
+  assert.ok(article.includes('tabindex="-1"'));
+  assert.ok(article.includes('aria-labelledby="sample-story-title"'));
+  assert.ok(article.includes('id="sample-story-title"'));
+  const page = render(ferra.FerraReadingLayout, {
+    id: "sample-reading",
+    navigation: createElement("nav", { "aria-label": "Sample guide" }, "Pages"),
+    outline: createElement("nav", { "aria-label": "Sample outline" }, "Headings"),
+    children: createElement("h1", null, "Sample title"),
+  });
+  assert.ok(page.includes('id="sample-reading"'));
+  assert.ok(page.includes('class="ferra-prose"'));
+  assert.ok(!page.includes("<main"));
+  assert.ok(page.includes('aria-label="Sample guide"'));
+});
+
+test("product homepages keep one purpose and entry points without a contents rail", () => {
+  const product = render(ferra.FerraProductPage, {
+    children: createElement(
+      ferra.FerraProductLead,
+      {
+        id: "sample-product",
+        title: "Sample product",
+        introduction: "A fictional engine",
+        art: createElement("img", { src: "/sample.png", alt: "Sample" }),
+        meta: "Sample release",
+      },
+      createElement("a", { href: "/guide/" }, "Get started"),
+    ),
+  });
+  assert.ok(!product.includes("<main"));
+  assert.ok(!product.includes("ferra-editorial-navigation"));
+  assert.ok(product.includes('aria-labelledby="sample-product-title"'));
+  assertInOrder(
+    product,
+    ["/sample.png", '<h1 id="sample-product-title">', "Get started", "Sample release"],
+    "the product introduction keeps its purpose, illustration and entry points together",
+  );
+});

@@ -49,10 +49,12 @@ test("the sprite holds only the chrome's line icons, none of them a member's", (
       "chev",
       "crate",
       "cross",
+      "document",
       "external",
       "github",
       "half",
       "package",
+      "pen",
     ],
     "the members' icons are pictures (`Icon`), not symbols",
   );

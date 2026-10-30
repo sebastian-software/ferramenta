@@ -1,0 +1,174 @@
+/* Reading geometry and prose belong to the shared system, independent of the host. */
+.ferra-page .ferra-reading {
+  display: grid;
+  grid-template-columns: minmax(11rem, 14rem) minmax(0, 48rem) minmax(8rem, 11rem);
+  justify-content: center;
+  align-items: start;
+  gap: var(--ferra-space-6);
+  padding-block: var(--ferra-space-6) var(--ferra-space-16);
+}
+.ferra-page :is(.ferra-reading-navigation, .ferra-reading-outline) {
+  position: sticky;
+  top: var(--ferra-space-6);
+  max-height: calc(100svh - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  font-size: var(--ferra-text-small);
+  line-height: 1.45;
+}
+.ferra-page .ferra-reading-navigation {
+  padding: var(--ferra-space-4);
+  background: var(--ferra-card-surface);
+  border-radius: var(--ferra-card-radius);
+}
+.ferra-page :is(.ferra-reading-navigation, .ferra-reading-outline) nav {
+  display: grid;
+  gap: var(--ferra-space-1);
+}
+.ferra-page :is(.ferra-reading-navigation, .ferra-reading-outline) a {
+  display: flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  padding: var(--ferra-space-2);
+  border-radius: var(--ferra-space-1);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.ferra-page .ferra-reading-navigation a[aria-current="page"],
+.ferra-page .ferra-reading-navigation [data-active="true"] {
+  color: var(--ferra-accent);
+  background: var(--ferra-selected);
+}
+.ferra-page .ferra-reading-navigation p {
+  margin: var(--ferra-space-6) var(--ferra-space-2) var(--ferra-space-2);
+  font-weight: 600;
+}
+.ferra-page .ferra-reading-surface {
+  min-width: 0;
+  padding: var(--ferra-space-8);
+  border-radius: var(--ferra-card-radius);
+  background: var(--ferra-card-surface);
+  box-shadow: 0 2px 8px var(--ferra-card-shadow);
+}
+.ferra-page .ferra-prose {
+  max-width: 62ch;
+  margin-inline: auto;
+  font-size: var(--ferra-text-body);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.ferra-page .ferra-prose > header {
+  margin-block-end: var(--ferra-space-8);
+}
+.ferra-page .ferra-prose > header > p {
+  font-size: var(--ferra-text-small);
+  color: var(--ferra-text-secondary);
+  margin-block: 0 var(--ferra-space-3);
+}
+.ferra-page .ferra-prose :is(h1, header > h2) {
+  font-size: var(--ferra-text-editorial-title);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.ferra-page .ferra-prose h2 {
+  font-size: var(--ferra-text-title);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-block: var(--ferra-space-12) var(--ferra-space-4);
+}
+.ferra-page .ferra-prose h3 {
+  font-size: var(--ferra-text-lead);
+  letter-spacing: 0;
+  line-height: 1.4;
+  margin-block: var(--ferra-space-8) var(--ferra-space-3);
+}
+.ferra-page .ferra-prose :is(p, ul, ol, dl, pre, blockquote, table, figure) {
+  margin-block: var(--ferra-space-4) var(--ferra-space-6);
+}
+.ferra-page .ferra-prose :is(ul, ol) {
+  padding-inline-start: var(--ferra-space-6);
+}
+.ferra-page .ferra-prose li + li {
+  margin-block-start: var(--ferra-space-2);
+}
+.ferra-page .ferra-prose :is(h2, h3) + * {
+  margin-block-start: 0;
+}
+.ferra-page .ferra-prose :not(pre) > code {
+  font-family: var(--ferra-font-mono);
+  font-size: 0.875em;
+  background: var(--ferra-card-footer);
+  border-radius: var(--ferra-radius);
+  padding: 0.15em 0.3em;
+}
+.ferra-page .ferra-prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--ferra-text-small);
+}
+.ferra-page .ferra-prose :is(th, td) {
+  padding: var(--ferra-space-3);
+  border-block-end: 1px solid var(--ferra-border);
+  text-align: start;
+}
+.ferra-page .ferra-prose blockquote {
+  border-inline-start: 2px solid var(--ferra-accent);
+  padding-inline-start: var(--ferra-space-6);
+}
+.ferra-page .ferra-prose :is(h2, h3, h4, span[id]) {
+  scroll-margin-block-start: var(--ferra-space-6);
+}
+@media (max-width: 72rem) {
+  .ferra-page .ferra-reading {
+    grid-template-columns: 12rem minmax(0, 48rem);
+  }
+  .ferra-page .ferra-reading-outline {
+    display: none;
+  }
+}
+@media (max-width: 52rem) {
+  .ferra-page .ferra-reading {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ferra-page .ferra-reading-navigation {
+    display: none;
+  }
+  .ferra-page .ferra-reading-surface {
+    padding: var(--ferra-space-6);
+  }
+}
+
+.ferra-guide-navigation {
+  display: grid;
+  gap: var(--ferra-space-1);
+  font: 400 var(--ferra-text-small)/1.45 var(--ferra-font-sans);
+}
+.ferra-guide-navigation a {
+  display: flex;
+  align-items: center;
+  min-height: var(--ferra-target);
+  padding: var(--ferra-space-2);
+  border-radius: var(--ferra-space-1);
+  text-decoration: none;
+}
+.ferra-guide-navigation p {
+  font-weight: 600;
+  margin-block-start: var(--ferra-space-6);
+}
+.ferra-guide-navigation :is([aria-current="page"], [data-active="true"]) {
+  color: var(--ferra-accent);
+  background: var(--ferra-selected);
+}
+.ferra-guide-navigation .ferra-tabs {
+  margin: 0;
+  display: grid;
+  gap: var(--ferra-space-1);
+}

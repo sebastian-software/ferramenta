@@ -2,8 +2,11 @@
 @import "./ferra-assets.css";
 @import "./ferra-fonts.css";
 @import "./ferra-docs.css";
+@import "./ferra-reading.css";
+@import "./ferra-stories.css";
 @import "./ferra-catalog.css";
 @import "./ferra-editorial.css";
+@import "./ferra-product.css";
 
 /* Opt-in styles: no root tokens, global reset or legacy component overrides. */
 .ferra-page {

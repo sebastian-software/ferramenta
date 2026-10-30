@@ -131,25 +131,45 @@ The release facts use the existing `RegistryFacts` provider and OSS Metrics merg
 
 The fictional specimen at `/kit/ferra/#editorial` uses these exact exports with sample copy and release data. Build shared source and its committed `dist` together before shipping a consumer update.
 
-## Documentation pages
+## Product stories and documentation
 
-`FerraDocsLayout` composes a narrow product navigation, compact hero and outline
-above the reading sections. Supply React nodes through `navigation`, `hero` and
-`outline`, then place `FerraSection` elements in `children`. The host supplies
-named navigation landmarks, current-link state and the single main landmark;
-the layout renders an article and accepts native article props, including an
-ID for a DOM-based outline to scope its heading query. On narrow screens the
-outline moves below the hero and the product navigation is hidden: the host
-must also expose those links in its mobile navigation.
+Use `FerraProductPage` for a sibling project's homepage. Its bounded reading
+flow has no contents rail: stories can occupy the full width or use
+`FerraEditorialRow` for an article and related margin notes. The family catalog
+keeps its separate `FerraEditorial` contents column; documentation keeps its
+own navigation.
 
-`FerraHeader.actions` accepts host-owned search and mobile navigation controls.
-The package has no Ardo dependency. For an executable adapter using the published Ardo 6 release, see the
-[Ferromark reference](../../examples/ferromark-docs/README.md): it combines
-`ArdoRoot.components`, `ArdoHeaderSearch`, `ArdoMobileNavigation` and a scoped
-`ArdoTOC source="dom"`. DOM outlines include Markdown and mounted component
-headings after hydration; this does not add component-title props to build-time
-search metadata. The fictional specimen at `/kit/ferra/` also uses the exported
-layout.
+`FerraProductLead` places a moderately sized instrument or worked example above
+the centered title, introduction, runtime entry points, and optional byline.
+Its optional `meta` footer holds release facts without a divider. Use it once,
+for the page's H1. This reading order also holds at narrow widths. The product
+composition uses generous section spacing instead of horizontal divider rules.
+
+Use `FerraArticle` for a product story with an optional illustration and attached
+`meta` footer. Its optional decorative `icon` supplies a small line symbol for
+a feature card. `FerraFeatureGrid`, `FerraMedia`, `FerraChoices`, and
+`FerraTabs` keep common content and runtime choices inside the system.
+
+`FerraExample` combines source, host-owned controls, and actual rendered output.
+`FerraToggle` is a controlled button: the host owns its pressed state and output.
+No processing logic or project data lives in these presentation components.
+
+For continuous documentation, use `FerraReadingLayout` with native content as
+children and host-owned `navigation` and `outline` landmarks. It owns the bounded
+reading measure, light surface, prose rhythm, source scrolling, and responsive
+rails. `FerraGuideNavigation` styles the same navigation in the desktop rail or
+a host's mobile panel. The host retains routing and the single main landmark.
+The older `FerraDocsLayout` remains available for section-based pages.
+
+Ardo consumers import `ferramenta-family/ferra-ardo.css` after `ferra.css`, use
+`ferra-tokens ferra-ardo` on `ArdoRootLayout`, `ferra-site` on `FerraPage`, and
+`ferra-ardo-shell` on `ArdoRoot`. This optional adapter owns token mapping,
+header sizing, search and outline integration, and Ardo's shell spacing. It
+adds no JavaScript dependency on Ardo. Consumers need no local stylesheet.
+Project-specific styles are reserved for a visual requirement the library
+does not support; add a reusable pattern to the package when a second site needs it.
+
+The fictional reading and product specimens at `/kit/ferra/` use these exports.
 
 ## Ardo 6 adoption
 
