@@ -3,7 +3,8 @@ import { useId } from "react";
 import { FerraSoftCard } from "./FerraEditorial.js";
 /** An image-first story with an attached evidence footer; the host owns its content. */
 export function FerraArticle({ title, introduction, art, meta, children, className, ...props }) {
-    const headingId = useId();
+    const generatedId = useId();
+    const headingId = props.id === undefined ? generatedId : `${props.id}-title`;
     return (_jsxs(FerraSoftCard, { tabIndex: -1, ...props, as: "article", className: ["ferra-article", className].filter(Boolean).join(" "), "aria-labelledby": headingId, children: [_jsxs("div", { className: "ferra-article-content", children: [art !== undefined && _jsx("div", { className: "ferra-article-art", children: art }), _jsxs("header", { className: "ferra-article-heading", children: [_jsx("h2", { id: headingId, children: title }), introduction !== undefined && _jsx("p", { children: introduction })] }), _jsx("div", { className: "ferra-article-copy", children: children })] }), meta !== undefined && _jsx("footer", { className: "ferra-engine-meta", children: meta })] }));
 }
 export function FerraFeatureGrid({ items, }) {

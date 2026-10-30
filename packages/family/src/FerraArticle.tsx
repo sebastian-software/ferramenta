@@ -19,7 +19,8 @@ export function FerraArticle({
   className,
   ...props
 }: ArticleProps) {
-  const headingId = useId();
+  const generatedId = useId();
+  const headingId = props.id === undefined ? generatedId : `${props.id}-title`;
   return (
     <FerraSoftCard
       tabIndex={-1}
