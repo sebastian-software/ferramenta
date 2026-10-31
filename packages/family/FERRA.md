@@ -166,8 +166,10 @@ It preserves native table structure, readable words and compact rows in a named,
 keyboard-scrollable region. An overflow hint appears only when columns extend
 beyond the available width. `FerraTable` and `FerraBenchmarkTable` share that
 behavior. Supply a specific `aria-label` for standalone reading tables when one
-is available. Mobile cards keep at least 20px of internal space; product section
-gaps scale down to 32px without changing the desktop composition.
+is available. Mobile cards keep at least 20px of internal space. Product cards
+use the same editorial gutter horizontally and vertically, including between
+paired rows, full-width stories and margin notes. Spacing inside a story remains
+independent of the card grid.
 
 Ardo consumers import `ferramenta-family/ferra-ardo.css` after `ferra.css`, use
 `ferra-tokens ferra-ardo` on `ArdoRootLayout`, `ferra-site` on `FerraPage`, and
