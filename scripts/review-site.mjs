@@ -19,8 +19,11 @@ import {
   editorialProblems,
   flyoutState,
   focused,
+  mobileCardProblems,
+  mobileRhythmProblems,
   motion,
   plateProblems,
+  readingTableProblems,
   sidewaysScroll,
 } from "./lib/review-checks.mjs";
 import { serveStatic } from "./lib/static-server.mjs";
@@ -75,11 +78,18 @@ async function reviewLayout(page, { name, url, width }) {
     `${name} at ${width}px: browser errors: ${page.errors().join("; ")}`,
   );
   const scroll = await page.evaluate(call(sidewaysScroll));
-  const inBar = await page.evaluate(call(barProblems));
-  const onPlates = await page.evaluate(call(plateProblems));
-  const inComparisons = await page.evaluate(call(comparisonProblems));
-  const inEditorial = await page.evaluate(call(editorialProblems));
-  const problems = [...inBar, ...onPlates, ...inComparisons, ...inEditorial];
+  const groups = await Promise.all(
+    [
+      barProblems,
+      plateProblems,
+      comparisonProblems,
+      editorialProblems,
+      mobileCardProblems,
+      mobileRhythmProblems,
+      readingTableProblems,
+    ].map((check) => page.evaluate(call(check))),
+  );
+  const problems = groups.flat();
   expect(scroll === 0, `${name} at ${width}px: the page scrolls sideways by ${scroll}px`);
   expect(problems.length === 0, `${name} at ${width}px: ${problems.join("; ")}`);
   await save(`${name}-${width}`, await page.screenshot({ fullPage: true }));

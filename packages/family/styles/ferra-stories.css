@@ -300,15 +300,6 @@
   min-width: 6.25rem;
 }
 
-.ferra-benchmark-table .ferra-benchmark-conformance a,
-.ferra-benchmark-table .ferra-benchmark-conformance span {
-  display: block;
-  min-height: 28px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  line-height: 28px;
-}
-
 .ferra-benchmark-table .ferra-benchmark-reference {
   color: var(--ferra-text-secondary);
   font-size: 0.75rem;

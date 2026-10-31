@@ -1,8 +1,9 @@
 /* Product homepages share a broad reading flow; documentation owns its own rails. */
 .ferra-page .ferra-product-page.ferra-wrap {
+  --ferra-product-gap: clamp(2rem, 5vw, 4rem);
   max-width: 78rem;
   display: grid;
-  gap: var(--ferra-space-16);
+  gap: var(--ferra-product-gap);
   padding-block: var(--ferra-space-6) var(--ferra-space-16);
 }
 .ferra-page .ferra-product-lead-body {
@@ -94,8 +95,11 @@
   border-block-start: 0;
 }
 .ferra-page .ferra-product-page .ferra-example {
-  margin-block-start: var(--ferra-space-16);
+  margin-block-start: var(--ferra-product-gap);
   padding-block-start: 0;
+}
+.ferra-page .ferra-product-page .ferra-editorial-closing {
+  margin-block-start: 0;
 }
 .ferra-page .ferra-product-page .ferra-toggle {
   border-block-end: 0;
@@ -110,7 +114,42 @@
   grid-template-columns: minmax(0, 1fr);
 }
 @media (max-width: 44rem) {
+  .ferra-page .ferra-product-page.ferra-wrap {
+    padding-block-end: var(--ferra-space-8);
+  }
+  .ferra-page .ferra-product-lead-body {
+    gap: var(--ferra-space-6);
+  }
   .ferra-page .ferra-product-lead-heading p {
     font-size: 1rem;
+    margin-block-start: var(--ferra-space-4);
+  }
+  .ferra-page .ferra-article-heading {
+    margin-block-end: var(--ferra-space-4);
+  }
+  .ferra-page .ferra-article-copy > * + * {
+    margin-block-start: var(--ferra-space-4);
+  }
+  .ferra-page :is(.ferra-example-source, .ferra-example-preview) {
+    padding: var(--ferra-space-4);
+  }
+  .ferra-page .ferra-example-source pre,
+  .ferra-page .ferra-editorial-closing > :last-child {
+    margin-block-end: 0;
+  }
+  .ferra-page .ferra-example-controls {
+    margin-block-end: var(--ferra-space-4);
+  }
+  .ferra-page :is(.ferra-example-grid, .ferra-feature-grid) {
+    gap: var(--ferra-space-6);
+  }
+  .ferra-page .ferra-product-page .ferra-toggle {
+    padding-block: var(--ferra-space-2);
+  }
+  .ferra-page .ferra-product-page .ferra-toggle + .ferra-toggle {
+    margin-block-start: var(--ferra-space-2);
+  }
+  .ferra-page .ferra-toggle > span:first-child {
+    gap: var(--ferra-space-1);
   }
 }

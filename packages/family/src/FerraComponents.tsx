@@ -15,6 +15,7 @@ import type {
 } from "./FerraTypes.js";
 
 import { displayName, family, WORKSHOP, WORKSHOP_REFERENCES } from "./family.js";
+import { FerraTableViewport } from "./FerraTableViewport.js";
 
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
@@ -216,12 +217,12 @@ export function FerraAction({
 export function FerraTable({ caption, children, className, ...props }: FerraTableProps) {
   const id = useId();
   return (
-    <div className="ferra-table-region" role="region" aria-labelledby={id} tabIndex={0}>
+    <FerraTableViewport aria-labelledby={id}>
       <table {...props} className={classes("ferra-table", className)}>
         <caption id={id}>{caption}</caption>
         {children}
       </table>
-    </div>
+    </FerraTableViewport>
   );
 }
 

@@ -30,6 +30,49 @@ export function editorialProblems() {
   return problems;
 }
 
+/** Mobile cards need breathing room even when their text remains inside the frame. */
+export function mobileCardProblems() {
+  if (innerWidth > 704) return [];
+  const problems = [];
+  for (const card of document.querySelectorAll(".ferra-soft-card")) {
+    const edge = card.getBoundingClientRect();
+    for (const text of card.querySelectorAll("h2, h3, p, dl")) {
+      const box = text.getBoundingClientRect();
+      if (box.width > 0 && (box.left < edge.left + 16 || box.right > edge.right - 16))
+        problems.push("mobile text has less than 16px of space inside a soft card");
+    }
+  }
+  return problems;
+}
+
+/** The product grid owns section spacing; nested margins must not double it. */
+export function mobileRhythmProblems() {
+  if (innerWidth > 704) return [];
+  const problems = [];
+  for (const product of document.querySelectorAll(".ferra-product-page")) {
+    const sections = [...product.children].map((element) => element.getBoundingClientRect());
+    for (let i = 1; i < sections.length; i += 1) {
+      if (sections[i].top - sections[i - 1].bottom > 48)
+        problems.push("mobile product sections are separated by more than 48px");
+    }
+  }
+  return problems;
+}
+
+/** Fictional reading tables keep native geometry rather than compressing words into letters. */
+export function readingTableProblems() {
+  const problems = [];
+  for (const table of document.querySelectorAll(".ferra-reading-table table")) {
+    if (getComputedStyle(table).display !== "table")
+      problems.push("a reading table lost native table layout");
+    for (const row of table.rows) {
+      if (row.getBoundingClientRect().height > 160)
+        problems.push("a sample reading-table row is taller than 160px");
+    }
+  }
+  return problems;
+}
+
 /** Problems of the header bar: it wraps, an item leaves the gutter, is too small to tap, or two overlap. */
 export function barProblems() {
   const bar = document.querySelector(".site-header .bar, .ferra-header");
