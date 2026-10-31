@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v2.1.0) (2026-10-31)
+
+
+### Features
+
+* add Ardo to family applications ([#101](https://github.com/sebastian-software/ferramenta/issues/101)) ([fc78169](https://github.com/sebastian-software/ferramenta/commit/fc781691d7e6b66704de48b204338be4dc0f31b2))
+* **family:** add Ferra design kit and final page designs ([#104](https://github.com/sebastian-software/ferramenta/issues/104)) ([8697a07](https://github.com/sebastian-software/ferramenta/commit/8697a079b02e745a8e2dedca87d8f2e0877b94cb))
+* **ferra:** add product homepages without a contents rail ([f64de4e](https://github.com/sebastian-software/ferramenta/commit/f64de4e887c8832bfc7969a7ca04e93cd0c991f6))
+* **ferra:** add reusable benchmark comparisons ([8ed65d2](https://github.com/sebastian-software/ferramenta/commit/8ed65d2ec640b29777849508ec02ae64670db83d))
+* **ferra:** centralize product stories and reading styles ([0c4b361](https://github.com/sebastian-software/ferramenta/commit/0c4b3612696b258d0c0a68f7cf97795c8960ddf9))
+* **ferra:** compose image-first product covers and soft stories ([16f9e64](https://github.com/sebastian-software/ferramenta/commit/16f9e645476b5fb499cf111238e0e39cbfb6f318))
+* **ferra:** share product covers, soft cards, and reading layouts ([1cae75a](https://github.com/sebastian-software/ferramenta/commit/1cae75af4f835e6da86a9fb35afcc7d5bb10714f))
+* **native:** share npm packaging across the Ferramenta engines ([#105](https://github.com/sebastian-software/ferramenta/issues/105)) ([d605bb5](https://github.com/sebastian-software/ferramenta/commit/d605bb5a9dabe61080dbb8d8ff0223694608cd40))
+* **registry:** describe Ferriki's Rust crate and Vite build-time macros, mark it beta ([#103](https://github.com/sebastian-software/ferramenta/issues/103)) ([ac62a60](https://github.com/sebastian-software/ferramenta/commit/ac62a60b4cbc335c7475d525ee12fc8614c35a1e))
+* **site:** add an editorial family homepage ([#113](https://github.com/sebastian-software/ferramenta/issues/113)) ([0f4e21d](https://github.com/sebastian-software/ferramenta/commit/0f4e21d87aab6c49b01d8f7a1d956c44ac4ac950))
+* **site:** launch Ferra on Ardo 6 ([#112](https://github.com/sebastian-software/ferramenta/issues/112)) ([c406536](https://github.com/sebastian-software/ferramenta/commit/c406536261e2f221dbec1c8614597a859a3b4d2b))
+
+
+### Bug Fixes
+
+* **ferra:** retain stable product section headings ([dc503af](https://github.com/sebastian-software/ferramenta/commit/dc503af2f720bece9d6b55803f31fd94932009dd))
+* **ferra:** tighten mobile rhythm and preserve readable tables ([0add8c0](https://github.com/sebastian-software/ferramenta/commit/0add8c0dcf2838710d79918b94ec72032ad4346d))
+* **ferra:** tighten mobile spacing and table density ([ca56984](https://github.com/sebastian-software/ferramenta/commit/ca56984fcf08231074f79cd47e77226f70996c34))
+* **native:** handle Windows drive paths in packed metadata checks ([#109](https://github.com/sebastian-software/ferramenta/issues/109)) ([f76b331](https://github.com/sebastian-software/ferramenta/commit/f76b3310601052542a5be5fd13b4c89ab4d08458))
+
 ## [2.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.2.0...ferramenta-v2.0.0) (2026-10-01)
 
 
