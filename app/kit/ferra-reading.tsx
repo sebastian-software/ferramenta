@@ -155,9 +155,12 @@ export function ProductPageSpecimen() {
           <p>The project supplies the facts and the examples.</p>
         </FerraArticle>
         <FerraArticle title="A shared presentation." icon={<Mark name="pen" size={28} />}>
-          <p>The package owns the surfaces, typography and generous section spacing.</p>
+          <p>The package owns the surfaces, typography and matching card gutters.</p>
         </FerraArticle>
       </FerraColumns>
+      <FerraArticle title="One grid, in both directions.">
+        <p>Full-width stories use the same gutter as the paired cards above.</p>
+      </FerraArticle>
       <section className="ferra-editorial-closing">
         <h3>Try the fictional instrument.</h3>
         <p>The page grid owns this section's spacing, including at mobile widths.</p>

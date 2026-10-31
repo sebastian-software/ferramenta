@@ -45,16 +45,19 @@ export function mobileCardProblems() {
   return problems;
 }
 
-/** The product grid owns section spacing; nested margins must not double it. */
-export function mobileRhythmProblems() {
-  if (innerWidth > 704) return [];
+/** Compare rendered card edges, so stacked and paired rows retain the same gutter. */
+export function productGridProblems() {
   const problems = [];
-  for (const product of document.querySelectorAll(".ferra-product-page")) {
-    const sections = [...product.children].map((element) => element.getBoundingClientRect());
-    for (let i = 1; i < sections.length; i += 1) {
-      if (sections[i].top - sections[i - 1].bottom > 48)
-        problems.push("mobile product sections are separated by more than 48px");
-    }
+  for (const row of document.querySelectorAll(".ferra-product-page > .ferra-columns")) {
+    const first = row.children[0]?.getBoundingClientRect();
+    const second = row.children[1]?.getBoundingClientRect();
+    const next = row.nextElementSibling?.getBoundingClientRect();
+    if (first === undefined || second === undefined || next === undefined) continue;
+    const paired = Math.abs(first.top - second.top) < 1;
+    const innerGap = paired ? second.left - first.right : second.top - first.bottom;
+    const outerGap = next.top - row.getBoundingClientRect().bottom;
+    if (Math.abs(innerGap - outerGap) > 1)
+      problems.push("product card rows and columns have different gutters");
   }
   return problems;
 }

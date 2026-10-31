@@ -20,9 +20,9 @@ import {
   flyoutState,
   focused,
   mobileCardProblems,
-  mobileRhythmProblems,
   motion,
   plateProblems,
+  productGridProblems,
   readingTableProblems,
   sidewaysScroll,
 } from "./lib/review-checks.mjs";
@@ -85,7 +85,7 @@ async function reviewLayout(page, { name, url, width }) {
       comparisonProblems,
       editorialProblems,
       mobileCardProblems,
-      mobileRhythmProblems,
+      productGridProblems,
       readingTableProblems,
     ].map((check) => page.evaluate(call(check))),
   );
