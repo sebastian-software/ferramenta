@@ -92,7 +92,7 @@ test("sections own unique named headings and tables retain native header semanti
   assert.ok(table.includes('<th scope="row">Example</th>'));
   assert.match(
     table,
-    /aria-labelledby="([^"]+)" tabindex="0"><table class="ferra-table"><caption id="\1">Sample measurements/u,
+    /aria-labelledby="([^"]+)"[^>]*tabindex="0"><table class="ferra-table"><caption id="\1">Sample measurements/u,
   );
 });
 

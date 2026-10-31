@@ -161,6 +161,14 @@ rails. `FerraGuideNavigation` styles the same navigation in the desktop rail or
 a host's mobile panel. The host retains routing and the single main landmark.
 The older `FerraDocsLayout` remains available for section-based pages.
 
+Use `FerraReadingTable` as the MDX `table` component inside the reading layout.
+It preserves native table structure, readable words and compact rows in a named,
+keyboard-scrollable region. An overflow hint appears only when columns extend
+beyond the available width. `FerraTable` and `FerraBenchmarkTable` share that
+behavior. Supply a specific `aria-label` for standalone reading tables when one
+is available. Mobile cards keep at least 20px of internal space; product section
+gaps scale down to 32px without changing the desktop composition.
+
 Ardo consumers import `ferramenta-family/ferra-ardo.css` after `ferra.css`, use
 `ferra-tokens ferra-ardo` on `ArdoRootLayout`, `ferra-site` on `FerraPage`, and
 `ferra-ardo-shell` on `ArdoRoot`. This optional adapter owns token mapping,

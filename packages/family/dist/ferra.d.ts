@@ -9,4 +9,5 @@ export { FerraExample, FerraToggle } from "./FerraExample.js";
 export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
 export { FerraProductLead, type FerraProductLeadProps, FerraProductPage, } from "./FerraProductPage.js";
 export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
+export { FerraReadingTable } from "./FerraTableViewport.js";
 export type { FerraActionProps, FerraBar, FerraBarsProps, FerraCodeProps, FerraEngineCatalogProps, FerraFooterProps, FerraHeaderProps, FerraHeroProps, FerraInstrumentProps, FerraLogoProps, FerraMarkProps, FerraSectionProps, FerraTableProps, } from "./FerraTypes.js";

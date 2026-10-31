@@ -108,16 +108,39 @@
   font-size: var(--ferra-text-small);
 }
 .ferra-page .ferra-prose table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
+  width: 100%;
   border-collapse: collapse;
   font-size: var(--ferra-text-small);
+  line-height: 1.45;
+  overflow-wrap: normal;
+}
+.ferra-page .ferra-table-frame.ferra-reading-table {
+  margin-block: var(--ferra-space-4) var(--ferra-space-6);
+}
+.ferra-page .ferra-reading-table table {
+  margin: 0;
+}
+.ferra-page .ferra-prose :is(th, td) > code {
+  white-space: nowrap;
 }
 .ferra-page .ferra-prose :is(th, td) {
-  padding: var(--ferra-space-3);
+  padding: var(--ferra-space-2) var(--ferra-space-3);
+  vertical-align: top;
   border-block-end: 1px solid var(--ferra-border);
   text-align: start;
+}
+.ferra-page .ferra-prose :is(th, td):first-child {
+  min-width: 10rem;
+}
+/* Short API tables need room for descriptions beside unbroken signatures. */
+.ferra-page .ferra-prose table:not(:has(tr > :nth-child(4))) :is(th, td) {
+  min-width: 10rem;
+}
+.ferra-page .ferra-prose [align="center"] {
+  text-align: center;
+}
+.ferra-page .ferra-prose [align="right"] {
+  text-align: end;
 }
 .ferra-page .ferra-prose blockquote {
   border-inline-start: 2px solid var(--ferra-accent);
@@ -142,7 +165,13 @@
     display: none;
   }
   .ferra-page .ferra-reading-surface {
-    padding: var(--ferra-space-6);
+    padding: var(--ferra-card-padding);
+  }
+  .ferra-page .ferra-reading {
+    padding-block-start: var(--ferra-space-3);
+  }
+  .ferra-page .ferra-prose h2 {
+    margin-block-start: var(--ferra-space-8);
   }
 }
 

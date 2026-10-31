@@ -260,10 +260,19 @@
 .ferra-page .ferra-repo-hint {
   white-space: pre;
 }
+.ferra-page .ferra-table-frame {
+  min-width: 0;
+  margin-block-start: var(--ferra-space-8);
+}
 .ferra-page .ferra-table-region {
   max-width: 100%;
-  overflow: auto;
-  margin-block-start: var(--ferra-space-8);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.ferra-page .ferra-table-hint {
+  margin-block: 0 var(--ferra-space-2);
+  font-size: 0.8125rem;
+  color: var(--ferra-text-secondary);
 }
 .ferra-page .ferra-table {
   width: 100%;
@@ -563,6 +572,33 @@
 .ferra-page .ferra-benchmark-table a {
   display: inline-flex;
   align-items: center;
-  min-height: var(--ferra-target);
+  min-height: 1.75rem;
   color: var(--ferra-accent);
+}
+.ferra-page .ferra-benchmark-table .ferra-benchmark-conformance :is(a, span) {
+  display: block;
+  min-height: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+@media (max-width: 44rem) {
+  .ferra-page .ferra-benchmark-table {
+    min-width: 0;
+    line-height: 1.4;
+  }
+  .ferra-page .ferra-benchmark-table :is(th, td) {
+    padding: var(--ferra-space-2) var(--ferra-space-3);
+  }
+  .ferra-page .ferra-benchmark-table th[scope="row"] {
+    min-width: 9rem;
+  }
+  .ferra-page .ferra-benchmark-detail {
+    display: block;
+    margin-inline-start: 0;
+    white-space: normal;
+  }
+  .ferra-page .ferra-benchmark-table td a {
+    font-size: var(--ferra-text-small);
+  }
 }

@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
 import { displayName, family, WORKSHOP, WORKSHOP_REFERENCES } from "./family.js";
+import { FerraTableViewport } from "./FerraTableViewport.js";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 /** One authored light scheme; the stylesheet has no global reset. */
 export function FerraPage({ className, ...props }) {
@@ -45,7 +46,7 @@ export function FerraAction({ variant = "primary", className, children, ...props
 /** Native children preserve the consumer's column and row header relationships. */
 export function FerraTable({ caption, children, className, ...props }) {
     const id = useId();
-    return (_jsx("div", { className: "ferra-table-region", role: "region", "aria-labelledby": id, tabIndex: 0, children: _jsxs("table", { ...props, className: classes("ferra-table", className), children: [_jsx("caption", { id: id, children: caption }), children] }) }));
+    return (_jsx(FerraTableViewport, { "aria-labelledby": id, children: _jsxs("table", { ...props, className: classes("ferra-table", className), children: [_jsx("caption", { id: id, children: caption }), children] }) }));
 }
 export function FerraCode({ caption, file, children }) {
     return (_jsxs("figure", { className: "ferra-code", children: [_jsxs("figcaption", { children: [_jsx("span", { children: caption }), file !== undefined && file.length > 0 && _jsx("span", { className: "ferra-code-file", children: file })] }), _jsx("pre", { tabIndex: 0, children: _jsx("code", { children: children }) })] }));

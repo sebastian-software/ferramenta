@@ -10,6 +10,7 @@ import {
   FerraProductLead,
   FerraProductPage,
   FerraReadingLayout,
+  FerraReadingTable,
   FerraTabs,
   FerraToggle,
 } from "ferramenta-family/ferra";
@@ -57,6 +58,31 @@ export function ReadingSpecimen() {
       <pre tabIndex={0}>
         <code>let result = ferrometro::measure("sample")?;</code>
       </pre>
+      <FerraReadingTable aria-label="Fictional API comparison">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">API</th>
+            <th scope="col">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Measure one document</th>
+            <td>
+              <code>measure_document(input, options)</code>
+            </td>
+            <td>Measurements with source locations</td>
+          </tr>
+          <tr>
+            <th scope="row">Compare a collection</th>
+            <td>
+              <code>compare_documents(inputs, options)</code>
+            </td>
+            <td>One result for each input</td>
+          </tr>
+        </tbody>
+      </FerraReadingTable>
       <FerraChoices>
         <article>
           <h3>Read a document</h3>
@@ -132,6 +158,10 @@ export function ProductPageSpecimen() {
           <p>The package owns the surfaces, typography and generous section spacing.</p>
         </FerraArticle>
       </FerraColumns>
+      <section className="ferra-editorial-closing">
+        <h3>Try the fictional instrument.</h3>
+        <p>The page grid owns this section's spacing, including at mobile widths.</p>
+      </section>
     </FerraProductPage>
   );
 }

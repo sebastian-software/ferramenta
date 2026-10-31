@@ -9,3 +9,4 @@ export { FerraExample, FerraToggle } from "./FerraExample.js";
 export { FERRA_PRODUCTS, isFerraProduct } from "./FerraIdentity.js";
 export { FerraProductLead, FerraProductPage, } from "./FerraProductPage.js";
 export { FerraReadingLayout } from "./FerraReadingLayout.js";
+export { FerraReadingTable } from "./FerraTableViewport.js";
