@@ -11,6 +11,7 @@ import {
   FerraProductPage,
   FerraReadingLayout,
   FerraReadingTable,
+  FerraSelect,
   FerraTabs,
   FerraToggle,
 } from "ferramenta-family/ferra";
@@ -101,6 +102,7 @@ export function ReadingSpecimen() {
 
 export function ProductStorySpecimen() {
   const [enabled, setEnabled] = useState(true);
+  const [sample, setSample] = useState("a");
   return (
     <FerraArticle
       id="product-story"
@@ -117,6 +119,18 @@ export function ProductStorySpecimen() {
           },
         ]}
       />
+      <FerraSelect
+        label="Sample"
+        options={[
+          { value: "a", label: "Sample A" },
+          { value: "b", label: "Sample B" },
+        ]}
+        value={sample}
+        onChange={(event) => {
+          setSample(event.currentTarget.value);
+        }}
+        aria-controls="sample-result"
+      />
       <FerraExample
         title="A controlled example"
         source="sample input"
@@ -131,7 +145,31 @@ export function ProductStorySpecimen() {
           />
         }
       >
-        <p>{enabled ? "Sample output with context." : "Sample output."}</p>
+        <div id="sample-result">
+          <figure>
+            <blockquote>
+              <p>{enabled ? "Sample output with context." : "Sample output."}</p>
+            </blockquote>
+            <figcaption>Fictional attribution</figcaption>
+          </figure>
+          <table>
+            <caption>Fictional sample {sample.toUpperCase()}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Input</th>
+                <th scope="col" align="right">
+                  Result
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sample</td>
+                <td align="right">Ready</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </FerraExample>
     </FerraArticle>
   );

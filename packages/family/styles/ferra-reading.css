@@ -133,7 +133,7 @@
   min-width: 10rem;
 }
 /* Short API tables need room for descriptions beside unbroken signatures. */
-.ferra-page .ferra-prose table:not(:has(tr > :nth-child(4))) :is(th, td) {
+.ferra-page .ferra-prose table:not(.ferra-table):not(:has(tr > :nth-child(4))) :is(th, td) {
   min-width: 10rem;
 }
 .ferra-page .ferra-prose [align="center"] {

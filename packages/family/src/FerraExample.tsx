@@ -6,7 +6,7 @@ type ExampleProps = {
   title: ReactNode;
   introduction?: ReactNode;
   source: string;
-  controls: ReactNode;
+  controls?: ReactNode;
   footer?: ReactNode;
   children: ReactNode;
 };
@@ -27,7 +27,7 @@ export function FerraExample({
         <h3 id={id}>{title}</h3>
         {introduction !== undefined && <p>{introduction}</p>}
       </header>
-      <div className="ferra-example-controls">{controls}</div>
+      {controls != null && <div className="ferra-example-controls">{controls}</div>}
       <div className="ferra-example-grid">
         <div className="ferra-example-source">
           <p className="ferra-example-label">Source</p>

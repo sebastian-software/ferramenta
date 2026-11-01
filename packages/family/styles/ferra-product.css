@@ -89,7 +89,6 @@
   background: var(--ferra-selected);
   color: var(--ferra-accent);
 }
-.ferra-page .ferra-product-page .ferra-engine-meta,
 .ferra-page .ferra-product-page .ferra-note-section,
 .ferra-page .ferra-product-page .ferra-example {
   border-block-start: 0;

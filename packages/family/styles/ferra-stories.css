@@ -41,9 +41,9 @@
 }
 .ferra-page .ferra-engine-meta {
   padding: var(--ferra-space-4) var(--ferra-card-padding);
-  border-block-start: 1px solid var(--ferra-card-edge);
+  border-block-start: 1px solid var(--ferra-border);
   border-radius: 0 0 var(--ferra-card-radius) var(--ferra-card-radius);
-  background: linear-gradient(var(--ferra-card-surface), var(--ferra-card-footer));
+  background: var(--ferra-card-footer);
   font-size: var(--ferra-text-small);
   color: var(--ferra-text-secondary);
 }
@@ -303,4 +303,93 @@
 .ferra-benchmark-table .ferra-benchmark-reference {
   color: var(--ferra-text-secondary);
   font-size: 0.75rem;
+}
+
+/* Native controls keep their platform keyboard and touch behavior. */
+.ferra-page .ferra-select {
+  display: grid;
+  justify-items: start;
+  gap: var(--ferra-space-2);
+  margin-block: var(--ferra-space-6);
+  font-size: var(--ferra-text-small);
+  font-weight: 600;
+}
+.ferra-page .ferra-select select {
+  max-width: 100%;
+  min-height: var(--ferra-target);
+  padding: var(--ferra-space-2) var(--ferra-space-4);
+  border: 1px solid var(--ferra-border);
+  border-radius: var(--ferra-radius);
+  background: var(--ferra-card-surface);
+  color: var(--ferra-text);
+  font: inherit;
+}
+.ferra-page .ferra-select select:focus-visible {
+  outline: 2px solid var(--ferra-accent);
+  outline-offset: 3px;
+}
+
+/* Style real renderer output without rewriting the HTML being demonstrated. */
+.ferra-page .ferra-example-preview {
+  border: 1px solid var(--ferra-border);
+  background: var(--ferra-card-surface);
+}
+.ferra-page .ferra-example-result {
+  font-size: var(--ferra-text-small);
+  line-height: 1.6;
+}
+.ferra-page .ferra-example-result > div > * + * {
+  margin-block-start: var(--ferra-space-6);
+}
+.ferra-page .ferra-example-result :is(figure, blockquote) {
+  margin: 0;
+}
+.ferra-page .ferra-example-result blockquote {
+  border-inline-start: 2px solid var(--ferra-accent);
+  padding-inline-start: var(--ferra-space-4);
+}
+.ferra-page .ferra-example-result figcaption {
+  margin-block-start: var(--ferra-space-2);
+  padding-inline-start: var(--ferra-space-4);
+  color: var(--ferra-text-secondary);
+}
+.ferra-page .ferra-example-result table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ferra-text-small);
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+.ferra-page .ferra-example-result caption {
+  padding-block-end: var(--ferra-space-3);
+  font-weight: 600;
+  text-align: start;
+}
+.ferra-page .ferra-example-result :is(th, td) {
+  padding: var(--ferra-space-2);
+  border-block-end: 1px solid var(--ferra-border);
+  text-align: start;
+}
+.ferra-page .ferra-example-result th {
+  background: var(--ferra-card-footer);
+  font-weight: 600;
+}
+.ferra-page .ferra-example-result [align="right"] {
+  text-align: end;
+}
+.ferra-page .ferra-example-result [align="center"] {
+  text-align: center;
+}
+.ferra-page .ferra-example-result mark {
+  background: var(--ferra-selected);
+  color: var(--ferra-text);
+}
+.ferra-page .ferra-example-result ins {
+  text-decoration-color: var(--ferra-accent);
+  text-underline-offset: 0.2em;
+}
+.ferra-page .ferra-example-result .footnote {
+  padding-block-start: var(--ferra-space-3);
+  border-block-start: 1px solid var(--ferra-border);
+  color: var(--ferra-text-secondary);
 }
