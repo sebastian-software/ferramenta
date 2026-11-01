@@ -108,7 +108,11 @@ export function ProductStorySpecimen() {
       id="product-story"
       title="A story with its evidence attached."
       introduction="Fictional Ferrometro content; no engine claims or measured results."
-      meta={<p>Illustrative example, supplied by the host.</p>}
+      meta={
+        <p>
+          Illustrative release information. <a href="#sample-reading">Read the sample notes</a>
+        </p>
+      }
     >
       <FerraFeatureGrid
         items={[
