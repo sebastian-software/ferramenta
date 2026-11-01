@@ -105,3 +105,16 @@
 .ferra-ardo :is(.ardo-code-block, .ardo-shiki) .line.highlighted {
   background: var(--ferra-code-surface);
 }
+
+/* Keep the longer Ctrl+K hint inside the right edge of a compact header. */
+.ferra-ardo .ferra-header-actions button[aria-keyshortcuts] > span[aria-hidden="true"] {
+  left: auto;
+  right: 0;
+  transform: translateY(-2px);
+}
+.ferra-ardo
+  .ferra-header-actions
+  button[aria-keyshortcuts]:is(:hover, :focus-visible)
+  > span[aria-hidden="true"] {
+  transform: translateY(0);
+}
