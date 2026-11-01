@@ -4,6 +4,13 @@ type Content = { html: string; children?: never } | { html?: never; children: Re
 export type FerraRenderedCodeProps = { caption: ReactNode } & Content &
   Omit<ComponentPropsWithoutRef<"figure">, "children">;
 
+function protectBackground(declaration: string) {
+  return declaration.includes("!important") ? declaration : `${declaration} !important`;
+}
+function protectStyle(_: string, style: string) {
+  return `style="${style.replaceAll(/background(?:-color)?:[^;]+/g, protectBackground)}"`;
+}
+
 /** Trusted build-time highlighter output. Never pass visitor-supplied HTML. */
 export function FerraRenderedCode({
   caption,
@@ -12,9 +19,12 @@ export function FerraRenderedCode({
   className,
   ...props
 }: FerraRenderedCodeProps) {
-  const output = html?.replaceAll(/<pre\b[^>]*>/g, (tag) =>
-    /\btabindex=/i.test(tag) ? tag : tag.replace("<pre", '<pre tabindex="0"'),
-  );
+  const output = html?.replaceAll(/<pre\b[^>]*>/g, (tag) => {
+    const focusable = /\btabindex=/i.test(tag) ? tag : tag.replace("<pre", '<pre tabindex="0"');
+    // Ardo resets renderer backgrounds with !important. Keep the renderer's own
+    // background and its matching foreground palette, including CSS variables.
+    return focusable.replace(/style="([^"]*)"/, protectStyle);
+  });
   return (
     <figure {...props} className={["ferra-rendered-code", className].filter(Boolean).join(" ")}>
       <figcaption>{caption}</figcaption>

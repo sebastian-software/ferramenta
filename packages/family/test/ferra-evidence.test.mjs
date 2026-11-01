@@ -31,9 +31,10 @@ test("comparisons retain zero, negative and partial results with native table he
 test("generated code keeps its source and renderer attributes while gaining keyboard access", () => {
   const html = render(FerraRenderedCode, {
     caption: "Trusted example",
-    html: '<pre data-renderer="sample"><code>&lt;pre&gt; &amp; code</code></pre>',
+    html: '<pre data-renderer="sample" style="background-color:#24292e;color:#e1e4e8"><code>&lt;pre&gt; &amp; code</code></pre>',
   });
-  assert.match(html, /<pre tabindex="0" data-renderer="sample">/);
+  assert.match(html, /<pre tabindex="0" data-renderer="sample"/);
+  assert.match(html, /background-color:#24292e !important;color:#e1e4e8/);
   assert.match(html, /&lt;pre&gt; &amp; code/);
   const existing = render(FerraRenderedCode, {
     caption: "Already accessible",
