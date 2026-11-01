@@ -45,10 +45,7 @@
 }
 .ferra-page .ferra-reading-surface {
   min-width: 0;
-  padding: var(--ferra-space-8);
-  border-radius: var(--ferra-card-radius);
-  background: var(--ferra-card-surface);
-  box-shadow: 0 2px 8px var(--ferra-card-shadow);
+  padding: 0;
 }
 .ferra-page .ferra-prose {
   max-width: 62ch;
@@ -107,6 +104,10 @@
   overflow-x: auto;
   font-size: var(--ferra-text-small);
 }
+/* Highlighted lines own their inset; unannotated source uses the pre itself. */
+.ferra-page .ferra-prose pre:not(:has(.line)) {
+  padding: var(--ferra-space-4) var(--ferra-space-3);
+}
 .ferra-page .ferra-prose table {
   width: 100%;
   border-collapse: collapse;
@@ -163,9 +164,6 @@
   }
   .ferra-page .ferra-reading-navigation {
     display: none;
-  }
-  .ferra-page .ferra-reading-surface {
-    padding: var(--ferra-card-padding);
   }
   .ferra-page .ferra-reading {
     padding-block-start: var(--ferra-space-3);

@@ -5,7 +5,7 @@ export type FerraReadingLayoutProps = {
   outline?: ReactNode;
 } & ComponentPropsWithoutRef<"article">;
 
-/** A bounded reading surface between host-owned navigation and the page outline. */
+/** An unframed reading column between host-owned navigation and the page outline. */
 export function FerraReadingLayout({
   navigation,
   outline,

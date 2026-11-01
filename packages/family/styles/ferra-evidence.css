@@ -31,7 +31,7 @@
   margin: 0;
   border: 0;
   border-radius: 0;
-  padding: var(--ferra-space-4);
+  padding: var(--ferra-space-4) var(--ferra-space-3);
   font: 0.875rem / 1.7 var(--ferra-font-mono);
   white-space: pre;
   overflow-wrap: normal;
