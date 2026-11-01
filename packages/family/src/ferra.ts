@@ -51,7 +51,9 @@ export {
 } from "./FerraProductPage.js";
 
 export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
+export { FerraSelect } from "./FerraSelect.js";
 export { FerraReadingTable } from "./FerraTableViewport.js";
+
 export type {
   FerraActionProps,
   FerraBar,

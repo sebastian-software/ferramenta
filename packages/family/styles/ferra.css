@@ -546,7 +546,6 @@
 
 /* Native table markup retains each consumer's row groups, units and evidence links. */
 .ferra-page .ferra-benchmark-table {
-  min-width: 38rem;
   font-variant-numeric: tabular-nums;
 }
 .ferra-page .ferra-benchmark-table :is(th, td) {

@@ -122,9 +122,9 @@
 }
 .ferra-page .ferra-engine-meta {
   padding: var(--ferra-space-4) var(--ferra-card-padding);
-  border-block-start: 1px solid var(--ferra-card-edge);
+  border-block-start: 1px solid var(--ferra-border);
   border-radius: 0 0 var(--ferra-card-radius) var(--ferra-card-radius);
-  background: linear-gradient(var(--ferra-card-surface), var(--ferra-card-footer));
+  background: var(--ferra-card-footer);
 }
 .ferra-page .ferra-engine-art {
   display: grid;

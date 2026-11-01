@@ -3,7 +3,7 @@ type ExampleProps = {
     title: ReactNode;
     introduction?: ReactNode;
     source: string;
-    controls: ReactNode;
+    controls?: ReactNode;
     footer?: ReactNode;
     children: ReactNode;
 };
