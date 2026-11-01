@@ -330,6 +330,7 @@
 /* Native controls keep their platform keyboard and touch behavior. */
 .ferra-page .ferra-select {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: start;
   gap: var(--ferra-space-2);
   margin-block: var(--ferra-space-6);
@@ -337,6 +338,7 @@
   font-weight: 600;
 }
 .ferra-page .ferra-select select {
+  min-width: 0;
   max-width: 100%;
   min-height: var(--ferra-target);
   padding: var(--ferra-space-2) var(--ferra-space-4);

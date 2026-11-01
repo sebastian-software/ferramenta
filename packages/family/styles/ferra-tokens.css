@@ -18,6 +18,7 @@
   --ferra-accent-hover: color-mix(in srgb, var(--ferra-oxide) 85%, var(--ferra-ink));
   --ferra-editorial-background: color-mix(in srgb, var(--ferra-reading) 72%, var(--ferra-pewter));
   --ferra-selected: color-mix(in srgb, var(--ferra-accent) 7%, var(--ferra-surface));
+  --ferra-code-surface: var(--ferra-white);
   --ferra-card-surface: color-mix(in srgb, var(--ferra-white) 40%, var(--ferra-reading));
   --ferra-card-footer: color-mix(in srgb, var(--ferra-pewter) 32%, var(--ferra-card-surface));
   --ferra-metadata-surface: color-mix(in srgb, var(--ferra-accent) 16%, var(--ferra-card-surface));

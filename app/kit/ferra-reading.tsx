@@ -56,6 +56,12 @@ export function ReadingSpecimen() {
         relationship between headings, code and tables. Its navigation and outline belong to the
         host.
       </p>
+      <img
+        src={`data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="96" viewBox="0 0 1536 96"><path d="M0 48H1536M384 16V80M768 16V80M1152 16V80" stroke="currentColor" fill="none"/></svg>')}`}
+        width={1536}
+        height={96}
+        alt="A ruler with three evenly spaced marks."
+      />
       <h3 id="sample-reading-code">Measure an input</h3>
       <p>
         The fictional <code>measure()</code> function returns a result for the selected input. Long
@@ -173,6 +179,11 @@ export function ProductStorySpecimen() {
       <FerraSelect
         label="Sample"
         options={[
+          {
+            value: "long-example",
+            label:
+              "A deliberately long fictional input name that should fit even the narrowest reading column",
+          },
           { value: "a", label: "Sample A" },
           { value: "b", label: "Sample B" },
         ]}
