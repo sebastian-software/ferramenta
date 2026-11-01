@@ -110,7 +110,9 @@ export function ProductStorySpecimen() {
       introduction="Fictional Ferrometro content; no engine claims or measured results."
       meta={
         <p>
-          Illustrative release information on a lightly textured oxide footer.{" "}
+          <span className="ferra-caption">
+            Illustrative release information on a lightly textured oxide footer.
+          </span>{" "}
           <a href="#sample-reading">Read the sample notes</a>
         </p>
       }
