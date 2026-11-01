@@ -160,9 +160,12 @@ No processing logic or project data lives in these presentation components.
 
 For continuous documentation, use `FerraReadingLayout` with native content as
 children and host-owned `navigation` and `outline` landmarks. It owns the bounded
-reading measure, light surface, prose rhythm, source scrolling, and responsive
-rails. `FerraGuideNavigation` styles the same navigation in the desktop rail or
-a host's mobile panel. The host retains routing and the single main landmark.
+reading measure, prose rhythm, source scrolling, and responsive rails. Continuous
+documentation sits directly on the page ground, without a surrounding card or
+card padding. Code blocks use compact horizontal insets; syntax-highlighted lines
+own that inset once instead of adding it to an outer pre inset.
+`FerraGuideNavigation` styles the same navigation in the desktop rail or a host's
+mobile panel. The host retains routing and the single main landmark.
 The older `FerraDocsLayout` remains available for section-based pages.
 
 Use `FerraReadingTable` as the MDX `table` component inside the reading layout.

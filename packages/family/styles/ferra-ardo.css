@@ -98,7 +98,16 @@
 
 .ferra-ardo .ferra-prose pre {
   margin: 0;
-  padding: var(--ferra-space-4);
+  padding: var(--ferra-space-4) var(--ferra-space-3);
+}
+
+/* Syntax lines own the horizontal inset once, including the full-width highlight edge. */
+.ferra-ardo :is(.ardo-code-block, .ardo-shiki) pre {
+  padding-inline: 0;
+}
+.ferra-ardo :is(.ardo-code-block, .ardo-shiki) .line {
+  margin-inline: 0;
+  padding-inline: var(--ferra-space-3);
 }
 
 /* The accent edge marks a highlighted line without reducing syntax contrast. */

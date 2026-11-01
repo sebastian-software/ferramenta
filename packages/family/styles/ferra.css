@@ -359,7 +359,7 @@
 }
 .ferra-page .ferra-code pre {
   overflow: auto;
-  padding: var(--ferra-space-6);
+  padding: var(--ferra-space-6) var(--ferra-space-3);
   font: 0.875rem / 1.8 var(--ferra-font-mono);
   color: var(--ferra-text);
   background: var(--ferra-surface);

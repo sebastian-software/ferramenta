@@ -1,5 +1,5 @@
 import { useState } from "ardo/react";
-import { ArdoHeaderSearch } from "ardo/ui";
+import { ArdoCodeBlock, ArdoHeaderSearch } from "ardo/ui";
 import { Mark } from "ferramenta-family";
 import {
   FerraArticle,
@@ -44,7 +44,7 @@ export function ReadingSpecimen() {
     >
       <header id="sample-reading">
         <p>Ferrometro / Guide</p>
-        <h2>A calm reading surface.</h2>
+        <h2>A calm reading column.</h2>
       </header>
       <FerraTabs aria-label="Fictional runtimes">
         <a href="#sample-reading" aria-current="page">
@@ -53,9 +53,9 @@ export function ReadingSpecimen() {
         <a href="#sample-reading">Node.js</a>
       </FerraTabs>
       <p>
-        This invented guide shows a bounded text column, consistent paragraph spacing and a clear
-        relationship between headings, code and tables. Its navigation and outline belong to the
-        host.
+        This invented guide shows an unframed, bounded text column, consistent paragraph spacing and
+        a clear relationship between headings, code and tables. Its navigation and outline belong to
+        the host.
       </p>
       <img
         src={`data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="96" viewBox="0 0 1536 96"><path d="M0 48H1536M384 16V80M768 16V80M1152 16V80" stroke="currentColor" fill="none"/></svg>')}`}
@@ -79,6 +79,16 @@ export function ReadingSpecimen() {
       <pre tabIndex={0}>
         <code>let result = ferrometro::measure("sample")?;</code>
       </pre>
+      <div className="ferra-ardo">
+        <ArdoCodeBlock language="rust" title="Highlighted source" highlightLines={[2]}>
+          {`let input = "sample";
+let result = ferrometro::measure(input)?;`}
+        </ArdoCodeBlock>
+        <ArdoCodeBlock language="rust" title="Numbered source" lineNumbers highlightLines={[2]}>
+          {`let input = "a deliberately long fictional document name for checking horizontal code scrolling";
+let result = ferrometro::measure(input)?;`}
+        </ArdoCodeBlock>
+      </div>
       <FerraReadingTable aria-label="Fictional API comparison">
         <thead>
           <tr>
