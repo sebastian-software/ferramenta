@@ -40,6 +40,8 @@
   max-width: var(--ferra-measure);
 }
 .ferra-page .ferra-engine-meta {
+  /* Nested captions and relationship links need the same contrast over the grain. */
+  --ferra-text-secondary: var(--ferra-text);
   position: relative;
   isolation: isolate;
   padding: var(--ferra-space-4) var(--ferra-card-padding);
