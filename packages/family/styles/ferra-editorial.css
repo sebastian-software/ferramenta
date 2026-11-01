@@ -124,7 +124,7 @@
   padding: var(--ferra-space-4) var(--ferra-card-padding);
   border-block-start: 1px solid var(--ferra-border);
   border-radius: 0 0 var(--ferra-card-radius) var(--ferra-card-radius);
-  background: var(--ferra-card-footer);
+  background: var(--ferra-metadata-surface);
 }
 .ferra-page .ferra-engine-art {
   display: grid;
