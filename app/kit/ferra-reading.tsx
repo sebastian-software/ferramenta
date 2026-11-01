@@ -1,4 +1,5 @@
 import { useState } from "ardo/react";
+import { ArdoHeaderSearch } from "ardo/ui";
 import { Mark } from "ferramenta-family";
 import {
   FerraArticle,
@@ -62,6 +63,14 @@ export function ReadingSpecimen() {
         height={96}
         alt="A ruler with three evenly spaced marks."
       />
+      <div className="ferra-ardo">
+        <p>
+          The compact header search keeps its shortcut hint aligned to the control’s right edge.
+        </p>
+        <div className="ferra-header-actions" style={{ justifyContent: "end" }}>
+          <ArdoHeaderSearch variant="icon" />
+        </div>
+      </div>
       <h3 id="sample-reading-code">Measure an input</h3>
       <p>
         The fictional <code>measure()</code> function returns a result for the selected input. Long
