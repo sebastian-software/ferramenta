@@ -40,12 +40,32 @@
   max-width: var(--ferra-measure);
 }
 .ferra-page .ferra-engine-meta {
+  position: relative;
+  isolation: isolate;
   padding: var(--ferra-space-4) var(--ferra-card-padding);
-  border-block-start: 1px solid var(--ferra-border);
+  border-block-start: 0;
   border-radius: 0 0 var(--ferra-card-radius) var(--ferra-card-radius);
   background: var(--ferra-metadata-surface);
   font-size: var(--ferra-text-small);
-  color: var(--ferra-text-secondary);
+  color: var(--ferra-text);
+}
+/* Reuse the shipped rust grain beneath the text, without changing the card surface. */
+.ferra-page :is(.ferra-article, .ferra-engine-article) > .ferra-engine-meta::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: url("../textures/rust.webp") center / cover no-repeat;
+  filter: grayscale(1) brightness(2) contrast(7);
+  mix-blend-mode: soft-light;
+  opacity: 0.32;
+  pointer-events: none;
+  content: "";
+}
+@media (forced-colors: active) {
+  .ferra-page .ferra-engine-meta::before {
+    display: none;
+  }
 }
 .ferra-page .ferra-feature-grid {
   display: grid;

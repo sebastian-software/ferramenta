@@ -93,6 +93,10 @@ the registry's fallback versions remain available.
 
 ## Editorial homepages
 
+Card metadata uses a light oxide surface with a restrained grain from the shipped
+rust texture. The fill separates it from the card without a rule; dark text stays
+readable over the texture. The product cover's unboxed metadata remains plain.
+
 The family homepage follows the [preferred soft-cell reference](../../design/ferra/concepts/ferramenta/soft-cell-refinement-2026-10-30/preferred-reference.png): light surfaces, restrained headings, generous inner space, image-first product stories and contextual margin notes. The contents lists independent engines without thematic categories. The earlier narrow label margin and `FerraHero` remain available for other compositions.
 
 ```tsx
@@ -121,7 +125,7 @@ import {
 </RegistryFacts>;
 ```
 
-`FerraSoftCard` accepts native div attributes and an optional `as` of `article`, `aside`, `section` or `div`. Supply the matching heading and accessible name when choosing a landmark. It adds a surface, padding and radius, without inventing interaction. `FerraNote` provides its own named heading. `FerraNotes` collects several sourced sections inside one named complementary card. Set `--ferra-card-padding` on a host region for narrower notes; the component owns its internal spacing while the host owns placement. All surfaces stay light. Editorial cards use a warm off-white surface against a pale pewter ground. The opening explains the choice of Rust, compatibility work and independent adoption, and links the legal workshop name to its open-source portfolio. The reduced article padding is separate from the wider margin-note padding; its attached metadata footer spans the full card width with a subtle downward tint.
+`FerraSoftCard` accepts native div attributes and an optional `as` of `article`, `aside`, `section` or `div`. Supply the matching heading and accessible name when choosing a landmark. It adds a surface, padding and radius, without inventing interaction. `FerraNote` provides its own named heading. `FerraNotes` collects several sourced sections inside one named complementary card. Set `--ferra-card-padding` on a host region for narrower notes; the component owns its internal spacing while the host owns placement. All surfaces stay light. Editorial cards use a warm off-white surface against a pale pewter ground. The opening explains the choice of Rust, compatibility work and independent adoption, and links the legal workshop name to its open-source portfolio. The reduced article padding is separate from the wider margin-note padding; its attached metadata footer spans the full card width on the lightly textured oxide surface.
 
 Contents items have `href`, `label`, `description` and an optional `product` for a decorative family mark. Same-page entries track document position independently of their list order. At narrow widths a native button controls the single list; Enter or Space toggles it, Escape closes it and returns focus, and choosing an anchor closes the list and focuses the article. Desktop contents remain available in a sticky, vertically scrollable column. The layout supplies no second main landmark.
 

@@ -20,7 +20,7 @@
   --ferra-selected: color-mix(in srgb, var(--ferra-accent) 7%, var(--ferra-surface));
   --ferra-card-surface: color-mix(in srgb, var(--ferra-white) 40%, var(--ferra-reading));
   --ferra-card-footer: color-mix(in srgb, var(--ferra-pewter) 32%, var(--ferra-card-surface));
-  --ferra-metadata-surface: color-mix(in srgb, var(--ferra-accent) 12%, var(--ferra-card-surface));
+  --ferra-metadata-surface: color-mix(in srgb, var(--ferra-accent) 16%, var(--ferra-card-surface));
   --ferra-card-edge: color-mix(in srgb, var(--ferra-ink) 8%, transparent);
   --ferra-card-shadow: color-mix(in srgb, var(--ferra-ink) 5%, transparent);
   --ferra-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
