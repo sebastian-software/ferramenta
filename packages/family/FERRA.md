@@ -326,3 +326,22 @@ restyle an old page. See [ADR-0010](https://github.com/sebastian-software/ferram
 ### Benchmark comparisons
 
 `FerraBenchmarkTable` uses `FerraTable` and accepts native table attributes, a React caption and native table children. Keep platform columns, row groups, source links, units, missing-result labels and interpretation in the consuming project. A named focusable region scrolls wide comparisons without widening the page. Values are never normalized or replaced with zero by the component. The kit uses fictional measurements.
+
+## Rendered examples and evidence
+
+`FerraRenderedCode` frames one trusted build-time code rendering with a caption.
+It preserves the renderer’s HTML and palette, adds missing keyboard access to
+preformatted blocks, and contains long lines in a scrollable viewport. Pass
+`html` only from a trusted highlighter, or supply native children for a host-owned
+demonstration. Never pass visitor-supplied HTML. `FerraCodePair` places two such
+frames side by side and stacks them on narrow screens. Generated theme CSS stays
+with the example content, separate from the page’s design tokens.
+
+`FerraComparisonTable` accepts the existing comparison row and contender contract
+from the original entry. It retains native column and row headers, marks the
+project’s own column, keeps numeric zero and explicit negative or partial states,
+and uses the same keyboard-scrollable table frame as documentation.
+`FerraMeasured` keeps the date, host, source revision and reproduction link next
+to that evidence. `FerraSteps` presents a short ordered explanation, with no
+processing behavior or project facts in the component. The kit’s fictional
+reading specimen shows all of these exports.

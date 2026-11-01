@@ -3,15 +3,20 @@ import { Mark } from "ferramenta-family";
 import {
   FerraArticle,
   FerraChoices,
+  FerraCodePair,
   FerraColumns,
+  FerraComparisonTable,
   FerraExample,
   FerraFeatureGrid,
   FerraGuideNavigation,
+  FerraMeasured,
   FerraProductLead,
   FerraProductPage,
   FerraReadingLayout,
   FerraReadingTable,
+  FerraRenderedCode,
   FerraSelect,
+  FerraSteps,
   FerraTabs,
   FerraToggle,
 } from "ferramenta-family/ferra";
@@ -84,6 +89,45 @@ export function ReadingSpecimen() {
           </tr>
         </tbody>
       </FerraReadingTable>
+      <FerraCodePair>
+        <FerraRenderedCode
+          caption="Generated code · fictional input"
+          html={'<pre><code>measure("sample")</code></pre>'}
+        />
+        <FerraRenderedCode
+          caption="Generated code · fictional output"
+          html="<pre><code>24 sample units</code></pre>"
+        />
+      </FerraCodePair>
+      <FerraComparisonTable
+        caption="Fictional comparison · illustrative values, not measurements"
+        subject="Input"
+        contenders={[
+          { id: "sample", label: "Sample tool", own: true },
+          { id: "reference", label: "Reference" },
+        ]}
+        rows={[
+          {
+            label: "Empty input",
+            detail: "A reported zero stays visible.",
+            values: { sample: 0, reference: 0 },
+          },
+          {
+            label: "Context available",
+            values: { sample: true, reference: { mark: "partial", note: "Only one input kind" } },
+          },
+        ]}
+      />
+      <FerraMeasured on="Fictional date" machine="Illustrative host" revision="Sample revision">
+        <a href="#sample-reading">How the fictional example works</a>
+      </FerraMeasured>
+      <FerraSteps
+        caption="A fictional measurement"
+        items={[
+          { heading: "Choose an input", text: "The host supplies the document." },
+          { heading: "Read the result", text: "The tool returns its measurement." },
+        ]}
+      />
       <FerraChoices>
         <article>
           <h3>Read a document</h3>

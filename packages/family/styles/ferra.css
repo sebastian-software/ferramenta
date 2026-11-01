@@ -7,6 +7,7 @@
 @import "./ferra-catalog.css";
 @import "./ferra-editorial.css";
 @import "./ferra-product.css";
+@import "./ferra-evidence.css";
 
 /* Opt-in styles: no root tokens, global reset or legacy component overrides. */
 .ferra-page {
