@@ -207,6 +207,7 @@ export const family = [
         version: "1.0.0",
         status: "stable",
         repo: "https://github.com/sebastian-software/ferralk",
+        docs: "https://ferralk.dev",
     },
     {
         name: "ferrugo",
