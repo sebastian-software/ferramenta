@@ -15,7 +15,7 @@
   --ardo-color-textLighter: var(--ferra-text-secondary);
   --ardo-color-border: var(--ferra-border);
   --ardo-color-borderLight: var(--ferra-border);
-  --ardo-color-codeBg: var(--ferra-card-surface);
+  --ardo-color-codeBg: var(--ferra-code-surface);
   --ardo-color-codeBorder: var(--ferra-border);
   --ardo-font-family: var(--ferra-font-sans);
   --ardo-font-familyHeading: var(--ferra-font-display);
