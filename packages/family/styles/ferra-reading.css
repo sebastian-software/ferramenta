@@ -201,3 +201,8 @@
   display: grid;
   gap: var(--ferra-space-1);
 }
+
+.ferra-page .ferra-prose img {
+  max-width: 100%;
+  height: auto;
+}
