@@ -602,3 +602,36 @@
     font-size: var(--ferra-text-small);
   }
 }
+
+.ferra-page .ferra-diagram {
+  min-inline-size: 0;
+  margin-block: var(--ferra-space-8);
+  border: 1px solid var(--ferra-border);
+  border-radius: var(--ferra-radius);
+  background: var(--ferra-surface);
+  overflow: hidden;
+}
+.ferra-page .ferra-diagram figcaption {
+  padding: var(--ferra-space-3) var(--ferra-space-4);
+  border-block-end: 1px solid var(--ferra-border);
+  font-size: var(--ferra-text-small);
+  font-weight: 500;
+}
+.ferra-page .ferra-diagram-viewport {
+  padding: var(--ferra-space-4);
+  overflow: auto;
+}
+.ferra-page .ferra-diagram-output > svg {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 42rem;
+  block-size: auto;
+  margin-inline: auto;
+}
+.ferra-page .ferra-diagram-viewport:focus-visible {
+  outline: 2px solid var(--ferra-accent);
+  outline-offset: -3px;
+}
+.ferra-page .ferra-code-pair > .ferra-diagram {
+  margin-block: 0;
+}

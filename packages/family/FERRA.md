@@ -348,3 +348,12 @@ and uses the same keyboard-scrollable table frame as documentation.
 to that evidence. `FerraSteps` presents a short ordered explanation, with no
 processing behavior or project facts in the component. The kit’s fictional
 reading specimen shows all of these exports.
+
+## Rendered diagram previews
+
+`FerraDiagram` presents trusted, build-time SVG with a visible `caption` and a
+concise `label` describing the diagram. It preserves SVG text and embedded fonts,
+scales the graphic within its reading surface, and supplies a named, focusable
+scroll viewport. Rendering, sanitizing untrusted input, IDs and font licenses
+remain the caller’s responsibility. Never pass visitor-supplied markup. The
+reading specimen includes a fictional diagram using the same component.

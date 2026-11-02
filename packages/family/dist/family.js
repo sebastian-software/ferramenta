@@ -303,6 +303,7 @@ export const family = [
         version: "0.3.0",
         status: "early",
         repo: "https://github.com/sebastian-software/ferrigura",
+        docs: "https://sebastian-software.github.io/ferrigura/",
     },
     {
         name: "palamedes",

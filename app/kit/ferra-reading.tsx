@@ -7,6 +7,7 @@ import {
   FerraCodePair,
   FerraColumns,
   FerraComparisonTable,
+  FerraDiagram,
   FerraExample,
   FerraFeatureGrid,
   FerraGuideNavigation,
@@ -124,6 +125,13 @@ let result = ferrometro::measure(input)?;`}
           html="<pre><code>24 sample units</code></pre>"
         />
       </FerraCodePair>
+      <FerraDiagram
+        caption="Fictional SVG diagram · selectable labels"
+        label="An input is measured to produce a report."
+        svg={
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100"><rect x="10" y="20" width="130" height="60" rx="8" fill="#f5f3ee" stroke="#777"/><path d="M140 50H280m-12-8 12 8-12 8" fill="none" stroke="#777"/><rect x="280" y="20" width="130" height="60" rx="8" fill="#f5f3ee" stroke="#777"/><g fill="#273a34" font-family="sans-serif" font-size="18" text-anchor="middle"><text x="75" y="57">Input</text><text x="345" y="57">Report</text></g></svg>'
+        }
+      />
       <FerraComparisonTable
         caption="Fictional comparison · illustrative values, not measurements"
         subject="Input"

@@ -12,7 +12,7 @@
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
 | [ferrolink](https://sebastian-software.github.io/ferrolink/) | Links, anchors and assets checked against the finished build |
-| [ferrigura](https://github.com/sebastian-software/ferrigura) | Mermaid diagrams to SVG without a browser |
+| [ferrigura](https://sebastian-software.github.io/ferrigura/) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 
