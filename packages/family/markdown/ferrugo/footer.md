@@ -13,7 +13,7 @@
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
 | [ferrolink](https://sebastian-software.github.io/ferrolink/) | Links, anchors and assets checked against the finished build |
-| [ferrigura](https://github.com/sebastian-software/ferrigura) | Mermaid diagrams to SVG without a browser |
+| [ferrigura](https://sebastian-software.github.io/ferrigura/) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 

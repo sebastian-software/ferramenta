@@ -27,6 +27,7 @@ export {
   FerraWorkshop,
 } from "./FerraComponents.js";
 export { FerraContents, type FerraContentsItem, type FerraContentsProps } from "./FerraContents.js";
+export { FerraDiagram } from "./FerraDiagram.js";
 export { FerraDocsLayout, type FerraDocsLayoutProps } from "./FerraDocsLayout.js";
 export {
   FerraEditorial,
@@ -44,14 +45,15 @@ export {
   type FerraSoftCardProps,
 } from "./FerraEditorial.js";
 export { FerraExample, FerraToggle } from "./FerraExample.js";
-export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
 
+export { FERRA_PRODUCTS, type FerraProduct, isFerraProduct } from "./FerraIdentity.js";
 export { FerraMeasured } from "./FerraMeasured.js";
 export {
   FerraProductLead,
   type FerraProductLeadProps,
   FerraProductPage,
 } from "./FerraProductPage.js";
+
 export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
 
 export {
@@ -59,10 +61,10 @@ export {
   FerraRenderedCode,
   type FerraRenderedCodeProps,
 } from "./FerraRenderedCode.js";
-
 export { FerraSelect } from "./FerraSelect.js";
 export { FerraSteps } from "./FerraSteps.js";
 export { FerraReadingTable } from "./FerraTableViewport.js";
+
 export type {
   FerraActionProps,
   FerraBar,

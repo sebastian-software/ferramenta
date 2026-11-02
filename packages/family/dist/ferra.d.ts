@@ -4,6 +4,7 @@ export { FerraApplications, FerraEngineCatalog } from "./FerraCatalog.js";
 export { FerraComparisonTable } from "./FerraComparisonTable.js";
 export { FerraAction, FerraBars, FerraCode, FerraColumns, FerraFooter, FerraHeader, FerraHero, FerraInstrument, FerraLogo, FerraMark, FerraPage, FerraSection, FerraSpecimen, FerraTable, FerraWorkshop, } from "./FerraComponents.js";
 export { FerraContents, type FerraContentsItem, type FerraContentsProps } from "./FerraContents.js";
+export { FerraDiagram } from "./FerraDiagram.js";
 export { FerraDocsLayout, type FerraDocsLayoutProps } from "./FerraDocsLayout.js";
 export { FerraEditorial, type FerraEditorialProps, FerraEditorialRow, type FerraEditorialRowProps, FerraEngineArticle, type FerraEngineArticleProps, FerraNote, type FerraNoteProps, FerraNotes, type FerraNotesProps, FerraReleaseFacts, FerraSoftCard, type FerraSoftCardProps, } from "./FerraEditorial.js";
 export { FerraExample, FerraToggle } from "./FerraExample.js";

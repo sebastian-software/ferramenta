@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { FerraComparisonTable, FerraRenderedCode } from "../dist/ferra.js";
+import { FerraComparisonTable, FerraDiagram, FerraRenderedCode } from "../dist/ferra.js";
 import { render } from "./helpers.mjs";
 
 test("comparisons retain zero, negative and partial results with native table headers", () => {
@@ -41,4 +41,18 @@ test("generated code keeps its source and renderer attributes while gaining keyb
     html: '<pre tabindex="0"><code>value</code></pre>',
   });
   assert.equal((existing.match(/tabindex="0"/g) ?? []).length, 1);
+});
+
+test("diagram previews retain selectable SVG text and scoped IDs in a named scroll region", () => {
+  const svg =
+    '<svg id="sample-diagram" viewBox="0 0 200 60"><text x="10" y="30">Input &amp; output</text></svg>';
+  const html = render(FerraDiagram, {
+    caption: "Rendered sample",
+    label: "Input produces output",
+    svg,
+  });
+  assert.match(html, /<figcaption id="[^"]+">Rendered sample<\/figcaption>/);
+  assert.match(html, /role="region" aria-labelledby="[^"]+" tabindex="0"/);
+  assert.match(html, /role="img" aria-label="Input produces output"/);
+  assert(html.includes(svg));
 });
