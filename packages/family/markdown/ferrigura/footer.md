@@ -9,11 +9,11 @@
 | [ferroni](https://ferroni.dev) | Oniguruma-compatible regex engine |
 | [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
 | [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
-| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
+| [ferrolex](https://ferrolex.dev) | Spell checking for text and code |
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
-| [ferrolink](https://sebastian-software.github.io/ferrolink/) | Links, anchors and assets checked against the finished build |
+| [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
 
 **Applications**
 
