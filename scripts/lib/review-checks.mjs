@@ -22,6 +22,12 @@ export function editorialProblems() {
         problems.push("text leaves a soft card");
     }
   }
+  if (
+    [...document.querySelectorAll(".ferra-engine-meta > .ferra-release-facts")].some(
+      (facts) => getComputedStyle(facts).marginBlock !== "0px",
+    )
+  )
+    problems.push("registry facts add outer spacing inside a card footer");
   for (const article of document.querySelectorAll(".ferra-engine-article")) {
     const art = article.querySelector(".ferra-engine-art").getBoundingClientRect();
     const title = article.querySelector("h2").getBoundingClientRect();
