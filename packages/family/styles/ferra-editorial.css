@@ -159,6 +159,7 @@
   border-radius: var(--ferra-space-1);
 }
 .ferra-page .ferra-release-facts {
+  margin: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;

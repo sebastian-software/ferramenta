@@ -278,10 +278,34 @@ export function ProductPageSpecimen() {
         <a href="#product-story">Explore the fictional example</a>
       </FerraProductLead>
       <FerraColumns>
-        <FerraArticle title="A focused tool." icon={<Mark name="document" size={28} />}>
+        <FerraArticle
+          title="A focused tool."
+          icon={<Mark name="document" size={28} />}
+          meta={
+            <dl className="ferra-release-facts" aria-label="Fictional registry facts">
+              <div>
+                <dt>
+                  <Mark name="package" size={20} /> Version
+                </dt>
+                <dd>0.0.0</dd>
+              </div>
+              <div>
+                <dt>
+                  <Mark name="crate" size={20} />
+                  <span className="ferra-visually-hidden">Sample downloads</span>
+                </dt>
+                <dd>1,234 sample downloads</dd>
+              </div>
+            </dl>
+          }
+        >
           <p>The project supplies the facts and the examples.</p>
         </FerraArticle>
-        <FerraArticle title="A shared presentation." icon={<Mark name="pen" size={28} />}>
+        <FerraArticle
+          title="A shared presentation."
+          icon={<Mark name="pen" size={28} />}
+          meta={<a href="#product-story">Explore the fictional example</a>}
+        >
           <p>The package owns the surfaces, typography and matching card gutters.</p>
         </FerraArticle>
       </FerraColumns>
