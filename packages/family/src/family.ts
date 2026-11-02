@@ -296,6 +296,7 @@ export const family: FamilyTool[] = [
     version: "0.4.0",
     status: "alpha",
     repo: "https://github.com/sebastian-software/ferrolex",
+    docs: "https://ferrolex.dev",
   },
   {
     name: "ferrocat",
@@ -431,7 +432,7 @@ export const family: FamilyTool[] = [
     status: "early",
     uses: ["ferralk", "ferroni"],
     repo: "https://github.com/sebastian-software/ferrolink",
-    docs: "https://sebastian-software.github.io/ferrolink/",
+    docs: "https://ferrolink.dev",
   },
   {
     name: "ferrigura",
@@ -466,7 +467,7 @@ export const family: FamilyTool[] = [
     version: "0.3.0",
     status: "early",
     repo: "https://github.com/sebastian-software/ferrigura",
-    docs: "https://sebastian-software.github.io/ferrigura/",
+    docs: "https://ferrigura.dev",
   },
   {
     name: "palamedes",
