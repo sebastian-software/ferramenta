@@ -431,6 +431,7 @@ export const family: FamilyTool[] = [
     status: "early",
     uses: ["ferralk", "ferroni"],
     repo: "https://github.com/sebastian-software/ferrolink",
+    docs: "https://sebastian-software.github.io/ferrolink/",
   },
   {
     name: "ferrigura",
