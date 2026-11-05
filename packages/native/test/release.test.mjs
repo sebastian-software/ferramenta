@@ -8,7 +8,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
-import { packPackage, verifyArchive } from "../src/pack.mjs";
+import { hostTarget, packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
 import { verifyNpmPublication } from "../src/publication.mjs";
 import { verifyGitHubRelease } from "../src/release-source.mjs";
 import {
@@ -175,6 +175,22 @@ test("packing inspects the actual archive, including a path with spaces and cont
   assert.throws(() => verifyArchive(archive, { forbidden: [/LICENSE/] }), /forbidden/);
   const files = await readdir(output);
   assert.equal(files.length, 1);
+});
+
+test("packing applies the platform budget to every platform archive", async (t) => {
+  const { config } = await fixture(t);
+  const target = hostTarget();
+  await writeFile(path.join(config.platformDir, target, "LICENSE"), "license fixture");
+  const directory = path.join(config.rootDir, "budget output");
+  config.pack = { platformMaxUnpackedSize: 1 };
+  await assert.rejects(
+    packRelease(config, { directory, target }),
+    /@example\/.+ exceeds its 1 byte budget/,
+  );
+  config.pack = { platformMaxUnpackedSize: 1_000_000 };
+  const { platforms } = await packRelease(config, { directory, target });
+  assert.equal(platforms.length, 1);
+  assert.ok(platforms[0].unpackedSize < 1_000_000);
 });
 
 test("a release must be published on GitHub in the channel its tag declares", () => {

@@ -88,6 +88,7 @@ export async function packRelease(
     verifyArchive(archive, {
       required: [...files, ...(config.pack?.platformRequired ?? [])],
       allowed: [...files, "README.md"],
+      maxUnpackedSize: config.pack?.platformMaxUnpackedSize,
     });
     platforms.push(archive);
   }

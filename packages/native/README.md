@@ -28,7 +28,7 @@ needed. Scripts and Actions come from that one dependency pin. The historical
 The configuration names the facade and platform directories, existing npm names,
 binary filenames, licenses and dependency policy. Its optional sections declare:
 
-- `pack`: required, allowed and forbidden files, plus the unpacked-size budget and optional `platformRequired` files.
+- `pack`: required, allowed and forbidden files, the unpacked-size budget of the facade (`maxUnpackedSize`), and for each platform package optional `platformRequired` files and an unpacked-size budget (`platformMaxUnpackedSize`), which `pack` and the consumer check apply to every platform archive.
 - `consumer`: a native smoke probe, installed-package tests and product assertions.
 - `release`: repository, tag prefix, Cargo version files, exact dependency pins,
   required CI jobs, additional npm packages and product asset checks.

@@ -53,6 +53,8 @@ export async function withPackedConsumer(
         ...config.pack,
         forbidden: [/\.node$/, ...(config.pack?.forbidden ?? [])],
       });
+    if (sidecar.files)
+      verifyArchive(sidecar, { maxUnpackedSize: config.pack?.platformMaxUnpackedSize });
     const consumer = path.join(temp, "consumer");
     await mkdir(consumer);
     await writeFile(
