@@ -61,6 +61,7 @@ export {
   FerraRenderedCode,
   type FerraRenderedCodeProps,
 } from "./FerraRenderedCode.js";
+export { FerraSectionRail, type FerraSectionRailProps } from "./FerraSectionRail.js";
 export { FerraSelect } from "./FerraSelect.js";
 export { FerraSteps } from "./FerraSteps.js";
 export { FerraReadingTable } from "./FerraTableViewport.js";

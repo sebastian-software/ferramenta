@@ -13,6 +13,7 @@ export { FerraMeasured } from "./FerraMeasured.js";
 export { FerraProductLead, type FerraProductLeadProps, FerraProductPage, } from "./FerraProductPage.js";
 export { FerraReadingLayout, type FerraReadingLayoutProps } from "./FerraReadingLayout.js";
 export { FerraCodePair, FerraRenderedCode, type FerraRenderedCodeProps, } from "./FerraRenderedCode.js";
+export { FerraSectionRail, type FerraSectionRailProps } from "./FerraSectionRail.js";
 export { FerraSelect } from "./FerraSelect.js";
 export { FerraSteps } from "./FerraSteps.js";
 export { FerraReadingTable } from "./FerraTableViewport.js";

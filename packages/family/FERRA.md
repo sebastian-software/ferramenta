@@ -166,6 +166,14 @@ card padding. Code blocks use compact horizontal insets; syntax-highlighted line
 own that inset once instead of adding it to an outer pre inset.
 `FerraGuideNavigation` styles the same navigation in the desktop rail or a host's
 mobile panel. The host retains routing and the single main landmark.
+When the documentation has several sections, place `FerraSectionRail` directly
+before `FerraGuideNavigation`, with one host link per section (optionally
+icon first), the current one marked with `data-active="true"`, and an
+`aria-label`. In the reading layout it stands on the navigation panel's outer
+edge as rotated tabs reading bottom to top, the active tab attached to the page
+list; in a mobile panel the same links lie flat above the list as outlined
+chips. The tabs are links, not an ARIA tablist, and the section never takes the
+current page's highlight.
 The older `FerraDocsLayout` remains available for section-based pages.
 
 Use `FerraReadingTable` as the MDX `table` component inside the reading layout.

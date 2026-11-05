@@ -200,6 +200,136 @@
   gap: var(--ferra-space-1);
 }
 
+/*
+ * Section rail. Flat by default, as in a host's mobile panel: the tabs lie
+ * above the page list as outlined chips, so the current section never reads
+ * like the current page.
+ */
+.ferra-section-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ferra-space-2);
+  margin-block-end: var(--ferra-space-4);
+  font: 500 var(--ferra-text-small)/1.2 var(--ferra-font-sans);
+}
+.ferra-section-rail a {
+  display: flex;
+  align-items: center;
+  gap: var(--ferra-space-2);
+  min-height: 2.25rem;
+  padding: var(--ferra-space-1) var(--ferra-space-3);
+  color: var(--ferra-text-secondary);
+  border: 1px solid var(--ferra-border);
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ferra-section-rail a:hover {
+  color: var(--ferra-text);
+}
+.ferra-section-rail a:is([aria-current="page"], [aria-current="true"], [data-active="true"]) {
+  color: var(--ferra-accent);
+  background: var(--ferra-selected);
+  border-color: color-mix(in srgb, var(--ferra-accent) 40%, transparent);
+}
+.ferra-section-rail a :is(svg, img) {
+  flex-shrink: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+.ferra-section-rail a:focus-visible {
+  outline: 2px solid var(--ferra-accent);
+  outline-offset: 2px;
+}
+
+/*
+ * In the reading layout the rail stands on the panel's outer edge, the
+ * darkest of the stacked surfaces (rail < panel < page). The active tab takes
+ * the panel color so it reads as attached to the page list, like a register
+ * tab. Rail and list scroll separately inside the sticky panel.
+ */
+.ferra-page .ferra-reading:has(.ferra-reading-navigation > .ferra-section-rail) {
+  grid-template-columns: minmax(13.5rem, 16.5rem) minmax(0, 48rem) minmax(8rem, 11rem);
+}
+.ferra-page .ferra-reading-navigation:has(> .ferra-section-rail) {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+}
+.ferra-page .ferra-reading-navigation:has(> .ferra-section-rail) > .ferra-guide-navigation {
+  align-content: start;
+  min-height: 0;
+  padding: var(--ferra-space-4) var(--ferra-space-3);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.ferra-page
+  .ferra-reading-navigation:has(> .ferra-section-rail)
+  > .ferra-guide-navigation
+  > p:first-child {
+  margin-block-start: 0;
+}
+.ferra-page .ferra-reading-navigation > .ferra-section-rail {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: var(--ferra-space-1);
+  margin: 0;
+  padding: var(--ferra-space-4) 0 var(--ferra-space-4) var(--ferra-space-1);
+  background: var(--ferra-card-footer);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+/* The half turn on vertical text reads bottom to top, icon first. */
+.ferra-page .ferra-reading-navigation > .ferra-section-rail a {
+  justify-content: center;
+  /* Vertical text would otherwise size the tab to its line height. */
+  width: 100%;
+  min-height: 0;
+  padding: var(--ferra-space-4) 0;
+  color: var(--ferra-text-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: 0 var(--ferra-radius) var(--ferra-radius) 0;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  overflow-wrap: normal;
+}
+.ferra-page .ferra-reading-navigation > .ferra-section-rail a:hover {
+  color: var(--ferra-text);
+  background: color-mix(in srgb, var(--ferra-card-surface) 55%, transparent);
+}
+.ferra-page
+  .ferra-reading-navigation
+  > .ferra-section-rail
+  a:is([aria-current="page"], [aria-current="true"], [data-active="true"]) {
+  color: var(--ferra-accent);
+  background: var(--ferra-card-surface);
+}
+.ferra-page .ferra-reading-navigation > .ferra-section-rail a:focus-visible {
+  outline-offset: -2px;
+}
+/* Icons stay upright in vertical text, so turn them to match the label. */
+.ferra-page .ferra-reading-navigation > .ferra-section-rail a :is(svg, img) {
+  rotate: 90deg;
+}
+@media (max-width: 72rem) {
+  .ferra-page .ferra-reading:has(.ferra-reading-navigation > .ferra-section-rail) {
+    grid-template-columns: 14.5rem minmax(0, 48rem);
+  }
+}
+@media (max-width: 52rem) {
+  .ferra-page .ferra-reading:has(.ferra-reading-navigation > .ferra-section-rail) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* The host's mobile panel carries the navigation at this width. */
+  .ferra-page .ferra-reading-navigation:has(> .ferra-section-rail) {
+    display: none;
+  }
+}
+
 .ferra-page .ferra-prose img {
   max-width: 100%;
   height: auto;
