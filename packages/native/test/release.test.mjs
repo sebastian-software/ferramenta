@@ -8,7 +8,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
-import { hostTarget, packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
+import { packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
 import { verifyNpmPublication } from "../src/publication.mjs";
 import { verifyGitHubRelease } from "../src/release-source.mjs";
 import {
@@ -179,7 +179,8 @@ test("packing inspects the actual archive, including a path with spaces and cont
 
 test("packing applies the platform budget to every platform archive", async (t) => {
   const { config } = await fixture(t);
-  const target = hostTarget();
+  // A platform without the glibc check, so that the fixture binary packs on every host.
+  const target = "darwin-arm64";
   await writeFile(path.join(config.platformDir, target, "LICENSE"), "license fixture");
   const directory = path.join(config.rootDir, "budget output");
   config.pack = { platformMaxUnpackedSize: 1 };
