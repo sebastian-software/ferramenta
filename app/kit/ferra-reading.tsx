@@ -17,6 +17,7 @@ import {
   FerraReadingLayout,
   FerraReadingTable,
   FerraRenderedCode,
+  FerraSectionRail,
   FerraSelect,
   FerraSteps,
   FerraTabs,
@@ -28,13 +29,29 @@ export function ReadingSpecimen() {
     <FerraReadingLayout
       id="reading-specimen"
       navigation={
-        <FerraGuideNavigation aria-label="Fictional guide">
-          <a href="#sample-reading" aria-current="page">
-            Getting started
-          </a>
-          <p>Ferrometro guide</p>
-          <a href="#sample-reading-code">Measure an input</a>
-        </FerraGuideNavigation>
+        <>
+          <FerraSectionRail aria-label="Fictional sections">
+            <a href="#sample-reading" data-active="true">
+              <Mark name="crate" />
+              Rust
+            </a>
+            <a href="#sample-reading">
+              <Mark name="package" />
+              Node.js
+            </a>
+            <a href="#sample-reading">
+              <Mark name="document" />
+              Reference
+            </a>
+          </FerraSectionRail>
+          <FerraGuideNavigation aria-label="Fictional guide">
+            <p>Rust</p>
+            <a href="#sample-reading" aria-current="page">
+              Getting started
+            </a>
+            <a href="#sample-reading-code">Measure an input</a>
+          </FerraGuideNavigation>
+        </>
       }
       outline={
         <nav aria-label="Fictional outline">

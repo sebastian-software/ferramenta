@@ -145,6 +145,22 @@ test("documentation composition preserves host landmarks, heading IDs and naviga
   assert.ok(header.includes('</nav><div class="ferra-header-actions"><button'));
 });
 
+test("the section rail keeps host links in a named landmark without becoming a tablist", () => {
+  const html = render(ferra.FerraSectionRail, {
+    "aria-label": "Documentation sections",
+    children: [
+      createElement("a", { key: "rust", href: "/rust/", "data-active": "true" }, "Rust"),
+      createElement("a", { key: "node", href: "/node/" }, "Node.js"),
+    ],
+  });
+  assert.equal(
+    html,
+    '<nav aria-label="Documentation sections" class="ferra-section-rail">' +
+      '<a href="/rust/" data-active="true">Rust</a><a href="/node/">Node.js</a></nav>',
+  );
+  assert.ok(!html.includes("tablist"));
+});
+
 test("bars keep textual values, handle zero and reject invalid measurements", () => {
   const item = { id: "one", label: "Sample", value: 0, displayValue: "0 units" };
   const html = render(ferra.FerraBars, { caption: "Fictional sample data", items: [item] });
