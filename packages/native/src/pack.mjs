@@ -60,6 +60,16 @@ export function verifyArchive(
     );
 }
 
+/**
+ * The unpacked-size budget of one platform package: `pack.platformMaxUnpackedSize` is a number for
+ * every platform, or an object keyed by target id with an optional `default`.
+ */
+export function platformBudget(config, id) {
+  const budget = config.pack?.platformMaxUnpackedSize;
+  if (budget === undefined || typeof budget === "number") return budget;
+  return budget[id] ?? budget.default;
+}
+
 export async function packRelease(
   config,
   {
@@ -88,6 +98,7 @@ export async function packRelease(
     verifyArchive(archive, {
       required: [...files, ...(config.pack?.platformRequired ?? [])],
       allowed: [...files, "README.md"],
+      maxUnpackedSize: platformBudget(config, entry.id),
     });
     platforms.push(archive);
   }
