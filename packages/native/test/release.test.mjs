@@ -8,7 +8,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
-import { packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
+import { packPackage, packRelease, platformBudget, verifyArchive } from "../src/pack.mjs";
 import { verifyNpmPublication } from "../src/publication.mjs";
 import { verifyGitHubRelease } from "../src/release-source.mjs";
 import {
@@ -192,6 +192,17 @@ test("packing applies the platform budget to every platform archive", async (t) 
   const { platforms } = await packRelease(config, { directory, target });
   assert.equal(platforms.length, 1);
   assert.ok(platforms[0].unpackedSize < 1_000_000);
+  config.pack = { platformMaxUnpackedSize: { default: 1_000_000, [target]: 1 } };
+  await assert.rejects(packRelease(config, { directory, target }), /exceeds its 1 byte budget/);
+});
+
+test("a platform budget is one number or an object keyed by target with a default", () => {
+  assert.equal(platformBudget({}, "darwin-arm64"), undefined);
+  assert.equal(platformBudget({ pack: { platformMaxUnpackedSize: 5 } }, "darwin-arm64"), 5);
+  const pack = { platformMaxUnpackedSize: { default: 5, "win32-x64-msvc": 9 } };
+  assert.equal(platformBudget({ pack }, "win32-x64-msvc"), 9);
+  assert.equal(platformBudget({ pack }, "darwin-arm64"), 5);
+  assert.equal(platformBudget({ pack: { platformMaxUnpackedSize: { a: 1 } } }, "b"), undefined);
 });
 
 test("a release must be published on GitHub in the channel its tag declares", () => {

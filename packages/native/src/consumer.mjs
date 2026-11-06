@@ -5,7 +5,7 @@ import { copyFile, mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import { hostTarget, packPackage, verifyArchive } from "./pack.mjs";
+import { hostTarget, packPackage, platformBudget, verifyArchive } from "./pack.mjs";
 import { archiveManifest } from "./packages.mjs";
 import { command } from "./process.mjs";
 import { nativePackages } from "./targets.mjs";
@@ -53,8 +53,7 @@ export async function withPackedConsumer(
         ...config.pack,
         forbidden: [/\.node$/, ...(config.pack?.forbidden ?? [])],
       });
-    if (sidecar.files)
-      verifyArchive(sidecar, { maxUnpackedSize: config.pack?.platformMaxUnpackedSize });
+    if (sidecar.files) verifyArchive(sidecar, { maxUnpackedSize: platformBudget(config, target) });
     const consumer = path.join(temp, "consumer");
     await mkdir(consumer);
     await writeFile(
