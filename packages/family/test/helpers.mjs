@@ -26,3 +26,32 @@ export function assertInOrder(html, pieces, message) {
     from = at + piece.length;
   }
 }
+
+/** Splits a selector list at its top-level commas, not those inside :is() or :where(). */
+export function selectorsOf(list) {
+  const parts = [];
+  let depth = 0;
+  let current = "";
+  for (const character of list) {
+    if (character === "(") depth += 1;
+    if (character === ")") depth -= 1;
+    if (character === "," && depth === 0) {
+      parts.push(current.trim());
+      current = "";
+    } else current += character;
+  }
+  return [...parts, current.trim()];
+}
+
+/** Every selector of a stylesheet, comments removed, at-rules skipped. */
+export function selectorsIn(sheet) {
+  const body = sheet.replaceAll(/\/\*[\s\S]*?\*\//gu, "");
+  // Each block opens after the selectors that follow the previous rule's end.
+  return body
+    .split("{")
+    .slice(0, -1)
+    .map((before) => before.slice(Math.max(before.lastIndexOf("}"), before.lastIndexOf(";")) + 1))
+    .filter((selectors) => !selectors.trim().startsWith("@"))
+    .flatMap((selectors) => selectorsOf(selectors))
+    .filter((selector) => selector !== "");
+}

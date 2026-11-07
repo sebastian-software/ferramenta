@@ -71,7 +71,9 @@ export function productGridProblems() {
 /** Fictional reading tables keep native geometry rather than compressing words into letters. */
 export function readingTableProblems() {
   const problems = [];
-  for (const table of document.querySelectorAll(".ferra-reading-table table")) {
+  for (const table of document.querySelectorAll(
+    ":is(.ferra-reading-table, .mono-reading-table) table",
+  )) {
     if (getComputedStyle(table).display !== "table")
       problems.push("a reading table lost native table layout");
     for (const row of table.rows) {

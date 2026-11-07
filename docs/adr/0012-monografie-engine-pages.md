@@ -2,8 +2,8 @@
 
 - Status: accepted
 - Date: 2026-11-07
-- Updated: 2026-11-07 (the family homepage adopts Monografie)
-- Amends: ADR-0010 for engine homepages and the family homepage
+- Updated: 2026-11-07 (the family homepage adopts Monografie; documentation pages follow)
+- Amends: ADR-0010 for engine homepages, their documentation pages and the family homepage
 
 ## Context
 
@@ -75,3 +75,26 @@ family (`familyHref={null}`), and its footer says what the family is instead of
 "part of Ferramenta". The family site keeps its rules: results stay qualitative,
 members stay independent, foreign logos stay on a light ground. The kits
 (`/kit`, `/kit/ferra/`) keep their own looks.
+
+## Amendment 2026-11-07: documentation pages
+
+The engines' documentation pages move to Monografie too, so a visitor reads one
+system from the homepage into the guides; Monografie's header already stood on
+them over the Ferra reading layout. The entry adds a reading layout (the host's
+section rail and page list on the left, one prose column of 680px at 18px in
+the system UI font with serif headings, the page outline on the right; the
+sticky panels clear the 60px header) and a Monografie counterpart for every
+Ferra component the sites' documentation uses, with the same props, so a site
+moves by renaming. Two stylesheets carry it: `monografie-docs.css` for the
+layout and its parts, and `monografie-ardo.css` for Ardo (its tokens, its
+highlighted code on the light sheet, outline, search and mobile menu, and the
+shell fixes every site repeated). Code, examples and diagrams stand on light
+sheets; the rail and the page list are quiet lists held by hairlines; rust stays
+on the primary action and the engine's own bar. The kit shows a sample page at
+`/kit/monografie/docs/`.
+
+This supersedes the consequence above that documentation pages may keep the
+Ferra reading layout. Once no site uses them, the Ferra entry
+(`ferramenta-family/ferra`, `ferra.css`, `ferra-ardo.css`) and the original
+entry (the landing kit, the chrome, `docs.css`) are to be removed, with their
+kit pages; this change keeps them.

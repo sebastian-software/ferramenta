@@ -8,6 +8,7 @@
  */
 import { EngineCatalog, family, ProjectHero, SiteFooter, SiteHeader } from "ferramenta-family";
 import { FerraEngineCatalog, FerraWorkshop } from "ferramenta-family/ferra";
+import { MonoHeader, MonoReadingLayout, MonoReadingTable } from "ferramenta-family/monografie";
 import { familyTiers } from "ferramenta-family/registry";
 import { existsSync, readFileSync } from "node:fs";
 import { createElement } from "react";
@@ -87,3 +88,24 @@ for (const name of ["ferra.css", "ferra-tokens.css", "ferra-assets.css", "ferra-
 }
 expect(isShipped("../ferra/ferramenta/favicon.ico", sheet), "the family favicon is missing");
 console.log("rendered the additive ferra entry and verified its shipped assets");
+
+// Monografie, homepage and documentation: the entry renders and every file its
+// stylesheets name is in the installed package.
+const reading = render(MonoReadingLayout, {
+  navigation: "Pages",
+  children: createElement(MonoReadingTable, {}),
+});
+expect(reading.includes('class="mono-reading"'), "the Monografie reading layout did not render");
+expect(
+  render(MonoHeader, { product: "ferroni", home: "/", links: [] }).includes('class="mono-header"'),
+  "the Monografie header did not render",
+);
+for (const name of ["monografie.css", "monografie-docs.css", "monografie-ardo.css"]) {
+  const url = new URL(import.meta.resolve(`ferramenta-family/${name}`));
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own exported stylesheet
+  const css = readFileSync(url, "utf8");
+  for (const [, file] of css.matchAll(/url\("(\.\.\/[^"]+)"\)/gu)) {
+    expect(isShipped(file, url), `${name} references an unshipped asset: ${file}`);
+  }
+}
+console.log("rendered the Monografie entry and verified its stylesheets");

@@ -1,4 +1,6 @@
-import { type ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
+import { type ComponentPropsWithoutRef, useRef } from "react";
+
+import { useHorizontalOverflow } from "./ReadingSupport.js";
 
 /** Keep native table geometry and expose overflow without stretching the page. */
 export function FerraTableViewport({
@@ -7,20 +9,7 @@ export function FerraTableViewport({
   ...props
 }: ComponentPropsWithoutRef<"div">) {
   const regionRef = useRef<HTMLDivElement>(null);
-  const [overflows, setOverflows] = useState(false);
-  useEffect(() => {
-    const element = regionRef.current;
-    if (element === null) return;
-    const measure = () => {
-      setOverflows(element.scrollWidth > element.clientWidth + 1);
-    };
-    const observer = new ResizeObserver(measure);
-    observer.observe(element);
-    if (element.firstElementChild !== null) observer.observe(element.firstElementChild);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const overflows = useHorizontalOverflow(regionRef);
   return (
     <div className={["ferra-table-frame", className].filter(Boolean).join(" ")}>
       <p className="ferra-table-hint" hidden={!overflows}>

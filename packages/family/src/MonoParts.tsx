@@ -30,14 +30,33 @@ export type MonoActionProps = {
   href: string;
   /** The one primary action per group wears the rust accent. */
   primary?: boolean;
+  /**
+   * The Ferra spelling of `primary`, for pages that move from `FerraAction`.
+   * Unlike Ferra, an action without either is secondary.
+   */
+  variant?: "primary" | "secondary";
   /** A short command or destination under the label. */
   detail?: ReactNode;
   children: ReactNode;
-};
+} & Omit<ComponentPropsWithoutRef<"a">, "children" | "href">;
 
-export function MonoAction({ href, primary = false, detail, children }: MonoActionProps) {
+export function MonoAction({
+  href,
+  primary = false,
+  variant,
+  detail,
+  children,
+  className,
+  ...props
+}: MonoActionProps) {
+  const rust = variant === undefined ? primary : variant === "primary";
   return (
-    <a className="mono-action" href={href} data-primary={primary ? "" : undefined}>
+    <a
+      {...props}
+      className={classes("mono-action", className)}
+      href={href}
+      data-primary={rust ? "" : undefined}
+    >
       {children}
       {detail !== undefined && <small>{detail}</small>}
     </a>

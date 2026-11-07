@@ -23,11 +23,14 @@ import favicon from "ferramenta-family/ferra-assets/ferramenta/favicon.ico?url";
 import { MonoFooter, MonoHeader, MonoPage } from "ferramenta-family/monografie";
 import { WORKSHOP } from "ferramenta-family/registry";
 
+import { MONO_DOCS, MonoDocsShell } from "./kit/MonoDocsShell";
 import { isSampleDocsPath, isSamplePath, SAMPLE, SAMPLE_DOCS } from "./kit/sample";
 import { SITE_DESCRIPTION } from "./site-metadata";
 import "ferramenta-family/ferra.css";
 import "ferramenta-family/ferra-ardo.css";
 import "ferramenta-family/monografie.css";
+import "ferramenta-family/monografie-docs.css";
+import "ferramenta-family/monografie-ardo.css";
 import "ferramenta-family/tokens.css";
 import "ferramenta-family/fonts.css";
 import "ferramenta-family/theme.css";
@@ -50,6 +53,9 @@ export const meta: MetaFunction = () => [
     content: SITE_DESCRIPTION,
   },
 ];
+
+/** True for the kit's sample documentation on Monografie, which an engine site's shell renders. */
+const isMonoDocsPath = (pathname: string) => pathname.startsWith(MONO_DOCS.slice(0, -1));
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -136,8 +142,13 @@ function KitFooter({ sample }: { sample: boolean }) {
   );
 }
 
-/** Shared Ardo 6 shell; the original kit remains available during sibling migrations. */
+/** Shared Ardo 6 shell; the kit's Monografie documentation sample has an engine site's own. */
 export default function Root() {
+  return isMonoDocsPath(useArdoPath()) ? <MonoDocsShell /> : <FamilyRoot />;
+}
+
+/** The family homepage and the kit; the original kit remains available during sibling migrations. */
+function FamilyRoot() {
   const pathname = useArdoPath();
   const inKit = pathname.startsWith("/kit");
   const monoKit = pathname === "/kit/monografie" || pathname.startsWith("/kit/monografie/");

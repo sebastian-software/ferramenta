@@ -1,0 +1,1104 @@
+/*
+ * Monografie documentation (ADR-0012): the reading layout of an engine's
+ * guides and the parts that stand in it. Load it after monografie.css, which
+ * owns the tokens, the header and the footer; monografie-ardo.css adds the
+ * Ardo integration on top.
+ *
+ * Prose reads in the visitor's system UI font at 18px in a column of 680px;
+ * headings speak in Source Serif 4 Subhead. The navigation and the outline are
+ * quiet lists on the paper, held by hairlines; code, examples and diagrams
+ * stand on light sheets. The sticky panels clear the 60px sticky header.
+ *
+ * Every rule is scoped to the page (.mono) or to a mono- class. The section
+ * rail and the guide navigation also work inside the header (.mono-header),
+ * where a host's mobile panel lays them flat.
+ */
+
+/* ---------- Line icons from the shared sprite ---------- */
+:is(.mono, .mono-header) svg.icon {
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+/* ---------- Reading layout ---------- */
+.mono .mono-reading {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 680px) 196px;
+  justify-content: center;
+  align-items: start;
+  column-gap: 56px;
+  max-width: calc(var(--mono-full) + 64px);
+  margin: 0 auto;
+  padding: 44px 32px 136px;
+}
+.mono .mono-reading-navigation,
+.mono .mono-reading-outline {
+  position: sticky;
+  top: 84px;
+  max-height: calc(100svh - 108px);
+  min-width: 0;
+  padding-top: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mono-steel) transparent;
+}
+.mono .mono-reading-surface {
+  min-width: 0;
+}
+html:has(.mono .mono-reading) {
+  scroll-padding-top: 76px;
+}
+
+/* ---------- Section rail: flat tabs, a short list in the reading layout ---------- */
+.mono-section-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 16px;
+  font: 500 14px/1.2 var(--mono-sans);
+}
+:is(.mono, .mono-header) .mono-section-rail a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 12px;
+  color: var(--mono-ink-2);
+  background: var(--mono-sheet);
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px var(--mono-hair);
+  text-decoration: none;
+  text-shadow: none;
+  white-space: nowrap;
+}
+:is(.mono, .mono-header) .mono-section-rail a:hover {
+  color: var(--mono-ink);
+}
+:is(.mono, .mono-header)
+  .mono-section-rail
+  a:is([aria-current="page"], [aria-current="true"], [data-active="true"]) {
+  color: var(--mono-oxide);
+  background: var(--mono-oxide-wash);
+  box-shadow: inset 0 0 0 1px rgba(122, 58, 34, 0.4);
+}
+:is(.mono, .mono-header) .mono-section-rail a :is(svg, img) {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.mono .mono-reading-navigation > .mono-section-rail {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 18px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--mono-hair);
+  font-size: 14.5px;
+}
+.mono .mono-reading-navigation > .mono-section-rail a {
+  min-height: 34px;
+  padding: 6px 10px 6px 0;
+  color: var(--mono-ink-2);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.mono .mono-reading-navigation > .mono-section-rail a :is(svg, img) {
+  color: var(--mono-steel-3);
+}
+.mono
+  .mono-reading-navigation
+  > .mono-section-rail
+  a:is([aria-current="page"], [aria-current="true"], [data-active="true"]) {
+  color: var(--mono-oxide);
+  font-weight: 600;
+  background: transparent;
+  box-shadow: none;
+}
+.mono
+  .mono-reading-navigation
+  > .mono-section-rail
+  a:is([aria-current="page"], [aria-current="true"], [data-active="true"])
+  :is(svg, img) {
+  color: var(--mono-oxide);
+}
+
+/* ---------- Guide navigation: the pages of the current section ---------- */
+.mono-guide-navigation {
+  display: grid;
+  font: 400 14.5px/1.35 var(--mono-sans);
+}
+:is(.mono, .mono-header) .mono-guide-navigation a {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 10px 6px 14px;
+  color: var(--mono-ink-2);
+  text-decoration: none;
+  text-shadow: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: inset 1px 0 0 var(--mono-hair);
+}
+:is(.mono, .mono-header) .mono-guide-navigation a:hover {
+  color: var(--mono-ink);
+  box-shadow: inset 1px 0 0 var(--mono-steel-3);
+}
+:is(.mono, .mono-header) .mono-guide-navigation :is([aria-current="page"], [data-active="true"]) {
+  color: var(--mono-ink);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--mono-oxide);
+}
+:is(.mono, .mono-header) .mono-guide-navigation p {
+  margin: 22px 0 6px;
+  font: 600 15px/1.3 var(--mono-sans);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.05em;
+  color: var(--mono-ink-3);
+}
+:is(.mono, .mono-header) .mono-guide-navigation p:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Outline: the page's headings, held by one hairline ---------- */
+.mono .mono-reading-outline {
+  font: 400 13.5px/1.4 var(--mono-sans);
+}
+.mono .mono-reading-outline :is(h2, h3, nav > p) {
+  margin: 0 0 10px;
+  font: 600 15px/1.3 var(--mono-sans);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.05em;
+  color: var(--mono-ink-3);
+}
+.mono .mono-reading-outline nav {
+  display: grid;
+}
+.mono .mono-reading-outline ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mono .mono-reading-outline nav > :is(ul, a) {
+  box-shadow: inset 1px 0 0 var(--mono-hair);
+}
+.mono .mono-reading-outline a {
+  display: block;
+  padding: 5px 0 5px 13px;
+  color: var(--mono-ink-3);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.mono .mono-reading-outline ul ul a {
+  padding-left: 25px;
+}
+.mono .mono-reading-outline a:hover {
+  color: var(--mono-ink);
+}
+.mono .mono-reading-outline a:is([aria-current="location"], [aria-current="true"], .active) {
+  color: var(--mono-oxide);
+  box-shadow: inset 2px 0 0 var(--mono-oxide);
+}
+
+/* ---------- Prose ---------- */
+.mono .mono-prose {
+  font: 400 18px/1.68 var(--mono-sans);
+  color: var(--mono-ink);
+  overflow-wrap: anywhere;
+}
+.mono-prose > header {
+  margin: 0 0 36px;
+}
+.mono-prose > header > p {
+  margin: 0 0 10px;
+  font: 400 14px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+}
+.mono-prose :is(h1, h2, h3, h4) {
+  color: var(--mono-ink);
+  text-wrap: balance;
+  overflow-wrap: normal;
+}
+.mono-prose h1,
+.mono-prose > header > h2 {
+  margin: 0;
+  font: 600 clamp(34px, 1.6vw + 20px, 46px) / 1.1 var(--mono-serif);
+  letter-spacing: -0.015em;
+}
+.mono-prose h2 {
+  margin: 56px 0 14px;
+  font: 600 29px/1.2 var(--mono-serif);
+  letter-spacing: -0.01em;
+}
+.mono-prose h3 {
+  margin: 36px 0 10px;
+  font: 600 21px/1.3 var(--mono-serif);
+}
+.mono-prose h4 {
+  margin: 28px 0 8px;
+  font: 600 17px/1.35 var(--mono-sans);
+}
+.mono-prose :is(h2, h3, h4) + * {
+  margin-top: 0;
+}
+.mono-prose :is(p, ul, ol, dl, blockquote) {
+  margin: 0 0 1.1em;
+}
+.mono-prose :is(ul, ol) {
+  padding-left: 1.4em;
+}
+.mono-prose li + li {
+  margin-top: 0.35em;
+}
+.mono-prose li::marker {
+  color: var(--mono-steel-3);
+}
+.mono-prose dt {
+  font-weight: 600;
+}
+.mono-prose dd {
+  margin: 0 0 0.6em 1.4em;
+}
+.mono-prose blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 1px 0 1px 18px;
+  border-left: 2px solid var(--mono-steel);
+  color: var(--mono-ink-2);
+}
+.mono-prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+.mono-prose hr {
+  margin: 48px 0;
+  border: 0;
+  border-top: 1px solid var(--mono-hair);
+}
+.mono-prose img {
+  max-width: 100%;
+  height: auto;
+}
+.mono-prose :not(pre) > code {
+  padding: 1px 5px;
+  font: 400 0.84em/1 var(--mono-mono);
+  background: rgba(38, 35, 31, 0.055);
+  border-radius: 2px;
+}
+.mono-prose :is(th, td) > code {
+  white-space: nowrap;
+}
+.mono-prose [align="center"] {
+  text-align: center;
+}
+.mono-prose [align="right"] {
+  text-align: end;
+}
+
+/* Source without a highlighter stands on the same light sheet as highlighted code. */
+.mono-prose > pre,
+.mono .mono-code,
+.mono .mono-rendered-code,
+.mono .mono-diagram {
+  min-width: 0;
+  margin: 24px 0 28px;
+  background: var(--mono-sheet);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px var(--mono-hair-2),
+    0 14px 28px -24px rgba(38, 35, 31, 0.55);
+}
+.mono-prose > pre {
+  padding: 14px 16px;
+  overflow-x: auto;
+  font: 400 14px/1.65 var(--mono-mono);
+  color: #3a3631;
+}
+.mono-prose pre code {
+  font-size: inherit;
+}
+
+/* ---------- Tables: native geometry, hairlines, scrolling inside their own box ---------- */
+.mono .mono-table-frame {
+  min-width: 0;
+  margin: 28px 0 32px;
+}
+.mono .mono-table-region {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mono-steel) transparent;
+}
+.mono .mono-reading-table table {
+  margin: 0;
+}
+.mono .mono-table-hint {
+  margin: 0 0 8px;
+  font: 400 13px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+}
+.mono-prose table,
+.mono .mono-data-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font: 400 15px/1.5 var(--mono-sans);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: normal;
+}
+.mono .mono-data-table caption {
+  padding: 0 0 12px;
+  text-align: left;
+  font: 600 15px/1.4 var(--mono-sans);
+  color: var(--mono-ink);
+}
+.mono-prose :is(th, td),
+.mono .mono-data-table :is(th, td) {
+  padding: 9px 16px 9px 0;
+  text-align: start;
+  vertical-align: top;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono-prose :is(th, td):last-child,
+.mono .mono-data-table :is(th, td):last-child {
+  padding-right: 0;
+}
+.mono-prose thead th,
+.mono .mono-data-table thead th {
+  vertical-align: bottom;
+  font: 600 13px/1.35 var(--mono-sans);
+  color: var(--mono-ink-2);
+  border-bottom: 1px solid var(--mono-ink);
+}
+.mono-prose tbody th,
+.mono .mono-data-table tbody th {
+  font-weight: 500;
+}
+/* A first column of names, and short API tables, keep room beside unbroken code. */
+.mono-prose :is(th, td):first-child {
+  min-width: 9rem;
+}
+.mono-prose table:not(.mono-data-table):not(:has(tr > :nth-child(4))) :is(th, td) {
+  min-width: 9rem;
+}
+.mono .mono-data-table [align="right"] {
+  text-align: end;
+}
+/* Measurements never break between figure and unit. */
+.mono .mono-data-table :is(td, th)[align="right"],
+.mono .mono-comparison-table[data-align="end"] td {
+  white-space: nowrap;
+}
+
+/* Comparison: the engine's own column is set apart, measurements can sit flush right. */
+.mono .mono-comparison-table .mono-comparison-detail {
+  display: block;
+  margin-top: 2px;
+  font: 400 13.5px/1.45 var(--mono-sans);
+  color: var(--mono-ink-3);
+  white-space: normal;
+}
+.mono .mono-comparison-table :is(th, td)[data-own="true"] {
+  background: var(--mono-oxide-wash);
+  padding-left: 12px;
+}
+.mono .mono-comparison-table thead th[data-own="true"] {
+  color: var(--mono-oxide);
+}
+.mono .mono-comparison-table[data-align="end"] td,
+.mono .mono-comparison-table[data-align="end"] thead th:not(:first-child) {
+  text-align: end;
+}
+
+/* Benchmark cells: a name with its footnote, a detail, a linked source. */
+.mono .mono-benchmark-name {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.mono .mono-benchmark-name sup {
+  position: relative;
+  top: -0.35em;
+  margin-left: 0.15em;
+  font-size: 0.75em;
+  line-height: 1;
+  color: var(--mono-oxide);
+}
+.mono .mono-benchmark-detail {
+  display: inline-block;
+  margin-left: 8px;
+  font: 400 12.5px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+  white-space: nowrap;
+}
+.mono .mono-benchmark-table td a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mono .mono-benchmark-table .mono-benchmark-source:hover {
+  color: var(--mono-oxide-2);
+}
+.mono .mono-benchmark-table .mono-benchmark-conformance {
+  min-width: 100px;
+}
+.mono .mono-benchmark-table .mono-benchmark-reference {
+  font-size: 12.5px;
+  color: var(--mono-ink-3);
+}
+
+/* ---------- Code sheets ---------- */
+.mono .mono-code,
+.mono .mono-rendered-code,
+.mono .mono-diagram {
+  overflow: hidden;
+}
+.mono :is(.mono-code, .mono-rendered-code, .mono-diagram) figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 16px;
+  padding: 9px 16px 8px;
+  font: 500 12.5px/1.45 var(--mono-sans);
+  color: var(--mono-ink-3);
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono .mono-rendered-code figcaption {
+  display: block;
+  font-weight: 600;
+  color: var(--mono-ink-2);
+}
+.mono .mono-rendered-code figcaption > span {
+  display: block;
+  font-weight: 400;
+  color: var(--mono-ink-3);
+}
+.mono .mono-code-file {
+  font-family: var(--mono-mono);
+  font-weight: 400;
+}
+.mono .mono-code pre,
+.mono .mono-rendered-code pre {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 14px 16px;
+  overflow: auto;
+  font: 400 14px/1.65 var(--mono-mono);
+  color: #3a3631;
+  white-space: pre;
+  overflow-wrap: normal;
+  border: 0;
+  border-radius: 0;
+}
+.mono :is(.mono-code, .mono-rendered-code) pre:focus-visible {
+  outline: 2px solid var(--mono-oxide);
+  outline-offset: -2px;
+}
+.mono :is(.mono-code, .mono-rendered-code-content) code {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
+.mono .mono-code-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  margin: 24px 0 28px;
+}
+.mono .mono-code-pair > * {
+  margin: 0;
+}
+.mono .mono-diagram-viewport {
+  padding: 16px;
+  overflow: auto;
+}
+.mono .mono-diagram-viewport:focus-visible {
+  outline: 2px solid var(--mono-oxide);
+  outline-offset: -3px;
+}
+.mono .mono-diagram-output > svg {
+  display: block;
+  width: 100%;
+  max-width: 42rem;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---------- Worked examples: source and result on facing sheets ---------- */
+.mono .mono-example {
+  margin: 48px 0;
+  padding: 0;
+}
+.mono .mono-example > header {
+  margin: 0 0 18px;
+}
+.mono .mono-example h3 {
+  margin: 0;
+  font: 600 21px/1.3 var(--mono-serif);
+}
+.mono .mono-example > header p {
+  margin: 6px 0 0;
+  font: 400 16px/1.55 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-example-controls {
+  margin: 0 0 20px;
+}
+.mono .mono-example-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--mono-sheet);
+  box-shadow:
+    0 0 0 1px var(--mono-hair-2),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 36px -28px rgba(38, 35, 31, 0.55),
+    0 2px 4px rgba(38, 35, 31, 0.05);
+}
+.mono .mono-example-grid::before {
+  /* the gutter of facing pages */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 28px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(38, 35, 31, 0.045) 46%,
+    rgba(38, 35, 31, 0.07) 50%,
+    rgba(38, 35, 31, 0.045) 54%,
+    transparent
+  );
+  pointer-events: none;
+}
+.mono .mono-example-source,
+.mono .mono-example-preview {
+  min-width: 0;
+  padding: 18px 24px 24px;
+}
+.mono .mono-example-label {
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  font: 500 12.5px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono .mono-example-source pre {
+  margin: 0;
+  font: 400 14px/1.65 var(--mono-mono);
+  color: #3a3631;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.mono .mono-example-source code {
+  font: inherit;
+}
+.mono .mono-example-result {
+  font: 400 15.5px/1.55 var(--mono-sans);
+}
+.mono .mono-example-result > div > * + * {
+  margin-top: 20px;
+}
+.mono .mono-example-result :is(p, figure, blockquote) {
+  margin: 0;
+}
+.mono .mono-example-result blockquote {
+  padding-left: 14px;
+  border-left: 2px solid var(--mono-steel);
+}
+.mono .mono-example-result figcaption {
+  margin-top: 6px;
+  padding-left: 16px;
+  font-size: 13.5px;
+  color: var(--mono-ink-3);
+}
+.mono .mono-example-result table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  font-variant-numeric: tabular-nums;
+}
+.mono .mono-example-result caption {
+  padding: 0 0 8px;
+  text-align: left;
+  font-weight: 600;
+}
+.mono .mono-example-result :is(th, td) {
+  padding: 6px 10px 6px 0;
+  text-align: start;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono .mono-example-result thead th {
+  border-bottom-color: var(--mono-ink);
+}
+.mono .mono-example-result [align="right"] {
+  text-align: end;
+}
+.mono .mono-example-result [align="center"] {
+  text-align: center;
+}
+.mono .mono-example-result mark {
+  padding: 0 2px;
+  color: var(--mono-ink);
+  background: var(--mono-oxide-wash);
+  box-shadow: inset 0 -1px 0 rgba(122, 58, 34, 0.45);
+}
+.mono .mono-example-result ins {
+  text-decoration-color: var(--mono-oxide);
+  text-underline-offset: 0.2em;
+}
+.mono .mono-example-result .footnote {
+  padding-top: 10px;
+  font-size: 13.5px;
+  color: var(--mono-ink-3);
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono .mono-example-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 14px;
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-3);
+}
+.mono .mono-example-footer p {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+/* ---------- Controls ---------- */
+.mono .mono-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--mono-hair-2);
+  background: transparent;
+  color: var(--mono-ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.mono .mono-toggle:first-child {
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono .mono-toggle > span:first-child {
+  display: grid;
+  gap: 2px;
+}
+.mono .mono-toggle strong {
+  font: 600 15.5px/1.3 var(--mono-sans);
+}
+.mono .mono-toggle > span:first-child > span {
+  font: 400 14px/1.45 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-toggle-state {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  color: var(--mono-ink);
+  background: linear-gradient(180deg, #ffffff, #f0eee9);
+  box-shadow:
+    inset 0 0 0 1px rgba(38, 35, 31, 0.28),
+    0 1px 1px rgba(38, 35, 31, 0.08);
+}
+.mono .mono-toggle[aria-pressed="true"] .mono-toggle-state {
+  color: #fbf3ee;
+  background: var(--mono-oxide);
+  box-shadow:
+    inset 0 0 0 1px rgba(60, 24, 10, 0.5),
+    0 1px 2px rgba(38, 35, 31, 0.18);
+}
+.mono .mono-toggle[aria-pressed="false"] .mono-toggle-state svg {
+  visibility: hidden;
+}
+.mono .mono-toggle-state svg {
+  stroke-width: 2.2;
+}
+
+/* Native controls keep their platform keyboard and touch behavior. */
+.mono .mono-select {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 6px;
+  margin: 20px 0 24px;
+  font: 600 14px/1.3 var(--mono-sans);
+  color: var(--mono-ink);
+}
+.mono .mono-select select {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 8px 36px 8px 12px;
+  border: 0;
+  border-radius: 2px;
+  appearance: none;
+  font: 400 15px/1.3 var(--mono-sans);
+  color: var(--mono-ink);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2357534c' stroke-width='1.5'/%3E%3C/svg%3E")
+      right 12px center / 12px 8px no-repeat,
+    linear-gradient(180deg, #ffffff, #f3f1ed);
+  box-shadow:
+    inset 0 0 0 1px rgba(38, 35, 31, 0.24),
+    0 1px 2px rgba(38, 35, 31, 0.08);
+  text-overflow: ellipsis;
+}
+
+/* Variants of one page, as the instrument's segmented switch. */
+.mono .mono-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  max-width: 100%;
+  margin: 4px 0 8px;
+  padding: 2px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #e7e5e0, #efede9);
+  box-shadow:
+    inset 0 1px 2px rgba(38, 35, 31, 0.16),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.mono .mono-tabs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  font: 500 14px/1.2 var(--mono-sans);
+  color: var(--mono-ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mono .mono-tabs a:hover {
+  color: var(--mono-ink);
+}
+.mono .mono-tabs a:is([aria-current="page"], [aria-current="true"], [data-active="true"]) {
+  color: var(--mono-ink);
+  background: linear-gradient(180deg, #ffffff, #f4f2ee);
+  box-shadow:
+    0 0 0 1px rgba(38, 35, 31, 0.16),
+    0 1px 2px rgba(38, 35, 31, 0.14);
+}
+
+/* ---------- Steps, measurements, bars ---------- */
+.mono .mono-steps,
+.mono .mono-bar-figure {
+  margin: 32px 0;
+}
+.mono :is(.mono-steps, .mono-bar-figure) figcaption {
+  margin: 0 0 14px;
+  font: 600 15px/1.4 var(--mono-sans);
+  color: var(--mono-ink);
+}
+.mono .mono-steps ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: mono-step;
+}
+.mono .mono-steps li {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--mono-hair);
+  counter-increment: mono-step;
+}
+.mono .mono-steps li::before {
+  content: counter(mono-step, decimal-leading-zero);
+  display: block;
+  margin-bottom: 8px;
+  font: 500 13px/1 var(--mono-mono);
+  color: var(--mono-oxide);
+}
+.mono .mono-steps strong {
+  display: block;
+  font: 600 15.5px/1.3 var(--mono-sans);
+}
+.mono .mono-steps li > div {
+  margin-top: 4px;
+  font: 400 14.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-measured {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 16px 28px;
+  margin: 24px 0 32px;
+  font: 400 14.5px/1.5 var(--mono-sans);
+}
+.mono .mono-measured > div {
+  padding-top: 8px;
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono .mono-measured dt {
+  margin: 0 0 2px;
+  font: 400 12.5px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+}
+.mono .mono-measured dd {
+  margin: 0;
+  color: var(--mono-ink);
+  overflow-wrap: anywhere;
+}
+.mono .mono-bar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mono .mono-bar-list li {
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr) 5.5rem;
+  grid-template-areas: "label track value";
+  align-items: center;
+  gap: 16px;
+  min-height: 46px;
+  margin: 0;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono .mono-bar-list li:first-child {
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono .mono-bar-label {
+  grid-area: label;
+  font: 500 15px/1.3 var(--mono-sans);
+  color: var(--mono-ink);
+}
+.mono .mono-bar-list .mono-track {
+  grid-area: track;
+}
+.mono .mono-bar-list .mono-bar-value {
+  grid-area: value;
+}
+.mono .mono-measure-note {
+  margin-top: 14px;
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-3);
+}
+
+/* ---------- Related links, features, columns, pictures, stories ---------- */
+.mono .mono-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 20px;
+  margin: 36px 0;
+}
+.mono .mono-choices > article,
+.mono .mono-article {
+  min-width: 0;
+  background: var(--mono-sheet);
+  box-shadow:
+    0 0 0 1px var(--mono-hair-2),
+    0 14px 28px -24px rgba(38, 35, 31, 0.55);
+}
+.mono .mono-choices > article {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 20px;
+}
+.mono .mono-choices :is(h2, h3) {
+  margin: 0 0 6px;
+  font: 600 19px/1.3 var(--mono-serif);
+}
+.mono .mono-choices p {
+  margin: 0 0 12px;
+  font: 400 15px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-choices > article > a:last-child {
+  margin-top: auto;
+  font: 500 15px/1.4 var(--mono-sans);
+}
+.mono .mono-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 28px;
+  margin: 32px 0;
+}
+.mono .mono-feature-grid > section {
+  padding: 12px 0 0;
+  border-top: 1px solid var(--mono-hair);
+}
+.mono .mono-feature-grid h3 {
+  margin: 0 0 6px;
+  font: 600 16px/1.3 var(--mono-sans);
+}
+.mono .mono-feature-grid section > div {
+  font: 400 15px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin: 32px 0;
+}
+.mono .mono-columns > * {
+  min-width: 0;
+}
+.mono .mono-columns > .mono-article {
+  margin: 0;
+}
+.mono .mono-media {
+  display: grid;
+  place-items: center;
+  margin: 32px 0;
+}
+.mono .mono-media img {
+  display: block;
+  max-width: 100%;
+  max-height: 20rem;
+  width: auto;
+  height: auto;
+}
+.mono .mono-article {
+  display: flex;
+  flex-direction: column;
+  margin: 32px 0;
+}
+.mono .mono-article-content {
+  display: grid;
+  gap: 14px;
+  padding: 22px 24px 24px;
+}
+.mono .mono-article-art {
+  margin: -22px -24px 0;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono .mono-article-icon {
+  color: var(--mono-oxide);
+}
+.mono .mono-article-heading h2 {
+  margin: 0;
+  font: 600 24px/1.2 var(--mono-serif);
+}
+.mono .mono-article-heading p {
+  margin: 6px 0 0;
+  font: 400 16px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono .mono-article-copy {
+  font: 400 16px/1.6 var(--mono-sans);
+}
+.mono .mono-article-copy > :last-child {
+  margin-bottom: 0;
+}
+.mono .mono-article-meta {
+  margin-top: auto;
+  padding: 11px 24px 13px;
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono .mono-article-meta > :last-child {
+  margin-bottom: 0;
+}
+
+/* Actions in the reading column start at its edge, not in the middle. */
+.mono .mono-prose .mono-actions {
+  justify-content: flex-start;
+  margin: 28px 0 32px;
+}
+
+/* ---------- Narrower than the outline needs ---------- */
+@media (max-width: 1180px) {
+  .mono .mono-reading {
+    grid-template-columns: 220px minmax(0, 680px);
+    column-gap: 48px;
+  }
+  .mono .mono-reading-outline {
+    display: none;
+  }
+}
+
+/* ---------- Tablet: the host's menu carries the navigation ---------- */
+@media (max-width: 960px) {
+  .mono .mono-reading {
+    grid-template-columns: minmax(0, 680px);
+    padding-top: 32px;
+  }
+  .mono .mono-reading-navigation {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .mono .mono-code-pair,
+  .mono .mono-columns,
+  .mono .mono-example-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mono .mono-example-grid::before {
+    display: none;
+  }
+  .mono .mono-example-preview {
+    border-top: 1px solid var(--mono-hair);
+  }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 640px) {
+  .mono .mono-reading {
+    padding: 24px 16px 96px;
+  }
+  .mono .mono-prose {
+    font-size: 17px;
+  }
+  .mono-prose > header {
+    margin-bottom: 28px;
+  }
+  .mono-prose h2 {
+    margin-top: 44px;
+    font-size: 25px;
+  }
+  .mono-prose h3 {
+    font-size: 19.5px;
+  }
+  /* A phone scrolls a wide table sideways rather than folding its words letter by letter. */
+  .mono .mono-table-region :is(th, td),
+  .mono-prose :is(th, td):first-child,
+  .mono-prose table:not(.mono-data-table):not(:has(tr > :nth-child(4))) :is(th, td) {
+    min-width: 7.5rem;
+  }
+  .mono .mono-example-source,
+  .mono .mono-example-preview {
+    padding: 14px 16px 18px;
+  }
+  .mono .mono-bar-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label value"
+      "track track";
+    row-gap: 8px;
+    padding: 10px 0 12px;
+  }
+  .mono .mono-tabs {
+    display: flex;
+  }
+  .mono .mono-tabs a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

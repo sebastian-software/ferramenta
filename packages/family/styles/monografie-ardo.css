@@ -1,0 +1,147 @@
+/*
+ * Monografie on an Ardo documentation site (ADR-0012). Ardo owns routing, the
+ * main landmark, search, the mobile menu, the outline and the highlighted code;
+ * Monografie owns their look. Load it after monografie.css and
+ * monografie-docs.css, and put the classes on the shell:
+ *
+ *   <ArdoRootLayout className="mono-ardo" colorScheme="light">
+ *   <MonoPage className="mono-docs">            (documentation pages)
+ *     <ArdoRoot className="mono-ardo-shell" scrollMode="document" … />
+ *
+ * Ardo's tokens are mapped on the root class, so its panels that render
+ * outside the page (the search results) read them too.
+ */
+
+/* ---------- Ardo's tokens in Monografie's terms ---------- */
+:root.mono-ardo,
+.mono-ardo,
+.mono-docs {
+  --ardo-color-brand: var(--mono-oxide);
+  --ardo-color-brandDark: #6f341d;
+  --ardo-color-brandSubtle: var(--mono-oxide-wash);
+  --ardo-color-brandGradient: var(--mono-oxide);
+  --ardo-color-brandInk: #fbf3ee;
+  --ardo-color-ring: rgba(122, 58, 34, 0.4);
+  --ardo-color-accent: var(--mono-oxide);
+  --ardo-color-bg: var(--mono-paper);
+  --ardo-color-bgSoft: var(--mono-sheet);
+  --ardo-color-bgMute: #efede9;
+  --ardo-color-text: var(--mono-ink);
+  --ardo-color-textLight: var(--mono-ink-2);
+  --ardo-color-textLighter: var(--mono-ink-3);
+  --ardo-color-border: var(--mono-hair);
+  --ardo-color-borderLight: var(--mono-hair-2);
+  --ardo-color-divider: var(--mono-hair-2);
+  --ardo-color-headerBg: var(--mono-paper);
+  --ardo-color-sidebarBg: var(--mono-paper);
+  --ardo-color-sidebarRailBg: #efede9;
+  --ardo-color-surfaceCard: var(--mono-sheet);
+  --ardo-color-surfaceInset: #efede9;
+  --ardo-color-codeBg: var(--mono-sheet);
+  --ardo-color-codeBorder: var(--mono-hair-2);
+  --ardo-color-codeShadow: 0 14px 28px -24px rgba(38, 35, 31, 0.55);
+  --ardo-font-family: var(--mono-sans);
+  --ardo-font-familyHeading: var(--mono-serif);
+  --ardo-font-mono: var(--mono-mono);
+  --ardo-radius-sm: 2px;
+  --ardo-radius-base: 2px;
+  --ardo-radius-lg: 2px;
+  --ardo-radius-xl: 3px;
+}
+:root.mono-ardo {
+  color-scheme: light;
+  background: var(--mono-paper);
+}
+
+/* ---------- The shell: a sticky header, and the page scrolls as a whole ---------- */
+/* Ardo pads its layout for a fixed header and scrolls its main; the Monografie
+   header is sticky and the document scrolls. */
+.mono .mono-ardo-shell {
+  min-height: 0;
+  background: transparent;
+}
+.mono .mono-ardo-shell > div {
+  padding-block-start: 0;
+}
+.mono .mono-ardo-shell #main-content {
+  min-width: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+.mono .mono-ardo-shell > a[href="#main-content"] {
+  background: var(--mono-oxide);
+  color: #fbf3ee;
+}
+/* Anchors land below the 60px sticky header. */
+html:has(.mono .mono-ardo-shell) {
+  scroll-padding-top: 76px;
+}
+
+/* ---------- The header's controls: search and the documentation menu ---------- */
+/* Ardo's icon buttons take the header's 44px targets; Ardo still decides when
+   its menu button shows. */
+.mono-header .mono-header-actions > button {
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+/* Search closes the header row, so its shortcut hint opens toward the page
+   instead of past the right edge of a phone screen. */
+.mono-header .mono-header-actions button[aria-keyshortcuts] > span[aria-hidden="true"] {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+.mono-header .ardo-mobile-panel {
+  font: 400 15px/1.45 var(--mono-sans);
+  color: var(--mono-ink);
+  text-shadow: none;
+}
+@media (max-width: 960px) {
+  /* With documentation navigation on the page, Ardo's menu carries it and the
+     brand leads home: the Monografie menu button steps aside, and the menu and
+     search sit at the end of the row. */
+  .mono-docs:has(.mono-reading-navigation > *) .mono-header .mono-menu-button {
+    display: none;
+  }
+  .mono-docs:has(.mono-reading-navigation > *) .mono-header .mono-header-actions {
+    margin-left: auto;
+  }
+}
+
+/* ---------- Ardo's outline in the reading layout's margin ---------- */
+.mono .mono-reading-outline .ardo-toc {
+  position: static;
+  width: auto;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* ---------- Highlighted code on the light sheet ---------- */
+.mono :is(.ardo-code-block, .ardo-shiki) {
+  max-width: none;
+  margin: 24px 0 28px;
+}
+.mono :is(.ardo-code-title, .ardo-shiki > [data-title]) {
+  padding: 9px 16px 8px;
+  font: 500 12.5px/1.45 var(--mono-sans);
+  color: var(--mono-ink-3);
+  background: transparent;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono :is(.ardo-code-block, .ardo-shiki) pre {
+  padding: 14px 0;
+  font: 400 14px/1.65 var(--mono-mono);
+}
+/* Syntax lines own the horizontal inset once, including the highlight's edge. */
+.mono :is(.ardo-code-block, .ardo-shiki) .line {
+  margin-inline: 0;
+  padding-inline: 16px;
+}
+.mono :is(.ardo-code-block, .ardo-shiki) .line.highlighted {
+  background: var(--mono-oxide-wash);
+}
