@@ -145,3 +145,9 @@ html:has(.mono .mono-ardo-shell) {
 .mono :is(.ardo-code-block, .ardo-shiki) .line.highlighted {
   background: var(--mono-oxide-wash);
 }
+/* GitHub Light's comment gray (#6E7781) reaches only 4.39:1 on the sheet;
+   one step darker keeps comments quiet and above 4.5:1. */
+.mono :is(.ardo-code-block, .ardo-shiki) span[style*="--shiki-light:#6E7781" i],
+.mono :is(.ardo-code-block, .ardo-shiki) span[style*="color:#6E7781" i] {
+  color: #59636e !important;
+}
