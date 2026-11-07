@@ -979,7 +979,8 @@ details.mono-table-view summary {
 .mono .mono-footer a {
   color: var(--mono-ink-2);
 }
-.mono-footer-copy {
+/* two classes, so the footer's paragraph reset does not win */
+.mono-footer .mono-footer-copy {
   margin-left: auto;
 }
 .mono-footer p {
@@ -1225,7 +1226,7 @@ details.mono-table-view summary {
   .mono section.mono-closing {
     padding-bottom: 112px;
   }
-  .mono-footer-copy {
+  .mono-footer .mono-footer-copy {
     margin-left: 0;
     width: 100%;
   }
