@@ -1,0 +1,1238 @@
+/*
+ * Monografie: the page system for Ferramenta engine homepages (ADR-0012).
+ *
+ * One reading column (--mono-col) that widens to --mono-wide and --mono-full
+ * for specimens, margin notes beside it, the instrument as the opening plate
+ * and the navigation in the instrument's own Blender steel. Reading text uses
+ * the visitor's system UI font; the bundled Source Serif 4 Subhead speaks only
+ * for the brand: headings, the product name and the colophon. Rust appears in
+ * small accents only: the primary action and the engine's own bar.
+ *
+ * Everything is scoped to .mono (the page), .mono-header and .mono-footer, so
+ * the header and footer can also stand on documentation pages. Engine sites
+ * add their own specimens; nothing here knows a member.
+ */
+@import url("./ferra-assets.css");
+
+@font-face {
+  font-family: "Source Serif 4 Subhead";
+  src: url("../ferra/fonts/source-serif-4/source-serif-4-subhead-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Subhead";
+  src: url("../ferra/fonts/source-serif-4/source-serif-4-subhead-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+.mono,
+.mono-header,
+.mono-footer {
+  --mono-paper: #f6f5f2;
+  --mono-sheet: #fcfbf9;
+  --mono-ink: #26231f;
+  --mono-ink-2: #57534c;
+  --mono-ink-3: #6d6961;
+  --mono-steel: #c9c6bf;
+  --mono-steel-2: #a9a59d;
+  --mono-steel-3: #8d897f;
+  --mono-oxide: #7a3a22;
+  --mono-oxide-2: #8e4a2c;
+  --mono-oxide-wash: #f3e9e3;
+  --mono-hair: rgba(38, 35, 31, 0.16);
+  --mono-hair-2: rgba(38, 35, 31, 0.09);
+  --mono-serif: "Source Serif 4 Subhead", Georgia, serif;
+  --mono-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --mono-col: 600px;
+  --mono-wide: 1040px;
+  --mono-full: 1240px;
+  --mono-steel-band: url("../ferra/textures/steel-fine-strip.webp");
+  --mono-rust-band: url("../ferra/textures/rust-fine-strip.webp");
+}
+
+.mono {
+  background: var(--mono-paper);
+  color: var(--mono-ink);
+  font: 400 19px/1.62 var(--mono-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.mono *,
+.mono-header *,
+.mono-footer * {
+  box-sizing: border-box;
+}
+:where(.mono, .mono-footer) a {
+  color: var(--mono-oxide);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+:where(.mono) a:hover {
+  color: var(--mono-oxide-2);
+}
+.mono :focus-visible,
+.mono-header :focus-visible,
+.mono-footer :focus-visible {
+  outline: 2px solid var(--mono-oxide);
+  outline-offset: 3px;
+}
+.mono-skip {
+  position: absolute;
+  left: -999px;
+}
+.mono-skip:focus {
+  left: 16px;
+  top: 70px;
+  background: var(--mono-sheet);
+  padding: 8px 12px;
+  z-index: 20;
+}
+
+/* ---------- Header: the instrument's own steel ---------- */
+.mono-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 60px;
+  background:
+    var(--mono-steel-band) center / 1440px 60px repeat-x,
+    #cdcac4;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(38, 35, 31, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.7),
+    0 6px 14px -12px rgba(38, 35, 31, 0.5);
+  color: var(--mono-ink);
+}
+.mono-header-in {
+  max-width: calc(var(--mono-full) + 64px);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  font: 500 14.5px/1 var(--mono-sans);
+}
+.mono-header .mono-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--mono-ink);
+  text-decoration: none;
+  font: 600 18px/1 var(--mono-serif);
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+.mono-brand .ferra-mark,
+.mono-family .ferra-mark {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.mono-family .ferra-mark {
+  width: 24px;
+  height: 24px;
+}
+.mono-menu {
+  display: contents;
+}
+.mono-header nav ul {
+  display: flex;
+  gap: 26px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mono-header nav a {
+  color: #2f2c27;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+.mono-header nav a:hover,
+.mono-header nav a[aria-current="page"] {
+  color: var(--mono-oxide);
+}
+.mono-header-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.mono-release {
+  font: 500 13px/1 var(--mono-mono);
+  color: #3d3a34;
+  padding: 6px 9px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1px 1px rgba(38, 35, 31, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+.mono-header .mono-family {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2f2c27;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mono-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mono-menu-button {
+  display: none;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  font: 500 14.5px/1 var(--mono-sans);
+  color: #2f2c27;
+  padding: 9px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1px 1px rgba(38, 35, 31, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.75);
+}
+.mono-menu-button i {
+  display: block;
+  width: 16px;
+  height: 10px;
+  border-top: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  position: relative;
+}
+.mono-menu-button i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3px;
+  border-top: 1.5px solid currentColor;
+}
+.mono-header[data-open="true"] .mono-menu-button i {
+  border-color: transparent;
+}
+.mono-header[data-open="true"] .mono-menu-button i::before,
+.mono-header[data-open="true"] .mono-menu-button i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3px;
+  border-top: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.mono-header[data-open="true"] .mono-menu-button i::before {
+  transform: rotate(-45deg);
+}
+
+/* ---------- Reading axis ---------- */
+:where(.mono) section {
+  padding: 0 32px;
+}
+:where(.mono) figure {
+  margin: 0;
+}
+.mono-axis {
+  max-width: var(--mono-full);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--mono-col) minmax(0, 1fr);
+  column-gap: 56px;
+}
+.mono-axis > * {
+  grid-column: 2;
+}
+.mono-axis > .mono-wide {
+  grid-column: 1 / -1;
+  width: min(var(--mono-wide), 100%);
+  justify-self: center;
+}
+.mono-axis > .mono-full {
+  grid-column: 1 / -1;
+}
+/* A passage with a note beside it: the note in a margin, the text on the axis */
+.mono-axis > .mono-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+.mono-row > .mono-row-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+.mono-note {
+  font: 400 14px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+  align-self: start;
+  padding-top: 5px;
+  max-width: 220px;
+  grid-row: 1;
+}
+.mono-note[data-side="left"] {
+  grid-column: 1;
+  justify-self: end;
+  text-align: right;
+}
+.mono-note[data-side="right"] {
+  grid-column: 3;
+}
+.mono-note b {
+  display: block;
+  font-weight: 600;
+  color: var(--mono-ink);
+  margin-bottom: 2px;
+}
+.mono-note .mono-note-figure {
+  display: block;
+  font: 500 22px/1.2 var(--mono-mono);
+  color: var(--mono-ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Type ---------- */
+:where(.mono) :is(h1, h2, h3) {
+  font-family: var(--mono-serif);
+  font-weight: 600;
+  color: var(--mono-ink);
+  text-wrap: balance;
+}
+:where(.mono) h2 {
+  font-size: clamp(28px, 1.6vw + 16px, 38px);
+  line-height: 1.14;
+  letter-spacing: -0.012em;
+  margin: 0 0 24px;
+}
+:where(.mono) h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.mono-standfirst {
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--mono-ink-2);
+  margin: 0 0 48px;
+}
+:where(.mono) p {
+  margin: 0 0 1.2em;
+  hanging-punctuation: first;
+}
+.mono-lead-in {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+:where(.mono) code {
+  font-family: var(--mono-mono);
+  font-size: 0.84em;
+}
+:where(.mono) p code {
+  background: rgba(38, 35, 31, 0.05);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/* Engraved hairline group, taken from the instrument's source sheet */
+.mono-engraving {
+  display: block;
+  margin: clamp(96px, 10vw, 152px) auto clamp(88px, 10vw, 144px);
+  width: 132px;
+  height: 34px;
+}
+.mono-engraving line {
+  stroke: var(--mono-steel-3);
+  stroke-width: 1;
+  stroke-linecap: square;
+}
+.mono-engraving line.mono-oxide {
+  stroke: var(--mono-oxide);
+}
+
+/* ---------- Opening ---------- */
+.mono section.mono-opening {
+  padding: 72px 32px 0;
+  text-align: center;
+}
+.mono .mono-plate {
+  position: relative;
+  margin: 0 auto;
+  width: min(600px, 100%);
+}
+.mono-plate .ferra-instrument {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+}
+.mono-plate::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 6%;
+  bottom: 6%;
+  height: 44px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(38, 35, 31, 0.16) 0%,
+    rgba(38, 35, 31, 0.06) 45%,
+    transparent 72%
+  );
+  filter: blur(6px);
+}
+.mono-plate figcaption {
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-3);
+  max-width: 520px;
+  margin: 6px auto 0;
+}
+.mono-kicker {
+  font: 500 14px/1.4 var(--mono-sans);
+  color: var(--mono-ink-2);
+  margin: 48px 0 18px;
+  letter-spacing: 0.01em;
+}
+:where(.mono) h1 {
+  font-size: clamp(36px, 3.2vw + 12px, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.mono h1 .mono-second {
+  display: block;
+  font-size: clamp(20px, 1vw + 14px, 28px);
+  line-height: 1.3;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.005em;
+  color: var(--mono-ink-2);
+  margin-top: 14px;
+}
+.mono-opening .mono-standfirst {
+  max-width: 640px;
+  margin: 32px auto 40px;
+  font-size: 20px;
+}
+.mono-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.mono .mono-action {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 11px 18px 12px;
+  border-radius: 2px;
+  text-decoration: none;
+  font: 600 15.5px/1.1 var(--mono-sans);
+  color: var(--mono-ink);
+  background: linear-gradient(180deg, #ffffff, #f0eee9);
+  box-shadow:
+    inset 0 0 0 1px rgba(38, 35, 31, 0.22),
+    inset 0 1px 0 #fff,
+    0 1px 2px rgba(38, 35, 31, 0.1),
+    0 6px 14px -10px rgba(38, 35, 31, 0.45);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.mono-action small {
+  font: 400 12.5px/1 var(--mono-mono);
+  color: var(--mono-ink-2);
+}
+/* Rust accents: the instruments' own weathered oxide patina laid over the oxide
+   color, so it reads as a fine granular surface, never as a pattern. */
+.mono .mono-action[data-primary],
+.mono-bar.mono-own {
+  background-image: var(--mono-rust-band), linear-gradient(180deg, #8e4a2c, #6f341d);
+  background-size:
+    600px auto,
+    auto;
+  background-position:
+    30% 40%,
+    0 0;
+  background-blend-mode: multiply, normal;
+}
+.mono .mono-action[data-primary] {
+  color: #fbf3ee;
+  box-shadow:
+    inset 0 0 0 1px rgba(60, 24, 10, 0.5),
+    inset 0 1px 0 rgba(255, 220, 200, 0.28),
+    0 1px 2px rgba(38, 35, 31, 0.18),
+    0 8px 16px -10px rgba(90, 35, 15, 0.7);
+}
+.mono-action[data-primary] small {
+  color: #f1ddd2;
+}
+.mono .mono-action:hover {
+  transform: translateY(-1px);
+  color: var(--mono-ink);
+}
+.mono .mono-action[data-primary]:hover {
+  color: #fff;
+}
+.mono .mono-action:active {
+  transform: translateY(0);
+}
+.mono-facts {
+  list-style: none;
+  padding: 0;
+  margin: 112px auto 0;
+  max-width: var(--mono-wide);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+  text-align: left;
+}
+.mono-facts li {
+  border-top: 1px solid var(--mono-hair);
+  padding-top: 14px;
+  font: 400 14px/1.45 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono-facts strong {
+  display: block;
+  font: 500 21px/1.25 var(--mono-mono);
+  color: var(--mono-ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.mono-facts strong em {
+  font-style: normal;
+  color: var(--mono-oxide);
+}
+
+/* ---------- Specimens: facing pages of real output ---------- */
+.mono-facing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 72px 0 20px;
+  background: var(--mono-sheet);
+  box-shadow:
+    0 0 0 1px var(--mono-hair-2),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 36px -28px rgba(38, 35, 31, 0.55),
+    0 2px 4px rgba(38, 35, 31, 0.05);
+  position: relative;
+}
+.mono-facing::before {
+  /* the gutter of facing pages */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 36px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(38, 35, 31, 0.045) 46%,
+    rgba(38, 35, 31, 0.07) 50%,
+    rgba(38, 35, 31, 0.045) 54%,
+    transparent
+  );
+  pointer-events: none;
+}
+.mono-sheet {
+  padding: 34px 40px 40px;
+  min-width: 0;
+}
+.mono-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font: 500 12.5px/1.4 var(--mono-sans);
+  color: var(--mono-ink-3);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono-sheet-head span:last-child {
+  font-family: var(--mono-mono);
+  font-weight: 400;
+}
+.mono-caption {
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-3);
+  margin: 0;
+}
+.mono-credit {
+  font: 400 13px/1.5 var(--mono-sans);
+  color: var(--mono-ink-3);
+  margin: 12px 0 0;
+}
+
+/* ---------- Comparison chart ---------- */
+.mono-chart {
+  margin: 72px 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 56px;
+}
+.mono-chart-head {
+  margin-bottom: 28px;
+}
+.mono .mono-chart-head h3 {
+  margin: 0;
+  font-size: 21px;
+}
+.mono .mono-chart-head p {
+  margin: 2px 0 0;
+  font: 400 14px/1.45 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 16px;
+}
+.mono-seg {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #e7e5e0, #efede9);
+  box-shadow:
+    inset 0 1px 2px rgba(38, 35, 31, 0.16),
+    0 1px 0 #fff;
+}
+.mono-seg button {
+  border: 0;
+  background: transparent;
+  font: 500 13px/1 var(--mono-sans);
+  color: var(--mono-ink-2);
+  padding: 8px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mono-seg button[aria-pressed="true"] {
+  color: var(--mono-ink);
+  background: linear-gradient(180deg, #ffffff, #f4f2ee);
+  box-shadow:
+    0 0 0 1px rgba(38, 35, 31, 0.16),
+    0 1px 2px rgba(38, 35, 31, 0.14);
+}
+.mono-bars-wrap {
+  position: relative;
+}
+.mono-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.mono-bars li {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 84px;
+  align-items: center;
+  gap: 16px;
+  height: 54px;
+  border-bottom: 1px solid var(--mono-hair-2);
+  position: relative;
+  outline-offset: -2px;
+}
+.mono-bars li:first-child {
+  border-top: 1px solid var(--mono-hair-2);
+}
+.mono-bar-name {
+  font: 500 15px/1.25 var(--mono-sans);
+  color: var(--mono-ink);
+}
+.mono-bar-name small {
+  display: block;
+  font-weight: 400;
+  font-size: 12.5px;
+  color: var(--mono-ink-3);
+}
+.mono-track {
+  position: relative;
+  height: 12px;
+}
+.mono-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 12px;
+  border-radius: 1px 2px 2px 1px;
+  background: linear-gradient(180deg, #d9d6cf 0%, #b4b0a8 55%, #a29e95 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(38, 35, 31, 0.18),
+    0 1px 2px rgba(38, 35, 31, 0.12);
+  transition: width 0.95s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.mono-bars.mono-armed .mono-bar {
+  /* held at zero until the chart comes into view, then grown once */
+  width: 0 !important;
+}
+.mono-bar.mono-own {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 210, 190, 0.35),
+    inset 0 -1px 0 rgba(40, 12, 4, 0.3),
+    0 1px 2px rgba(60, 20, 8, 0.2);
+}
+.mono-bar[data-cut]::after {
+  /* a clean break: the bar continues past the scale */
+  content: "";
+  position: absolute;
+  right: 26px;
+  top: -3px;
+  width: 7px;
+  height: 18px;
+  background: var(--mono-paper);
+  transform: skewX(-18deg);
+  border-left: 1px solid var(--mono-steel-3);
+  border-right: 1px solid var(--mono-steel-3);
+}
+.mono-track .mono-ref {
+  /* the engine's own time, 1×, carried through every row */
+  position: absolute;
+  top: -7px;
+  bottom: -7px;
+  width: 0;
+  border-left: 1px solid rgba(122, 58, 34, 0.45);
+  pointer-events: none;
+}
+.mono-bar-value {
+  font: 500 15px/1 var(--mono-mono);
+  text-align: right;
+  color: var(--mono-ink);
+}
+.mono-bar-value.mono-own {
+  color: var(--mono-oxide);
+}
+.mono-bars li:hover .mono-bar:not(.mono-own),
+.mono-bars li:focus-within .mono-bar:not(.mono-own) {
+  filter: brightness(0.94);
+}
+.mono-scale {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 84px;
+  gap: 16px;
+  margin-top: 8px;
+  font: 400 12px/1 var(--mono-mono);
+  color: var(--mono-ink-3);
+}
+.mono-ticks {
+  position: relative;
+  height: 14px;
+}
+.mono-ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+.mono-tip {
+  position: absolute;
+  z-index: 5;
+  width: max-content;
+  max-width: min(300px, 100%);
+  padding: 10px 12px;
+  background: #fff;
+  font: 400 13.5px/1.45 var(--mono-sans);
+  color: var(--mono-ink);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px var(--mono-hair),
+    0 10px 24px -12px rgba(38, 35, 31, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.14s ease,
+    transform 0.14s ease;
+}
+.mono-tip[data-show] {
+  opacity: 1;
+  transform: none;
+}
+.mono-tip b {
+  font-weight: 600;
+}
+.mono-chart-after {
+  margin-top: 36px;
+  font: 400 15px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono-conditions {
+  font: 400 13.5px/1.55 var(--mono-sans);
+  color: var(--mono-ink-2);
+  border-top: 1px solid var(--mono-ink);
+  padding-top: 12px;
+}
+.mono .mono-conditions h3 {
+  font: 600 14px/1.3 var(--mono-sans);
+  color: var(--mono-ink);
+  margin: 0 0 8px;
+}
+.mono .mono-conditions p {
+  margin: 0 0 9px;
+}
+details.mono-table-view {
+  margin-top: 18px;
+  font: 400 14px/1.5 var(--mono-sans);
+}
+details.mono-table-view summary {
+  cursor: pointer;
+  color: var(--mono-oxide);
+  width: max-content;
+}
+.mono-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 12px;
+  font: 400 14px/1.4 var(--mono-sans);
+}
+.mono-table th {
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid var(--mono-ink);
+  padding: 7px 10px 7px 0;
+}
+.mono-table td {
+  border-bottom: 1px solid var(--mono-hair-2);
+  padding: 7px 10px 7px 0;
+}
+.mono-table td.mono-num,
+.mono-table th.mono-num {
+  text-align: right;
+  font-family: var(--mono-mono);
+}
+
+/* ---------- Term lists (modules, steps, scope) ---------- */
+.mono-terms {
+  margin: 48px 0 0;
+  display: grid;
+  grid-template-columns: repeat(var(--mono-terms-columns, 4), minmax(0, 1fr));
+  gap: 28px;
+  font: 400 14px/1.45 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono-terms dt {
+  font: 500 14.5px/1.3 var(--mono-mono);
+  color: var(--mono-ink);
+  border-top: 1px solid var(--mono-hair);
+  padding-top: 10px;
+  margin-bottom: 4px;
+}
+.mono-terms[data-prose] dt {
+  font: 600 15px/1.3 var(--mono-sans);
+}
+.mono-terms dd {
+  margin: 0;
+}
+
+/* ---------- Proofs ---------- */
+.mono-proofs {
+  list-style: none;
+  margin: 56px 0 0;
+  padding: 0;
+}
+.mono-proofs li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  font: 400 16px/1.4 var(--mono-sans);
+  color: var(--mono-ink-2);
+  border-bottom: 1px solid var(--mono-hair-2);
+}
+.mono-proofs .mono-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(38, 35, 31, 0.3);
+  transform: translateY(-4px);
+}
+.mono-proofs b {
+  font: 500 16px/1 var(--mono-mono);
+  color: var(--mono-ink);
+  white-space: nowrap;
+}
+
+/* ---------- Cards ---------- */
+.mono-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 64px 0 0;
+}
+.mono-cards[data-layout="pair"] {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+}
+.mono-cards[data-layout="lead"] {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+}
+.mono-cards[data-layout="two"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mono-cards + .mono-cards {
+  margin-top: 28px;
+}
+.mono-card {
+  background: var(--mono-sheet);
+  box-shadow:
+    0 0 0 1px var(--mono-hair-2),
+    0 14px 28px -24px rgba(38, 35, 31, 0.55);
+  padding: 18px 20px 20px;
+  min-width: 0;
+}
+.mono .mono-card h3 {
+  font: 600 14.5px/1.3 var(--mono-sans);
+  margin: 0 0 2px;
+}
+.mono .mono-card-api {
+  font: 400 12.5px/1.4 var(--mono-mono);
+  color: var(--mono-ink-3);
+  margin: 0 0 12px;
+}
+.mono-card pre {
+  margin: 0;
+  font: 400 13px/1.65 var(--mono-mono);
+  white-space: pre;
+  overflow-x: auto;
+  color: #3a3631;
+}
+.mono .mono-card-verdict {
+  margin: 12px 0 0;
+  font: 400 13.5px/1.45 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+
+/* ---------- Colophon and closing ---------- */
+.mono .mono-colophon {
+  font: italic 400 17px/1.6 var(--mono-serif);
+  color: var(--mono-ink-2);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 120px;
+}
+.mono section.mono-closing {
+  text-align: center;
+  padding-bottom: 176px;
+}
+.mono .mono-closing h2 {
+  font-size: clamp(30px, 1.6vw + 18px, 40px);
+}
+.mono-closing .mono-standfirst {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-size: 20px;
+}
+.mono-closing-links {
+  margin-top: 26px;
+  font: 400 15px/1.5 var(--mono-sans);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: center;
+}
+
+/* ---------- Footer ---------- */
+.mono-footer {
+  background: var(--mono-paper);
+  border-top: 1px solid var(--mono-hair);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 22px 32px 30px;
+  font: 400 13.5px/1.5 var(--mono-sans);
+  color: var(--mono-ink-2);
+}
+.mono-footer-in {
+  max-width: var(--mono-full);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+}
+.mono-footer .ferra-mark {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.mono-footer a,
+.mono .mono-footer a {
+  color: var(--mono-ink-2);
+}
+.mono-footer-copy {
+  margin-left: auto;
+}
+.mono-footer p {
+  margin: 0;
+}
+
+.mono-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Narrower than the margin columns need ---------- */
+@media (max-width: 1180px) {
+  .mono-axis {
+    display: block;
+    max-width: var(--mono-col);
+  }
+  .mono-axis > * {
+    /* browsers align blocks too now; here the column is one flow */
+    justify-self: stretch;
+  }
+  .mono-axis > .mono-wide,
+  .mono-axis > .mono-full {
+    width: auto;
+    justify-self: stretch;
+    /* break out of the reading column up to the wide measure */
+    margin-left: calc((100% - min(var(--mono-wide), 100vw - 80px)) / 2);
+    margin-right: calc((100% - min(var(--mono-wide), 100vw - 80px)) / 2);
+  }
+  .mono-axis > .mono-row {
+    display: block;
+  }
+  .mono-note,
+  .mono-note[data-side] {
+    max-width: none;
+    text-align: left;
+    margin: 16px 0 22px;
+    padding: 1px 0 1px 14px;
+    border-left: 2px solid var(--mono-steel);
+  }
+  .mono-note .mono-note-figure {
+    font-size: 19px;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 960px) {
+  .mono-header-in {
+    gap: 20px;
+  }
+  .mono-menu-button {
+    display: inline-flex;
+    margin-left: auto;
+  }
+  .mono-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px 32px 20px;
+    background: var(--mono-sheet);
+    box-shadow:
+      0 1px 0 var(--mono-hair),
+      0 18px 30px -18px rgba(38, 35, 31, 0.45);
+  }
+  .mono-header[data-open="true"] .mono-menu {
+    display: block;
+  }
+  .mono-menu nav ul {
+    display: block;
+  }
+  .mono-menu nav a,
+  .mono-menu .mono-family {
+    display: flex;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--mono-hair-2);
+    font-size: 16px;
+    text-shadow: none;
+  }
+  .mono-menu .mono-header-end {
+    margin: 14px 0 0;
+    justify-content: space-between;
+  }
+  .mono-menu .mono-family {
+    border-bottom: 0;
+    padding: 0;
+  }
+  .mono-facing,
+  .mono-cards,
+  .mono-cards[data-layout],
+  .mono-chart {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mono-facing::before {
+    display: none;
+  }
+  .mono-facing .mono-sheet + .mono-sheet {
+    border-top: 1px solid var(--mono-hair);
+  }
+  .mono-chart {
+    gap: 40px;
+  }
+  .mono-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 28px;
+    margin-top: 80px;
+  }
+  .mono-terms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 640px) {
+  .mono {
+    font-size: 17px;
+  }
+  .mono section,
+  .mono-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .mono section.mono-opening {
+    padding: 36px 16px 0;
+  }
+  .mono-header-in {
+    padding: 0 16px;
+  }
+  .mono-menu {
+    padding: 4px 16px 18px;
+  }
+  .mono-brand {
+    font-size: 17px;
+  }
+  .mono-axis > .mono-wide,
+  .mono-axis > .mono-full {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .mono-standfirst {
+    font-size: 19px;
+    margin-bottom: 36px;
+  }
+  .mono-opening .mono-standfirst {
+    font-size: 18px;
+    margin: 24px auto 32px;
+  }
+  .mono-kicker {
+    margin-top: 32px;
+  }
+  .mono-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mono .mono-action {
+    padding: 13px 16px 14px;
+  }
+  .mono-facts {
+    margin-top: 64px;
+    gap: 26px 20px;
+  }
+  .mono-facts strong {
+    font-size: 18px;
+  }
+  .mono-facing {
+    margin-top: 48px;
+  }
+  .mono-sheet {
+    padding: 22px 18px 24px;
+  }
+  .mono-chart {
+    margin-top: 48px;
+  }
+  .mono-seg button {
+    padding: 9px 10px;
+  }
+  .mono-bars li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name value"
+      "track track";
+    height: auto;
+    row-gap: 8px;
+    padding: 12px 0 14px;
+  }
+  .mono-bar-name {
+    grid-area: name;
+  }
+  .mono-track {
+    grid-area: track;
+  }
+  .mono-bar-value {
+    grid-area: value;
+  }
+  .mono-bar-name small {
+    display: inline;
+    margin-left: 6px;
+  }
+  .mono-scale {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mono-scale > span:not(.mono-ticks) {
+    display: none;
+  }
+  .mono-ticks span:last-child {
+    transform: translateX(-100%);
+  }
+  .mono-terms {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .mono-cards {
+    margin-top: 44px;
+  }
+  .mono-card {
+    padding: 16px 16px 18px;
+  }
+  .mono-proofs {
+    margin-top: 40px;
+  }
+  .mono-proofs li {
+    font-size: 15px;
+  }
+  /* wide tables scroll inside their own box, never the page */
+  .mono-table {
+    display: block;
+    overflow-x: auto;
+    font-size: 13.5px;
+  }
+  .mono .mono-colophon {
+    font-size: 16px;
+    margin-bottom: 88px;
+  }
+  .mono section.mono-closing {
+    padding-bottom: 112px;
+  }
+  .mono-footer-copy {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mono *,
+  .mono *::before,
+  .mono *::after,
+  .mono-header * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

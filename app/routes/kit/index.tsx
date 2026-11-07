@@ -45,7 +45,9 @@ export default function KitPage() {
             </p>
             <p>
               The new <Link to="/kit/ferra/">Ferra kit</Link> contains the approved lighter palette,
-              textures, identities and opt-in page components.
+              textures, identities and opt-in page components. The{" "}
+              <Link to="/kit/monografie/">Monografie kit</Link> shows the page system for engine
+              homepages.
             </p>
             <ul className="kit-toc">
               {chapters.map((chapter) => (

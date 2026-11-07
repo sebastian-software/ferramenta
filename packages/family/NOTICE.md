@@ -27,6 +27,17 @@ as `ferra/fonts/OFL-IBM-Plex.txt`. Its pinned upstream source and hashes
 are recorded in `ferra/fonts/manifest.json`. The Ferra stylesheet
 serves the font locally; body text uses the system UI stack.
 
+## Source Serif 4 Subhead (Monografie heading font)
+
+`ferra/fonts/source-serif-4/source-serif-4-subhead-600.woff2` and
+`source-serif-4-subhead-400-italic.woff2` are Source Serif 4 Subhead Semibold
+and Italic by Adobe, licensed under the SIL Open Font License 1.1 with the
+Reserved Font Name "Source". They ship unmodified, with the license text as
+`ferra/fonts/source-serif-4/OFL-Source-Serif-4.txt` and the pinned upstream
+source and hashes in `ferra/fonts/source-serif-4/manifest.json`. The
+Monografie stylesheet serves them locally for headings; reading text uses the
+system UI stack.
+
 ## Barlow Condensed (font)
 
 `fonts/barlow-condensed-500.woff2`, `-600.woff2` and `-700.woff2` are weights of

@@ -1,0 +1,10 @@
+{
+  "generatedWith": "Blender 5.2.3 LTS, Cycles, 256 samples",
+  "construction": "design/ferra/blender/surfaces.py",
+  "constructionSha256": "fe2275e83a8a42a2aa9966630fad8e1d473599431205100b9507f6cc993a08b9",
+  "role": "Flat band in the hero instruments' own brushed polished steel (hero_geometry.surfaces), for the Monografie navigation bar.",
+  "geometry": "2880x120",
+  "sha256": "4098cc1bfe39a87e501caf31b2c3cfe41b23e562ce6efcf2e5fb14281b1552dc",
+  "createdAt": "2026-11-07",
+  "prompt": "No image prompt: a flat plate in the hero instruments' brushed polished steel (hero_geometry.surfaces), rendered top-down in Blender by design/ferra/blender/surfaces.py under its soft overhead studio."
+}

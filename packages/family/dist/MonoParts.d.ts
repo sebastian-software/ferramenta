@@ -1,0 +1,68 @@
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
+import type { FerraProduct } from "./FerraIdentity.js";
+export declare function MonoEngraving({ seed }: {
+    seed: number;
+}): import("react").JSX.Element;
+export type MonoActionProps = {
+    href: string;
+    /** The one primary action per group wears the rust accent. */
+    primary?: boolean;
+    /** A short command or destination under the label. */
+    detail?: ReactNode;
+    children: ReactNode;
+};
+export declare function MonoAction({ href, primary, detail, children }: MonoActionProps): import("react").JSX.Element;
+export type MonoFact = {
+    /** The figure; wrap the engine's own part in <em> to set it in oxide. */
+    value: ReactNode;
+    label: ReactNode;
+};
+export type MonoOpeningProps = {
+    product: FerraProduct;
+    /** What the instrument shows, for readers who cannot see it. */
+    instrumentLabel: string;
+    caption?: ReactNode;
+    kicker: ReactNode;
+    title: ReactNode;
+    subtitle?: ReactNode;
+    standfirst: ReactNode;
+    actions: ReactNode;
+    facts?: MonoFact[];
+};
+/** The instrument as a centered plate, the name and the first actions. */
+export declare function MonoOpening({ product, instrumentLabel, caption, kicker, title, subtitle, standfirst, actions, facts, }: MonoOpeningProps): import("react").JSX.Element;
+export type MonoSectionProps = {
+    id?: string;
+    title: ReactNode;
+    standfirst?: ReactNode;
+    children: ReactNode;
+} & Omit<ComponentPropsWithoutRef<"section">, "children" | "title">;
+/** A chapter on the reading axis: heading, standfirst, then its passages. */
+export declare function MonoSection({ id, title, standfirst, children, className, ...props }: MonoSectionProps): import("react").JSX.Element;
+export type MonoNoteProps = {
+    side?: "left" | "right";
+    /** The term the note explains. */
+    term?: ReactNode;
+    /** A figure set large above the note. */
+    figure?: ReactNode;
+    children: ReactNode;
+};
+export type MonoPassageProps = {
+    /** A margin note beside the passage; it moves into the text on narrow screens. */
+    note?: MonoNoteProps;
+    children: ReactNode;
+};
+/** Reading text on the axis, with an optional note in the margin beside it. */
+export declare function MonoPassage({ note, children }: MonoPassageProps): import("react").JSX.Element;
+/** A lead-in: the first words of a passage in small capitals. */
+export declare function MonoLeadIn({ children }: {
+    children: ReactNode;
+}): import("react").JSX.Element;
+export declare function MonoColophon({ className, ...props }: ComponentPropsWithoutRef<"p">): import("react").JSX.Element;
+export type MonoClosingProps = {
+    title: ReactNode;
+    standfirst: ReactNode;
+    actions: ReactNode;
+    links?: ReactNode;
+};
+export declare function MonoClosing({ title, standfirst, actions, links }: MonoClosingProps): import("react").JSX.Element;

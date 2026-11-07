@@ -52,6 +52,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | `scripts/review-site.mjs`                          | `pnpm review`: drives a headless Chromium over the build, checks layout at eight widths, the flyouts, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI; run it before a design change is called done)                                                                     |
 | `packages/family/`                                 | `ferramenta-family` — the published package: registry, chrome, landing kit, icons, tokens, textures, font. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links                                                                          |
 | `design/comp/2026-10/`                             | The approved comps of the redesign (`typenschild-*.html`, ADR-0008). The earlier directions and comps are in Git history before the tag `design-residue-2026-09-30`                                                                                                                                             |
+| `design/comp/2026-11/monografie/`                  | The approved Monografie comps for engine homepages (Ferromark, Ferroni; ADR-0012), static HTML on the shared comp CSS. The package entry `ferramenta-family/monografie` is built from them                                                                                                                      |
 | `docs/adr/`                                        | Decision records — **read before changing direction**, they are constraints                                                                                                                                                                                                                                     |
 | `PRODUCT.md` / `DESIGN.md`                         | Product truth / design system (tokens, materials, component rules)                                                                                                                                                                                                                                              |
 | `THIRD-PARTY-NOTICES.md`                           | Licensing: the font and the foreign logos                                                                                                                                                                                                                                                                       |
@@ -162,6 +163,10 @@ embed-prompt`).
   icons and theming. `ArdoRoot` supplies the main landmark. Pass custom headers
   through `header`, disable its default footer, and render the family footer
   outside its main. Set `sidebar={false}` where no sidebar is wanted.
+- **Monografie** (ADR-0012): engine homepages consume
+  `ferramenta-family/monografie` and `monografie.css`, scoped to `.mono`,
+  `.mono-header` and `.mono-footer`; the kit shows it at `/kit/monografie/`.
+  `design/ferra/build-monografie.mjs` exports its surfaces and fonts.
 - **Ferra adoption**: the homepage consumes `ferramenta-family/ferra` and
   `ferra.css` (ADR-0010). The original kit and sample pages retain the original
   entry and styles. Keep both sets of components independently consumable.

@@ -1,0 +1,32 @@
+{
+  "family": "Source Serif 4 Subhead",
+  "role": "Headings, the product name and the colophon on Monografie engine pages; reading text uses the visitor's system UI font",
+  "license": "SIL Open Font License 1.1, with Reserved Font Name 'Source'; files are shipped unmodified",
+  "files": [
+    {
+      "file": "source-serif-4-subhead-600.woff2",
+      "weight": 600,
+      "style": "normal",
+      "source": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/OTF/SourceSerif4Subhead-Semibold.otf.woff2",
+      "revision": "80d3f8894c09c937bebfa9011247d2e1c79fd6f4",
+      "sha256": "1e258cdb070b54769f5b5bf9b9efd17a8ab14e62fb26587b0f395bb57af849f4",
+      "bytes": 118120
+    },
+    {
+      "file": "source-serif-4-subhead-400-italic.woff2",
+      "weight": 400,
+      "style": "italic",
+      "source": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/OTF/SourceSerif4Subhead-It.otf.woff2",
+      "revision": "80d3f8894c09c937bebfa9011247d2e1c79fd6f4",
+      "sha256": "06e0f882e7aba89ae9c19e2cd086002e87a14f59404cb2f1fbd94f530bc7595a",
+      "bytes": 84996
+    },
+    {
+      "file": "OFL-Source-Serif-4.txt",
+      "source": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/LICENSE.md",
+      "revision": "80d3f8894c09c937bebfa9011247d2e1c79fd6f4",
+      "sha256": "c21d7293d87b6d7ab1d0229a2f55b77f33a7613a6a4e66f6693d68d7d8d09464",
+      "bytes": 4491
+    }
+  ]
+}

@@ -477,6 +477,40 @@ whatever a site puts there keeps Ardo's colors. Links wrapped in `.site-links`
 take the bar's lettering and ink from `chrome.css`; anything else needs its own
 rule if it wants the iron ink.
 
+## Monografie engine pages
+
+`ferramenta-family/monografie` is the page system for engine homepages
+(ADR-0012): the steel header, the instrument as the opening plate, one reading
+column with margin notes, facing sheets for real output, term lists, proofs,
+cards, a comparison chart and the closing. It is independent of the other
+entries and scoped to `.mono`, `.mono-header` and `.mono-footer`.
+
+```tsx
+import {
+  MonoFooter,
+  MonoHeader,
+  MonoOpening,
+  MonoPage,
+  MonoSection,
+} from "ferramenta-family/monografie";
+import "ferramenta-family/monografie.css";
+
+<MonoPage>
+  <MonoHeader product="ferroni" home="/" release={version} links={[<a href="/guide/">Guide</a>]} />
+  <main>
+    <MonoOpening product="ferroni" instrumentLabel="…" kicker="…" title="…" standfirst="…" actions={…} />
+    <MonoSection title="…">…</MonoSection>
+  </main>
+  <MonoFooter product="ferroni" home="/" />
+</MonoPage>;
+```
+
+Reading text uses the system UI font; Source Serif 4 Subhead ships for
+headings. Rust appears only on the primary action (`MonoAction primary`) and
+the engine's own bar (`own` on a `MonoBarChart` row). Each site keeps its
+specimens and the scripts that produce their real output. The kit renders every
+part at `/kit/monografie/`.
+
 ## CSS entry points
 
 | Import                          | What it is                                                                                  | Safe to load anywhere?                                        |

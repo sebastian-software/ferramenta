@@ -54,7 +54,12 @@
     "./ferra-ardo.css": "./styles/ferra-ardo.css",
     "./ferra-tokens.css": "./styles/ferra-tokens.css",
     "./ferra-fonts.css": "./styles/ferra-fonts.css",
-    "./ferra-assets/*": "./ferra/*"
+    "./ferra-assets/*": "./ferra/*",
+    "./monografie": {
+      "types": "./dist/monografie.d.ts",
+      "default": "./dist/monografie.js"
+    },
+    "./monografie.css": "./styles/monografie.css"
   },
   "publishConfig": {
     "access": "public",

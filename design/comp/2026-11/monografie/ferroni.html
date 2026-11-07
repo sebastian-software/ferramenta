@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Ferroni — Oniguruma regex in pure Rust</title>
+    <link rel="stylesheet" href="monografie.css" />
+    <style>
+      /* Ferroni specimens: a pattern and its captures, the feature specimens,
+         the scanner walkthrough and the port's module list. */
+
+      /* ---------- Pattern and captures ---------- */
+      .pattern {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 18px;
+        margin: 6px 0 0;
+      }
+      .tok {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 4px 2px 0;
+        border-radius: 2px;
+        cursor: default;
+        transition: background 0.18s ease;
+      }
+      .tok code {
+        font: 400 17px/1.3 var(--mono);
+        color: var(--ink);
+        white-space: pre;
+      }
+      .tok small {
+        font: 500 12px/1.2 var(--sans);
+        color: var(--ink-3);
+        border-top: 1px solid var(--steel-2);
+        padding: 4px 2px 3px;
+        min-height: 20px;
+      }
+      .tok.lit small {
+        border-top-color: transparent;
+      }
+      .tok[data-g]:focus-visible {
+        outline-offset: 1px;
+      }
+      .tok.on,
+      .hay .on,
+      .out-list li.on {
+        background: var(--oxide-wash);
+      }
+      .tok.on small {
+        color: var(--oxide);
+        border-top-color: var(--oxide);
+      }
+      .hay {
+        font: 400 26px/1.4 var(--mono);
+        color: var(--ink);
+        margin: 4px 0 26px;
+        white-space: pre;
+      }
+      .hay span {
+        border-radius: 2px;
+        transition: background 0.18s ease;
+      }
+      .hay .cap {
+        border-bottom: 1px solid var(--steel-2);
+      }
+      .hay .cap.on {
+        border-bottom-color: var(--oxide);
+      }
+      .hay .look {
+        color: var(--ink-3);
+      }
+      .out-list li {
+        transition: background 0.18s ease;
+        padding-left: 4px;
+        padding-right: 4px;
+        margin: 0 -4px;
+      }
+      .replaced {
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid var(--hair-2);
+      }
+      .replaced .hay {
+        font-size: 22px;
+        margin-bottom: 0;
+      }
+
+      /* ---------- Feature specimens ---------- */
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 64px 0 0;
+        font: 400 15px/1.4 var(--sans);
+      }
+      .spec-table th {
+        text-align: left;
+        font: 600 13.5px/1.3 var(--sans);
+        color: var(--ink);
+        padding: 0 10px 12px 0;
+        border-bottom: 1px solid var(--ink);
+        vertical-align: bottom;
+      }
+      .spec-table th small {
+        display: block;
+        font-weight: 400;
+        color: var(--ink-3);
+      }
+      .spec-table th.own {
+        color: var(--oxide);
+      }
+      .spec-table td,
+      .spec-table tbody th {
+        padding: 16px 10px 16px 0;
+        border-bottom: 1px solid var(--hair-2);
+        vertical-align: top;
+      }
+      .spec-table tbody th {
+        font: 500 15px/1.35 var(--sans);
+        width: 25%;
+      }
+      .spec-table .pat {
+        display: block;
+        font: 400 14px/1.5 var(--mono);
+        color: var(--ink);
+        word-break: break-all;
+      }
+      .spec-table .inp {
+        display: block;
+        margin-top: 6px;
+        font: 400 15px/1.5 var(--mono);
+        color: var(--ink-3);
+        white-space: pre;
+      }
+      .spec-table .inp mark {
+        background: var(--oxide-wash);
+        color: var(--oxide);
+        border-bottom: 1px solid var(--oxide);
+        padding: 0 1px;
+      }
+      .spec-table td.yes,
+      .spec-table td.no {
+        width: 96px;
+        text-align: left;
+        font: 400 13px/1.4 var(--sans);
+        color: var(--ink-2);
+        padding-top: 19px;
+      }
+      .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 7px;
+        vertical-align: 0;
+        background: var(--steel-2);
+      }
+      td.own .dot {
+        background: var(--oxide);
+      }
+      td.no .dot {
+        background: transparent;
+        box-shadow: inset 0 0 0 1px var(--steel-3);
+      }
+      td.no {
+        color: var(--ink-3);
+      }
+
+      /* ---------- Scanner walkthrough ---------- */
+      .scan {
+        margin: 72px 0 0;
+        background: var(--sheet);
+        box-shadow:
+          0 0 0 1px var(--hair-2),
+          0 18px 36px -28px rgba(38, 35, 31, 0.55),
+          0 2px 4px rgba(38, 35, 31, 0.05);
+        padding: 34px 40px 36px;
+      }
+      .scan-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 4px;
+      }
+      .scan-head p {
+        margin: 0;
+        font: 400 14px/1.45 var(--sans);
+        color: var(--ink-2);
+      }
+      .scan-line {
+        position: relative;
+        font: 400 30px/1 var(--mono);
+        color: var(--ink);
+        white-space: pre;
+        padding: 30px 0 34px;
+        margin-bottom: 18px;
+      }
+      .scan-line span {
+        position: relative;
+        transition:
+          background 0.22s ease,
+          color 0.22s ease;
+      }
+      .scan-line span.past {
+        background: rgba(38, 35, 31, 0.06);
+      }
+      .scan-line span.now {
+        background: var(--oxide-wash);
+        color: var(--oxide);
+      }
+      .caret {
+        position: absolute;
+        top: 22px;
+        bottom: 24px;
+        width: 0;
+        border-left: 2px solid var(--oxide);
+        transition: left 0.45s cubic-bezier(0.22, 0.8, 0.24, 1);
+      }
+      .caret::before {
+        content: attr(data-label);
+        position: absolute;
+        top: -16px;
+        left: -2px;
+        font: 500 12px/1 var(--sans);
+        color: var(--oxide);
+        white-space: nowrap;
+      }
+      .scan-cols {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 44px;
+        margin-top: 8px;
+      }
+      .pats {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .pats li {
+        display: flex;
+        gap: 14px;
+        align-items: baseline;
+        padding: 9px 6px;
+        margin: 0 -6px;
+        border-bottom: 1px solid var(--hair-2);
+        border-radius: 2px;
+        font: 400 14.5px/1.4 var(--mono);
+        transition: background 0.22s ease;
+      }
+      .pats li b {
+        font: 500 12.5px/1 var(--sans);
+        color: var(--ink-3);
+        min-width: 58px;
+      }
+      .pats li.win {
+        background: var(--oxide-wash);
+      }
+      .pats li.win b {
+        color: var(--oxide);
+      }
+      .steps {
+        width: 100%;
+        border-collapse: collapse;
+        font: 400 14px/1.4 var(--sans);
+      }
+      .steps th {
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 1px solid var(--ink);
+        padding: 0 10px 8px 0;
+      }
+      .steps td {
+        border-bottom: 1px solid var(--hair-2);
+        padding: 9px 10px 9px 0;
+        transition: background 0.22s ease;
+      }
+      .steps td.num,
+      .steps th.num {
+        font-family: var(--mono);
+        text-align: right;
+      }
+      .steps tr.now td {
+        background: var(--oxide-wash);
+      }
+      .steps tr {
+        cursor: pointer;
+      }
+      .steps code {
+        font-size: 13.5px;
+      }
+      .scan-foot {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 22px;
+        font: 400 13.5px/1.45 var(--sans);
+        color: var(--ink-3);
+      }
+      .replay {
+        border: 0;
+        font: 500 13px/1 var(--sans);
+        color: var(--oxide);
+        background: transparent;
+        padding: 6px 0;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* ---------- The port ---------- */
+      .port {
+        margin: 56px 0 0;
+        font: 400 15px/1.4 var(--sans);
+      }
+      .port div {
+        display: grid;
+        grid-template-columns: 150px 170px minmax(0, 1fr);
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--hair-2);
+        align-items: baseline;
+      }
+      .port dt {
+        font: 400 14.5px/1.3 var(--mono);
+        color: var(--ink-2);
+      }
+      .port dd {
+        margin: 0;
+        color: var(--ink-2);
+      }
+      .port dd.rs {
+        font: 500 14.5px/1.3 var(--mono);
+        color: var(--oxide);
+      }
+      .port .added dt {
+        color: var(--ink-3);
+      }
+
+      /* ---------- Guardrail cards ---------- */
+      .trio .card pre {
+        white-space: pre-wrap;
+      }
+      .trio .card pre.err {
+        color: var(--oxide);
+        background: var(--oxide-wash);
+        padding: 8px 10px;
+        margin-top: 10px;
+        border-radius: 2px;
+      }
+      .scanner-code pre {
+        white-space: pre;
+        overflow-x: auto;
+      }
+
+      /* ---------- Narrow screens ---------- */
+      @media (max-width: 960px) {
+        .scan {
+          padding: 28px 28px 30px;
+        }
+        .scan-cols {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 28px;
+        }
+        .scan-line {
+          font-size: 24px;
+        }
+      }
+      @media (max-width: 760px) {
+        /* The feature table becomes one entry per feature, engines in a row */
+        .spec-table thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+        }
+        .spec-table,
+        .spec-table tbody,
+        .spec-table tr,
+        .spec-table tbody th,
+        .spec-table td {
+          display: block;
+          width: auto;
+        }
+        .spec-table {
+          margin-top: 44px;
+        }
+        .spec-table tr {
+          display: flex;
+          flex-wrap: wrap;
+          column-gap: 16px;
+          padding: 16px 0 14px;
+          border-bottom: 1px solid var(--hair-2);
+        }
+        .spec-table tbody th {
+          width: 100%;
+          padding: 0 0 4px;
+          border: 0;
+        }
+        .spec-table td {
+          border: 0;
+          padding: 0;
+        }
+        .spec-table td:not(.yes):not(.no) {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        .spec-table td.yes,
+        .spec-table td.no {
+          width: auto;
+          padding: 2px 0;
+          font-size: 13px;
+        }
+        .spec-table td.yes::before,
+        .spec-table td.no::before {
+          content: attr(data-engine) " ";
+          color: var(--ink);
+        }
+        .spec-table td.own::before {
+          color: var(--oxide);
+          font-weight: 600;
+        }
+        .spec-table .dot {
+          width: 8px;
+          height: 8px;
+          margin: 0 4px 0 2px;
+        }
+        .spec-table .inp {
+          white-space: pre-wrap;
+          word-break: break-all;
+        }
+        .port div {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: 2px 16px;
+        }
+        .port div dd:last-child {
+          grid-column: 1 / -1;
+        }
+      }
+      @media (max-width: 640px) {
+        .hay {
+          font-size: 21px;
+        }
+        .replaced .hay {
+          font-size: 18px;
+        }
+        .tok code {
+          font-size: 15px;
+        }
+        .scan {
+          padding: 22px 16px 24px;
+          margin-top: 48px;
+        }
+        .scan-head {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .scan-line {
+          font-size: clamp(13px, 4.1vw, 18px);
+          padding: 30px 0 28px;
+        }
+        /* the caret marks where each search starts; keep the positions */
+        .steps th:first-child,
+        .steps td:first-child {
+          display: none;
+        }
+        .steps {
+          font-size: 13px;
+        }
+        .steps code {
+          font-size: 12.5px;
+        }
+        .scan-foot {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav">
+      <div class="nav-in">
+        <a class="brand" href="#top"
+          ><img src="../../../../packages/family/ferra/ferroni/mark-128.png" alt="" />Ferroni</a
+        >
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <i aria-hidden="true"></i>Menu
+        </button>
+        <div class="nav-menu" id="nav-menu">
+          <nav aria-label="Main">
+            <ul>
+              <li><a href="https://ferroni.dev/guide/getting-started">Guide</a></li>
+              <li><a href="https://ferroni.dev/guide/scanner">Scanner</a></li>
+              <li><a href="#speed">Benchmarks</a></li>
+              <li><a href="https://ferroni.dev/guide/compatibility">Compatibility</a></li>
+              <li><a href="https://docs.rs/ferroni">API</a></li>
+              <li><a href="https://github.com/sebastian-software/ferroni">GitHub</a></li>
+            </ul>
+          </nav>
+          <div class="end">
+            <span class="release" title="Current release">v2.8.0</span>
+            <a class="family" href="https://ferramenta.dev"
+              ><img
+                src="../../../../packages/family/ferra/ferramenta/mark-128.png"
+                alt=""
+              />Ferramenta</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================= Opening ================= -->
+      <section class="opening" id="top" aria-labelledby="h1">
+        <figure class="plate">
+          <img
+            src="../../../../packages/family/ferra/ferroni/instrument.webp"
+            width="1600"
+            height="800"
+            alt="Ferroni's instrument: a pattern comparator on a machined steel plate, three book-like pattern cassettes beside a linear guide, and a carriage that holds a rust-brown contact tool over a recessed text ribbon."
+          />
+          <figcaption>
+            A pattern comparator: three cassettes hold the patterns, and the carriage runs along the
+            text to the position of the selected match.
+          </figcaption>
+        </figure>
+        <p class="kicker">Ferroni 2.8, a regular-expression engine for Rust</p>
+        <h1 id="h1">
+          Your Oniguruma patterns.
+          <span class="second">Now in pure Rust, with the scanner editors rely on.</span>
+        </h1>
+        <p class="standfirst">
+          Oniguruma reads the patterns behind TextMate grammars, PHP’s mbstring and jq. Its C
+          project closed in April 2025. Ferroni continues it in Rust, ported function by function:
+          lookbehind, backreferences and Unicode matching included, and no C compiler in your build.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://ferroni.dev/guide/getting-started"
+            >Run your first match <small>cargo add ferroni</small></a
+          >
+          <a class="btn" href="https://ferroni.dev/guide/scanner"
+            >Build a scanner <small>Scanner guide</small></a
+          >
+        </div>
+        <ul class="facts">
+          <li>
+            <strong><em>2,974</em> of 2,974</strong>upstream UTF-8 tests of Oniguruma
+          </li>
+          <li>
+            <strong><em>12</em> of 12</strong>Oniguruma syntax modes
+          </li>
+          <li>
+            <strong><em>10</em> of 10</strong>selected features, the only Rust engine
+          </li>
+          <li><strong>Rust 1.94+</strong>BSD-2-Clause, native and WebAssembly</li>
+        </ul>
+      </section>
+
+      <svg class="engraving" data-seed="1"></svg>
+
+      <!-- ================= Explainer ================= -->
+      <section aria-labelledby="h-what">
+        <div class="axis">
+          <h2 id="h-what">A pattern describes the text you want.</h2>
+          <aside class="margin-l" style="grid-row: 2">
+            <b>Regular expression</b>A pattern that describes text: digits, words, repetition, what
+            comes before and after.
+          </aside>
+          <p style="grid-row: 2">
+            <span class="lead-in">A regular expression</span> is a small language for finding text.
+            <code>\d{4}</code> means four digits. <code>(?&lt;year&gt;…)</code> gives the part it
+            found a name. Search boxes, form checks, log filters and code editors all speak it. Most
+            patterns are simple. Some need to look behind a label, refer back to a word they already
+            found, or recognize the letters of one script.
+          </p>
+          <aside class="margin-r" style="grid-row: 3">
+            <b>Oniguruma</b>K. Kosako’s regex engine, written in C, behind TextMate grammars, PHP’s
+            mbstring and jq.
+          </aside>
+          <p style="grid-row: 3">
+            Oniguruma is the engine many of those patterns were written for. It reads the TextMate
+            grammars that VS Code, Shiki and many other tools use to color code. It powers PHP’s
+            mbstring and the jq command-line tool. When its C project closed, those patterns lost
+            their maintained home.
+          </p>
+          <p>
+            Ferroni gives them a new one in Rust: the same syntax and the same matches, behind an
+            API that feels familiar to Rust developers. Cargo builds it, for native targets and for
+            WebAssembly.
+          </p>
+          <figure class="wide">
+            <div class="facing" id="capture">
+              <div class="page">
+                <div class="page-head"><span>The pattern</span><span>Regex::new()</span></div>
+                <div class="pattern" id="pattern"></div>
+              </div>
+              <div class="page">
+                <div class="page-head">
+                  <span>What Ferroni found</span><span>captures(), replace_all()</span>
+                </div>
+                <div class="sub-h">The text</div>
+                <div class="hay" id="hay"></div>
+                <div class="sub-h">Captures by name</div>
+                <ul class="out-list" id="caps"></ul>
+                <div class="replaced">
+                  <div class="sub-h" id="rep-h"></div>
+                  <div class="hay" id="rep"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption class="specimen-note" id="capture-note"></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="2"></svg>
+
+      <!-- ================= Syntax ================= -->
+      <section id="syntax" aria-labelledby="h-syntax">
+        <div class="axis">
+          <h2 id="h-syntax">Give your patterns room to work.</h2>
+          <p class="standfirst">
+            Look behind a label, repeat a word you found, select a script, fold ß into ss. Ten
+            features, each checked by a test that runs.
+          </p>
+          <p>
+            <span class="lead-in">Not every engine</span> reads every pattern. Rust’s own
+            <code>regex</code> crate leaves out lookbehind and backreferences on purpose, so it can
+            promise to finish in linear time. That is the right choice for patterns that strangers
+            type. For grammars and code written for Oniguruma, a missing feature changes what a
+            pattern means, or rejects it outright.
+          </p>
+          <aside class="margin-r" style="grid-row: 4">
+            <b>Twelve syntax modes</b>Oniguruma, Ruby, Perl, Python, Java, POSIX and more. Ferroni
+            includes all twelve.
+          </aside>
+          <p style="grid-row: 4">
+            Ferroni passes every check in the comparison below, the only Rust engine that does. Each
+            match in the table is Ferroni’s real output for that pattern and text.
+          </p>
+          <div class="wide">
+            <table class="spec-table" id="spec">
+              <caption class="visually-hidden">
+                Selected regex features, Ferroni’s match for each, and which engines support it
+              </caption>
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+            <p class="credit">
+              Every Yes and No is an executable check in <code>tests/regex_feature_matrix.rs</code>.
+              Ruby’s Onigmo is part of the
+              <a href="https://ferroni.dev/perf/regex-workloads#syntax-coverage"
+                >full syntax comparison</a
+              >.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="3"></svg>
+
+      <!-- ================= Speed ================= -->
+      <section id="speed" aria-labelledby="h-speed">
+        <div class="axis">
+          <h2 id="h-speed">Compile once. Put it to work.</h2>
+          <p class="standfirst">
+            Reusing a compiled pattern, Ferroni matches faster than C Oniguruma, fancy-regex and
+            Rust’s regex crate. PCRE2 with its JIT compiler is faster still, and C compiles patterns
+            faster.
+          </p>
+          <aside class="margin-l" style="grid-row: 3">
+            <span class="fig">23</span>regex tasks taken from Django, Rails, WordPress and other
+            projects
+          </aside>
+          <p style="grid-row: 3">
+            <span class="lead-in">A highlighter compiles</span> its grammar’s patterns once, then
+            runs them over every line of every file it opens. A log filter compiles a pattern once
+            and applies it to millions of lines. That reuse is the work Ferroni is built for. It
+            interprets compiled patterns and generates no machine code while your program runs.
+          </p>
+          <p>
+            Creating a pattern for one single search is a different job. There, compilation counts,
+            and C Oniguruma is quicker. Switch the chart to see both sides.
+          </p>
+          <figure class="wide chart-figure" aria-labelledby="chart-title">
+            <div>
+              <div class="chart-head">
+                <div>
+                  <h3 id="chart-title">Time for the same work</h3>
+                  <p>
+                    Ferroni = 1×, the line through every row. A bar past it took longer; a bar short
+                    of it was faster.
+                  </p>
+                </div>
+                <div class="toggles">
+                  <div class="seg" role="group" aria-label="Phase" data-key="lane">
+                    <button type="button" data-value="steady" aria-pressed="true">
+                      Reused pattern
+                    </button>
+                    <button type="button" data-value="compile" aria-pressed="false">
+                      Compilation
+                    </button>
+                    <button type="button" data-value="first_use" aria-pressed="false">
+                      First use
+                    </button>
+                  </div>
+                  <div class="seg" role="group" aria-label="Machine" data-key="platform">
+                    <button type="button" data-value="macos-arm64" aria-pressed="true">
+                      macOS arm64
+                    </button>
+                    <button type="button" data-value="linux-x86-64" aria-pressed="false">
+                      Linux x86-64
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div style="position: relative">
+                <ul class="bars" id="bars" aria-live="polite"></ul>
+                <div class="tip" id="tip" role="status"></div>
+              </div>
+              <div class="scale" aria-hidden="true">
+                <span></span><span class="ticks" id="ticks"></span><span></span>
+              </div>
+              <p class="all-twenty">
+                Each row compares only the tasks both engines can run.
+                <a href="https://ferroni.dev/perf/regex-workloads"
+                  >Every task, platform and timing</a
+                >
+              </p>
+              <details class="table-view">
+                <summary>Show the figures as a table</summary>
+                <table class="plain-table" id="bench-table"></table>
+              </details>
+            </div>
+            <aside class="conditions" aria-label="Measurement conditions">
+              <h3 class="card-h">How this was measured</h3>
+              <p id="run-date"></p>
+              <p>Every task must reproduce the output of its source project before it is timed.</p>
+              <p>
+                Project families weigh equally. Each figure is the median of paired ratios over
+                three runs.
+              </p>
+              <p>Isolated regex work, not whole applications. Results vary by task.</p>
+            </aside>
+          </figure>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="4"></svg>
+
+      <!-- ================= Scanner ================= -->
+      <section id="scanner" aria-labelledby="h-scan">
+        <div class="axis">
+          <h2 id="h-scan">Your next highlighter starts here.</h2>
+          <p class="standfirst">
+            Give the scanner a set of patterns and ask which one matches next. You handle the
+            grammar; Ferroni handles the regex work.
+          </p>
+          <p>
+            <span class="lead-in">Syntax highlighting</span> repeats one small race thousands of
+            times per file. At each position, every pattern the grammar allows right now is tried,
+            and the earliest match wins. The next search starts where that match ended. Ferroni’s
+            Scanner follows the model of vscode-oniguruma, the engine inside VS Code’s highlighting.
+          </p>
+          <aside class="margin-r" style="grid-row: 4">
+            <b>UTF-16 positions</b>Editors written in JavaScript count text in UTF-16 units, not
+            bytes. The scanner reports both.
+          </aside>
+          <p style="grid-row: 4">
+            The positions come back the way an editor counts them. On a plain ASCII line, bytes and
+            UTF-16 units agree. Add one ß and they part ways; switch to the second line to see it.
+          </p>
+          <figure class="wide scan" id="scan" aria-labelledby="scan-title">
+            <div class="scan-head">
+              <p id="scan-title">One line, three searches for the next match</p>
+              <div class="seg" role="group" aria-label="Line" data-key="line">
+                <button type="button" data-value="ascii" aria-pressed="true">ASCII line</button>
+                <button type="button" data-value="wide" aria-pressed="false">Line with ß</button>
+              </div>
+            </div>
+            <div class="scan-line" id="scan-line" aria-hidden="true">
+              <i class="caret" id="caret" data-label="search starts here"></i>
+            </div>
+            <div class="scan-cols">
+              <div>
+                <div class="sub-h">Patterns in the scanner</div>
+                <ol class="pats" id="pats"></ol>
+              </div>
+              <div class="steps-wrap">
+                <table class="steps" id="steps">
+                  <thead>
+                    <tr>
+                      <th scope="col">From byte</th>
+                      <th scope="col">Winning pattern</th>
+                      <th scope="col">Match</th>
+                      <th scope="col" class="num">Bytes</th>
+                      <th scope="col" class="num">UTF-16</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="scan-foot">
+              <span id="scan-note"></span>
+              <button type="button" class="replay" id="replay">Run the searches again</button>
+            </div>
+          </figure>
+          <div class="wide pair lead-left">
+            <div class="card scanner-code">
+              <h3 class="card-h">The same scanner in Rust</h3>
+              <p class="api">Scanner::new, find_next_match</p>
+              <pre id="scan-src"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">Underneath Ferriki</h3>
+              <p class="api">Shiki-compatible highlighting</p>
+              <p class="verdict" style="margin-top: 0">
+                Ferriki, a sibling engine, runs TextMate grammars on this scanner and returns
+                highlighted HTML. You can build your own tokenizer the same way; no other Ferramenta
+                engine is required.
+              </p>
+              <p class="verdict">
+                <a href="https://ferriki.dev">ferriki.dev</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="5"></svg>
+
+      <!-- ================= Prepared archives ================= -->
+      <section id="prepared" aria-labelledby="h-prep">
+        <div class="axis">
+          <h2 id="h-prep">Prepare once. Load across starts.</h2>
+          <p>
+            <span class="lead-in">A highlighter loads</span> the same grammars every time it starts,
+            and preparing their patterns costs time on every start. With the optional
+            <code>precompiled-eager</code> feature, that preparation moves into your build. Export
+            it once, ship it with your application, and load only the parts a document needs.
+            Patterns that depend on captured text still resolve locally, and anything missing falls
+            back to normal preparation.
+          </p>
+          <dl class="wide modules terms three">
+            <div>
+              <dt>At build time</dt>
+              <dd>
+                Prepare the static scanner sets and export compiled programs with their group
+                instructions.
+              </dd>
+            </div>
+            <div>
+              <dt>In your release</dt>
+              <dd>
+                Commit, embed or serve the paired archives. Native and WebAssembly builds read the
+                same files.
+              </dd>
+            </div>
+            <div>
+              <dt>On each start</dt>
+              <dd>
+                Decode the programs and groups you request. Search caches stay local to the process.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="6"></svg>
+
+      <!-- ================= The port ================= -->
+      <section id="port" aria-labelledby="h-port">
+        <div class="axis">
+          <h2 id="h-port">Ported function by function.</h2>
+          <p class="standfirst">
+            Bindings would keep the C code. A new engine would change what grammars match. Ferroni
+            ports the original instead.
+          </p>
+          <aside class="margin-l" style="grid-row: 3">
+            <b>A port</b>The same program, rewritten in another language with the same structure.
+          </aside>
+          <p style="grid-row: 3">
+            <span class="lead-in">Every C source file</span> of Oniguruma has one Rust module, with
+            the same function names and control flow. When a test fails, the corresponding C
+            function is one search away. A fix upstream can be compared line by line. The idiomatic
+            Rust API, the scanner and the guardrails sit beside the port and do not change how a
+            pattern matches.
+          </p>
+          <dl class="port">
+            <div>
+              <dt>regparse.c</dt>
+              <dd class="rs">regparse.rs</dd>
+              <dd>Pattern parser</dd>
+            </div>
+            <div>
+              <dt>regcomp.c</dt>
+              <dd class="rs">regcomp.rs</dd>
+              <dd>Tree to bytecode compiler</dd>
+            </div>
+            <div>
+              <dt>regexec.c</dt>
+              <dd class="rs">regexec.rs</dd>
+              <dd>Matching machine</dd>
+            </div>
+            <div>
+              <dt>regsyntax.c</dt>
+              <dd class="rs">regsyntax.rs</dd>
+              <dd>The twelve syntax modes</dd>
+            </div>
+            <div>
+              <dt>regset.c</dt>
+              <dd class="rs">regset.rs</dd>
+              <dd>Multi-pattern search</dd>
+            </div>
+            <div>
+              <dt>unicode.c</dt>
+              <dd class="rs">unicode/</dd>
+              <dd>Unicode tables, segmentation</dd>
+            </div>
+            <div class="added">
+              <dt>new in Rust</dt>
+              <dd class="rs">scanner.rs</dd>
+              <dd>Scanner for highlighters</dd>
+            </div>
+            <div class="added">
+              <dt>new in Rust</dt>
+              <dd class="rs">api.rs</dd>
+              <dd>Idiomatic Rust API</dd>
+            </div>
+          </dl>
+          <p class="credit">
+            Eight of thirteen modules shown.
+            <a href="https://ferroni.dev/guide/compatibility#how-the-port-maps-to-c"
+              >The complete mapping</a
+            >
+          </p>
+          <aside class="margin-r" style="grid-row: 6">
+            <b>Unicode 18.0</b>Ferroni’s tables come from the current Unicode release; C’s last
+            release ships 16.0.
+          </aside>
+          <p style="grid-row: 6; margin-top: 56px">
+            Then the original’s own tests decide. Every test in Oniguruma’s suite that targets UTF-8
+            is ported case by case, with the same patterns, texts and expected positions, and
+            vscode-oniguruma’s scanner tests join them. Where Ferroni differs on purpose, the
+            difference is written down: newer Unicode tables, and a backtracking stack that stops at
+            a limit instead of running out of memory.
+          </p>
+          <ul class="proofs">
+            <li>test_utf8.c<span class="dots"></span><b>1,554 / 1,554</b></li>
+            <li>test_back.c<span class="dots"></span><b>1,225 / 1,225</b></li>
+            <li>test_syntax.c<span class="dots"></span><b>144 / 144</b></li>
+            <li>test_options.c and test_regset.c<span class="dots"></span><b>51 / 51</b></li>
+            <li>vscode-oniguruma scanner tests<span class="dots"></span><b>15 / 15</b></li>
+          </ul>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="7"></svg>
+
+      <!-- ================= Guardrails ================= -->
+      <section id="guardrails" aria-labelledby="h-guard">
+        <div class="axis">
+          <h2 id="h-guard">Powerful patterns. Practical guardrails.</h2>
+          <p class="standfirst">
+            Backtracking makes expressive patterns possible. Limits keep that work in hand when the
+            text comes from outside.
+          </p>
+          <p>
+            <span class="lead-in">A backtracking engine</span> tries one way to match, and when it
+            fails, it goes back and tries another. That is what makes lookbehind and backreferences
+            possible. With an unlucky pattern and hostile text, the number of ways explodes. Ferroni
+            flags such patterns when they compile, can refuse them outright, and stops any search at
+            a time or retry limit you set. Only Rust’s <code>regex</code> crate guarantees linear
+            time; choose it when you need that guarantee.
+          </p>
+          <aside class="margin-l" style="grid-row: 4">
+            <span class="fig">10</span>unsafe sites, all linking parse-tree nodes
+          </aside>
+          <p style="grid-row: 4">
+            Buffer and string processing use safe Rust. The remaining unsafe code links parse-tree
+            nodes under a documented policy. Four fuzzers exercise compilation, matching and the
+            scanner on every pull request.
+          </p>
+          <div class="wide trio">
+            <div class="card">
+              <h3 class="card-h">A risky pattern, flagged</h3>
+              <p class="api" id="g-lint-api"></p>
+              <pre id="g-lint"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">Refused when users supply it</h3>
+              <p class="api">reject_backtracking_risks(true)</p>
+              <pre id="g-strict-src"></pre>
+              <pre class="err" id="g-strict"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">A hostile text, stopped</h3>
+              <p class="api">SearchOptions::new().timeout(50 ms)</p>
+              <pre id="g-time-src"></pre>
+              <pre class="err" id="g-time"></pre>
+            </div>
+          </div>
+          <p class="credit">
+            Real output of ferroni 2.8.0. In browser WebAssembly there is no clock: use a retry
+            limit there. <a href="https://ferroni.dev/guide/untrusted-input">Untrusted input</a>
+          </p>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="8"></svg>
+
+      <!-- ================= Scope ================= -->
+      <section id="scope" aria-labelledby="h-scope">
+        <div class="axis">
+          <h2 id="h-scope">A clear scope. A deliberate fit.</h2>
+          <p>
+            Choose Ferroni when Oniguruma’s syntax matters to you. Keep your application’s
+            encodings, runtime and safety needs in view: the port covers two of Oniguruma’s 29
+            encodings, and it leaves out the POSIX and GNU interfaces.
+          </p>
+          <dl class="wide modules terms">
+            <div>
+              <dt>Editors and tokenizers</dt>
+              <dd>
+                Multi-pattern scanning with byte or UTF-16 positions. Your runtime reads the
+                grammar.
+              </dd>
+            </div>
+            <div>
+              <dt>Rust applications</dt>
+              <dd>Keep your Oniguruma patterns without a C toolchain or bindgen.</dd>
+            </div>
+            <div>
+              <dt>Native and WebAssembly</dt>
+              <dd>Cargo builds both. There is no npm package.</dd>
+            </div>
+            <div>
+              <dt>ASCII and UTF-8</dt>
+              <dd>
+                Shift_JIS, EUC-JP and the other legacy encodings stay with C. Ruby runs Onigmo.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="9"></svg>
+
+      <section aria-label="Origin">
+        <div class="axis">
+          <p class="colophon">
+            Ferroni continues K. Kosako’s Oniguruma, ported from its C source, and follows the
+            Scanner API and tests of Microsoft’s vscode-oniguruma. It is an independent
+            continuation, not affiliated with or endorsed by Oniguruma’s original author, and keeps
+            its BSD-2-Clause license. It is one of the Ferramenta engines, made by Sebastian
+            Software in Mainz, Germany.
+          </p>
+        </div>
+      </section>
+
+      <section class="closing" aria-labelledby="h-close">
+        <h2 id="h-close">Put your patterns to work.</h2>
+        <p class="standfirst">
+          Start with a working match, or go straight to the scanner for tokenizers and highlighters.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://ferroni.dev/guide/getting-started"
+            >Run your first match <small>cargo add ferroni</small></a
+          >
+          <a class="btn" href="https://ferroni.dev/guide/scanner"
+            >Build a scanner <small>Scanner guide</small></a
+          >
+        </div>
+        <p class="links">
+          <a href="https://crates.io/crates/ferroni">crates.io</a>
+          <a href="https://docs.rs/ferroni">API reference</a>
+          <a href="https://github.com/sebastian-software/ferroni">GitHub repository</a>
+          <a href="https://sebastian-consulting.com">Integration and support</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="in">
+        <img src="../../../../packages/family/ferra/ferroni/mark-128.png" alt="" />
+        <span>Ferroni, part of <a href="https://ferramenta.dev">Ferramenta</a></span>
+        <a href="https://github.com/sebastian-software/ferroni">GitHub</a>
+        <a href="https://crates.io/crates/ferroni">crates.io</a>
+        <a href="https://docs.rs/ferroni">docs.rs</a>
+        <a href="https://sebastian-software.de/imprint">Imprint</a>
+        <a href="https://sebastian-software.de/privacy">Privacy</a>
+        <span class="copy">© 2026 Sebastian Software GmbH</span>
+      </div>
+    </footer>
+
+    <script src="ferroni-real.js"></script>
+    <script src="monografie.js"></script>
+    <script>
+      (function () {
+        const R = window.FERRONI_REAL;
+        const B = window.FERRONI_BENCH;
+        const $ = (id) => document.getElementById(id);
+        const el = (tag, cls, text) => {
+          const e = document.createElement(tag);
+          if (cls) e.className = cls;
+          if (text != null) e.textContent = text;
+          return e;
+        };
+        const enc = new TextEncoder();
+        const bytes = (s) => enc.encode(s).length;
+
+        /* ---- Pattern and captures: split the pattern at its top-level groups ---- */
+        function topLevel(pattern) {
+          const parts = [];
+          let depth = 0;
+          let start = 0;
+          for (let i = 0; i < pattern.length; i++) {
+            const ch = pattern[i];
+            if (ch === "\\") {
+              i++;
+              continue;
+            }
+            if (ch === "(") {
+              if (depth === 0 && i > start) parts.push(pattern.slice(start, i));
+              if (depth === 0) start = i;
+              depth++;
+            } else if (ch === ")") {
+              depth--;
+              if (depth === 0) {
+                parts.push(pattern.slice(start, i + 1));
+                start = i + 1;
+              }
+            }
+          }
+          if (start < pattern.length) parts.push(pattern.slice(start));
+          return parts;
+        }
+        const D = R.date;
+        const lookText = D.input.slice(0, D.captures[0].start);
+        const pat = $("pattern");
+        topLevel(D.pattern).forEach((part) => {
+          const named = /^\(\?<([a-z]+)>/.exec(part);
+          const look = part.startsWith("(?<=");
+          const tok = el("span", "tok" + (named || look ? "" : " lit"));
+          tok.append(el("code", null, part));
+          tok.append(el("small", null, named ? named[1] : look ? "look behind" : ""));
+          if (named || look) {
+            tok.dataset.g = named ? named[1] : "look";
+            tok.tabIndex = 0;
+          }
+          pat.appendChild(tok);
+        });
+        const hay = $("hay");
+        hay.append(el("span", "look", lookText));
+        hay.firstChild.dataset.g = "look";
+        let pos = D.captures[0].start;
+        D.captures.forEach((c) => {
+          if (c.start > pos) hay.append(D.input.slice(pos, c.start));
+          const s = el("span", "cap", c.value);
+          s.dataset.g = c.name;
+          hay.append(s);
+          pos = c.end;
+        });
+        D.captures.forEach((c) => {
+          const li = el("li");
+          li.dataset.g = c.name;
+          li.append(
+            el("span", null, c.name + "  " + c.value),
+            el("span", null, "bytes " + c.start + "–" + c.end),
+          );
+          $("caps").appendChild(li);
+        });
+        $("rep-h").textContent = "replace_all(text, " + JSON.stringify(D.replacement) + ")";
+        $("rep").textContent = D.replaced;
+        const fig = $("capture");
+        const light = (g, on) =>
+          fig.querySelectorAll('[data-g="' + g + '"]').forEach((n) => n.classList.toggle("on", on));
+        pat.querySelectorAll(".tok[data-g]").forEach((tok) => {
+          const g = tok.dataset.g;
+          tok.addEventListener("mouseenter", () => light(g, true));
+          tok.addEventListener("mouseleave", () => light(g, false));
+          tok.addEventListener("focus", () => light(g, true));
+          tok.addEventListener("blur", () => light(g, false));
+        });
+        $("capture-note").textContent =
+          "Real output of ferroni " +
+          R.ferroni +
+          ". Point at a group in the pattern to see what it found. The lookbehind requires the label without including it in the match.";
+
+        /* ---- Feature specimens ---- */
+        const ENGINES = [
+          ["rust", "Ferroni", "Rust"],
+          ["c", "Oniguruma", "C, the original"],
+          ["pcre2", "PCRE2", "C"],
+          ["fancy_regex", "fancy-regex", "Rust"],
+          ["regex", "regex", "Rust"],
+        ];
+        const spec = $("spec");
+        let head =
+          '<tr><th scope="col">Feature</th><th scope="col">Pattern, text and Ferroni’s match</th>';
+        ENGINES.forEach(([id, label, lang]) => {
+          head += `<th scope="col"${id === "rust" ? ' class="own"' : ""}>${label}<small>${lang}</small></th>`;
+        });
+        spec.tHead.innerHTML = head + "</tr>";
+        R.features.forEach((f) => {
+          const tr = el("tr");
+          const th = el("th", null, f.label.replace(" · ", ", "));
+          th.scope = "row";
+          const td = el("td");
+          td.append(el("code", "pat", f.pattern));
+          const inp = el("span", "inp");
+          const m = f.match;
+          inp.append(m.before, el("mark", null, m.matched), m.after);
+          td.append(inp);
+          tr.append(th, td);
+          ENGINES.forEach(([id]) => {
+            const yes = f.support[id];
+            const cell = el("td", (yes ? "yes" : "no") + (id === "rust" ? " own" : ""));
+            cell.dataset.engine = ENGINES.find((e) => e[0] === id)[1];
+            cell.append(el("span", "dot"), yes ? "Yes" : "No");
+            tr.appendChild(cell);
+          });
+          spec.tBodies[0].appendChild(tr);
+        });
+
+        /* ---- Speed: the shared bar chart with Ferroni's aggregates ---- */
+        const LABEL = {
+          c: ["Oniguruma", "C, the original"],
+          pcre2_jit: ["PCRE2 with JIT", "C"],
+          fancy_regex: ["fancy-regex", "Rust"],
+          regex: ["regex", "Rust"],
+        };
+        const LANE = {
+          steady: "reusing a compiled pattern",
+          compile: "compiling",
+          first_use: "a first search",
+        };
+        const PLATFORM = { "linux-x86-64": "Linux x86-64", "macos-arm64": "macOS arm64" };
+        const state = { lane: "steady", platform: "macos-arm64" };
+        const pick = (platform, lane) =>
+          Object.keys(LABEL).map((id) =>
+            B.platforms[platform].find((c) => c.engine === id && c.lane === lane),
+          );
+        const chart = Mono.barChart({
+          list: $("bars"),
+          tip: $("tip"),
+          ticks: $("ticks"),
+          scale: 4,
+          tickValues: [1, 2, 3, 4],
+          rows: () =>
+            [{ label: "Ferroni", sub: "Rust", value: 1, own: true }].concat(
+              pick(state.platform, state.lane).map((c) => ({
+                label: LABEL[c.engine][0],
+                sub: LABEL[c.engine][1] + ", " + c.case_count + " tasks",
+                value: c.family_weighted_ratio,
+                c,
+              })),
+            ),
+          describe: (r) => {
+            if (r.own) return "<b>Ferroni</b> is the baseline: 1× for " + LANE[state.lane] + ".";
+            const c = r.c;
+            const faster = r.value < 1;
+            return (
+              "<b>" +
+              r.label +
+              "</b> needed " +
+              r.value.toFixed(2) +
+              "× as long as Ferroni for " +
+              LANE[state.lane] +
+              " on " +
+              PLATFORM[state.platform] +
+              (faster ? ", so it was faster. " : ". ") +
+              "Over " +
+              c.case_count +
+              " shared tasks, Ferroni was ahead in " +
+              c.ferroni_cases +
+              ", " +
+              r.label +
+              " in " +
+              c.comparator_cases +
+              ", and " +
+              c.inconclusive_cases +
+              " were too close to call."
+            );
+          },
+        });
+        Mono.segmented($("speed"), (key, value) => {
+          state[key] = value;
+          chart.redraw();
+        });
+        (function table() {
+          let html =
+            '<thead><tr><th scope="col">Engine</th><th scope="col">Phase</th><th scope="col" class="num">macOS arm64</th><th scope="col" class="num">Linux x86-64</th><th scope="col" class="num">Tasks</th></tr></thead><tbody>';
+          Object.keys(LABEL).forEach((id) => {
+            ["steady", "compile", "first_use"].forEach((lane) => {
+              const m = B.platforms["macos-arm64"].find((c) => c.engine === id && c.lane === lane);
+              const l = B.platforms["linux-x86-64"].find((c) => c.engine === id && c.lane === lane);
+              html += `<tr><td>${LABEL[id][0]}</td><td>${LANE[lane]}</td><td class="num">${m.family_weighted_ratio.toFixed(2)}×</td><td class="num">${l.family_weighted_ratio.toFixed(2)}×</td><td class="num">${m.case_count}</td></tr>`;
+            });
+          });
+          $("bench-table").innerHTML = html + "</tbody>";
+        })();
+        $("run-date").textContent =
+          "Run of " +
+          B.run.created_at.slice(0, 10) +
+          " on Blacksmith VMs: macOS arm64 with 6 vCPU, Linux x86-64 with 4 vCPU. " +
+          B.caseCount +
+          " tasks from " +
+          B.familyCount +
+          " project families.";
+
+        /* ---- Scanner walkthrough: the real steps, replayed ---- */
+        const S = R.scanner;
+        const pats = $("pats");
+        S.patterns.forEach((p, i) => {
+          const li = el("li");
+          li.append(el("b", null, "pattern " + i), el("code", null, p));
+          pats.appendChild(li);
+        });
+        const lineBox = $("scan-line");
+        const caret = $("caret");
+        // white-space: pre would keep the markup's indentation; drop those text nodes
+        [...lineBox.childNodes].forEach((n) => n.nodeType === 3 && n.remove());
+        let chars = [];
+        let line = "ascii";
+        let step = -1;
+        let timer = null;
+        function drawLine() {
+          lineBox.querySelectorAll("span").forEach((s) => s.remove());
+          chars = [];
+          let b = 0;
+          Array.from(S[line].input).forEach((ch) => {
+            const s = el("span", null, ch);
+            s.dataset.b = b;
+            b += bytes(ch);
+            s.dataset.e = b;
+            lineBox.appendChild(s);
+            chars.push(s);
+          });
+          const tb = $("steps").tBodies[0];
+          tb.textContent = "";
+          S[line].steps.forEach((st, i) => {
+            const tr = el("tr");
+            tr.tabIndex = 0;
+            tr.append(el("td", "num", String(st.from)), el("td", null, "pattern " + st.index));
+            const td = el("td");
+            td.append(el("code", null, st.matched));
+            tr.append(
+              td,
+              el("td", "num", st.start + "–" + st.end),
+              el("td", "num", st.utf16Start + "–" + st.utf16End),
+            );
+            const go = () => {
+              stop();
+              show(i);
+            };
+            tr.addEventListener("click", go);
+            tr.addEventListener("focus", go);
+            tb.appendChild(tr);
+          });
+          const diff = S[line].steps.some((st) => st.start !== st.utf16Start);
+          $("scan-note").textContent = diff
+            ? "ß takes two bytes but one UTF-16 unit, so the positions part after it."
+            : "On ASCII text, byte and UTF-16 positions agree.";
+        }
+        function caretAt(byte) {
+          const target = chars.find((c) => Number(c.dataset.b) === byte);
+          const left = target ? target.offsetLeft : lineBox.scrollWidth;
+          caret.style.left = left - 1 + "px";
+        }
+        function show(i) {
+          step = i;
+          const steps = S[line].steps;
+          chars.forEach((c) => {
+            const b = Number(c.dataset.b);
+            c.className = "";
+            steps.forEach((st, k) => {
+              if (k <= i && b >= st.start && b < st.end) c.className = k === i ? "now" : "past";
+            });
+          });
+          [...pats.children].forEach((li, k) =>
+            li.classList.toggle("win", i >= 0 && steps[i].index === k),
+          );
+          [...$("steps").tBodies[0].rows].forEach((tr, k) => tr.classList.toggle("now", k === i));
+          caretAt(i >= 0 ? steps[i].from : 0);
+        }
+        function stop() {
+          clearTimeout(timer);
+          timer = null;
+        }
+        function run() {
+          stop();
+          if (Mono.reduce) return show(S[line].steps.length - 1);
+          show(-1);
+          let i = 0;
+          const tick = () => {
+            show(i);
+            i++;
+            if (i < S[line].steps.length) timer = setTimeout(tick, 1500);
+          };
+          timer = setTimeout(tick, 700);
+        }
+        drawLine();
+        show(-1);
+        Mono.segmented($("scan"), (key, value) => {
+          line = value;
+          drawLine();
+          run();
+        });
+        $("replay").addEventListener("click", run);
+        const io = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              run();
+              io.disconnect();
+            }
+          },
+          { threshold: 0.5 },
+        );
+        io.observe($("scan"));
+        $("scan-src").textContent = [
+          "use ferroni::prelude::*;",
+          "",
+          "let mut scanner = Scanner::new(&[",
+          ...S.patterns.map(
+            (p) => "    " + (p.includes('"') ? 'r#"' + p + '"#' : 'r"' + p + '"') + ",",
+          ),
+          "])?;",
+          "",
+          "let mut from = 0;",
+          "while let Some(m) = scanner.find_next_match(line, from, ScannerFindOptions::NONE) {",
+          "    let hit = &m.captures()[0];",
+          "    // m.index is the winning pattern, hit.start..hit.end the match",
+          "    from = hit.end;",
+          "}",
+        ].join("\n");
+
+        /* ---- Guardrails: the real warning, refusal and stop ---- */
+        const G = R.guardrails;
+        $("g-lint-api").textContent = 'Regex::new(r"' + G.pattern + '").backtracking_warnings()';
+        $("g-lint").textContent = G.warnings.join("\n");
+        $("g-strict-src").textContent =
+          'Regex::builder(r"' +
+          G.pattern +
+          '")\n    .reject_backtracking_risks(true)\n    .build()';
+        $("g-strict").textContent = "Err: " + G.strictError;
+        $("g-time-src").textContent =
+          'Regex::new(r"' + G.timeoutPattern + '")?\n    .find_with(&"a".repeat(40), options)';
+        $("g-time").textContent =
+          G.timeoutResult.replace(/^Err\((\w+)\): .*/, "Err($1)") +
+          " after " +
+          G.timeoutElapsedMs +
+          " ms";
+      })();
+    </script>
+  </body>
+</html>

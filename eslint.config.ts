@@ -15,6 +15,9 @@ config.unshift({
     // The isolated reference has its own Ardo dependency tree. Lint it explicitly
     // with --no-ignore after preparing it with pnpm docs:ferromark build.
     "examples/ferromark-docs/**",
+    // Design comps are static browser prototypes, not shipped code; their production
+    // form lives in packages/family and the engine sites (ADR-0012).
+    "design/comp/**",
   ],
 });
 

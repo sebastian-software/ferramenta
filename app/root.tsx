@@ -139,7 +139,8 @@ function KitFooter({ sample }: { sample: boolean }) {
 export default function Root() {
   const pathname = useArdoPath();
   const inKit = pathname.startsWith("/kit");
-  const ferraKit = pathname === "/kit/ferra" || pathname.startsWith("/kit/ferra/");
+  const monoKit = pathname === "/kit/monografie" || pathname.startsWith("/kit/monografie/");
+  const ferraKit = pathname === "/kit/ferra" || pathname.startsWith("/kit/ferra/") || monoKit;
   const sample = isSamplePath(pathname);
   const docs = isSampleDocsPath(pathname);
 
@@ -175,7 +176,10 @@ export default function Root() {
 
   return (
     <>
-      <a className="skip-link" href={ferraKit ? "#ferra-main" : "#main-content"}>
+      <a
+        className="skip-link"
+        href={monoKit ? "#mono-main" : ferraKit ? "#ferra-main" : "#main-content"}
+      >
         Skip to content
       </a>
       <MarkDefs />

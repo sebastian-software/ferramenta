@@ -20,6 +20,7 @@ in [DESIGN.md](../../DESIGN.md), [PRODUCT.md](../../PRODUCT.md), and the code.
 | [0009](0009-generated-member-icons.md)                             | Member icons are generated objects, shown as rendered pictures            | accepted                     |
 | [0010](0010-ferra-design-system.md)                                | Ferra assets, tokens and components through an additive shared entry      | accepted                     |
 | [0011](0011-shared-native-npm-tooling.md)                          | Native npm tooling shared through Ferramenta; independent engine releases | accepted                     |
+| [0012](0012-monografie-engine-pages.md)                            | Monografie, the page system for engine homepages                          | accepted                     |
 
 **Who is in the family.** Two tiers: the engines, and the applications the
 workshop also makes — products built on those engines, and selected standalone
