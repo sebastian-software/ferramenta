@@ -5,5 +5,6 @@ export { MonoBarChart, MonoSegmented, MonoTableView, } from "./MonoChart.js";
  * entries, though it reuses the Ferra marks and instruments.
  */
 export { MonoFooter, MonoHeader, MonoPage, } from "./MonoChrome.js";
+export { MonoApplications, MonoEngineCatalog, MonoWorkshop, } from "./MonoFamily.js";
 export { MonoAction, MonoClosing, MonoColophon, MonoEngraving, MonoLeadIn, MonoOpening, MonoPassage, MonoSection, } from "./MonoParts.js";
 export { MonoCaption, MonoCard, MonoCards, MonoCredit, MonoFacing, MonoProofs, MonoSheet, MonoTerms, MonoVerdict, MonoWide, } from "./MonoSpecimens.js";

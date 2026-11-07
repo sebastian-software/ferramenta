@@ -38,7 +38,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | Path                                               | Owns                                                                                                                                                                                                                                                                                                            |
 | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `app/root.tsx`                                     | The shell of every page: Ferra header through Ardo's header slot, footer outside its main landmark, the kit's `noindex`, and the docs shell for the sample documentation                                                                                                                                        |
-| `app/routes/home.tsx`                              | The family page, composed from the package's landing kit: hero plate, engine catalog, applications band, principles, the personal note with the workshop's logos, work with us                                                                                                                                  |
+| `app/routes/home.tsx`                              | The family page on Monografie (ADR-0012): the instrument opening, the approach, every engine on its own plate (`MonoEngineCatalog`), the applications, the colophon and work with us with the workshop's logos                                                                                                  |
 | `app/routes/kit/`, `app/kit/`                      | The design library at `/kit` (public, `noindex`): tokens, materials, icons, chrome and landing kit rendered from the package, plus a sample tool page and sample docs for an invented tool (`app/kit/sample.ts`)                                                                                                |
 | `app/styles/ferra-site.css`, `site.css`, `kit.css` | Ardo shell integration for the Ferra homepage and original kit; specimen frames and the sample tool's icon                                                                                                                                                                                                      |
 | `packages/family/src/`                             | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite) — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `ComparisonTable`, `Relations`, `WorkWithUs`, …) |
@@ -167,14 +167,14 @@ embed-prompt`).
   `ferramenta-family/monografie` and `monografie.css`, scoped to `.mono`,
   `.mono-header` and `.mono-footer`; the kit shows it at `/kit/monografie/`.
   `design/ferra/build-monografie.mjs` exports its surfaces and fonts.
-- **Ferra adoption**: the homepage consumes `ferramenta-family/ferra` and
-  `ferra.css` (ADR-0010). The original kit and sample pages retain the original
+- **Ferra adoption**: the kit's Ferra pages consume `ferramenta-family/ferra` and
+  `ferra.css` (ADR-0010); the homepage moved to Monografie (ADR-0012). The original kit and sample pages retain the original
   entry and styles. Keep both sets of components independently consumable.
 - **Landing routes are bare**: a `.tsx` route exports
-  `handle = { layout: "bare" }` and uses `.ferra-page` on the homepage or `.fam-page` in the original kit.
+  `handle = { layout: "bare" }` and uses `.mono` (through `MonoPage` in `root.tsx`) on the homepage or `.fam-page` in the original kit.
   Documentation routes (`.mdx`) keep Ardo's layout and must not sit inside
   `.fam-page`: it pins the light scheme, and docs follow the system's.
-- **Page grounds are scoped**: `.ferra-page` wraps the homepage shell in `root.tsx`;
+- **Page grounds are scoped**: `.mono.fam-mono-site` wraps the homepage shell in `root.tsx`;
   `.fam-page` wraps each original landing route. Ardo's main background is cleared by the corresponding shell stylesheet.
 - **Ardo layout quirks**: `.ferramenta-site main` gets `overflow: visible` and
   `padding: 0` overrides in site.css — Ardo's docs-style scroll container and

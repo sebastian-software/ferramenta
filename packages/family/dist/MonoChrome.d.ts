@@ -13,8 +13,8 @@ export type MonoHeaderProps = {
     release?: string;
     /** Controls that stay visible at every width, such as search. */
     actions?: ReactNode;
-    /** Where the family link leads; ferramenta.dev by default. */
-    familyHref?: string;
+    /** Where the family link leads; ferramenta.dev by default, `null` on the family site itself. */
+    familyHref?: null | string;
 };
 /** The steel navigation bar. Its links fold into a menu below 961px. */
 export declare function MonoHeader({ product, home, links, navLabel, release, actions, familyHref, }: MonoHeaderProps): import("react").JSX.Element;

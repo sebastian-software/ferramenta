@@ -60,9 +60,13 @@ export declare function MonoLeadIn({ children }: {
 }): import("react").JSX.Element;
 export declare function MonoColophon({ className, ...props }: ComponentPropsWithoutRef<"p">): import("react").JSX.Element;
 export type MonoClosingProps = {
+    /** An anchor for links into the closing. */
+    id?: string;
     title: ReactNode;
     standfirst: ReactNode;
     actions: ReactNode;
     links?: ReactNode;
+    /** Anything after the links, such as the workshop's logos. */
+    children?: ReactNode;
 };
-export declare function MonoClosing({ title, standfirst, actions, links }: MonoClosingProps): import("react").JSX.Element;
+export declare function MonoClosing({ id: anchor, title, standfirst, actions, links, children, }: MonoClosingProps): import("react").JSX.Element;

@@ -176,20 +176,32 @@ export function MonoColophon({ className, ...props }: ComponentPropsWithoutRef<"
 }
 
 export type MonoClosingProps = {
+  /** An anchor for links into the closing. */
+  id?: string;
   title: ReactNode;
   standfirst: ReactNode;
   actions: ReactNode;
   links?: ReactNode;
+  /** Anything after the links, such as the workshop's logos. */
+  children?: ReactNode;
 };
 
-export function MonoClosing({ title, standfirst, actions, links }: MonoClosingProps) {
+export function MonoClosing({
+  id: anchor,
+  title,
+  standfirst,
+  actions,
+  links,
+  children,
+}: MonoClosingProps) {
   const id = useId();
   return (
-    <section className="mono-closing" aria-labelledby={id}>
+    <section className="mono-closing" id={anchor} aria-labelledby={id}>
       <h2 id={id}>{title}</h2>
       <p className="mono-standfirst">{standfirst}</p>
       <div className="mono-actions">{actions}</div>
       {links !== undefined && <p className="mono-closing-links">{links}</p>}
+      {children}
     </section>
   );
 }
