@@ -1,13 +1,14 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { MARK_DEFS } from "./mark-defs.js";
 /**
- * Mounts the shared SVG sprite once per page: the line icons of the chrome
- * (chevron, arrow, GitHub, crate, adapter, external, package) and the marks
- * of a comparison (check, half, cross).
+ * Mounts the shared SVG sprite once per page: the line icons of the pages and
+ * the documentation navigation (chevron, arrow, GitHub, crate, adapter,
+ * external, package, document, pen) and the marks of a comparison (check,
+ * half, cross).
  *
  * Render it once, above the header. `Mark` only references symbols; without
- * `MarkDefs` on the page every one of them is empty. The members' own icons
- * are not in the sprite: see `Icon`.
+ * `MarkDefs` on the page every one of them is empty. The members' own marks
+ * are rendered pictures, not in the sprite (`ferra-assets.css`).
  */
 export function MarkDefs() {
     return (_jsx("svg", { width: "0", height: "0", style: { position: "absolute" }, "aria-hidden": "true", children: _jsx("defs", { dangerouslySetInnerHTML: { __html: MARK_DEFS } }) }));

@@ -46,6 +46,9 @@
   --mono-oxide: #7a3a22;
   --mono-oxide-2: #8e4a2c;
   --mono-oxide-wash: #f3e9e3;
+  /* A highlighted code line: lighter than the wash, so GitHub Light's purple
+     and red tokens stay above 4.5:1 on it. */
+  --mono-code-highlight: #f8f2ee;
   --mono-hair: rgba(38, 35, 31, 0.16);
   --mono-hair-2: rgba(38, 35, 31, 0.09);
   --mono-serif: "Source Serif 4 Subhead", Georgia, serif;
@@ -148,6 +151,22 @@
 }
 .mono-menu {
   display: contents;
+}
+/* The identity pictures; ferra-assets.css places each member's file. */
+:where(.mono, .mono-header, .mono-footer) .ferra-mark {
+  display: inline-block;
+  flex-shrink: 0;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+:where(.mono, .mono-header, .mono-footer) .ferra-instrument {
+  display: block;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .mono-header nav ul {
   display: flex;
@@ -1037,6 +1056,20 @@ details.mono-table-view summary {
 }
 
 /* ---------- Tablet ---------- */
+/* Just above the menu's breakpoint, six links share the row with the release,
+   the family link and a documentation site's controls: closer spacing keeps
+   them on one line. */
+@media (min-width: 961px) and (max-width: 1100px) {
+  .mono-header-in {
+    gap: 22px;
+  }
+  .mono-header nav ul {
+    gap: 18px;
+  }
+  .mono-header-end {
+    gap: 16px;
+  }
+}
 @media (max-width: 960px) {
   .mono-header-in {
     gap: 20px;

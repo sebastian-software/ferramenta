@@ -5,8 +5,9 @@ Guidance for coding agents working in this repository. Humans welcome too.
 ## What this is
 
 The family site for the Ferramenta engines — **ferramenta.dev** — plus the
-shared workspace package that styles every sibling project site, and the kit
-(`/kit`) that shows every piece of it. Rust-native engines by Sebastian
+shared workspace package that styles every sibling project site with
+Monografie, its one page system, and the kit (`/kit`) that shows every piece of
+it. Rust-native engines by Sebastian
 Software; this repo itself is TypeScript/React.
 
 ## Commands
@@ -23,7 +24,7 @@ pnpm test           # node --test, the README contracts, the Markdown link check
 pnpm readme:write   # README.md is generated: edit README.md.src, then this (mise install --locked once, first)
 pnpm verify:package # installs ferramenta-family in a scratch project (npm tarball + tracked files at HEAD)
 pnpm agent:check    # lint + format:check + typecheck + build + test — run this before pushing
-pnpm review         # a real browser over the build (needs CHROME=<chromium>): every page at eight widths, flyouts, keyboard order, motion; captures in .impeccable/review/
+pnpm review         # a real browser over the build (needs CHROME=<chromium>): every page at nine widths, menus, keyboard order, motion; captures in .impeccable/review/
 pnpm stats:refresh  # re-fetch versions and download counts from crates.io/npm
 ```
 
@@ -35,33 +36,31 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 
 ## Map
 
-| Path                                               | Owns                                                                                                                                                                                                                                                                                                            |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/root.tsx`                                     | The shell of every page: Ferra header through Ardo's header slot, footer outside its main landmark, the kit's `noindex`, and the docs shell for the sample documentation                                                                                                                                        |
-| `app/routes/home.tsx`                              | The family page on Monografie (ADR-0012): the instrument opening, the approach, every engine on its own plate (`MonoEngineCatalog`), the applications, the colophon and work with us with the workshop's logos                                                                                                  |
-| `app/routes/kit/`, `app/kit/`                      | The design library at `/kit` (public, `noindex`): tokens, materials, icons, chrome and landing kit rendered from the package, plus a sample tool page and sample docs for an invented tool (`app/kit/sample.ts`)                                                                                                |
-| `app/styles/ferra-site.css`, `site.css`, `kit.css` | Ardo shell integration for the Ferra homepage and original kit; specimen frames and the sample tool's icon                                                                                                                                                                                                      |
-| `packages/family/src/`                             | The shared chrome the site consumes like a sibling: `SiteHeader`, `SiteFooter`, `ToolSwitcher`, `SiteMenu`, `Icon`, `Mark`/`MarkDefs` (the line-icon sprite) — and the landing kit (`ProjectHero`, `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`, `ComparisonTable`, `Relations`, `WorkWithUs`, …) |
-| `packages/family/styles/`                          | `ferra.css` for the current homepage. Original entry: `tokens.css`, `fonts.css`, `theme.css`, `landing.css`, `chrome.css` — the CSS entry points a consumer imports, in that order with the site's own stylesheet before `chrome.css` — and the optional `docs.css` for an Ardo docs layout                     |
-| `packages/family/icons/`, `textures/`              | The member icons (one rendered picture at 640, 256 and 96px) and the three textures (steel, oak, rust). Built from `design/icons/` and `design/textures/`; never edited by hand                                                                                                                                 |
-| `design/icons/`, `design/textures/`                | Masters, prompts and build scripts for the icons and textures (ADR-0009). A new member's icon starts here                                                                                                                                                                                                       |
-| `scripts/verify-package-consumers.mjs`             | Packs the package, installs it in a scratch project, imports both entries — the Git/npm consumer contract                                                                                                                                                                                                       |
-| `scripts/refresh-registry-stats.mjs`               | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                                                                                                       |
-| `scripts/render-pipeline-sample.mjs`               | Runs Ferromark + Ferriki on the sample and writes `app/data/pipeline-sample.json` (needs `FERROMARK=` and `FERRIKI=` package paths); never hand-edit the output. The kit shows it as the `RunSample` specimen                                                                                                   |
-| `design/social/card.html`                          | The social card as a page; `public/social.png` is a browser screenshot of it (the command is in the file's head). Update its strip when the line-up changes                                                                                                                                                     |
-| `scripts/review-site.mjs`                          | `pnpm review`: drives a headless Chromium over the build, checks layout at eight widths, the flyouts, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI; run it before a design change is called done)                                                                     |
-| `packages/family/`                                 | `ferramenta-family` — the published package: registry, chrome, landing kit, icons, tokens, textures, font. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links                                                                          |
-| `design/comp/2026-10/`                             | The approved comps of the redesign (`typenschild-*.html`, ADR-0008). The earlier directions and comps are in Git history before the tag `design-residue-2026-09-30`                                                                                                                                             |
-| `design/comp/2026-11/monografie/`                  | The approved Monografie comps for engine homepages (Ferromark, Ferroni; ADR-0012), static HTML on the shared comp CSS. The package entry `ferramenta-family/monografie` is built from them                                                                                                                      |
-| `docs/adr/`                                        | Decision records — **read before changing direction**, they are constraints                                                                                                                                                                                                                                     |
-| `PRODUCT.md` / `DESIGN.md`                         | Product truth / design system (tokens, materials, component rules)                                                                                                                                                                                                                                              |
-| `THIRD-PARTY-NOTICES.md`                           | Licensing: the font and the foreign logos                                                                                                                                                                                                                                                                       |
+| Path                                   | Owns                                                                                                                                                                                                                                   |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/root.tsx`                         | The shell of every page on Monografie: `MonoHeader` through Ardo's header slot, `MonoFooter` outside its main landmark, the kit's header and `noindex`, and the hand-off to the kit's documentation shell                              |
+| `app/routes/home.tsx`                  | The family page on Monografie (ADR-0012): the instrument opening, the approach, every engine on its own plate (`MonoEngineCatalog`), the applications, the colophon and work with us with the workshop's logos                         |
+| `app/routes/kit/`, `app/kit/`          | The kit at `/kit` (public, `noindex`): every Monografie homepage part (`index.tsx`) and a documentation sample at `/kit/docs/` in an engine site's shell (`docs.mdx`, `MonoDocsShell.tsx`), about an invented tool                     |
+| `packages/family/`                     | `ferramenta-family` — the published package: registry, Monografie, the identity assets, the README frames. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links |
+| `packages/family/src/`                 | `family.ts` and the live registry facts (`LiveRegistry.ts`, `RegistryFacts.tsx`), the line-icon sprite (`Mark`/`MarkDefs`), the comparison types, and the Monografie components (`Mono*.tsx`), exported from `monografie.ts`           |
+| `packages/family/styles/`              | `monografie.css` (the page system; imports `ferra-assets.css`), `monografie-docs.css` (the reading layout), `monografie-ardo.css` (Ardo in Monografie's look); `ferra-assets.css` is generated                                         |
+| `packages/family/ferra/`, `icons/`     | The members' marks, favicons and instruments, the workshop logos, the steel and rust bands and Source Serif 4 Subhead (built from `design/ferra/`, never edited by hand); `icons/` holds only the applications' own logos              |
+| `packages/family/markdown/`            | The mdtheme frames for every member's README, generated by `pnpm theme:write`                                                                                                                                                          |
+| `design/ferra/`                        | Masters, Blender scenes, prompts and the exporters (`build-assets.mjs`, `build-monografie.mjs`) for the identity assets (ADR-0010). A new member's mark and instrument start here                                                      |
+| `design/comp/2026-11/monografie/`      | The approved Monografie comps (Ferromark, Ferroni; ADR-0012), static HTML on the shared comp CSS. Earlier comps are in Git history                                                                                                     |
+| `design/social/card.html`              | The social card as a page on `monografie.css`; `public/social.png` is a browser screenshot of it (`pnpm social:write`). Update its strip when the line-up changes                                                                      |
+| `scripts/verify-package-consumers.mjs` | Packs the package, installs it in a scratch project, imports its entries and renders Monografie — the Git/npm consumer contract                                                                                                        |
+| `scripts/refresh-registry-stats.mjs`   | Build-time fetch of versions + downloads → `app/data/registry-stats.json`                                                                                                                                                              |
+| `scripts/review-site.mjs`              | `pnpm review`: drives a headless Chromium over the build, checks layout at nine widths, the menus, scrolling regions, region names, the keyboard order and motion, and writes captures to `.impeccable/review/` (not in CI)            |
+| `docs/adr/`                            | Decision records — **read before changing direction**, they are constraints                                                                                                                                                            |
+| `PRODUCT.md` / `DESIGN.md`             | Product truth / design system (Monografie's tokens, type, layout, component rules)                                                                                                                                                     |
+| `THIRD-PARTY-NOTICES.md`               | Licensing: the font and the foreign logos                                                                                                                                                                                              |
 
 ## Rules
 
 - The site consumes `ferramenta-family` the way a sibling site does: through
   the package name, never a relative path into `packages/family`. What the
-  chrome renders changes in the package, not in `app/`.
+  pages render changes in the package, not in `app/`.
 - `packages/family/dist` is **committed** (ADR-0007): siblings install the
   package straight from Git, and pnpm 12 will not build a git dependency without
   a per-SHA allowlist entry. Rebuild it (`pnpm build:package`) and commit it in
@@ -83,58 +82,50 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   committed `app/data/registry-stats.json` is only the fallback snapshot for
   local and CI builds, and the `version` in `family.ts` the last resort.
   Evidence strings must never repeat a version number.
-- Say what it is first (ADR-0008, ADR-0004): every surface names a thing in
+- Say what it is first (ADR-0004, ADR-0012): every surface names a thing in
   plain words (`what`), then what it does and for whom (`does`, `audience`),
   and only then where it comes from. Assume the reader does not know the
   field's history. Lineage keeps ADR-0004's register: successors honor the
   original → state the succession → give the why; new developments honor the
   standard they build on → state what they do differently → give the why. The
   registry marks each member with `succeeds`, `buildsOn` or `runsOn`.
-- Two tiers (ADR-0001, amended 2026-09-30): the engines wear the family look;
-  the applications (Palamedes, Dalo) are shown in one band, each on a light
-  card under its own logo (`brand` in the registry), and keep their own sites.
+- Two tiers (ADR-0001, amended 2026-09-30): the engines stand on their
+  instruments; the applications (Palamedes, Dalo, Ardo) are shown each on a
+  light card under its own logo (`brand` in the registry), and keep their own
+  sites.
 - A foreign logo (an application's, Sebastian Software's, Sebastian
-  Consulting's) stands on a light ground in its own colors: never on steel,
-  oak or rust, never recolored. The switcher's applications tier is light for
-  that reason.
-- Quotes from outside voices (`Voices`) are verbatim, short, attributed and
-  linked to their source, and they speak about the material, never about the
-  family. No invented social proof.
+  Consulting's) stands on a light ground in its own colors: never on steel or
+  rust, never recolored.
+- Quotes from outside voices are verbatim, short, attributed and linked to
+  their source, and they speak about the material, never about the family. No
+  invented social proof.
 - Claim results on the family site qualitatively, never with a figure: "among
   the fastest", "ahead of globset", "a larger test suite" are fine; factors,
   timings, percentages and test counts are not — they pretend to a precision
   that goes stale here and belong in each project's repository (a test
   enforces it on `evidence` and `proof`). No API-method names or spec dumps on the
   overview page. Only verifiable claims; no invented social proof.
-- Original-entry design changes respect DESIGN.md and ADR-0008 (Ferra follows ADR-0010 and `packages/family/FERRA.md`): three materials with one job
-  each (brushed steel for plates, dark oak under them in the first viewport
-  and the dark bands, rust for the closing band); everything else flat, the
-  dark iron chrome included; small type never on steel or rust (it goes on an
-  inlay); sharp corners except rivets and chain links; one authored scheme on
-  landing pages, no theme toggle there. A new material or a second prop needs
-  a decision record.
-- Colors come from two ramps in `tokens.css`, `--iron-50…950` (warm greys) and
-  `--rust-100…900`. Components take roles (`--bg`, `--ink`, `--rust`,
-  `--steel`, …), never a step, and a new color is a step or a role there, not
-  a literal in a stylesheet.
-- Icons (ADR-0009): a member's icon is one rendered picture at three sizes,
-  built from `design/icons/`. There is no flat or vector form. Never show one
-  below 24px, never edit a shipped icon file by
-  hand, and give every new raster its provenance sidecar (`impeccable
-embed-prompt`).
+- Design changes respect DESIGN.md and ADR-0012: one reading column on open
+  paper, notes in the margins, the navigation in the instruments' own steel,
+  rust only on the primary action and the engine's own bar, nothing else
+  textured, one authored light scheme and no theme toggle. A new texture,
+  material or accent color needs a decision record.
+- Colors are `--mono-` tokens in `monografie.css`; components take a token,
+  and a new color is a token there, not a literal in a stylesheet.
+- Identity assets (ADR-0010): a member's mark and instrument are rendered
+  pictures built from `design/ferra/`. Never edit a shipped file by hand, and
+  give every new raster its provenance sidecar.
 - A design change is checked at every width, not at one: `pnpm build` then
-  `CHROME=… pnpm review`. It fails on sideways scroll, a bar that does not fit,
-  text leaving its plate, a flyout that leaves the viewport or does not close,
-  a broken keyboard order, and motion that ignores the visitor's preference.
+  `CHROME=… pnpm review`. It fails on sideways scroll, a header bar that does
+  not fit, a menu that leaves the viewport or does not close, code or a table
+  that scrolls but cannot be reached by keyboard, two regions with one name, a
+  broken keyboard order, and motion that ignores the visitor's preference.
 - A component change shows up in the kit: add or update its specimen in
-  `app/kit/` in the same change. The kit's sample pages are about an invented
-  tool on purpose; never put a real member's figures there.
+  `app/routes/kit/` or `app/kit/` in the same change. The kit's pages are about
+  an invented tool on purpose; never put a real member's figures there.
 - A pattern two members' sites need goes into the package, not into each
-  site's stylesheet ("Patterns the sites share" in the package README). Shared
-  components that may stand in documentation (`ComparisonTable`,
-  `ComparisonBars`, `Measured`) use role tokens only, so they follow the docs
-  scheme, and two-class selectors, so a host's bare `table` and `ul` rules do
-  not outrank them.
+  site's stylesheet. Monografie's rules stay inside `.mono`, `.mono-header`,
+  `.mono-footer` and `.mono-ardo` (a test checks the scope).
 - Code style is whatever `oxfmt` produces — run `pnpm format`, never hand-tune
   formatting. Conventional commits; releases via release-please.
 - This repository is onboarded to
@@ -149,8 +140,7 @@ embed-prompt`).
   intentional exceptions; see [design/comp/README.md](design/comp/README.md).
 - Site content is English. Tool names are lowercase in code and identifiers
   (`name`, `runsOn`, URLs, packages) and capitalized in prose — page copy and
-  the registry's prose fields (`proof`, `PIPELINE.description`) alike; uppercase
-  display is applied by CSS.
+  the registry's prose fields (`proof`, `PIPELINE.description`) alike.
 - Members are independent: nobody needs another member beside the one they
   came for. Copy never implies an entry point or a required chain, and no
   surface draws the members as a pipeline. Where two fit together, the registry
@@ -159,39 +149,30 @@ embed-prompt`).
 
 ## Gotchas (hard-won)
 
-- **Ardo 6 shell**: `ardo.config.ts` owns build metadata; JSX owns chrome,
-  icons and theming. `ArdoRoot` supplies the main landmark. Pass custom headers
-  through `header`, disable its default footer, and render the family footer
-  outside its main. Set `sidebar={false}` where no sidebar is wanted.
-- **Monografie** (ADR-0012): engine homepages consume
-  `ferramenta-family/monografie` and `monografie.css`, scoped to `.mono`,
-  `.mono-header` and `.mono-footer`; the kit shows it at `/kit/monografie/`.
-  `design/ferra/build-monografie.mjs` exports its surfaces and fonts.
-- **Ferra adoption**: the kit's Ferra pages consume `ferramenta-family/ferra` and
-  `ferra.css` (ADR-0010); the homepage moved to Monografie (ADR-0012). The original kit and sample pages retain the original
-  entry and styles. Keep both sets of components independently consumable.
-- **Landing routes are bare**: a `.tsx` route exports
-  `handle = { layout: "bare" }` and uses `.mono` (through `MonoPage` in `root.tsx`) on the homepage or `.fam-page` in the original kit.
-  Documentation routes (`.mdx`) keep Ardo's layout and must not sit inside
-  `.fam-page`: it pins the light scheme, and docs follow the system's.
-- **Page grounds are scoped**: `.mono.fam-mono-site` wraps the homepage shell in `root.tsx`;
-  `.fam-page` wraps each original landing route. Ardo's main background is cleared by the corresponding shell stylesheet.
-- **Ardo layout quirks**: `.ferramenta-site main` gets `overflow: visible` and
-  `padding: 0` overrides in site.css — Ardo's docs-style scroll container and
-  fixed-header spacing otherwise break the sticky header and full-bleed bands.
-  The docs sample uses Ardo's own layout class instead, inside
-  `.fam-docs-shell` (`docs.css`), which hands the scrolling back to the page.
-- **The scoped reset** (`:where(.ferramenta-site) *`) has zero specificity on
-  purpose: it may never take a tie from the landing kit, the chrome or site.css.
-  Do not "fix" it back to `.ferramenta-site *`, which outranked every
-  single-class margin loaded before it.
-- **Load order** (root.tsx): tokens, fonts, theme, docs, `landing.css`,
-  site.css, kit.css, `chrome.css`. site.css adjusts the kit on equal
-  specificity; the chrome wins its ties. A pattern a sibling could use goes into
-  `landing.css`, not site.css.
-- **Icons are CSS background images** (`.fam-icon[data-icon="…"]` in
-  chrome.css), so the consumer's bundler resolves the files. A member without
-  its three rules shows a blank tile; a test checks every registry member.
+- **Ardo 6 shell**: `ardo.config.ts` owns build metadata; JSX owns the header,
+  icons and theming. `ArdoRoot` supplies the main landmark. Pass the
+  `MonoHeader` through `header`, disable its default footer, and render
+  `MonoFooter` outside its main. Set `sidebar={false}` where no sidebar is
+  wanted.
+- **One root layout**: `ArdoRootLayout` carries `className="mono-ardo"` and
+  `colorScheme="light"` for every page, as on an engine site, so Ardo's tokens
+  read Monografie's and no page follows the system's dark scheme.
+- **Monografie's Ardo shell** comes from the package's `monografie-ardo.css`:
+  `ArdoRoot className="mono-ardo-shell" scrollMode="document"` inside a
+  `MonoPage` gets a sticky header, a document that scrolls as a whole, and a
+  skip link in Monografie's colors. The site has no stylesheet of its own.
+- **Routes are bare**: a `.tsx` route exports `handle = { layout: "bare" }` and
+  renders only its content; the root wraps it. The documentation sample
+  (`/kit/docs/`, an `.mdx` route) gets an engine site's shell from
+  `app/kit/MonoDocsShell.tsx`, chosen by path in `root.tsx`.
+- **Identity pictures are CSS background images** (`.ferra-mark`,
+  `.ferra-instrument`, `.ferra-workshop-logo` in the generated
+  `ferra-assets.css`, keyed by `data-product` or `data-brand`), so the
+  consumer's bundler resolves the files. A member without its rules shows a
+  blank plate; a test checks every engine.
+- **Derived table names run in the browser**: an unnamed `MonoReadingTable` is
+  prerendered as "Table" and takes its caption or heading on hydration. Check
+  region names on the built page (`pnpm review`), not in the HTML alone.
 - **No React Router**: Ardo 6 owns static rendering and React/Vite. Use
   `ardo/react`, `ardo/runtime` links and `useArdoPath`, and `ArdoMetaFunction`.
   There is no `app/routes.ts`, router config or separate Vite config.

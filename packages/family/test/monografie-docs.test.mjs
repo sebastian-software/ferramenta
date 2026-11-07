@@ -12,34 +12,34 @@ const css = await read("monografie.css");
 const docsCss = await read("monografie-docs.css");
 const ardoCss = await read("monografie-ardo.css");
 
-/** The Ferra components the engines' documentation pages use; each has a Mono counterpart. */
-const FERRA_DOCS = [
-  "FerraPage",
-  "FerraReadingLayout",
-  "FerraGuideNavigation",
-  "FerraSectionRail",
-  "FerraReadingTable",
-  "FerraTableViewport",
-  "FerraTable",
-  "FerraTabs",
-  "FerraSelect",
-  "FerraChoices",
-  "FerraArticle",
-  "FerraFeatureGrid",
-  "FerraColumns",
-  "FerraBenchmarkTable",
-  "FerraComparisonTable",
-  "FerraMeasured",
-  "FerraBars",
-  "FerraCode",
-  "FerraRenderedCode",
-  "FerraCodePair",
-  "FerraExample",
-  "FerraToggle",
-  "FerraSteps",
-  "FerraDiagram",
-  "FerraAction",
-  "FerraMedia",
+/** The components the engines' documentation pages use. */
+const DOCS_PARTS = [
+  "MonoPage",
+  "MonoReadingLayout",
+  "MonoGuideNavigation",
+  "MonoSectionRail",
+  "MonoReadingTable",
+  "MonoTableViewport",
+  "MonoTable",
+  "MonoTabs",
+  "MonoSelect",
+  "MonoChoices",
+  "MonoArticle",
+  "MonoFeatureGrid",
+  "MonoColumns",
+  "MonoBenchmarkTable",
+  "MonoComparisonTable",
+  "MonoMeasured",
+  "MonoBars",
+  "MonoCode",
+  "MonoRenderedCode",
+  "MonoCodePair",
+  "MonoExample",
+  "MonoToggle",
+  "MonoSteps",
+  "MonoDiagram",
+  "MonoAction",
+  "MonoMedia",
 ];
 
 /** Every mono- class in the markup has a rule in one of the Monografie stylesheets. */
@@ -72,11 +72,8 @@ test("the documentation stylesheets stay inside mono- classes and the Ardo root"
   assert.ok(ardoCss.includes("--ardo-color-brand: var(--mono-oxide)"));
 });
 
-test("every Ferra component the documentation uses has a Monografie counterpart", () => {
-  for (const name of FERRA_DOCS) {
-    const counterpart = name.replace(/^Ferra/u, "Mono");
-    assert.equal(typeof mono[counterpart], "function", `no ${counterpart} for ${name}`);
-  }
+test("the entry exports every part a documentation page uses", () => {
+  for (const name of DOCS_PARTS) assert.equal(typeof mono[name], "function", `no ${name}`);
 });
 
 test("the reading layout keeps the host's navigation, the prose and the outline in order", () => {
@@ -116,7 +113,7 @@ test("the reading layout keeps the host's navigation, the prose and the outline 
 test("tables keep native geometry in a named, keyboard-scrollable region", () => {
   const reading = render(mono.MonoReadingTable, { children: createElement("tbody") });
   assert.ok(reading.includes('class="mono-table-frame mono-reading-table"'));
-  assert.ok(reading.includes('aria-label="Data table" class="mono-table-region" role="region"'));
+  assert.ok(reading.includes('class="mono-table-region" role="region"'));
   assert.ok(reading.includes('tabindex="0"'));
   assert.ok(reading.includes('class="mono-table-hint" hidden=""'));
 
@@ -131,6 +128,16 @@ test("tables keep native geometry in a named, keyboard-scrollable region", () =>
   assertStyled(`${reading}${table}`);
   for (const name of ["name", "detail", "source", "conformance", "reference"])
     assert.ok(docsCss.includes(`.mono-benchmark-${name}`), `no rule for mono-benchmark-${name}`);
+});
+
+test("an unnamed reading table takes its name in the browser; a named one keeps its own", () => {
+  const reading = render(mono.MonoReadingTable, { children: createElement("tbody") });
+  // Named after its caption or heading on hydration; "Table" until then.
+  assert.ok(reading.includes('aria-label="Table"'));
+  assert.ok(reading.includes('data-derived-label=""'));
+  const named = render(mono.MonoReadingTable, { "aria-label": "Units", children: null });
+  assert.ok(named.includes('aria-label="Units"'));
+  assert.ok(!named.includes("data-derived-label"), "a named table keeps its own name");
 });
 
 test("the comparison table sets the own column apart and says every mark in words", () => {
@@ -209,7 +216,7 @@ test("rendered code keeps its renderer's background and can be scrolled by keybo
   assertStyled(`${html}${pair}${code}${diagram}`);
 });
 
-test("examples, toggles and selects keep their Ferra contracts", () => {
+test("examples, toggles and selects keep their markup contracts", () => {
   const example = render(mono.MonoExample, {
     title: "Convert",
     introduction: "Intro.",
@@ -245,7 +252,7 @@ test("examples, toggles and selects keep their Ferra contracts", () => {
   assertStyled(`${example}${select}${steps}${measured}`);
 });
 
-test("stories, related links and actions keep their Ferra contracts", () => {
+test("stories, related links and actions keep their markup contracts", () => {
   const article = render(mono.MonoArticle, {
     id: "story",
     title: "A story",
@@ -268,4 +275,39 @@ test("stories, related links and actions keep their Ferra contracts", () => {
   const secondary = render(mono.MonoAction, { href: "/b", variant: "secondary", children: "B" });
   assert.ok(primary.includes('data-primary=""'));
   assert.ok(!secondary.includes("data-primary"));
+});
+
+/** WCAG relative luminance of a six-digit hex color. */
+function luminance(hex) {
+  const [r, g, b] = [1, 3, 5].map((at) => {
+    const channel = Number.parseInt(hex.slice(at, at + 2), 16) / 255;
+    return channel <= 10 / 255 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/** WCAG contrast of a darker ink on a lighter ground. */
+const contrast = (ink, ground) => (luminance(ground) + 0.05) / (luminance(ink) + 0.05);
+
+test("highlighted code lines keep every GitHub Light token above 4.5:1", () => {
+  const highlight = /--mono-code-highlight: (#[0-9a-f]{6});/u.exec(css)?.[1];
+  assert.ok(highlight, "monografie.css defines the highlight");
+  assert.match(ardoCss, /\.line\.highlighted \{\n {2}background: var\(--mono-code-highlight\);/u);
+  // GitHub Light's purple and red are the lightest of its token colors.
+  for (const ink of ["#8250df", "#cf222e"])
+    assert.ok(contrast(ink, highlight) >= 4.5, `${ink} on ${highlight}`);
+});
+
+test("headings break a word only when it is wider than the column", () => {
+  const rule = docsCss.slice(docsCss.indexOf(".mono-prose :is(h1, h2, h3, h4) {"));
+  assert.match(rule.slice(0, rule.indexOf("}")), /overflow-wrap: break-word;/u);
+});
+
+test("a documentation header keeps its row beside the navigation column", () => {
+  assert.match(
+    ardoCss,
+    /@media \(min-width: 961px\) \{[^}]*\.mono-docs:has\(\.mono-reading-navigation > \*\)\s+\.mono-header\s+\.mono-header-actions\s+> button\[aria-expanded\]:not\(\[aria-keyshortcuts\]\) \{\s+display: none;/u,
+    "Ardo's menu button steps aside where the navigation column shows",
+  );
+  assert.match(css, /@media \(min-width: 961px\) and \(max-width: 1100px\) \{/u);
 });

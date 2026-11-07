@@ -98,6 +98,16 @@ html:has(.mono .mono-ardo-shell) {
   color: var(--mono-ink);
   text-shadow: none;
 }
+@media (min-width: 961px) {
+  /* Once the documentation navigation stands beside the text, Ardo's menu
+     button repeats it: it steps aside, and the header keeps its row. */
+  .mono-docs:has(.mono-reading-navigation > *)
+    .mono-header
+    .mono-header-actions
+    > button[aria-expanded]:not([aria-keyshortcuts]) {
+    display: none;
+  }
+}
 @media (max-width: 960px) {
   /* With documentation navigation on the page, Ardo's menu carries it and the
      brand leads home: the Monografie menu button steps aside, and the menu and
@@ -143,7 +153,7 @@ html:has(.mono .mono-ardo-shell) {
   padding-inline: 16px;
 }
 .mono :is(.ardo-code-block, .ardo-shiki) .line.highlighted {
-  background: var(--mono-oxide-wash);
+  background: var(--mono-code-highlight);
 }
 /* GitHub Light's comment gray (#6E7781) reaches only 4.39:1 on the sheet;
    one step darker keeps comments quiet and above 4.5:1. */

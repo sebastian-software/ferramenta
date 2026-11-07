@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
-import type { ComparisonTableProps } from "./Comparison.js";
+import type { ComparisonTableProps } from "./comparison-types.js";
 export type MonoReadingLayoutProps = {
     /** The host's navigation: a `MonoSectionRail` and a `MonoGuideNavigation`. */
     navigation?: ReactNode;
@@ -10,6 +10,7 @@ export type MonoReadingLayoutProps = {
  * One reading column between host-owned navigation and the page outline. Both
  * panels stay in view under the sticky header; the outline steps aside below
  * 1181px and the navigation below 961px, where the host's menu carries it.
+ * Code in the column that scrolls sideways is reachable by keyboard.
  */
 export declare function MonoReadingLayout({ navigation, outline, children, className, ...props }: MonoReadingLayoutProps): import("react").JSX.Element;
 /**
@@ -30,7 +31,12 @@ export type MonoSectionRailProps = ComponentPropsWithoutRef<"nav">;
 export declare function MonoSectionRail({ className, ...props }: MonoSectionRailProps): import("react").JSX.Element;
 /** Keeps native table geometry and scrolls a wide table inside its own box, never the page. */
 export declare function MonoTableViewport({ children, className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
-/** The MDX `table` slot: prose may wrap, but comparison columns keep readable words. */
+/**
+ * The MDX `table` slot: prose may wrap, but comparison columns keep readable
+ * words. A table without an `aria-label` is named after its caption or the
+ * heading it stands under, numbered where two share one, so several tables on
+ * a page stay distinct landmarks.
+ */
 export declare function MonoReadingTable(props: ComponentPropsWithoutRef<"table">): import("react").JSX.Element;
 export type MonoTableProps = {
     caption: ReactNode;

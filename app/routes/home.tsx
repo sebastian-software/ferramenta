@@ -1,6 +1,5 @@
 import type { ArdoMetaDescriptor, ArdoMetaFunction } from "ardo/runtime";
 
-import { RegistryFacts } from "ferramenta-family";
 import {
   MonoAction,
   MonoApplications,
@@ -14,6 +13,7 @@ import {
   MonoSection,
   MonoWide,
   MonoWorkshop,
+  RegistryFacts,
 } from "ferramenta-family/monografie";
 import { familyTiers, WORKSHOP } from "ferramenta-family/registry";
 

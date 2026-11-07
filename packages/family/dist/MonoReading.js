@@ -1,20 +1,22 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId, useRef } from "react";
-import { ComparisonWords, useHorizontalOverflow } from "./ReadingSupport.js";
+import { ComparisonWords, useDerivedRegionLabel, useHorizontalOverflow, useScrollableCode, } from "./ReadingSupport.js";
 /*
  * Monografie's documentation pages (ADR-0012): the reading layout between the
  * host's navigation and the page outline, and the tables that stand in it.
- * Each component takes the props of its Ferra counterpart, so a site moves by
- * renaming imports. Styled by `monografie-docs.css`.
+ * Styled by `monografie-docs.css`.
  */
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 /**
  * One reading column between host-owned navigation and the page outline. Both
  * panels stay in view under the sticky header; the outline steps aside below
  * 1181px and the navigation below 961px, where the host's menu carries it.
+ * Code in the column that scrolls sideways is reachable by keyboard.
  */
 export function MonoReadingLayout({ navigation, outline, children, className, ...props }) {
-    return (_jsxs("article", { ...props, className: classes("mono-reading", className), children: [_jsx("div", { className: "mono-reading-navigation", children: navigation }), _jsx("div", { className: "mono-reading-surface", children: _jsx("div", { className: "mono-prose", children: children }) }), _jsx("div", { className: "mono-reading-outline", children: outline })] }));
+    const proseRef = useRef(null);
+    useScrollableCode(proseRef, children);
+    return (_jsxs("article", { ...props, className: classes("mono-reading", className), children: [_jsx("div", { className: "mono-reading-navigation", children: navigation }), _jsx("div", { className: "mono-reading-surface", children: _jsx("div", { className: "mono-prose", ref: proseRef, children: children }) }), _jsx("div", { className: "mono-reading-outline", children: outline })] }));
 }
 /**
  * The pages of the current section. The host supplies the links, marks the
@@ -39,11 +41,20 @@ export function MonoSectionRail({ className, ...props }) {
 export function MonoTableViewport({ children, className, ...props }) {
     const regionRef = useRef(null);
     const overflows = useHorizontalOverflow(regionRef);
-    return (_jsxs("div", { className: classes("mono-table-frame", className), children: [_jsx("p", { className: "mono-table-hint", hidden: !overflows, children: "Scroll sideways for more columns." }), _jsx("div", { ...props, className: "mono-table-region", role: "region", tabIndex: 0, ref: regionRef, children: children })] }));
+    // A region without a name of its own takes one from its caption or heading.
+    const unnamed = props["aria-label"] === undefined && props["aria-labelledby"] === undefined;
+    const derived = useDerivedRegionLabel(regionRef, unnamed);
+    // A derived name replaces "Table" in the browser; React leaves it, as this never changes.
+    return (_jsxs("div", { className: classes("mono-table-frame", className), children: [_jsx("p", { className: "mono-table-hint", hidden: !overflows, children: "Scroll sideways for more columns." }), _jsx("div", { ...props, ...derived, "aria-label": unnamed ? "Table" : props["aria-label"], className: "mono-table-region", role: "region", tabIndex: 0, ref: regionRef, children: children })] }));
 }
-/** The MDX `table` slot: prose may wrap, but comparison columns keep readable words. */
+/**
+ * The MDX `table` slot: prose may wrap, but comparison columns keep readable
+ * words. A table without an `aria-label` is named after its caption or the
+ * heading it stands under, numbered where two share one, so several tables on
+ * a page stay distinct landmarks.
+ */
 export function MonoReadingTable(props) {
-    return (_jsx(MonoTableViewport, { className: "mono-reading-table", "aria-label": props["aria-label"] ?? "Data table", children: _jsx("table", { ...props }) }));
+    return (_jsx(MonoTableViewport, { className: "mono-reading-table", "aria-label": props["aria-label"], children: _jsx("table", { ...props }) }));
 }
 /** A captioned hairline table; native children keep the consumer's header relationships. */
 export function MonoTable({ caption, children, className, ...props }) {

@@ -221,7 +221,9 @@ html:has(.mono .mono-reading) {
 .mono-prose :is(h1, h2, h3, h4) {
   color: var(--mono-ink);
   text-wrap: balance;
-  overflow-wrap: normal;
+  /* Words stay whole; only a word wider than the column, such as a long code
+     identifier on a phone, breaks. */
+  overflow-wrap: break-word;
 }
 .mono-prose h1,
 .mono-prose > header > h2 {

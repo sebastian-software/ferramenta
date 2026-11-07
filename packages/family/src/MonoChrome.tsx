@@ -8,13 +8,17 @@ import {
   useState,
 } from "react";
 
-import type { FerraProduct } from "./FerraIdentity.js";
+import type { Identity } from "./identity.js";
 
 import { displayName, WORKSHOP } from "./family.js";
-import { FerraMark } from "./FerraComponents.js";
 
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
+
+/** A member's compact mark, decorative beside its name; `ferra-assets.css` places the picture. */
+function IdentityMark({ product }: { product: Identity }) {
+  return <span className="ferra-mark" data-product={product} aria-hidden="true" />;
+}
 
 /** The page ground: one authored light scheme, scoped to its wrapper. */
 export function MonoPage({ className, ...props }: ComponentPropsWithoutRef<"div">) {
@@ -22,7 +26,7 @@ export function MonoPage({ className, ...props }: ComponentPropsWithoutRef<"div"
 }
 
 export type MonoHeaderProps = {
-  product: FerraProduct;
+  product: Identity;
   /** Where the product name leads, usually the homepage. */
   home: string;
   /** The page's main links, each a keyed element; they fold into a menu on narrow screens. */
@@ -94,7 +98,7 @@ function MonoMenu({ id, links, navLabel, release, familyHref }: MenuProps) {
         )}
         {familyHref !== null && familyHref !== undefined && (
           <a className="mono-family" href={familyHref}>
-            <FerraMark product="ferramenta" size={32} />
+            <IdentityMark product="ferramenta" />
             Ferramenta
           </a>
         )}
@@ -119,7 +123,7 @@ export function MonoHeader({
     <header className="mono-header" ref={headerRef} data-open={open}>
       <div className="mono-header-in">
         <a className="mono-brand" href={home}>
-          <FerraMark product={product} size={32} />
+          <IdentityMark product={product} />
           {displayName(product)}
         </a>
         <button
@@ -151,7 +155,7 @@ export function MonoHeader({
 }
 
 export type MonoFooterProps = {
-  product: FerraProduct;
+  product: Identity;
   home: string;
   /** Further links after GitHub, such as crates.io or npm. */
   children?: ReactNode;
@@ -161,7 +165,7 @@ export function MonoFooter({ product, home, children }: MonoFooterProps) {
   return (
     <footer className="mono-footer">
       <div className="mono-footer-in">
-        <FerraMark product={product} size={32} />
+        <IdentityMark product={product} />
         {product === "ferramenta" ? (
           <p>
             <a href={home}>Ferramenta</a>, Rust engines from one workshop

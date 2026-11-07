@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 const { renderToStaticMarkup } = await import("react-dom/server");
 const { createElement } = await import("react");
 
-/** The package as a consumer imports it: the committed build output. */
+/** The root entry as a consumer imports it: the committed build output. */
 export const kit = await import("../dist/index.js");
 
 /** Renders a component to static markup, the way a prerendering sibling does. */

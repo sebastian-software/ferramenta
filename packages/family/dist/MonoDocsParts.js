@@ -3,8 +3,8 @@ import { useId } from "react";
 import { Mark } from "./Mark.js";
 /*
  * The parts a Monografie documentation page sets in its reading column: code,
- * worked examples, controls, steps, measurements and related links. Each takes
- * the props of its Ferra counterpart; the code sheets are in MonoDocsCode.
+ * worked examples, controls, steps, measurements and related links; the code
+ * sheets are in MonoDocsCode.
  * Styled by `monografie-docs.css`.
  */
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;

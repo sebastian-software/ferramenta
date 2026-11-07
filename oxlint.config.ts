@@ -21,7 +21,7 @@ config.overrides = [
     rules: { "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }] },
   },
   {
-    files: ["app/**/*.tsx", "examples/*/app/**/*.tsx"],
+    files: ["app/**/*.tsx"],
     rules: {
       complexity: "off",
       "max-lines": "off",

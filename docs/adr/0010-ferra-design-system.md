@@ -1,8 +1,8 @@
 # ADR-0010: Ferra is the shared, opt-in family design system
 
-- Status: accepted
+- Status: superseded by ADR-0012 for the page system; the identity assets (marks, instruments, their making) stay in force
 - Date: 2026-10-19
-- Updated: 2026-10-30
+- Updated: 2026-11-07 (the Ferra entry was removed; see ADR-0012)
 - Amends: ADR-0008 and ADR-0009 for the Ferra entry
 
 ## Context
@@ -94,6 +94,6 @@ retain their separate brands.
 
 ## References
 
-- [Final page designs](../../designs/README.md)
+- Final page designs: `designs/` (removed on 2026-11-07, in Git history)
 - [Canonical assets, tokens and source copy](../../design/ferra/README.md)
-- [Consumer guide](../../packages/family/FERRA.md)
+- Consumer guide: `packages/family/FERRA.md` (removed on 2026-11-07, in Git history)
