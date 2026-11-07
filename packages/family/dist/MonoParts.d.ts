@@ -7,11 +7,16 @@ export type MonoActionProps = {
     href: string;
     /** The one primary action per group wears the rust accent. */
     primary?: boolean;
+    /**
+     * The Ferra spelling of `primary`, for pages that move from `FerraAction`.
+     * Unlike Ferra, an action without either is secondary.
+     */
+    variant?: "primary" | "secondary";
     /** A short command or destination under the label. */
     detail?: ReactNode;
     children: ReactNode;
-};
-export declare function MonoAction({ href, primary, detail, children }: MonoActionProps): import("react").JSX.Element;
+} & Omit<ComponentPropsWithoutRef<"a">, "children" | "href">;
+export declare function MonoAction({ href, primary, variant, detail, children, className, ...props }: MonoActionProps): import("react").JSX.Element;
 export type MonoFact = {
     /** The figure; wrap the engine's own part in <em> to set it in oxide. */
     value: ReactNode;

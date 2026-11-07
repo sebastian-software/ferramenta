@@ -1,21 +1,8 @@
-import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FerraTable } from "./FerraComponents.js";
-function isMark(value) {
-    return typeof value === "object" && value !== null && "mark" in value;
-}
-function Cell({ value }) {
-    if (value === true)
-        return _jsx(_Fragment, { children: "Yes" });
-    if (value === false)
-        return _jsx(_Fragment, { children: "No" });
-    if (isMark(value)) {
-        const labels = { yes: "Yes", partial: "Partial", no: "No" };
-        return (_jsxs(_Fragment, { children: [labels[value.mark], value.note !== undefined && _jsxs(_Fragment, { children: [": ", value.note] })] }));
-    }
-    return _jsx(_Fragment, { children: value ?? "—" });
-}
+import { ComparisonWords } from "./ReadingSupport.js";
 function Row({ row, contenders, verdict, }) {
-    return (_jsxs("tr", { "data-behind": row.behind ?? undefined, children: [_jsxs("th", { scope: "row", children: [row.label, row.detail !== undefined && _jsx("span", { className: "ferra-comparison-detail", children: row.detail })] }), contenders.map((entry) => (_jsx("td", { "data-own": entry.own ?? undefined, children: _jsx(Cell, { value: row.values[entry.id] }) }, entry.id))), verdict && (_jsx("td", { children: _jsx(Cell, { value: row.verdict }) }))] }));
+    return (_jsxs("tr", { "data-behind": row.behind ?? undefined, children: [_jsxs("th", { scope: "row", children: [row.label, row.detail !== undefined && _jsx("span", { className: "ferra-comparison-detail", children: row.detail })] }), contenders.map((entry) => (_jsx("td", { "data-own": entry.own ?? undefined, children: _jsx(ComparisonWords, { value: row.values[entry.id] }) }, entry.id))), verdict && (_jsx("td", { children: _jsx(ComparisonWords, { value: row.verdict }) }))] }));
 }
 /** The existing comparison data contract on Ferra's native, scrollable table. */
 export function FerraComparisonTable({ caption, subject, contenders, rows, verdictLabel, align = "start", }) {

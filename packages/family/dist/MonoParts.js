@@ -7,8 +7,9 @@ const LENGTHS = [128, 96, 120, 82, 112, 104, 130, 88, 118, 100, 124, 92, 110, 86
 export function MonoEngraving({ seed }) {
     return (_jsx("svg", { className: "mono-engraving", viewBox: "0 0 132 34", "aria-hidden": "true", children: [0, 1, 2, 3, 4].map((line) => (_jsx("line", { x1: 2, x2: LENGTHS[(seed * 7 + line * 4) % LENGTHS.length], y1: 2 + line * 7, y2: 2 + line * 7, className: line === seed % 5 ? "mono-oxide" : undefined }, line))) }));
 }
-export function MonoAction({ href, primary = false, detail, children }) {
-    return (_jsxs("a", { className: "mono-action", href: href, "data-primary": primary ? "" : undefined, children: [children, detail !== undefined && _jsx("small", { children: detail })] }));
+export function MonoAction({ href, primary = false, variant, detail, children, className, ...props }) {
+    const rust = variant === undefined ? primary : variant === "primary";
+    return (_jsxs("a", { ...props, className: classes("mono-action", className), href: href, "data-primary": rust ? "" : undefined, children: [children, detail !== undefined && _jsx("small", { children: detail })] }));
 }
 /** The instrument as a centered plate, the name and the first actions. */
 export function MonoOpening({ product, instrumentLabel, caption, kicker, title, subtitle, standfirst, actions, facts, }) {

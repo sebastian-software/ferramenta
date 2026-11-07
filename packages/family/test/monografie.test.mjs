@@ -6,33 +6,19 @@ import { test } from "node:test";
 import { createElement } from "react";
 
 import * as mono from "../dist/monografie.js";
-import { render } from "./helpers.mjs";
-
-/** Splits a selector list at its top-level commas, not those inside :is() or :where(). */
-function selectorsOf(list) {
-  const parts = [];
-  let depth = 0;
-  let current = "";
-  for (const character of list) {
-    if (character === "(") depth += 1;
-    if (character === ")") depth -= 1;
-    if (character === "," && depth === 0) {
-      parts.push(current.trim());
-      current = "";
-    } else current += character;
-  }
-  return [...parts, current.trim()];
-}
+import { render, selectorsIn } from "./helpers.mjs";
 
 const css = await readFile(new URL("../styles/monografie.css", import.meta.url), "utf8");
 const manifest = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
 
-test("the entry and its stylesheet are exported", () => {
+test("the entry and its stylesheets are exported", () => {
   assert.deepEqual(manifest.exports["./monografie"], {
     types: "./dist/monografie.d.ts",
     default: "./dist/monografie.js",
   });
   assert.equal(manifest.exports["./monografie.css"], "./styles/monografie.css");
+  assert.equal(manifest.exports["./monografie-docs.css"], "./styles/monografie-docs.css");
+  assert.equal(manifest.exports["./monografie-ardo.css"], "./styles/monografie-ardo.css");
 });
 
 test("every file the stylesheet points at ships with its provenance", async () => {
@@ -63,19 +49,12 @@ test("every file the stylesheet points at ships with its provenance", async () =
 });
 
 test("rules stay inside the page, the header and the footer", () => {
-  const body = css.replaceAll(/\/\*[\s\S]*?\*\//gu, "");
-  // Each block opens after the selectors that follow the previous rule's end.
-  for (const before of body.split("{").slice(0, -1)) {
-    const selectors = before.slice(Math.max(before.lastIndexOf("}"), before.lastIndexOf(";")) + 1);
-    if (selectors.trim().startsWith("@")) continue;
-    for (const selector of selectorsOf(selectors)) {
-      if (selector === "") continue;
-      assert.match(
-        selector,
-        /^(?:details)?(?:\.mono\b|:where\(\.mono\b)/u,
-        `unscoped selector in monografie.css: ${selector}`,
-      );
-    }
+  for (const selector of selectorsIn(css)) {
+    assert.match(
+      selector,
+      /^(?:details)?(?:\.mono\b|:where\(\.mono\b)/u,
+      `unscoped selector in monografie.css: ${selector}`,
+    );
   }
 });
 

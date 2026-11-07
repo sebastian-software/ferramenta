@@ -40,6 +40,7 @@ const PAGES = [
   { name: "ferra-kit", path: "/kit/ferra/" },
   { name: "ferra-instruments", path: "/kit/ferra/instruments/" },
   { name: "monografie-kit", path: "/kit/monografie/" },
+  { name: "monografie-docs", path: "/kit/monografie/docs/" },
   { name: "kit-tool", path: "/kit/tool/" },
   { name: "kit-docs", path: "/kit/docs/getting-started/" },
   { name: "kit-docs-benchmarks", path: "/kit/docs/benchmarks/" },
@@ -184,6 +185,46 @@ async function reviewDocsMenu(page, origin) {
   expect(!after.open, "docs menu: it stays open after a page is chosen");
 }
 
+const MONO_DOCS = "/kit/monografie/docs/";
+const ARDO_MENU = ".mono-header-actions > button[aria-expanded]";
+
+/** On a phone Ardo's menu carries the docs navigation (the Monografie menu button steps aside) and opens inside the viewport. */
+async function reviewMonoDocsMenu(page, origin) {
+  await page.viewport(390, 900);
+  await page.open(origin + MONO_DOCS);
+  const buttons = await page.evaluate(
+    `(() => { const mono = document.querySelector('.mono-menu-button'); const ardo = document.querySelector('${ARDO_MENU}'); return { mono: mono !== null && mono.checkVisibility(), ardo: ardo !== null && ardo.checkVisibility() }; })()`,
+  );
+  expect(!buttons.mono, "monografie docs at 390px: the Monografie menu button shows beside Ardo's");
+  expect(buttons.ardo, "monografie docs at 390px: there is no documentation menu");
+  await page.evaluate(`document.querySelector('${ARDO_MENU}').click()`);
+  await page.evaluate("new Promise((resolve) => setTimeout(resolve, 300))");
+  const menu = await page.evaluate(
+    `(() => { const panel = document.querySelector('.ardo-mobile-panel'); if (panel === null) return { open: false, inside: false, links: 0 }; const box = panel.getBoundingClientRect(); return { open: true, inside: box.left >= 0 && box.right <= innerWidth, links: panel.querySelectorAll('.mono-section-rail a, .mono-guide-navigation a').length }; })()`,
+  );
+  expect(
+    menu.open && menu.inside,
+    "monografie docs menu at 390px: it does not open inside the viewport",
+  );
+  expect(menu.links > 0, "monografie docs menu at 390px: it lists no sections or pages");
+  await save("monografie-docs-390-menu-open", await page.screenshot());
+}
+
+/** On a wide screen the docs navigation and outline stay in view under the sticky header. */
+async function reviewMonoDocsPanels(page, origin) {
+  await page.viewport(1440, 900);
+  await page.open(origin + MONO_DOCS);
+  await page.evaluate("window.scrollTo(0, 2400)");
+  const tops = await page.evaluate(
+    `[...document.querySelectorAll('.mono-reading-navigation, .mono-reading-outline')].map((panel) => Math.round(panel.getBoundingClientRect().top))`,
+  );
+  expect(
+    tops.length === 2 && tops.every((top) => top >= 60 && top <= 100),
+    `monografie docs at 1440px: the side panels do not stay under the header (${tops.join(", ")})`,
+  );
+  await save("monografie-docs-1440-scrolled", await page.screenshot());
+}
+
 /** Tab walks the bar in reading order, and every stop shows its focus. */
 async function reviewKeyboard(page, origin) {
   await page.viewport(1440, 900);
@@ -254,6 +295,8 @@ try {
   }
   await reviewSwitchers(page, server.origin);
   await reviewDocsMenu(page, server.origin);
+  await reviewMonoDocsMenu(page, server.origin);
+  await reviewMonoDocsPanels(page, server.origin);
   await reviewKeyboard(page, server.origin);
   await reviewCatalog(page, server.origin);
   await reviewHomeMenu(page, server.origin);

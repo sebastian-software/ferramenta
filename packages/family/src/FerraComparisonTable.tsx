@@ -1,26 +1,7 @@
-import type { ReactNode } from "react";
-
-import type { ComparisonMark, ComparisonTableProps } from "./Comparison.js";
+import type { ComparisonTableProps } from "./Comparison.js";
 
 import { FerraTable } from "./FerraComponents.js";
-
-function isMark(value: unknown): value is ComparisonMark {
-  return typeof value === "object" && value !== null && "mark" in value;
-}
-function Cell({ value }: { value: ComparisonMark | ReactNode }) {
-  if (value === true) return <>Yes</>;
-  if (value === false) return <>No</>;
-  if (isMark(value)) {
-    const labels = { yes: "Yes", partial: "Partial", no: "No" };
-    return (
-      <>
-        {labels[value.mark]}
-        {value.note !== undefined && <>: {value.note}</>}
-      </>
-    );
-  }
-  return <>{value ?? "—"}</>;
-}
+import { ComparisonWords } from "./ReadingSupport.js";
 
 function Row({
   row,
@@ -39,12 +20,12 @@ function Row({
       </th>
       {contenders.map((entry) => (
         <td key={entry.id} data-own={entry.own ?? undefined}>
-          <Cell value={row.values[entry.id]} />
+          <ComparisonWords value={row.values[entry.id]} />
         </td>
       ))}
       {verdict && (
         <td>
-          <Cell value={row.verdict} />
+          <ComparisonWords value={row.verdict} />
         </td>
       )}
     </tr>

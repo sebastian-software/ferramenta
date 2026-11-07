@@ -517,6 +517,80 @@ cards under each application's own logo) and `MonoWorkshop` (the workshop's
 two brands). On the family site itself, pass `familyHref={null}` to
 `MonoHeader`.
 
+### Documentation pages
+
+An engine's guides use the same entry (ADR-0012): a reading layout between the
+site's navigation and the page outline, the tables, code sheets and worked
+examples that stand in it, and the Ardo integration. Load both documentation
+stylesheets after `monografie.css`, and put the classes on Ardo's shell:
+
+```tsx
+import {
+  MonoGuideNavigation,
+  MonoHeader,
+  MonoPage,
+  MonoReadingLayout,
+  MonoReadingTable,
+  MonoSectionRail,
+} from "ferramenta-family/monografie";
+import "ferramenta-family/monografie.css";
+import "ferramenta-family/monografie-docs.css";
+import "ferramenta-family/monografie-ardo.css";
+
+<ArdoRootLayout className="mono-ardo" colorScheme="light">…</ArdoRootLayout>;
+
+<MonoPage className="mono-docs">
+  <ArdoRoot
+    className="mono-ardo-shell"
+    scrollMode="document"
+    header={<MonoHeader … actions={<DocsActions />} />}
+    sidebar={false}
+    footer={false}
+    components={{ table: MonoReadingTable, wrapper: Article }}
+  />
+  <MonoFooter product="ferroni" home="/" />
+</MonoPage>;
+
+// Article: <MonoReadingLayout navigation={<><MonoSectionRail>…</MonoSectionRail>
+//   <MonoGuideNavigation>…</MonoGuideNavigation></>} outline={<ArdoTOC source="dom" … />}>
+```
+
+`monografie-ardo.css` maps Ardo's tokens onto Monografie's, sets Ardo's
+highlighted code, outline, search and mobile menu in its look, and carries the
+shell fixes each site used to repeat: no padding for a fixed header, `main` is
+not a scroll container, anchors clear the 60px sticky header, and with
+documentation navigation on the page the Monografie menu button steps aside
+below 961px for Ardo's menu. Its rules stand on `.mono-ardo`, `.mono-docs` and
+`.mono-ardo-shell`; those of `monografie-docs.css` on `.mono` and `mono-`
+classes. The kit renders a sample page at `/kit/monografie/docs/`.
+
+Moving a site from the Ferra reading layout is a rename. Every component takes
+the props of its Ferra counterpart:
+
+| Ferra                                                                            | Monografie                                                                  |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `ferramenta-family/ferra.css`                                                    | `ferramenta-family/monografie-docs.css`, after `monografie.css`             |
+| `ferramenta-family/ferra-ardo.css`                                               | `ferramenta-family/monografie-ardo.css`                                     |
+| `ArdoRootLayout className="ferra-tokens ferra-ardo"`                             | `ArdoRootLayout className="mono-ardo" colorScheme="light"`                  |
+| `<FerraPage className="ferra-site …">`                                           | `<MonoPage className="mono-docs …">`                                        |
+| `ArdoRoot className="ferra-ardo-shell"`                                          | `ArdoRoot className="mono-ardo-shell"`                                      |
+| `FerraReadingLayout`, `FerraGuideNavigation`, `FerraSectionRail`                 | `MonoReadingLayout`, `MonoGuideNavigation`, `MonoSectionRail`               |
+| `FerraReadingTable`, `FerraTableViewport`, `FerraTable`                          | `MonoReadingTable`, `MonoTableViewport`, `MonoTable`                        |
+| `FerraBenchmarkTable`, `FerraComparisonTable`, `FerraMeasured`, `FerraBars`      | `MonoBenchmarkTable`, `MonoComparisonTable`, `MonoMeasured`, `MonoBars`     |
+| `FerraCode`, `FerraRenderedCode`, `FerraCodePair`, `FerraDiagram`                | `MonoCode`, `MonoRenderedCode`, `MonoCodePair`, `MonoDiagram`               |
+| `FerraExample`, `FerraToggle`, `FerraSelect`, `FerraTabs`, `FerraSteps`          | `MonoExample`, `MonoToggle`, `MonoSelect`, `MonoTabs`, `MonoSteps`          |
+| `FerraChoices`, `FerraFeatureGrid`, `FerraColumns`, `FerraMedia`, `FerraArticle` | `MonoChoices`, `MonoFeatureGrid`, `MonoColumns`, `MonoMedia`, `MonoArticle` |
+| `FerraAction` (primary unless told otherwise)                                    | `MonoAction variant="primary"` (secondary unless told)                      |
+| `ferra-reading-navigation`, `ferra-reading-outline`, `ferra-prose`               | `mono-reading-navigation`, `mono-reading-outline`, `mono-prose`             |
+| `ferra-benchmark-name`, `-detail`, `-source`, `-conformance`, `-reference`       | `mono-benchmark-name`, `-detail`, `-source`, `-conformance`, `-reference`   |
+| `ferra-table` (the table `FerraTable` renders)                                   | `mono-data-table`                                                           |
+
+Beyond the rename, a site deletes its local shell fixes (the
+`padding-block-start`, `scroll-padding-top`, sticky `top` and menu-button rules
+in its own stylesheet) and stops importing `ferra.css` and `ferra-ardo.css`.
+`MonoBars` sets the highlighted bar in the instrument's rust, as `MonoBarChart`
+does. The Ferra and original entries stay until no site uses them.
+
 ## CSS entry points
 
 | Import                          | What it is                                                                                  | Safe to load anywhere?                                        |

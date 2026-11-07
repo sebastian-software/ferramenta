@@ -63,6 +63,11 @@ const FERRA_FILES = [
   "ferra/brands/sebastian-software.svg",
   "ferra/brands/sebastian-consulting.svg",
   "FERRA.md",
+  "dist/monografie.js",
+  "dist/monografie.d.ts",
+  "styles/monografie.css",
+  "styles/monografie-docs.css",
+  "styles/monografie-ardo.css",
 ];
 
 /** Packs the package into the scratch directory and returns its specifier. */

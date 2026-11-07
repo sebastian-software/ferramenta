@@ -75,25 +75,5 @@ html {
 }
 
 /* ---------- The family homepage on Monografie (ADR-0012) ---------- */
-/* Ardo pads its layout for a fixed header and scrolls its main; the Monografie
-   header is sticky and the page scrolls as a whole. */
-.fam-mono-site .mono-ardo-shell {
-  min-height: 0;
-  background: transparent;
-}
-.fam-mono-site .mono-ardo-shell > div {
-  padding-block-start: 0;
-}
-.fam-mono-site .mono-ardo-shell #main-content {
-  min-width: 0;
-  padding: 0;
-  overflow: visible;
-  background: transparent;
-}
-.fam-mono-site .mono-ardo-shell > a[href="#main-content"] {
-  background: var(--mono-oxide);
-  color: #fbf3ee;
-}
-html:has(.fam-mono-site) {
-  scroll-padding-top: 76px;
-}
+/* Its Ardo shell (a sticky header, the page scrolling as a whole, the skip
+   link) comes from the package's monografie-ardo.css, like an engine site's. */

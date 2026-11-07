@@ -10,7 +10,9 @@
  *
  * Everything is scoped to .mono (the page), .mono-header and .mono-footer, so
  * the header and footer can also stand on documentation pages. Engine sites
- * add their own specimens; nothing here knows a member.
+ * add their own specimens; nothing here knows a member. The tokens also stand
+ * on .mono-ardo, the root class of an Ardo documentation site, so Ardo's own
+ * panels (search, the mobile menu) can read them (monografie-ardo.css).
  */
 @import url("./ferra-assets.css");
 
@@ -31,7 +33,8 @@
 
 .mono,
 .mono-header,
-.mono-footer {
+.mono-footer,
+.mono-ardo {
   --mono-paper: #f6f5f2;
   --mono-sheet: #fcfbf9;
   --mono-ink: #26231f;
