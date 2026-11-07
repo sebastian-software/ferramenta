@@ -36,15 +36,12 @@
     },
     {
       "id": "ferrolink",
-      "meaning": "Interlocking links and a continuity gauge verify references between documents.",
-      "compatibilityIcon": true
+      "meaning": "Interlocking links and a continuity gauge verify references between documents."
     },
     {
       "id": "ferrigura",
-      "meaning": "Connected diagram nodes turn a textual graph into a precisely arranged drawing.",
-      "compatibilityIcon": true
+      "meaning": "Connected diagram nodes turn a textual graph into a precisely arranged drawing."
     }
   ],
-  "materials": ["paper", "pewter"],
   "name": "Ferra"
 }

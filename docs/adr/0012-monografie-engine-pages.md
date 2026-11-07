@@ -2,8 +2,8 @@
 
 - Status: accepted
 - Date: 2026-11-07
-- Updated: 2026-11-07 (the family homepage adopts Monografie; documentation pages follow)
-- Amends: ADR-0010 for engine homepages, their documentation pages and the family homepage
+- Updated: 2026-11-07 (the family homepage adopts Monografie; documentation pages follow; the earlier entries are removed)
+- Supersedes: ADR-0008, and ADR-0010 for the page system (its identity assets stay)
 
 ## Context
 
@@ -98,3 +98,39 @@ Ferra reading layout. Once no site uses them, the Ferra entry
 (`ferramenta-family/ferra`, `ferra.css`, `ferra-ardo.css`) and the original
 entry (the landing kit, the chrome, `docs.css`) are to be removed, with their
 kit pages; this change keeps them.
+
+## Amendment 2026-11-07: the earlier entries are removed
+
+All nine engine sites and ferramenta.dev render only Monografie, and they pin
+the package by commit, so the two earlier visual systems go, as the amendment
+above announced. Package 3.0 removes:
+
+- **The original entry** (ADR-0008, ADR-0009): the chrome (`SiteHeader`,
+  `SiteFooter`, `ToolSwitcher`, `SiteMenu`), the landing kit (`ProjectHero`,
+  `Plate`, `EngineCatalog`, `ApplicationsBand`, `Principles`,
+  `ComparisonTable`, `ComparisonBars`, `Measured`, `Relations`, `Voices`,
+  `Ledger`, `WorkWithUs` and the rest), `Icon`, the stylesheets `tokens.css`,
+  `fonts.css`, `theme.css`, `landing.css`, `chrome.css` and `docs.css`, the
+  Barlow Condensed faces, the member icons and the steel, oak and rust
+  textures, with their pipelines in `design/icons/` and `design/textures/`.
+- **The Ferra entry** (ADR-0010): `ferramenta-family/ferra`, `ferra.css`,
+  `ferra-ardo.css`, `ferra-tokens.css`, `ferra-fonts.css`, every `Ferra*`
+  component, the IBM Plex face, the paper and pewter textures, the exported
+  token file, and the native page designs in `designs/` with their generator.
+
+What stays: the registry and its live facts (`RegistryFacts`, `useToolFacts`),
+the line-icon sprite (`Mark`, `MarkDefs`), the README frames, and the identity
+assets Monografie shows — every member's mark, instrument and favicon, the
+workshop's logos, the applications' logos, the steel and rust bands and Source
+Serif 4 Subhead — with `ferra-assets.css` and the `design/ferra/` pipeline that
+makes them. Their class names (`ferra-mark`, `ferra-instrument`,
+`ferra-workshop-logo`) and the `ferra-assets/*` export keep their names, so no
+site's favicon import changes.
+
+`ferramenta-family/monografie` now also exports `Mark`, `MarkDefs`,
+`RegistryFacts`, `useToolFacts`, the members with an identity and the
+comparison types, so a site imports from one entry; the root entry keeps
+exporting the registry, its facts, the sprite and those types. The kit at
+`/kit/` is the Monografie kit: the homepage parts, and a documentation sample
+at `/kit/docs/` in an engine site's shell. The Typenschild comps are in Git
+history.

@@ -12,9 +12,6 @@ config.unshift({
     "pnpm-lock.yaml",
     "**/*.json",
     "**/*.md",
-    // The isolated reference has its own Ardo dependency tree. Lint it explicitly
-    // with --no-ignore after preparing it with pnpm docs:ferromark build.
-    "examples/ferromark-docs/**",
     // Design comps are static browser prototypes, not shipped code; their production
     // form lives in packages/family and the engine sites (ADR-0012).
     "design/comp/**",
@@ -45,7 +42,7 @@ config.push(
     // The page is one long, flat composition of the design system's sections
     // (DESIGN.md); splitting it into helper components to satisfy a line budget
     // would hide the document structure the comp is reviewed against.
-    files: ["app/**/*.tsx", "examples/*/app/**/*.tsx"],
+    files: ["app/**/*.tsx"],
     rules: {
       complexity: "off",
       "max-lines": "off",

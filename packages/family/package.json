@@ -1,7 +1,7 @@
 {
   "name": "ferramenta-family",
   "version": "2.0.0",
-  "description": "The Ferramenta family: registry, shared site chrome, landing kit, icons, design tokens, textures, and the display font",
+  "description": "The Ferramenta family: the registry, the Monografie page system, the members' marks and instruments, and the README frames",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,16 +10,13 @@
   },
   "files": [
     "dist",
-    "fonts",
     "icons",
     "src",
     "styles",
-    "textures",
     "NOTICE.md",
     "README.md",
     "markdown",
-    "ferra",
-    "FERRA.md"
+    "ferra"
   ],
   "type": "module",
   "sideEffects": [
@@ -36,24 +33,8 @@
       "types": "./dist/family.d.ts",
       "default": "./dist/family.js"
     },
-    "./chrome.css": "./styles/chrome.css",
-    "./docs.css": "./styles/docs.css",
-    "./fonts.css": "./styles/fonts.css",
-    "./landing.css": "./styles/landing.css",
-    "./theme.css": "./styles/theme.css",
-    "./tokens.css": "./styles/tokens.css",
-    "./fonts/*": "./fonts/*",
     "./icons/*": "./icons/*",
-    "./textures/*": "./textures/*",
     "./package.json": "./package.json",
-    "./ferra": {
-      "types": "./dist/ferra.d.ts",
-      "default": "./dist/ferra.js"
-    },
-    "./ferra.css": "./styles/ferra.css",
-    "./ferra-ardo.css": "./styles/ferra-ardo.css",
-    "./ferra-tokens.css": "./styles/ferra-tokens.css",
-    "./ferra-fonts.css": "./styles/ferra-fonts.css",
     "./ferra-assets/*": "./ferra/*",
     "./monografie": {
       "types": "./dist/monografie.d.ts",

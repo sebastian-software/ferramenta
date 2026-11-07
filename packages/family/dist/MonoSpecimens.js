@@ -1,4 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef } from "react";
+import { useScrollableCode } from "./ReadingSupport.js";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 /** Breaks out of the reading column to the wide measure. */
 export function MonoWide({ className, ...props }) {
@@ -9,7 +11,9 @@ export function MonoFacing({ className, ...props }) {
     return _jsx("div", { ...props, className: classes("mono-facing", className) });
 }
 export function MonoSheet({ label, meta, className, children, ...props }) {
-    return (_jsxs("div", { ...props, className: classes("mono-sheet", className), children: [_jsxs("div", { className: "mono-sheet-head", children: [_jsx("span", { children: label }), meta !== undefined && _jsx("span", { children: meta })] }), children] }));
+    const ref = useRef(null);
+    useScrollableCode(ref, children);
+    return (_jsxs("div", { ...props, ref: ref, className: classes("mono-sheet", className), children: [_jsxs("div", { className: "mono-sheet-head", children: [_jsx("span", { children: label }), meta !== undefined && _jsx("span", { children: meta })] }), children] }));
 }
 export function MonoCaption({ className, ...props }) {
     return _jsx("p", { ...props, className: classes("mono-caption", className) });
@@ -31,8 +35,11 @@ export function MonoProofs({ items, className }) {
 export function MonoCards({ layout = "three", className, ...props }) {
     return (_jsx("div", { ...props, className: classes("mono-cards", className), "data-layout": layout === "three" ? undefined : layout }));
 }
+/** A short example under its title; code in it that scrolls sideways is reachable by keyboard. */
 export function MonoCard({ title, api, className, children, ...props }) {
-    return (_jsxs("div", { ...props, className: classes("mono-card", className), children: [_jsx("h3", { children: title }), api !== undefined && _jsx("p", { className: "mono-card-api", children: api }), children] }));
+    const ref = useRef(null);
+    useScrollableCode(ref, children);
+    return (_jsxs("div", { ...props, ref: ref, className: classes("mono-card", className), children: [_jsx("h3", { children: title }), api !== undefined && _jsx("p", { className: "mono-card-api", children: api }), children] }));
 }
 export function MonoVerdict({ className, ...props }) {
     return _jsx("p", { ...props, className: classes("mono-card-verdict", className) });

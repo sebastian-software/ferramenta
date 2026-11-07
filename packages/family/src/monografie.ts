@@ -1,3 +1,23 @@
+/**
+ * Monografie: the page system for the Ferramenta family site, the engine
+ * homepages and their documentation (ADR-0012). Import with
+ * `ferramenta-family/monografie.css`, and on documentation pages also
+ * `monografie-docs.css` and `monografie-ardo.css`. The entry also carries what
+ * such a page needs from the rest of the package — the line-icon sprite, the
+ * live registry facts and the comparison types — so a site imports from one
+ * place.
+ */
+export type {
+  ComparisonCell,
+  ComparisonMark,
+  ComparisonRow,
+  ComparisonTableProps,
+  Contender,
+  MeasuredProps,
+  MeasuredRow,
+} from "./comparison-types.js";
+export { hasIdentity, IDENTITIES, type Identity } from "./identity.js";
+export { Mark, MarkDefs, type MarkProps } from "./Mark.js";
 export {
   MonoBarChart,
   type MonoBarChartProps,
@@ -8,13 +28,6 @@ export {
   MonoTableView,
   type MonoTableViewProps,
 } from "./MonoChart.js";
-/**
- * Monografie: the page system for Ferramenta engine homepages and their
- * documentation (ADR-0012). Import with `ferramenta-family/monografie.css`, and
- * on documentation pages also `monografie-docs.css` and `monografie-ardo.css`;
- * independent of the other entries, though it reuses the Ferra marks and
- * instruments.
- */
 export {
   MonoFooter,
   type MonoFooterProps,
@@ -101,3 +114,4 @@ export {
   MonoVerdict,
   MonoWide,
 } from "./MonoSpecimens.js";
+export { RegistryFacts, type RegistryFactsProps, useToolFacts } from "./RegistryFacts.js";

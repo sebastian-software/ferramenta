@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, type ReactNode, useId } from "react";
 
-import type { FerraProduct } from "./FerraIdentity.js";
+import type { Identity } from "./identity.js";
 
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
@@ -31,8 +31,8 @@ export type MonoActionProps = {
   /** The one primary action per group wears the rust accent. */
   primary?: boolean;
   /**
-   * The Ferra spelling of `primary`, for pages that move from `FerraAction`.
-   * Unlike Ferra, an action without either is secondary.
+   * Another spelling of `primary`, kept for pages written against the former
+   * Ferra entry. An action without either is secondary.
    */
   variant?: "primary" | "secondary";
   /** A short command or destination under the label. */
@@ -70,7 +70,7 @@ export type MonoFact = {
 };
 
 export type MonoOpeningProps = {
-  product: FerraProduct;
+  product: Identity;
   /** What the instrument shows, for readers who cannot see it. */
   instrumentLabel: string;
   caption?: ReactNode;

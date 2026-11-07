@@ -1,7 +1,12 @@
 /* eslint-disable security/detect-non-literal-fs-filename -- Paths come from the fixed master manifest and package output directories. */
 import { spawnSync } from "node:child_process";
 // cspell:words magick
-/** Exports the approved masters; no image generation, redraw or font installation. */
+/**
+ * Exports the approved identity masters into the package: the members' marks,
+ * favicon files and hero instruments, the workshop logos, and `ferra-assets.css`,
+ * which places them. No image generation, redraw or font installation. The
+ * Monografie surfaces and heading faces come from build-monografie.mjs.
+ */
 import { createHash } from "node:crypto";
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -11,20 +16,8 @@ const root = import.meta.dirname;
 const output = fileURLToPath(new URL("../../packages/family/ferra/", import.meta.url));
 const styles = fileURLToPath(new URL("../../packages/family/styles/", import.meta.url));
 const manifest = JSON.parse(readFileSync(join(root, "manifest.json"), "utf8"));
-const tokens = JSON.parse(readFileSync(join(root, "tokens.json"), "utf8"));
-const font = JSON.parse(readFileSync(join(root, "fonts/manifest.json"), "utf8"));
-if (process.argv.includes("--tokens-only")) {
-  exportTokens();
-  const formatted = spawnSync(
-    fileURLToPath(new URL("../../node_modules/.bin/oxfmt", import.meta.url)),
-    ["--write", join(output, "tokens.json"), join(styles, "ferra-tokens.css")],
-    { encoding: "utf8" },
-  );
-  if (formatted.status !== 0) throw new Error(formatted.stderr || formatted.stdout);
-  console.log("Exported Ferra CSS and JSON tokens.");
-  // eslint-disable-next-line node/no-process-exit -- The tokens-only CLI exits successfully before any raster work starts.
-  process.exit(0);
-}
+/** The warm paper behind the Apple touch icons, kept so a re-export reproduces them. */
+const TOUCH_ICON_GROUND = "#F4F0E6";
 const sizes = [32, 48, 64, 128, 256, 512];
 const magick = (args) => {
   const run = spawnSync("magick", args, { encoding: "utf8" });
@@ -56,9 +49,7 @@ mkdirSync(output, { recursive: true });
 const assetManifest = {
   direction: manifest.direction,
   products: {},
-  materials: {},
   brands: {},
-  typography: font,
 };
 const instrumentsOnly = process.argv.includes("--instruments-only");
 const selected = new Set(process.argv.slice(2).filter((id) => id !== "--instruments-only"));
@@ -93,7 +84,7 @@ function exportInstrument(id, meaning, folder) {
   );
   registerProduct(id, meaning, hero);
 }
-for (const { id, meaning, compatibilityIcon = false } of manifest.products) {
+for (const { id, meaning } of manifest.products) {
   const folder = join(output, id);
   mkdirSync(folder, { recursive: true });
   if (selected.size > 0 && !selected.has(id)) {
@@ -153,7 +144,7 @@ for (const { id, meaning, compatibilityIcon = false } of manifest.products) {
     "-resize",
     "156x156",
     "-background",
-    tokens.palette.paper,
+    TOUCH_ICON_GROUND,
     "-gravity",
     "center",
     "-extent",
@@ -163,53 +154,7 @@ for (const { id, meaning, compatibilityIcon = false } of manifest.products) {
     touch,
   ]);
   provenance(touch, master, "180px Apple touch icon on warm paper.");
-  // Newly added members use their Ferra mark in the original chrome as well.
-  // Older members retain their existing icon masters and visual contract.
-  if (compatibilityIcon) {
-    const icons = fileURLToPath(new URL("../../packages/family/icons/", import.meta.url));
-    for (const size of [96, 256, 640]) {
-      const file = join(icons, `${id}${size === 640 ? "" : `-${size}`}.webp`);
-      magick([
-        master,
-        "-crop",
-        bounds,
-        "+repage",
-        "-background",
-        "none",
-        "-gravity",
-        "center",
-        "-extent",
-        "%[fx:ceil(max(w,h)/0.875)]x%[fx:ceil(max(w,h)/0.875)]",
-        "-filter",
-        "Lanczos",
-        "-resize",
-        `${size}x${size}`,
-        "-quality",
-        "90",
-        file,
-      ]);
-      provenance(
-        file,
-        master,
-        "Compatibility icon for the original package entry; resampled from the same Ferra mark master.",
-      );
-    }
-  }
   exportInstrument(id, meaning, folder);
-}
-for (const material of manifest.materials) {
-  mkdirSync(join(output, "textures"), { recursive: true });
-  const master = join(root, "masters", `${material}.png`);
-  const file = join(output, "textures", `${material}.webp`);
-  if (!instrumentsOnly) {
-    magick([master, "-quality", "90", file]);
-    provenance(
-      file,
-      master,
-      "Optimized approved surface; cover a single field instead of tiling visible seams.",
-    );
-  }
-  assetManifest.materials[material] = `textures/${material}.webp`;
 }
 // These original workshop logos are copied byte for byte, without raster conversion or recoloring.
 mkdirSync(join(output, "brands"), { recursive: true });
@@ -229,53 +174,19 @@ for (const brand of ["software", "consulting"]) {
     `.ferra-workshop-logo[data-brand="${brand}"] { background-image: url("../ferra/${file}"); }`,
   );
 }
-mkdirSync(join(output, "fonts"), { recursive: true });
-for (const file of font.files) {
-  const source = join(root, "fonts", file.file);
-  if (createHash("sha256").update(readFileSync(source)).digest("hex") !== file.sha256)
-    throw new Error(`Font provenance mismatch: ${file.file}`);
-  copyFileSync(source, join(output, "fonts", file.file));
-}
-copyFileSync(join(root, "fonts/manifest.json"), join(output, "fonts/manifest.json"));
-writeFileSync(
-  join(styles, "ferra-fonts.css"),
-  `/* Generated from design/ferra/fonts/manifest.json. */\n@font-face {\n  font-family: "IBM Plex Sans";\n  src: url("../ferra/fonts/ibm-plex-sans-600.woff2") format("woff2");\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n}\n`,
-);
 writeFileSync(join(output, "manifest.json"), `${JSON.stringify(assetManifest, null, 2)}\n`);
-copyFileSync(join(root, "tokens.json"), join(output, "tokens.json"));
 writeFileSync(
   join(styles, "ferra-assets.css"),
   `/* Generated by design/ferra/build-assets.mjs. */\n${rules.join("\n")}\n`,
 );
-exportTokens();
-
-function exportTokens() {
-  copyFileSync(join(root, "tokens.json"), join(output, "tokens.json"));
-  const variables = [];
-  for (const [group, values] of Object.entries(tokens)) {
-    for (const [name, value] of Object.entries(values)) {
-      variables.push(`  --ferra-${group === "space" ? `space-${name}` : name}: ${value};`);
-    }
-  }
-  writeFileSync(
-    join(styles, "ferra-tokens.css"),
-    `/* Generated from design/ferra/tokens.json. */\n.ferra-page,\n.ferra-tokens {\n${variables.join("\n")}\n}\n`,
-  );
-}
 console.log(
   instrumentsOnly
-    ? `Exported ${selected.size || manifest.products.length} instrument assets and refreshed CSS/JSON references.`
-    : `Exported ${manifest.products.length} identities and instruments, two textures and CSS/JSON tokens.`,
+    ? `Exported ${selected.size || manifest.products.length} instrument assets and refreshed the CSS and manifest references.`
+    : `Exported ${manifest.products.length} identities and instruments and the workshop logos.`,
 );
 const formatter = spawnSync(
   fileURLToPath(new URL("../../node_modules/.bin/oxfmt", import.meta.url)),
-  [
-    "--write",
-    output,
-    join(styles, "ferra-assets.css"),
-    join(styles, "ferra-tokens.css"),
-    join(styles, "ferra-fonts.css"),
-  ],
+  ["--write", output, join(styles, "ferra-assets.css")],
   { encoding: "utf8" },
 );
 if (formatter.status !== 0) throw new Error(formatter.stderr || formatter.stdout);

@@ -1,4 +1,6 @@
-import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from "react";
+import { type ComponentPropsWithoutRef, type CSSProperties, type ReactNode, useRef } from "react";
+
+import { useScrollableCode } from "./ReadingSupport.js";
 
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
@@ -20,8 +22,10 @@ export type MonoSheetProps = {
 } & ComponentPropsWithoutRef<"div">;
 
 export function MonoSheet({ label, meta, className, children, ...props }: MonoSheetProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollableCode(ref, children);
   return (
-    <div {...props} className={classes("mono-sheet", className)}>
+    <div {...props} ref={ref} className={classes("mono-sheet", className)}>
       <div className="mono-sheet-head">
         <span>{label}</span>
         {meta !== undefined && <span>{meta}</span>}
@@ -108,9 +112,12 @@ export type MonoCardProps = {
   api?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"div">, "title">;
 
+/** A short example under its title; code in it that scrolls sideways is reachable by keyboard. */
 export function MonoCard({ title, api, className, children, ...props }: MonoCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollableCode(ref, children);
   return (
-    <div {...props} className={classes("mono-card", className)}>
+    <div {...props} ref={ref} className={classes("mono-card", className)}>
       <h3>{title}</h3>
       {api !== undefined && <p className="mono-card-api">{api}</p>}
       {children}

@@ -6,7 +6,7 @@ import { protectRenderedHtml } from "./ReadingSupport.js";
 
 /*
  * Code on a Monografie documentation page: source, highlighter output and
- * diagrams on light sheets. Each takes the props of its Ferra counterpart.
+ * diagrams on light sheets.
  * Styled by `monografie-docs.css`.
  */
 

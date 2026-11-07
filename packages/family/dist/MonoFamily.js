@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { displayName, familyTiers, plannedRunsOnTools, relationsOf, runsOnTools, STATUS_MEANING, toolHref, WORKSHOP_REFERENCES, } from "./family.js";
-import { isFerraProduct } from "./FerraIdentity.js";
+import { hasIdentity } from "./identity.js";
 import { useToolFacts } from "./RegistryFacts.js";
 /* The family site's overview, on the Monografie page: every engine on its own
    plate, the applications on light cards under their own logos, and the
@@ -37,8 +37,8 @@ function Facts({ tool }) {
     return (_jsxs("dl", { className: "mono-engine-facts", "aria-label": `${displayName(tool)} registry facts`, children: [_jsxs("div", { children: [_jsx("dt", { children: "Version" }), _jsx("dd", { children: facts.version })] }), facts.onCrates && (_jsxs("div", { children: [_jsx("dt", { children: "crates.io downloads" }), _jsx("dd", { children: number.format(facts.crateDownloads) })] }))] }));
 }
 function Engine({ tool, hrefFor }) {
-    if (!isFerraProduct(tool.name))
-        throw new Error(`Missing ferra identity: ${tool.name}`);
+    if (!hasIdentity(tool.name))
+        throw new Error(`Missing identity: ${tool.name}`);
     const name = displayName(tool);
     const href = hrefFor(tool);
     return (_jsxs("article", { className: "mono-engine", id: tool.name, "aria-labelledby": `${tool.name}-title`, children: [_jsx("a", { className: "mono-engine-plate", href: href, tabIndex: -1, "aria-hidden": "true", children: _jsx("span", { className: "ferra-instrument", "data-product": tool.name }) }), _jsxs("div", { className: "mono-engine-text", children: [_jsxs("h3", { id: `${tool.name}-title`, children: [_jsx("a", { href: href, children: name }), _jsx("span", { className: "mono-engine-status", title: STATUS_MEANING[tool.status], children: tool.status })] }), _jsx("p", { className: "mono-engine-subtitle", children: tool.editorial?.subtitle ?? tool.what }), _jsx("p", { children: tool.editorial?.introduction ?? tool.does }), _jsx(Relations, { tool: tool }), _jsx(Facts, { tool: tool }), _jsxs("a", { className: "mono-engine-link", href: href, children: ["Explore ", name, tool.docs === undefined && " on GitHub"] })] }), tool.editorial !== undefined && (_jsx("dl", { className: "mono-engine-notes", "aria-label": `About ${name}`, children: tool.editorial.notes.map((note) => (_jsxs("div", { children: [_jsx("dt", { children: note.title }), _jsxs("dd", { children: [note.body, " ", _jsx("a", { href: note.href, children: "Source" })] })] }, note.title))) }))] }));

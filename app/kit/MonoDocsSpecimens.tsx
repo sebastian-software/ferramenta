@@ -1,6 +1,6 @@
 import { useState } from "ardo/react";
-import { Mark } from "ferramenta-family";
 import {
+  Mark,
   MonoAction,
   MonoArticle,
   MonoBars,
@@ -30,7 +30,7 @@ import { SAMPLE } from "./sample";
  * figure here is invented: the kit never shows a real member's results.
  */
 
-const PAGE = "/kit/monografie/docs/";
+const PAGE = "/kit/docs/";
 
 export function RuntimeTabs() {
   return (
@@ -357,7 +357,7 @@ export function NextSteps() {
         <MonoAction href={`${PAGE}#install`} variant="primary" detail={SAMPLE.install}>
           Install {SAMPLE.title}
         </MonoAction>
-        <MonoAction href="/kit/monografie/" detail="The homepage parts">
+        <MonoAction href="/kit/" detail="The homepage parts">
           Back to the kit
         </MonoAction>
       </div>

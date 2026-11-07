@@ -1,7 +1,8 @@
 <!doctype html>
 <!--
-  The social card of ferramenta.dev (public/social.png, 1200×630): the Ferra
-  paper ground, the family register and every engine's compact mark. It is a page, so a browser renders it; nothing
+  The social card of ferramenta.dev (public/social.png, 1200×630): the
+  Monografie paper ground and serif, the family register and every engine's
+  compact mark. It is a page, so a browser renders it; nothing
   here is code of its own. Re-render it when the line-up changes, after
   updating the strip below (one figure per engine, in catalog order):
 
@@ -13,13 +14,13 @@
   <head>
     <meta charset="utf-8" />
     <title>Ferramenta social card</title>
-    <link rel="stylesheet" href="../../packages/family/styles/ferra.css" />
+    <link rel="stylesheet" href="../../packages/family/styles/monografie.css" />
     <style>
       * {
         box-sizing: border-box;
         margin: 0;
       }
-      body.ferra-page {
+      body.mono {
         width: 1200px;
         height: 630px;
         overflow: hidden;
@@ -32,8 +33,9 @@
         gap: 32px;
         min-height: 350px;
       }
-      .ferra-page h1 {
-        font-size: 76px;
+      .mono h1 {
+        font: 600 76px/1.05 var(--mono-serif);
+        letter-spacing: -0.015em;
       }
       .subtitle {
         font-size: 30px;
@@ -42,7 +44,7 @@
       }
       .address {
         font-size: 20px;
-        color: var(--ferra-accent);
+        color: var(--mono-oxide);
       }
       .hero img {
         width: 100%;
@@ -52,7 +54,7 @@
         grid-template-columns: repeat(9, 1fr);
         margin-block-start: 46px;
         padding-block-start: 28px;
-        border-block-start: 1px solid var(--ferra-border);
+        border-block-start: 1px solid var(--mono-hair);
       }
       figure {
         display: grid;
@@ -70,7 +72,7 @@
       }
     </style>
   </head>
-  <body class="ferra-page">
+  <body class="mono">
     <div class="hero">
       <div>
         <h1>Ferramenta.</h1>

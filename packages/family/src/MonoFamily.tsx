@@ -11,7 +11,7 @@ import {
   toolHref,
   WORKSHOP_REFERENCES,
 } from "./family.js";
-import { isFerraProduct } from "./FerraIdentity.js";
+import { hasIdentity } from "./identity.js";
 import { useToolFacts } from "./RegistryFacts.js";
 
 /* The family site's overview, on the Monografie page: every engine on its own
@@ -78,7 +78,7 @@ function Facts({ tool }: { tool: FamilyTool }) {
 }
 
 function Engine({ tool, hrefFor }: { tool: FamilyTool; hrefFor: (tool: FamilyTool) => string }) {
-  if (!isFerraProduct(tool.name)) throw new Error(`Missing ferra identity: ${tool.name}`);
+  if (!hasIdentity(tool.name)) throw new Error(`Missing identity: ${tool.name}`);
   const name = displayName(tool);
   const href = hrefFor(tool);
   return (

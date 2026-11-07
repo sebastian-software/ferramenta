@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
-import type { MeasuredProps } from "./Comparison.js";
+import type { MeasuredProps } from "./comparison-types.js";
 /** Links between variants of one page, such as runtimes; the current one carries `aria-current`. */
 export declare function MonoTabs({ className, ...props }: ComponentPropsWithoutRef<"nav">): import("react").JSX.Element;
 /** Related destinations on light sheets; each child is an `<article>` with a heading, a line and a link. */

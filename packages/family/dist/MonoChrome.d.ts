@@ -1,9 +1,9 @@
 import { type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from "react";
-import type { FerraProduct } from "./FerraIdentity.js";
+import type { Identity } from "./identity.js";
 /** The page ground: one authored light scheme, scoped to its wrapper. */
 export declare function MonoPage({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export type MonoHeaderProps = {
-    product: FerraProduct;
+    product: Identity;
     /** Where the product name leads, usually the homepage. */
     home: string;
     /** The page's main links, each a keyed element; they fold into a menu on narrow screens. */
@@ -19,7 +19,7 @@ export type MonoHeaderProps = {
 /** The steel navigation bar. Its links fold into a menu below 961px. */
 export declare function MonoHeader({ product, home, links, navLabel, release, actions, familyHref, }: MonoHeaderProps): import("react").JSX.Element;
 export type MonoFooterProps = {
-    product: FerraProduct;
+    product: Identity;
     home: string;
     /** Further links after GitHub, such as crates.io or npm. */
     children?: ReactNode;

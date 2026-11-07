@@ -1,8 +1,9 @@
-import { type ReactNode, useEffect, useState } from "ardo/react";
+import { type ReactNode, useState } from "ardo/react";
 import { ArdoActiveLink as NavLink, useArdoPageData } from "ardo/runtime";
 import { ArdoHeaderSearch, ArdoMobileNavigation, ArdoRoot, ArdoTOC } from "ardo/ui";
-import { Mark, MarkDefs } from "ferramenta-family";
 import {
+  Mark,
+  MarkDefs,
   MonoFooter,
   MonoGuideNavigation,
   MonoHeader,
@@ -11,6 +12,7 @@ import {
   MonoReadingTable,
   MonoSectionRail,
 } from "ferramenta-family/monografie";
+import { WORKSHOP } from "ferramenta-family/registry";
 
 import { SAMPLE } from "./sample";
 
@@ -19,23 +21,26 @@ import { SAMPLE } from "./sample";
  * its root: the steel header with the documentation menu and search, the
  * reading layout as the MDX wrapper, MDX tables in the reading table and the
  * footer outside Ardo's main. Only the invented tool and its page list are the
- * kit's own.
+ * kit's own. The header carries six links, as the fullest engine sites do, so
+ * the kit's review sees the bar at its most crowded.
  */
 
-export const MONO_DOCS = "/kit/monografie/docs/";
+/** The kit's homepage parts, and its documentation sample. */
+export const KIT = "/kit/";
+export const KIT_DOCS = "/kit/docs/";
 
 /** The sample's sections; only the guide has pages, the others lead into this one. */
 const SECTIONS = [
-  { id: "guide", label: "Guide", icon: "document", href: MONO_DOCS },
-  { id: "reference", label: "Reference", icon: "crate", href: `${MONO_DOCS}#configuration` },
-  { id: "performance", label: "Performance", icon: "pen", href: `${MONO_DOCS}#performance` },
+  { id: "guide", label: "Guide", icon: "document", href: KIT_DOCS },
+  { id: "reference", label: "Reference", icon: "crate", href: `${KIT_DOCS}#configuration` },
+  { id: "performance", label: "Performance", icon: "pen", href: `${KIT_DOCS}#performance` },
 ] as const;
 
 const PAGES = [
-  { title: "Getting started", href: MONO_DOCS },
-  { title: "Units and dimensions", href: `${MONO_DOCS}#units-and-dimensions` },
-  { title: "Configuration", href: `${MONO_DOCS}#configuration` },
-  { title: "Performance", href: `${MONO_DOCS}#performance` },
+  { title: "Getting started", href: KIT_DOCS },
+  { title: "Units and dimensions", href: `${KIT_DOCS}#units-and-dimensions` },
+  { title: "Configuration", href: `${KIT_DOCS}#configuration` },
+  { title: "Performance", href: `${KIT_DOCS}#performance` },
 ] as const;
 
 function GuideNavigation({ onNavigate }: { onNavigate?: () => void }) {
@@ -55,7 +60,7 @@ function GuideNavigation({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </MonoSectionRail>
       <MonoGuideNavigation aria-label="Documentation pages">
-        <a href="/kit/monografie/" onClick={onNavigate}>
+        <a href={KIT} onClick={onNavigate}>
           Overview
         </a>
         <p>Guide</p>
@@ -63,7 +68,7 @@ function GuideNavigation({ onNavigate }: { onNavigate?: () => void }) {
           <a
             key={href}
             href={href}
-            aria-current={href === MONO_DOCS ? "page" : undefined}
+            aria-current={href === KIT_DOCS ? "page" : undefined}
             onClick={onNavigate}
           >
             {title}
@@ -119,29 +124,8 @@ function Article({ children }: { children: ReactNode }) {
 
 const components = { table: MonoReadingTable, wrapper: Article };
 
-/**
- * An engine site sets `className="mono-ardo"` and `colorScheme="light"` on its
- * `ArdoRootLayout`. The kit shares one root layout with pages in other looks,
- * and the layout renders before the page is known, so this page sets both on
- * the document itself while it is shown.
- */
-function useMonoArdoRoot() {
-  useEffect(() => {
-    const root = document.documentElement;
-    const dark = root.classList.contains("dark");
-    root.classList.add("mono-ardo", "light");
-    root.classList.remove("dark");
-    return () => {
-      root.classList.remove("mono-ardo");
-      root.classList.toggle("dark", dark);
-      root.classList.toggle("light", !dark);
-    };
-  }, []);
-}
-
 /** The kit's sample documentation page on Monografie, in an engine site's shell. */
 export function MonoDocsShell() {
-  useMonoArdoRoot();
   return (
     <MonoPage className="mono-docs">
       <MarkDefs />
@@ -152,18 +136,27 @@ export function MonoDocsShell() {
         header={
           <MonoHeader
             product="ferramenta"
-            home="/kit/monografie/"
+            home={KIT}
             release="0.0.0"
             links={[
-              <NavLink key="kit" to="/kit/" end>
-                Kit
-              </NavLink>,
-              <NavLink key="homepage" to="/kit/monografie/" end>
+              <NavLink key="homepage" to={KIT} end>
                 Homepage parts
               </NavLink>,
-              <NavLink key="docs" to={MONO_DOCS}>
+              <NavLink key="docs" to={KIT_DOCS}>
                 Guide
               </NavLink>,
+              <a key="reference" href={`${KIT_DOCS}#configuration`}>
+                Reference
+              </a>,
+              <a key="performance" href={`${KIT_DOCS}#performance`}>
+                Performance
+              </a>,
+              <a key="changes" href={`${KIT_DOCS}#units-and-dimensions`}>
+                Units
+              </a>,
+              <a key="github" href={WORKSHOP.source}>
+                GitHub
+              </a>,
             ]}
             actions={<DocsActions />}
           />
@@ -172,7 +165,7 @@ export function MonoDocsShell() {
         footer={false}
         components={components}
       />
-      <MonoFooter product="ferramenta" home="/kit/monografie/" />
+      <MonoFooter product="ferramenta" home={KIT} />
     </MonoPage>
   );
 }

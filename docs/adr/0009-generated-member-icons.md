@@ -1,6 +1,6 @@
 # ADR-0009: Member icons are generated objects, shown as rendered pictures
 
-- Status: accepted
+- Status: superseded by ADR-0010 and ADR-0012 (the member icons were removed on 2026-11-07; the Ferra marks and instruments replace them)
 - Date: 2026-09-30
 - Deciders: Sebastian Werner
 - Supersedes: ADR-0002
@@ -103,6 +103,6 @@ consistency.
 
 ## References
 
-- [design/icons/README.md](../../design/icons/README.md) — masters, prompts, pipeline
+- `design/icons/README.md` (removed on 2026-11-07, in Git history) — masters, prompts, pipeline
 - [ADR-0008](0008-design-direction-typenschild.md) — the direction that needed them
 - [ADR-0002](0002-streamline-derived-project-marks.md) — the marks these replace

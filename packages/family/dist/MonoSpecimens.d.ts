@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 /** Breaks out of the reading column to the wide measure. */
 export declare function MonoWide({ className, ...props }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 /** Two facing pages of real output, with a gutter between them. */
@@ -43,5 +43,6 @@ export type MonoCardProps = {
     /** The API or file the card shows, set in the monospace face. */
     api?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"div">, "title">;
+/** A short example under its title; code in it that scrolls sideways is reachable by keyboard. */
 export declare function MonoCard({ title, api, className, children, ...props }: MonoCardProps): import("react").JSX.Element;
 export declare function MonoVerdict({ className, ...props }: ComponentPropsWithoutRef<"p">): import("react").JSX.Element;

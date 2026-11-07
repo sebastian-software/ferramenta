@@ -1,17 +1,20 @@
-# Ferra design sources
+# Ferra identity sources
 
-Ferra is the warm, light design system for Ferramenta and its engines.
-This directory holds only the final design inputs: assets, typography, tokens,
-page copy and the generators for the shared package and HTML previews.
+The family's identity: every member's compact mark and hero instrument, the
+workshop's logos, and the surfaces and heading faces of Monografie (ADR-0012).
+The name comes from the Ferra direction (ADR-0010) these assets were made for;
+its page system was removed in November 2026, and its marks and instruments
+carry on in Monografie. This directory holds the masters, the Blender scenes
+and the exporters into `packages/family/ferra/`.
 
 ## Build
 
 Run from the repository root with ImageMagick available:
 
 ```sh
-node design/ferra/build-assets.mjs
+node design/ferra/build-assets.mjs      # marks, favicons, instruments, workshop logos, ferra-assets.css
+node design/ferra/build-monografie.mjs  # the steel and rust bands, Source Serif 4 Subhead
 pnpm build:package
-node design/ferra/build-previews.mjs
 ```
 
 To export only newly added or revised products, pass their registry names:
@@ -20,47 +23,36 @@ To export only newly added or revised products, pass their registry names:
 node design/ferra/build-assets.mjs ferrolink ferrigura
 ```
 
-Other products keep their existing raster bytes. Both package entries use the
-new members' Ferra marks; `compatibilityIcon` in the manifest enables the
-original chrome's three export sizes from the same master.
-
-Open the [final pages](../../designs/README.md). The previews resolve styles and
-assets directly from the shared package. They do not copy the package or depend
-on earlier studies. `preview.css` contains document navigation and specimen
-framing; `family-preview.css` preserves the family's authored composition.
+Other products keep their existing raster bytes.
 
 ## Sources
 
-- `tokens.json` generates the scoped CSS contract and exported JSON. Components
-  use semantic roles; palette, type and spacing scales remain available.
-- `masters/` holds compact marks and functional hero instruments for every engine and
-  two material textures. Adjacent sidecars preserve the generation brief or
-  exact prompt, hashes, renderer, and original creation context. Historical
-  reference filenames in those records are provenance, not build dependencies.
+- `masters/` holds compact marks and functional hero instruments for every
+  engine, and `masters/surfaces/` the Blender-rendered steel and rust bands.
+  Adjacent sidecars preserve the generation brief or exact prompt, hashes,
+  renderer, and original creation context. Historical reference filenames in
+  those records are provenance, not build dependencies.
 - `manifest.json` records the meaning of each instrument. Instruments explain
   the work of their engine; Ferramenta's register represents independent tools.
-- `fonts/` holds IBM Plex Sans Semibold WOFF2 and its SIL Open Font License,
-  copied unchanged from the official upstream revision pinned in the manifest.
-  The exporter verifies both hashes. Body text uses system UI; code uses the
-  system monospace stack. No network or font installation is required.
-- `content/` and `pages.json` hold the final authored copy and page inventory.
-  Engine names, roles, descriptions and destinations come from the shared
-  registry. The two files in `evidence/` retain the benchmark snapshots cited by
-  the product pages, with dates and conditions attached.
+- `fonts/source-serif-4/` holds the Source Serif 4 Subhead faces and their SIL
+  Open Font License, copied unchanged from the upstream release pinned in its
+  manifest. `build-monografie.mjs` verifies the hashes.
 
 The exporter normalizes transparent mark padding, produces PNG and lossless
-WebP marks, 32/48/64px ICOs and Apple touch icons, and optimizes instruments and
-textures. `FerraLogo` uses a rendered mark beside live type. There is no retained
-alternate typography or baked-in wordmark. Each exported raster records its
-original brief or prompt and source/output hashes. Never edit a generated package asset.
+WebP marks, 32/48/64px ICOs and Apple touch icons on warm paper, and optimizes
+instruments. It writes `packages/family/styles/ferra-assets.css`, which places
+each `.ferra-mark`, `.ferra-instrument` and `.ferra-workshop-logo`. Each
+exported raster records its original brief or prompt and source/output hashes.
+Never edit a generated package asset.
 
 The workshop SVGs are copied byte for byte from `app/assets/logos/`. Their
 sidecars identify the originals; their colors and flat light ground are part of
 the component contract. Update a master and its provenance together, rebuild,
-and inspect the actual component at `/kit/ferra/`.
+and inspect the result in the kit at `/kit/`.
 
-See [ADR-0010](../../docs/adr/0010-ferra-design-system.md) and the
-[consumer guide](../../packages/family/FERRA.md).
+See [ADR-0010](../../docs/adr/0010-ferra-design-system.md) for how the marks and
+instruments are made, and [ADR-0012](../../docs/adr/0012-monografie-engine-pages.md)
+for the page system that shows them.
 
 ## Editable Blender scenes
 
@@ -98,8 +90,7 @@ material. Add `-- --draft` to render quick mark previews into
 `.impeccable/review/` without replacing the masters. The eight original raster
 marks and their exact prompts remain in `concepts/<product>/pre-blender-mark.png`
 as form references. Use the same materials and lighting when modeling
-additional mechanical instruments. Judge compact marks at 32, 48, and 64px in
-the kit: their visible mass should fill a roughly square or circular envelope.
+additional mechanical instruments. Judge compact marks at 32, 48, and 64px: their visible mass should fill a roughly square or circular envelope.
 Ferrolink uses rounded-square links for its mark and longer links only in its
 separate continuity bench.
 
@@ -179,7 +170,7 @@ Rebuild one instrument without touching its compact mark:
 node design/ferra/build-assets.mjs ferroni
 ```
 
-To update only a large instrument and preserve all mark and texture exports:
+To update only a large instrument and preserve all mark exports:
 
 ```sh
 node design/ferra/build-assets.mjs --instruments-only ferrigura
@@ -188,6 +179,6 @@ node design/ferra/build-assets.mjs --instruments-only ferrigura
 For a draft, append `-- --draft`; previews go to
 `.impeccable/review/blender-heroes/`. Final masters are 2400×1200px Cycles renders
 with transparent backgrounds. The package exporter supplies the actual homepage
-WebP assets. `/kit/ferra/instruments/` compares the retained references with those
-current package assets. The desktop comparison has three columns: original,
-Blender 1, and Blender 2. Narrow screens stack all three revisions per instrument.
+WebP assets. The retained references in `concepts/` and the current package
+assets can be compared side by side; the comparison page that did so was part of
+the Ferra kit and is in Git history.

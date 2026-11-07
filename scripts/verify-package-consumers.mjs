@@ -8,8 +8,8 @@
  *    are exactly the tracked files codeload serves for a pinned commit, so this
  *    fails if `packages/family/dist` ever stops being committed (ADR-0007).
  *
- * Both then import the two entry points in a bare Node process and render the
- * chrome. What this cannot do is resolve `github:…#<sha>` for a commit that does
+ * Both then import the three entry points in a bare Node process and render
+ * Monografie. What this cannot do is resolve `github:…#<sha>` for a commit that does
  * not exist yet; that install is checked by hand when a sibling moves its pin,
  * with the command in the package README.
  *
@@ -31,43 +31,27 @@ const run = (command, arguments_, cwd) =>
     stdio: ["ignore", "pipe", "inherit"],
   });
 
-const REQUIRED_FILES = [
-  "dist/index.js",
-  "markdown/ferromark/header.md",
-  "markdown/ferromark/footer.md",
-  "dist/family.js",
-  "styles/chrome.css",
-  "styles/docs.css",
-  "styles/landing.css",
-  "fonts/barlow-condensed-700.woff2",
-  "icons/ferramenta-96.webp",
-  "icons/ferroni.webp",
-  "textures/steel.webp",
-  "textures/oak.webp",
-];
-
 // The npm route checks the current working package; the Git route intentionally
 // checks the exact tracked package at HEAD.
-const FERRA_FILES = [
-  "dist/ferra.js",
-  "dist/ferra.d.ts",
-  "styles/ferra.css",
-  "styles/ferra-tokens.css",
-  "styles/ferra-fonts.css",
-  "ferra/fonts/ibm-plex-sans-600.woff2",
-  "ferra/fonts/OFL-IBM-Plex.txt",
-  "styles/ferra-assets.css",
-  "ferra/manifest.json",
-  "ferra/ferramenta/favicon.ico",
-  "ferra/textures/paper.webp",
-  "ferra/brands/sebastian-software.svg",
-  "ferra/brands/sebastian-consulting.svg",
-  "FERRA.md",
+const REQUIRED_FILES = [
+  "dist/index.js",
+  "dist/family.js",
   "dist/monografie.js",
   "dist/monografie.d.ts",
+  "markdown/ferromark/header.md",
+  "markdown/ferromark/footer.md",
   "styles/monografie.css",
   "styles/monografie-docs.css",
   "styles/monografie-ardo.css",
+  "styles/ferra-assets.css",
+  "ferra/manifest.json",
+  "ferra/ferramenta/favicon.ico",
+  "ferra/ferramenta/apple-touch-icon.png",
+  "ferra/textures/steel-fine-strip.webp",
+  "ferra/fonts/source-serif-4/source-serif-4-subhead-600.woff2",
+  "ferra/brands/sebastian-software.svg",
+  "ferra/brands/sebastian-consulting.svg",
+  "icons/ardo.svg",
 ];
 
 /** Packs the package into the scratch directory and returns its specifier. */
@@ -77,7 +61,7 @@ function packTarball(scratch) {
   const tarball = readdirSync(scratch).find((entry) => entry.endsWith(".tgz"));
   if (tarball === undefined) throw new Error("pnpm pack produced no tarball");
   const shipped = run("tar", ["-tzf", join(scratch, tarball)]).split("\n");
-  for (const file of [...REQUIRED_FILES, ...FERRA_FILES]) {
+  for (const file of REQUIRED_FILES) {
     if (!shipped.includes(`package/${file}`)) throw new Error(`the npm tarball is missing ${file}`);
   }
   return `file:./${tarball}`;
@@ -92,7 +76,7 @@ function exportTrackedFiles(scratch) {
     repository,
   );
   const shipped = run("tar", ["-tf", archive]).split("\n");
-  for (const file of [...REQUIRED_FILES, ...FERRA_FILES]) {
+  for (const file of REQUIRED_FILES) {
     if (!shipped.includes(`packages/family/${file}`)) {
       throw new Error(
         `Git carries no packages/family/${file} at HEAD — a git consumer would install a broken package`,
@@ -104,7 +88,7 @@ function exportTrackedFiles(scratch) {
 }
 
 /**
- * Installs one route into a scratch project of its own and imports both entry
+ * Installs one route into a scratch project of its own and imports its entry
  * points.
  *
  * Each route gets a fresh directory. Sharing one meant the second install found

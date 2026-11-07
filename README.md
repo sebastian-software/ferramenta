@@ -16,10 +16,10 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 The site is built with [Ardo 6](https://github.com/sebastian-software/ardo) and deployed to
 GitHub Pages on every push to `main`. The family registry
 ([packages/family/src/family.ts](packages/family/src/family.ts)) is the single
-source of truth for tool names, jobs, versions, and links. The homepage uses the shared
-[Ferra design system](packages/family/FERRA.md); the approved designs live in
-[designs/](designs/README.md). The original kit remains available at `/kit/`. Icon and font assets carry their own terms — see
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+source of truth for tool names, jobs, versions, and links. The site and every engine site
+use the shared [Monografie page system](packages/family/README.md#monografie), shown with an
+invented tool at [`/kit/`](https://ferramenta.dev/kit/). Font and logo assets carry their own
+terms — see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 Working on this repo (human or agent)? Start with [AGENTS.md](AGENTS.md); durable
 decisions and their rationale live in [docs/adr/](docs/adr/README.md), the design system

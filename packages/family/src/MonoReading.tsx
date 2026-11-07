@@ -1,14 +1,18 @@
 import { type ComponentPropsWithoutRef, type ReactNode, useId, useRef } from "react";
 
-import type { ComparisonTableProps } from "./Comparison.js";
+import type { ComparisonTableProps } from "./comparison-types.js";
 
-import { ComparisonWords, useHorizontalOverflow } from "./ReadingSupport.js";
+import {
+  ComparisonWords,
+  useDerivedRegionLabel,
+  useHorizontalOverflow,
+  useScrollableCode,
+} from "./ReadingSupport.js";
 
 /*
  * Monografie's documentation pages (ADR-0012): the reading layout between the
  * host's navigation and the page outline, and the tables that stand in it.
- * Each component takes the props of its Ferra counterpart, so a site moves by
- * renaming imports. Styled by `monografie-docs.css`.
+ * Styled by `monografie-docs.css`.
  */
 
 const classes = (base: string, extra?: string) =>
@@ -25,6 +29,7 @@ export type MonoReadingLayoutProps = {
  * One reading column between host-owned navigation and the page outline. Both
  * panels stay in view under the sticky header; the outline steps aside below
  * 1181px and the navigation below 961px, where the host's menu carries it.
+ * Code in the column that scrolls sideways is reachable by keyboard.
  */
 export function MonoReadingLayout({
   navigation,
@@ -33,11 +38,15 @@ export function MonoReadingLayout({
   className,
   ...props
 }: MonoReadingLayoutProps) {
+  const proseRef = useRef<HTMLDivElement>(null);
+  useScrollableCode(proseRef, children);
   return (
     <article {...props} className={classes("mono-reading", className)}>
       <div className="mono-reading-navigation">{navigation}</div>
       <div className="mono-reading-surface">
-        <div className="mono-prose">{children}</div>
+        <div className="mono-prose" ref={proseRef}>
+          {children}
+        </div>
       </div>
       <div className="mono-reading-outline">{outline}</div>
     </article>
@@ -75,25 +84,39 @@ export function MonoTableViewport({
 }: ComponentPropsWithoutRef<"div">) {
   const regionRef = useRef<HTMLDivElement>(null);
   const overflows = useHorizontalOverflow(regionRef);
+  // A region without a name of its own takes one from its caption or heading.
+  const unnamed = props["aria-label"] === undefined && props["aria-labelledby"] === undefined;
+  const derived = useDerivedRegionLabel(regionRef, unnamed);
+  // A derived name replaces "Table" in the browser; React leaves it, as this never changes.
   return (
     <div className={classes("mono-table-frame", className)}>
       <p className="mono-table-hint" hidden={!overflows}>
         Scroll sideways for more columns.
       </p>
-      <div {...props} className="mono-table-region" role="region" tabIndex={0} ref={regionRef}>
+      <div
+        {...props}
+        {...derived}
+        aria-label={unnamed ? "Table" : props["aria-label"]}
+        className="mono-table-region"
+        role="region"
+        tabIndex={0}
+        ref={regionRef}
+      >
         {children}
       </div>
     </div>
   );
 }
 
-/** The MDX `table` slot: prose may wrap, but comparison columns keep readable words. */
+/**
+ * The MDX `table` slot: prose may wrap, but comparison columns keep readable
+ * words. A table without an `aria-label` is named after its caption or the
+ * heading it stands under, numbered where two share one, so several tables on
+ * a page stay distinct landmarks.
+ */
 export function MonoReadingTable(props: ComponentPropsWithoutRef<"table">) {
   return (
-    <MonoTableViewport
-      className="mono-reading-table"
-      aria-label={props["aria-label"] ?? "Data table"}
-    >
+    <MonoTableViewport className="mono-reading-table" aria-label={props["aria-label"]}>
       <table {...props} />
     </MonoTableViewport>
   );
