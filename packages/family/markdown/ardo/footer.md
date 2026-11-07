@@ -12,7 +12,7 @@
 | [ferrolex](https://ferrolex.dev) | Spell checking for text and code |
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
-| [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [ferrugo](https://sebastian-software.github.io/ferrugo/) | PDF previews for untrusted files |
 | [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
 | [ferrigura](https://ferrigura.dev) | Mermaid diagrams to SVG without a browser |
 

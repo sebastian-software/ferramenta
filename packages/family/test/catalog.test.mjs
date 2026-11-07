@@ -121,7 +121,9 @@ test("a catalog row without a site says where its link leads", () => {
     const note = `${tool.name}<span class="fam-sr-only"> (GitHub repository)</span>`;
     assert.equal(catalog.includes(note), kit.leadsToRepo(tool), tool.name);
   }
-  assert.ok(catalog.includes("GitHub repository <svg"), "and says so visibly on its link");
+  // Every engine may have its own site; the visible note is needed only while one has none.
+  if (kit.familyTiers().engines.some((tool) => kit.leadsToRepo(tool)))
+    assert.ok(catalog.includes("GitHub repository <svg"), "and says so visibly on its link");
 });
 
 test("the applications band shows each application in its own colors", () => {
