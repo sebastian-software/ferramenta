@@ -84,7 +84,7 @@ export function readingTableProblems() {
 
 /** Problems of the header bar: it wraps, an item leaves the gutter, is too small to tap, or two overlap. */
 export function barProblems() {
-  const bar = document.querySelector(".site-header .bar, .ferra-header");
+  const bar = document.querySelector(".site-header .bar, .ferra-header, .mono-header-in");
   if (bar === null) return ["there is no header bar"];
   const width = document.documentElement.clientWidth;
   const phone = width < 768;

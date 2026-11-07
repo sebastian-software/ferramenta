@@ -39,6 +39,7 @@ const PAGES = [
   { name: "kit", path: "/kit/" },
   { name: "ferra-kit", path: "/kit/ferra/" },
   { name: "ferra-instruments", path: "/kit/ferra/instruments/" },
+  { name: "monografie-kit", path: "/kit/monografie/" },
   { name: "kit-tool", path: "/kit/tool/" },
   { name: "kit-docs", path: "/kit/docs/getting-started/" },
   { name: "kit-docs-benchmarks", path: "/kit/docs/benchmarks/" },

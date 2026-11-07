@@ -11,6 +11,14 @@ licensed under the SIL Open Font License 1.1. The license and a manifest with
 the pinned upstream revision and hashes accompany both copies. Native previews
 under `designs/` resolve these same shipped assets directly, without extra copies.
 
+## Source Serif 4 Subhead (Monografie heading font)
+
+The canonical `design/ferra/fonts/source-serif-4/*.woff2` files and their
+package copies under `packages/family/ferra/fonts/` are Source Serif 4 Subhead
+Semibold and Italic by Adobe, licensed under the SIL Open Font License 1.1
+with the Reserved Font Name "Source". They ship unmodified; the license and a
+manifest with the pinned upstream revision and hashes accompany both copies.
+
 ## Barlow Condensed (font)
 
 `packages/family/fonts/barlow-condensed-*.woff2` are weights of the typeface

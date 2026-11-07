@@ -1,0 +1,176 @@
+import {
+  type ComponentPropsWithoutRef,
+  type ReactElement,
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
+
+import type { FerraProduct } from "./FerraIdentity.js";
+
+import { displayName, WORKSHOP } from "./family.js";
+import { FerraMark } from "./FerraComponents.js";
+
+const classes = (base: string, extra?: string) =>
+  extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
+
+/** The page ground: one authored light scheme, scoped to its wrapper. */
+export function MonoPage({ className, ...props }: ComponentPropsWithoutRef<"div">) {
+  return <div {...props} className={classes("mono", className)} />;
+}
+
+export type MonoHeaderProps = {
+  product: FerraProduct;
+  /** Where the product name leads, usually the homepage. */
+  home: string;
+  /** The page's main links, each a keyed element; they fold into a menu on narrow screens. */
+  links: ReactElement[];
+  navLabel?: string;
+  /** The current release, shown as an inset tag. */
+  release?: string;
+  /** Controls that stay visible at every width, such as search. */
+  actions?: ReactNode;
+  /** Where the family link leads; ferramenta.dev by default. */
+  familyHref?: string;
+};
+
+/** Menu state that closes on Escape, on a click outside or on a link, and when the screen widens. */
+function useMenu() {
+  const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const close = () => {
+      setOpen(false);
+    };
+    if (!open) return undefined;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      close();
+      buttonRef.current?.focus();
+    };
+    const onClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (headerRef.current?.contains(target) !== true || target.closest(".mono-menu a")) close();
+    };
+    const wide = matchMedia("(min-width: 961px)");
+    const onWide = () => {
+      if (wide.matches) close();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
+    wide.addEventListener("change", onWide);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
+      wide.removeEventListener("change", onWide);
+    };
+  }, [open]);
+  return { open, setOpen, headerRef, buttonRef };
+}
+
+type MenuProps = {
+  id: string;
+} & Pick<MonoHeaderProps, "familyHref" | "links" | "navLabel" | "release">;
+
+function MonoMenu({ id, links, navLabel, release, familyHref }: MenuProps) {
+  return (
+    <div className="mono-menu" id={id}>
+      <nav aria-label={navLabel}>
+        <ul>
+          {links.map((link) => (
+            <li key={link.key}>{link}</li>
+          ))}
+        </ul>
+      </nav>
+      <div className="mono-header-end">
+        {release !== undefined && (
+          <span className="mono-release" title="Current release">
+            v{release}
+          </span>
+        )}
+        <a className="mono-family" href={familyHref}>
+          <FerraMark product="ferramenta" size={32} />
+          Ferramenta
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/** The steel navigation bar. Its links fold into a menu below 961px. */
+export function MonoHeader({
+  product,
+  home,
+  links,
+  navLabel = "Main",
+  release,
+  actions,
+  familyHref = "https://ferramenta.dev",
+}: MonoHeaderProps) {
+  const { open, setOpen, headerRef, buttonRef } = useMenu();
+  const menuId = useId();
+  return (
+    <header className="mono-header" ref={headerRef} data-open={open}>
+      <div className="mono-header-in">
+        <a className="mono-brand" href={home}>
+          <FerraMark product={product} size={32} />
+          {displayName(product)}
+        </a>
+        <button
+          ref={buttonRef}
+          className="mono-menu-button"
+          type="button"
+          aria-expanded={open}
+          aria-controls={menuId}
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          <i aria-hidden="true" />
+          Menu
+        </button>
+        <MonoMenu
+          id={menuId}
+          links={links}
+          navLabel={navLabel}
+          release={release}
+          familyHref={familyHref}
+        />
+        {actions !== undefined && actions !== null && (
+          <div className="mono-header-actions">{actions}</div>
+        )}
+      </div>
+    </header>
+  );
+}
+
+export type MonoFooterProps = {
+  product: FerraProduct;
+  home: string;
+  /** Further links after GitHub, such as crates.io or npm. */
+  children?: ReactNode;
+};
+
+export function MonoFooter({ product, home, children }: MonoFooterProps) {
+  return (
+    <footer className="mono-footer">
+      <div className="mono-footer-in">
+        <FerraMark product={product} size={32} />
+        <p>
+          <a href={home}>{displayName(product)}</a>, part of{" "}
+          <a href="https://ferramenta.dev">Ferramenta</a>
+        </p>
+        {children}
+        <a href={WORKSHOP.imprint}>Imprint</a>
+        <a href={WORKSHOP.privacy}>Privacy</a>
+        <p className="mono-footer-copy">
+          © {new Date().getFullYear()} {WORKSHOP.company}
+        </p>
+      </div>
+    </footer>
+  );
+}
