@@ -3,6 +3,7 @@ import type { ArdoMetaFunction as MetaFunction } from "ardo/runtime";
 import { useState } from "ardo/react";
 import {
   MonoAction,
+  MonoApplications,
   MonoBarChart,
   type MonoBarRow,
   MonoCaption,
@@ -27,6 +28,7 @@ import {
   MonoTerms,
   MonoVerdict,
   MonoWide,
+  MonoWorkshop,
 } from "ferramenta-family/monografie";
 import "ferramenta-family/monografie.css";
 
@@ -261,6 +263,16 @@ export default function MonografieKit() {
           </MonoWide>
         </MonoSection>
         <MonoEngraving seed={4} />
+        <MonoSection
+          title="The family overview."
+          standfirst="ferramenta.dev lists every engine with MonoEngineCatalog, which reads the registry; it is shown there, not repeated here. The applications and the workshop's brands stand on light cards in their own colors."
+        >
+          <MonoWide>
+            <MonoApplications />
+          </MonoWide>
+          <MonoWorkshop />
+        </MonoSection>
+        <MonoEngraving seed={5} />
         <MonoColophon>
           The colophon names the work a member continues and the workshop that makes it.
         </MonoColophon>

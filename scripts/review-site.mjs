@@ -47,7 +47,14 @@ const PAGES = [
 /** Phones from the narrowest still in use, a tablet, and desktops up to a wide one. */
 const WIDTHS = [320, 360, 390, 768, 1024, 1280, 1440, 1920];
 /** The order a keyboard walks the home page's bar in. */
-const HOME_TAB_ORDER = ["Skip to content", "Ferramenta", "Engines", "Workshop", "GitHub"];
+const HOME_TAB_ORDER = [
+  "Skip to content",
+  "Ferramenta",
+  "Engines",
+  "Applications",
+  "Workshop",
+  "GitHub",
+];
 
 const failures = [];
 let checks = 0;
@@ -98,61 +105,33 @@ async function reviewLayout(page, { name, url, width }) {
     await save(`${name}-${width}-opening`, await page.screenshot());
 }
 
-async function reviewDesktopContents(page, origin) {
+/** The homepage's engine catalog follows the registry, one plate per engine. */
+async function reviewCatalog(page, origin) {
   await page.viewport(1024, 900);
   await page.open(`${origin}/`);
-  const articles = await page.evaluate(`document.querySelectorAll('.ferra-engine-article').length`);
-  const entries = await page.evaluate(`document.querySelectorAll('.ferra-contents-list a').length`);
-  expect(entries === articles && articles > 0, "editorial contents: every article has one entry");
-  // The contents and article orders intentionally differ; location follows document geometry.
-  for (const id of ["ferriki", "ferrocat", "ferrigura"]) {
-    await page.evaluate(`document.querySelector('.ferra-contents a[href="#${id}"]').click()`);
-    await page.evaluate("new Promise((resolve) => setTimeout(resolve, 120))");
-    const active = await page.evaluate(
-      `document.querySelector('.ferra-contents [aria-current="location"]')?.getAttribute('href')`,
-    );
-    expect(active === `#${id}`, `editorial contents: ${id} is current after navigation`);
-  }
+  const engines = await page.evaluate(`document.querySelectorAll('.mono-engine').length`);
+  const plates = await page.evaluate(
+    `[...document.querySelectorAll('.mono-engine .ferra-instrument')].filter((plate) => getComputedStyle(plate).backgroundImage !== 'none').length`,
+  );
+  expect(engines > 0 && plates === engines, "catalog: every engine shows its instrument");
 }
 
-async function reviewMobileContents(page, origin) {
+/** On a phone the header's links fold into a menu that opens, fits and closes on Escape. */
+async function reviewHomeMenu(page, origin) {
   await page.viewport(390, 900);
   await page.open(`${origin}/`);
-  await page.evaluate(`document.querySelector('.ferra-contents-toggle').focus()`);
-  await page.press("Enter");
-  await page.evaluate(
-    "new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))",
-  );
+  await page.evaluate(`document.querySelector('.mono-menu-button').click()`);
   const open = await page.evaluate(
-    `document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded')`,
+    `(() => { const menu = document.querySelector('.mono-menu'); const box = menu.getBoundingClientRect(); return { open: document.querySelector('.mono-menu-button').getAttribute('aria-expanded') === 'true' && getComputedStyle(menu).display !== 'none', inside: box.left >= 0 && box.right <= innerWidth }; })()`,
   );
-  expect(open === "true", "mobile contents: Enter opens the disclosure");
-  expect(
-    (await page.evaluate(call(sidewaysScroll))) === 0,
-    "mobile contents: expanded list fits the viewport",
-  );
-  await save("home-390-contents-open", await page.screenshot());
+  expect(open.open, "home menu at 390px: it does not open");
+  expect(open.inside, "home menu at 390px: the open menu leaves the viewport");
+  await save("home-390-menu-open", await page.screenshot());
   await page.press("Escape");
   const closed = await page.evaluate(
-    `document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded') === 'false' && document.activeElement.matches('.ferra-contents-toggle')`,
+    `document.querySelector('.mono-menu-button').getAttribute('aria-expanded') === 'false' && document.activeElement.matches('.mono-menu-button')`,
   );
-  expect(closed, "mobile contents: Escape closes the list and retains trigger focus");
-}
-
-async function reviewContentsChoice(page) {
-  await page.press("Enter");
-  await page.evaluate(
-    "new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))",
-  );
-  await page.evaluate(`document.querySelector('.ferra-contents a[href="#ferrocat"]').click()`);
-  await page.evaluate("new Promise((resolve) => setTimeout(resolve, 120))");
-  const chosen = await page.evaluate(
-    `({closed: document.querySelector('.ferra-contents-toggle').getAttribute('aria-expanded') === 'false', hash: location.hash, focus: document.activeElement.id})`,
-  );
-  expect(
-    chosen.closed && chosen.hash === "#ferrocat" && chosen.focus === "ferrocat",
-    "mobile contents: choosing an engine closes the list and focuses its article",
-  );
+  expect(closed, "home menu: Escape closes it and returns focus to the button");
 }
 
 /** Opens a flyout and checks the open panel; leaves it open. */
@@ -276,9 +255,8 @@ try {
   await reviewSwitchers(page, server.origin);
   await reviewDocsMenu(page, server.origin);
   await reviewKeyboard(page, server.origin);
-  await reviewDesktopContents(page, server.origin);
-  await reviewMobileContents(page, server.origin);
-  await reviewContentsChoice(page);
+  await reviewCatalog(page, server.origin);
+  await reviewHomeMenu(page, server.origin);
   await reviewMotion(page, server.origin);
 } finally {
   await browser.close();

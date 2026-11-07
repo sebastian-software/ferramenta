@@ -32,8 +32,8 @@ export type MonoHeaderProps = {
   release?: string;
   /** Controls that stay visible at every width, such as search. */
   actions?: ReactNode;
-  /** Where the family link leads; ferramenta.dev by default. */
-  familyHref?: string;
+  /** Where the family link leads; ferramenta.dev by default, `null` on the family site itself. */
+  familyHref?: null | string;
 };
 
 /** Menu state that closes on Escape, on a click outside or on a link, and when the screen widens. */
@@ -92,10 +92,12 @@ function MonoMenu({ id, links, navLabel, release, familyHref }: MenuProps) {
             v{release}
           </span>
         )}
-        <a className="mono-family" href={familyHref}>
-          <FerraMark product="ferramenta" size={32} />
-          Ferramenta
-        </a>
+        {familyHref !== null && familyHref !== undefined && (
+          <a className="mono-family" href={familyHref}>
+            <FerraMark product="ferramenta" size={32} />
+            Ferramenta
+          </a>
+        )}
       </div>
     </div>
   );
@@ -160,10 +162,16 @@ export function MonoFooter({ product, home, children }: MonoFooterProps) {
     <footer className="mono-footer">
       <div className="mono-footer-in">
         <FerraMark product={product} size={32} />
-        <p>
-          <a href={home}>{displayName(product)}</a>, part of{" "}
-          <a href="https://ferramenta.dev">Ferramenta</a>
-        </p>
+        {product === "ferramenta" ? (
+          <p>
+            <a href={home}>Ferramenta</a>, Rust engines from one workshop
+          </p>
+        ) : (
+          <p>
+            <a href={home}>{displayName(product)}</a>, part of{" "}
+            <a href="https://ferramenta.dev">Ferramenta</a>
+          </p>
+        )}
         {children}
         <a href={WORKSHOP.imprint}>Imprint</a>
         <a href={WORKSHOP.privacy}>Privacy</a>

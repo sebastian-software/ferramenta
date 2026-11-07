@@ -18,15 +18,16 @@ import {
   ArdoThemeToggle,
 } from "ardo/ui";
 import { MarkDefs, SiteFooter, SiteHeader, SiteMenu, ToolSwitcher } from "ferramenta-family";
-import { FerraFooter, FerraHeader, FerraPage } from "ferramenta-family/ferra";
 import touchIcon from "ferramenta-family/ferra-assets/ferramenta/apple-touch-icon.png?url";
 import favicon from "ferramenta-family/ferra-assets/ferramenta/favicon.ico?url";
+import { MonoFooter, MonoHeader, MonoPage } from "ferramenta-family/monografie";
 import { WORKSHOP } from "ferramenta-family/registry";
 
 import { isSampleDocsPath, isSamplePath, SAMPLE, SAMPLE_DOCS } from "./kit/sample";
 import { SITE_DESCRIPTION } from "./site-metadata";
 import "ferramenta-family/ferra.css";
 import "ferramenta-family/ferra-ardo.css";
+import "ferramenta-family/monografie.css";
 import "ferramenta-family/tokens.css";
 import "ferramenta-family/fonts.css";
 import "ferramenta-family/theme.css";
@@ -146,29 +147,39 @@ export default function Root() {
 
   if (!inKit) {
     return (
-      <FerraPage className="ferra-site">
+      <MonoPage className="fam-mono-site">
         <MarkDefs />
         <ArdoRoot
-          className="ferra-ardo-shell"
+          className="mono-ardo-shell"
           scrollMode="document"
           sidebar={false}
           header={
-            <FerraHeader
+            <MonoHeader
+              product="ferramenta"
               home="/"
-              mark={false}
-              nav={
-                <>
-                  <a href="/#engines">Engines</a>
-                  <a href="/#workshop">Workshop</a>
-                  <a href={WORKSHOP.source}>GitHub</a>
-                </>
-              }
+              familyHref={null}
+              links={[
+                <a key="engines" href="/#engines">
+                  Engines
+                </a>,
+                <a key="applications" href="/#applications">
+                  Applications
+                </a>,
+                <a key="workshop" href="/#workshop">
+                  Workshop
+                </a>,
+                <a key="github" href={WORKSHOP.source}>
+                  GitHub
+                </a>,
+              ]}
             />
           }
           footer={false}
         />
-        <FerraFooter home="/" />
-      </FerraPage>
+        <MonoFooter product="ferramenta" home="/">
+          <a href={WORKSHOP.source}>GitHub</a>
+        </MonoFooter>
+      </MonoPage>
     );
   }
 

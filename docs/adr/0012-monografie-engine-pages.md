@@ -2,7 +2,8 @@
 
 - Status: accepted
 - Date: 2026-11-07
-- Amends: ADR-0010 for engine homepages
+- Updated: 2026-11-07 (the family homepage adopts Monografie)
+- Amends: ADR-0010 for engine homepages and the family homepage
 
 ## Context
 
@@ -56,7 +57,21 @@ with the invented sample tool.
 - Engine sites adopt Monografie in their own repositories, homepage first;
   their documentation pages may keep the Ferra reading layout under the
   Monografie header.
-- The family homepage stays on Ferra until a separate decision.
+- The family homepage adopts Monografie too (amendment below).
 - Surface masters and their construction live in `design/ferra/`;
   `design/ferra/build-monografie.mjs` exports them with provenance and checks
   the font hashes. A test verifies every file the stylesheet points at.
+
+## Amendment 2026-11-07: the family homepage
+
+ferramenta.dev moves to Monografie as well, so the family and its members share
+one look. It is an overview, not an engine page, so it uses three parts the
+package adds for it: `MonoEngineCatalog` (every engine on its own plate, in
+editorial order, with live release facts, relations and the registry's notes),
+`MonoApplications` (each application on a light card under its own logo, in its
+own colors) and `MonoWorkshop` (the workshop's two brands, unchanged). All three
+read the registry. The family site's header leaves out the link back to the
+family (`familyHref={null}`), and its footer says what the family is instead of
+"part of Ferramenta". The family site keeps its rules: results stay qualitative,
+members stay independent, foreign logos stay on a light ground. The kits
+(`/kit`, `/kit/ferra/`) keep their own looks.

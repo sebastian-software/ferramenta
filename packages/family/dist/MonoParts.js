@@ -33,7 +33,7 @@ export function MonoLeadIn({ children }) {
 export function MonoColophon({ className, ...props }) {
     return _jsx("p", { ...props, className: classes("mono-colophon", className) });
 }
-export function MonoClosing({ title, standfirst, actions, links }) {
+export function MonoClosing({ id: anchor, title, standfirst, actions, links, children, }) {
     const id = useId();
-    return (_jsxs("section", { className: "mono-closing", "aria-labelledby": id, children: [_jsx("h2", { id: id, children: title }), _jsx("p", { className: "mono-standfirst", children: standfirst }), _jsx("div", { className: "mono-actions", children: actions }), links !== undefined && _jsx("p", { className: "mono-closing-links", children: links })] }));
+    return (_jsxs("section", { className: "mono-closing", id: anchor, "aria-labelledby": id, children: [_jsx("h2", { id: id, children: title }), _jsx("p", { className: "mono-standfirst", children: standfirst }), _jsx("div", { className: "mono-actions", children: actions }), links !== undefined && _jsx("p", { className: "mono-closing-links", children: links }), children] }));
 }

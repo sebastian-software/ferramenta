@@ -150,3 +150,38 @@ test("engravings are deterministic and carry one oxide line", () => {
   assert.equal((html.match(/class="mono-oxide"/gu) ?? []).length, 1);
   assert.ok(html.includes('aria-hidden="true"'));
 });
+
+test("the family overview lists every engine and application from the registry", async () => {
+  const { kit } = await import("./helpers.mjs");
+  const tiers = kit.familyTiers();
+  const catalog = render(mono.MonoEngineCatalog, {});
+  for (const tool of tiers.engines) {
+    assert.ok(catalog.includes(`id="${tool.name}"`), `no plate for ${tool.name}`);
+    assert.ok(catalog.includes(`data-product="${tool.name}"`), `no instrument for ${tool.name}`);
+    assert.ok(catalog.includes(`href="${kit.toolHref(tool)}"`));
+  }
+  assert.ok(!catalog.includes(". Used by "), "one sentence per relation kind");
+  const applications = render(mono.MonoApplications, {});
+  for (const tool of tiers.applications) {
+    assert.ok(applications.includes(`data-brand="${tool.name}"`));
+    assert.ok(
+      css.includes(`.mono-application-logo[data-brand="${tool.name}"]`),
+      `no logo rule for ${tool.name}`,
+    );
+  }
+  const workshop = render(mono.MonoWorkshop, {});
+  assert.equal((workshop.match(/class="ferra-workshop-logo"/gu) ?? []).length, 2);
+});
+
+test("the family site's header leaves out the link back to the family", () => {
+  const html = render(mono.MonoHeader, {
+    product: "ferramenta",
+    home: "/",
+    familyHref: null,
+    links: [createElement("a", { key: "engines", href: "#engines" }, "Engines")],
+  });
+  assert.ok(!html.includes('class="mono-family"'));
+  const footer = render(mono.MonoFooter, { product: "ferramenta", home: "/" });
+  assert.ok(footer.includes("Rust engines from one workshop"));
+  assert.ok(!footer.includes("part of"));
+});

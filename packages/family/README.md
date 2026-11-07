@@ -511,6 +511,12 @@ the engine's own bar (`own` on a `MonoBarChart` row). Each site keeps its
 specimens and the scripts that produce their real output. The kit renders every
 part at `/kit/monografie/`.
 
+The family site uses three more parts that read the registry:
+`MonoEngineCatalog` (every engine on its own plate), `MonoApplications` (light
+cards under each application's own logo) and `MonoWorkshop` (the workshop's
+two brands). On the family site itself, pass `familyHref={null}` to
+`MonoHeader`.
+
 ## CSS entry points
 
 | Import                          | What it is                                                                                  | Safe to load anywhere?                                        |
