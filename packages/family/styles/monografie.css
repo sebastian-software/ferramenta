@@ -1037,6 +1037,10 @@ details.mono-table-view summary {
   .mono-menu-button {
     display: inline-flex;
     margin-left: auto;
+    min-height: 44px;
+  }
+  .mono-header .mono-brand {
+    min-height: 44px;
   }
   .mono-menu {
     display: none;
