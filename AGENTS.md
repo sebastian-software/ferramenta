@@ -40,7 +40,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `app/root.tsx`                         | The shell of every page on Monografie: `MonoHeader` through Ardo's header slot, `MonoFooter` outside its main landmark, the kit's header and `noindex`, and the hand-off to the kit's documentation shell                              |
 | `app/routes/home.tsx`                  | The family page on Monografie (ADR-0012): the instrument opening, the approach, every engine on its own plate (`MonoEngineCatalog`), the applications, the colophon and work with us with the workshop's logos                         |
-| `app/routes/kit/`, `app/kit/`          | The kit at `/kit` (public, `noindex`): every Monografie homepage part (`index.tsx`) and a documentation sample at `/kit/docs/` in an engine site's shell (`docs.mdx`, `MonoDocsShell.tsx`), about an invented tool                     |
+| `app/routes/kit/`, `app/kit/`          | The kit at `/kit` (public, `noindex`): every Monografie homepage part (`index.tsx`) and a documentation sample at `/kit/docs/` on `MonoArdoSite` (`docs.mdx`, `MonoDocsShell.tsx`), about an invented tool                             |
 | `packages/family/`                     | `ferramenta-family` — the published package: registry, Monografie, the identity assets, the README frames. **`src/family.ts` is the single source of truth** for names, what each member is and does, proofs, status, relations, links |
 | `packages/family/src/`                 | `family.ts` and the live registry facts (`LiveRegistry.ts`, `RegistryFacts.tsx`), the line-icon sprite (`Mark`/`MarkDefs`), the comparison types, and the Monografie components (`Mono*.tsx`), exported from `monografie.ts`           |
 | `packages/family/styles/`              | `monografie.css` (the page system; imports `ferra-assets.css`), `monografie-docs.css` (the reading layout), `monografie-ardo.css` (Ardo in Monografie's look); `ferra-assets.css` is generated                                         |
@@ -159,7 +159,8 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   read Monografie's and no page follows the system's dark scheme.
 - **`ferramenta-family/ardo`** is an engine site's whole shell: `MonoArdoLayout`
   for the document, `MonoArdoErrorBoundary`, and `MonoArdoSite` for the header,
-  the documentation menu and reading layout, and the footer. A site passes its
+  Ardo's sidebar with its section tabs, the article and outline, and the
+  footer; the kit's documentation sample uses it too. A site passes its
   names, links and documentation sections. Ardo is a peer of the package; this
   entry runs only inside Ardo's build, so the consumer check only resolves it.
 - **Monografie's Ardo shell** comes from the package's `monografie-ardo.css`:

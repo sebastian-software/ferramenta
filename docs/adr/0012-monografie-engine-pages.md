@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-11-07
-- Updated: 2026-11-07 (the family homepage adopts Monografie; documentation pages follow; the earlier entries are removed)
+- Updated: 2026-11-09 (documentation pages take Ardo's layout); 2026-11-07 (the family homepage adopts Monografie; documentation pages follow; the earlier entries are removed)
 - Supersedes: ADR-0008, and ADR-0010 for the page system (its identity assets stay)
 
 ## Context
@@ -134,3 +134,25 @@ exporting the registry, its facts, the sprite and those types. The kit at
 `/kit/` is the Monografie kit: the homepage parts, and a documentation sample
 at `/kit/docs/` in an engine site's shell. The Typenschild comps are in Git
 history.
+
+## Amendment 2026-11-09: documentation pages take Ardo's layout
+
+The engines are documented with Ardo, and Ardo already has a documentation
+layout that readers of other Ardo sites know: the sidebar on the window's left
+edge with one tab per section turned along its outer edge, the outline on the
+right edge, and the article centered between them. `MonoArdoSite`
+(`ferramenta-family/ardo`) now renders that layout on documentation pages
+instead of Monografie's centered reading layout, and the header spans the
+window above it. Monografie keeps the look: its tokens, the prose at 18px in a
+680px measure with serif headings, code on light sheets, the steel header and
+the footer. Homepages are unchanged; they have no sidebar or outline, and their
+free, magazine-like layout already has no hard frame for the full width to
+break.
+
+Below 1025px, where Ardo folds its sidebar away, Ardo's menu carries the
+header's links, the section tabs (lying flat) and the pages; the Monografie
+menu steps aside so the header keeps one row.
+
+This supersedes the reading layout and section rail in the amendment on
+documentation pages above for the engine sites. `MonoReadingLayout`,
+`MonoSectionRail` and `MonoGuideNavigation` stay exported for now.
