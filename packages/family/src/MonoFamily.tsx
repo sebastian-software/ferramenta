@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useId, useState } from "react";
 
 import {
   displayName,
+  type FamilyEditorialNote,
   familyTiers,
   type FamilyTool,
   plannedRunsOnTools,
@@ -77,6 +78,37 @@ function Facts({ tool }: { tool: FamilyTool }) {
   );
 }
 
+/** The registry's background notes; folded behind a toggle on narrow screens. */
+function EngineNotes({ name, notes }: { name: string; notes: FamilyEditorialNote[] }) {
+  const [open, setOpen] = useState(false);
+  const notesId = useId();
+  return (
+    <div className="mono-engine-more" data-open={open ? "" : undefined}>
+      <button
+        type="button"
+        className="mono-note-toggle"
+        aria-expanded={open}
+        aria-controls={notesId}
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
+        More about {name}
+      </button>
+      <dl className="mono-engine-notes" id={notesId} aria-label={`About ${name}`}>
+        {notes.map((note) => (
+          <div key={note.title}>
+            <dt>{note.title}</dt>
+            <dd>
+              {note.body} <a href={note.href}>Source</a>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 function Engine({ tool, hrefFor }: { tool: FamilyTool; hrefFor: (tool: FamilyTool) => string }) {
   if (!hasIdentity(tool.name)) throw new Error(`Missing identity: ${tool.name}`);
   const name = displayName(tool);
@@ -102,18 +134,7 @@ function Engine({ tool, hrefFor }: { tool: FamilyTool; hrefFor: (tool: FamilyToo
           {tool.docs === undefined && " on GitHub"}
         </a>
       </div>
-      {tool.editorial !== undefined && (
-        <dl className="mono-engine-notes" aria-label={`About ${name}`}>
-          {tool.editorial.notes.map((note) => (
-            <div key={note.title}>
-              <dt>{note.title}</dt>
-              <dd>
-                {note.body} <a href={note.href}>Source</a>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      )}
+      {tool.editorial !== undefined && <EngineNotes name={name} notes={tool.editorial.notes} />}
     </article>
   );
 }

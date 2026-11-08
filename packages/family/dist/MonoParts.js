@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { useId } from "react";
+import { useId, useState } from "react";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 /* Five engraved hairlines between sections, one of them in oxide. The seed
    varies the lengths so neighboring rules never repeat. */
@@ -21,11 +21,21 @@ export function MonoSection({ id, title, standfirst, children, className, ...pro
     const headingId = useId();
     return (_jsx("section", { ...props, id: id, className: className, "aria-labelledby": headingId, children: _jsxs("div", { className: "mono-axis", children: [_jsx("h2", { id: headingId, children: title }), standfirst !== undefined && _jsx("p", { className: "mono-standfirst", children: standfirst }), children] }) }));
 }
-/** Reading text on the axis, with an optional note in the margin beside it. */
+/**
+ * Reading text on the axis, with an optional note in the margin beside it.
+ * Below 1181px there is no margin: a figure note becomes one quiet line under
+ * the text, and a term note folds behind a small toggle so the reading text
+ * stays together.
+ */
 export function MonoPassage({ note, children }) {
+    const [open, setOpen] = useState(false);
+    const noteId = useId();
     if (note === undefined)
         return _jsx(_Fragment, { children: children });
-    return (_jsxs("div", { className: "mono-row", children: [_jsxs("aside", { className: "mono-note", "data-side": note.side ?? "left", children: [note.figure !== undefined && _jsx("span", { className: "mono-note-figure", children: note.figure }), note.term !== undefined && _jsx("b", { children: note.term }), note.children] }), _jsx("div", { className: "mono-row-text", children: children })] }));
+    const folds = note.figure === undefined;
+    return (_jsxs("div", { className: "mono-row", "data-note-open": open ? "" : undefined, children: [_jsxs("aside", { className: "mono-note", id: noteId, "data-side": note.side ?? "left", "data-kind": folds ? "term" : "figure", children: [note.figure !== undefined && _jsx("span", { className: "mono-note-figure", children: note.figure }), note.term !== undefined && _jsx("b", { children: note.term }), note.children] }), _jsxs("div", { className: "mono-row-text", children: [children, folds && (_jsx("button", { type: "button", className: "mono-note-toggle", "aria-expanded": open, "aria-controls": noteId, onClick: () => {
+                            setOpen(!open);
+                        }, children: note.term === undefined ? "A note on this" : _jsxs(_Fragment, { children: [note.term, ", explained"] }) }))] })] }));
 }
 /** A lead-in: the first words of a passage in small capitals. */
 export function MonoLeadIn({ children }) {
