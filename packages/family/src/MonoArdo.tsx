@@ -166,7 +166,7 @@ function DocsActions({ name, ...navigation }: { name: string } & NavigationProps
 type SiteValue = { name: string; articleId: string } & Omit<NavigationProps, "onNavigate">;
 const SiteContext = createContext<SiteValue>({ name: "", articleId: "", sections: [], groups: [] });
 
-/** The MDX wrapper: the reading layout with the navigation, the outline and the page title. */
+/** The MDX wrapper: the reading layout with the navigation, the outline and the page title, its code marks dropped. */
 function Article({ children }: { children: ReactNode }) {
   const { name, articleId, sections, groups } = use(SiteContext);
   const page = useArdoPageData();
@@ -181,7 +181,7 @@ function Article({ children }: { children: ReactNode }) {
         <p>
           {name} / {current?.label ?? "Documentation"}
         </p>
-        <h1>{page?.title ?? "Documentation"}</h1>
+        <h1>{page?.title.replaceAll("`", "") ?? "Documentation"}</h1>
       </header>
       {children}
     </MonoReadingLayout>
