@@ -2,6 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId, useState } from "react";
 import { displayName, familyTiers, plannedRunsOnTools, relationsOf, runsOnTools, STATUS_MEANING, toolHref, WORKSHOP_REFERENCES, } from "./family.js";
 import { hasIdentity } from "./identity.js";
+import { MonoInfoIcon } from "./MonoParts.js";
 import { useToolFacts } from "./RegistryFacts.js";
 /* The family site's overview, on the Monografie page: every engine on its own
    plate, the applications on light cards under their own logos, and the
@@ -43,7 +44,7 @@ function EngineNotes({ name, notes }) {
     const notesId = useId();
     return (_jsxs("div", { className: "mono-engine-more", "data-open": open ? "" : undefined, children: [_jsxs("button", { type: "button", className: "mono-note-toggle", "aria-expanded": open, "aria-controls": notesId, onClick: () => {
                     setOpen(!open);
-                }, children: ["More about ", name] }), _jsx("dl", { className: "mono-engine-notes", id: notesId, "aria-label": `About ${name}`, children: notes.map((note) => (_jsxs("div", { children: [_jsx("dt", { children: note.title }), _jsxs("dd", { children: [note.body, " ", _jsx("a", { href: note.href, children: "Source" })] })] }, note.title))) })] }));
+                }, children: [_jsx(MonoInfoIcon, {}), "More about ", name] }), _jsx("dl", { className: "mono-engine-notes", id: notesId, "aria-label": `About ${name}`, children: notes.map((note) => (_jsxs("div", { children: [_jsx("dt", { children: note.title }), _jsxs("dd", { children: [note.body, " ", _jsx("a", { href: note.href, children: "Source" })] })] }, note.title))) })] }));
 }
 function Engine({ tool, hrefFor }) {
     if (!hasIdentity(tool.name))

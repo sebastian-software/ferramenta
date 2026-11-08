@@ -13,6 +13,7 @@ import {
   WORKSHOP_REFERENCES,
 } from "./family.js";
 import { hasIdentity } from "./identity.js";
+import { MonoInfoIcon } from "./MonoParts.js";
 import { useToolFacts } from "./RegistryFacts.js";
 
 /* The family site's overview, on the Monografie page: every engine on its own
@@ -93,6 +94,7 @@ function EngineNotes({ name, notes }: { name: string; notes: FamilyEditorialNote
           setOpen(!open);
         }}
       >
+        <MonoInfoIcon />
         More about {name}
       </button>
       <dl className="mono-engine-notes" id={notesId} aria-label={`About ${name}`}>

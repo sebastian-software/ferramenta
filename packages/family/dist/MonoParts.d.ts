@@ -1,5 +1,10 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 import type { Identity } from "./identity.js";
+/**
+ * The info glyph from Ardo's icon set (`Info` in `ardo/icons`), drawn here so
+ * the package needs no Ardo dependency.
+ */
+export declare function MonoInfoIcon(): import("react").JSX.Element;
 export declare function MonoEngraving({ seed }: {
     seed: number;
 }): import("react").JSX.Element;
@@ -61,10 +66,14 @@ export type MonoPassageProps = {
  * Reading text on the axis, with an optional note in the margin beside it.
  * Below 1181px there is no margin: a figure note becomes one quiet line under
  * the text, and a term note folds behind a small toggle so the reading text
- * stays together.
+ * stays together; the toggle shows an info icon and the term.
  */
 export declare function MonoPassage({ note, children }: MonoPassageProps): import("react").JSX.Element;
-/** A lead-in: the first words of a passage in small capitals. */
+/**
+ * A lead-in once set the first words of a passage in bold small capitals. It
+ * now renders them as plain text and stays only so older pages still build;
+ * new pages write the sentence without it.
+ */
 export declare function MonoLeadIn({ children }: {
     children: ReactNode;
 }): import("react").JSX.Element;

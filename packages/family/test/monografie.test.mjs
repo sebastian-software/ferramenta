@@ -173,7 +173,7 @@ test("on narrow screens a term note folds behind a toggle and a figure note stay
   assert.ok(term.includes('data-kind="term"'));
   assert.match(
     term,
-    /<button type="button" class="mono-note-toggle" aria-expanded="false" aria-controls="[^"]+">Affix, explained<\/button>/u,
+    /<button type="button" class="mono-note-toggle" aria-expanded="false" aria-controls="[^"]+"><svg class="mono-info-icon"[^>]*>.*?<\/svg>Affix<\/button>/u,
   );
   const figure = render(mono.MonoPassage, {
     note: { figure: "57", children: "real documents" },

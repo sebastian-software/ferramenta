@@ -7,7 +7,6 @@ import {
   MonoColophon,
   MonoEngineCatalog,
   MonoEngraving,
-  MonoLeadIn,
   MonoOpening,
   MonoPassage,
   MonoSection,
@@ -102,11 +101,11 @@ export default function HomePage() {
           }}
         >
           <p>
-            <MonoLeadIn>Most applications rest</MonoLeadIn> on a few pieces of knowledge that took
-            years to get right: how Markdown is read, how a regex engine backtracks, how a
-            translation catalog merges. That knowledge often lives in a C library that is aging, or
-            in a JavaScript tool that needs a browser. Each Ferramenta engine takes one such piece,
-            keeps its behavior and makes it a native library you can add to your own program.
+            Most applications rest on a few pieces of knowledge that took years to get right: how
+            Markdown is read, how a regex engine backtracks, how a translation catalog merges. That
+            knowledge often lives in a C library that is aging, or in a JavaScript tool that needs a
+            browser. Each Ferramenta engine takes one such piece, keeps its behavior and makes it a
+            native library you can add to your own program.
           </p>
         </MonoPassage>
         <MonoPassage

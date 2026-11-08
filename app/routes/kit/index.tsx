@@ -14,7 +14,6 @@ import {
   MonoCredit,
   MonoEngraving,
   MonoFacing,
-  MonoLeadIn,
   MonoOpening,
   MonoPassage,
   MonoProofs,
@@ -170,9 +169,9 @@ export default function Kit() {
           }}
         >
           <p>
-            <MonoLeadIn>Reading text</MonoLeadIn> stays in the visitor&rsquo;s system font on a
-            column narrow enough for comfortable lines. Notes sit in the margins on wide screens and
-            move into the text on narrow ones.
+            Reading text stays in the visitor&rsquo;s system font on a column narrow enough for
+            comfortable lines. Notes sit in the margins on wide screens and move into the text on
+            narrow ones.
           </p>
         </MonoPassage>
         <MonoPassage
