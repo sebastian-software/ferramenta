@@ -46,9 +46,11 @@ export type MonoArdoSiteProps = {
     groups?: MonoDocsGroup[];
     /** MDX components beside the reading table and the reading layout, e.g. `h2`. */
     components?: Record<string, ElementType>;
+    /** The homepage's address, for a site served below a base path; "/" by default. */
+    home?: string;
     /** Extra classes on the page: the homepage's and the documentation's. */
     homeClassName?: string;
     docsClassName?: string;
 };
 /** An engine site's whole shell on Monografie: homepage and documentation. */
-export declare function MonoArdoSite({ product, name, release, links, footer, sections, groups, components, homeClassName, docsClassName, }: MonoArdoSiteProps): import("react").JSX.Element;
+export declare function MonoArdoSite({ product, name, release, links, footer, sections, groups, components, home: homeHref, homeClassName, docsClassName, }: MonoArdoSiteProps): import("react").JSX.Element;

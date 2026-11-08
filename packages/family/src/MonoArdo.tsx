@@ -203,6 +203,8 @@ export type MonoArdoSiteProps = {
   groups?: MonoDocsGroup[];
   /** MDX components beside the reading table and the reading layout, e.g. `h2`. */
   components?: Record<string, ElementType>;
+  /** The homepage's address, for a site served below a base path; "/" by default. */
+  home?: string;
   /** Extra classes on the page: the homepage's and the documentation's. */
   homeClassName?: string;
   docsClassName?: string;
@@ -218,6 +220,7 @@ export function MonoArdoSite({
   sections = [],
   groups = [],
   components,
+  home: homeHref = "/",
   homeClassName,
   docsClassName,
 }: MonoArdoSiteProps) {
@@ -236,7 +239,7 @@ export function MonoArdoSite({
           header={
             <MonoHeader
               product={product}
-              home="/"
+              home={homeHref}
               release={release}
               links={links}
               actions={
@@ -248,7 +251,7 @@ export function MonoArdoSite({
           footer={false}
           components={{ table: MonoReadingTable, wrapper: Article, ...components }}
         />
-        <MonoFooter product={product} home="/">
+        <MonoFooter product={product} home={homeHref}>
           {footer}
         </MonoFooter>
       </MonoPage>
