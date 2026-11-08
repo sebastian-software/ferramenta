@@ -334,18 +334,14 @@
   color: var(--mono-ink-2);
   text-align: left;
 }
-.mono-note-toggle::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-right: 1.5px solid var(--mono-oxide);
-  border-bottom: 1.5px solid var(--mono-oxide);
-  transform: rotate(-45deg);
-  transition: transform 0.15s ease;
+.mono-note-toggle .mono-info-icon {
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  color: var(--mono-oxide);
 }
-.mono-note-toggle[aria-expanded="true"]::before {
-  transform: rotate(45deg);
+.mono-note-toggle[aria-expanded="true"] {
+  color: var(--mono-ink);
 }
 .mono-note-toggle:hover {
   color: var(--mono-ink);
@@ -391,11 +387,6 @@
 :where(.mono) p {
   margin: 0 0 1.2em;
   hanging-punctuation: first;
-}
-.mono-lead-in {
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.04em;
-  font-weight: 600;
 }
 :where(.mono) code {
   font-family: var(--mono-mono);

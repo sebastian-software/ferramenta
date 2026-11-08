@@ -1,6 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useId, useState } from "react";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
+/**
+ * The info glyph from Ardo's icon set (`Info` in `ardo/icons`), drawn here so
+ * the package needs no Ardo dependency.
+ */
+export function MonoInfoIcon() {
+    return (_jsx("svg", { className: "mono-info-icon", viewBox: "0 0 14 14", fill: "none", "aria-hidden": "true", children: _jsxs("g", { stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", children: [_jsx("path", { d: "M7 13.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13M5.5 10h3" }), _jsx("path", { d: "M7 10V6.5H6M7 4.25a.25.25 0 0 1 0-.5M7 4.25a.25.25 0 0 0 0-.5" })] }) }));
+}
 /* Five engraved hairlines between sections, one of them in oxide. The seed
    varies the lengths so neighboring rules never repeat. */
 const LENGTHS = [128, 96, 120, 82, 112, 104, 130, 88, 118, 100, 124, 92, 110, 86, 116];
@@ -25,7 +32,7 @@ export function MonoSection({ id, title, standfirst, children, className, ...pro
  * Reading text on the axis, with an optional note in the margin beside it.
  * Below 1181px there is no margin: a figure note becomes one quiet line under
  * the text, and a term note folds behind a small toggle so the reading text
- * stays together.
+ * stays together; the toggle shows an info icon and the term.
  */
 export function MonoPassage({ note, children }) {
     const [open, setOpen] = useState(false);
@@ -33,11 +40,15 @@ export function MonoPassage({ note, children }) {
     if (note === undefined)
         return _jsx(_Fragment, { children: children });
     const folds = note.figure === undefined;
-    return (_jsxs("div", { className: "mono-row", "data-note-open": open ? "" : undefined, children: [_jsxs("aside", { className: "mono-note", id: noteId, "data-side": note.side ?? "left", "data-kind": folds ? "term" : "figure", children: [note.figure !== undefined && _jsx("span", { className: "mono-note-figure", children: note.figure }), note.term !== undefined && _jsx("b", { children: note.term }), note.children] }), _jsxs("div", { className: "mono-row-text", children: [children, folds && (_jsx("button", { type: "button", className: "mono-note-toggle", "aria-expanded": open, "aria-controls": noteId, onClick: () => {
+    return (_jsxs("div", { className: "mono-row", "data-note-open": open ? "" : undefined, children: [_jsxs("aside", { className: "mono-note", id: noteId, "data-side": note.side ?? "left", "data-kind": folds ? "term" : "figure", children: [note.figure !== undefined && _jsx("span", { className: "mono-note-figure", children: note.figure }), note.term !== undefined && _jsx("b", { children: note.term }), note.children] }), _jsxs("div", { className: "mono-row-text", children: [children, folds && (_jsxs("button", { type: "button", className: "mono-note-toggle", "aria-expanded": open, "aria-controls": noteId, onClick: () => {
                             setOpen(!open);
-                        }, children: note.term === undefined ? "A note on this" : _jsxs(_Fragment, { children: [note.term, ", explained"] }) }))] })] }));
+                        }, "aria-label": note.term === undefined ? "A note on this" : undefined, children: [_jsx(MonoInfoIcon, {}), note.term] }))] })] }));
 }
-/** A lead-in: the first words of a passage in small capitals. */
+/**
+ * A lead-in once set the first words of a passage in bold small capitals. It
+ * now renders them as plain text and stays only so older pages still build;
+ * new pages write the sentence without it.
+ */
 export function MonoLeadIn({ children }) {
     return _jsx("span", { className: "mono-lead-in", children: children });
 }

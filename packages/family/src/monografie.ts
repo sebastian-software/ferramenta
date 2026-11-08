@@ -74,6 +74,7 @@ export {
   MonoColophon,
   MonoEngraving,
   type MonoFact,
+  MonoInfoIcon,
   MonoLeadIn,
   type MonoNoteProps,
   MonoOpening,
