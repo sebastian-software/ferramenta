@@ -52,5 +52,8 @@ export type MonoArdoSiteProps = {
     homeClassName?: string;
     docsClassName?: string;
 };
-/** An engine site's whole shell on Monografie: homepage and documentation. */
+/**
+ * An engine site's whole shell on Monografie: homepage and documentation.
+ * Search stays in the header on every page; documentation adds its menu.
+ */
 export declare function MonoArdoSite({ product, name, release, links, footer, sections, groups, components, home: homeHref, homeClassName, docsClassName, }: MonoArdoSiteProps): import("react").JSX.Element;
