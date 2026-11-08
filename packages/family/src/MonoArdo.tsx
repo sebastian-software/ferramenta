@@ -210,7 +210,10 @@ export type MonoArdoSiteProps = {
   docsClassName?: string;
 };
 
-/** An engine site's whole shell on Monografie: homepage and documentation. */
+/**
+ * An engine site's whole shell on Monografie: homepage and documentation.
+ * Search stays in the header on every page; documentation adds its menu.
+ */
 export function MonoArdoSite({
   product,
   name,
@@ -242,9 +245,7 @@ export function MonoArdoSite({
               home={homeHref}
               release={release}
               links={links}
-              actions={
-                home ? undefined : <DocsActions name={name} sections={sections} groups={groups} />
-              }
+              actions={home ? <ArdoHeaderSearch variant="icon" /> : <DocsActions {...site} />}
             />
           }
           sidebar={false}
