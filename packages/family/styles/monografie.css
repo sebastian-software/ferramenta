@@ -105,8 +105,10 @@
   top: 0;
   z-index: 10;
   height: 60px;
+  /* One band across the whole width, never tiled: its light falls off to the
+     right, so a repeat shows a seam on a wide window. */
   background:
-    var(--mono-steel-band) center / 1440px 60px repeat-x,
+    var(--mono-steel-band) center / max(100%, 1440px) 60px no-repeat,
     #cdcac4;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
