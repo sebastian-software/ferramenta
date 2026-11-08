@@ -57,7 +57,12 @@ export type MonoPassageProps = {
     note?: MonoNoteProps;
     children: ReactNode;
 };
-/** Reading text on the axis, with an optional note in the margin beside it. */
+/**
+ * Reading text on the axis, with an optional note in the margin beside it.
+ * Below 1181px there is no margin: a figure note becomes one quiet line under
+ * the text, and a term note folds behind a small toggle so the reading text
+ * stays together.
+ */
 export declare function MonoPassage({ note, children }: MonoPassageProps): import("react").JSX.Element;
 /** A lead-in: the first words of a passage in small capitals. */
 export declare function MonoLeadIn({ children }: {

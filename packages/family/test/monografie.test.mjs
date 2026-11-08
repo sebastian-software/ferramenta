@@ -164,3 +164,22 @@ test("the family site's header leaves out the link back to the family", () => {
   assert.ok(footer.includes("Rust engines from one workshop"));
   assert.ok(!footer.includes("part of"));
 });
+
+test("on narrow screens a term note folds behind a toggle and a figure note stays a line", () => {
+  const term = render(mono.MonoPassage, {
+    note: { term: "Affix", children: "A piece added to a word." },
+    children: createElement("p", null, "Text."),
+  });
+  assert.ok(term.includes('data-kind="term"'));
+  assert.match(
+    term,
+    /<button type="button" class="mono-note-toggle" aria-expanded="false" aria-controls="[^"]+">Affix, explained<\/button>/u,
+  );
+  const figure = render(mono.MonoPassage, {
+    note: { figure: "57", children: "real documents" },
+    children: createElement("p", null, "Text."),
+  });
+  assert.ok(figure.includes('data-kind="figure"'));
+  assert.ok(!figure.includes("mono-note-toggle"));
+  assert.ok(css.includes('.mono-row[data-note-open] > .mono-note[data-kind="term"]'));
+});

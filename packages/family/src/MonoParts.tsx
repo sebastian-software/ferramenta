@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ReactNode, useId } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode, useId, useState } from "react";
 
 import type { Identity } from "./identity.js";
 
@@ -170,17 +170,45 @@ export type MonoPassageProps = {
   children: ReactNode;
 };
 
-/** Reading text on the axis, with an optional note in the margin beside it. */
+/**
+ * Reading text on the axis, with an optional note in the margin beside it.
+ * Below 1181px there is no margin: a figure note becomes one quiet line under
+ * the text, and a term note folds behind a small toggle so the reading text
+ * stays together.
+ */
 export function MonoPassage({ note, children }: MonoPassageProps) {
+  const [open, setOpen] = useState(false);
+  const noteId = useId();
   if (note === undefined) return <>{children}</>;
+  const folds = note.figure === undefined;
   return (
-    <div className="mono-row">
-      <aside className="mono-note" data-side={note.side ?? "left"}>
+    <div className="mono-row" data-note-open={open ? "" : undefined}>
+      <aside
+        className="mono-note"
+        id={noteId}
+        data-side={note.side ?? "left"}
+        data-kind={folds ? "term" : "figure"}
+      >
         {note.figure !== undefined && <span className="mono-note-figure">{note.figure}</span>}
         {note.term !== undefined && <b>{note.term}</b>}
         {note.children}
       </aside>
-      <div className="mono-row-text">{children}</div>
+      <div className="mono-row-text">
+        {children}
+        {folds && (
+          <button
+            type="button"
+            className="mono-note-toggle"
+            aria-expanded={open}
+            aria-controls={noteId}
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            {note.term === undefined ? "A note on this" : <>{note.term}, explained</>}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
