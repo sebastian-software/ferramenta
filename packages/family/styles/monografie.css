@@ -449,12 +449,6 @@
   );
   filter: blur(6px);
 }
-.mono-plate figcaption {
-  font: 400 13.5px/1.5 var(--mono-sans);
-  color: var(--mono-ink-3);
-  max-width: 520px;
-  margin: 6px auto 0;
-}
 .mono-kicker {
   font: 500 14px/1.4 var(--mono-sans);
   color: var(--mono-ink-2);

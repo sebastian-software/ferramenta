@@ -157,6 +157,11 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - **One root layout**: `ArdoRootLayout` carries `className="mono-ardo"` and
   `colorScheme="light"` for every page, as on an engine site, so Ardo's tokens
   read Monografie's and no page follows the system's dark scheme.
+- **`ferramenta-family/ardo`** is an engine site's whole shell: `MonoArdoLayout`
+  for the document, `MonoArdoErrorBoundary`, and `MonoArdoSite` for the header,
+  the documentation menu and reading layout, and the footer. A site passes its
+  names, links and documentation sections. Ardo is a peer of the package; this
+  entry runs only inside Ardo's build, so the consumer check only resolves it.
 - **Monografie's Ardo shell** comes from the package's `monografie-ardo.css`:
   `ArdoRoot className="mono-ardo-shell" scrollMode="document"` inside a
   `MonoPage` gets a sticky header, a document that scrolls as a whole, and a

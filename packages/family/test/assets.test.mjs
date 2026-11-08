@@ -15,9 +15,10 @@ const identities = JSON.parse(
   await readFile(new URL("../ferra/manifest.json", import.meta.url), "utf8"),
 );
 
-test("the package exports the registry, the root entry and Monografie, and nothing else", async () => {
+test("the package exports the registry, the root entry, Monografie and its Ardo shell, and nothing else", async () => {
   assert.deepEqual(Object.keys(manifest.exports).toSorted(), [
     ".",
+    "./ardo",
     "./ferra-assets/*",
     "./icons/*",
     "./monografie",

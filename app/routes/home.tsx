@@ -55,7 +55,6 @@ export default function HomePage() {
       <MonoOpening
         product="ferramenta"
         instrumentLabel="Ferramenta's instrument: a precision register in which independent tool inserts each hold their own slot on one rail."
-        caption="A precision register: independent tool inserts, each in a slot of its own, share one rail without depending on each other."
         kicker={`Ferramenta, open source by ${WORKSHOP.company}`}
         title="A workshop for independent Rust engines."
         subtitle="Each with a job of its own."

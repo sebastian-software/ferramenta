@@ -1,7 +1,8 @@
 import type { ReactNode } from "ardo/react";
 
 import { type ArdoMetaFunction as MetaFunction, useArdoPath } from "ardo/runtime";
-import { ArdoErrorBoundary, ArdoRoot, ArdoRootLayout } from "ardo/ui";
+import { ArdoRoot } from "ardo/ui";
+import { MonoArdoErrorBoundary, MonoArdoLayout } from "ferramenta-family/ardo";
 import touchIcon from "ferramenta-family/ferra-assets/ferramenta/apple-touch-icon.png?url";
 import favicon from "ferramenta-family/ferra-assets/ferramenta/favicon.ico?url";
 import { MarkDefs, MonoFooter, MonoHeader, MonoPage } from "ferramenta-family/monografie";
@@ -23,19 +24,13 @@ export const meta: MetaFunction = () => [
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <ArdoRootLayout
-      colorScheme="light"
-      className="mono-ardo"
-      icon={favicon}
-      appleTouchIcon={touchIcon}
-      iconBasePath={false}
-    >
+    <MonoArdoLayout icon={favicon} appleTouchIcon={touchIcon}>
       {children}
-    </ArdoRootLayout>
+    </MonoArdoLayout>
   );
 }
 
-export const ErrorBoundary = ArdoErrorBoundary;
+export const ErrorBoundary = MonoArdoErrorBoundary;
 
 /** The family homepage's bar: the page's sections and the workshop's code. */
 const HOME_LINKS = [
