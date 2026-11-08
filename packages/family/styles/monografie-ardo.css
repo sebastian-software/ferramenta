@@ -47,6 +47,8 @@
   --ardo-radius-base: 2px;
   --ardo-radius-lg: 2px;
   --ardo-radius-xl: 3px;
+  /* The sticky sidebar and outline clear the 60px steel header. */
+  --ardo-layout-headerHeight: 60px;
 }
 :root.mono-ardo {
   color-scheme: light;
@@ -65,9 +67,12 @@
 }
 .mono .mono-ardo-shell #main-content {
   min-width: 0;
-  padding: 0;
   overflow: visible;
   background: transparent;
+}
+/* A homepage lays out its own sections; documentation keeps Ardo's gutters. */
+.mono:not(.mono-docs) .mono-ardo-shell #main-content {
+  padding: 0;
 }
 .mono .mono-ardo-shell > a[href="#main-content"] {
   background: var(--mono-oxide);
@@ -98,26 +103,50 @@ html:has(.mono .mono-ardo-shell) {
   color: var(--mono-ink);
   text-shadow: none;
 }
-@media (min-width: 961px) {
-  /* Once the documentation navigation stands beside the text, Ardo's menu
-     button repeats it: it steps aside, and the header keeps its row. */
-  .mono-docs:has(.mono-reading-navigation > *)
-    .mono-header
-    .mono-header-actions
-    > button[aria-expanded]:not([aria-keyshortcuts]) {
+@media (max-width: 1024px) {
+  /* Once Ardo's sidebar folds away, Ardo's menu carries the documentation and
+     the header's links, and the brand leads home: the Monografie menu and its
+     button step aside, and the menu and search sit at the end of the row. */
+  .mono-docs:has(.ardo-sidebar) .mono-header :is(.mono-menu, .mono-menu-button) {
     display: none;
   }
-}
-@media (max-width: 960px) {
-  /* With documentation navigation on the page, Ardo's menu carries it and the
-     brand leads home: the Monografie menu button steps aside, and the menu and
-     search sit at the end of the row. */
-  .mono-docs:has(.mono-reading-navigation > *) .mono-header .mono-menu-button {
-    display: none;
-  }
-  .mono-docs:has(.mono-reading-navigation > *) .mono-header .mono-header-actions {
+  .mono-docs:has(.ardo-sidebar) .mono-header .mono-header-actions {
     margin-left: auto;
   }
+}
+/* The header's links in Ardo's menu, above the sections. */
+.mono-header .mono-docs-links ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mono-header .mono-docs-links a {
+  display: flex;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--mono-hair-2);
+  color: var(--mono-ink);
+  font: 500 16px/1.3 var(--mono-sans);
+  text-decoration: none;
+}
+.mono-header .mono-docs-links a:is(:hover, [aria-current="page"]) {
+  color: var(--mono-oxide);
+}
+
+/* ---------- Documentation: Ardo's layout across the whole window ---------- */
+/* The sidebar with its section tabs holds the left edge and the outline the
+   right, as on every Ardo site; the header spans the same width, so the brand
+   stands over the sidebar. */
+.mono-docs .mono-header .mono-header-in {
+  max-width: none;
+}
+
+/* Ardo's article reads at Monografie's measure: prose at 18px in a 680px
+   column; code, tables and diagrams take the article's full width. */
+.mono .ardo-content {
+  --ardo-fontSize-base: 18px;
+  --ardo-font-lineHeight: 1.68;
+  --ardo-layout-contentMaxWidth: 680px;
 }
 
 /* ---------- Ardo's outline in the reading layout's margin ---------- */

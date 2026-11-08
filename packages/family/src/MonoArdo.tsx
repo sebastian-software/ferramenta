@@ -1,32 +1,23 @@
-import { ArdoActiveLink as NavLink, useArdoPageData, useArdoPath } from "ardo/runtime";
+import { useArdoPageData, useArdoPath } from "ardo/runtime";
 import {
+  ArdoDocContent,
   ArdoErrorBoundary,
   ArdoHeaderSearch,
   ArdoMobileNavigation,
   ArdoRoot,
   ArdoRootLayout,
-  ArdoTOC,
+  ArdoSidebar,
+  ArdoSidebarGroup,
+  ArdoSidebarLink,
+  ArdoSidebarSection,
 } from "ardo/ui";
-import {
-  createContext,
-  type ElementType,
-  Fragment,
-  type ReactElement,
-  type ReactNode,
-  use,
-  useState,
-} from "react";
+import { type ElementType, type ReactElement, type ReactNode, useState } from "react";
 
 import type { Identity } from "./identity.js";
 
 import { Mark, MarkDefs } from "./Mark.js";
 import { MonoFooter, MonoHeader, MonoPage } from "./MonoChrome.js";
-import {
-  MonoGuideNavigation,
-  MonoReadingLayout,
-  MonoReadingTable,
-  MonoSectionRail,
-} from "./MonoReading.js";
+import { MonoReadingTable } from "./MonoReading.js";
 
 /*
  * The Ardo 6 shell of every Monografie site, once: the steel header in Ardo's
@@ -81,77 +72,79 @@ export function MonoArdoLayout({ icon, appleTouchIcon, children }: MonoArdoLayou
 
 export const MonoArdoErrorBoundary = ArdoErrorBoundary;
 
-function currentSection(sections: MonoDocsSection[], path: string) {
-  return sections.find(
-    (section) => path === `/${section.id}` || path.startsWith(`/${section.id}/`),
-  );
-}
-
 type NavigationProps = {
   sections: MonoDocsSection[];
   groups: MonoDocsGroup[];
-  onNavigate?: () => void;
 };
 
-function DocsNavigation({ sections, groups, onNavigate }: NavigationProps) {
-  const path = useArdoPath();
-  const current = currentSection(sections, path) ?? sections.at(0);
-  if (current === undefined) return null;
+function inSection(id: string) {
+  return (path: string) => path === `/${id}` || path.startsWith(`/${id}/`);
+}
+
+function SidebarLinks({ pages }: { pages: MonoDocsPage[] }) {
+  return pages.map(({ label, to }) => (
+    <ArdoSidebarLink key={to} to={to}>
+      {label}
+    </ArdoSidebarLink>
+  ));
+}
+
+/**
+ * Ardo's own documentation sidebar: one tab per section on its outer edge, the
+ * section's pages beside it, and the groups that section shows. In the mobile
+ * menu the same tabs lie flat above the pages.
+ */
+function DocsSidebar({ sections, groups }: NavigationProps) {
   return (
-    <>
-      {sections.length > 1 && (
-        <MonoSectionRail aria-label="Documentation sections">
-          {sections.map((section) => (
-            <NavLink
-              key={section.id}
-              to={section.to}
-              data-active={current.id === section.id}
-              onClick={onNavigate}
-            >
-              {section.icon !== undefined && <Mark name={section.icon} />}
-              {section.label}
-            </NavLink>
-          ))}
-        </MonoSectionRail>
-      )}
-      <MonoGuideNavigation aria-label="Documentation pages">
-        <NavLink to="/" end onClick={onNavigate}>
-          Overview
-        </NavLink>
-        <p>{current.label}</p>
-        {current.pages.map(({ label, to }) => (
-          <NavLink key={to} to={to} end onClick={onNavigate}>
-            {label}
-          </NavLink>
-        ))}
-        {groups
-          .filter((group) => !(group.hiddenIn ?? []).includes(current.id))
-          .map((group) => (
-            <Fragment key={group.title}>
-              <p>{group.title}</p>
-              {group.pages.map(({ label, to }) => (
-                <NavLink key={to} to={to} end onClick={onNavigate}>
-                  {label}
-                </NavLink>
-              ))}
-            </Fragment>
-          ))}
-      </MonoGuideNavigation>
-    </>
+    <ArdoSidebar>
+      {sections.map((section) => (
+        <ArdoSidebarSection
+          key={section.id}
+          id={section.id}
+          label={section.label}
+          to={section.to}
+          match={inSection(section.id)}
+          icon={section.icon === undefined ? null : <Mark name={section.icon} size={16} />}
+        >
+          <SidebarLinks pages={section.pages} />
+          {groups
+            .filter((group) => !(group.hiddenIn ?? []).includes(section.id))
+            .map((group) => (
+              <ArdoSidebarGroup key={group.title} title={group.title} collapsible={false}>
+                <SidebarLinks pages={group.pages} />
+              </ArdoSidebarGroup>
+            ))}
+        </ArdoSidebarSection>
+      ))}
+    </ArdoSidebar>
   );
 }
 
-function DocsActions({ name, ...navigation }: { name: string } & NavigationProps) {
+type ActionsProps = { name: string; links: ReactElement[] } & NavigationProps;
+
+/**
+ * The documentation menu and search. Where Ardo's sidebar folds away, its menu
+ * carries the header's links above the sections and pages.
+ */
+function DocsActions({ name, links, ...navigation }: ActionsProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <ArdoMobileNavigation title={`${name} documentation`} open={open} onOpenChange={setOpen}>
-        <DocsNavigation
-          {...navigation}
-          onNavigate={() => {
-            setOpen(false);
-          }}
-        />
+      <ArdoMobileNavigation
+        title={`${name} documentation`}
+        open={open}
+        onOpenChange={setOpen}
+        nav={
+          <nav className="mono-docs-links" aria-label={`${name} site`}>
+            <ul>
+              {links.map((link) => (
+                <li key={link.key}>{link}</li>
+              ))}
+            </ul>
+          </nav>
+        }
+      >
+        <DocsSidebar {...navigation} />
       </ArdoMobileNavigation>
       <ArdoHeaderSearch
         variant="icon"
@@ -163,28 +156,24 @@ function DocsActions({ name, ...navigation }: { name: string } & NavigationProps
   );
 }
 
-type SiteValue = { name: string; articleId: string } & Omit<NavigationProps, "onNavigate">;
-const SiteContext = createContext<SiteValue>({ name: "", articleId: "", sections: [], groups: [] });
-
-/** The MDX wrapper: the reading layout with the navigation, the outline and the page title, its code marks dropped. */
+/**
+ * The MDX wrapper: Ardo's article and outline around Monografie's prose. The
+ * outline reads the rendered page, so headings from components count, and the
+ * title drops its code marks.
+ */
 function Article({ children }: { children: ReactNode }) {
-  const { name, articleId, sections, groups } = use(SiteContext);
   const page = useArdoPageData();
-  const current = currentSection(sections, useArdoPath());
   return (
-    <MonoReadingLayout
-      id={articleId}
-      navigation={<DocsNavigation sections={sections} groups={groups} />}
-      outline={<ArdoTOC source="dom" scope={`#${articleId}`} />}
+    <ArdoDocContent
+      tocSource="dom"
+      header={
+        <header className="mono-prose">
+          <h1>{page?.title.replaceAll("`", "") ?? "Documentation"}</h1>
+        </header>
+      }
     >
-      <header>
-        <p>
-          {name} / {current?.label ?? "Documentation"}
-        </p>
-        <h1>{page?.title.replaceAll("`", "") ?? "Documentation"}</h1>
-      </header>
-      {children}
-    </MonoReadingLayout>
+      <div className="mono-prose">{children}</div>
+    </ArdoDocContent>
   );
 }
 
@@ -231,31 +220,35 @@ export function MonoArdoSite({
   const home = path === "/" || path === "" || sections.length === 0;
   const classes = (base: string, extra?: string) =>
     extra === undefined ? base : `${base} ${extra}`.trim();
-  const site = { name, articleId: `${product}-article`, sections, groups };
+  const navigation = { sections, groups };
   return (
-    <SiteContext value={site}>
-      <MonoPage className={home ? homeClassName : classes("mono-docs", docsClassName)}>
-        <MarkDefs />
-        <ArdoRoot
-          className="mono-ardo-shell"
-          scrollMode="document"
-          header={
-            <MonoHeader
-              product={product}
-              home={homeHref}
-              release={release}
-              links={links}
-              actions={home ? <ArdoHeaderSearch variant="icon" /> : <DocsActions {...site} />}
-            />
-          }
-          sidebar={false}
-          footer={false}
-          components={{ table: MonoReadingTable, wrapper: Article, ...components }}
-        />
-        <MonoFooter product={product} home={homeHref}>
-          {footer}
-        </MonoFooter>
-      </MonoPage>
-    </SiteContext>
+    <MonoPage className={home ? homeClassName : classes("mono-docs", docsClassName)}>
+      <MarkDefs />
+      <ArdoRoot
+        className="mono-ardo-shell"
+        scrollMode="document"
+        header={
+          <MonoHeader
+            product={product}
+            home={homeHref}
+            release={release}
+            links={links}
+            actions={
+              home ? (
+                <ArdoHeaderSearch variant="icon" />
+              ) : (
+                <DocsActions name={name} links={links} {...navigation} />
+              )
+            }
+          />
+        }
+        sidebar={home ? false : <DocsSidebar {...navigation} />}
+        footer={false}
+        components={{ table: MonoReadingTable, wrapper: Article, ...components }}
+      />
+      <MonoFooter product={product} home={homeHref}>
+        {footer}
+      </MonoFooter>
+    </MonoPage>
   );
 }

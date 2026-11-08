@@ -133,22 +133,32 @@ async function reviewMonoDocsMenu(page, origin) {
   await page.evaluate(`document.querySelector('${ARDO_MENU}').click()`);
   await page.evaluate("new Promise((resolve) => setTimeout(resolve, 300))");
   const menu = await page.evaluate(
-    `(() => { const panel = document.querySelector('.ardo-mobile-panel'); if (panel === null) return { open: false, inside: false, links: 0 }; const box = panel.getBoundingClientRect(); return { open: true, inside: box.left >= 0 && box.right <= innerWidth, links: panel.querySelectorAll('.mono-section-rail a, .mono-guide-navigation a').length }; })()`,
+    `(() => { const panel = document.querySelector('.ardo-mobile-panel'); if (panel === null) return { open: false, inside: false, links: 0 }; const box = panel.getBoundingClientRect(); return { open: true, inside: box.left >= 0 && box.right <= innerWidth, links: panel.querySelectorAll('.ardo-sidebar-tabs a').length && panel.querySelectorAll('.ardo-sidebar a').length && panel.querySelectorAll('.mono-docs-links a').length }; })()`,
   );
   expect(menu.open && menu.inside, "kit docs menu at 390px: it does not open inside the viewport");
-  expect(menu.links > 0, "kit docs menu at 390px: it lists no sections or pages");
+  expect(
+    menu.links > 0,
+    "kit docs menu at 390px: it lacks the header's links, the sections or the pages",
+  );
   await save("kit-docs-390-menu-open", await page.screenshot());
 }
 
-/** Where the docs navigation stands beside the text, Ardo's menu button steps aside. */
+/** Ardo's menu button shows exactly where Ardo's sidebar folds away, and then the Monografie menu steps aside. */
 async function reviewMonoDocsBar(page, origin) {
-  for (const width of [980, 1024, 1440]) {
+  for (const width of [980, 1024, 1100, 1440]) {
     await page.viewport(width, 900);
     await page.open(origin + KIT_DOCS);
-    const shown = await page.evaluate(
-      `(() => { const button = document.querySelector('${ARDO_MENU}'); return button !== null && button.checkVisibility(); })()`,
+    const state = await page.evaluate(
+      `(() => { const button = document.querySelector('${ARDO_MENU}'); const sidebar = document.querySelector('.mono-ardo-shell .ardo-sidebar'); const mono = document.querySelector('.mono-header .mono-menu'); return { menu: button !== null && button.checkVisibility(), sidebar: sidebar !== null && sidebar.checkVisibility(), mono: mono !== null && mono.checkVisibility() }; })()`,
     );
-    expect(!shown, `kit docs at ${width}px: Ardo's menu button shows beside the navigation`);
+    expect(
+      state.menu !== state.sidebar,
+      `kit docs at ${width}px: Ardo's menu button and sidebar show together or not at all`,
+    );
+    expect(
+      !state.menu || !state.mono,
+      `kit docs at ${width}px: the Monografie menu shows beside Ardo's`,
+    );
   }
 }
 
@@ -172,7 +182,7 @@ async function reviewMonoDocsPanels(page, origin) {
   await page.open(origin + KIT_DOCS);
   await page.evaluate("window.scrollTo(0, 2400)");
   const tops = await page.evaluate(
-    `[...document.querySelectorAll('.mono-reading-navigation, .mono-reading-outline')].map((panel) => Math.round(panel.getBoundingClientRect().top))`,
+    `[...document.querySelectorAll('.mono-ardo-shell .ardo-sidebar, .mono-ardo-shell .ardo-page-rail')].map((panel) => Math.round(panel.getBoundingClientRect().top))`,
   );
   expect(
     tops.length === 2 && tops.every((top) => top >= 60 && top <= 100),

@@ -137,13 +137,14 @@ is a token there, not a literal in a site's stylesheet.
 
 - The reading column is centered; margin notes stand beside their passage from 1181px and move
   into the text below.
-- The header is 60px and sticky; its links fold into a menu below 961px. On documentation
-  pages Ardo's menu carries the navigation there, and from 961px, where the navigation column
-  stands beside the text, Ardo's menu button steps aside. Just above that width the header's
-  spacing tightens so six links, the release, the family link and search keep one row.
-- Documentation: the host's section rail and page list on the left, one prose column, the page
-  outline on the right; both side panels stay in view under the header. The outline steps
-  aside below 1181px, the navigation below 961px.
+- The header is 60px and sticky; its links fold into a menu below 961px. Just above that width
+  the header's spacing tightens so six links, the release, the family link and search keep one
+  row. On documentation pages the header spans the window.
+- Documentation takes Ardo's layout: Ardo's sidebar on the window's left edge, with one tab per
+  section along its outer edge, the outline on the right edge, the article centered between
+  them; prose keeps 680px at 18px. Both side panels stay in view under the header. Below
+  1025px the sidebar folds into Ardo's menu, which then also carries the header's links, and
+  the Monografie menu steps aside.
 - Paired specimens stack on narrow screens; on phones a comparison chart puts each name above
   its bar.
 
@@ -170,7 +171,8 @@ documentation page in an engine site's shell.
 - **Family overview:** `MonoEngineCatalog` (every engine on its own plate, in editorial order,
   with live release facts and relations), `MonoApplications` (light cards under each
   application's own logo), `MonoWorkshop` (the workshop's two brands, unchanged).
-- **Documentation:** `MonoReadingLayout`, `MonoSectionRail`, `MonoGuideNavigation`,
+- **Documentation:** `MonoArdoSite` (Ardo's sidebar, section tabs and outline; from
+  `ferramenta-family/ardo`), `MonoReadingLayout`, `MonoSectionRail`, `MonoGuideNavigation`,
   `MonoReadingTable` (named after its caption or heading), `MonoTable`, `MonoBenchmarkTable`,
   `MonoComparisonTable`, `MonoMeasured`, `MonoBars`, `MonoCode`, `MonoRenderedCode`,
   `MonoCodePair`, `MonoDiagram`, `MonoExample`, `MonoToggle`, `MonoSelect`, `MonoTabs`,

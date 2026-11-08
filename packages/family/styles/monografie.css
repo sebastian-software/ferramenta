@@ -170,21 +170,21 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
-.mono-header nav ul {
+.mono-header nav:where(.mono-menu > *) ul {
   display: flex;
   gap: 26px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.mono-header nav a {
+.mono-header nav:where(.mono-menu > *) a {
   color: #2f2c27;
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
   white-space: nowrap;
 }
-.mono-header nav a:hover,
-.mono-header nav a[aria-current="page"] {
+.mono-header nav:where(.mono-menu > *) a:hover,
+.mono-header nav:where(.mono-menu > *) a[aria-current="page"] {
   color: var(--mono-oxide);
 }
 .mono-header-end {
@@ -1119,7 +1119,7 @@ details.mono-table-view summary {
   .mono-header-in {
     gap: 22px;
   }
-  .mono-header nav ul {
+  .mono-header nav:where(.mono-menu > *) ul {
     gap: 18px;
   }
   .mono-header-end {
