@@ -30,6 +30,13 @@ function expect(condition, message) {
 }
 
 expect(Object.keys(familyTiers()).length === 2, "the registry entry is broken");
+// The Ardo shell runs only inside Ardo's Vite build (it reads virtual modules), so
+// plain Node checks that the entry resolves to a shipped file, not that it loads.
+expect(
+  // eslint-disable-next-line security/detect-non-literal-fs-filename -- the path is the installed package's own entry
+  existsSync(new URL(import.meta.resolve("ferramenta-family/ardo"))),
+  "the ardo entry has no file",
+);
 expect(
   typeof MarkDefs === "function" && typeof RegistryFacts === "function",
   "the root entry lost its sprite or its registry facts",

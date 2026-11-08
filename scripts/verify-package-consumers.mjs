@@ -112,6 +112,7 @@ function checkConsumer(label, prepare) {
           private: true,
           type: "module",
           dependencies: {
+            ardo: "^6.0.0",
             "ferramenta-family": specifier,
             react: "^19.2.7",
             "react-dom": "^19.2.7",

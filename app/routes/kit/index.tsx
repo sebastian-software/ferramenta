@@ -128,7 +128,6 @@ export default function Kit() {
       <MonoOpening
         product="ferramenta"
         instrumentLabel="Ferramenta's instrument: a precision register holding independent tool inserts."
-        caption="The opening plate shows the member's own instrument, centered on open paper."
         kicker={`${SAMPLE.title} 0.0, an invented engine for the kit`}
         title="One reading column."
         subtitle="Specimens that widen, notes in the margin."

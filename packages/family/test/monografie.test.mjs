@@ -173,7 +173,7 @@ test("on narrow screens a term note folds behind a toggle and a figure note stay
   assert.ok(term.includes('data-kind="term"'));
   assert.match(
     term,
-    /<button type="button" class="mono-note-toggle" aria-expanded="false" aria-controls="[^"]+"><svg class="mono-info-icon"[^>]*>.*?<\/svg>Affix<\/button>/u,
+    /<button type="button" class="mono-note-toggle" aria-expanded="false" aria-controls="[^"]+"><svg[^>]*class="mono-info-icon"[^>]*>.*?<\/svg>Affix<\/button>/u,
   );
   const figure = render(mono.MonoPassage, {
     note: { figure: "57", children: "real documents" },
@@ -182,4 +182,27 @@ test("on narrow screens a term note folds behind a toggle and a figure note stay
   assert.ok(figure.includes('data-kind="figure"'));
   assert.ok(!figure.includes("mono-note-toggle"));
   assert.ok(css.includes('.mono-row[data-note-open] > .mono-note[data-kind="term"]'));
+});
+
+test("the opening plate carries no caption, only the instrument's label", () => {
+  const html = render(mono.MonoOpening, {
+    product: "ferroni",
+    instrumentLabel: "A pattern comparator",
+    kicker: "Kicker",
+    title: "Title",
+    standfirst: "Standfirst",
+    actions: null,
+  });
+  assert.ok(html.includes('aria-label="A pattern comparator"'));
+  assert.ok(!html.includes("<figcaption"));
+});
+
+test("the Ardo shell is its own entry, and Ardo a peer of the package", async () => {
+  const manifest = JSON.parse(
+    await import("node:fs").then(({ readFileSync }) =>
+      readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+    ),
+  );
+  assert.equal(manifest.exports["./ardo"].default, "./dist/ardo.js");
+  assert.ok(manifest.peerDependencies.ardo);
 });

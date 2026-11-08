@@ -1,12 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { Info } from "ardo/icons";
 import { useId, useState } from "react";
 const classes = (base, extra) => extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
-/**
- * The info glyph from Ardo's icon set (`Info` in `ardo/icons`), drawn here so
- * the package needs no Ardo dependency.
- */
+/** The info glyph of a folded note's toggle, from Ardo's icon set. */
 export function MonoInfoIcon() {
-    return (_jsx("svg", { className: "mono-info-icon", viewBox: "0 0 14 14", fill: "none", "aria-hidden": "true", children: _jsxs("g", { stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", children: [_jsx("path", { d: "M7 13.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13M5.5 10h3" }), _jsx("path", { d: "M7 10V6.5H6M7 4.25a.25.25 0 0 1 0-.5M7 4.25a.25.25 0 0 0 0-.5" })] }) }));
+    return _jsx(Info, { className: "mono-info-icon", size: 18 });
 }
 /* Five engraved hairlines between sections, one of them in oxide. The seed
    varies the lengths so neighboring rules never repeat. */
@@ -19,9 +17,9 @@ export function MonoAction({ href, primary = false, variant, detail, children, c
     return (_jsxs("a", { ...props, className: classes("mono-action", className), href: href, "data-primary": rust ? "" : undefined, children: [children, detail !== undefined && _jsx("small", { children: detail })] }));
 }
 /** The instrument as a centered plate, the name and the first actions. */
-export function MonoOpening({ product, instrumentLabel, caption, kicker, title, subtitle, standfirst, actions, facts, }) {
+export function MonoOpening({ product, instrumentLabel, kicker, title, subtitle, standfirst, actions, facts, }) {
     const id = useId();
-    return (_jsxs("section", { className: "mono-opening", "aria-labelledby": id, children: [_jsxs("figure", { className: "mono-plate", children: [_jsx("span", { className: "ferra-instrument", "data-product": product, role: "img", "aria-label": instrumentLabel }), caption !== undefined && _jsx("figcaption", { children: caption })] }), _jsx("p", { className: "mono-kicker", children: kicker }), _jsxs("h1", { id: id, children: [title, subtitle !== undefined && _jsx("span", { className: "mono-second", children: subtitle })] }), _jsx("p", { className: "mono-standfirst", children: standfirst }), _jsx("div", { className: "mono-actions", children: actions }), facts !== undefined && facts.length > 0 && (_jsx("ul", { className: "mono-facts", children: facts.map((fact, index) => (_jsxs("li", { children: [_jsx("strong", { children: fact.value }), fact.label] }, index))) }))] }));
+    return (_jsxs("section", { className: "mono-opening", "aria-labelledby": id, children: [_jsx("figure", { className: "mono-plate", children: _jsx("span", { className: "ferra-instrument", "data-product": product, role: "img", "aria-label": instrumentLabel }) }), _jsx("p", { className: "mono-kicker", children: kicker }), _jsxs("h1", { id: id, children: [title, subtitle !== undefined && _jsx("span", { className: "mono-second", children: subtitle })] }), _jsx("p", { className: "mono-standfirst", children: standfirst }), _jsx("div", { className: "mono-actions", children: actions }), facts !== undefined && facts.length > 0 && (_jsx("ul", { className: "mono-facts", children: facts.map((fact, index) => (_jsxs("li", { children: [_jsx("strong", { children: fact.value }), fact.label] }, index))) }))] }));
 }
 /** A chapter on the reading axis: heading, standfirst, then its passages. */
 export function MonoSection({ id, title, standfirst, children, className, ...props }) {

@@ -1,3 +1,4 @@
+import { Info } from "ardo/icons";
 import { type ComponentPropsWithoutRef, type ReactNode, useId, useState } from "react";
 
 import type { Identity } from "./identity.js";
@@ -5,19 +6,9 @@ import type { Identity } from "./identity.js";
 const classes = (base: string, extra?: string) =>
   extra === undefined || extra.length === 0 ? base : `${base} ${extra}`;
 
-/**
- * The info glyph from Ardo's icon set (`Info` in `ardo/icons`), drawn here so
- * the package needs no Ardo dependency.
- */
+/** The info glyph of a folded note's toggle, from Ardo's icon set. */
 export function MonoInfoIcon() {
-  return (
-    <svg className="mono-info-icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 13.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13M5.5 10h3" />
-        <path d="M7 10V6.5H6M7 4.25a.25.25 0 0 1 0-.5M7 4.25a.25.25 0 0 0 0-.5" />
-      </g>
-    </svg>
-  );
+  return <Info className="mono-info-icon" size={18} />;
 }
 
 /* Five engraved hairlines between sections, one of them in oxide. The seed
@@ -88,7 +79,6 @@ export type MonoOpeningProps = {
   product: Identity;
   /** What the instrument shows, for readers who cannot see it. */
   instrumentLabel: string;
-  caption?: ReactNode;
   kicker: ReactNode;
   title: ReactNode;
   subtitle?: ReactNode;
@@ -101,7 +91,6 @@ export type MonoOpeningProps = {
 export function MonoOpening({
   product,
   instrumentLabel,
-  caption,
   kicker,
   title,
   subtitle,
@@ -119,7 +108,6 @@ export function MonoOpening({
           role="img"
           aria-label={instrumentLabel}
         />
-        {caption !== undefined && <figcaption>{caption}</figcaption>}
       </figure>
       <p className="mono-kicker">{kicker}</p>
       <h1 id={id}>

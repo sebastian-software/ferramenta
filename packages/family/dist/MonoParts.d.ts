@@ -1,9 +1,6 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 import type { Identity } from "./identity.js";
-/**
- * The info glyph from Ardo's icon set (`Info` in `ardo/icons`), drawn here so
- * the package needs no Ardo dependency.
- */
+/** The info glyph of a folded note's toggle, from Ardo's icon set. */
 export declare function MonoInfoIcon(): import("react").JSX.Element;
 export declare function MonoEngraving({ seed }: {
     seed: number;
@@ -31,7 +28,6 @@ export type MonoOpeningProps = {
     product: Identity;
     /** What the instrument shows, for readers who cannot see it. */
     instrumentLabel: string;
-    caption?: ReactNode;
     kicker: ReactNode;
     title: ReactNode;
     subtitle?: ReactNode;
@@ -40,7 +36,7 @@ export type MonoOpeningProps = {
     facts?: MonoFact[];
 };
 /** The instrument as a centered plate, the name and the first actions. */
-export declare function MonoOpening({ product, instrumentLabel, caption, kicker, title, subtitle, standfirst, actions, facts, }: MonoOpeningProps): import("react").JSX.Element;
+export declare function MonoOpening({ product, instrumentLabel, kicker, title, subtitle, standfirst, actions, facts, }: MonoOpeningProps): import("react").JSX.Element;
 export type MonoSectionProps = {
     id?: string;
     title: ReactNode;
