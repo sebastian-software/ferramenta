@@ -122,7 +122,9 @@ function checkConsumer(label, prepare) {
         2,
       )}\n`,
     );
-    run("pnpm", ["install", "--ignore-workspace"], scratch);
+    // Ardo brings esbuild, whose install script the check does not need; pnpm
+    // would otherwise stop on the skipped build.
+    run("pnpm", ["install", "--ignore-workspace", "--config.strict-dep-builds=false"], scratch);
     copyFileSync(new URL("consumer-check.mjs", import.meta.url), join(scratch, "check.mjs"));
     process.stdout.write(run("node", ["check.mjs"], scratch));
   } finally {
