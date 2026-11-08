@@ -31,12 +31,12 @@ function DocsActions({ name, ...navigation }) {
                 } })] }));
 }
 const SiteContext = createContext({ name: "", articleId: "", sections: [], groups: [] });
-/** The MDX wrapper: the reading layout with the navigation, the outline and the page title. */
+/** The MDX wrapper: the reading layout with the navigation, the outline and the page title, its code marks dropped. */
 function Article({ children }) {
     const { name, articleId, sections, groups } = use(SiteContext);
     const page = useArdoPageData();
     const current = currentSection(sections, useArdoPath());
-    return (_jsxs(MonoReadingLayout, { id: articleId, navigation: _jsx(DocsNavigation, { sections: sections, groups: groups }), outline: _jsx(ArdoTOC, { source: "dom", scope: `#${articleId}` }), children: [_jsxs("header", { children: [_jsxs("p", { children: [name, " / ", current?.label ?? "Documentation"] }), _jsx("h1", { children: page?.title ?? "Documentation" })] }), children] }));
+    return (_jsxs(MonoReadingLayout, { id: articleId, navigation: _jsx(DocsNavigation, { sections: sections, groups: groups }), outline: _jsx(ArdoTOC, { source: "dom", scope: `#${articleId}` }), children: [_jsxs("header", { children: [_jsxs("p", { children: [name, " / ", current?.label ?? "Documentation"] }), _jsx("h1", { children: page?.title.replaceAll("`", "") ?? "Documentation" })] }), children] }));
 }
 /** An engine site's whole shell on Monografie: homepage and documentation. */
 export function MonoArdoSite({ product, name, release, links, footer, sections = [], groups = [], components, homeClassName, docsClassName, }) {
