@@ -47,7 +47,7 @@ const HOME_TAB_ORDER = [
   "Engines",
   "Applications",
   "Workshop",
-  "GitHub",
+  "Source code on GitHub",
 ];
 
 const failures = [];

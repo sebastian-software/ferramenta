@@ -36,6 +36,8 @@ export type MonoHeaderProps = {
   release?: string;
   /** Controls that stay visible at every width, such as search. */
   actions?: ReactNode;
+  /** The source repository, shown as GitHub's mark at the end of the row at every width. */
+  repository?: string;
   /** Where the family link leads; ferramenta.dev by default, `null` on the family site itself. */
   familyHref?: null | string;
 };
@@ -107,6 +109,23 @@ function MonoMenu({ id, links, navLabel, release, familyHref }: MenuProps) {
   );
 }
 
+/** Controls at the end of the row, visible at every width: search, a menu, GitHub's mark. */
+function HeaderActions({ actions, repository }: Pick<MonoHeaderProps, "actions" | "repository">) {
+  if ((actions === undefined || actions === null) && repository === undefined) return null;
+  return (
+    <div className="mono-header-actions">
+      {actions}
+      {repository !== undefined && (
+        <a className="mono-repository" href={repository} aria-label="Source code on GitHub">
+          <svg className="icon" width="20" height="20" aria-hidden="true">
+            <use href="#i-github" />
+          </svg>
+        </a>
+      )}
+    </div>
+  );
+}
+
 /** The steel navigation bar. Its links fold into a menu below 961px. */
 export function MonoHeader({
   product,
@@ -115,6 +134,7 @@ export function MonoHeader({
   navLabel = "Main",
   release,
   actions,
+  repository,
   familyHref = "https://ferramenta.dev",
 }: MonoHeaderProps) {
   const { open, setOpen, headerRef, buttonRef } = useMenu();
@@ -146,9 +166,7 @@ export function MonoHeader({
           release={release}
           familyHref={familyHref}
         />
-        {actions !== undefined && actions !== null && (
-          <div className="mono-header-actions">{actions}</div>
-        )}
+        <HeaderActions actions={actions} repository={repository} />
       </div>
     </header>
   );

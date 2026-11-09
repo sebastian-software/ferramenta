@@ -309,11 +309,16 @@ test("documentation pages take Ardo's layout across the whole window", () => {
     /@media \(max-width: 1024px\) \{[^}]*\.mono-docs:has\(\.ardo-sidebar\) \.mono-header :is\(\.mono-menu, \.mono-menu-button\) \{\s+display: none;/u,
     "Ardo's menu carries the documentation once the header folds",
   );
-  assert.match(
-    ardoCss,
-    /\.mono-docs \.mono-header \.mono-header-in \{\s+max-width: none;/u,
-    "the header spans the window over Ardo's sidebar",
+  assert.doesNotMatch(
+    css,
+    /\.mono-header-in \{[^}]*max-width/u,
+    "the header spans the window on every page, so it does not move between them",
   );
   assert.match(ardoCss, /--ardo-layout-contentMaxWidth: 680px;/u, "prose keeps the 680px measure");
+  assert.match(
+    ardoCss,
+    /--mono-rail-grow: clamp\(0px, \(100vw - 1280px\) \/ 4, 80px\);/u,
+    "the sidebar and the outline keep Ardo's widths up to 1280px and grow a little beyond",
+  );
   assert.match(css, /@media \(min-width: 961px\) and \(max-width: 1100px\) \{/u);
 });

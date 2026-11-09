@@ -58,12 +58,12 @@
   },
   "devDependencies": {
     "@types/react": "^19.3.0",
-    "ardo": "^6.0.0",
-    "react-dom": "^19.3.0",
+    "ardo": "^6.4.1",
+    "react-dom": "^19.3.1",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "ardo": "^6.0.0",
+    "ardo": "^6.4.1",
     "react": ">=19.0.0 <20.0.0"
   },
   "engines": {

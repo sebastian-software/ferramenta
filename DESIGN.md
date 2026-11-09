@@ -137,12 +137,15 @@ is a token there, not a literal in a site's stylesheet.
 
 - The reading column is centered; margin notes stand beside their passage from 1181px and move
   into the text below.
-- The header is 60px and sticky; its links fold into a menu below 961px. Just above that width
-  the header's spacing tightens so six links, the release, the family link and search keep one
-  row. On documentation pages the header spans the window.
+- The header is 60px, sticky and spans the window on every page, so it does not move between a
+  homepage and its documentation. Its links lead to pages, never to anchors on the homepage, and
+  fold into a menu below 961px; GitHub is its mark at the end of the row, beside search. Just
+  above 961px the header's spacing tightens so the links, the release, the family link, search
+  and GitHub keep one row.
 - Documentation takes Ardo's layout: Ardo's sidebar on the window's left edge, with one tab per
   section along its outer edge, the outline on the right edge, the article centered between
-  them; prose keeps 680px at 18px. Both side panels stay in view under the header. Below
+  them; prose keeps 680px at 18px. The panels keep Ardo's widths up to 1280px and grow by up to
+  80px and 60px toward 1600px. Both side panels stay in view under the header. Below
   1025px the sidebar folds into Ardo's menu, which then also carries the header's links, and
   the Monografie menu steps aside.
 - Paired specimens stack on narrow screens; on phones a comparison chart puts each name above

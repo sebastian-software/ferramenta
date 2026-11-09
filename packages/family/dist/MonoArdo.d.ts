@@ -37,8 +37,10 @@ export type MonoArdoSiteProps = {
     name: string;
     /** The release shown in the header. */
     release?: string;
-    /** The header's links. */
+    /** The header's links: pages of the site, not anchors on the homepage. */
     links: ReactElement[];
+    /** The source repository, shown as GitHub's mark beside search. */
+    repository?: string;
     /** The footer's links. */
     footer?: ReactNode;
     /** The documentation sections; without them every page is a homepage. */
@@ -56,4 +58,4 @@ export type MonoArdoSiteProps = {
  * An engine site's whole shell on Monografie: homepage and documentation.
  * Search stays in the header on every page; documentation adds its menu.
  */
-export declare function MonoArdoSite({ product, name, release, links, footer, sections, groups, components, home: homeHref, homeClassName, docsClassName, }: MonoArdoSiteProps): import("react").JSX.Element;
+export declare function MonoArdoSite({ product, name, release, links, repository, footer, sections, groups, components, home: homeHref, homeClassName, docsClassName, }: MonoArdoSiteProps): import("react").JSX.Element;

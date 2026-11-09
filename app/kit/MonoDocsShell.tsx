@@ -8,8 +8,9 @@ import { SAMPLE } from "./sample";
  * The Monografie documentation shell exactly as an engine site gets it:
  * `MonoArdoSite` with Ardo's sidebar, its section tabs on the outer edge, the
  * article and the outline across the window. Only the invented tool and its
- * page list are the kit's own. The header carries six links, as the fullest
- * engine sites do, so the kit's review sees the bar at its most crowded.
+ * page list are the kit's own. The header carries four links and GitHub's
+ * mark, as the fullest engine sites do, so the kit's review sees the bar at
+ * its most crowded.
  */
 
 /** The kit's homepage parts, and its documentation sample. */
@@ -59,12 +60,6 @@ const LINKS = [
   <a key="performance" href={`${KIT_DOCS}#performance`}>
     Performance
   </a>,
-  <a key="changes" href={`${KIT_DOCS}#units-and-dimensions`}>
-    Units
-  </a>,
-  <a key="github" href={WORKSHOP.source}>
-    GitHub
-  </a>,
 ];
 
 /** The kit's sample documentation page on Monografie, in an engine site's shell. */
@@ -78,6 +73,7 @@ export function MonoDocsShell() {
         release="0.0.0"
         home={KIT}
         links={LINKS}
+        repository={WORKSHOP.source}
         sections={SECTIONS}
       />
     </>
