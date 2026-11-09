@@ -13,11 +13,13 @@ export type MonoHeaderProps = {
     release?: string;
     /** Controls that stay visible at every width, such as search. */
     actions?: ReactNode;
+    /** The source repository, shown as GitHub's mark at the end of the row at every width. */
+    repository?: string;
     /** Where the family link leads; ferramenta.dev by default, `null` on the family site itself. */
     familyHref?: null | string;
 };
 /** The steel navigation bar. Its links fold into a menu below 961px. */
-export declare function MonoHeader({ product, home, links, navLabel, release, actions, familyHref, }: MonoHeaderProps): import("react").JSX.Element;
+export declare function MonoHeader({ product, home, links, navLabel, release, actions, repository, familyHref, }: MonoHeaderProps): import("react").JSX.Element;
 export type MonoFooterProps = {
     product: Identity;
     home: string;

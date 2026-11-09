@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-11-07
-- Updated: 2026-11-09 (documentation pages take Ardo's layout); 2026-11-07 (the family homepage adopts Monografie; documentation pages follow; the earlier entries are removed)
+- Updated: 2026-11-09 (documentation pages take Ardo's layout; one full-width header); 2026-11-07 (the family homepage adopts Monografie; documentation pages follow; the earlier entries are removed)
 - Supersedes: ADR-0008, and ADR-0010 for the page system (its identity assets stay)
 
 ## Context
@@ -152,6 +152,15 @@ break.
 Below 1025px, where Ardo folds its sidebar away, Ardo's menu carries the
 header's links, the section tabs (lying flat) and the pages; the Monografie
 menu steps aside so the header keeps one row.
+
+The header spans the window on every page, homepages included, as it does on
+an Ardo site: a reader moving between a homepage and its documentation sees one
+bar that does not shift. GitHub is GitHub's mark at the end of the row, apart
+from the page links, and the header's links lead to pages of the site, never to
+anchors on the homepage. The sidebar and the outline keep Ardo's widths up to
+1280px and grow by up to 80px and 60px toward 1600px, so a wide window gives
+them room instead of only widening the gaps around the article. This needs Ardo
+6.4 or later, whose article centers between the two.
 
 This supersedes the reading layout and section rail in the amendment on
 documentation pages above for the engine sites. `MonoReadingLayout`,

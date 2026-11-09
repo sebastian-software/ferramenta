@@ -177,14 +177,19 @@ function Article({ children }: { children: ReactNode }) {
   );
 }
 
+const classes = (base: string, extra?: string) =>
+  extra === undefined ? base : `${base} ${extra}`.trim();
+
 export type MonoArdoSiteProps = {
   product: Identity;
   /** The member's name in prose, e.g. "Ferromark". */
   name: string;
   /** The release shown in the header. */
   release?: string;
-  /** The header's links. */
+  /** The header's links: pages of the site, not anchors on the homepage. */
   links: ReactElement[];
+  /** The source repository, shown as GitHub's mark beside search. */
+  repository?: string;
   /** The footer's links. */
   footer?: ReactNode;
   /** The documentation sections; without them every page is a homepage. */
@@ -208,6 +213,7 @@ export function MonoArdoSite({
   name,
   release,
   links,
+  repository,
   footer,
   sections = [],
   groups = [],
@@ -218,8 +224,6 @@ export function MonoArdoSite({
 }: MonoArdoSiteProps) {
   const path = useArdoPath();
   const home = path === "/" || path === "" || sections.length === 0;
-  const classes = (base: string, extra?: string) =>
-    extra === undefined ? base : `${base} ${extra}`.trim();
   const navigation = { sections, groups };
   return (
     <MonoPage className={home ? homeClassName : classes("mono-docs", docsClassName)}>
@@ -233,6 +237,7 @@ export function MonoArdoSite({
             home={homeHref}
             release={release}
             links={links}
+            repository={repository}
             actions={
               home ? (
                 <ArdoHeaderSearch variant="icon" />

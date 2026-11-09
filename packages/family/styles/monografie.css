@@ -117,9 +117,10 @@
     0 6px 14px -12px rgba(38, 35, 31, 0.5);
   color: var(--mono-ink);
 }
+/* The bar spans the window on every page, as on an Ardo site: the brand holds
+   the left edge and the controls the right, and a homepage and its
+   documentation share one header. */
 .mono-header-in {
-  max-width: calc(var(--mono-full) + 64px);
-  margin: 0 auto;
   padding: 0 32px;
   height: 100%;
   display: flex;
@@ -216,6 +217,23 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+/* The source repository: GitHub's mark beside search, apart from the page links. */
+.mono-header .mono-repository {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: #2f2c27;
+  border-radius: 2px;
+}
+.mono-header .mono-repository:hover {
+  color: var(--mono-oxide);
+}
+.mono-header .mono-repository .icon {
+  width: 20px;
+  height: 20px;
 }
 .mono-menu-button {
   display: none;
@@ -1210,8 +1228,14 @@ details.mono-table-view summary {
   .mono section.mono-opening {
     padding: 36px 16px 0;
   }
+  /* The brand, the menu, search and GitHub's mark share 288px on the
+     narrowest phones. */
   .mono-header-in {
     padding: 0 16px;
+    gap: 10px;
+  }
+  .mono-header-actions {
+    gap: 0;
   }
   .mono-menu {
     padding: 4px 16px 18px;

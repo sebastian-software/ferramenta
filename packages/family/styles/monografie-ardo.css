@@ -135,10 +135,13 @@ html:has(.mono .mono-ardo-shell) {
 
 /* ---------- Documentation: Ardo's layout across the whole window ---------- */
 /* The sidebar with its section tabs holds the left edge and the outline the
-   right, as on every Ardo site; the header spans the same width, so the brand
-   stands over the sidebar. */
-.mono-docs .mono-header .mono-header-in {
-  max-width: none;
+   right, as on every Ardo site, and the article centers between them. Both
+   keep Ardo's widths up to 1280px and grow a little beyond, up to a quarter
+   more at 1600px, so a wide window gives them air instead of only the gaps. */
+.mono-docs {
+  --mono-rail-grow: clamp(0px, (100vw - 1280px) / 4, 80px);
+  --ardo-layout-sidebarWidth: calc(16rem + var(--mono-rail-grow));
+  --ardo-layout-tocWidth: calc(12rem + var(--mono-rail-grow) * 0.75);
 }
 
 /* Ardo's article reads at Monografie's measure: prose at 18px in a 680px

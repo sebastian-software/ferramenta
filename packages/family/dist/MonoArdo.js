@@ -45,14 +45,14 @@ function Article({ children }) {
     const page = useArdoPageData();
     return (_jsx(ArdoDocContent, { tocSource: "dom", header: _jsx("header", { className: "mono-prose", children: _jsx("h1", { children: page?.title.replaceAll("`", "") ?? "Documentation" }) }), children: _jsx("div", { className: "mono-prose", children: children }) }));
 }
+const classes = (base, extra) => extra === undefined ? base : `${base} ${extra}`.trim();
 /**
  * An engine site's whole shell on Monografie: homepage and documentation.
  * Search stays in the header on every page; documentation adds its menu.
  */
-export function MonoArdoSite({ product, name, release, links, footer, sections = [], groups = [], components, home: homeHref = "/", homeClassName, docsClassName, }) {
+export function MonoArdoSite({ product, name, release, links, repository, footer, sections = [], groups = [], components, home: homeHref = "/", homeClassName, docsClassName, }) {
     const path = useArdoPath();
     const home = path === "/" || path === "" || sections.length === 0;
-    const classes = (base, extra) => extra === undefined ? base : `${base} ${extra}`.trim();
     const navigation = { sections, groups };
-    return (_jsxs(MonoPage, { className: home ? homeClassName : classes("mono-docs", docsClassName), children: [_jsx(MarkDefs, {}), _jsx(ArdoRoot, { className: "mono-ardo-shell", scrollMode: "document", header: _jsx(MonoHeader, { product: product, home: homeHref, release: release, links: links, actions: home ? (_jsx(ArdoHeaderSearch, { variant: "icon" })) : (_jsx(DocsActions, { name: name, links: links, ...navigation })) }), sidebar: home ? false : _jsx(DocsSidebar, { ...navigation }), footer: false, components: { table: MonoReadingTable, wrapper: Article, ...components } }), _jsx(MonoFooter, { product: product, home: homeHref, children: footer })] }));
+    return (_jsxs(MonoPage, { className: home ? homeClassName : classes("mono-docs", docsClassName), children: [_jsx(MarkDefs, {}), _jsx(ArdoRoot, { className: "mono-ardo-shell", scrollMode: "document", header: _jsx(MonoHeader, { product: product, home: homeHref, release: release, links: links, repository: repository, actions: home ? (_jsx(ArdoHeaderSearch, { variant: "icon" })) : (_jsx(DocsActions, { name: name, links: links, ...navigation })) }), sidebar: home ? false : _jsx(DocsSidebar, { ...navigation }), footer: false, components: { table: MonoReadingTable, wrapper: Article, ...components } }), _jsx(MonoFooter, { product: product, home: homeHref, children: footer })] }));
 }

@@ -43,9 +43,6 @@ const HOME_LINKS = [
   <a key="workshop" href="/#workshop">
     Workshop
   </a>,
-  <a key="github" href={WORKSHOP.source}>
-    GitHub
-  </a>,
 ];
 
 /** The kit's bar: its two pages, as an engine site links its homepage and its guide. */
@@ -77,9 +74,21 @@ export default function Root() {
         sidebar={false}
         header={
           kit ? (
-            <MonoHeader product="ferramenta" home={KIT} release="0.0.0" links={KIT_LINKS} />
+            <MonoHeader
+              product="ferramenta"
+              home={KIT}
+              release="0.0.0"
+              links={KIT_LINKS}
+              repository={WORKSHOP.source}
+            />
           ) : (
-            <MonoHeader product="ferramenta" home="/" familyHref={null} links={HOME_LINKS} />
+            <MonoHeader
+              product="ferramenta"
+              home="/"
+              familyHref={null}
+              links={HOME_LINKS}
+              repository={WORKSHOP.source}
+            />
           )
         }
         footer={false}

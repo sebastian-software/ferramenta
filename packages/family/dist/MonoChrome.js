@@ -53,13 +53,19 @@ function useMenu() {
 function MonoMenu({ id, links, navLabel, release, familyHref }) {
     return (_jsxs("div", { className: "mono-menu", id: id, children: [_jsx("nav", { "aria-label": navLabel, children: _jsx("ul", { children: links.map((link) => (_jsx("li", { children: link }, link.key))) }) }), _jsxs("div", { className: "mono-header-end", children: [release !== undefined && (_jsxs("span", { className: "mono-release", title: "Current release", children: ["v", release] })), familyHref !== null && familyHref !== undefined && (_jsxs("a", { className: "mono-family", href: familyHref, children: [_jsx(IdentityMark, { product: "ferramenta" }), "Ferramenta"] }))] })] }));
 }
+/** Controls at the end of the row, visible at every width: search, a menu, GitHub's mark. */
+function HeaderActions({ actions, repository }) {
+    if ((actions === undefined || actions === null) && repository === undefined)
+        return null;
+    return (_jsxs("div", { className: "mono-header-actions", children: [actions, repository !== undefined && (_jsx("a", { className: "mono-repository", href: repository, "aria-label": "Source code on GitHub", children: _jsx("svg", { className: "icon", width: "20", height: "20", "aria-hidden": "true", children: _jsx("use", { href: "#i-github" }) }) }))] }));
+}
 /** The steel navigation bar. Its links fold into a menu below 961px. */
-export function MonoHeader({ product, home, links, navLabel = "Main", release, actions, familyHref = "https://ferramenta.dev", }) {
+export function MonoHeader({ product, home, links, navLabel = "Main", release, actions, repository, familyHref = "https://ferramenta.dev", }) {
     const { open, setOpen, headerRef, buttonRef } = useMenu();
     const menuId = useId();
     return (_jsx("header", { className: "mono-header", ref: headerRef, "data-open": open, children: _jsxs("div", { className: "mono-header-in", children: [_jsxs("a", { className: "mono-brand", href: home, children: [_jsx(IdentityMark, { product: product }), displayName(product)] }), _jsxs("button", { ref: buttonRef, className: "mono-menu-button", type: "button", "aria-expanded": open, "aria-controls": menuId, onClick: () => {
                         setOpen(!open);
-                    }, children: [_jsx("i", { "aria-hidden": "true" }), "Menu"] }), _jsx(MonoMenu, { id: menuId, links: links, navLabel: navLabel, release: release, familyHref: familyHref }), actions !== undefined && actions !== null && (_jsx("div", { className: "mono-header-actions", children: actions }))] }) }));
+                    }, children: [_jsx("i", { "aria-hidden": "true" }), "Menu"] }), _jsx(MonoMenu, { id: menuId, links: links, navLabel: navLabel, release: release, familyHref: familyHref }), _jsx(HeaderActions, { actions: actions, repository: repository })] }) }));
 }
 export function MonoFooter({ product, home, children }) {
     return (_jsx("footer", { className: "mono-footer", children: _jsxs("div", { className: "mono-footer-in", children: [_jsx(IdentityMark, { product: product }), product === "ferramenta" ? (_jsxs("p", { children: [_jsx("a", { href: home, children: "Ferramenta" }), ", Rust engines from one workshop"] })) : (_jsxs("p", { children: [_jsx("a", { href: home, children: displayName(product) }), ", part of", " ", _jsx("a", { href: "https://ferramenta.dev", children: "Ferramenta" })] })), children, _jsx("a", { href: WORKSHOP.imprint, children: "Imprint" }), _jsx("a", { href: WORKSHOP.privacy, children: "Privacy" }), _jsxs("p", { className: "mono-footer-copy", children: ["\u00A9 ", new Date().getFullYear(), " ", WORKSHOP.company] })] }) }));
