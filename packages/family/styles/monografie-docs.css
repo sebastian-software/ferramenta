@@ -368,6 +368,13 @@ html:has(.mono .mono-reading) {
 .mono .mono-data-table :is(th, td):last-child {
   padding-right: 0;
 }
+/* Ardo frames a prose table; its outer cells keep the text off the frame. */
+.mono-prose :is(th, td):first-child {
+  padding-left: 14px;
+}
+.mono-prose :is(th, td):last-child {
+  padding-right: 14px;
+}
 .mono-prose thead th,
 .mono .mono-data-table thead th {
   vertical-align: bottom;
