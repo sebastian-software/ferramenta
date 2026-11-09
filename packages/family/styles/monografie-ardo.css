@@ -97,6 +97,8 @@ html:has(.mono .mono-ardo-shell) {
   left: auto;
   right: 0;
   transform: none;
+  /* Shown at once, so it is never caught at half contrast. */
+  transition: none;
 }
 .mono-header .ardo-mobile-panel {
   font: 400 15px/1.45 var(--mono-sans);
