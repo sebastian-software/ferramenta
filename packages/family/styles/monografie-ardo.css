@@ -103,7 +103,7 @@ html:has(.mono .mono-ardo-shell) {
   color: var(--mono-ink);
   text-shadow: none;
 }
-@media (max-width: 1024px) {
+@media (width < 1024px) {
   /* Once Ardo's sidebar folds away, Ardo's menu carries the documentation and
      the header's links, and the brand leads home: the Monografie menu and its
      button step aside, and the menu and search sit at the end of the row. */
@@ -164,6 +164,13 @@ html:has(.mono .mono-ardo-shell) {
 }
 
 /* ---------- Highlighted code on the light sheet ---------- */
+/* Ardo's copy button appears on hover without fading in, so it is either
+   hidden or at full contrast, never caught halfway. */
+.mono .ardo-copy-button {
+  transition:
+    border-color 0.12s ease-out,
+    color 0.12s ease-out;
+}
 .mono :is(.ardo-code-block, .ardo-shiki) {
   max-width: none;
   margin: 24px 0 28px;

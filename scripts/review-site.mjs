@@ -149,7 +149,7 @@ async function reviewMonoDocsBar(page, origin) {
     await page.viewport(width, 900);
     await page.open(origin + KIT_DOCS);
     const state = await page.evaluate(
-      `(() => { const button = document.querySelector('${ARDO_MENU}'); const sidebar = document.querySelector('.mono-ardo-shell .ardo-sidebar'); const mono = document.querySelector('.mono-header .mono-menu'); return { menu: button !== null && button.checkVisibility(), sidebar: sidebar !== null && sidebar.checkVisibility(), mono: mono !== null && mono.checkVisibility() }; })()`,
+      `(() => { const button = document.querySelector('${ARDO_MENU}'); const sidebar = document.querySelector('.mono-ardo-shell .ardo-sidebar'); const mono = document.querySelector('.mono-header .mono-menu'); return { menu: button !== null && button.checkVisibility(), sidebar: sidebar !== null && sidebar.checkVisibility(), mono: mono !== null && mono.checkVisibility(), links: [...document.querySelectorAll('.mono-header .mono-menu nav a')].some((link) => link.checkVisibility()) }; })()`,
     );
     expect(
       state.menu !== state.sidebar,
@@ -158,6 +158,10 @@ async function reviewMonoDocsBar(page, origin) {
     expect(
       !state.menu || !state.mono,
       `kit docs at ${width}px: the Monografie menu shows beside Ardo's`,
+    );
+    expect(
+      state.menu || state.links,
+      `kit docs at ${width}px: the header's links show neither in the bar nor in Ardo's menu`,
     );
   }
 }

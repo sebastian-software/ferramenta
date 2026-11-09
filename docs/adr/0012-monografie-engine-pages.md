@@ -149,7 +149,7 @@ the footer. Homepages are unchanged; they have no sidebar or outline, and their
 free, magazine-like layout already has no hard frame for the full width to
 break.
 
-Below 1025px, where Ardo folds its sidebar away, Ardo's menu carries the
+Below 1024px, where Ardo folds its sidebar away, Ardo's menu carries the
 header's links, the section tabs (lying flat) and the pages; the Monografie
 menu steps aside so the header keeps one row.
 

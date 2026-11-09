@@ -157,7 +157,7 @@ export function MonoHeader({
           }}
         >
           <i aria-hidden="true" />
-          Menu
+          <span className="mono-menu-label">Menu</span>
         </button>
         <MonoMenu
           id={menuId}

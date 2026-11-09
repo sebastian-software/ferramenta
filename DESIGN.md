@@ -146,7 +146,7 @@ is a token there, not a literal in a site's stylesheet.
   section along its outer edge, the outline on the right edge, the article centered between
   them; prose keeps 680px at 18px. The panels keep Ardo's widths up to 1280px and grow by up to
   80px and 60px toward 1600px. Both side panels stay in view under the header. Below
-  1025px the sidebar folds into Ardo's menu, which then also carries the header's links, and
+  1024px the sidebar folds into Ardo's menu, which then also carries the header's links, and
   the Monografie menu steps aside.
 - Paired specimens stack on narrow screens; on phones a comparison chart puts each name above
   its bar.

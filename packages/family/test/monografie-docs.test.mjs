@@ -306,7 +306,7 @@ test("headings break a word only when it is wider than the column", () => {
 test("documentation pages take Ardo's layout across the whole window", () => {
   assert.match(
     ardoCss,
-    /@media \(max-width: 1024px\) \{[^}]*\.mono-docs:has\(\.ardo-sidebar\) \.mono-header :is\(\.mono-menu, \.mono-menu-button\) \{\s+display: none;/u,
+    /@media \(width < 1024px\) \{[^}]*\.mono-docs:has\(\.ardo-sidebar\) \.mono-header :is\(\.mono-menu, \.mono-menu-button\) \{\s+display: none;/u,
     "Ardo's menu carries the documentation once the header folds",
   );
   assert.doesNotMatch(
