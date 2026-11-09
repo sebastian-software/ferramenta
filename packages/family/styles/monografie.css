@@ -1237,6 +1237,7 @@ details.mono-table-view summary {
   .mono-header-actions {
     gap: 0;
   }
+
   .mono-menu {
     padding: 4px 16px 18px;
   }
@@ -1582,5 +1583,20 @@ details.mono-table-view summary {
   .mono-header * {
     transition: none !important;
     animation: none !important;
+  }
+}
+/* Below 400px the menu button keeps its lines and its name, and drops the
+   visible word so a long brand, search and GitHub's mark keep one row. */
+@media (max-width: 400px) {
+  .mono-menu-button {
+    padding-inline: 13px;
+  }
+  .mono-menu-button .mono-menu-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
