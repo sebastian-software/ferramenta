@@ -29,14 +29,15 @@ Before pushing, run the repository validation commands:
 pnpm agent:check
 node scripts/check-committed-dist.mjs
 pnpm verify:package
-pnpm exec standards check
 ```
 
 `pnpm agent:check` covers lint, formatting, typechecking, the site build and
 tests. `pnpm verify:package` checks both the packed npm package and the files a
-Git consumer receives. `standards check` guards the repository's standards
-stamp and managed files. [CI](.github/workflows/ci.yml) also runs the
-committed-dist and standards-pin guards.
+Git consumer receives. [CI](.github/workflows/ci.yml) also runs the
+committed-dist guard and exercises the native tooling on Linux, macOS and
+Windows. Repository configuration and validation are project-owned; shared
+infrastructure guidance lives in
+[`project-infra`](https://github.com/sebastian-software/project-infra).
 
 ## Changes and generated files
 
