@@ -1,4 +1,3 @@
-import { type FamilyTool } from "./family.js";
 /** Where the figures come from. Swap in a caching mirror without touching a component. */
 export type RegistryEndpoints = {
     /** crates.io API root: `GET {crates}/crates?ids[]=a&ids[]=b` */
@@ -60,16 +59,8 @@ export type RegistryStat = {
  * it, so a same-named package someone else published never reaches the page.
  */
 export type RegistrySnapshot = Record<string, null | RegistryStat | undefined>;
-/** What a page shows about a member's releases. */
-export type ToolFacts = {
-    /** Live when the registries answered, else the snapshot, else the registry entry's fallback. */
-    version: string;
-    /** All-time crates.io downloads; 0 when the member has no crate. */
-    crateDownloads: number;
-    onCrates: boolean;
-    /** Has a TypeScript/Node adapter on npm. */
-    adapter: boolean;
-};
+export { toolFacts } from "./RegistryToolFacts.js";
+export type { ToolFacts } from "./RegistryToolFacts.js";
 /**
  * The packages worth asking for live, under their published names: every
  * verified crate, and npm only for a member without one — the crate's version
@@ -77,12 +68,6 @@ export type ToolFacts = {
  * never reaches the page.
  */
 export declare function liveRequestFor(snapshot: RegistrySnapshot): LiveRegistryRequest;
-/**
- * The facts for one member, from a snapshot and whatever answered live. With
- * a snapshot entry, live values only refresh what the build verified; without
- * one, the live facts stand on their own (the metrics service filters by owner).
- */
-export declare function toolFacts(tool: FamilyTool, snapshotStat: null | RegistryStat | undefined, live?: LiveRegistryFacts): ToolFacts;
 export declare const METRICS_URL = "https://metrics.sebastian-software.com/v1/metrics.json";
 export type FamilyMetrics = {
     /** Generation time lets snapshot-backed pages reject an older cached response. */

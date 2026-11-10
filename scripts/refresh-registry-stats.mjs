@@ -197,6 +197,11 @@ const previous = await loadPrevious();
 const tools = {};
 for (const tool of family) {
   const { name } = tool;
+  if (tool.unpublished) {
+    tools[name] = { crates: null, npm: null, release: null };
+    console.log(`${name.padEnd(10)} unpublished`);
+    continue;
+  }
   const lookup = lookupNames(tool);
   const before = previous[name] ?? { crates: null, npm: null, release: null };
   // Sequential on purpose: the shared fetcher keeps crates.io requests one second apart.

@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
+  "role": "Transparent mark; padding normalization and Lanczos resize only. Alpha threshold measures bounds and never changes color pixels.",
+  "source": "design/ferra/masters/ferrixel/mark.png",
+  "sourceSha256": "f12bba5fa8a40485324e02da1a7d74bc863f349b1a679991174e137d9f16b86a",
+  "prompt": "A polished steel loupe frames seven raised raster cells; a single oxide collar marks the handle.",
+  "geometry": "64x64",
+  "sha256": "025f2d7f0582542de030024f7cc9c54c1cbfba2525801af5bd8ac5252c1cd020"
+}

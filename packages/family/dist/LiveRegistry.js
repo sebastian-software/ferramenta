@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { family, packageName } from "./family.js";
+import { hasAdapter } from "./RegistryToolFacts.js";
 export const REGISTRY_ENDPOINTS = {
     crates: "https://crates.io/api/v1",
     npmRegistry: "https://registry.npmjs.org",
@@ -118,15 +119,7 @@ export async function fetchLiveRegistry(request, endpoints = REGISTRY_ENDPOINTS)
         facts[name] = { ...facts[name], npm: value };
     return facts;
 }
-/*
- * What a page shows about a member's releases: the build-time snapshot, with
- * whatever answered live on top, and the registry entry's fallback version
- * last. `RegistryFacts` provides it to components; the policy lives here.
- */
-/** True when a member has a real TypeScript/Node adapter on npm, not just a held name. */
-function hasAdapter(stat) {
-    return stat?.npm != null && stat.npm.placeholder !== true;
-}
+export { toolFacts } from "./RegistryToolFacts.js";
 /**
  * The packages worth asking for live, under their published names: every
  * verified crate, and npm only for a member without one — the crate's version
@@ -136,10 +129,12 @@ function hasAdapter(stat) {
 export function liveRequestFor(snapshot) {
     return {
         crates: family
-            .filter((tool) => snapshot[tool.name]?.crates != null)
+            .filter((tool) => !tool.unpublished && snapshot[tool.name]?.crates != null)
             .map((tool) => packageName(tool, "crates")),
         npm: family
-            .filter((tool) => snapshot[tool.name]?.crates == null && hasAdapter(snapshot[tool.name]))
+            .filter((tool) => !tool.unpublished &&
+            snapshot[tool.name]?.crates == null &&
+            hasAdapter(snapshot[tool.name]))
             .map((tool) => packageName(tool, "npm")),
     };
 }
@@ -159,36 +154,6 @@ function byMember(packages) {
     }
     return facts;
 }
-/** A snapshot entry made from live facts alone, for a site that has no snapshot. */
-function statFromLive(live) {
-    if (live.crates === undefined && live.npm === undefined && live.release === undefined)
-        return null;
-    return { crates: live.crates ?? null, npm: live.npm ?? null, release: live.release ?? null };
-}
-/**
- * The version a member shows: the crate's when there is one, else the npm
- * adapter's, else — for a Git-only member — its latest GitHub release. The
- * registry's own value is the last resort.
- */
-function shippedVersion(tool, registry, release) {
-    return (registry ?? release)?.version ?? tool.version;
-}
-/**
- * The facts for one member, from a snapshot and whatever answered live. With
- * a snapshot entry, live values only refresh what the build verified; without
- * one, the live facts stand on their own (the metrics service filters by owner).
- */
-export function toolFacts(tool, snapshotStat, live = {}) {
-    const stat = snapshotStat ?? statFromLive(live);
-    const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
-    const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
-    return {
-        version: shippedVersion(tool, crates ?? npm, live.release ?? stat?.release),
-        crateDownloads: crates === null ? 0 : crates.downloads,
-        onCrates: crates !== null,
-        adapter: npm !== null,
-    };
-}
 /*
  * The workshop's metrics service (github.com/sebastian-software/oss-metrics):
  * one cached, CORS-open document with every project of the organization,
@@ -207,6 +172,8 @@ function metricsEntry(section, name) {
  * their own; a member's repository carries its `name`.
  */
 function metricsFacts(doc, tool) {
+    if (tool.unpublished)
+        return {};
     const crate = metricsEntry(doc.crates, packageName(tool, "crates"));
     const pkg = metricsEntry(doc.npm, packageName(tool, "npm"));
     const facts = {};

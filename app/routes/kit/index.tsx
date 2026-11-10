@@ -247,7 +247,7 @@ export default function Kit() {
       <MonoEngraving seed={4} />
       <MonoSection
         title="The family overview."
-        standfirst="ferramenta.dev lists every engine with MonoEngineCatalog, which reads the registry; it is shown there, not repeated here. The applications and the workshop's brands stand on light cards in their own colors."
+        standfirst="ferramenta.dev lists every engine with MonoEngineCatalog, which reads the registry; it is shown there, not repeated here. Its facts distinguish a published version from an unpublished engine. The applications and the workshop's brands stand on light cards in their own colors."
       >
         <MonoWide>
           <MonoApplications />

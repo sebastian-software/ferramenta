@@ -118,10 +118,13 @@ export type FamilyTool = {
    */
   evidence: string;
   /**
-   * Fallback version (plain semver). The site prefers the live registry value;
-   * this only renders when the build could not reach crates.io or npm.
+   * Fallback version (plain semver). The site prefers live registry facts.
+   * For an unpublished member this is only its internal development version;
+   * rendering uses `unpublished` instead of presenting it as a release.
    */
   version: string;
+  /** No public release or package has been verified for this member. */
+  unpublished?: true;
   /**
    * The names a member is published under where they differ from `name`, by
    * registry: `{ npm: "@ferriki/core" }`. Every registry lookup (the stats
@@ -469,6 +472,41 @@ export const family: FamilyTool[] = [
     status: "early",
     repo: "https://github.com/sebastian-software/ferrigura",
     docs: "https://ferrigura.dev",
+  },
+  {
+    name: "ferrixel",
+    editorial: {
+      order: 10,
+      navigation: "Image processing",
+      subtitle: "An experimental Rust pipeline for SDR images.",
+      introduction:
+        "Crop and resize supported JPEG, JPEG XL and AVIF images in linear light, then write AVIF. Ferrixel makes rendered color, orientation and intermediate buffers explicit. The engine and its codec workspace are experimental and unpublished; adoption and release gates remain open.",
+      notes: [
+        {
+          title: "The path you can run today",
+          body: "The current engine reads JPEG, JPEG XL and AVIF through interim decoders, applies orientation before cropping, and encodes AVIF after resizing. Its workspace ports are candidates for future backends, not automatic replacements for those decoders.",
+          href: "https://github.com/sebastian-software/ferrixel/blob/65aeca3aa7e49efccf44094a93aae95e01530d69/docs/status.md",
+        },
+        {
+          title: "What the budget can see",
+          body: "Ferrixel reports and budgets engine-managed pixel buffers. Codec-owned allocations can remain opaque, and some stages still need full frames. The reported budget does not promise a cap on the whole process.",
+          href: "https://github.com/sebastian-software/ferrixel/blob/65aeca3aa7e49efccf44094a93aae95e01530d69/docs/status.md",
+        },
+      ],
+    },
+    what: "An image processing engine",
+    job: "Experimental SDR image pipeline",
+    does: "Transforms supported JPEG, JPEG XL and AVIF inputs through orientation-aware crop and linear-light resize into AVIF output.",
+    audience:
+      "For developers exploring image transformations with explicit color and resource behavior.",
+    buildsOn: "JPEG / JPEG XL / AVIF",
+    proof:
+      "JPEG, JPEG XL and AVIF define the formats Ferrixel handles in its current SDR path. Ferrixel connects decoding, color interpretation, geometry and encoding in a Rust pipeline that exposes fallbacks and intermediate buffers for inspection.",
+    evidence: "Reference executor checks · scoped codec provenance and oracle suites",
+    version: "0.1.0",
+    unpublished: true,
+    status: "early",
+    repo: "https://github.com/sebastian-software/ferrixel",
   },
   {
     name: "palamedes",

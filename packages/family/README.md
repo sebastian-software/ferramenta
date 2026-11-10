@@ -311,6 +311,14 @@ whose package carries another name on a registry says so in `packages`
 (`{ npm: "@ferriki/core" }`); `packageName(tool, "crates" | "npm")` returns that
 name, else `name`, and every registry lookup goes through it.
 
+A member with no verified public release declares `unpublished: true`.
+`MonoEngineCatalog` shows “Release: Unpublished”; metrics and package lookups
+ignore that member, including stale snapshot entries. Its required `version`
+string remains its internal development version for compatibility and must not
+be presented as a release. This is separate from maturity (`status`). Remove
+the flag only when a public release has been verified. If its own site is not
+yet available, omit `docs` so family links lead to its repository.
+
 More helpers: `STATUS_MEANING` and `STATUS_ORDER` (what each status promises,
 most settled first), `isSuccessor(tool)`, `displayName(tool)` (the name as prose
 writes it), `whatLabel(tool)` (what a member is, without its article: "Regex

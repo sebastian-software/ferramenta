@@ -1,0 +1,494 @@
+{
+  "createdAt": "2026-11-10",
+  "generatedWith": "Blender 5.3.0, Cycles",
+  "product": "Ferrixel",
+  "role": "Transparent native Blender homepage instrument",
+  "meaning": "A steel loupe inspects and enlarges a grid of image samples.",
+  "prompt": "A steel loupe inspects and enlarges a grid of image samples.",
+  "source": "https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-instrument.py",
+  "sourceSha256": "7a82e40904c7a449f93e3cabda5bd5c3e5035f1984a9bcbfe39a3381ab5d8d30",
+  "sourceRepository": "https://github.com/sebastian-software/ferrixel",
+  "sourceCommit": "8b28d05cb417bb19bd384fbc30dd5a4c5e020b21",
+  "sourcePath": "homepage/artwork/ferrixel-instrument.py",
+  "constructionSources": {
+    "Ferrixel@8b28d05cb417bb19bd384fbc30dd5a4c5e020b21:homepage/artwork/ferrixel-instrument.py": "7a82e40904c7a449f93e3cabda5bd5c3e5035f1984a9bcbfe39a3381ab5d8d30",
+    "Ferramenta@5284a1264ed78f71c72387621e63fb997b7a8842:design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "Ferramenta@5284a1264ed78f71c72387621e63fb997b7a8842:design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17"
+  },
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Native Cycles, 192 samples; AgX Medium High Contrast, sRGB alpha; pinned Ferramenta studio and modeling helpers.",
+  "sha256": "c465fed4620e8b6841efa44ae72467c6f2a88bde2b2d7d63c49dfe92e0bcff09",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Loupe machined mounting plate",
+      "closedManifold": true,
+      "volume": 8.149204548,
+      "machinedPockets": 4
+    },
+    {
+      "body": "Loupe flush bed anchor counterbore floor",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor recessed sleeve washer",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor flush socket head",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Loupe flush bed anchor dark hex floor",
+      "closedManifold": true,
+      "volume": 0.000084442,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor counterbore floor.001",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor recessed sleeve washer.001",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor flush socket head.001",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Loupe flush bed anchor dark hex floor.001",
+      "closedManifold": true,
+      "volume": 0.000084442,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor counterbore floor.002",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor recessed sleeve washer.002",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor flush socket head.002",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Loupe flush bed anchor dark hex floor.002",
+      "closedManifold": true,
+      "volume": 0.000084442,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor counterbore floor.003",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor recessed sleeve washer.003",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe flush bed anchor flush socket head.003",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Loupe flush bed anchor dark hex floor.003",
+      "closedManifold": true,
+      "volume": 0.000084442,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Shallow specimen stage",
+      "closedManifold": true,
+      "volume": 0.916980671,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate",
+      "closedManifold": true,
+      "volume": 0.240512012,
+      "machinedPockets": 25
+    },
+    {
+      "body": "Fine specimen image plate groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 7",
+      "closedManifold": true,
+      "volume": 0.000060217,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 8",
+      "closedManifold": true,
+      "volume": 0.000089414,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 9",
+      "closedManifold": true,
+      "volume": 0.000089414,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 10",
+      "closedManifold": true,
+      "volume": 0.000089414,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 11",
+      "closedManifold": true,
+      "volume": 0.000089414,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 12",
+      "closedManifold": true,
+      "volume": 0.000089414,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 0.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 1.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 2.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 3.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 4.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 5.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 6.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 7.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 8.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 9.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 10.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fine specimen image plate groove floor 11.001",
+      "closedManifold": true,
+      "volume": 0.000128304,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window",
+      "closedManifold": true,
+      "volume": 0.265580226,
+      "machinedPockets": 20
+    },
+    {
+      "body": "Enlarged sample window groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 7",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 8",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 9",
+      "closedManifold": true,
+      "volume": 0.000099906,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 0.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 1.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 2.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 3.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 4.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 5.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 6.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 7.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 8.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Enlarged sample window groove floor 9.001",
+      "closedManifold": true,
+      "volume": 0.000228096,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe pivot ground socket",
+      "closedManifold": true,
+      "volume": 0.050190578,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe pivot axle",
+      "closedManifold": true,
+      "volume": 0.016129927,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pivot thrust washer",
+      "closedManifold": true,
+      "volume": 0.002316006,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Single angled inspection arm",
+      "closedManifold": true,
+      "volume": 0.018469463,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Loupe barrel fork",
+      "closedManifold": true,
+      "volume": 0.018078317,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fork retaining socket washer",
+      "closedManifold": true,
+      "volume": 0.00038275,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Fork retaining socket socket head",
+      "closedManifold": true,
+      "volume": 0.000438117,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Fork retaining socket dark socket floor",
+      "closedManifold": true,
+      "volume": 0.000016482,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Magnifier bright outer barrel",
+      "closedManifold": true,
+      "volume": 0.207569752,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Magnifier inner optical rim",
+      "closedManifold": true,
+      "volume": 0.014057023,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Machined focus scale",
+      "closedManifold": true,
+      "volume": 0.007355549,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Small oxide focal index",
+      "closedManifold": true,
+      "volume": 0.000802845,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Pivot brace",
+      "closedManifold": true,
+      "volume": 0.003033695,
+      "machinedPockets": 0
+    }
+  ],
+  "verificationScope": "Each evaluated mesh is closed and has positive volume; Boolean cuts remove material. Assembly contacts are not generally collision-checked.",
+  "importNote": "Approved PNG copied byte for byte from the original Ferrixel render, with its hash checked against the provenance at the pinned source commit. The editable Blender recipe remains in Ferrixel. No local rerender or design modification."
+}

@@ -80,6 +80,14 @@
       "ratio": 2,
       "favicon": "ferrigura/favicon.ico",
       "sizes": [32, 48, 64, 128, 256, 512]
+    },
+    "ferrixel": {
+      "meaning": "A steel loupe inspects an image raster and shows enlarged samples.",
+      "mark": "ferrixel/mark.webp",
+      "instrument": "ferrixel/instrument.webp",
+      "ratio": 2,
+      "favicon": "ferrixel/favicon.ico",
+      "sizes": [32, 48, 64, 128, 256, 512]
     }
   },
   "brands": {

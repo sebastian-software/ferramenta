@@ -49,6 +49,35 @@ test("registry facts: live over snapshot over fallback, and only owned packages 
   assert.deepEqual(kit.liveRequestFor({ stranger: stat }), { crates: [], npm: [] });
 });
 
+test("an unpublished member never acquires a release or downloads from a same-name package", async (t) => {
+  const ferrixel = member("ferrixel");
+  assert.equal(ferrixel.unpublished, true);
+  assert.equal(kit.toolHref(ferrixel), ferrixel.repo);
+  const impostor = {
+    crates: { version: "9.9.9", downloads: 999 },
+    npm: { version: "9.9.9", lastMonth: 999 },
+    release: { version: "9.9.9" },
+  };
+  assert.deepEqual(kit.liveRequestFor({ ferrixel: impostor }), { crates: [], npm: [] });
+  assert.deepEqual(kit.toolFacts(ferrixel, impostor, impostor), {
+    version: ferrixel.version,
+    crateDownloads: 0,
+    onCrates: false,
+    adapter: false,
+  });
+  t.mock.method(globalThis, "fetch", async () =>
+    body({
+      schema: 1,
+      sources: { github: "ok", crates: "ok", npm: "ok" },
+      github: { ferrixel: { release: { version: "9.9.9" } } },
+      crates: { ferrixel: { version: "9.9.9", downloads: 999 } },
+      npm: { ferrixel: { version: "9.9.9", monthlyDownloads: 999 } },
+    }),
+  );
+  const metrics = await kit.fetchFamilyMetrics();
+  assert.equal(metrics?.facts.ferrixel, undefined);
+});
+
 test("a member is published under its override, else under its name", () => {
   const ferriki = member("ferriki");
   assert.equal(kit.packageName(ferriki, "npm"), "@ferriki/core");

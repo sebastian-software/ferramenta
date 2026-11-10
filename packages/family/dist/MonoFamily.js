@@ -36,7 +36,7 @@ function Relations({ tool }) {
 }
 function Facts({ tool }) {
     const facts = useToolFacts(tool);
-    return (_jsxs("dl", { className: "mono-engine-facts", "aria-label": `${displayName(tool)} registry facts`, children: [_jsxs("div", { children: [_jsx("dt", { children: "Version" }), _jsx("dd", { children: facts.version })] }), facts.onCrates && (_jsxs("div", { children: [_jsx("dt", { children: "crates.io downloads" }), _jsx("dd", { children: number.format(facts.crateDownloads) })] }))] }));
+    return (_jsxs("dl", { className: "mono-engine-facts", "aria-label": `${displayName(tool)} registry facts`, children: [_jsxs("div", { children: [_jsx("dt", { children: tool.unpublished ? "Release" : "Version" }), _jsx("dd", { children: tool.unpublished ? "Unpublished" : facts.version })] }), facts.onCrates && (_jsxs("div", { children: [_jsx("dt", { children: "crates.io downloads" }), _jsx("dd", { children: number.format(facts.crateDownloads) })] }))] }));
 }
 /** The registry's background notes; folded behind a toggle on narrow screens. */
 function EngineNotes({ name, notes }) {

@@ -66,8 +66,8 @@ function Facts({ tool }: { tool: FamilyTool }) {
   return (
     <dl className="mono-engine-facts" aria-label={`${displayName(tool)} registry facts`}>
       <div>
-        <dt>Version</dt>
-        <dd>{facts.version}</dd>
+        <dt>{tool.unpublished ? "Release" : "Version"}</dt>
+        <dd>{tool.unpublished ? "Unpublished" : facts.version}</dd>
       </div>
       {facts.onCrates && (
         <div>

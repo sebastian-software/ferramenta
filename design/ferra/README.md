@@ -56,12 +56,14 @@ for the page system that shows them.
 
 ## Editable Blender scenes
 
-All ten compact family marks and all ten hero instruments are modeled in Blender.
+All eleven compact family marks and all eleven hero instruments are modeled in Blender.
 Their native scenes use the shared `blender/studio.py` for
 metallic materials, orthographic framing, directional softboxes, fine linear
 brushing, and AgX color management. `blender/family_marks.py` reconstructs the
 family motifs with polished faces, rounded rims, and restrained changes
-of plane. Each has a small named entry script and its own editable `.blend` file.
+of plane. The ten family-local constructions each have a small named entry
+script and their own editable `.blend` file. Ferrixel's imported masters retain
+their editable recipes in its repository, as described below.
 A restrained metallic thin film uses Blender 5's
 conductor support for the copper oxide; it introduces no rainbow accent.
 Ferrolink's script checks closed meshes,
@@ -93,6 +95,18 @@ as form references. Use the same materials and lighting when modeling
 additional mechanical instruments. Judge compact marks at 32, 48, and 64px: their visible mass should fill a roughly square or circular envelope.
 Ferrolink uses rounded-square links for its mark and longer links only in its
 separate continuity bench.
+
+Ferrixel uses a raster inspection loupe: a bright steel ring over a fine image
+grid and an enlarged sample, on a machined bed with recessed fasteners. Its
+compact mark keeps the ring, seven raised raster cells and one small oxide
+collar. The approved PNG masters are copied unchanged from the Ferrixel artwork
+work, with hashes checked against its provenance records. The native
+[hero recipe](https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-instrument.py)
+and
+[mark recipe](https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-mark.py)
+remain in Ferrixel; the master sidecars pin their commit, hashes and the shared
+Ferramenta studio helpers. This preserves one editable source for both sites.
+Export its family assets with `node design/ferra/build-assets.mjs ferrixel`.
 
 Ferrigura's hierarchy develops the supplied UML-style reference into one large
 rectangular copper parent above two larger steel children: a square on the left

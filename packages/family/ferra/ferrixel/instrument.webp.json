@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/masters/ferrixel/instrument.png",
+  "sourceSha256": "c465fed4620e8b6841efa44ae72467c6f2a88bde2b2d7d63c49dfe92e0bcff09",
+  "prompt": "A steel loupe inspects and enlarges a grid of image samples.",
+  "geometry": "1600x800",
+  "sha256": "c3673f67f768e4f0d0e9fb3212d6eef779a78d6dd2285a7693818090762ceb37"
+}

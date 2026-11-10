@@ -110,10 +110,13 @@ export type FamilyTool = {
      */
     evidence: string;
     /**
-     * Fallback version (plain semver). The site prefers the live registry value;
-     * this only renders when the build could not reach crates.io or npm.
+     * Fallback version (plain semver). The site prefers live registry facts.
+     * For an unpublished member this is only its internal development version;
+     * rendering uses `unpublished` instead of presenting it as a release.
      */
     version: string;
+    /** No public release or package has been verified for this member. */
+    unpublished?: true;
     /**
      * The names a member is published under where they differ from `name`, by
      * registry: `{ npm: "@ferriki/core" }`. Every registry lookup (the stats

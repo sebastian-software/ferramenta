@@ -2,7 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-20
-- Updated: 2026-10-04
+- Updated: 2026-11-10
 - Amended: 2026-09-09 — protected-branch delivery and CI approval, see
   [Amendment 2026-09-09](#amendment-2026-09-09)
 - Amended: 2026-09-24 — facts fetched at every deploy and updated live in the browser, see
@@ -11,6 +11,8 @@
   [Amendment 2026-09-24 (metrics service)](#amendment-2026-09-24-metrics-service)
 - Amended: 2026-10-04 — members looked up under their published package names, see
   [Amendment 2026-10-04](#amendment-2026-10-04)
+- Amended: 2026-11-10 — unpublished members are distinct from offline release facts, see
+  [Amendment 2026-11-10](#amendment-2026-11-10)
 
 ## Context
 
@@ -193,6 +195,35 @@ package that stands for it, it gets none.
 npm's bulk downloads endpoint does not take scoped packages, so a scoped
 package's monthly downloads are a request of their own; the unscoped names
 still share one bulk request.
+
+## Amendment 2026-11-10
+
+Ferrixel joins the catalog while its engine is experimental and unpublished
+([source status](https://github.com/sebastian-software/ferrixel/blob/65aeca3aa7e49efccf44094a93aae95e01530d69/docs/status.md)).
+Its Cargo development version is not a public release. The existing fallback
+would show that version as if it had shipped, and registry lookups could match
+an unrelated package with the same name.
+
+**Publication is explicit when a member has not shipped.** The registry's
+additive `unpublished: true` flag makes the catalog show “Release: Unpublished”.
+It suppresses package requests, metrics and downloads for that member, even
+when a previous snapshot or metrics response contains values. A member without
+a live project site links to its repository through the existing `docs`
+fallback.
+
+This is separate from maturity: an early project can have a public release,
+and an internal development version does not establish one. Keeping the
+existing required version strings avoids breaking sibling consumers; they
+must honor the publication flag when rendering release facts. Making versions
+nullable throughout the package would force unrelated sites to migrate for
+this one additional state.
+
+Regression checks cover stale and same-name package facts, and the rendered
+catalog must show no version or download count for an unpublished member.
+Review the flag when Ferrixel makes its first public release; remove it only
+after verifying the release and any published package ownership. Revisit the
+model if independently published parts of one member need separate release
+facts on the family overview.
 
 ## References
 

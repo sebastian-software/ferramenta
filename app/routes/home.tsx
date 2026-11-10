@@ -131,7 +131,7 @@ export default function HomePage() {
       <MonoSection
         id="engines"
         title={`${capital(count(engines.length))} engines, one bench.`}
-        standfirst="Each engine has its own site, its own documentation and its own release. The plate shows the instrument that stands for its job."
+        standfirst="Each engine has its own repository, scope and documentation. Published engines release independently. The plate shows the instrument that stands for its job."
       >
         <MonoWide>
           <MonoEngineCatalog />

@@ -41,6 +41,10 @@
     {
       "id": "ferrigura",
       "meaning": "Connected diagram nodes turn a textual graph into a precisely arranged drawing."
+    },
+    {
+      "id": "ferrixel",
+      "meaning": "A steel loupe inspects an image raster and shows enlarged samples."
     }
   ],
   "name": "Ferra"

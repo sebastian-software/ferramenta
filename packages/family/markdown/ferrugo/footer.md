@@ -14,6 +14,7 @@
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
 | [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
 | [ferrigura](https://ferrigura.dev) | Mermaid diagrams to SVG without a browser |
+| [ferrixel](https://github.com/sebastian-software/ferrixel) | Experimental SDR image pipeline |
 
 **Applications**
 

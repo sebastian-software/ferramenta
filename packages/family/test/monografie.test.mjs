@@ -152,6 +152,25 @@ test("the family overview lists every engine and application from the registry",
   assert.equal((workshop.match(/class="ferra-workshop-logo"/gu) ?? []).length, 2);
 });
 
+test("the catalog labels an unpublished engine without implying a release or downloads", () => {
+  const html = render(mono.RegistryFacts, {
+    snapshot: {
+      ferrixel: {
+        crates: { version: "9.9.9", downloads: 999 },
+        npm: null,
+        release: { version: "9.9.9" },
+      },
+    },
+    metrics: false,
+    children: createElement(mono.MonoEngineCatalog),
+  });
+  const article = html.match(/<article[^>]*id="ferrixel"[\s\S]*?<\/article>/u)?.[0];
+  assert.ok(article, "the unpublished engine has a catalog entry");
+  assert.match(article, /<dt>Release<\/dt><dd>Unpublished<\/dd>/u);
+  assert.doesNotMatch(article, /<dt>Version|9\.9\.9|0\.1\.0|crates\.io downloads/u);
+  assert.match(article, /Explore Ferrixel on GitHub/u);
+});
+
 test("the family site's header leaves out the link back to the family", () => {
   const html = render(mono.MonoHeader, {
     product: "ferramenta",
