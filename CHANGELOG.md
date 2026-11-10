@@ -1,5 +1,101 @@
 # Changelog
 
+## [3.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v3.0.0) (2026-11-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **family:** MonoOpening no longer takes a caption, and the package requires ardo ^6.4.1 beside it.
+* **family:** Node.js 22.22.0 or newer is required, matching the mandatory Ardo peer.
+* **family:** removes the root entry's chrome and landing kit (SiteHeader, SiteFooter, ToolSwitcher, SiteMenu, Icon, ProjectHero, Plate, EngineCatalog, ApplicationsBand, Principles, ComparisonTable, ComparisonBars, Measured, Relations, Voices, Ledger, WorkWithUs and the rest), the stylesheets tokens.css, fonts.css, theme.css, landing.css, chrome.css and docs.css, the fonts/* and textures/* exports and the member icons (icons/* keeps ardo.svg, dalo.svg and palamedes.svg), and the Ferra entry: ferramenta-family/ferra, ferra.css, ferra-ardo.css, ferra-tokens.css, ferra-fonts.css and every Ferra* component. The ferra-assets/* export, the registry and the README frames stay. Move a site with the Ferra -> Mono table under "Moving from 2.x" in packages/family/README.md.
+
+### Features
+
+* add Ardo to family applications ([#101](https://github.com/sebastian-software/ferramenta/issues/101)) ([fc78169](https://github.com/sebastian-software/ferramenta/commit/fc781691d7e6b66704de48b204338be4dc0f31b2))
+* **family:** add Ferra design kit and final page designs ([#104](https://github.com/sebastian-software/ferramenta/issues/104)) ([8697a07](https://github.com/sebastian-software/ferramenta/commit/8697a079b02e745a8e2dedca87d8f2e0877b94cb))
+* **family:** add the Ardo shell entry and drop the opening caption ([0f658ce](https://github.com/sebastian-software/ferramenta/commit/0f658ceeb54a99cd76bc66e1e701c0915dcc7ced))
+* **family:** add the Monografie documentation pages ([bffa906](https://github.com/sebastian-software/ferramenta/commit/bffa90669a0fab64bf2501d3a48e5c7f715208c8))
+* **family:** add the Monografie documentation pages ([27bf4d6](https://github.com/sebastian-software/ferramenta/commit/27bf4d64b117d0b615ce4276bd787f864052a26d))
+* **family:** add the Monografie page system for engine homepages ([307b6f2](https://github.com/sebastian-software/ferramenta/commit/307b6f2cdac5c079854bcb0b02cbf54c33cef511))
+* **family:** add the Monografie page system for engine homepages ([ac090a3](https://github.com/sebastian-software/ferramenta/commit/ac090a3c47e43a35b3f50dca11e73fa91b4dd2cb))
+* **family:** fold margin notes on narrow screens ([2521547](https://github.com/sebastian-software/ferramenta/commit/2521547e13607b70dbc887cf179e2fa12fdda2d9))
+* **family:** fold margin notes on narrow screens ([7cfc698](https://github.com/sebastian-software/ferramenta/commit/7cfc69812e722f19ebb3aa4d3977e6f2a00ba445))
+* **family:** give documentation pages Ardo's sidebar, section tabs and layout ([#147](https://github.com/sebastian-software/ferramenta/issues/147)) ([f908159](https://github.com/sebastian-software/ferramenta/commit/f9081592db47d051d95e2c9b2e00905103d71213))
+* **family:** keep Monografie as the only page system ([c435ee8](https://github.com/sebastian-software/ferramenta/commit/c435ee83d70ff1e49f092f6a16cd34b37cdf2fdc))
+* **family:** keep search in the Ardo shell's header on the homepage ([9028b71](https://github.com/sebastian-software/ferramenta/commit/9028b7134b3b70e385b06c8e59aa08a2df0d8271))
+* **family:** keep search in the Ardo shell's header on the homepage ([42cddb5](https://github.com/sebastian-software/ferramenta/commit/42cddb54d1fee63f4d36f4057490a82c3088f523))
+* **family:** let the Ardo shell take a home address below a base path ([602111d](https://github.com/sebastian-software/ferramenta/commit/602111da4e066409c03a66ac07d84c8be1a6be22))
+* **family:** let the Ardo shell take a home address below a base path ([ccc4873](https://github.com/sebastian-software/ferramenta/commit/ccc48732d57aef15d64b1fdd4b7dcab275df2f56))
+* **family:** link Ferrugo to its new site ([26924a4](https://github.com/sebastian-software/ferramenta/commit/26924a491f1c0dee12dde91409001cab307e76af))
+* **family:** link Ferrugo to its new site ([1e7e582](https://github.com/sebastian-software/ferramenta/commit/1e7e58292b581ed79a9dd85525b8d1404e15484b))
+* **family:** one full-width header, GitHub's mark, and rails that grow ([#148](https://github.com/sebastian-software/ferramenta/issues/148)) ([efb595a](https://github.com/sebastian-software/ferramenta/commit/efb595abeef370b08beca0fe2dbbb7bc3b1c6c97))
+* **family:** show an info icon on note toggles and set lead-ins plain ([def96f8](https://github.com/sebastian-software/ferramenta/commit/def96f8a69b4336579ce5f0e37a32a3c88dd432a))
+* **family:** show an info icon on note toggles and set lead-ins plain ([d21195a](https://github.com/sebastian-software/ferramenta/commit/d21195a21640425caf74e13cdd6ce168d1df0fe3))
+* **ferra:** add a rotated section rail for documentation navigation ([cb4b14a](https://github.com/sebastian-software/ferramenta/commit/cb4b14a0d7506c06670b3957d9024b858d6fb4e3))
+* **ferra:** add a rotated section rail for documentation navigation ([0e22e8a](https://github.com/sebastian-software/ferramenta/commit/0e22e8aa755fce55287a1a26a66f5e8de5b91f29))
+* **ferra:** add native SVG diagram previews ([72b3197](https://github.com/sebastian-software/ferramenta/commit/72b3197ae0996dce085d21943cd2b88243a97560))
+* **ferra:** add native SVG diagram previews ([0acfac4](https://github.com/sebastian-software/ferramenta/commit/0acfac439b45363b335d568f8aba7dd599133fb5))
+* **ferra:** add product homepages without a contents rail ([f64de4e](https://github.com/sebastian-software/ferramenta/commit/f64de4e887c8832bfc7969a7ca04e93cd0c991f6))
+* **ferra:** add reusable benchmark comparisons ([8ed65d2](https://github.com/sebastian-software/ferramenta/commit/8ed65d2ec640b29777849508ec02ae64670db83d))
+* **ferra:** centralize product stories and reading styles ([0c4b361](https://github.com/sebastian-software/ferramenta/commit/0c4b3612696b258d0c0a68f7cf97795c8960ddf9))
+* **ferra:** compose image-first product covers and soft stories ([16f9e64](https://github.com/sebastian-software/ferramenta/commit/16f9e645476b5fb499cf111238e0e39cbfb6f318))
+* **ferra:** share product covers, soft cards, and reading layouts ([1cae75a](https://github.com/sebastian-software/ferramenta/commit/1cae75af4f835e6da86a9fb35afcc7d5bb10714f))
+* **ferra:** share rendered code and evidence components ([2f1555c](https://github.com/sebastian-software/ferramenta/commit/2f1555c0a97f8f0f1eb0378f5bee9bcc1501f904))
+* **ferra:** share rendered code and evidence components ([1b83041](https://github.com/sebastian-software/ferramenta/commit/1b830419a8d77caeedeb573abb927f420255ff53))
+* **native:** give the platform packages an unpacked-size budget ([5284a12](https://github.com/sebastian-software/ferramenta/commit/5284a1264ed78f71c72387621e63fb997b7a8842))
+* **native:** give the platform packages an unpacked-size budget ([b7fd641](https://github.com/sebastian-software/ferramenta/commit/b7fd6415cd034885ab4fedb85176026c14e34b42))
+* **native:** set the platform budget per target ([22e2d41](https://github.com/sebastian-software/ferramenta/commit/22e2d4128cefaf797e18aab022915e47993f0c3e))
+* **native:** share npm packaging across the Ferramenta engines ([#105](https://github.com/sebastian-software/ferramenta/issues/105)) ([d605bb5](https://github.com/sebastian-software/ferramenta/commit/d605bb5a9dabe61080dbb8d8ff0223694608cd40))
+* **registry:** describe Ferriki's Rust crate and Vite build-time macros, mark it beta ([#103](https://github.com/sebastian-software/ferramenta/issues/103)) ([ac62a60](https://github.com/sebastian-software/ferramenta/commit/ac62a60b4cbc335c7475d525ee12fc8614c35a1e))
+* **registry:** link the Ferralk documentation site ([c981a95](https://github.com/sebastian-software/ferramenta/commit/c981a95256c0b9862accc605c72ab6662f52364a))
+* **registry:** link the Ferralk documentation site ([b04d0b4](https://github.com/sebastian-software/ferramenta/commit/b04d0b493fb4aa3fe8d38b2b576add1e7d2ea670))
+* **registry:** link the Ferrolink documentation site ([9aedc45](https://github.com/sebastian-software/ferramenta/commit/9aedc450c88ea131445f874f14af2d2a140ec870))
+* **registry:** link the Ferrolink documentation site ([f2384c4](https://github.com/sebastian-software/ferramenta/commit/f2384c4b22af92be4b3060672bff115ee49b6fd4))
+* **site:** add an editorial family homepage ([#113](https://github.com/sebastian-software/ferramenta/issues/113)) ([0f4e21d](https://github.com/sebastian-software/ferramenta/commit/0f4e21d87aab6c49b01d8f7a1d956c44ac4ac950))
+* **site:** launch Ferra on Ardo 6 ([#112](https://github.com/sebastian-software/ferramenta/issues/112)) ([c406536](https://github.com/sebastian-software/ferramenta/commit/c406536261e2f221dbec1c8614597a859a3b4d2b))
+* **site:** move ferramenta.dev to the Monografie page system ([3f64d52](https://github.com/sebastian-software/ferramenta/commit/3f64d5268db97afc6c00e9103ee5438cf949456d))
+* **site:** move ferramenta.dev to the Monografie page system ([7a14b36](https://github.com/sebastian-software/ferramenta/commit/7a14b36fd23836b201074bc2209e34e00e5fa761))
+
+
+### Bug Fixes
+
+* **family:** drop code marks from documentation titles in the Ardo shell ([30b7dfc](https://github.com/sebastian-software/ferramenta/commit/30b7dfc6768faf4357b4f686ea2c9c4a6cd635fe))
+* **family:** drop code marks from documentation titles in the Ardo shell ([2df81e8](https://github.com/sebastian-software/ferramenta/commit/2df81e8191d732a99359c4b84b0c51abfb34772e))
+* **family:** fold the header where Ardo 6.4 folds its sidebar ([#149](https://github.com/sebastian-software/ferramenta/issues/149)) ([2c6efd9](https://github.com/sebastian-software/ferramenta/commit/2c6efd9861f57657f2898f381fb771018e0e6b66))
+* **family:** give the Monografie header 44px targets on narrow screens ([c2c809d](https://github.com/sebastian-software/ferramenta/commit/c2c809d01339f8628e67033468e4463d744a9b20))
+* **family:** keep code comments above 4.5:1 on the Monografie sheet ([cf3767e](https://github.com/sebastian-software/ferramenta/commit/cf3767e271b39ce24f54ea9d6bd6ff1967d9002c))
+* **family:** keep code comments above 4.5:1 on the Monografie sheet ([fb57186](https://github.com/sebastian-software/ferramenta/commit/fb57186affacd640a0cd8a80de63e4bfccc2ab88))
+* **family:** keep table text off Ardo's frame, show the search hint at once ([#150](https://github.com/sebastian-software/ferramenta/issues/150)) ([70d6969](https://github.com/sebastian-software/ferramenta/commit/70d696962356af5a100c970f0f4b0187fdafcccf))
+* **family:** right-align the Monografie footer copyright ([3f98d37](https://github.com/sebastian-software/ferramenta/commit/3f98d378b0ce66275b1131225d4ee51816be85a3))
+* **family:** right-align the Monografie footer copyright ([33d8474](https://github.com/sebastian-software/ferramenta/commit/33d84747d97a5a6d9eb165804d47934f9df7b97b))
+* **family:** stretch the header's steel band instead of tiling it ([#146](https://github.com/sebastian-software/ferramenta/issues/146)) ([2b0ade9](https://github.com/sebastian-software/ferramenta/commit/2b0ade9498f2dfaccbcff5293bfc4694445bbd0c))
+* **ferra:** align product card row and column gutters ([610c885](https://github.com/sebastian-software/ferramenta/commit/610c885bd5a1e1fd6603ee3f84af64e02a5f2373))
+* **ferra:** contain wide documentation media and controls ([548a388](https://github.com/sebastian-software/ferramenta/commit/548a388497ed29a97a19fcebd70338790d738612))
+* **ferra:** distinguish metadata footers with a soft oxide tint ([ecd18f4](https://github.com/sebastian-software/ferramenta/commit/ecd18f4107067f66101e12b27483848301a70946))
+* **ferra:** distinguish metadata footers with a soft oxide tint ([a549421](https://github.com/sebastian-software/ferramenta/commit/a5494218a902b47e277b6ba03831fa5f076244c9))
+* **ferra:** keep reading media and code accessible ([0ce1444](https://github.com/sebastian-software/ferramenta/commit/0ce1444d0d2f7180fb885930ca3984371c2ab8d0))
+* **ferra:** keep registry card footers compact ([3b44c22](https://github.com/sebastian-software/ferramenta/commit/3b44c2208f9067370f32659d28cde7f4829c7250))
+* **ferra:** keep registry card footers compact ([91f2992](https://github.com/sebastian-software/ferramenta/commit/91f29924fa86fb6ffa2d2b3633b1886076305741))
+* **ferra:** keep search shortcut hints inside the header ([fc29cf2](https://github.com/sebastian-software/ferramenta/commit/fc29cf24abf5af0b84ca0fc489c2ef0acc38157a))
+* **ferra:** keep search shortcut hints inside the header ([335818e](https://github.com/sebastian-software/ferramenta/commit/335818ecfe23ad692ae760a1c3746505cab50777))
+* **ferra:** open up documentation and reduce code insets ([caf98df](https://github.com/sebastian-software/ferramenta/commit/caf98df85d4fceb1c0043681cdfdb5fda69c4df1))
+* **ferra:** preserve highlighter backgrounds in Ardo ([c83983b](https://github.com/sebastian-software/ferramenta/commit/c83983bd40d205340db5205cff9b80a69208413b))
+* **ferra:** preserve nested metadata text contrast ([addfeaa](https://github.com/sebastian-software/ferramenta/commit/addfeaaafc7f34b669a92621a1b007ec409665b5))
+* **ferra:** preserve nested metadata text contrast ([b331165](https://github.com/sebastian-software/ferramenta/commit/b331165a770d2ce38cf3c57ac6243de836a2bb64))
+* **ferra:** retain contrast on highlighted code lines ([d708349](https://github.com/sebastian-software/ferramenta/commit/d708349ccad6612f473ddbc2567f34464683ba19))
+* **ferra:** retain light syntax theme contrast ([37c0753](https://github.com/sebastian-software/ferramenta/commit/37c07535f503755f9d5b9c15245b0132e9933f39))
+* **ferra:** retain stable product section headings ([dc503af](https://github.com/sebastian-software/ferramenta/commit/dc503af2f720bece9d6b55803f31fd94932009dd))
+* **ferra:** sharpen card footers and rendered examples ([ad2e276](https://github.com/sebastian-software/ferramenta/commit/ad2e276f946a13c5773695b0806eb13d4c909e1a))
+* **ferra:** sharpen card footers and rendered examples ([ef7d734](https://github.com/sebastian-software/ferramenta/commit/ef7d734ddb6fabd78b805e31c5f62549412b192e))
+* **ferra:** simplify documentation surfaces and code spacing ([5819058](https://github.com/sebastian-software/ferramenta/commit/5819058a168293e8864ef6151f226d5eb1ebfd55))
+* **ferra:** soften metadata footers with a light rust grain ([49c7929](https://github.com/sebastian-software/ferramenta/commit/49c792902bc8cb5e7c8ab88c956b96c5eeda0fd9))
+* **ferra:** soften metadata footers with a light rust grain ([52fc8db](https://github.com/sebastian-software/ferramenta/commit/52fc8db0d04d7b532ee3dd5dfabf3c55ccaadf4c))
+* **ferra:** tighten mobile rhythm and preserve readable tables ([0add8c0](https://github.com/sebastian-software/ferramenta/commit/0add8c0dcf2838710d79918b94ec72032ad4346d))
+* **ferra:** tighten mobile spacing and table density ([ca56984](https://github.com/sebastian-software/ferramenta/commit/ca56984fcf08231074f79cd47e77226f70996c34))
+* **ferra:** use equal horizontal and vertical card gutters ([02623cc](https://github.com/sebastian-software/ferramenta/commit/02623ccd95c6d8938fe4b1530bae42c9c61ce62f))
+* **native:** handle Windows drive paths in packed metadata checks ([#109](https://github.com/sebastian-software/ferramenta/issues/109)) ([f76b331](https://github.com/sebastian-software/ferramenta/commit/f76b3310601052542a5be5fd13b4c89ab4d08458))
+* **native:** separate host packing from release ABI checks ([#111](https://github.com/sebastian-software/ferramenta/issues/111)) ([fe91590](https://github.com/sebastian-software/ferramenta/commit/fe915905458923e6cf2375e721c20a97af51e6ce))
+
 ## [2.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v1.2.0...ferramenta-v2.0.0) (2026-10-01)
 
 
