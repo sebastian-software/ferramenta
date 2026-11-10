@@ -82,7 +82,7 @@
       "sizes": [32, 48, 64, 128, 256, 512]
     },
     "ferrixel": {
-      "meaning": "A steel loupe inspects an image raster and shows enlarged samples.",
+      "meaning": "A steel image workstation trims, resizes and inspects a mountain-and-sun raster.",
       "mark": "ferrixel/mark.webp",
       "instrument": "ferrixel/instrument.webp",
       "ratio": 2,

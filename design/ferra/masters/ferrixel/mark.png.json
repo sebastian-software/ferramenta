@@ -3,21 +3,21 @@
   "generatedWith": "Blender 5.3.0, Cycles",
   "product": "Ferrixel",
   "role": "Transparent native Blender raster loupe product mark master",
-  "meaning": "A polished steel loupe frames seven raised raster cells; a single oxide collar marks the handle.",
-  "prompt": "A polished steel loupe frames seven raised raster cells; a single oxide collar marks the handle.",
-  "source": "https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-mark.py",
-  "sourceSha256": "7793c8ac8c2ede73e26191736aaf6b1a2a820443697cadf17a98cbe8d519609d",
+  "meaning": "A weathered iron-oxide loupe with polished steel lips frames seven raised raster cells; a patinated grip completes the handle.",
+  "prompt": "A weathered iron-oxide loupe with polished steel lips frames seven raised raster cells; a patinated grip completes the handle.",
+  "source": "https://github.com/sebastian-software/ferrixel/blob/a177781357f04a0cc93c20ecf83b9e835195b488/homepage/artwork/ferrixel-mark.py",
+  "sourceSha256": "c16eeb0af57333772d2ac591a5d1b52be148e7765646b1939c28e5b61fd49834",
   "sourceRepository": "https://github.com/sebastian-software/ferrixel",
-  "sourceCommit": "8b28d05cb417bb19bd384fbc30dd5a4c5e020b21",
+  "sourceCommit": "a177781357f04a0cc93c20ecf83b9e835195b488",
   "sourcePath": "homepage/artwork/ferrixel-mark.py",
   "constructionSources": {
-    "Ferrixel@8b28d05cb417bb19bd384fbc30dd5a4c5e020b21:homepage/artwork/ferrixel-mark.py": "7793c8ac8c2ede73e26191736aaf6b1a2a820443697cadf17a98cbe8d519609d",
+    "Ferrixel@a177781357f04a0cc93c20ecf83b9e835195b488:homepage/artwork/ferrixel-mark.py": "c16eeb0af57333772d2ac591a5d1b52be148e7765646b1939c28e5b61fd49834",
     "Ferramenta@5284a1264ed78f71c72387621e63fb997b7a8842:design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
     "Ferramenta@5284a1264ed78f71c72387621e63fb997b7a8842:design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17"
   },
   "transparentBackgroundRequested": true,
   "renderProfile": "Native Cycles, 160 samples; AgX Medium High Contrast, sRGB alpha; pinned Ferramenta studio and modeling helpers.",
-  "sha256": "f12bba5fa8a40485324e02da1a7d74bc863f349b1a679991174e137d9f16b86a",
+  "sha256": "4c26d7fb4120534f2fcd682403a1bd64d053eab861063d7e6241b052d5906650",
   "geometry": "1600x1600",
   "geometryVerification": [
     {
@@ -27,9 +27,21 @@
       "machinedPockets": 0
     },
     {
-      "body": "Bright steel loupe rim",
+      "body": "Weathered oxide loupe face",
       "closedManifold": true,
-      "volume": 0.407292209,
+      "volume": 0.346588144,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bright outer steel lip",
+      "closedManifold": true,
+      "volume": 0.10507206,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bright inner steel lip",
+      "closedManifold": true,
+      "volume": 0.073593413,
       "machinedPockets": 0
     },
     {
@@ -87,12 +99,12 @@
       "machinedPockets": 0
     },
     {
-      "body": "Oxide handle collar",
+      "body": "Weathered oxide handle grip",
       "closedManifold": true,
-      "volume": 0.023858972,
+      "volume": 0.051850405,
       "machinedPockets": 0
     }
   ],
   "verificationScope": "Each evaluated mesh is closed and has positive volume; assembly contacts are not generally collision-checked.",
-  "importNote": "Approved PNG copied byte for byte from the original Ferrixel render, with its hash checked against the provenance at the pinned source commit. The editable Blender recipe remains in Ferrixel. No local rerender or design modification."
+  "importNote": "PNG copied byte for byte from the original Ferrixel render, with its hash checked against the provenance at the pinned source commit. The editable Blender recipe remains in Ferrixel. No local rerender or design modification."
 }

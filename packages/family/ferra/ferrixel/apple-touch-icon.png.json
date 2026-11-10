@@ -2,8 +2,8 @@
   "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
   "role": "180px Apple touch icon on warm paper.",
   "source": "design/ferra/masters/ferrixel/mark.png",
-  "sourceSha256": "f12bba5fa8a40485324e02da1a7d74bc863f349b1a679991174e137d9f16b86a",
-  "prompt": "A polished steel loupe frames seven raised raster cells; a single oxide collar marks the handle.",
+  "sourceSha256": "4c26d7fb4120534f2fcd682403a1bd64d053eab861063d7e6241b052d5906650",
+  "prompt": "A weathered iron-oxide loupe with polished steel lips frames seven raised raster cells; a patinated grip completes the handle.",
   "geometry": "180x180",
-  "sha256": "249ca412df8652efb9115733fcdf43802ec794c2736e3cd1aae773c5a9ba51b2"
+  "sha256": "b828a7197eaf01d0ea8d47d330574488c4166066db0def784ea6ce5afc4a60b0"
 }

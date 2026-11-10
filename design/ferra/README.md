@@ -96,14 +96,18 @@ additional mechanical instruments. Judge compact marks at 32, 48, and 64px: thei
 Ferrolink uses rounded-square links for its mark and longer links only in its
 separate continuity bench.
 
-Ferrixel uses a raster inspection loupe: a bright steel ring over a fine image
-grid and an enlarged sample, on a machined bed with recessed fasteners. Its
-compact mark keeps the ring, seven raised raster cells and one small oxide
-collar. The approved PNG masters are copied unchanged from the Ferrixel artwork
+Ferrixel uses a compact image-processing workstation: a photo trimmer,
+spindle-operated resizing press and inspection loupe share a bright machined
+steel bed. A mountain-and-sun specimen connects the three stations at different
+sizes and sampling densities. Guide rails, fences, recessed fasteners and
+adjusters give it the detail of a working instrument; weathered iron oxide
+marks the clamps, press yoke and loupe housing. Its compact mark keeps the
+loupe and seven raised raster cells, with a broad rust face and grip bounded
+by polished steel lips. The PNG masters are copied unchanged from the Ferrixel artwork
 work, with hashes checked against its provenance records. The native
-[hero recipe](https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-instrument.py)
+[hero recipe](https://github.com/sebastian-software/ferrixel/blob/a177781357f04a0cc93c20ecf83b9e835195b488/homepage/artwork/ferrixel-instrument.py)
 and
-[mark recipe](https://github.com/sebastian-software/ferrixel/blob/8b28d05cb417bb19bd384fbc30dd5a4c5e020b21/homepage/artwork/ferrixel-mark.py)
+[mark recipe](https://github.com/sebastian-software/ferrixel/blob/a177781357f04a0cc93c20ecf83b9e835195b488/homepage/artwork/ferrixel-mark.py)
 remain in Ferrixel; the master sidecars pin their commit, hashes and the shared
 Ferramenta studio helpers. This preserves one editable source for both sites.
 Export its family assets with `node design/ferra/build-assets.mjs ferrixel`.
