@@ -18,9 +18,6 @@ importers:
         specifier: workspace:*
         version: link:packages/family
     devDependencies:
-      '@sebastian-software/standards':
-        specifier: 0.13.0
-        version: 0.13.0
       eslint:
         specifier: ^10.11.0
         version: 10.11.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -1657,11 +1654,6 @@ packages:
   '@sebastian-software/app-tracking@0.7.1':
     resolution: {integrity: sha512-bjContXr9AJJA+4lIO+FMWz8RwFj3RpinJrERYa6Xx2qxtyA7M/uG1Lzaf8gScwGzHrJMaEZc+W1yKtKX+UY7w==}
     engines: {node: ^22.0.0 || ^24.0.0 || ^26.0.0}
-
-  '@sebastian-software/standards@0.13.0':
-    resolution: {integrity: sha512-jBK0S1NeaKgBbrzfMP1CnSwIigILFPEbexHt7gldrZdiOGDLp6MRuNgkVLcQ4NFW4e0Ov0KsQOuLTNk0TGXKxg==}
-    engines: {node: '>=24.0.0'}
-    hasBin: true
 
   '@sindresorhus/base62@1.0.0':
     resolution: {integrity: sha512-TeheYy0ILzBEI/CO55CP6zJCSdSWeRtGnHy8U8dWSUH4I68iqTsy7HkMktR4xakThc9jotkPQUXT4ITdbV7cHA==}
@@ -4387,7 +4379,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.13
       '@babel/helper-compilation-targets': 7.29.13
-      '@babel/helper-module-transforms': 7.29.13(@babel/core@7.29.13)
+      '@babel/helper-module-transforms': 7.29.13(@babel/core@7.29.13(supports-color@9.4.0))
       '@babel/helpers': 7.29.13
       '@babel/parser': 7.29.13
       '@babel/template': 7.29.7
@@ -4463,7 +4455,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.29.13(@babel/core@7.29.13)':
+  '@babel/helper-module-transforms@7.29.13(@babel/core@7.29.13(supports-color@9.4.0))':
     dependencies:
       '@babel/core': 7.29.13(supports-color@9.4.0)
       '@babel/helper-module-imports': 7.29.7
@@ -5625,8 +5617,6 @@ snapshots:
   '@rolldown/pluginutils@1.0.1': {}
 
   '@sebastian-software/app-tracking@0.7.1': {}
-
-  '@sebastian-software/standards@0.13.0': {}
 
   '@sindresorhus/base62@1.0.0': {}
 
