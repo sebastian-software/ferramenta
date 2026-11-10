@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferromark/first-blender-instrument.png",
+  "sourceSha256": "e00b7451f81d4b6f278c161ef5008d13e611aa2d224ddf79084b26f8552bf9f3",
+  "prompt": "A document-registration bridge aligns three thin metal leaves: an engraved source sheet, a structured output sheet with a small ruled table, and a copper metadata index. Real engraved line work, a slotted bridge, two registration clamps, small thumbscrews, alignment pins, and a low open support frame preserve the original typesetting metaphor. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "28f07d1ad66a48fce525cba801d3b5f356fe921b02b0e1ad33f31411bba9d122",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferromark/instrument.png"
+}

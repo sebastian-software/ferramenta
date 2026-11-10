@@ -1,0 +1,10 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles, 256 samples master",
+  "construction": "design/ferra/blender/surfaces.py",
+  "role": "Flat band in the hero instruments' own weathered iron-oxide patina (hero_geometry.surfaces), for small rust accents: the primary action and the engine's own bar.",
+  "source": "design/ferra/masters/surfaces/rust-fine-strip.png",
+  "sourceSha256": "2bd04a525890e442b143e90d801a8dd953ff2b254bb8caab8f925457de77255b",
+  "prompt": "No image prompt: a flat plate in the hero instruments' weathered iron-oxide patina (hero_geometry.surfaces), rendered top-down in Blender by design/ferra/blender/surfaces.py under its soft overhead studio.",
+  "geometry": "1200x150",
+  "sha256": "6b4b13aa3d5c4fe1bb45cce9ee92ff18e9289821db6af7b4e097a1ef52a5ef11"
+}

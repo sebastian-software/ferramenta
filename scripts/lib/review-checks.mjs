@@ -11,9 +11,23 @@ export function sidewaysScroll() {
   return Math.max(0, root.scrollWidth - root.clientWidth);
 }
 
+/** Fictional reading tables keep native geometry rather than compressing words into letters. */
+export function readingTableProblems() {
+  const problems = [];
+  for (const table of document.querySelectorAll(".mono-reading-table table")) {
+    if (getComputedStyle(table).display !== "table")
+      problems.push("a reading table lost native table layout");
+    for (const row of table.rows) {
+      if (row.getBoundingClientRect().height > 160)
+        problems.push("a sample reading-table row is taller than 160px");
+    }
+  }
+  return problems;
+}
+
 /** Problems of the header bar: it wraps, an item leaves the gutter, is too small to tap, or two overlap. */
 export function barProblems() {
-  const bar = document.querySelector(".site-header .bar, .ferra-header");
+  const bar = document.querySelector(".mono-header-in");
   if (bar === null) return ["there is no header bar"];
   const width = document.documentElement.clientWidth;
   const phone = width < 768;
@@ -32,10 +46,7 @@ export function barProblems() {
   const overlaps = (first, second) =>
     second.box.left < first.box.right - 1 && second.box.top < first.box.bottom;
   return [
-    // Ferra deliberately wraps its navigation on small screens; the original fixed bar cannot.
-    ...(row > 72 && !bar.matches(".ferra-header")
-      ? ["the header bar wraps onto a second row"]
-      : []),
+    ...(row > 72 ? ["the header bar wraps onto a second row"] : []),
     ...items.filter((item) => outside(item.box)).map((item) => `${item.name} leaves the gutter`),
     ...items
       .filter((item) => phone && item.box.height < 44)
@@ -45,51 +56,6 @@ export function barProblems() {
       .filter((item, index) => overlaps(items[index], item))
       .map((item) => `${item.name} overlaps the item before it`),
   ];
-}
-
-/** Text that leaves the plate it is lettered on. */
-export function plateProblems() {
-  const leaves = (box, edge) =>
-    box.width > 0 && (box.right > edge.right + 1 || box.left < edge.left - 1);
-  return [...document.querySelectorAll(".fam-plate")].flatMap((plate) => {
-    const edge = plate.getBoundingClientRect();
-    return [...plate.querySelectorAll("h1, h3, p, dt, dd, a, b, code")]
-      .filter((element) => leaves(element.getBoundingClientRect(), edge))
-      .map((element) => `"${element.textContent.trim().slice(0, 40)}" leaves its plate`);
-  });
-}
-
-/** Problems of a comparison: a table that scrolls out of reach, a bar or a mark without its text. */
-export function comparisonProblems() {
-  const scrolls = [...document.querySelectorAll(".fam-compare-scroll")].filter(
-    (box) => box.scrollWidth > box.clientWidth + 1,
-  );
-  const silent = (selector) =>
-    [...document.querySelectorAll(selector)].filter((element) => element.textContent.trim() === "");
-  return [
-    ...scrolls
-      .filter((box) => box.tabIndex !== 0 || !box.hasAttribute("aria-labelledby"))
-      .map(() => "a table scrolls sideways, but a keyboard cannot reach or name it"),
-    ...silent(".fam-bar-value").map(() => "a bar has no figure as text"),
-    ...silent(".fam-compare-mark").map(() => "a mark has no meaning as text"),
-  ];
-}
-
-/** Whether a `<details>` flyout is open, and whether its panel is inside the viewport. */
-export function flyoutState(selector) {
-  const details = document.querySelector(selector);
-  if (details === null) return { found: false };
-  const summary = details.querySelector("summary");
-  const panel = details.querySelector(":scope > div");
-  const box = panel.getBoundingClientRect();
-  return {
-    found: true,
-    shown: summary.getBoundingClientRect().width > 0,
-    open: details.open,
-    inside: box.left >= 0 && box.right <= document.documentElement.clientWidth,
-    links: [...panel.querySelectorAll("a")].map((link) => link.textContent.trim()),
-    focusOnTrigger: document.activeElement === summary,
-  };
 }
 
 /** What has focus: its name as a visitor reads it, and whether the focus shows. */
@@ -103,11 +69,28 @@ export function focused() {
   };
 }
 
-/** The two motions of a plate: the tag's sway, and where the reflection stands. */
-export function motion() {
-  const tag = document.querySelector(".fam-hanger");
-  return {
-    sway: tag === null ? "none" : getComputedStyle(tag).animationName,
-    sheen: document.documentElement.style.getPropertyValue("--fam-sheen"),
-  };
+/** Code and tables that scroll sideways but cannot be reached or scrolled by keyboard. */
+export function scrollProblems() {
+  const problems = [];
+  for (const element of document.querySelectorAll(".mono pre, .mono .mono-table-region")) {
+    const scrolls =
+      element.scrollWidth > element.clientWidth + 1 &&
+      ["auto", "scroll"].includes(getComputedStyle(element).overflowX);
+    const reachable = element.tabIndex >= 0 || element.querySelector("a, button, [tabindex]");
+    if (scrolls && !reachable)
+      problems.push(
+        `"${element.textContent.trim().slice(0, 30)}" scrolls but a keyboard cannot reach it`,
+      );
+  }
+  return problems;
+}
+
+/** Named regions that share a name: a screen reader's landmark list cannot tell them apart. */
+export function landmarkProblems() {
+  const names = [...document.querySelectorAll('[role="region"][aria-label]')].map((region) =>
+    region.getAttribute("aria-label"),
+  );
+  return names
+    .filter((name, index) => names.indexOf(name) !== index)
+    .map((name) => `two regions are both named "${name}"`);
 }

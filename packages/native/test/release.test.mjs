@@ -1,23 +1,13 @@
-/* eslint-disable max-lines-per-function, max-statements -- Each test keeps its complete release fixture and failure sequence together. */
+/* eslint-disable max-statements -- Each test keeps its complete release fixture and failure sequence together. */
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import {
-  copyFile,
-  mkdir,
-  mkdtemp,
-  readdir,
-  readFile,
-  rm,
-  symlink,
-  writeFile,
-} from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { copyFile, mkdir, readdir, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { restoreNativeArtifacts, stageNativeArtifact } from "../src/artifacts.mjs";
-import { packPackage, packRelease, verifyArchive } from "../src/pack.mjs";
+import { packPackage, packRelease, platformBudget, verifyArchive } from "../src/pack.mjs";
 import { verifyNpmPublication } from "../src/publication.mjs";
 import { verifyGitHubRelease } from "../src/release-source.mjs";
 import {
@@ -27,67 +17,7 @@ import {
   verifyReleaseMetadata,
 } from "../src/release.mjs";
 import { nativePackages } from "../src/targets.mjs";
-
-async function fixture(t) {
-  const rootDir = await mkdtemp(path.join(tmpdir(), "native release with spaces "));
-  t.after(() => rm(rootDir, { recursive: true, force: true }));
-  const config = {
-    name: "example",
-    rootDir,
-    workspaceDir: path.join(rootDir, "node"),
-    packageDir: path.join(rootDir, "node/core"),
-    platformDir: path.join(rootDir, "node/platforms"),
-    packagePattern: "@example/{target}",
-    binaryPattern: "example.node",
-    licenses: ["LICENSE"],
-    release: {
-      repository: "https://github.com/example/project",
-      tagPrefix: "v",
-      cargoFiles: ["Cargo.toml"],
-    },
-  };
-  await mkdir(config.packageDir, { recursive: true });
-  await writeFile(path.join(rootDir, "Cargo.toml"), '[package]\nversion = "1.2.3"\n');
-  await writeFile(path.join(config.packageDir, "LICENSE"), "license fixture");
-  await writeFile(path.join(config.packageDir, "README.md"), "package fixture");
-  await writeFile(
-    path.join(config.packageDir, "package.json"),
-    JSON.stringify({
-      name: "@example/core",
-      version: "1.2.3",
-      private: false,
-      packageManager: "pnpm@11.10.0",
-      files: ["README.md", "LICENSE"],
-      optionalDependencies: Object.fromEntries(
-        nativePackages(config).map((target) => [target.packageName, "1.2.3"]),
-      ),
-    }),
-  );
-  for (const target of nativePackages(config)) {
-    const directory = path.join(config.platformDir, target.id);
-    await mkdir(directory, { recursive: true });
-    await writeFile(
-      path.join(directory, "package.json"),
-      JSON.stringify({ name: target.packageName, version: "1.2.3" }),
-    );
-    await writeFile(path.join(directory, target.binaryName), `binary fixture ${target.id}`);
-  }
-  const git = (args) => execFileSync("git", args, { cwd: rootDir, encoding: "utf8" }).trim();
-  git(["init", "--initial-branch=main"]);
-  git([
-    "-c",
-    "user.name=Fixture",
-    "-c",
-    "user.email=fixture@example.invalid",
-    "-c",
-    "commit.gpgsign=false",
-    "commit",
-    "--allow-empty",
-    "-m",
-    "fixture",
-  ]);
-  return { config, sourceSha: git(["rev-parse", "HEAD"]), git };
-}
+import { fixture } from "./release-fixture.mjs";
 
 test("the CLI stages receipts and GitHub outputs through a PNPM-style directory link", async (t) => {
   const { config, sourceSha } = await fixture(t);
@@ -219,6 +149,34 @@ test(
     );
   },
 );
+
+test("packing applies the platform budget to every platform archive", async (t) => {
+  const { config } = await fixture(t);
+  // A platform without the glibc check, so that the fixture binary packs on every host.
+  const target = "darwin-arm64";
+  await writeFile(path.join(config.platformDir, target, "LICENSE"), "license fixture");
+  const directory = path.join(config.rootDir, "budget output");
+  config.pack = { platformMaxUnpackedSize: 1 };
+  await assert.rejects(
+    packRelease(config, { directory, target }),
+    /@example\/.+ exceeds its 1 byte budget/,
+  );
+  config.pack = { platformMaxUnpackedSize: 1_000_000 };
+  const { platforms } = await packRelease(config, { directory, target });
+  assert.equal(platforms.length, 1);
+  assert.ok(platforms[0].unpackedSize < 1_000_000);
+  config.pack = { platformMaxUnpackedSize: { default: 1_000_000, [target]: 1 } };
+  await assert.rejects(packRelease(config, { directory, target }), /exceeds its 1 byte budget/);
+});
+
+test("a platform budget is one number or an object keyed by target with a default", () => {
+  assert.equal(platformBudget({}, "darwin-arm64"), undefined);
+  assert.equal(platformBudget({ pack: { platformMaxUnpackedSize: 5 } }, "darwin-arm64"), 5);
+  const pack = { platformMaxUnpackedSize: { default: 5, "win32-x64-msvc": 9 } };
+  assert.equal(platformBudget({ pack }, "win32-x64-msvc"), 9);
+  assert.equal(platformBudget({ pack }, "darwin-arm64"), 5);
+  assert.equal(platformBudget({ pack: { platformMaxUnpackedSize: { a: 1 } } }, "b"), undefined);
+});
 
 test("a release must be published on GitHub in the channel its tag declares", () => {
   verifyGitHubRelease(

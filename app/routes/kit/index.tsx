@@ -1,66 +1,273 @@
-import type { MetaFunction } from "react-router";
+import type { ArdoMetaFunction as MetaFunction } from "ardo/runtime";
 
-import { RegistryFacts } from "ferramenta-family";
-import { Link } from "react-router";
+import { useState } from "ardo/react";
+import {
+  MonoAction,
+  MonoApplications,
+  MonoBarChart,
+  type MonoBarRow,
+  MonoCaption,
+  MonoCard,
+  MonoCards,
+  MonoClosing,
+  MonoColophon,
+  MonoCredit,
+  MonoEngraving,
+  MonoFacing,
+  MonoOpening,
+  MonoPassage,
+  MonoProofs,
+  MonoSection,
+  MonoSegmented,
+  MonoSheet,
+  MonoTableView,
+  MonoTerms,
+  MonoVerdict,
+  MonoWide,
+  MonoWorkshop,
+} from "ferramenta-family/monografie";
 
-import registryStats from "../../data/registry-stats.json";
-import { ChromeSpecimens } from "../../kit/ChromeSpecimens";
-import { Foundations } from "../../kit/Foundations";
-import { IconSheet } from "../../kit/IconSheet";
-import { LandingSpecimens } from "../../kit/LandingSpecimens";
 import { SAMPLE } from "../../kit/sample";
 
-/** A landing page: Ardo lays it out bare, without the docs sidebar. */
 export const handle = { layout: "bare" };
-
 export const meta: MetaFunction = () => [
-  { title: "The kit — Ferramenta" },
+  { title: "Kit — Ferramenta" },
   {
     name: "description",
     content:
-      "The design library of the Ferramenta family: tokens, materials, icons, the shared chrome, and the patterns a member's site is built from.",
+      "The Monografie page system of the Ferramenta family, rendered from the package with an invented tool.",
   },
 ];
 
-const chapters = [
-  { id: "foundations", label: "Foundations" },
-  { id: "icons", label: "Icons" },
-  { id: "chrome", label: "Chrome" },
-  { id: "landing", label: "Landing kit" },
-];
+/* Invented figures for an invented tool: the kit never shows a real member's results. */
+const SPEED: Record<string, MonoBarRow[]> = {
+  convert: [
+    { id: "sample", label: SAMPLE.title, sub: "Rust", value: 1, own: true },
+    { id: "a", label: "Library A", sub: "Rust", value: 2.4 },
+    { id: "b", label: "Library B", sub: "C", value: 0.8 },
+    { id: "c", label: "Library C", sub: "Python", value: 14.2 },
+  ],
+  parse: [
+    { id: "sample", label: SAMPLE.title, sub: "Rust", value: 1, own: true },
+    { id: "a", label: "Library A", sub: "Rust", value: 1.3 },
+    { id: "b", label: "Library B", sub: "C", value: 1.1 },
+    { id: "c", label: "Library C", sub: "Python", value: 6.5 },
+  ],
+};
 
-export default function KitPage() {
+function describeRow(row: MonoBarRow, cut: boolean) {
+  return `${row.label} takes ${row.value.toFixed(2)}× the time${cut ? ", past the end of the scale" : ""}.`;
+}
+
+function SpeedChart() {
+  const [task, setTask] = useState("convert");
+  const rows = SPEED[task];
   return (
-    <RegistryFacts snapshot={registryStats.tools} snapshotGeneratedAt={registryStats.generatedAt}>
-      <div className="fam-page kit">
-        <div className="kit-head">
-          <div className="wrap">
-            <h1>The kit</h1>
-            <p>
-              Everything a family site is built from, rendered from the package every site installs:{" "}
-              <code>ferramenta-family</code>. What you see here is the component itself, not a
-              picture of it. Two sample pages show the pieces at work: a{" "}
-              <Link to={SAMPLE.home}>tool&rsquo;s home page</Link> and its{" "}
-              <Link to={SAMPLE.docs}>documentation</Link>.
-            </p>
-            <p>
-              The new <Link to="/kit/ferra/">Ferra kit</Link> contains the approved lighter palette,
-              textures, identities and opt-in page components.
-            </p>
-            <ul className="kit-toc">
-              {chapters.map((chapter) => (
-                <li key={chapter.id}>
-                  <a href={`#${chapter.id}`}>{chapter.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <MonoBarChart
+      label={`Time for the same work, ${task}`}
+      title="Time for the same work"
+      description={`${SAMPLE.title} = 1×, the line through every row. Invented figures.`}
+      toggles={
+        <MonoSegmented
+          label="Task"
+          value={task}
+          onChange={setTask}
+          options={[
+            { value: "convert", label: "Convert" },
+            { value: "parse", label: "Parse" },
+          ]}
+        />
+      }
+      rows={rows}
+      scale={4}
+      ticks={[1, 2, 3, 4]}
+      describe={describeRow}
+      after={
+        <>
+          Every figure on this page is invented.
+          <MonoTableView>
+            <table className="mono-table">
+              <thead>
+                <tr>
+                  <th scope="col">Library</th>
+                  <th scope="col" className="mono-num">
+                    Relative time
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.label}</td>
+                    <td className="mono-num">{row.value.toFixed(2)}×</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </MonoTableView>
+        </>
+      }
+      conditions={
+        <>
+          <h3>How this was measured</h3>
+          <p>It was not: the kit shows the chart, not a result.</p>
+        </>
+      }
+    />
+  );
+}
+
+/**
+ * The kit: every part of a Monografie homepage, rendered from the package with
+ * an invented tool. The shell (header, footer, `noindex`) is the root's; the
+ * documentation sample is at /kit/docs/.
+ */
+export default function Kit() {
+  return (
+    <>
+      <MonoOpening
+        product="ferramenta"
+        instrumentLabel="Ferramenta's instrument: a precision register holding independent tool inserts."
+        kicker={`${SAMPLE.title} 0.0, an invented engine for the kit`}
+        title="One reading column."
+        subtitle="Specimens that widen, notes in the margin."
+        standfirst={`Monografie is the page system of the family site and the engine homepages. This page shows every part with ${SAMPLE.title}, a tool that does not exist, so no figure here is real.`}
+        actions={
+          <>
+            <MonoAction href="#speed" primary detail={SAMPLE.install}>
+              The primary action
+            </MonoAction>
+            <MonoAction href="/kit/docs/" detail="The documentation sample">
+              A second action
+            </MonoAction>
+          </>
+        }
+        facts={[
+          {
+            value: (
+              <>
+                <em>12</em> of 12
+              </>
+            ),
+            label: "invented checks passed",
+          },
+          { value: "1.0×", label: "the engine's own time" },
+          { value: "Rust 1.0+", label: "an invented requirement" },
+          { value: "MIT", label: "a sample license line" },
+        ]}
+      />
+      <MonoEngraving seed={1} />
+      <MonoSection
+        title="A passage with a note."
+        standfirst="The standfirst sets up the section in one or two sentences."
+      >
+        <MonoPassage
+          note={{
+            term: "Margin note",
+            children: "Explains a term beside the passage that uses it.",
+          }}
+        >
+          <p>
+            Reading text stays in the visitor&rsquo;s system font on a column narrow enough for
+            comfortable lines. Notes sit in the margins on wide screens and move into the text on
+            narrow ones.
+          </p>
+        </MonoPassage>
+        <MonoPassage
+          note={{ side: "right", figure: "57", children: "a figure set large in a note" }}
+        >
+          <p>Figures in notes use the monospace face, so they read as measurements.</p>
+        </MonoPassage>
+        <MonoWide>
+          <MonoFacing>
+            <MonoSheet label="As typed" meta="input.txt">
+              <pre>{"3 ft 4 in\n12 km/h"}</pre>
+            </MonoSheet>
+            <MonoSheet label="As converted" meta="convert()">
+              <p>1.016 m</p>
+              <p>3.333 m/s</p>
+            </MonoSheet>
+          </MonoFacing>
+          <MonoCaption>
+            Facing pages hold real output on a member&rsquo;s page; here it is a sample.
+          </MonoCaption>
+        </MonoWide>
+      </MonoSection>
+      <MonoEngraving seed={2} />
+      <section id="speed" aria-label="Chart">
+        <div className="mono-axis">
+          <MonoWide>
+            <SpeedChart />
+          </MonoWide>
         </div>
-        <Foundations />
-        <IconSheet />
-        <ChromeSpecimens />
-        <LandingSpecimens />
-      </div>
-    </RegistryFacts>
+      </section>
+      <MonoEngraving seed={3} />
+      <MonoSection title="Terms, proofs and cards.">
+        <MonoWide>
+          <MonoTerms
+            items={[
+              { term: "parser", description: "Reads the input" },
+              { term: "units", description: "The unit tables" },
+              { term: "convert", description: "Converts between units" },
+              { term: "format", description: "Writes the result" },
+            ]}
+          />
+          <MonoTerms
+            prose
+            columns={3}
+            items={[
+              { term: "At build time", description: "A prose term list, three columns." },
+              { term: "In your release", description: "Terms in the reading face." },
+              { term: "On each start", description: "Each with one line." },
+            ]}
+          />
+        </MonoWide>
+        <MonoProofs
+          items={[
+            { label: "invented_suite.rs", value: "120 / 120" },
+            { label: "another_suite.rs", value: "48 / 48" },
+          ]}
+        />
+        <MonoWide>
+          <MonoCards>
+            <MonoCard title="A card" api="convert()">
+              <pre>convert("3 ft", "m")</pre>
+              <MonoVerdict>A verdict line under the code.</MonoVerdict>
+            </MonoCard>
+            <MonoCard title="Another card" api="parse()">
+              <pre>parse("12 km/h")</pre>
+            </MonoCard>
+            <MonoCard title="A third card">
+              <MonoVerdict>Cards hold short, real examples on a member&rsquo;s page.</MonoVerdict>
+            </MonoCard>
+          </MonoCards>
+          <MonoCredit>Credits and footnotes sit under a specimen.</MonoCredit>
+        </MonoWide>
+      </MonoSection>
+      <MonoEngraving seed={4} />
+      <MonoSection
+        title="The family overview."
+        standfirst="ferramenta.dev lists every engine with MonoEngineCatalog, which reads the registry; it is shown there, not repeated here. The applications and the workshop's brands stand on light cards in their own colors."
+      >
+        <MonoWide>
+          <MonoApplications />
+        </MonoWide>
+        <MonoWorkshop />
+      </MonoSection>
+      <MonoEngraving seed={5} />
+      <MonoColophon>
+        The colophon names the work a member continues and the workshop that makes it.
+      </MonoColophon>
+      <MonoClosing
+        title="The closing repeats the actions."
+        standfirst="One sentence on where to start."
+        actions={
+          <MonoAction href="#speed" primary detail={SAMPLE.install}>
+            Start here
+          </MonoAction>
+        }
+        links={<a href="/kit/docs/">The documentation sample</a>}
+      />
+    </>
   );
 }

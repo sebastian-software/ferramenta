@@ -1,25 +1,997 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferriki",
-  "role": "transparent meaningful homepage hero instrument",
-  "subject": "Token and theme register",
-  "meaning": "A compact precision token-and-theme register. A slim satin-steel source ribbon carries four groups of small code-like engraved bars. A single transverse adjustable registration comb aligns those groups with a removable palette cassette. Past the comb, the same groups appear in restrained oxide, dark graphite and muted sage enamels. The cassette, comb and two short alignment pins form one integrated refined instrument. This visualizes TextMate scopes being mapped through a theme into highlighted output. Use no glowing lights, rainbow prism, flame, forge, screen, giant gear or generic machine. The different token groups should be plainly visible as repeated aligned bar shapes.",
-  "prompt": "Use case: stylized-concept. Asset type: reusable transparent homepage hero illustration for Ferriki, a syntax highlighter.\nInput Image 1 is the existing Ferromark document-register instrument and Image 2 the Ferroni pattern-comparator instrument. Both are MATERIAL, CAMERA AND FAMILY CRAFT references only. Create a distinct new instrument, not a copy of either geometry. Their black-looking image-viewer backdrop is not a requested background; the output must have genuine alpha transparency.\n\nPrimary subject: Token and theme register.\nA compact precision token-and-theme register. A slim satin-steel source ribbon carries four groups of small code-like engraved bars. A single transverse adjustable registration comb aligns those groups with a removable palette cassette. Past the comb, the same groups appear in restrained oxide, dark graphite and muted sage enamels. The cassette, comb and two short alignment pins form one integrated refined instrument. This visualizes TextMate scopes being mapped through a theme into highlighted output. Use no glowing lights, rainbow prism, flame, forge, screen, giant gear or generic machine. The different token groups should be plainly visible as repeated aligned bar shapes.\n\nRender as one believable fine-mechanical bench instrument. Satin brushed steel, warm graphite edge structure, one restrained rust-brown oxide component. Warm neutral highlights, soft studio daylight from upper left, physically restrained reflections. Refined, light, precise, durable and carefully machined; no violence, grunge, dirt, dramatic darkness or heavy industrial aesthetic. Keep the meaning readable through a few clear components and their physical relationship, rather than a dense accumulation of generic screws. Use only a few discreet real fasteners.\nComposition: three-quarter orthographic-like view from slightly above, matching the existing family reference camera. Center the complete isolated object in a moderately wide landscape composition, with 8\u201312% clear margin around every edge and no clipping. Keep the whole object in focus. A faint local contact shadow is allowed as semi-transparent alpha; no opaque floor, background gradient, black matte, presentation board or text labels. No product wordmark, caption, watermark or interface. Genuine transparent background, including open spaces between components. Output only the original reusable graphic asset.",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A token-and-theme register on a low machined mounting plate with rounded plan corners and flush fasteners carries repeated engraved token groups through a large transverse registration tool with a thick slotted roof and broad end pedestals. The broad output groups use oxide-brown, sage-green, and blue enamel inlays beneath a massive registration head. A keyed theme cassette, knurled adjustment wheel, guide rods, comb teeth, engraved calibration marks, and retained feed spool form one detailed mechanical assembly. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A token-and-theme register on a low machined mounting plate with rounded plan corners and flush fasteners carries repeated engraved token groups through a large transverse registration tool with a thick slotted roof and broad end pedestals. The broad output groups use oxide-brown, sage-green, and blue enamel inlays beneath a massive registration head. A keyed theme cassette, knurled adjustment wheel, guide rods, comb teeth, engraved calibration marks, and retained feed spool form one detailed mechanical assembly. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferriki.py",
+  "sourceSha256": "9e807526fad98eb578a16b650f8618abd6a297e11cc600bab60c3c170669c360",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferriki.py": "9e807526fad98eb578a16b650f8618abd6a297e11cc600bab60c3c170669c360",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/hero_instruments.py": "0653ff5ff5e05ef1e9c4e1f216d82f45014b8df8b24adeb68b76a0cd3c133474",
+    "design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-forms-approved-plates.py": "4935383a0bc8c805a54a87c2473329d19beb4fbcbf86da30d0d729f7afd06fff"
+  },
+  "scene": "design/ferra/blender/heroes/ferriki.blend",
   "transparentBackgroundRequested": true,
-  "references": [
+  "renderProfile": "Low brushed polished steel mounting plates with separately rounded plan corners, narrow edge breaks and true counterbores, slightly brighter red-brown granular corrosion islands over dull oxidized metal with burnt oxide rims, three normal layers for broken crust edges, pits and dry grain, varying roughness and metallic response; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "5757dcf7a77131f627b228358f960202801635209d6d18ddca6de87313fc8b5e",
+  "geometry": "2400x1200",
+  "geometryVerification": [
     {
-      "file": "../round-06-warm-specimen/assets/document-register.png",
-      "role": "material, light and craft reference"
+      "body": "Substantial token theme register machined mounting plate",
+      "closedManifold": true,
+      "volume": 6.271848516,
+      "machinedPockets": 4
     },
     {
-      "file": "../round-06-warm-specimen/assets/pattern-comparator.png",
-      "role": "material, camera and fine-mechanical family reference"
+      "body": "Substantial token theme register flush bed anchor counterbore floor",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor recessed sleeve washer",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor flush socket head",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor dark hex floor",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor counterbore floor.001",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor recessed sleeve washer.001",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor flush socket head.001",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor dark hex floor.001",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor counterbore floor.002",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor recessed sleeve washer.002",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor flush socket head.002",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor dark hex floor.002",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor counterbore floor.003",
+      "closedManifold": true,
+      "volume": 0.000963949,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor recessed sleeve washer.003",
+      "closedManifold": true,
+      "volume": 0.004207988,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor flush socket head.003",
+      "closedManifold": true,
+      "volume": 0.007556067,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Substantial token theme register flush bed anchor dark hex floor.003",
+      "closedManifold": true,
+      "volume": 8.4442e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon",
+      "closedManifold": true,
+      "volume": 0.462606403,
+      "machinedPockets": 15
+    },
+    {
+      "body": "Broad token ribbon groove floor 0",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 1",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 2",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 3",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 4",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 5",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 6",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 7",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 8",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 9",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 10",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 11",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 12",
+      "closedManifold": true,
+      "volume": 9.101e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 13",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad token ribbon groove floor 14",
+      "closedManifold": true,
+      "volume": 5.748e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 0.0",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 0.1",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 0.2",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 0.3",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 0.4",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 1.0",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 1.1",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 1.2",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 1.3",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 1.4",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 2.0",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 2.1",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 2.2",
+      "closedManifold": true,
+      "volume": 0.000486424,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 2.3",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Colored theme token 2.4",
+      "closedManifold": true,
+      "volume": 0.000306354,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Feed spool broad bearing",
+      "closedManifold": true,
+      "volume": 0.114137404,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Feed spool solid hub",
+      "closedManifold": true,
+      "volume": 0.123452781,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Feed spool retaining rim",
+      "closedManifold": true,
+      "volume": 0.024770747,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Feed spool cap washer",
+      "closedManifold": true,
+      "volume": 0.001366105,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Feed spool cap socket head",
+      "closedManifold": true,
+      "volume": 0.002887974,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Feed spool cap dark socket floor",
+      "closedManifold": true,
+      "volume": 5.7944e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Heavy theme carriage guide",
+      "closedManifold": true,
+      "volume": 0.072211037,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme guide anchor",
+      "closedManifold": true,
+      "volume": 0.005806395,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme guide anchor.001",
+      "closedManifold": true,
+      "volume": 0.005806395,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Heavy theme carriage guide.001",
+      "closedManifold": true,
+      "volume": 0.072211037,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme guide anchor.002",
+      "closedManifold": true,
+      "volume": 0.005806395,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme guide anchor.003",
+      "closedManifold": true,
+      "volume": 0.005806395,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Deep transverse theme-registration tool",
+      "closedManifold": true,
+      "volume": 1.090074672,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Theme head broad end pedestal",
+      "closedManifold": true,
+      "volume": 0.082865297,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration head retained anchor washer",
+      "closedManifold": true,
+      "volume": 0.001146118,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration head retained anchor socket head",
+      "closedManifold": true,
+      "volume": 0.002224476,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Registration head retained anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 4.8689e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme head broad end pedestal.001",
+      "closedManifold": true,
+      "volume": 0.082865297,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration head retained anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.001146118,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration head retained anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.002224476,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Registration head retained anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 4.8689e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large oxide theme cassette",
+      "closedManifold": true,
+      "volume": 0.194885255,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme cassette oxide pull",
+      "closedManifold": true,
+      "volume": 0.018900939,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel spindle",
+      "closedManifold": true,
+      "volume": 0.005741744,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel thrust washer",
+      "closedManifold": true,
+      "volume": 0.002870974,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel knurled hub",
+      "closedManifold": true,
+      "volume": 0.023385816,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Large theme adjustment wheel center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Large theme adjustment wheel center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Oxide output end cap",
+      "closedManifold": true,
+      "volume": 0.021177386,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration",
+      "closedManifold": true,
+      "volume": 0.086948307,
+      "machinedPockets": 45
+    },
+    {
+      "body": "Theme front calibration groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 25",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 26",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 27",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 28",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 29",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 30",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 31",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 32",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 33",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 34",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 35",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 36",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 37",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 38",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 39",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 40",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 41",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 42",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 43",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Theme front calibration groove floor 44",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
     }
   ],
-  "width": 1774,
-  "height": 887,
-  "sha256": "77da376b875b665200f695ac9761e74220872b419c066b182d3e6f6a87b913e9",
-  "approvedSource": "designs/round-07-family-expansion/assets/ferriki/hero.png",
-  "copiedUnchanged": true
+  "revision": "Second Blender pass refined: low machined plates with rounded plan corners, narrow edge breaks and recessed fasteners, large tool heads, a turned source assembly, a conveyor sorter, and slightly brighter granular rust.",
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferriki/pre-blender-instrument.png",
+    "sourceSha256": "77da376b875b665200f695ac9761e74220872b419c066b182d3e6f6a87b913e9",
+    "promptSidecar": "design/ferra/concepts/ferriki/pre-blender-instrument.png.json"
+  },
+  "previousRevision": {
+    "source": "design/ferra/concepts/ferriki/first-blender-instrument.png",
+    "sourceSha256": "863dca1170f07cab1e76309fb84eb00363b0e8a29366034c19351670f390772a"
+  },
+  "materialReference": "Procedural corrosion follows the supplied weathered-rust photograph as visual inspiration. No photographic texture is used.",
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made."
 }

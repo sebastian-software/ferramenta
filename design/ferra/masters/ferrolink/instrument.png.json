@@ -1,0 +1,55 @@
+{
+  "createdAt": "2026-10-29",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrolink",
+  "role": "Transparent rendered hero instrument master",
+  "meaning": "Two document tabs on open precision rails, joined by three closed links in alternating perpendicular planes. Each outer link threads a document aperture, the separate continuity gauge fastens to the central copper link, and every neighboring chain body has verified clearance.",
+  "prompt": "Two document tabs on open precision rails, joined by three closed links in alternating perpendicular planes. Each outer link threads a document aperture, the separate continuity gauge fastens to the central copper link, and every neighboring chain body has verified clearance.",
+  "source": "design/ferra/blender/ferrolink.py",
+  "sourceSha256": "50356fc83d8ef21542369c6f6b00291893781c16746f43db68416c249acab969",
+  "constructionSources": {
+    "design/ferra/blender/ferrolink.py": "50356fc83d8ef21542369c6f6b00291893781c16746f43db68416c249acab969",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7"
+  },
+  "scene": "design/ferra/blender/ferrolink.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Satin metals; directional softboxes; restrained metallic thin film; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "5fffd5dd366d1981b5663fec02488ab6119db2bcbca185d7a64fb35b6aaed5f9",
+  "geometry": "2200x1100",
+  "geometryVerification": [
+    {
+      "bodies": ["Left closed steel link", "Center closed copper link"],
+      "linkingNumber": -1.000119,
+      "sampledMinimumCenterlineDistance": 0.7,
+      "minimumCenterlineDistanceBound": 0.675,
+      "conservativeSurfaceClearance": 0.102986,
+      "intersectingTriangles": 0
+    },
+    {
+      "bodies": ["Center closed copper link", "Right closed steel link"],
+      "linkingNumber": 1.000119,
+      "sampledMinimumCenterlineDistance": 0.7,
+      "minimumCenterlineDistanceBound": 0.675,
+      "conservativeSurfaceClearance": 0.102986,
+      "intersectingTriangles": 0
+    },
+    {
+      "bodies": ["Left closed steel link", "Right closed steel link"],
+      "linkingNumber": 0.0,
+      "sampledMinimumCenterlineDistance": 1.2,
+      "minimumCenterlineDistanceBound": 1.175,
+      "conservativeSurfaceClearance": 0.602986,
+      "intersectingTriangles": 0
+    },
+    {
+      "bodies": ["Left closed steel link", "Source document tab"],
+      "linkingNumber": 1.000093,
+      "intersectingTriangles": 0
+    },
+    {
+      "bodies": ["Right closed steel link", "Destination document tab"],
+      "linkingNumber": -1.000093,
+      "intersectingTriangles": 0
+    }
+  ]
+}

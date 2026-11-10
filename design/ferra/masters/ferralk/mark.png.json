@@ -1,29 +1,45 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferralk",
-  "role": "transparent rendered product mark master, designed for 32\u201364px use",
-  "meaning": "One compact Y-shaped satin-steel branching path in a graphite square corner, with a broad oxide gate marking the selected upper branch and a short flat stop on the other. Three or four major geometric shapes, open negative space, reads as path selection at 32px. No microscopic directory icons or tiny route nodes.",
-  "prompt": "Use case: logo-brand. Asset type: one original transparent rendered product mark for Ferralk, usable as a favicon at 32, 48 and 64 pixels.\nImage 1 is the new Ferralk Branch-selecting path gate, a SEMANTIC and material reference. Image 2 is the existing Ferromark mark and Image 3 the existing Ferroni mark: exact FAMILY ICON STYLE references for metal, graphite contour, restrained oxide, lighting and visual weight. Do not copy their product silhouettes. The marks are rendered material pictures, not vector line icons.\n\nDesign the deliberately simplified mark described here:\nOne compact Y-shaped satin-steel branching path in a graphite square corner, with a broad oxide gate marking the selected upper branch and a short flat stop on the other. Three or four major geometric shapes, open negative space, reads as path selection at 32px. No microscopic directory icons or tiny route nodes.\n\nIt must express a glob matcher and file walker and be derived from the logic of its hero instrument, without miniaturizing the whole machine. Make a compact, distinctive, balanced silhouette that reads clearly on warm white at 32px. Front-facing or extremely shallow three-quarter view, broad solid satin-steel faces, dark warm graphite sides and edge contrast, a restrained rust-brown oxide component. Match the references' quiet warm studio light and shallow material depth. Keep negative gaps generous enough to survive downsampling. No tiny fasteners, grain that hides the silhouette, ruler ticks, captions, product-name lettering, initials-as-wordmarks, extra decoration, cartoon mascot or app tile backdrop. The letter-like glyph in the Ferrolex tile, if requested, is an intentional broad structural part of that mark.\n\nOutput a single centered square master with 8\u201310% clear padding around the complete shape, no clipping. Genuine transparent background and transparent internal negative spaces. No opaque white, grey or black background, checkerboard, floating shadow plate, framing badge, website, presentation board or multi-size contact sheet. Preserve the original rendered steel/oxide appearance; no glow, neon, dirty rust or dark-theme scene.",
+  "role": "Transparent native Blender product mark master",
+  "meaning": "One substantial polished steel file folder, with an index tab in its upper silhouette and a large six-armed copper asterisk mounted on its face. The broad blunt-ended wildcard expresses glob-pattern matching. A narrow graphite rear edge shows solid depth without an external frame. Compact filled mass, generous visible copper arms, and no branching diagram. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "prompt": "One substantial polished steel file folder, with an index tab in its upper silhouette and a large six-armed copper asterisk mounted on its face. The broad blunt-ended wildcard expresses glob-pattern matching. A narrow graphite rear edge shows solid depth without an external frame. Compact filled mass, generous visible copper arms, and no branching diagram. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "source": "design/ferra/blender/ferralk.py",
+  "sourceSha256": "edd3ab2edbe570997a6e7c7f395b3550b817354f01bce353da6d4b3094a615cc",
+  "constructionSources": {
+    "design/ferra/blender/ferralk.py": "edd3ab2edbe570997a6e7c7f395b3550b817354f01bce353da6d4b3094a615cc",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "scene": "design/ferra/blender/ferralk.blend",
   "transparentBackgroundRequested": true,
-  "references": [
+  "renderProfile": "Polished steel and oxide copper; graphite registrations; real bevels; directional softboxes and a narrow face-reflection strip; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "f617c2411182b0dca1ba073d5b8d4b45b75085284276ea402530bbed93ac3741",
+  "geometry": "1600x1600",
+  "geometryVerification": [
     {
-      "file": "assets/ferralk/hero.png",
-      "role": "semantic and material reference for this product"
+      "body": "Graphite folder rear edge",
+      "closedManifold": true,
+      "volume": 0.441389,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferromark/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Polished steel file folder",
+      "closedManifold": true,
+      "volume": 0.971609,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferroni/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Solid copper glob wildcard",
+      "closedManifold": true,
+      "volume": 0.155274,
+      "machinedOpenings": 0
     }
   ],
-  "width": 1254,
-  "height": 1254,
-  "sha256": "b9792fbc5481cb866baf23a9808504e02f2ae46b1ac4acd09f61c953fdeb898b",
-  "geometry": "1254x1254",
-  "approvedSource": "designs/round-07-family-expansion/assets/ferralk/mark-master.png",
-  "copiedUnchanged": true
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferralk/wildcard-folder.png",
+    "sourceSha256": "d8d6f5b777646bd04ce44e1b24a38cd529c2dc10880227be262f6c47613ecc01",
+    "promptSidecar": "design/ferra/concepts/ferralk/wildcard-folder.png.json"
+  }
 }

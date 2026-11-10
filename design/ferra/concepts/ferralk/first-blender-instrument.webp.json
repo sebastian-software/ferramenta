@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferralk/first-blender-instrument.png",
+  "sourceSha256": "3a3cfac7c1a3243e0cc23f44109b18398b87313949bf699b4e5e7e7d2bc6f193",
+  "prompt": "A branching file-path gate has three open machined rails, three tabbed file leaves, a copper pivoting selector aligned with the middle branch, and a graphite stop that closes the lower branch early. The pivot, knurled screw, bearing collars, graduated rails, and separate endpoint feet make selection and pruning physically legible. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "3bdb7297346acebfe7d403a47ac4690b1df765864001c857a005b10555b2a5fb",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferralk/instrument.png"
+}

@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-10-30",
+  "source": "User-supplied image attachment in this conversation",
+  "sourcePath": "/var/folders/z7/wrpzr21d6mv4xs1stg2wzm4m0000gn/T/codex-clipboard-71798a9a-e75e-4b6b-b750-0c22a158688e.png",
+  "sha256": "e31d1eb4094e46628d216aaad1844ebd6804b32338ba9295e2c56d28df789609",
+  "treatment": "Unmodified copy of the exact attached PNG; no image generation or pixel editing.",
+  "status": "Preferred visual reference for the next design step; not a production implementation.",
+  "selectionBasis": [
+    "The attached composition is preferred to the earlier A designation.",
+    "More breathing room inside the cells.",
+    "Less heavy, restrained headlines.",
+    "Moderate instrument scale with open space around each object."
+  ],
+  "carryForward": [
+    "Light surfaces throughout; no inverted dark panels.",
+    "Ungrouped sidebar with member icon, name and compact description.",
+    "Product illustration above name, subtitle and teaser paragraph.",
+    "Contextual workshop and architecture notes beside the relevant article."
+  ],
+  "referenceRule": "Use this exact attachment as the visual baseline rather than resolving the preference through earlier study labels."
+}

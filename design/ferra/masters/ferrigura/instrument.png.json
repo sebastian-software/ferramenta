@@ -1,0 +1,1231 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrigura",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A compact roller-and-slat conveyor diagram sorts document billets through a central diamond-shaped transfer deck and a substantial pivoting switch blade. One straight incoming belt branches into two deliberately aligned output belts: a square process billet and a round storage billet make the diagram roles visibly different. Thick chamfered beds, straight side rails, retained end rollers, oxide drive caps, etched document marks and separate support shoes form one coherent mechanical sorter. The illustration represents branching and layout within Ferrigura, not a pipeline between family members. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A compact roller-and-slat conveyor diagram sorts document billets through a central diamond-shaped transfer deck and a substantial pivoting switch blade. One straight incoming belt branches into two deliberately aligned output belts: a square process billet and a round storage billet make the diagram roles visibly different. Thick chamfered beds, straight side rails, retained end rollers, oxide drive caps, etched document marks and separate support shoes form one coherent mechanical sorter. The illustration represents branching and layout within Ferrigura, not a pipeline between family members. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, dark red-brown granular corrosion islands with broken oxide rims, pitted normal relief and dull oxidized metal between crusts, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferrigura.py",
+  "sourceSha256": "12654fc9d50d07d47ad1b6022ac8ac4d6812e95b78a9bcffe142eba50a3248b8",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferrigura.py": "12654fc9d50d07d47ad1b6022ac8ac4d6812e95b78a9bcffe142eba50a3248b8",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/hero_instruments.py": "0653ff5ff5e05ef1e9c4e1f216d82f45014b8df8b24adeb68b76a0cd3c133474",
+    "design/ferra/blender/hero_geometry.py": "060cd7feb85d6477e6a79d97c26e41f87bdd7f6d3899a36981b8e8a89fabdd17",
+    "design/ferra/blender/hero_forms.py": "bd0211d0fe39d807e72e81ac451f6847055116026571348318382d6812df4d11",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "scene": "design/ferra/blender/heroes/ferrigura.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Low brushed polished steel mounting plates with separately rounded plan corners, narrow edge breaks and true counterbores, slightly brighter red-brown granular corrosion islands over dull oxidized metal with burnt oxide rims, three normal layers for broken crust edges, pits and dry grain, varying roughness and metallic response; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "f3cf96a1adb5bd3ee2b459ffe4ac96a63d26a4a1dd49e6d8167959b39fbbe323",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Incoming document conveyor low machined bed",
+      "closedManifold": true,
+      "volume": 1.464498919,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor graphite transport belt",
+      "closedManifold": true,
+      "volume": 0.218057982,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 0",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 1",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 2",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 3",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 4",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 5",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 6",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 7",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 8",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 9",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 10",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 11",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 12",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 13",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor raised steel belt slat 14",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor end roller",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor retained roller shoe",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor washer",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Incoming document conveyor frame anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor retained roller shoe.001",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Incoming document conveyor frame anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor end roller.001",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor retained roller shoe.002",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor washer.002",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor socket head.002",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Incoming document conveyor frame anchor dark socket floor.002",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor retained roller shoe.003",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor washer.003",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor frame anchor socket head.003",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Incoming document conveyor frame anchor dark socket floor.003",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor straight side rail",
+      "closedManifold": true,
+      "volume": 0.046501912,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor straight side rail.001",
+      "closedManifold": true,
+      "volume": 0.046501912,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor drive bearing",
+      "closedManifold": true,
+      "volume": 0.010087225,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor oxide drive cap",
+      "closedManifold": true,
+      "volume": 0.00223165,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor roller axle retainer washer",
+      "closedManifold": true,
+      "volume": 0.000186618,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document conveyor roller axle retainer socket head",
+      "closedManifold": true,
+      "volume": 0.000152295,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Incoming document conveyor roller axle retainer dark socket floor",
+      "closedManifold": true,
+      "volume": 8.148e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor low machined bed",
+      "closedManifold": true,
+      "volume": 1.431597717,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor graphite transport belt",
+      "closedManifold": true,
+      "volume": 0.212876529,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 0",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 1",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 2",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 3",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 4",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 5",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 6",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 7",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 8",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 9",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 10",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 11",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 12",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 13",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor raised steel belt slat 14",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor end roller",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor retained roller shoe",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor washer",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Square-node output conveyor frame anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor retained roller shoe.001",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Square-node output conveyor frame anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor end roller.001",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor retained roller shoe.002",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor washer.002",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor socket head.002",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Square-node output conveyor frame anchor dark socket floor.002",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor retained roller shoe.003",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor washer.003",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor frame anchor socket head.003",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Square-node output conveyor frame anchor dark socket floor.003",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor straight side rail",
+      "closedManifold": true,
+      "volume": 0.045443433,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor straight side rail.001",
+      "closedManifold": true,
+      "volume": 0.045443433,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor drive bearing",
+      "closedManifold": true,
+      "volume": 0.010087225,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor oxide drive cap",
+      "closedManifold": true,
+      "volume": 0.00223165,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor roller axle retainer washer",
+      "closedManifold": true,
+      "volume": 0.000186618,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square-node output conveyor roller axle retainer socket head",
+      "closedManifold": true,
+      "volume": 0.000152296,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Square-node output conveyor roller axle retainer dark socket floor",
+      "closedManifold": true,
+      "volume": 8.148e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor low machined bed",
+      "closedManifold": true,
+      "volume": 1.431597717,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor graphite transport belt",
+      "closedManifold": true,
+      "volume": 0.212876529,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 0",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 1",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 2",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 3",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 4",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 5",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 6",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 7",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 8",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 9",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 10",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 11",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 12",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 13",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor raised steel belt slat 14",
+      "closedManifold": true,
+      "volume": 0.002912363,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor end roller",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor retained roller shoe",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor washer",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Round-node output conveyor frame anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor retained roller shoe.001",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Round-node output conveyor frame anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor end roller.001",
+      "closedManifold": true,
+      "volume": 0.066336246,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor retained roller shoe.002",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor washer.002",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor socket head.002",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Round-node output conveyor frame anchor dark socket floor.002",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor retained roller shoe.003",
+      "closedManifold": true,
+      "volume": 0.012795852,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor washer.003",
+      "closedManifold": true,
+      "volume": 0.000281161,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor frame anchor socket head.003",
+      "closedManifold": true,
+      "volume": 0.000278059,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Round-node output conveyor frame anchor dark socket floor.003",
+      "closedManifold": true,
+      "volume": 1.2172e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor straight side rail",
+      "closedManifold": true,
+      "volume": 0.045443433,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor straight side rail.001",
+      "closedManifold": true,
+      "volume": 0.045443433,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor drive bearing",
+      "closedManifold": true,
+      "volume": 0.010087225,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor oxide drive cap",
+      "closedManifold": true,
+      "volume": 0.00223165,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor roller axle retainer washer",
+      "closedManifold": true,
+      "volume": 0.000186618,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round-node output conveyor roller axle retainer socket head",
+      "closedManifold": true,
+      "volume": 0.000152296,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Round-node output conveyor roller axle retainer dark socket floor",
+      "closedManifold": true,
+      "volume": 8.148e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Low sorting junction bed",
+      "closedManifold": true,
+      "volume": 1.144551527,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Junction graphite transfer deck",
+      "closedManifold": true,
+      "volume": 0.221498498,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Central sorter support shoe",
+      "closedManifold": true,
+      "volume": 0.123399072,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Steel diamond turntable rim",
+      "closedManifold": true,
+      "volume": 0.130605195,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Patinated decision diamond",
+      "closedManifold": true,
+      "volume": 0.045390543,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Sort-switch pivot bearing",
+      "closedManifold": true,
+      "volume": 0.023426777,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Raised directional sorting blade",
+      "closedManifold": true,
+      "volume": 0.087537874,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Sort-switch oxide center inlay",
+      "closedManifold": true,
+      "volume": 0.001959715,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster spindle",
+      "closedManifold": true,
+      "volume": 0.0025435,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster thrust washer",
+      "closedManifold": true,
+      "volume": 0.001268405,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster knurled hub",
+      "closedManifold": true,
+      "volume": 0.010371728,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Broad sorter pivot adjuster center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Broad sorter pivot adjuster center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Junction retained anchor washer",
+      "closedManifold": true,
+      "volume": 0.000335669,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Junction retained anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000360997,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Junction retained anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.4486e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Junction retained anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000335669,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Junction retained anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000360997,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Junction retained anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.4486e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 0",
+      "closedManifold": true,
+      "volume": 0.106501725,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Incoming document billet 0 groove floor 0",
+      "closedManifold": true,
+      "volume": 8.5821e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 0 groove floor 1",
+      "closedManifold": true,
+      "volume": 6.3867e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 0 groove floor 2",
+      "closedManifold": true,
+      "volume": 6.3867e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 1",
+      "closedManifold": true,
+      "volume": 0.106501725,
+      "machinedPockets": 3
+    },
+    {
+      "body": "Incoming document billet 1 groove floor 0",
+      "closedManifold": true,
+      "volume": 8.5821e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 1 groove floor 1",
+      "closedManifold": true,
+      "volume": 6.3867e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Incoming document billet 1 groove floor 2",
+      "closedManifold": true,
+      "volume": 6.3867e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Sorted square process billet",
+      "closedManifold": true,
+      "volume": 0.143279403,
+      "machinedPockets": 2
+    },
+    {
+      "body": "Sorted square process billet groove floor 0",
+      "closedManifold": true,
+      "volume": 8.3825e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Sorted square process billet groove floor 1",
+      "closedManifold": true,
+      "volume": 5.9875e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Square process oxide edge key",
+      "closedManifold": true,
+      "volume": 0.001241004,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Sorted round storage billet",
+      "closedManifold": true,
+      "volume": 0.127511996,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round billet oxide band",
+      "closedManifold": true,
+      "volume": 0.005357266,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Round storage top face",
+      "closedManifold": true,
+      "volume": 0.011106779,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Storage top recessed mark",
+      "closedManifold": true,
+      "volume": 8.8998e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Storage top recessed mark.001",
+      "closedManifold": true,
+      "volume": 8.8998e-5,
+      "machinedPockets": 0
+    }
+  ],
+  "revision": "Second Blender pass refined: low machined plates with rounded plan corners, narrow edge breaks and recessed fasteners, large tool heads, a turned source assembly, a conveyor sorter, and slightly brighter granular rust.",
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrigura/pre-blender-instrument.png",
+    "sourceSha256": "2f1bf3845d775baf9cfc90baf11548537362832cf31005625f902336e73e2213",
+    "promptSidecar": "design/ferra/concepts/ferrigura/pre-blender-instrument.png.json"
+  },
+  "previousRevision": {
+    "source": "design/ferra/concepts/ferrigura/first-blender-instrument.png",
+    "sourceSha256": "918303f99bd92798d8b2947139ff76a72407bd4d6ab1cb3b39e05d2da2dc8fb6"
+  },
+  "materialReference": "Procedural corrosion follows the supplied weathered-rust photograph as visual inspiration. No photographic texture is used.",
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made."
+}

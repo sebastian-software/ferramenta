@@ -1,24 +1,19 @@
 # ferramenta-family
 
 The [Ferramenta](https://ferramenta.dev) family in one package: the registry
-every site reads its facts from, the shared chrome (header with the tool
-switcher, footer), the landing kit a home page is built from, the member icons,
-the design tokens, the textures, and the display face.
+every site reads its facts from, Monografie — the page system of the family
+site, the engine homepages and their documentation — the members' marks,
+instruments and favicons, and the Markdown frames for the members' READMEs.
 
-Every piece is on show at [ferramenta.dev/kit](https://ferramenta.dev/kit),
-rendered from this package, with a sample tool page and sample documentation.
+Every part of Monografie is on show at
+[ferramenta.dev/kit](https://ferramenta.dev/kit/), rendered from this package
+with an invented tool, homepage and documentation.
 
-The approved lighter direction is available through `ferramenta-family/ferra`
-and `ferramenta-family/ferra.css`. It includes the warm paper/pewter tokens,
-all eight rendered identities and instruments, favicon kits and shared page
-components. See the [consumer guide](FERRA.md) and the live specimen at
-`/kit/ferra/`. Existing entries keep their current appearance during adoption.
-
-> **2.0 is a breaking release** (ADR-0008, ADR-0009): a new look, a registry
-> with two tiers instead of three groups, and icons as pictures instead of
-> sprite symbols. See [Moving from 1.x](#moving-from-1x). ferramenta.dev
-> consumes the package through `workspace:*`; sibling sites use a versioned npm
-> dependency and pin a Git commit only when testing unreleased source.
+> **3.0 is a breaking release** (ADR-0012): it removes the original entry and
+> the Ferra entry, so Monografie is the one page system. See
+> [Moving from 2.x](#moving-from-2x). ferramenta.dev consumes the package
+> through `workspace:*`; sibling sites use a versioned npm dependency and pin a
+> Git commit only when testing unreleased source.
 
 ## Native Markdown theme
 
@@ -56,11 +51,11 @@ unexpected output directories; review and remove obsolete generated files
 manually when removing a catalog member. The generator never deletes them. Markdown frame files are
 included in the published family package too.
 
-The React chrome reads the same registry: `SiteFooter` lists the same related
-tools, `ToolSwitcher` shows the current project as plain text, and an unknown
-family ID fails instead of silently including an incorrect link. A site that
-keeps a chrome of its own renders its list from `ferramenta-family/registry`
-(`relatedTools`, `toolHref`), as palamedes.dev does.
+The pages read the same registry: Monografie's catalog, applications and
+footer, and a site that keeps a chrome of its own renders its list from
+`ferramenta-family/registry` (`relatedTools`, `toolHref`), as palamedes.dev
+does. An unknown family ID fails instead of silently including an incorrect
+link.
 
 ### What a sibling README carries
 
@@ -82,13 +77,13 @@ few shared rules so the family reads as one:
 
 ## Requirements
 
-|         |                                                                                                                                                              |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| React   | `>=19.0.0 <20.0.0` (peer)                                                                                                                                    |
-| Ardo    | not required — an Ardo site passes `<ArdoThemeToggle />` into the header's `themeToggle` slot (the family sites are on the 4.2 floor)                        |
-| Node    | `>=20.11.0`                                                                                                                                                  |
-| Theme   | Landing pages (`.fam-page`) have one authored scheme. Outside it: `:root.dark` / `:root.light` for an explicit host choice; otherwise `prefers-color-scheme` |
-| Bundler | for the chrome, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `ferramenta-family/registry` needs none                         |
+|         |                                                                                                                                      |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| React   | `>=19.0.0 <20.0.0` (peer)                                                                                                            |
+| Ardo    | not required; `monografie-ardo.css` fits Monografie to an Ardo 6 documentation site                                                  |
+| Node    | `>=20.11.0`                                                                                                                          |
+| Theme   | one authored light scheme; an Ardo site sets `colorScheme="light"` on `ArdoRootLayout`                                               |
+| Bundler | for Monografie, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `ferramenta-family/registry` needs none |
 
 ## Install
 
@@ -108,7 +103,7 @@ contains the pinned SHA — which would break on every pin bump (ADR-0007).
 
 What keeps that honest: `pnpm verify:package` installs the package into a
 scratch project twice — the packed npm tarball, and the files `git archive HEAD`
-carries, which is what codeload serves for a pinned commit — and imports both
+carries, which is what codeload serves for a pinned commit — and imports its
 entry points in a bare Node process. CI runs it on every commit. It cannot
 resolve `github:…#<sha>` for a commit that does not exist yet, so the pinned
 install itself is checked by hand once per pin bump:
@@ -116,7 +111,7 @@ install itself is checked by hand once per pin bump:
 ```sh
 cd "$(mktemp -d)" && echo '{"name":"pin-check","private":true,"type":"module"}' > package.json
 pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" react react-dom
-node -e 'import("ferramenta-family").then((m) => console.log(typeof m.SiteHeader))'
+node -e 'import("ferramenta-family/monografie").then((m) => console.log(typeof m.MonoHeader))'
 ```
 
 Two things to know:
@@ -126,382 +121,175 @@ Two things to know:
 - **Pin a commit SHA, not `main`,** so a CI run resolves the same code twice.
   Bump the pin when the registry changes.
 
-## The chrome
+## Monografie
 
-```tsx
-import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
+`ferramenta-family/monografie` is the page system of the family site, the
+engine homepages and their documentation (ADR-0012): the steel header, the
+instrument as the opening plate, one reading column with margin notes, facing
+sheets for real output, term lists, proofs, cards, a comparison chart and the
+closing. Its classes and tokens are scoped to `.mono`, `.mono-header`,
+`.mono-footer` and, on an Ardo site, `.mono-ardo`.
 
-import "ferramenta-family/tokens.css";
-import "ferramenta-family/fonts.css";
-import "ferramenta-family/theme.css";
-import "./your-site.css";
-// Last: the chrome has to win the ties a site-wide reset would otherwise take.
-import "ferramenta-family/chrome.css";
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <MarkDefs />
-      <SiteHeader current="ferroni" lockup="project" />
-      <main>{children}</main>
-      <SiteFooter current="ferroni" />
-    </>
-  );
-}
-```
-
-The header and footer are dark iron in every scheme.
-
-- **`MarkDefs`** mounts the SVG sprite once per page: the line icons (arrow,
-  chevron, GitHub, crate, adapter, external, package). Without it every `Mark`
-  is empty. The members' icons are not in the sprite; see `Icon`.
-- **`SiteHeader`** — `current?: string`, `lockup?: "family" | "project"`,
-  `home?: string`, `switcher?: boolean`, `themeToggle?: ReactNode`,
-  `actions?: ReactNode`, `nav?: ReactNode`, `as?: "header" | "div"`. Name the
-  family member this site belongs to and the switcher shows that name as plain
-  context, while the lockup links to ferramenta.dev instead of this site's
-  root; leave it out on the family site itself. `lockup="project"` puts the
-  project's own icon and name in the brand slot, linking to `home` (default
-  `/`; pass the base path on GitHub Pages, e.g. `/ferroni/`), and turns the
-  switcher into the way back to the family (`ToolSwitcher family`). It needs
-  `current`. `switcher={false}` leaves the switcher out, for a page that
-  already is the list it would open (the family's own index). `nav` sits
-  between the lockup and the family navigation, for a site's own links: wrap
-  them in an element with the class `site-links` and they take the bar's
-  lettering (links without `data-keep` give way on a phone). `actions` sits
-  just before `themeToggle`, for a docs site's search or section menu.
-  `themeToggle` is for a docs site only (an Ardo site passes
-  `<ArdoThemeToggle />`); a landing page has one authored scheme and leaves it
-  out. The package does not import `ardo/ui` — that module only loads inside a
-  bundler (ADR-0007). With `current`, the GitHub icon links to that member's
-  repository and names it in its accessible label; without it, the icon links
-  to the organization.
-- **`SiteFooter`** — `current?: string` (omits the site's own entry),
-  `legal?: ReactNode`, `as?: "footer" | "div"`,
-  `members?: "full" | "short" | "none"`. Three columns: the engines, the
-  applications, and "Work with us" (consulting first, then open source and
-  GitHub — the workshop's links travel with the chrome onto every family site,
-  ADR-0008). `members` sets the job text under each name (full, short) or drops
-  the member columns (`none`, for a page that is itself the family's index).
-  Column headings are `h2`: the footer is its own landmark. Without `current`
-  the lockup names the family itself.
-- **`as`** on either one swaps the landmark element for a `div` with the same
-  classes, for a host that already provides the landmark, or for a page that
-  shows the chrome as a specimen, as the kit does.
-- **`ToolSwitcher`** — `current?`, `align?: "end" | "start"`, `family?: boolean`.
-  `SiteHeader` renders it; a page that fills the header's slots itself can
-  place it too, as the kit's sample header does with `family` set. It needs
-  `MarkDefs` on the page. The flyout carries its own colors and hangs from the
-  trigger; `align="start"` is for a trigger near the left edge, where the
-  default right-aligned flyout would run off-screen. Below `46rem` it spans the
-  viewport under the trigger.
-- **`Icon`** — `name` (a member's name, or `ferramenta`), `form?: "small" |
-"rendered" | "hero"`, `size?` (pixels), `label?`, `className?`. A member's
-  icon is one rendered picture at three sizes (ADR-0009): `small` (the default)
-  for the header, a list, a chip, shown at 24 to 48px; `rendered` for a catalog
-  plate, up to about 128px; `hero` for a first viewport. `chrome.css` places
-  the files as background images, so your bundler resolves them like the font.
-  Do not show an icon below 24px. It stands directly on a dark ground; nothing
-  goes under it.
-- **`Mark`** — `name` (a sprite symbol without the `i-` prefix: `arrow`,
-  `chev`, `github`, `crate`, `adapter`, `external`, `package`), `className`
-  (default `icon`), `size`. A line icon in the text color.
-- **`SiteMenu`** — `label?` (default `Menu`), `children` (your links). A
-  site's own sections as a menu in the bar, for `SiteHeader`'s `actions` slot.
-  It shows below `64rem`, where an Ardo docs layout hides its sidebar and a
-  phone would otherwise have no way to the other pages; on those widths the
-  bar drops the GitHub link, which the footer still carries.
-- Every footer carries the workshop's copyright line with its imprint and
-  privacy links (`WORKSHOP.company`, `WORKSHOP.place`, `WORKSHOP.imprint`,
-  `WORKSHOP.privacy`); a site's `legal` is what comes after it.
-- **`site-search`** — a class, not a component: wrap your framework's search
-  field in `<div className="site-search">` inside the `actions` slot. It keeps
-  its own look and gets its room from the chrome. Below `64rem` it takes a
-  full-width row of its own under the bar; `docs.css` raises Ardo's header
-  height by that row.
-
-## The landing kit
-
-A family home page is built from the same parts as ferramenta.dev, not from a
-copy of its stylesheet. Load `landing.css` after `theme.css` and **before**
-your own stylesheet, so your rules adjust the kit on equal specificity;
-`chrome.css` stays last. Wrap the page content in `.fam-page` — it paints the
-ground itself, because an Ardo layout paints its own background over `<body>`,
-and it pins the one authored color scheme. Keep the header and footer outside
-it.
+The entry also exports what such a page needs from the rest of the package, so
+a site imports from one place: `Mark` and `MarkDefs` (the line-icon sprite the
+documentation navigation uses), `RegistryFacts` and `useToolFacts` (live
+release facts), `IDENTITIES` and `hasIdentity` (the members with a mark and an
+instrument), and the comparison types `Contender`, `ComparisonRow`,
+`ComparisonCell`, `ComparisonMark`, `ComparisonTableProps`, `MeasuredProps` and
+`MeasuredRow`. The root entry keeps exporting these too.
 
 ```tsx
 import {
-  ClosingAction, CodePanel, EvidenceFigures, Ledger, Mark, Principles,
-  ProjectHero, Section, WorkWithUs,
-} from "ferramenta-family";
+  MonoFooter,
+  MonoHeader,
+  MonoOpening,
+  MonoPage,
+  MonoSection,
+} from "ferramenta-family/monografie";
+import "ferramenta-family/monografie.css";
 
-export default function Home() {
-  return (
-    <div className="fam-page">
-      <ProjectHero
-        title="Ferroni"
-        what="A regex engine in memory-safe Rust."
-        lede="It continues Oniguruma, the engine TextMate grammars are written for, …"
-        actions={
-          <a className="fam-btn fam-btn-primary" href="guide/">
-            Get started <Mark name="arrow" size={18} />
-          </a>
-        }
-        install={<code>cargo add ferroni</code>}
-        icon="ferroni"
-        facts={[
-          { label: "Succeeds", value: "Oniguruma" },
-          { label: "Checked against", value: "Oniguruma compatibility oracle" },
-        ]}
-      />
-      <Section title="Oniguruma ended. The engine goes on." intro="…">
-        <Principles items={pillars} />
-      </Section>
-      <Section layout="split" tone="dim" title="Faster on real code" intro="…" note="Measured on …">
-        <EvidenceFigures figures={benchmarks} />
-      </Section>
-      <Section title="What it covers">
-        <Ledger entries={coverage} />
-      </Section>
-      <ClosingAction title="Start building" actions={…} links={…}>
-        <p>…</p>
-      </ClosingAction>
-      <WorkWithUs />
-    </div>
-  );
-}
+<MonoPage>
+  <MonoHeader product="ferroni" home="/" release={version} links={[<a href="/guide/">Guide</a>]} />
+  <main>
+    <MonoOpening product="ferroni" instrumentLabel="…" kicker="…" title="…" standfirst="…" actions={…} />
+    <MonoSection title="…">…</MonoSection>
+  </main>
+  <MonoFooter product="ferroni" home="/" />
+</MonoPage>;
 ```
 
-**Say what it is first.** The hero's plate carries the name, what the thing is
-in one plain phrase (`what`), what it does (`lede`), and the action. Where it
-comes from and what it is checked against are `facts`: they hang below the
-plate on a small tag. A visitor who does not know the original learns nothing
-from "X, continued in Rust".
+Reading text uses the system UI font; Source Serif 4 Subhead ships for
+headings. Rust appears only on the primary action (`MonoAction primary`) and
+the engine's own bar (`own` on a `MonoBarChart` row). Each site keeps its
+specimens and the scripts that produce their real output. The kit renders every
+part at [ferramenta.dev/kit](https://ferramenta.dev/kit/), with an invented
+tool.
 
-| Component          | Props                                                                                                                                                                                                                                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ProjectHero`      | `title`, `what?`, `lede?`, `actions?`, `install?`, `icon?` (a member's rendered icon on the plate), `aside?` (replaces the icon), `facts?: { label, value }[]` (the hanging tag)                                                                   |
-| `Section`          | `title`, `intro?`, `note?`, `id?`, `layout?: "stack" \| "split"`, `tone?: "floor" \| "dim"`, `className?`, `children`                                                                                                                              |
-| `Principles`       | `items: { heading, text }[]` — two to four, side by side under heavy rules                                                                                                                                                                         |
-| `IronBand`         | `title`, `intro?`, `id?`, `children` — a page's dark passage, on oak; `Principles` inside it stand under glowing rules. Put a light section between it and the hero                                                                                |
-| `EngineCatalog`    | `current?` (left out), `tools?` (defaults to every engine) — one row per engine: its plate, what it does, for whom, its lineage, how it fits with others, its facts                                                                                |
-| `ApplicationsBand` | `title?`, `intro?`, `id?`, `current?` — the applications on light cards, each under its own logo and brand color (`brand` in the registry); one that runs on family engines leads and names them                                                   |
-| `Plate`            | `as?`, `className?`, `rivets?`, `children` — a riveted steel plate. `Rivets` and `HangingTag` (`facts`) are its parts; `PlateLight` moves the one reflection with the pointer (the hero renders it)                                                |
-| `EvidenceFigures`  | `figures: { label, value, detail?, measure? }[]` — each on a small plate                                                                                                                                                                           |
-| `ComparisonTable`  | `caption`, `subject`, `contenders: { id, label, own? }[]`, `rows: { label, detail?, values, verdict?, behind? }[]`, `verdictLabel?`, `align?: "start" \| "end"` — the project beside the alternatives, as a real table that scrolls in its own box |
-| `ComparisonBars`   | `caption`, `bars: { label, detail?, value, text?, own? }[]`, `max?` — one measure across the field, every bar with its figure as text                                                                                                              |
-| `Measured`         | `on`, `machine`, `revision?`, `more?: { label, value }[]`, `children?` (the link to the full report) — where and when a figure was measured                                                                                                        |
-| `Relations`        | `current` — where a member fits with the others, from the registry: what it runs on, pairs with, carries. Renders nothing for a member that stands alone                                                                                           |
-| `Voices`           | `title?`, `voices: { quote, who, where, href? }[]` — outside voices on the material, verbatim, attributed and linked; never about the family itself                                                                                                |
-| `CodePanel`        | `caption`, `children` — color with spans `kw`, `ty`, `fn`, `str`, `mc`, `cm`                                                                                                                                                                       |
-| `RunSample`        | `input`, `inputCaption`, `inputKind?`, `output` (your tool's real output as trusted HTML, a committed artifact), `outputCaption` — the tool run for real, input beside output; the output is `inert`                                               |
-| `Ledger`           | `entries: { name, status, settled?, detail? }[]`                                                                                                                                                                                                   |
-| `Stamp`            | `solid?`, `children`                                                                                                                                                                                                                               |
-| `StampKey`         | `statuses?` — each maturity stamp with the line it promises, from `STATUS_MEANING`                                                                                                                                                                 |
-| `ClosingAction`    | `id?`, `title`, `actions?`, `aside?` (a list beside the copy), `links?` (the mono link line), `children` (the copy)                                                                                                                                |
-| `WorkWithUs`       | `title?`, `children?` (the copy), `offers?: string[]`, `action?`, `id?` — the rust band a page closes on; its one action leads to the workshop's consulting site                                                                                   |
-| `RegistryFacts`    | `snapshot?`, `snapshotGeneratedAt?`, `metrics?`, `endpoints?`, `children` — metrics-first live facts, with direct registry requests for unanswered sources; `snapshot` is the prerendered value. Read with `useToolFacts(tool)`                    |
+The family site uses three more parts that read the registry:
+`MonoEngineCatalog` (every engine on its own plate), `MonoApplications` (light
+cards under each application's own logo) and `MonoWorkshop` (the workshop's
+two brands). On the family site itself, pass `familyHref={null}` to
+`MonoHeader`.
 
-Plain classes cover what needs no component: `fam-btn` with `fam-btn-primary`
-(dark iron — one per view), `fam-btn-ghost` (an engraved outline) or
-`fam-btn-steel` (bright steel, on oak or rust), `fam-actions` for a row
-of them, `fam-plate`, `fam-intro`, `fam-note`, `fam-links`, `fam-code-grid`
-(two `CodePanel`s side by side), and `fam-sr-only` for text only assistive
-technology reads. From the registry: `familyTiers()`
-(the engines and the applications), `relationsOf(tool)` (what a member runs on,
-what runs on it, what it pairs with), `WORKSHOP` (the workshop's links),
-`STATUS_MEANING` and `STATUS_ORDER` (what each stamp promises, most settled
-first), `isSuccessor(tool)` (a member with `succeeds`, as opposed to a new
-development with `buildsOn`), `displayName(tool)` (the name as prose writes
-it), `whatLabel(tool)` (what a member is, without its article: "Regex engine";
-the label under a name wherever there is no room for a sentence),
-`runsOnTools(tool)` (an application's current engines; an unknown name throws),
-`plannedRunsOnTools(tool)` (engines for an integration in progress),
-and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links lead). Every
-surface that links a member says when that is a repository:
-`<RepoNote tool={tool} />` after the name renders the words for assistive
-technology (styled by `fam-sr-only` in `chrome.css`). The rules the kit carries
-— three materials with one job each, small type never on a texture, sharp
-corners, no figures on the family site — are in the family's
-[DESIGN.md](https://github.com/sebastian-software/ferramenta/blob/main/DESIGN.md).
+### Documentation pages
 
-`RegistryFacts` uses `fetchFamilyFacts` / `useFamilyFacts`: one request to the
-metrics service first, then direct registry requests only for sources it did
-not answer. `fetchFamilyMetrics` reads just that service; `fetchLiveRegistry`
-asks crates.io and npm directly, keyed by package name. The registry helpers
-`toolFacts`, `liveRequestFor` (the packages to ask for, under their published
-names), `packageName`, `REGISTRY_ENDPOINTS` and `relatedTools`, and the SVG
-symbol list `MARK_DEFS`, are exported too.
-
-## Patterns the sites share
-
-A pattern two members' pages need lives here, not in each site's stylesheet.
-Before writing a section by hand, look for it in this table; the kit at
-[ferramenta.dev/kit](https://ferramenta.dev/kit) shows every one, and its
-sample tool page and sample documentation show them at work.
-
-| A page wants to…                                    | Use                                                        |
-| --------------------------------------------------- | ---------------------------------------------------------- |
-| State a few headline figures                        | `EvidenceFigures` in a `Section layout="split"`            |
-| Stand beside the alternatives, workload by workload | `ComparisonTable align="end"` with a `verdictLabel`        |
-| Compare features or compatibility                   | `ComparisonTable` with marks (`true`, `false`, `{ mark }`) |
-| Show one measure across the field                   | `ComparisonBars`                                           |
-| Say where and when a figure was measured            | `Measured`, under the table, the bars or the figures       |
-| Say what is covered and what is not                 | `Ledger`                                                   |
-| Show the tool run for real                          | `RunSample`                                                |
-| Show two APIs, or a call and its output             | two `CodePanel`s in a `fam-code-grid`                      |
-| Say where the member fits with the others           | `Relations current="…"`                                    |
-| Carry its sections in the bar, as a menu on a phone | `site-links` in `nav`, `SiteMenu` in `actions`             |
-| Carry search in the bar                             | the host's search component inside `.site-search`          |
-| Put Ardo documentation inside the family chrome     | `docs.css` and `fam-docs-shell`                            |
-
-**Comparisons are honest or they are advertisements.** A row where the project
-is behind stays in the table and is marked `behind`. A mark that needs
-qualifying gets its words (`{ mark: "partial", note: "UTF-8 only" }`). Every
-measurement has a `Measured` under it. And figures stay on the member's own
-site: the family site never repeats one.
+An engine's guides use the same entry (ADR-0012): a reading layout between the
+site's navigation and the page outline, the tables, code sheets and worked
+examples that stand in it, and the Ardo integration. Load both documentation
+stylesheets after `monografie.css`, and put the classes on Ardo's shell:
 
 ```tsx
-<ComparisonTable
-  align="end"
-  caption="Median time per document; lower is faster."
-  subject="Document"
-  contenders={[
-    { id: "ferroni", label: "Ferroni", own: true },
-    { id: "oniguruma", label: "Oniguruma" },
-  ]}
-  rows={[
-    { label: "TypeScript", values: { ferroni: "1.26 ms", oniguruma: "3.13 ms" }, verdict: "2.5×" },
-    { label: "A slower case", values: { ferroni: "2.0 ms", oniguruma: "1.6 ms" }, verdict: "0.8×", behind: true },
-  ]}
-  verdictLabel="Factor"
-/>
-<Measured on="2026-09-23" machine="Apple M1 Pro, 32 GB, macOS 27.0" revision="2f109a75">
-  <Link to="/perf/benchmark-results">Full tables and the command to reproduce them</Link>
-</Measured>
+import {
+  MonoGuideNavigation,
+  MonoHeader,
+  MonoPage,
+  MonoReadingLayout,
+  MonoReadingTable,
+  MonoSectionRail,
+} from "ferramenta-family/monografie";
+import "ferramenta-family/monografie.css";
+import "ferramenta-family/monografie-docs.css";
+import "ferramenta-family/monografie-ardo.css";
+
+<ArdoRootLayout className="mono-ardo" colorScheme="light">…</ArdoRootLayout>;
+
+<MonoPage className="mono-docs">
+  <ArdoRoot
+    className="mono-ardo-shell"
+    scrollMode="document"
+    header={<MonoHeader … actions={<DocsActions />} />}
+    sidebar={false}
+    footer={false}
+    components={{ table: MonoReadingTable, wrapper: Article }}
+  />
+  <MonoFooter product="ferroni" home="/" />
+</MonoPage>;
+
+// Article: <MonoReadingLayout navigation={<><MonoSectionRail>…</MonoSectionRail>
+//   <MonoGuideNavigation>…</MonoGuideNavigation></>} outline={<ArdoTOC source="dom" … />}>
 ```
 
-The comparison components also work inside documentation (an `.mdx` page
-imports them like any component): they take the docs page's light or dark
-scheme, and their rules outrank the host's bare `table` and `ul` styles.
-`docs.css` additionally sets every documentation table in tabular figures and
-keeps a table head in its own case, so a unit such as `µs` is not capitalized
-into `MS`.
+`monografie-ardo.css` maps Ardo's tokens onto Monografie's, sets Ardo's
+highlighted code, outline, search and mobile menu in its look, and carries the
+shell fixes each site used to repeat: no padding for a fixed header, `main` is
+not a scroll container, anchors clear the 60px sticky header, and with
+documentation navigation on the page the Monografie menu button steps aside
+below 961px for Ardo's menu. Its rules stand on `.mono-ardo`, `.mono-docs` and
+`.mono-ardo-shell`; those of `monografie-docs.css` on `.mono` and `mono-`
+classes. The kit renders a sample page at
+[ferramenta.dev/kit/docs](https://ferramenta.dev/kit/docs/).
 
-## Ardo docs sites
+Where the documentation navigation stands beside the text (from 961px), Ardo's
+menu button steps aside, and just above that width the header's spacing
+tightens, so six links, the release, the family link and search keep one row.
+Code that scrolls sideways in the reading column, a `MonoCard` or a `MonoSheet`
+takes a tab stop, so a keyboard can scroll it. A `MonoReadingTable` without an
+`aria-label` is named after its caption or the heading it stands under,
+numbered where two share one, so several tables on a page stay distinct
+regions.
 
-The whole chrome goes outside `ArdoRoot`, in the site's own root component.
-Ardo reads `handle = { chrome: false }` from every route match and then renders
-neither its own header nor its own footer. The family header and footer go
-outside `ArdoRoot`, in the site's own root component, and Ardo's sidebar rail
-and generated navigation are untouched — that switch does not cover them.
+## Moving from 2.x
 
-```tsx
-import { MarkDefs, SiteFooter, SiteHeader } from "ferramenta-family";
-import { ArdoRoot, ArdoSearch, ArdoSidebar, ArdoThemeToggle } from "ardo/ui";
-import config from "virtual:ardo/config";
+3.0 removes the two earlier visual systems: the original entry (the chrome,
+the landing kit, `tokens.css`, `fonts.css`, `theme.css`, `landing.css`,
+`chrome.css`, `docs.css`, the Barlow faces, the member icons and the old
+textures) and the Ferra entry (`ferramenta-family/ferra`, `ferra.css`,
+`ferra-ardo.css`, `ferra-tokens.css`, `ferra-fonts.css`, every `Ferra*`
+component). The registry, the README frames, the marks, instruments and
+favicons under `ferra-assets/*`, and the application logos under `icons/*`
+stay. Moving a site's documentation from the Ferra reading layout is a
+rename: the reading components take the props of their Ferra counterparts. The
+homepage parts in the last rows have props of their own.
 
-/* Read from every route match; no route below may override it. */
-export const handle = { chrome: false };
+| Ferra                                                                            | Monografie                                                                   |
+| -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `ferramenta-family/ferra.css`                                                    | `ferramenta-family/monografie-docs.css`, after `monografie.css`              |
+| `ferramenta-family/ferra-ardo.css`                                               | `ferramenta-family/monografie-ardo.css`                                      |
+| `ArdoRootLayout className="ferra-tokens ferra-ardo"`                             | `ArdoRootLayout className="mono-ardo" colorScheme="light"`                   |
+| `<FerraPage className="ferra-site …">`                                           | `<MonoPage className="mono-docs …">`                                         |
+| `ArdoRoot className="ferra-ardo-shell"`                                          | `ArdoRoot className="mono-ardo-shell"`                                       |
+| `FerraReadingLayout`, `FerraGuideNavigation`, `FerraSectionRail`                 | `MonoReadingLayout`, `MonoGuideNavigation`, `MonoSectionRail`                |
+| `FerraReadingTable`, `FerraTableViewport`, `FerraTable`                          | `MonoReadingTable`, `MonoTableViewport`, `MonoTable`                         |
+| `FerraBenchmarkTable`, `FerraComparisonTable`, `FerraMeasured`, `FerraBars`      | `MonoBenchmarkTable`, `MonoComparisonTable`, `MonoMeasured`, `MonoBars`      |
+| `FerraCode`, `FerraRenderedCode`, `FerraCodePair`, `FerraDiagram`                | `MonoCode`, `MonoRenderedCode`, `MonoCodePair`, `MonoDiagram`                |
+| `FerraExample`, `FerraToggle`, `FerraSelect`, `FerraTabs`, `FerraSteps`          | `MonoExample`, `MonoToggle`, `MonoSelect`, `MonoTabs`, `MonoSteps`           |
+| `FerraChoices`, `FerraFeatureGrid`, `FerraColumns`, `FerraMedia`, `FerraArticle` | `MonoChoices`, `MonoFeatureGrid`, `MonoColumns`, `MonoMedia`, `MonoArticle`  |
+| `FerraAction` (primary unless told otherwise)                                    | `MonoAction variant="primary"` (secondary unless told)                       |
+| `ferra-reading-navigation`, `ferra-reading-outline`, `ferra-prose`               | `mono-reading-navigation`, `mono-reading-outline`, `mono-prose`              |
+| `ferra-benchmark-name`, `-detail`, `-source`, `-conformance`, `-reference`       | `mono-benchmark-name`, `-detail`, `-source`, `-conformance`, `-reference`    |
+| `ferra-table` (the table `FerraTable` renders)                                   | `mono-data-table`                                                            |
+| `FerraHeader`, `FerraFooter`, `FerraHero`, `FerraSection`                        | `MonoHeader`, `MonoFooter`, `MonoOpening`, `MonoSection`                     |
+| `FerraEngineCatalog`, `FerraApplications`, `FerraWorkshop`                       | `MonoEngineCatalog`, `MonoApplications`, `MonoWorkshop`                      |
+| `Mark`, `MarkDefs`, `RegistryFacts`, `ComparisonRow` from `ferramenta-family`    | the same names from `ferramenta-family/monografie` (the root still has them) |
 
-export default function Root() {
-  return (
-    <>
-      <MarkDefs />
-      <SiteHeader current="ferrocat" actions={<ArdoSearch />} themeToggle={<ArdoThemeToggle />} />
-      {/* The wrapper `docs.css` hangs the shell overrides off. */}
-      <div className="fam-docs-shell">
-        <ArdoRoot config={config}>
-          <ArdoSidebar>{/* … */}</ArdoSidebar>
-        </ArdoRoot>
-      </div>
-      <SiteFooter current="ferrocat" legal={<>…</>} />
-    </>
-  );
-}
-```
+Beyond the rename, a site deletes its local shell fixes (the
+`padding-block-start`, `scroll-padding-top`, sticky `top` and menu-button rules
+in its own stylesheet) and stops importing `ferra.css` and `ferra-ardo.css`.
+`MonoBars` sets the highlighted bar in the instrument's rust, as `MonoBarChart`
+does. A site on the original chrome (`SiteHeader`, `SiteFooter`, the landing
+kit) moves to `MonoHeader`, `MonoFooter` and the Monografie parts; the 2.x
+README in Git history documents what it used.
 
-`ferramenta-family/docs.css` holds what makes this hold together; load it after
-`theme.css` and wrap `ArdoRoot` in an element with the class `fam-docs-shell`:
+## Entry points
 
-- **It hands the scrolling back to the document.** Ardo's docs layout is an
-  application shell: a fixed header, a `100vh` frame that never scrolls, and an
-  inner `<main>` that does. A footer placed below that frame is unreachable.
-  The stylesheet frees the frame and `#main-content` and pins `.ardo-sidebar`
-  and the table of contents, which relied on the inner scroll container.
-- **It sets `--ardo-layout-headerHeight: 4rem`** on `:root`. Ardo derives its
-  sticky offsets and the table-of-contents height from it, and `.bar` — the
-  family header — is `4rem`. A site that makes the bar taller (a second row for
-  search on a phone) raises the variable to match.
+| Import                                  | What it is                                                                                                  |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ferramenta-family/registry`            | The registry, data only: no React, loads in any Node process                                                |
+| `ferramenta-family/monografie`          | The Monografie components, plus the sprite, the live registry facts and the comparison types                |
+| `ferramenta-family`                     | The registry, the live registry facts, the sprite and the comparison types, for sites that import the root  |
+| `ferramenta-family/monografie.css`      | The page system: tokens, faces, header, sections, specimens, footer; imports `ferra-assets.css`             |
+| `ferramenta-family/monografie-docs.css` | The reading layout and its parts, after `monografie.css`                                                    |
+| `ferramenta-family/monografie-ardo.css` | Ardo's tokens, code, outline, search and mobile menu in Monografie's look, last                             |
+| `ferramenta-family/ferra-assets/*`      | The members' marks, instruments, favicons and Apple touch icons, the workshop logos, the surfaces and faces |
+| `ferramenta-family/icons/*`             | The applications' own logos (`ardo.svg`, `dalo.svg`, `palamedes.svg`)                                       |
 
-Documentation keeps Ardo's look and its light and dark schemes; the family adds
-its colors (`theme.css`) and its chrome, nothing else. Do not wrap docs content
-in `.fam-page`: that pins the landing pages' light scheme.
-
-On a phone Ardo shows no sidebar and, without its own header, no toggle for
-one. Put a `<SiteMenu label="Docs">` with the section links into the header's
-`actions` slot, so the pages stay reachable.
-
-`ArdoSearch` reads its index from a virtual module and falls back to the default
-labels, so it works outside `ArdoRoot`'s provider. The kit's sample
-documentation ([ferramenta.dev/kit/docs/getting-started](https://ferramenta.dev/kit/docs/getting-started),
-`app/root.tsx` in this repository) is the worked example.
-
-- **`actions`** is the slot for the controls a docs site keeps in the bar —
-  search, a section menu — rendered just before `themeToggle`. **`nav`** is a
-  second slot, between the lockup and the family navigation, for a site's own
-  navigation. Both take the site's own elements; the family chrome styles
-  neither.
-
-### CSS load order on an Ardo site
-
-The order in [The chrome](#the-chrome) still holds — `tokens.css`, `fonts.css`,
-`theme.css`, the site's own stylesheet, `chrome.css` last — but on an Ardo site
-"last" does not settle every tie. Ardo re-emits `ardo/ui/styles.css` inside its
-own route chunk, which the browser loads _after_ the root stylesheet, so ties
-between `chrome.css` and Ardo on equal specificity go to Ardo. An integration
-override that has to beat an Ardo rule needs one element selector more than the
-rule it replaces — `footer.ardo-footer` rather than `.ardo-footer`. Ardo also
-paints every `<a>` in its brand color; `chrome.css` already claims its own
-anchors back (the lockup, the GitHub link, the flyout entries and the footer
-columns), but it deliberately leaves the `actions` and `nav` slots alone, so
-whatever a site puts there keeps Ardo's colors. Links wrapped in `.site-links`
-take the bar's lettering and ink from `chrome.css`; anything else needs its own
-rule if it wants the iron ink.
-
-## CSS entry points
-
-| Import                          | What it is                                                                                  | Safe to load anywhere?                                        |
-| ------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `ferramenta-family/tokens.css`  | The OKLCH design tokens: two ramps (`--iron-*`, `--rust-*`) and the roles that draw on them | Yes — no surfaces are painted                                 |
-| `ferramenta-family/fonts.css`   | `@font-face` for Barlow Condensed (500, 600, 700) plus the bundled WOFF2                    | Yes — optional; the chrome falls back to the body stack       |
-| `ferramenta-family/theme.css`   | Maps the tokens onto Ardo's `--ardo-color-brand*` and its neutrals                          | Yes                                                           |
-| `ferramenta-family/docs.css`    | The docs shell: an Ardo documentation layout inside the family chrome                       | Only on a site with Ardo docs pages; after `theme.css`        |
-| `ferramenta-family/landing.css` | The landing kit: `.fam-page` and every `fam-` pattern                                       | Yes — `fam-` prefixed; load it **before** your own stylesheet |
-| `ferramenta-family/chrome.css`  | The header, footer, switcher, and the member icons                                          | Load it **after** your own stylesheet                         |
-
-`chrome.css` needs `tokens.css`: every color is a token. It goes last, after
-the site's own stylesheet, so a site-wide reset cannot take the selector ties
-from the chrome — which also means it wins those ties. It owns these class
-names: `site-header`, `site-footer`, `site-links`, `site-menu`, `site-search`, `bar`, `wrap`, `lockup`,
-`switcher`, `switcher-start`, `switcher-family`, `flyout`, `flygroup`,
-`flyhome`, `ghlink`, `site-nav`, `on-iron`, `foot`, `foot-gap`, `foot-legal`,
-`icon`, `fam-icon`, `fam-sr-only`. `landing.css` needs `chrome.css`
-for `wrap`, `icon`, `fam-icon`, `on-iron` and `fam-sr-only`. It owns every other
-class that starts with `fam-`. The landing kit sets `.fam-page :where(a)` to
-rust and `.on-iron :where(a)` to ember, with underlines for running-text links.
-Host class selectors can override those defaults; bare element rules such as
-`a { color: … }` cannot. A site that needs one of these class names for its own
-elements should scope or rename it.
-
-The stylesheets point at files in the package (`icons/`, `textures/`,
-`fonts/`), so your bundler has to resolve `url()` in CSS from `node_modules`;
-Vite does. The files are exported too, for a preload link or an `<img>`:
+The stylesheets point at files in the package, so your bundler has to resolve
+`url()` in CSS from `node_modules`; Vite does. The files are exported too, for a
+favicon or an `<img>`:
 
 ```tsx
-import displayFont from "ferramenta-family/fonts/barlow-condensed-700.woff2?url";
-import ferroniIcon from "ferramenta-family/icons/ferroni-96.webp";
+import favicon from "ferramenta-family/ferra-assets/ferroni/favicon.ico?url";
+import ardoLogo from "ferramenta-family/icons/ardo.svg?url";
 ```
 
 ## The registry
@@ -514,28 +302,35 @@ what each member is and does, proofs, versions, status, relations and links
 Every entry says what the member is before where it comes from: `what` ("A
 regex engine"), `does` (one plain sentence), `audience` ("For …"), then `proof`
 (its lineage, in ADR-0004's register) and `evidence`. Two tiers: engines, and
-applications (`role: "application"`, with their own `brand` color). Relations
-are facts, never a chain: `uses` (an engine built on another), `pairsWith`
-(commonly combined, no dependency either way), `runsOn` (an application's
-engines). An application integrating engines records them in `plannedRunsOn`
-until the integration ships. `ApplicationsBand` labels these as a planned
-engine integration; `relationsOf()` includes only current dependencies. A
-member whose package carries another name on a registry says so in `packages`
-(`{ npm: "@ferriki/core" }`); `packageName(tool, "crates" | "npm")` returns
-that name, else `name`, and every registry lookup goes through it.
+applications (`role: "application"`, with their own `brand`). Relations are
+facts, never a chain: `uses` (an engine built on another), `pairsWith` (commonly
+combined, no dependency either way), `runsOn` (an application's engines). An
+application integrating engines records them in `plannedRunsOn` until the
+integration ships; `relationsOf()` includes only current dependencies. A member
+whose package carries another name on a registry says so in `packages`
+(`{ npm: "@ferriki/core" }`); `packageName(tool, "crates" | "npm")` returns that
+name, else `name`, and every registry lookup goes through it.
 
-Two entry points, because the chrome needs a bundler and the registry does not:
+More helpers: `STATUS_MEANING` and `STATUS_ORDER` (what each status promises,
+most settled first), `isSuccessor(tool)`, `displayName(tool)` (the name as prose
+writes it), `whatLabel(tool)` (what a member is, without its article: "Regex
+engine"), `runsOnTools(tool)` and `plannedRunsOnTools(tool)` (an unknown name
+throws), and `toolHref(tool)` / `leadsToRepo(tool)` (where a member's links
+lead).
 
 ```ts
 import { family, familyTiers } from "ferramenta-family/registry"; // data only
-import { family, SiteHeader } from "ferramenta-family"; // data plus the chrome
+import { MonoEngineCatalog, RegistryFacts } from "ferramenta-family/monografie"; // with React
 ```
 
-The root entry pulls in React, and the chrome it renders wants a bundler for the
-CSS entry points. A Node script, a build step or a site that renders its own
-chrome imports `ferramenta-family/registry`: same data, no React. Neither entry
-imports `ardo/ui` — that module only loads inside a bundler, so Ardo reaches the
-chrome through slots (`themeToggle`, `nav`) instead.
+`RegistryFacts` (`snapshot?`, `snapshotGeneratedAt?`, `metrics?`, `endpoints?`,
+`children`) provides live release facts; components read them with
+`useToolFacts(tool)`. It uses `fetchFamilyFacts` / `useFamilyFacts`: one request
+to the metrics service first, then direct registry requests only for sources it
+did not answer. `fetchFamilyMetrics` reads just that service;
+`fetchLiveRegistry` asks crates.io and npm directly, keyed by package name.
+`toolFacts`, `liveRequestFor`, `REGISTRY_ENDPOINTS` and `relatedTools` are
+exported from the root entry too.
 
 ## Publishing
 
@@ -557,46 +352,9 @@ corresponding SemVer bump.
 The package is unscoped because the `@ferramenta` npm scope is not available and
 the organization does not namespace its packages.
 
-## Moving from 1.x
-
-2.0 changes the look, the registry's shape and the way icons are shown. A
-sibling site migrates in one change:
-
-| 1.x                                                                    | 2.0                                                                                                                      |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `<Mark name="ferroni" />` (a member's mark in the sprite)              | `<Icon name="ferroni" />`; `Mark` is for line icons only and defaults to `className="icon"`                              |
-| `ProjectHero mark="ferroni"`, title as a slogan                        | `ProjectHero icon="ferroni" what="…" facts={[…]}`; the title is the name, `what` says what it is                         |
-| `familyGroups()`, `group`, `PIPELINE`, `byJob()`                       | `familyTiers()`, `relationsOf(tool)`; members have `what`, `does`, `audience`                                            |
-| `Pegboard`, `ToolLedger`, `JobIndex`                                   | `EngineCatalog`, `ApplicationsBand`                                                                                      |
-| `PipelineAssembly`, `Fasteners`                                        | removed: no surface draws the members as a chain                                                                         |
-| `IronBand rows` right under the hero                                   | `<Section><Principles items /></Section>`; `IronBand` stays for a later dark passage                                     |
-| `fonts/big-shoulders.woff2`                                            | `fonts/barlow-condensed-700.woff2` (and `-500`, `-600`)                                                                  |
-| A theme toggle on the landing page                                     | none: `.fam-page` has one authored scheme; keep the toggle for docs                                                      |
-| Your own docs-shell overrides                                          | `ferramenta-family/docs.css` and the class `fam-docs-shell`                                                              |
-| The family footer's "Company" column                                   | "Work with us": consulting, open source, GitHub                                                                          |
-| `ClosingAction` with its actions beside the copy                       | the actions sit under the copy, the link line after them                                                                 |
-| Your own section menu for docs on a phone                              | `SiteMenu` in the header's `actions` slot                                                                                |
-| Your own wrapper and phone rules for search in the bar                 | `<div className="site-search">` around the search component                                                              |
-| Your own benchmark or feature tables, bars, "measured on" lines        | `ComparisonTable`, `ComparisonBars`, `Measured`                                                                          |
-| A "Where it sits" section with `PipelineAssembly`                      | `<Relations current="…" />`                                                                                              |
-| Your own two-column grid for code panels                               | the class `fam-code-grid`                                                                                                |
-| `tool.shortJob`                                                        | `whatLabel(tool)`                                                                                                        |
-| A steel tile (`fam-tile`) under a small icon                           | none: the icon stands on the dark ground                                                                                 |
-| A copyright line in the footer's `legal`                               | the footer carries the workshop's copyright, imprint and privacy links itself; `legal` is the rest                       |
-| `fam-btn-primary` in rust, chamfered                                   | dark iron, square; `fam-btn-steel` on oak or rust                                                                        |
-| `--paper`, `--texture-*`, `--octagon`, `--chamfer`, `--duo*` tokens    | removed; see `tokens.css` for the ramps and the roles (`--steel*`, `--inlay*`, `--iron*`)                                |
-| `FamilyLinks`                                                          | removed; a site with a chrome of its own renders its list from `ferramenta-family/registry` (`relatedTools`, `toolHref`) |
-| `SiteFooter line="company"`                                            | `members="none"`                                                                                                         |
-| `ToolSwitcher` inside `ArdoHeaderActions`, its `label` and `className` | the whole chrome outside `ArdoRoot`; the switcher keeps `current`, `align` and `family`                                  |
-| `IronBand rows`                                                        | `<IronBand><Principles items /></IronBand>`                                                                              |
-| `useLiveRegistry`, `FamilyDownloads`, `Count`                          | removed; `RegistryFacts` with `useToolFacts(tool)` is the one live path                                                  |
-
-Keep the header and footer outside `.fam-page`, close the home page with
-`<WorkWithUs />`, and check the result against the sample tool page in the kit.
-
 ## Licensing
 
-The code is MIT, and so are the member icons and the textures: they were made
-for this family (ADR-0009). The font is under the SIL Open Font License, and
-the Palamedes and Dalo logos belong to those projects; see
-[NOTICE.md](NOTICE.md).
+The code is MIT, and so are the members' marks, instruments and surfaces and
+the line icons: they were made for this family (ADR-0010, ADR-0012). The
+Source Serif faces are under the SIL Open Font License, and the workshop's and
+the applications' logos belong to their owners; see [NOTICE.md](NOTICE.md).

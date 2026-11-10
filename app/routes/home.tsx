@@ -1,31 +1,26 @@
-import type { MetaFunction } from "react-router";
+import type { ArdoMetaDescriptor, ArdoMetaFunction } from "ardo/runtime";
 
 import {
-  ApplicationsBand,
-  displayName,
-  EngineCatalog,
-  familyTiers,
-  type FamilyTool,
-  Mark,
-  Principles,
-  ProjectHero,
+  MonoAction,
+  MonoApplications,
+  MonoClosing,
+  MonoColophon,
+  MonoEngineCatalog,
+  MonoEngraving,
+  MonoOpening,
+  MonoPassage,
+  MonoSection,
+  MonoWide,
+  MonoWorkshop,
   RegistryFacts,
-  runsOnTools,
-  Section,
-  Voices,
-  WORKSHOP,
-  WorkWithUs,
-} from "ferramenta-family";
+} from "ferramenta-family/monografie";
+import { familyTiers, WORKSHOP } from "ferramenta-family/registry";
 
-import consultingLogo from "../assets/logos/sebastian-consulting.svg";
-import softwareLogo from "../assets/logos/sebastian-software.svg";
 import registryStats from "../data/registry-stats.json";
 import { SITE_DESCRIPTION } from "../site-metadata";
 
-/** A landing page: Ardo lays it out bare, without the docs sidebar. */
 export const handle = { layout: "bare" };
-
-export const meta: MetaFunction = () => [
+export const meta: ArdoMetaFunction = (): ArdoMetaDescriptor[] => [
   { title: "Ferramenta — Rust-native engines" },
   { name: "description", content: SITE_DESCRIPTION },
   { property: "og:title", content: "Ferramenta — Rust-native engines" },
@@ -37,214 +32,139 @@ export const meta: MetaFunction = () => [
   { tagName: "link", rel: "canonical", href: "https://ferramenta.dev/" },
 ];
 
-const { applications, engines } = familyTiers();
-
-const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
-const NUMBER_WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-
-/** A small count as prose writes it: "seven", not "7". */
-function numberWord(count: number): string {
-  return NUMBER_WORDS[count] ?? String(count);
-}
-
-function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-/** The first name in a lineage fact: "Oniguruma" from "Oniguruma / vscode-oniguruma". */
-function firstName(fact: string): string {
-  return fact.split(" / ")[0] ?? fact;
-}
-
-/** The lineage facts of every engine that has one of this kind, in catalog order. */
-function lineageNames(tools: FamilyTool[], kind: "buildsOn" | "succeeds"): string {
-  return tools
-    .map((tool) => tool[kind])
-    .filter((fact) => fact !== undefined)
-    .map((fact) => firstName(fact))
-    .join(" · ");
-}
-
-const engineCount = numberWord(engines.length);
-
-/** What each engine is, from the registry: "a regex engine, a syntax highlighter, …". */
-const engineKinds = listFormat.format(
-  engines.map((tool) => tool.what.charAt(0).toLowerCase() + tool.what.slice(1)),
-);
-
-/** The applications that run on family engines lead the band; the intro names the first. */
-const lead = applications.find((tool) => runsOnTools(tool).length > 0);
-const applicationsIntro =
-  lead === undefined
-    ? undefined
-    : `${displayName(lead)} is built on ${numberWord(runsOnTools(lead).length)} of them. It is the family at work in one product.`;
-
-const principles = [
-  {
-    heading: "Proven, not promised",
-    text: "Where an engine succeeds an established implementation, differential suites measure it against that reference. Claims stay tied to current evidence.",
-  },
-  {
-    heading: "Open standards first",
-    text: "CommonMark, PO files, ICU MessageFormat, Hunspell dictionaries, TextMate grammars. We build on what the ecosystem already agreed on, never on formats only we control.",
-  },
-  {
-    heading: "Match before outrun",
-    text: "Compatibility comes first. Performance claims follow published benchmarks, never a compatibility asterisk.",
-  },
+const { engines, applications } = familyTiers();
+const spelled = [
+  "no",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
 ];
-
-/**
- * The workshop's two names, each under its own logo in its own colors. They
- * stand on the light ground, where they were drawn to stand: a foreign logo is
- * never put on steel, oak, rust or the dark chrome.
- */
-function Workshop() {
-  return (
-    <div className="wrap">
-      <ul className="workshop">
-        <li>
-          <a href={WORKSHOP.openSource}>
-            <img src={softwareLogo} alt="Sebastian Software" width={231} height={45} />
-            <p>
-              Production-grade open-source projects across several languages: the wider workshop
-              this family comes from.
-            </p>
-            <span>
-              {new URL(WORKSHOP.openSource).host} <Mark name="arrow" size={16} />
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href={WORKSHOP.consulting}>
-            <img src={consultingLogo} alt="Sebastian Consulting" width={239} height={45} />
-            <p>
-              The people behind the engines, for hire: integration, support, and long-term
-              maintenance.
-            </p>
-            <span>
-              {new URL(WORKSHOP.consulting).host} <Mark name="arrow" size={16} />
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
-}
-
-/**
- * What others say about the material, verbatim and linked. Not testimonials:
- * nobody here speaks about the family, only about building with Rust.
- */
-const VOICES = [
-  {
-    quote: "…Oxc, the JavaScript language toolchain written in Rust that powers all of our tools.",
-    who: "Evan You",
-    where: "on what Vite, Vitest and Rolldown run on · voidzero.dev, June 2026",
-    href: "https://voidzero.dev/posts/voidzero-cloudflare",
-  },
-  {
-    quote: "…as damn near straight to the metal as you can get while still being portable.",
-    who: "David Heinemeier Hansson",
-    where: "on HEY's mail server, now in Rust · Rails World 2026 keynote",
-    href: "https://www.youtube.com/watch?v=vDjW_dRyKXY&t=3922s",
-  },
-  {
-    quote: "Vibe-coded projects written in Rust are faster, safer, and more likely to work…",
-    who: "Justin Schroeder",
-    where: "on X · August 2026",
-    href: "https://x.com/jpschroeder/status/2094104291321462911",
-  },
-];
-
-/** The personal note: who builds this, and why. Site-only, so it is not in the kit. */
-function Story() {
-  return (
-    <section className="fam-section story" data-tone="dim" aria-label="Why this workshop exists">
-      <div className="wrap story-grid">
-        <blockquote>
-          <p>We&rsquo;ve been handed good tools all our lives. Time to forge some back.</p>
-          <footer>
-            <b>Sebastian Werner</b>
-            <span>{WORKSHOP.name}</span>
-          </footer>
-        </blockquote>
-        <div className="story-body">
-          <p>
-            Open source shaped our careers, from leading qooxdoo at 1&amp;1 to the tools we rely on
-            every day. Ferramenta, Italian for hardware store, is how we give back: one workshop,
-            building the load-bearing parts properly.
-          </p>
-          <p>
-            Much of that infrastructure was written decades ago, in C or across several languages.
-            Most of what we build is its next generation: the same contracts, designed the way
-            you&rsquo;d design them for Rust today.
-          </p>
-          <p>
-            The web&rsquo;s own toolchain has gone the same way, and we stand on the shoulders of
-            the people who took it there: SWC first, then Turbopack, Biome and Lightning CSS, and
-            now Vite itself bundles with Rolldown and parses, lints and formats with Oxc, all of it
-            Rust. This site is linted and formatted by them. Ferramenta is our part of that move:
-            the engines under the tools, in the language the tools themselves moved to.
-          </p>
-        </div>
-      </div>
-      <div className="wrap">
-        <Voices title="The material, in other people's words" voices={VOICES} />
-      </div>
-      <Workshop />
-    </section>
-  );
-}
+const count = (value: number) => spelled[value] ?? String(value);
+const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 export default function HomePage() {
   return (
     <RegistryFacts snapshot={registryStats.tools} snapshotGeneratedAt={registryStats.generatedAt}>
-      <div className="fam-page">
-        <ProjectHero
-          title={
-            <>
-              The engines under your tools, rebuilt in <em>Rust</em>.
-            </>
-          }
-          lede={`Ferramenta is a family of ${engineCount} Rust-native engines: ${engineKinds}. Each follows the standard its field already agreed on, and each works on its own.`}
-          actions={
-            <>
-              <a className="fam-btn fam-btn-primary" href="#engines">
-                See the {engineCount} engines <Mark name="arrow" size={18} />
-              </a>
-              <a className="fam-btn fam-btn-ghost" href={WORKSHOP.source}>
-                <Mark name="github" size={18} /> GitHub
-              </a>
-            </>
-          }
-          icon="ferramenta"
-          facts={[
-            { label: "Material", value: "Rust" },
-            { label: "Built to", value: lineageNames(engines, "buildsOn") },
-            { label: "Succeeds", value: lineageNames(engines, "succeeds") },
-            { label: "Made by", value: WORKSHOP.name },
-          ]}
-        />
-
-        <Section
-          id="engines"
-          title={`${capitalize(engineCount)} engines, each for one job`}
-          intro="Every engine works on its own. Where two fit together, the entry says so."
+      <MonoOpening
+        product="ferramenta"
+        instrumentLabel="Ferramenta's instrument: a precision register in which independent tool inserts each hold their own slot on one rail."
+        kicker={`Ferramenta, open source by ${WORKSHOP.company}`}
+        title="A workshop for independent Rust engines."
+        subtitle="Each with a job of its own."
+        standfirst="Useful software carries years of knowledge in its formats, grammars and edge cases. We build focused engines around that knowledge, each with a documented boundary and checked against the work it continues. Choose the tool your work needs; none requires another."
+        actions={
+          <>
+            <MonoAction href="#engines" primary detail={`${count(engines.length)} engines`}>
+              See the engines
+            </MonoAction>
+            <MonoAction href={WORKSHOP.consulting} detail="Integration and support">
+              Work with us
+            </MonoAction>
+          </>
+        }
+        facts={[
+          {
+            value: (
+              <>
+                <em>{engines.length}</em> engines
+              </>
+            ),
+            label: "each one adopted on its own",
+          },
+          {
+            value: `${applications.length} apps`,
+            label: "from the same workshop, on their own sites",
+          },
+          { value: "Rust", label: "native code, safe by default" },
+          { value: "Open", label: "source on GitHub, under permissive licenses" },
+        ]}
+      />
+      <MonoEngraving seed={1} />
+      <MonoSection
+        id="approach"
+        title="Keep the knowledge. Make it reusable."
+        standfirst="We build on familiar formats, grammars and dictionaries, and check each engine against the implementation or conformance suite it continues."
+      >
+        <MonoPassage
+          note={{
+            term: "Engine",
+            children:
+              "A library that does one job inside your application: reading Markdown, matching a pattern, drawing a diagram.",
+          }}
         >
-          <EngineCatalog />
-        </Section>
-
-        <ApplicationsBand title="What the engines carry" intro={applicationsIntro} />
-
-        <Section id="principles" title="What every engine is held to">
-          <Principles items={principles} />
-        </Section>
-
-        <Story />
-
-        <WorkWithUs />
-      </div>
+          <p>
+            Most applications rest on a few pieces of knowledge that took years to get right: how
+            Markdown is read, how a regex engine backtracks, how a translation catalog merges. That
+            knowledge often lives in a C library that is aging, or in a JavaScript tool that needs a
+            browser. Each Ferramenta engine takes one such piece, keeps its behavior and makes it a
+            native library you can add to your own program.
+          </p>
+        </MonoPassage>
+        <MonoPassage
+          note={{
+            side: "right",
+            term: "Why Rust",
+            children:
+              "Native speed and explicit ownership, without a garbage collector inside the engine.",
+          }}
+        >
+          <p>
+            Rust gives us native code and explicit ownership without a garbage collector in the
+            engine. We favor safe Rust and keep every exception deliberate and documented. Speed
+            matters, but compatibility and predictable behavior come first: an engine that is fast
+            and slightly wrong is not one you can build on.
+          </p>
+        </MonoPassage>
+        <p>
+          Every engine has a defined scope and stands on its own. Some fit well together, and the
+          catalog below says where. None of them is a step you have to take before another.
+        </p>
+      </MonoSection>
+      <MonoEngraving seed={2} />
+      <MonoSection
+        id="engines"
+        title={`${capital(count(engines.length))} engines, one bench.`}
+        standfirst="Each engine has its own site, its own documentation and its own release. The plate shows the instrument that stands for its job."
+      >
+        <MonoWide>
+          <MonoEngineCatalog />
+        </MonoWide>
+      </MonoSection>
+      <MonoEngraving seed={3} />
+      <MonoSection
+        id="applications"
+        title="From the same workshop."
+        standfirst="Products with their own purpose and identity. Each keeps its own site and documentation, and some run on the engines above."
+      >
+        <MonoWide>
+          <MonoApplications />
+        </MonoWide>
+      </MonoSection>
+      <MonoEngraving seed={4} />
+      <MonoColophon>
+        We build Ferramenta at {WORKSHOP.name} in {WORKSHOP.place}. Open source shaped our work,
+        including our time leading qooxdoo at 1&amp;1, and Ferramenta is one way we give reusable
+        parts back.
+      </MonoColophon>
+      <MonoClosing
+        id="workshop"
+        title="Bring us the difficult part."
+        standfirst="Integration, support and long-term maintenance. Tell us what you are building and where an engine could help."
+        actions={
+          <MonoAction href={WORKSHOP.consulting} primary detail="sebastian-consulting.com">
+            Work with us
+          </MonoAction>
+        }
+      >
+        <MonoWorkshop />
+      </MonoClosing>
     </RegistryFacts>
   );
 }

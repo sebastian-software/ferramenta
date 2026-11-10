@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferrocat/first-blender-instrument.png",
+  "sourceSha256": "1fa8c338b02723700908c5eaf43464993c4d5d516b46377578996fedb70b8161",
+  "prompt": "A catalog collator holds two banks of separately spaced, indexed metal leaves around one copper resolved leaf. Engraved message rows, varied index tabs, a central keyed alignment channel, registration comb, screw adjuster, and open bank cradles express matching catalog entries and preserving an authoritative correction. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "1bee2c21c31205c5889d9fe8261f4fe3aaab07c60b9e3e118dd40a0e81a30ea6",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferrocat/instrument.png"
+}

@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Lossless WebP of the 256px mark for CSS display at 32–128px.",
+  "source": "design/ferra/masters/ferrigura/mark.png",
+  "sourceSha256": "8eba21d067ccfe9d6da29e83574621521951b3d61cdad3d8366dec23d8248dac",
+  "prompt": "A substantial one-to-two hierarchy diagram evolved from the supplied UML-style reference and retained Imagegen material concept: one large polished oxide-copper rectangular parent above two polished steel children, a square on the left and a circle on the right. Their different silhouettes identify the nodes without letters or small markings. One chunky graphite-metal orthogonal bus and two exposed drops physically enter the node bodies. Broad crowned faces, rolling bevels, real solid thickness, restrained three-quarter depth, directional softbox reflections, and transparent negative space. A roughly square envelope and three large nodes preserve visual weight at small icon sizes.",
+  "geometry": "256x256",
+  "sha256": "f92dccc3f783df3e5914c42c91be45772628628efb09d44d03fbb1f68cb85caf"
+}

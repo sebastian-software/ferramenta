@@ -18,7 +18,20 @@ ferramenta.dev is the family site for the Ferramenta engines (Italian for "hardw
 
 What the page should lead to, in this order: a visit to Palamedes, the product built on the engines, or an inquiry to Sebastian Consulting. There is one action to the consulting site and no form.
 
-The shared package `ferramenta-family` gives every engine's site the same look: chrome, landing kit, icons, tokens, textures and the display face. The applications keep a brand of their own.
+The shared package `ferramenta-family` gives every engine's site the same look: Monografie, its page system for homepages and documentation, with each member's mark and instrument and the heading face. The applications keep a brand of their own.
+
+The family homepage, every engine homepage and the engines' documentation use
+Monografie on Ardo 6 (ADR-0012). The kit at `/kit/` shows every part of it with
+an invented tool.
+
+The opening names Sebastian Software GmbH and links its open-source portfolio. It explains why the workshop chooses Rust, how compatibility is checked and why each engine can be adopted independently.
+
+The family overview uses light soft cards, a single ungrouped engine contents
+list, and image-first product articles with related workshop and architecture
+notes. Each engine has one adjacent card with two sourced aspects; its version and downloads sit in an attached footer. The workshop introduction sits beside the opening paragraph, and applications have individual cards under an unframed section heading. The canonical registry owns editorial descriptions and source links as
+well as tool facts. Releases and labeled crate-download totals remain live.
+The sidebar becomes a keyboard-operable disclosure on small screens; related
+notes follow their articles in reading order.
 
 ## Positioning
 
@@ -27,13 +40,13 @@ A workshop's family of Rust-native engines, each built to the standard its field
 ## Operating Context
 
 - The registry (`packages/family/src/family.ts`) is the source of truth for names, jobs, what each member is and does, lineage, status, relations, and links. Versions and download counts are fetched live (ADR-0006), so this file names no versions.
-- Two tiers (ADR-0001, amendment of 2026-09-30). Ten members as of 2026-10-01.
-  - **Engines**, seven: **ferroni** (a regex engine; continues Oniguruma, whose C project ended in April 2025), **ferriki** (a syntax highlighter; Shiki-compatible), **ferromark** (a Markdown renderer; CommonMark and GFM), **ferrolex** (a spell checker; reads Hunspell dictionaries), **ferrocat** (a translation catalog engine; PO and ICU MessageFormat), **ferralk** (a glob matcher and file walker; checked against a frozen zlob reference), **ferrugo** (a PDF preview renderer for untrusted files).
-  - **Applications**, three: **palamedes** (i18n for TypeScript apps; runs on ferrocat, ferromark and ferralk), **dalo** (team agent skills, versioned and synced as code; standalone), and **ardo** (React documentation sites; integration of ferromark and ferriki is in progress). They carry their own brand; the family shows them in one band, each on a light card under its own logo.
-- The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. Ardo records its planned engines separately in `plannedRunsOn` until the integration ships. No surface shows the members as a chain.
-- Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki) and ferrolex (Hunspell); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), and ferrugo. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
+- Two tiers (ADR-0001, amendment of 2026-09-30). Twelve members as of 2026-10-29.
+  - **Engines**, nine: **ferroni** (a regex engine; continues Oniguruma, whose C project ended in April 2025), **ferriki** (a syntax highlighter; Shiki-compatible), **ferromark** (a Markdown renderer; CommonMark and GFM), **ferrolex** (a spell checker; reads Hunspell dictionaries), **ferrocat** (a translation catalog engine; PO and ICU MessageFormat), **ferralk** (a glob matcher and file walker; checked against a frozen zlob reference), **ferrugo** (a PDF preview renderer for untrusted files), **ferrolink** (a static-build link checker), **ferrigura** (a Mermaid-to-SVG diagram renderer without a browser).
+  - **Applications**, three: **palamedes** (i18n for TypeScript apps; runs on ferrocat, ferromark and ferralk), **dalo** (team agent skills, versioned and synced as code; standalone), and **ardo** (React documentation sites; runs on ferromark, ferriki and ferrolink). They carry their own brand; the family shows them in one band, each on a light card under its own logo.
+- The engines are independent. Relations are facts in the registry: ferriki uses ferroni; ferriki and ferromark pair (no dependency either way); palamedes runs on three engines. Ferrolink uses Ferralk and Ferroni. Ardo runs on Ferromark, Ferriki and Ferrolink. No surface shows the members as a chain.
+- Kind of member (ADR-0004): successors are ferroni (Oniguruma), ferriki (Shiki), ferrolex (Hunspell) and ferrigura (Mermaid); new developments are ferrocat, ferralk, ferromark (v2 builds on ox-content; no non-Rust predecessor), ferrugo and ferrolink. The registry records lineage as `succeeds`, `buildsOn`, or `runsOn` (empty for a standalone application).
 - Maturity is the registry's hand-set `status`. The family page does not stamp it on the engines: the live release beside each one already says how far it has come. A project's own site may show it (`Stamp`, `StampKey`). Keep it in step with releases.
-- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground, never on steel, oak or rust; in the switcher the applications' tier is light for that reason.
+- The workshop's two names, Sebastian Software and Sebastian Consulting, appear on the family page with their own logos: recognition matters more than a seamless surface. Every foreign logo (theirs, and the applications') stands on a light ground in its own colors, never on steel or rust.
 - The legal entity is Sebastian Software GmbH, Mainz, Germany. Every footer carries its copyright line and links the imprint and privacy policy on the company site; the family sites host neither page themselves.
 - Project sites live with their projects. The engines' sites take the family look from the package, one by one, Ferroni first; until a site has migrated it runs the 1.x package. Each application's site is its own.
 - This repo holds the family site, the kit (`/kit`), and the shared package.
@@ -41,21 +54,19 @@ A workshop's family of Rust-native engines, each built to the standard its field
 ## Capabilities and Constraints
 
 - The family site is English-only for now; Ardo site localization remains experimental.
-- The site is statically prerendered with Ardo and hosted on GitHub Pages. Documentation on sibling sites keeps Ardo's layout; the family adds its colors and chrome, nothing more.
-- A landing page has one authored color scheme and no theme toggle (ADR-0008). Documentation follows the system scheme.
-- Member icons are generated for this family and are its own (ADR-0009). A new member needs a rendered master before it joins the catalog. Icons are pictures at three sizes and are never shown below 24 pixels; a vector form, and with it a favicon that scales cleanly, is open.
+- The site is statically prerendered with Ardo and hosted on GitHub Pages. Documentation on sibling sites uses Monografie's reading layout inside Ardo; Ardo keeps routing, search, the outline and the highlighted code.
+- Monografie has one authored light scheme and no theme toggle, on homepages and documentation alike (ADR-0012).
+- Each member's mark and instrument are rendered for this family and are its own (ADR-0010). A new member needs its masters in `design/ferra/` before it joins the catalog.
 - The kit is public and `noindex`. Its sample pages are about an invented tool, so they repeat no real member's facts or figures.
-- `lucide-react` is not used in our own UI (it remains an internal Ardo dependency); the package's line icons (arrow, chevron, GitHub, crate, adapter, external, package) cover the family's pages.
+- Ardo 6 supplies its own Core icons; `lucide-react` is no longer a dependency. The package's line icons (arrow, chevron, GitHub, crate, adapter, external, package, document, pen) cover the family's pages and the documentation navigation.
 
 ## Brand Commitments
 
 - Iron, rust, metal, serious craft: robust and hard, and at the same time professional and trustworthy. Restraint carries the second half. Nothing is "in your face".
 - A light ground in warm greys with deliberately dark passages. The greys are those of blackened steel, warm enough to stand beside rust; a cool blue-grey is not the family's. Rust is the one color, dark and oxidized, never a saturated orange field. (User-pinned.)
-- Three materials, each with one job: brushed steel for the plate, dark oak as the bench the plates lie on (the first viewport and the dark bands), rust for the closing band. Everything else is flat, the dark iron header and footer included.
-- The plate is the one prop: a riveted steel sheet that says what a thing is. Its measured facts hang below it on a small tag.
-- Sharp form throughout: hard corners, square caps, miter joins. Only rivets and chain links are round.
-- Typography: system-ui for body and docs text; Barlow Condensed, the lettering of a data plate, for names, headings and labels; system mono for code. Only the display face is bundled.
-- One object per member, in forged steel with a single rust-orange or glowing element: ferramenta = toolbox, ferroni = anvil and hammer, ferriki = flame in a fire pot, ferromark = hand stamp, ferrolex = letterpress type, ferrocat = drawer cabinet, ferralk = sieve, ferrugo = welding helmet. Each is a rendered picture, large on a plate and small in the chrome.
+- Open paper, one reading column and notes in the margins (ADR-0012). The navigation is a band of the instruments' own brushed steel; rust is an accent only, on the primary action and the engine's own bar in a comparison. Nothing else is textured.
+- Typography: system-ui for reading text; Source Serif 4 Subhead for headings, the product name and the colophon; system mono for code. Only the heading face is bundled.
+- One instrument per member, a machined steel object that shows the engine's work, with a compact mark for the header, the footer and the favicon. Each is a rendered picture.
 - Say what it is first. Every surface names the thing in plain words before its lineage.
 - Members are independent. Copy never implies an entry point or a required chain.
 
@@ -63,9 +74,9 @@ A workshop's family of Rust-native engines, each built to the standard its field
 
 - Results are welcome on the family site, figures are not. The site may say a tool is among the fastest, ahead of a named alternative, or backed by a larger test suite — whenever that is true. It never repeats a speed-up factor, timing, percentage or test count: that precision goes stale here and belongs to each tool's repository and site, next to its setup.
 - Live registry figures: versions are fetched at every deploy (and nightly), then updated in the visitor's browser. They come from the registry at the moment they are shown.
-- Assets: the member icons and their masters (`packages/family/icons/`, `design/icons/`), the textures (`packages/family/textures/`), the bundled Barlow Condensed weights, the brand mark (`app/assets/brand/`), the social card (`public/social.png`), and the approved comps (`design/comp/2026-10/`).
+- Assets: the members' marks, instruments and surfaces with their masters (`packages/family/ferra/`, `design/ferra/`), the bundled Source Serif 4 Subhead faces, the brand mark (`app/assets/brand/`), the social card (`public/social.png`), and the Monografie comp (`design/comp/2026-11/monografie/`).
 - The personal layer: the origin story (qooxdoo heritage, giving back) and a signed note are on the family site.
-- Outside voices on the material: what people the field listens to have said about building with Rust, quoted verbatim, short, attributed and linked to the source (`Voices` on the family page). They speak about Rust, never about the family.
+- Outside voices on the material, where a page quotes them: what people the field listens to have said about building with Rust, quoted verbatim, short, attributed and linked to the source. They speak about Rust, never about the family.
 - Absent, and never to be invented: stars, user counts, customer logos, testimonials, press. The family is young; there is no social proof.
 
 ## Product Principles
@@ -80,4 +91,4 @@ A workshop's family of Rust-native engines, each built to the standard its field
 
 ## Accessibility & Inclusion
 
-WCAG-conscious defaults: contrast ≥ 4.5:1 for text on every surface, including steel, oak and rust; small type never on a texture; keyboard-reachable navigation; reduced motion respected (the plate's light and the tag's sway stand still). No stricter formal requirement established.
+WCAG-conscious defaults: contrast ≥ 4.5:1 for text on every surface, highlighted code lines included; keyboard-reachable navigation and scrolling regions; reduced motion respected (the chart's bars are set at once). No stricter formal requirement established.

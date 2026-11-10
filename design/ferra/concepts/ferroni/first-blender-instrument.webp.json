@@ -1,0 +1,11 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/concepts/ferroni/first-blender-instrument.png",
+  "sourceSha256": "16949c6257ca63ac5b7b023e8c27af436e37b97b9c7c58affa8711455ccb1490",
+  "prompt": "A pattern comparator holds three independent upright pattern cassettes beside a genuine linear guide. A bored scanning carriage rides the guide and carries a copper pointer over a recessed text ribbon. Fine graduations, short match inlays, cassette edge engravings, collars, washers, and socket screws explain storage, scanning, and the selected match position. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "geometry": "1600x800",
+  "sha256": "722cbcb5ce0a7d008ba8e97a0638ace6543b1e7b1f5030228efa3eec31a54312",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement.",
+  "originalSource": "design/ferra/masters/ferroni/instrument.png"
+}

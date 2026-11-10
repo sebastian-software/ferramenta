@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Transparent mark; padding normalization and Lanczos resize only. Alpha threshold measures bounds and never changes color pixels.",
+  "source": "design/ferra/masters/ferrolink/mark.png",
+  "sourceSha256": "8dcd67360a800355277727212a0d2fbeec859ab70733cf8fc02e30ad772130b2",
+  "prompt": "Two compact rounded-square satin-steel and oxide-copper links, threaded through one another in perpendicular planes. Separate watertight bodies, broad rounded rectangular bars, visible clearance, balanced icon mass, directional softbox reflections, and transparent apertures.",
+  "geometry": "64x64",
+  "sha256": "743f03958006778462203e62047fdc81a2f2b71bda777d052c93180540d58a99"
+}

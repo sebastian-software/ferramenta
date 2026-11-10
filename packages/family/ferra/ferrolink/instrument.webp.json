@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.2.3 LTS, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/masters/ferrolink/instrument.png",
+  "sourceSha256": "5fffd5dd366d1981b5663fec02488ab6119db2bcbca185d7a64fb35b6aaed5f9",
+  "prompt": "Two document tabs on open precision rails, joined by three closed links in alternating perpendicular planes. Each outer link threads a document aperture, the separate continuity gauge fastens to the central copper link, and every neighboring chain body has verified clearance.",
+  "geometry": "1600x800",
+  "sha256": "bc526d10a8fff90b70fe1bd88264e0bef84eb47aef3e077bef1387c740aadd0e"
+}

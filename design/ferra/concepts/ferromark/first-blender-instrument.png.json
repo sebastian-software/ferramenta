@@ -1,0 +1,1152 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferromark",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A document-registration bridge aligns three thin metal leaves: an engraved source sheet, a structured output sheet with a small ruled table, and a copper metadata index. Real engraved line work, a slotted bridge, two registration clamps, small thumbscrews, alignment pins, and a low open support frame preserve the original typesetting metaphor. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A document-registration bridge aligns three thin metal leaves: an engraved source sheet, a structured output sheet with a small ruled table, and a copper metadata index. Real engraved line work, a slotted bridge, two registration clamps, small thumbscrews, alignment pins, and a low open support frame preserve the original typesetting metaphor. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferromark.py",
+  "sourceSha256": "abde17285aaeff3354e98dccf3f498f1178e0721e6a978e7d658b0e4716523ed",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferromark.py": "abde17285aaeff3354e98dccf3f498f1178e0721e6a978e7d658b0e4716523ed",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferromark-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "e00b7451f81d4b6f278c161ef5008d13e611aa2d224ddf79084b26f8552bf9f3",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Open document support rail",
+      "closedManifold": true,
+      "volume": 0.141381455,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Open document support rail.001",
+      "closedManifold": true,
+      "volume": 0.141381455,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration bridge foot",
+      "closedManifold": true,
+      "volume": 0.039645683,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration bridge pillar",
+      "closedManifold": true,
+      "volume": 0.025919784,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge pillar anchor washer",
+      "closedManifold": true,
+      "volume": 0.001043361,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge pillar anchor socket head",
+      "closedManifold": true,
+      "volume": 0.001934717,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Bridge pillar anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 4.4364e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration bridge foot.001",
+      "closedManifold": true,
+      "volume": 0.039645683,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration bridge pillar.001",
+      "closedManifold": true,
+      "volume": 0.025919784,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge pillar anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.001043361,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge pillar anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.001934717,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Bridge pillar anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 4.4364e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Slotted document registration bridge",
+      "closedManifold": true,
+      "volume": 0.344323496,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source sheet leaf",
+      "closedManifold": true,
+      "volume": 0.433915767,
+      "machinedPockets": 10
+    },
+    {
+      "body": "Source sheet leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000602558,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000174329,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000174329,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000128326,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000174329,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000174329,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000128326,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 7",
+      "closedManifold": true,
+      "volume": 0.000150117,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 8",
+      "closedManifold": true,
+      "volume": 0.000150117,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source sheet leaf groove floor 9",
+      "closedManifold": true,
+      "volume": 9.685e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf",
+      "closedManifold": true,
+      "volume": 0.448860602,
+      "machinedPockets": 13
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000599436,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000173426,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000173426,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000127661,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000173426,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000173426,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000127661,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 7",
+      "closedManifold": true,
+      "volume": 0.000111895,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 8",
+      "closedManifold": true,
+      "volume": 0.000111895,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 9",
+      "closedManifold": true,
+      "volume": 0.000111895,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 10",
+      "closedManifold": true,
+      "volume": 2.2992e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 11",
+      "closedManifold": true,
+      "volume": 2.2992e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Structured output sheet leaf groove floor 12",
+      "closedManifold": true,
+      "volume": 2.2992e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf",
+      "closedManifold": true,
+      "volume": 0.18817379,
+      "machinedPockets": 10
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000265375,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 7.6777e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 7.6777e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 5.6516e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 7.6777e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 7.6777e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 5.6516e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 7",
+      "closedManifold": true,
+      "volume": 6.6114e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 8",
+      "closedManifold": true,
+      "volume": 6.6114e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Metadata index leaf leaf groove floor 9",
+      "closedManifold": true,
+      "volume": 4.2654e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Continuous stepped clamp",
+      "closedManifold": true,
+      "volume": 0.035176707,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster spindle",
+      "closedManifold": true,
+      "volume": 0.000890909,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster thrust washer",
+      "closedManifold": true,
+      "volume": 0.000441675,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster knurled hub",
+      "closedManifold": true,
+      "volume": 0.003640837,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Registration clamp adjuster center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Continuous stepped clamp.001",
+      "closedManifold": true,
+      "volume": 0.035176707,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster spindle.001",
+      "closedManifold": true,
+      "volume": 0.000890909,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster thrust washer.001",
+      "closedManifold": true,
+      "volume": 0.000441675,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster knurled hub.001",
+      "closedManifold": true,
+      "volume": 0.003640837,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 1.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 2.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 3.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 4.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 5.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 6.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 7.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 8.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 9.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 10.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 11.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 12.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 13.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 14.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 15.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 16.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 17.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 18.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 19.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 20.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 21.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 22.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 23.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 24.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 25.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 26.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 27.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 28.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 29.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 30.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 31.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 32.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 33.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 34.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 35.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster grip ridge 36.001",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster center washer.001",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Registration clamp adjuster center socket head.001",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Registration clamp adjuster center dark socket floor.001",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document bed locating pin",
+      "closedManifold": true,
+      "volume": 0.000998345,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document bed locating pin.001",
+      "closedManifold": true,
+      "volume": 0.000998345,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document bed locating pin.002",
+      "closedManifold": true,
+      "volume": 0.000998345,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document bed locating pin.003",
+      "closedManifold": true,
+      "volume": 0.000998345,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale",
+      "closedManifold": true,
+      "volume": 0.076966034,
+      "machinedPockets": 47
+    },
+    {
+      "body": "Bridge registration scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 21",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 22",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 23",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 24",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 25",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 26",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 27",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 28",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 29",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 30",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 31",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 32",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 33",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 34",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 35",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 36",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 37",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 38",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 39",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 40",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 41",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 42",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 43",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 44",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 45",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Bridge registration scale groove floor 46",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferromark/pre-blender-instrument.png",
+    "sourceSha256": "f95fce0cd74ee8745ee74868bef9a1a30e80210b9d9118ed24ba4c4465d8cf14",
+    "promptSidecar": "design/ferra/concepts/ferromark/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

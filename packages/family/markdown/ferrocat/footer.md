@@ -9,9 +9,11 @@
 | [ferroni](https://ferroni.dev) | Oniguruma-compatible regex engine |
 | [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
 | [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
-| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
-| [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
-| [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [ferrolex](https://ferrolex.dev) | Spell checking for text and code |
+| [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
+| [ferrugo](https://sebastian-software.github.io/ferrugo/) | PDF previews for untrusted files |
+| [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
+| [ferrigura](https://ferrigura.dev) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 

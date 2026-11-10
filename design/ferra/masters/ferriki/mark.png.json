@@ -1,29 +1,57 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferriki",
-  "role": "transparent rendered product mark master, designed for 32\u201364px use",
-  "meaning": "A compact satin-steel palette cassette with four broad code-token segments in a staggered two-row arrangement: a long steel segment and a short oxide tile above, two separated steel segments below. A single graphite keyed corner supports them. The staggered token silhouette must be distinct from Ferroni\\u2019s three parallel tracks and diagonal pointer. Four or five major shapes maximum, bold negative space, no separate scanning pointer. No microscopic code lettering, screws or ruler ticks.",
-  "prompt": "Use case: logo-brand. Asset type: one original transparent rendered product mark for Ferriki, usable as a favicon at 32, 48 and 64 pixels.\nImage 1 is the new Ferriki Token and theme register, a SEMANTIC and material reference. Image 2 is the existing Ferromark mark and Image 3 the existing Ferroni mark: exact FAMILY ICON STYLE references for metal, graphite contour, restrained oxide, lighting and visual weight. Do not copy their product silhouettes. The marks are rendered material pictures, not vector line icons.\n\nDesign the deliberately simplified mark described here:\nA compact satin-steel palette cassette with four broad code-token segments in a staggered two-row arrangement: a long steel segment and a short oxide tile above, two separated steel segments below. A single graphite keyed corner supports them. The staggered token silhouette must be distinct from Ferroni\\u2019s three parallel tracks and diagonal pointer. Four or five major shapes maximum, bold negative space, no separate scanning pointer. No microscopic code lettering, screws or ruler ticks.\n\nIt must express a syntax highlighter and be derived from the logic of its hero instrument, without miniaturizing the whole machine. Make a compact, distinctive, balanced silhouette that reads clearly on warm white at 32px. Front-facing or extremely shallow three-quarter view, broad solid satin-steel faces, dark warm graphite sides and edge contrast, a restrained rust-brown oxide component. Match the references' quiet warm studio light and shallow material depth. Keep negative gaps generous enough to survive downsampling. No tiny fasteners, grain that hides the silhouette, ruler ticks, captions, product-name lettering, initials-as-wordmarks, extra decoration, cartoon mascot or app tile backdrop. The letter-like glyph in the Ferrolex tile, if requested, is an intentional broad structural part of that mark.\n\nOutput a single centered square master with 8\u201310% clear padding around the complete shape, no clipping. Genuine transparent background and transparent internal negative spaces. No opaque white, grey or black background, checkerboard, floating shadow plate, framing badge, website, presentation board or multi-size contact sheet. Preserve the original rendered steel/oxide appearance; no glow, neon, dirty rust or dark-theme scene.",
+  "role": "Transparent native Blender product mark master",
+  "meaning": "Four substantial syntax-token tiles in a staggered two-row cassette: three polished steel tokens and one chamfered copper token. Open gaps, subtle offsets of plane, and one graphite registration corner preserve a compact palette silhouette. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "prompt": "Four substantial syntax-token tiles in a staggered two-row cassette: three polished steel tokens and one chamfered copper token. Open gaps, subtle offsets of plane, and one graphite registration corner preserve a compact palette silhouette. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "source": "design/ferra/blender/ferriki.py",
+  "sourceSha256": "c889f2eae85f83df18aec21ff9cf52051447a584d93e9097b89b1d959910a45c",
+  "constructionSources": {
+    "design/ferra/blender/ferriki.py": "c889f2eae85f83df18aec21ff9cf52051447a584d93e9097b89b1d959910a45c",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "scene": "design/ferra/blender/ferriki.blend",
   "transparentBackgroundRequested": true,
-  "references": [
+  "renderProfile": "Polished steel and oxide copper; graphite registrations; real bevels; directional softboxes and a narrow face-reflection strip; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "4dea36715e6af8d36a204c829fb014973c2dd50f32ed0b5afe71299a959c03c4",
+  "geometry": "1600x1600",
+  "geometryVerification": [
     {
-      "file": "assets/ferriki/hero.png",
-      "role": "semantic and material reference for this product"
+      "body": "Graphite token registration corner",
+      "closedManifold": true,
+      "volume": 0.201457,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferromark/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Long steel syntax token",
+      "closedManifold": true,
+      "volume": 0.158019,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferroni/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Copper syntax token",
+      "closedManifold": true,
+      "volume": 0.084666,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Short lower steel token",
+      "closedManifold": true,
+      "volume": 0.103463,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Long lower steel token",
+      "closedManifold": true,
+      "volume": 0.140582,
+      "machinedOpenings": 0
     }
   ],
-  "width": 1254,
-  "height": 1254,
-  "sha256": "63efb68f5a3cfe4288dcf06b684e6d333e2d66d7d7dd73423daf6caaad2a9e83",
-  "geometry": "1254x1254",
-  "approvedSource": "designs/round-07-family-expansion/assets/ferriki/mark-master.png",
-  "copiedUnchanged": true
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferriki/pre-blender-mark.png",
+    "sourceSha256": "63efb68f5a3cfe4288dcf06b684e6d333e2d66d7d7dd73423daf6caaad2a9e83",
+    "promptSidecar": "design/ferra/concepts/ferriki/pre-blender-mark.png.json"
+  }
 }

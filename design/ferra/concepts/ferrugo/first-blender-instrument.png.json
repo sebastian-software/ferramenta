@@ -1,0 +1,942 @@
+{
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
+  "product": "Ferrugo",
+  "role": "Transparent native Blender homepage instrument master",
+  "meaning": "A bounded-preview instrument pairs an upright engraved source document with a smaller matching layout inside a real machined aperture frame. Two open alignment rails, a copper dimension stop, a screw-driven preview carriage, calibration ticks, retained corner screws, and supporting shoes make the source-to-preview relationship explicit. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "prompt": "A bounded-preview instrument pairs an upright engraved source document with a smaller matching layout inside a real machined aperture frame. Two open alignment rails, a copper dimension stop, a screw-driven preview carriage, calibration ticks, retained corner screws, and supporting shoes make the source-to-preview relationship explicit. Detailed machined construction, actual recessed marks, separate fasteners, brushed polished steel, warm oxide copper, graphite interiors, directional softbox reflections, and genuine transparent negative space.",
+  "source": "design/ferra/blender/heroes/ferrugo.py",
+  "sourceSha256": "148aa75ad563d1f86f5e686b46c8e3b4451eab8550f5a2660bc5fffda9d1979f",
+  "constructionSources": {
+    "design/ferra/blender/heroes/ferrugo.py": "148aa75ad563d1f86f5e686b46c8e3b4451eab8550f5a2660bc5fffda9d1979f",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891",
+    "design/ferra/blender/revisions/hero-instruments-v1.py": "8c0151f82de4d5c202220f67a8982d26330f577cb394a1e6b29d7c96043889de"
+  },
+  "scene": "design/ferra/blender/revisions/ferrugo-v1.blend",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "Detailed brushed polished steel, oxide copper, graphite and milled recesses; directional area softboxes and a long front strip; orthographic three-quarter view; Cycles 192 samples; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "b85a0cc0d9fa76fbce5f3fa9eb62ece4aa3b5345c0ef7a30dafb4a4d0e5510cd",
+  "geometry": "2400x1200",
+  "geometryVerification": [
+    {
+      "body": "Open source-to-preview guide",
+      "closedManifold": true,
+      "volume": 0.069093469,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Open source-to-preview guide.001",
+      "closedManifold": true,
+      "volume": 0.069093469,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe",
+      "closedManifold": true,
+      "volume": 0.646435236,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor washer",
+      "closedManifold": true,
+      "volume": 0.00038275,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000438117,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Document carriage shoe anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.6482e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.00038275,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000438117,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Document carriage shoe anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.6482e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe.001",
+      "closedManifold": true,
+      "volume": 0.624259791,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor washer.002",
+      "closedManifold": true,
+      "volume": 0.00038275,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor socket head.002",
+      "closedManifold": true,
+      "volume": 0.000438117,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Document carriage shoe anchor dark socket floor.002",
+      "closedManifold": true,
+      "volume": 1.6482e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor washer.003",
+      "closedManifold": true,
+      "volume": 0.00038275,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Document carriage shoe anchor socket head.003",
+      "closedManifold": true,
+      "volume": 0.000438117,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Document carriage shoe anchor dark socket floor.003",
+      "closedManifold": true,
+      "volume": 1.6482e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf",
+      "closedManifold": true,
+      "volume": 0.428918712,
+      "machinedPockets": 13
+    },
+    {
+      "body": "Upright source document leaf groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000580704,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000168006,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000168006,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000123671,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000168006,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000168006,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000123671,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 7",
+      "closedManifold": true,
+      "volume": 0.000108398,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 8",
+      "closedManifold": true,
+      "volume": 0.000108398,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 9",
+      "closedManifold": true,
+      "volume": 0.000108398,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 10",
+      "closedManifold": true,
+      "volume": 2.2705e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 11",
+      "closedManifold": true,
+      "volume": 2.2705e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Upright source document leaf groove floor 12",
+      "closedManifold": true,
+      "volume": 2.2705e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upright",
+      "closedManifold": true,
+      "volume": 0.051406873,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upper anchor washer",
+      "closedManifold": true,
+      "volume": 0.000432919,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upper anchor socket head",
+      "closedManifold": true,
+      "volume": 0.000525505,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source holder upper anchor dark socket floor",
+      "closedManifold": true,
+      "volume": 1.8607e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upright.001",
+      "closedManifold": true,
+      "volume": 0.051406873,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upper anchor washer.001",
+      "closedManifold": true,
+      "volume": 0.000432919,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Source holder upper anchor socket head.001",
+      "closedManifold": true,
+      "volume": 0.000525505,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Source holder upper anchor dark socket floor.001",
+      "closedManifold": true,
+      "volume": 1.8607e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Real preview aperture frame",
+      "closedManifold": true,
+      "volume": 0.235692001,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Recessed rendered preview plate",
+      "closedManifold": true,
+      "volume": 0.130557869,
+      "machinedPockets": 13
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 0",
+      "closedManifold": true,
+      "volume": 0.000515141,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 1",
+      "closedManifold": true,
+      "volume": 0.000149038,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 2",
+      "closedManifold": true,
+      "volume": 0.000149038,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 3",
+      "closedManifold": true,
+      "volume": 0.000109708,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 4",
+      "closedManifold": true,
+      "volume": 0.000149038,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 5",
+      "closedManifold": true,
+      "volume": 0.000149038,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 6",
+      "closedManifold": true,
+      "volume": 0.000109708,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 7",
+      "closedManifold": true,
+      "volume": 9.616e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 8",
+      "closedManifold": true,
+      "volume": 9.616e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 9",
+      "closedManifold": true,
+      "volume": 9.616e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 10",
+      "closedManifold": true,
+      "volume": 9.772e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 11",
+      "closedManifold": true,
+      "volume": 9.772e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Recessed rendered preview plate groove floor 12",
+      "closedManifold": true,
+      "volume": 9.772e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw washer",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw socket head",
+      "closedManifold": true,
+      "volume": 0.00018483,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview frame retained corner screw dark socket floor",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw washer.001",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw socket head.001",
+      "closedManifold": true,
+      "volume": 0.00018483,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview frame retained corner screw dark socket floor.001",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw washer.002",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw socket head.002",
+      "closedManifold": true,
+      "volume": 0.00018483,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview frame retained corner screw dark socket floor.002",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw washer.003",
+      "closedManifold": true,
+      "volume": 0.000212954,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame retained corner screw socket head.003",
+      "closedManifold": true,
+      "volume": 0.00018483,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview frame retained corner screw dark socket floor.003",
+      "closedManifold": true,
+      "volume": 9.271e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Copper upper preview dimension stop",
+      "closedManifold": true,
+      "volume": 0.015932231,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.001",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.002",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.003",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.004",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.005",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.006",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.007",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.008",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.009",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.010",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.011",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.012",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.013",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.014",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.015",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.016",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.017",
+      "closedManifold": true,
+      "volume": 1.092e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview frame calibration tick.018",
+      "closedManifold": true,
+      "volume": 1.82e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview adjustment screw shaft",
+      "closedManifold": true,
+      "volume": 0.004263758,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Continuous preview lead-screw thread",
+      "closedManifold": true,
+      "volume": 0.000803601,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview lead-screw bearing stand",
+      "closedManifold": true,
+      "volume": 0.009556027,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview position adjuster spindle",
+      "closedManifold": true,
+      "volume": 0.001548255,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster thrust washer",
+      "closedManifold": true,
+      "volume": 0.000770286,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster knurled hub",
+      "closedManifold": true,
+      "volume": 0.006319264,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 1",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 2",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 3",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 4",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 5",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 6",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 7",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 8",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 9",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 10",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 11",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 12",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 13",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 14",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 15",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 16",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 17",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 18",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 19",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 20",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 21",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 22",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 23",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 24",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 25",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 26",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 27",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 28",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 29",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 30",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 31",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 32",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 33",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 34",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 35",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster grip ridge 36",
+      "closedManifold": true,
+      "volume": 1.2678e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster center washer",
+      "closedManifold": true,
+      "volume": 0.000111374,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview position adjuster center socket head",
+      "closedManifold": true,
+      "volume": 7.1656e-5,
+      "machinedPockets": 1
+    },
+    {
+      "body": "Preview position adjuster center dark socket floor",
+      "closedManifold": true,
+      "volume": 4.929e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale",
+      "closedManifold": true,
+      "volume": 0.026472942,
+      "machinedPockets": 21
+    },
+    {
+      "body": "Preview track dimension scale groove floor 0",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 1",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 2",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 3",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 4",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 5",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 6",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 7",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 8",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 9",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 10",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 11",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 12",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 13",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 14",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 15",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 16",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 17",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 18",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 19",
+      "closedManifold": true,
+      "volume": 7.413e-6,
+      "machinedPockets": 0
+    },
+    {
+      "body": "Preview track dimension scale groove floor 20",
+      "closedManifold": true,
+      "volume": 1.3344e-5,
+      "machinedPockets": 0
+    }
+  ],
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrugo/pre-blender-instrument.png",
+    "sourceSha256": "85f32bd3bc3cd63210b18e83800559b628a22266baa35a029b6b92b3e773f5cb",
+    "promptSidecar": "design/ferra/concepts/ferrugo/pre-blender-instrument.png.json"
+  },
+  "verificationScope": "Every evaluated mesh is closed and has positive volume; each boolean removes material. Assemblies include intended contacts and fitted parts; no general collision-free claim is made.",
+  "retainedRevision": "First Blender reconstruction, before the mass, depth, and patina refinement."
+}

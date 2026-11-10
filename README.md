@@ -13,12 +13,13 @@ _Ferramenta_ is Italian for "hardware store" — the shop full of iron tools.
 
 ## This repository
 
-The site is built with [Ardo](https://github.com/sebastian-software/ardo) and deployed to
+The site is built with [Ardo 6](https://github.com/sebastian-software/ardo) and deployed to
 GitHub Pages on every push to `main`. The family registry
 ([packages/family/src/family.ts](packages/family/src/family.ts)) is the single
-source of truth for tool names, jobs, versions, and links; the approved design comp lives
-in [design/comp/](design/comp/). Icon and font assets carry their own terms — see
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+source of truth for tool names, jobs, versions, and links. The site and every engine site
+use the shared [Monografie page system](packages/family/README.md#monografie), shown with an
+invented tool at [`/kit/`](https://ferramenta.dev/kit/). Font and logo assets carry their own
+terms — see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 Working on this repo (human or agent)? Start with [AGENTS.md](AGENTS.md); durable
 decisions and their rationale live in [docs/adr/](docs/adr/README.md), the design system
@@ -55,10 +56,12 @@ once, first; the commands are in [AGENTS.md](AGENTS.md).
 | [ferroni](https://ferroni.dev) | Oniguruma-compatible regex engine |
 | [ferriki](https://ferriki.dev) | Shiki-compatible syntax highlighting |
 | [ferromark](https://ferromark.dev) | Markdown to HTML, sanitized by default |
-| [ferrolex](https://github.com/sebastian-software/ferrolex) | Spell checking for text and code |
+| [ferrolex](https://ferrolex.dev) | Spell checking for text and code |
 | [ferrocat](https://ferrocat.dev) | Translation catalog engine |
-| [ferralk](https://github.com/sebastian-software/ferralk) | Glob matching and parallel filesystem walking |
-| [ferrugo](https://github.com/sebastian-software/ferrugo) | PDF previews for untrusted files |
+| [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
+| [ferrugo](https://sebastian-software.github.io/ferrugo/) | PDF previews for untrusted files |
+| [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
+| [ferrigura](https://ferrigura.dev) | Mermaid diagrams to SVG without a browser |
 
 **Applications**
 

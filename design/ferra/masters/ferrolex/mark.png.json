@@ -1,29 +1,52 @@
 {
-  "createdAt": "2026-10-19",
-  "generatedWith": "built-in Imagegen",
+  "createdAt": "2026-10-30",
+  "generatedWith": "Blender 5.2.3 LTS, Cycles",
   "product": "Ferrolex",
-  "role": "transparent rendered product mark master, designed for 32\u201364px use",
-  "meaning": "A single satin-steel square letterpress/type tile with one broad lowercase a-shaped cut or engraved glyph, backed by a thin graphite registration corner. A short oxide alignment tab touches the tile on its right edge. Three major shapes with a strong readable letterform at 32px, no fine scratches or tiny text. This is a wordform proofing mark, not a generic check-in-a-circle.",
-  "prompt": "Use case: logo-brand. Asset type: one original transparent rendered product mark for Ferrolex, usable as a favicon at 32, 48 and 64 pixels.\nImage 1 is the new Ferrolex Wordform proofing gauge, a SEMANTIC and material reference. Image 2 is the existing Ferromark mark and Image 3 the existing Ferroni mark: exact FAMILY ICON STYLE references for metal, graphite contour, restrained oxide, lighting and visual weight. Do not copy their product silhouettes. The marks are rendered material pictures, not vector line icons.\n\nDesign the deliberately simplified mark described here:\nA single satin-steel square letterpress/type tile with one broad lowercase a-shaped cut or engraved glyph, backed by a thin graphite registration corner. A short oxide alignment tab touches the tile on its right edge. Three major shapes with a strong readable letterform at 32px, no fine scratches or tiny text. This is a wordform proofing mark, not a generic check-in-a-circle.\n\nIt must express a spell checker and be derived from the logic of its hero instrument, without miniaturizing the whole machine. Make a compact, distinctive, balanced silhouette that reads clearly on warm white at 32px. Front-facing or extremely shallow three-quarter view, broad solid satin-steel faces, dark warm graphite sides and edge contrast, a restrained rust-brown oxide component. Match the references' quiet warm studio light and shallow material depth. Keep negative gaps generous enough to survive downsampling. No tiny fasteners, grain that hides the silhouette, ruler ticks, captions, product-name lettering, initials-as-wordmarks, extra decoration, cartoon mascot or app tile backdrop. The letter-like glyph in the Ferrolex tile, if requested, is an intentional broad structural part of that mark.\n\nOutput a single centered square master with 8\u201310% clear padding around the complete shape, no clipping. Genuine transparent background and transparent internal negative spaces. No opaque white, grey or black background, checkerboard, floating shadow plate, framing badge, website, presentation board or multi-size contact sheet. Preserve the original rendered steel/oxide appearance; no glow, neon, dirty rust or dark-theme scene.",
+  "role": "Transparent native Blender product mark master",
+  "meaning": "A polished steel type tile with a large lowercase a cut through its face into a dark graphite registration backing. A short copper alignment tab sits at its right. The broad letterform remains legible in a compact, slightly turned solid tile. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "prompt": "A polished steel type tile with a large lowercase a cut through its face into a dark graphite registration backing. A short copper alignment tab sits at its right. The broad letterform remains legible in a compact, slightly turned solid tile. Polished steel, warm oxide copper, graphite depth, directional softbox reflections, gently offset planes, transparent negative space, and no microscopic mechanical detail.",
+  "source": "design/ferra/blender/ferrolex.py",
+  "sourceSha256": "29acb499a0c9e04d18289ba5a161ecda03c49381577ad9e15b4d84b788b42848",
+  "constructionSources": {
+    "design/ferra/blender/ferrolex.py": "29acb499a0c9e04d18289ba5a161ecda03c49381577ad9e15b4d84b788b42848",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "scene": "design/ferra/blender/ferrolex.blend",
   "transparentBackgroundRequested": true,
-  "references": [
+  "renderProfile": "Polished steel and oxide copper; graphite registrations; real bevels; directional softboxes and a narrow face-reflection strip; AgX Medium High Contrast; sRGB alpha.",
+  "sha256": "22ef62463272329d058af6300cfd3d4578c3326b0ac41e44f63f42195054a0e1",
+  "geometry": "1600x1600",
+  "geometryVerification": [
     {
-      "file": "assets/ferrolex/hero.png",
-      "role": "semantic and material reference for this product"
+      "body": "Graphite type registration corner",
+      "closedManifold": true,
+      "volume": 0.243111,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferromark/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Separate graphite letter bed",
+      "closedManifold": true,
+      "volume": 0.308122,
+      "machinedOpenings": 0
     },
     {
-      "file": "../logos/ferroni/mark-master.png",
-      "role": "rendered family icon style reference"
+      "body": "Polished steel type face",
+      "closedManifold": true,
+      "volume": 0.581155,
+      "machinedOpenings": 1
+    },
+    {
+      "body": "Copper dictionary alignment tab",
+      "closedManifold": true,
+      "volume": 0.087889,
+      "machinedOpenings": 0
     }
   ],
-  "width": 1254,
-  "height": 1254,
-  "sha256": "93bb5c9e2886b97080ec15adf8dbf21ebf61b77c08d8aab5bb6f6549360e4aed",
-  "geometry": "1254x1254",
-  "approvedSource": "designs/round-07-family-expansion/assets/ferrolex/mark-master.png",
-  "copiedUnchanged": true
+  "conceptReference": {
+    "source": "design/ferra/concepts/ferrolex/pre-blender-mark.png",
+    "sourceSha256": "93bb5c9e2886b97080ec15adf8dbf21ebf61b77c08d8aab5bb6f6549360e4aed",
+    "promptSidecar": "design/ferra/concepts/ferrolex/pre-blender-mark.png.json"
+  },
+  "letteringSource": "Blender bundled Bfont, converted to a through-cut mesh; no additional font file is shipped."
 }

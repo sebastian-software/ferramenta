@@ -1,0 +1,1518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Ferromark — Markdown, rendered exactly</title>
+    <link rel="stylesheet" href="monografie.css" />
+    <style>
+      /* Ferromark specimens: rendered documents, the engine plates, the typography lens */
+      .rendered {
+        font: 400 16.5px/1.6 var(--sans);
+        color: var(--ink);
+      }
+      .rendered > * {
+        transition: background 0.18s ease;
+        border-radius: 2px;
+      }
+      .rendered .on {
+        background: var(--oxide-wash);
+      }
+      .rendered h2 {
+        font-size: 25px;
+        margin: 0 0 10px;
+        line-height: 1.2;
+      }
+      .rendered p {
+        margin: 0 0 12px;
+      }
+      .rendered code {
+        background: rgba(38, 35, 31, 0.06);
+        padding: 1px 4px;
+        border-radius: 2px;
+        font-size: 0.82em;
+      }
+      .rendered figure {
+        margin: 0 0 18px;
+      }
+      .rendered blockquote {
+        margin: 0;
+        padding: 2px 0 2px 16px;
+        border-left: 2px solid var(--oxide);
+        font-style: italic;
+        font-size: 19px;
+      }
+      .rendered blockquote p {
+        margin: 0;
+      }
+      .rendered figcaption {
+        font: 400 14px/1.5 var(--sans);
+        color: var(--ink-2);
+        margin: 6px 0 0 18px;
+      }
+      .rendered table {
+        width: 100%;
+        border-collapse: collapse;
+        font: 400 15px/1.4 var(--sans);
+        margin: 0 0 16px;
+      }
+      .rendered caption {
+        caption-side: top;
+        text-align: left;
+        font: italic 400 14.5px/1.4 var(--serif);
+        color: var(--ink-2);
+        padding-bottom: 6px;
+      }
+      .rendered th {
+        font-weight: 600;
+        border-bottom: 1px solid var(--ink);
+        padding: 6px 8px 6px 0;
+      }
+      .rendered td {
+        border-bottom: 1px solid var(--hair-2);
+        padding: 6px 8px 6px 0;
+      }
+      .rendered mark {
+        background: #efe0c9;
+        color: inherit;
+        padding: 0 2px;
+      }
+      .rendered ins {
+        text-decoration-color: var(--oxide);
+        text-underline-offset: 3px;
+      }
+      .rendered sup a {
+        font: 600 11px/1 var(--sans);
+        text-decoration: none;
+      }
+      .rendered .footnote {
+        border-top: 1px solid var(--hair);
+        margin-top: 10px;
+        padding-top: 8px;
+        font: 400 13.5px/1.5 var(--sans);
+        color: var(--ink-2);
+        display: flex;
+        gap: 8px;
+      }
+      .rendered .footnote p {
+        margin: 0;
+      }
+      .rendered .footnote::before {
+        content: "1";
+        font-weight: 600;
+        color: var(--oxide);
+      }
+      .rendered .footnote a {
+        text-decoration: none;
+      }
+      .rendered abbr {
+        text-decoration: underline dotted rgba(38, 35, 31, 0.45);
+        text-underline-offset: 3px;
+      }
+      /* ---------- Inside the engine ---------- */
+      .iso {
+        margin: 64px 0 24px;
+      }
+      .iso svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      /* ---------- Typography detail ---------- */
+      .typo {
+        display: grid;
+        grid-template-columns: 360px minmax(0, 1fr);
+        gap: 64px;
+        align-items: center;
+        margin: 72px 0 0;
+      }
+      .loupe {
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 50% 38%, #ffffff 0%, #f7f6f3 55%, #ecebe6 100%);
+        box-shadow:
+          0 0 0 1px rgba(38, 35, 31, 0.14),
+          0 0 0 7px #f0eee9,
+          0 0 0 8px rgba(38, 35, 31, 0.12),
+          0 22px 40px -26px rgba(38, 35, 31, 0.55),
+          inset 0 2px 6px rgba(38, 35, 31, 0.08);
+        position: relative;
+      }
+      .loupe .glyphs {
+        font: 600 128px/1 var(--serif);
+        color: var(--ink);
+        display: flex;
+        gap: 34px;
+        letter-spacing: -0.02em;
+        padding-top: 0.42em;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+      }
+      .loupe .glyphs.swap {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      .loupe .glyphs span:first-child {
+        color: var(--oxide);
+      }
+      .loupe .lang {
+        position: absolute;
+        bottom: 70px;
+        font: 500 13px/1 var(--sans);
+        color: var(--ink-2);
+      }
+      .typo-out {
+        font: 600 28px/1.35 var(--serif);
+        color: var(--ink);
+        margin: 0 0 12px;
+        min-height: 2.7em;
+      }
+      .typo-out p {
+        margin: 0;
+      }
+      .typo-in {
+        font: 400 14px/1.5 var(--mono);
+        color: var(--ink-2);
+        margin: 0 0 22px;
+        white-space: pre;
+      }
+      .langs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .langs button {
+        font: 500 13px/1 var(--mono);
+        border: 0;
+        padding: 7px 9px;
+        border-radius: 2px;
+        cursor: pointer;
+        color: var(--ink-2);
+        background: transparent;
+        box-shadow: inset 0 0 0 1px var(--hair);
+      }
+      .langs button[aria-pressed="true"] {
+        color: #fbf3ee;
+        background: var(--oxide);
+        box-shadow: none;
+      }
+
+      /* ---------- Narrow screens ---------- */
+      @media (max-width: 960px) {
+        .typo {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 36px;
+          justify-items: center;
+        }
+        .typo > :not(.loupe) {
+          justify-self: stretch;
+        }
+      }
+      @media (max-width: 640px) {
+        .loupe {
+          width: 260px;
+          height: 260px;
+        }
+        .loupe .glyphs {
+          font-size: 92px;
+          gap: 22px;
+        }
+        .loupe .lang {
+          bottom: 48px;
+        }
+        .typo-out {
+          font-size: 23px;
+        }
+        .rendered {
+          font-size: 16px;
+        }
+        .rendered table {
+          display: block;
+          overflow-x: auto;
+          font-size: 14px;
+        }
+        /* the drawing keeps its scale and scrolls sideways */
+        .iso {
+          margin: 44px -16px 16px;
+          padding: 0 16px 8px;
+          overflow-x: auto;
+        }
+        .iso svg {
+          min-width: 820px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav">
+      <div class="nav-in">
+        <a class="brand" href="#top"
+          ><img src="../../../../packages/family/ferra/ferromark/mark-128.png" alt="" />Ferromark</a
+        >
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <i aria-hidden="true"></i>Menu
+        </button>
+        <div class="nav-menu" id="nav-menu">
+          <nav aria-label="Main">
+            <ul>
+              <li><a href="https://ferromark.dev/guide/getting-started">Guide</a></li>
+              <li><a href="https://ferromark.dev/rust/getting-started">Rust</a></li>
+              <li><a href="https://ferromark.dev/node/getting-started">Node.js</a></li>
+              <li><a href="#speed">Benchmarks</a></li>
+              <li><a href="#correctness">Correctness</a></li>
+              <li><a href="https://github.com/sebastian-software/ferromark">GitHub</a></li>
+            </ul>
+          </nav>
+          <div class="end">
+            <span class="release" title="Current release">v4.0.0</span>
+            <a class="family" href="https://ferramenta.dev"
+              ><img
+                src="../../../../packages/family/ferra/ferramenta/mark-128.png"
+                alt=""
+              />Ferramenta</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================= Opening ================= -->
+      <section class="opening" id="top" aria-labelledby="h1">
+        <figure class="plate">
+          <img
+            src="../../../../packages/family/ferra/ferromark/instrument.webp"
+            width="1600"
+            height="800"
+            alt="Ferromark's instrument: a steel registration bridge holding three thin leaves in alignment, an engraved source sheet, a ruled output sheet with a small table and a rust-brown metadata index."
+          />
+          <figcaption>
+            A registration bridge holds three leaves in alignment: the engraved source, the
+            structured output and the copper index of its metadata.
+          </figcaption>
+        </figure>
+        <p class="kicker">Ferromark 4.0, a Markdown renderer for Rust and Node.js</p>
+        <h1 id="h1">
+          Markdown, rendered exactly.
+          <span class="second">And faster than every engine we measured.</span>
+        </h1>
+        <p class="standfirst">
+          Ferromark turns plain-text Markdown into clean, safe HTML for documentation sites,
+          publishing tools and applications. A native Rust engine with bindings for Node.js, it
+          agrees with every example in the CommonMark specification and led all twenty libraries in
+          our comparison.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://ferromark.dev/rust/getting-started"
+            >Start with Rust <small>cargo add ferromark</small></a
+          >
+          <a class="btn" href="https://ferromark.dev/node/getting-started"
+            >Start with Node.js <small>npm install ferromark</small></a
+          >
+        </div>
+        <ul class="facts">
+          <li>
+            <strong><em>652</em> of 652</strong>CommonMark 0.31.2 examples
+          </li>
+          <li>
+            <strong><em>28</em> of 28</strong>GFM extension examples
+          </li>
+          <li>
+            <strong><em>20</em> of 20</strong>measured libraries it led
+          </li>
+          <li><strong>Rust 1.95+</strong>Node.js 22.12+, MIT license</li>
+        </ul>
+      </section>
+
+      <svg class="engraving" data-seed="1"></svg>
+
+      <!-- ================= Explainer ================= -->
+      <section aria-labelledby="h-what">
+        <div class="axis">
+          <h2 id="h-what">Plain text in. A finished page out.</h2>
+          <aside class="margin-l" style="grid-row: 2">
+            <b>Markdown</b>Plain text with a few marks for structure, readable as it is typed.
+          </aside>
+          <p style="grid-row: 2">
+            <span class="lead-in">Markdown is how</span> most technical writing is typed today.
+            READMEs on GitHub, documentation sites, release notes, chat messages, notes apps and the
+            answers of AI assistants are written as plain text with a few marks: a pound sign for a
+            heading, asterisks for emphasis, hyphens for a list. The marks stay readable for the
+            person who writes them. A browser cannot display them, though. Something has to
+            translate the text into HTML, the language of web pages.
+          </p>
+          <aside class="margin-r" style="grid-row: 3">
+            <b>Renderer</b>The program that reads the marks and writes the HTML. Ferromark is one.
+          </aside>
+          <p style="grid-row: 3">
+            That translator is a Markdown renderer. It reads every character and decides which marks
+            belong together. Is this asterisk emphasis, or a multiplication sign? Does this indented
+            line continue the list, or start a block of code? Then it writes the matching HTML. Most
+            people never see it. They notice it only when it gets something wrong: a list that falls
+            apart, a link that swallows a sentence, a page that takes too long to build.
+          </p>
+          <p>
+            Ferromark is that translator, built to be unnoticeable: exact on the awkward document,
+            fast on the ten-thousandth one, and careful with text it did not write.
+          </p>
+          <figure class="wide">
+            <div class="facing" id="basic">
+              <div class="page">
+                <div class="page-head"><span>As typed</span><span>release-notes.md</span></div>
+                <pre class="src" id="basic-src" aria-label="Markdown source"></pre>
+              </div>
+              <div class="page">
+                <div class="page-head">
+                  <span>As rendered by Ferromark</span><span>toHtml()</span>
+                </div>
+                <div class="rendered" id="basic-out"></div>
+              </div>
+            </div>
+            <figcaption class="specimen-note" id="basic-note">
+              Point at a line of the source to see the element it became.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="2"></svg>
+
+      <!-- ================= Speed ================= -->
+      <section id="speed" aria-labelledby="h-speed">
+        <div class="axis">
+          <h2 id="h-speed">Ahead of every library we measured.</h2>
+          <p class="standfirst">
+            Twenty Markdown libraries, 57 real documents, two machines. Ferromark delivered the most
+            throughput in every comparison, natively in Rust and through Node.js.
+          </p>
+          <aside class="margin-l" style="grid-row: 3">
+            <span class="fig">57</span>real documents, every one of them counted
+          </aside>
+          <p style="grid-row: 3">
+            <span class="lead-in">Why speed matters</span> for text: a documentation site with a few
+            thousand pages renders all of them on every build. A chat app renders each message as it
+            arrives. A search index rereads everything when the content changes. Each millisecond is
+            paid thousands of times over: in waiting developers, in CI minutes, in server costs, in
+            battery.
+          </p>
+          <figure class="wide chart-figure" aria-labelledby="chart-title">
+            <div>
+              <div class="chart-head">
+                <div>
+                  <h3 id="chart-title">Time for the same work</h3>
+                  <p>
+                    Ferromark = 1×. A bar of 2.35× means that library needed 2.35 times as long.
+                  </p>
+                </div>
+                <div class="toggles">
+                  <div class="seg" role="group" aria-label="Machine" data-key="platform">
+                    <button type="button" data-value="linux-x86-64" aria-pressed="true">
+                      Linux x86-64
+                    </button>
+                    <button type="button" data-value="macos-arm64" aria-pressed="false">
+                      macOS arm64
+                    </button>
+                  </div>
+                  <div class="seg" role="group" aria-label="Runtime" data-key="runtime">
+                    <button type="button" data-value="Native" aria-pressed="true">Native</button>
+                    <button type="button" data-value="Node.js" aria-pressed="false">Node.js</button>
+                  </div>
+                </div>
+              </div>
+              <div style="position: relative">
+                <ul class="bars" id="bars" aria-live="polite"></ul>
+                <div class="tip" id="tip" role="status"></div>
+              </div>
+              <div class="scale" aria-hidden="true">
+                <span></span><span class="ticks" id="ticks"></span><span></span>
+              </div>
+              <p class="all-twenty">
+                Ferromark led all twenty measured libraries; the chart shows the best known.
+                <a href="https://ferromark.dev/guide/benchmarks"
+                  >All twenty libraries, methods and raw data</a
+                >
+              </p>
+              <details class="table-view">
+                <summary>Show the figures as a table</summary>
+                <table class="plain-table" id="bench-table"></table>
+              </details>
+            </div>
+            <aside class="conditions" aria-label="Measurement conditions">
+              <h3 class="card-h">How this was measured</h3>
+              <p>
+                2026-10-01 on Blacksmith VMs: Linux x86-64 on AMD EPYC with 4 vCPU, macOS arm64 with
+                6 vCPU. Three independent rounds, fresh calls.
+              </p>
+              <p>
+                All 57 frozen documents count, including documents where a library's output differs
+                (marked *).
+              </p>
+              <p>Node.js figures include native binding overhead.</p>
+              <p>
+                Syntax and API contracts differ; your documents and enabled features change the
+                result.
+              </p>
+            </aside>
+          </figure>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="3"></svg>
+
+      <!-- ================= Inside the engine ================= -->
+      <section id="inside" aria-labelledby="h-inside">
+        <div class="axis">
+          <h2 id="h-inside">Inside the engine.</h2>
+          <p class="standfirst">
+            One crate, four modules. The speed comes from how the work is organized, not from work
+            that was skipped.
+          </p>
+          <figure class="full iso">
+            <svg id="iso" viewBox="0 0 1240 290" role="img" aria-labelledby="iso-t iso-d">
+              <title id="iso-t">The stages inside Ferromark</title>
+              <desc id="iso-d">
+                Six thin plates in sequence: the source bytes, the parser with its byte scans, the
+                arena that holds every node, the document tree with source spans, the renderer with
+                its hooks, and the HTML output. The arena and the tree are marked in oxide.
+              </desc>
+            </svg>
+          </figure>
+          <aside class="margin-l" style="grid-row: 4">
+            <b>Arena</b>One block of memory per document, released in one step.
+          </aside>
+          <p style="grid-row: 4">
+            <span class="lead-in">One block of memory.</span> Ferromark keeps a whole document in
+            one arena, a single block of memory that is filled, used and released at once instead of
+            in thousands of small pieces. It scans bytes with specialized routines and SIMD
+            instructions where the processor offers them, and it reuses buffers from one document to
+            the next. None of this changes the result.
+          </p>
+          <p>
+            Between parsing and rendering, the tree is yours: inspect it, or, in Rust, run ordered
+            transform passes over it. The renderer then hands every code block to your hooks.
+          </p>
+          <dl class="wide modules">
+            <div>
+              <dt>allocator</dt>
+              <dd>Arena allocation and buffers</dd>
+            </div>
+            <div>
+              <dt>ast</dt>
+              <dd>Document nodes, source spans, visitors</dd>
+            </div>
+            <div>
+              <dt>parser</dt>
+              <dd>Markdown to tree</dd>
+            </div>
+            <div>
+              <dt>renderer</dt>
+              <dd>HTML output and hooks</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="4"></svg>
+
+      <!-- ================= Correctness ================= -->
+      <section id="correctness" aria-labelledby="h-correct">
+        <div class="axis">
+          <h2 id="h-correct">652 of 652. Not one shortcut.</h2>
+          <p class="standfirst">
+            Speed is easy if you skip the hard cases. Every result here is backed by specification
+            fixtures you can run yourself.
+          </p>
+          <aside class="margin-l" style="grid-row: 3">
+            <b>Specification</b>A document that says, example by example, what an input must
+            produce.
+          </aside>
+          <p style="grid-row: 3">
+            <span class="lead-in">In 2014,</span> a group of developers set out to settle what
+            Markdown actually means. The result, CommonMark, is a specification with hundreds of
+            worked examples: this input, exactly this output. GitHub documented its own extensions,
+            tables, strikethrough, task lists and autolinks, the same way.
+          </p>
+          <p>
+            Ferromark's specification profile agrees with all 652 CommonMark examples and all 28 GFM
+            extension examples. It runs every example again with Windows and classic Mac line
+            endings, 1,304 variants, and the output must not change. It compares itself with cmark
+            and cmark-gfm, the reference implementations, on their own test corpus.
+          </p>
+          <aside class="margin-r" style="grid-row: 5">
+            <b>Before the stopwatch</b>Structure, source positions and HTML are compared first.
+          </aside>
+          <p style="grid-row: 5">
+            When a faster version of a routine is proposed, the document structure, source positions
+            and HTML are compared before anything is timed. A change in behavior needs its own
+            explanation and its own tests. It cannot arrive quietly as the price of going faster.
+          </p>
+          <ul class="proofs">
+            <li>CommonMark 0.31.2 examples<span class="dots"></span><b>652 / 652</b></li>
+            <li>GFM extension examples<span class="dots"></span><b>28 / 28</b></li>
+            <li>
+              Every example again with CR and CRLF line endings<span class="dots"></span
+              ><b>1,304 / 1,304</b>
+            </li>
+            <li>Original cmark and cmark-gfm corpus<span class="dots"></span><b>106 / 106</b></li>
+          </ul>
+          <div class="wide agree">
+            <h3>How well-known libraries agree with the specification</h3>
+            <p class="sub">
+              Measured 2026-10-10 with each library's own specification settings.
+              <a href="https://ferromark.dev/guide/correctness">Conformance methodology</a>
+            </p>
+            <table id="agree">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 26%">Library</th>
+                  <th scope="col" style="width: 37%">CommonMark 0.31.2, 652 examples</th>
+                  <th scope="col">GFM extensions, 28 examples</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="5"></svg>
+
+      <!-- ================= Richer documents ================= -->
+      <section id="ffm" aria-labelledby="h-ffm">
+        <div class="axis">
+          <h2 id="h-ffm">Richer documents, still plain text.</h2>
+          <p class="standfirst">
+            Captions, credits, merged table cells, highlights and notes, written in Markdown and
+            rendered as proper HTML.
+          </p>
+          <p>
+            <span class="lead-in">Plain Markdown stops</span> where real publishing begins. A photo
+            needs a caption, a quotation needs its source, a price table needs a cell that spans two
+            columns. Usually that means falling back to raw HTML, or to a shortcode only one tool
+            understands.
+          </p>
+          <aside class="margin-r" style="grid-row: 4">
+            <b>Off until you turn it on</b>Turn each feature on alone, or all of them with the
+            <code>ffm</code> preset.
+          </aside>
+          <p style="grid-row: 4">
+            Ferromark Flavored Markdown adds these features as a small set of syntax that still
+            reads naturally as text. Each one is off until you turn it on, so documents that don't
+            use them pay nothing for them, and standard CommonMark keeps meaning exactly what it
+            means.
+          </p>
+          <figure class="wide">
+            <div class="facing" id="ffm-pages">
+              <div class="page">
+                <div class="page-head"><span>As typed</span><span>pricing.md</span></div>
+                <pre class="src" id="ffm-src" aria-label="Markdown source"></pre>
+              </div>
+              <div class="page">
+                <div class="page-head">
+                  <span>As rendered by Ferromark</span><span id="ffm-opt"></span>
+                </div>
+                <div class="rendered" id="ffm-out"></div>
+              </div>
+            </div>
+            <figcaption class="specimen-note" id="ffm-note"></figcaption>
+          </figure>
+          <dl class="wide features" id="features"></dl>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="6"></svg>
+
+      <!-- ================= Typography ================= -->
+      <section id="typography" aria-labelledby="h-typo">
+        <div class="axis">
+          <h2 id="h-typo">Punctuation that speaks the language.</h2>
+          <p class="standfirst">
+            Straight quotes become proper ones, in fifteen languages, each by its own rules.
+          </p>
+          <p>
+            <span class="lead-in">The typewriter</span> gave us one straight quotation mark for
+            everything. Typesetters never accepted it, and neither do careful readers. English opens
+            a quotation with “, German with „, French sets « guillemets » with space inside them. An
+            optional typography pass turns straight quotes, apostrophes and ellipses into the right
+            characters after parsing, for the one language your application chooses. Ferromark never
+            guesses the language. Code, links and raw HTML stay exactly as written.
+          </p>
+          <div class="wide typo">
+            <div class="loupe" aria-hidden="true">
+              <div class="glyphs" id="glyphs"><span>“</span><span>”</span></div>
+              <span class="lang" id="loupe-lang">English</span>
+            </div>
+            <div>
+              <div class="sub-h">Typed</div>
+              <pre class="typo-in" id="typo-in"></pre>
+              <div class="sub-h">Rendered with <code id="typo-opt"></code></div>
+              <div class="typo-out" id="typo-out" aria-live="polite"></div>
+              <div class="langs" role="group" aria-label="Language" id="langs"></div>
+              <p class="specimen-note">
+                Real output of each language's pass. Supported: cs, da, de, en, es, fi, fr, it, nb,
+                nl, pl, pt, ru, sv, uk.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="7"></svg>
+
+      <!-- ================= Trust ================= -->
+      <section id="trust" aria-labelledby="h-trust">
+        <div class="axis">
+          <h2 id="h-trust">Recognition is not permission.</h2>
+          <p class="standfirst">Ferromark can read raw HTML without letting it through.</p>
+          <p>
+            <span class="lead-in">Markdown allows</span> raw HTML. That is handy for trusted authors
+            and dangerous for everyone else: a comment field that passes an
+            <code>onerror</code> handler through is an attack waiting to happen. Ferromark keeps
+            recognizing HTML separate from emitting it. In Node.js the untrusted mode is the
+            default: raw HTML is escaped, and unsafe link schemes such as
+            <code>javascript:</code> are filtered. In Rust, one option turns sanitizing on.
+          </p>
+          <aside class="margin-l" style="grid-row: 4">
+            <span class="fig">100</span>levels of block nesting by default, then an error
+          </aside>
+          <p style="grid-row: 4">
+            The engine is written in Rust, so whole classes of memory errors cannot compile. Unsafe
+            code is confined to a few small, documented SIMD and allocator spots. Input is bounded
+            too: block nesting stops at 100 levels by default and returns an error instead of
+            exhausting the stack.
+          </p>
+          <div class="wide trio">
+            <div class="card">
+              <h3 class="card-h">A comment someone typed</h3>
+              <p class="api">comment.md</p>
+              <pre id="trust-in"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">Untrusted, the Node.js default</h3>
+              <p class="api">renderPolicy: 'untrusted'</p>
+              <pre id="trust-un"></pre>
+              <p class="verdict">The tag arrives as visible text; the link goes nowhere.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-h">Trusted, for your own content</h3>
+              <p class="api">renderPolicy: 'trusted'</p>
+              <pre id="trust-tr"></pre>
+              <p class="verdict">The tag and the script link reach the page as written.</p>
+            </div>
+          </div>
+          <table class="plain-table defaults">
+            <thead>
+              <tr>
+                <th scope="col">API</th>
+                <th scope="col">Default</th>
+                <th scope="col">For untrusted Markdown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rust</td>
+                <td>Raw HTML passthrough</td>
+                <td><code>HtmlRendererOptions::sanitize</code></td>
+              </tr>
+              <tr>
+                <td>Node.js</td>
+                <td>Escaped raw HTML, filtered URL schemes</td>
+                <td>Keep <code>renderPolicy: 'untrusted'</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="8"></svg>
+
+      <!-- ================= Code and diagrams ================= -->
+      <section id="code" aria-labelledby="h-code">
+        <div class="axis">
+          <h2 id="h-code">Code highlighted. Diagrams drawn.</h2>
+          <p>
+            <span class="lead-in">Technical writing</span> is full of code samples and diagrams.
+            Ferromark hands each code block to a hook. Connect Ferriki and the code comes back
+            highlighted with Shiki-compatible grammars and themes. Connect Ferrigura and a Mermaid
+            block becomes a static SVG diagram, rendered on the server without a browser. Both are
+            separate engines from the same workshop. Ferromark contains neither until you add it,
+            and any other highlighter fits the same hook.
+          </p>
+          <div class="wide">
+            <div class="pair">
+              <div class="card">
+                <h3 class="card-h">A Rust fence</h3>
+                <p class="api">example.md</p>
+                <pre id="code-src"></pre>
+              </div>
+              <div class="card">
+                <h3 class="card-h">Highlighted by Ferriki</h3>
+                <p class="api" id="code-meta"></p>
+                <div class="highlighted" id="code-out"></div>
+              </div>
+            </div>
+            <div class="pair">
+              <div class="card">
+                <h3 class="card-h">A Mermaid fence</h3>
+                <p class="api">flow.md</p>
+                <pre id="mm-src"></pre>
+              </div>
+              <div class="card">
+                <h3 class="card-h">Drawn by Ferrigura</h3>
+                <p class="api" id="mm-meta"></p>
+                <div class="diagram" id="mm-out"></div>
+              </div>
+            </div>
+            <p class="credit" id="code-credit"></p>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="9"></svg>
+
+      <!-- ================= MDX and analysis ================= -->
+      <section id="mdx" aria-labelledby="h-mdx">
+        <div class="axis">
+          <h2 id="h-mdx">From Markdown to components. Parse once, use it everywhere.</h2>
+          <p>
+            <span class="lead-in">Documentation sites</span> built with React and similar frameworks
+            mix Markdown with components: an interactive chart inside an article, a tabbed code
+            example. That format is called MDX. <code>compileJsx</code> turns an MDX document into
+            JSX, and your build supplies the components. Ferromark never executes the authored
+            JavaScript while compiling and adds no framework imports of its own.
+          </p>
+          <p>
+            A parsed document holds more than HTML. Ask it for every link and image with its exact
+            position, and a broken-link check becomes a loop over a list. Ask for ordered heading
+            sections with their final IDs, ready for a search index. Ask for a static Markdown
+            export that says exactly what it left out. None of it parses the document a second time.
+          </p>
+          <div class="wide two-up">
+            <div class="card">
+              <h3 class="card-h">MDX in, JSX out</h3>
+              <p class="api">compileJsx(source, { format: "mdx" })</p>
+              <div class="sub-h">Source</div>
+              <pre id="mdx-src"></pre>
+              <div class="sub-h">JSX body</div>
+              <pre id="mdx-out"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">One prepared document, three answers</h3>
+              <p class="api">prepareDocument(source, { format: "mdx" })</p>
+              <div class="sub-h">Source</div>
+              <pre id="an-src"></pre>
+              <div class="sub-h">collectReferences()</div>
+              <ul class="out-list" id="an-refs"></ul>
+              <div class="sub-h">extractText().sections</div>
+              <ul class="out-list" id="an-sec"></ul>
+              <div class="sub-h">projectMarkdown().diagnostics</div>
+              <ul class="out-list" id="an-diag"></ul>
+            </div>
+          </div>
+          <p class="credit">
+            Document analysis is on the repository's <code>main</code> branch; check your installed
+            release.
+          </p>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="10"></svg>
+
+      <!-- ================= Runtimes ================= -->
+      <section id="runtimes" aria-labelledby="h-run">
+        <div class="axis">
+          <h2 id="h-run">One engine, in Rust or Node.js.</h2>
+          <p>
+            Use the crate directly in Rust: parse into an arena-allocated tree, inspect or transform
+            it, then render. Or install the npm package: the same native engine behind a typed
+            JavaScript API. The two share the core and differ in defaults on purpose. Node.js starts
+            in untrusted mode because it more often renders text that users typed.
+          </p>
+          <div class="wide two-up">
+            <div class="card">
+              <h3 class="card-h">Rust crate</h3>
+              <p class="api">Rust 1.95 or newer</p>
+              <pre id="rt-rust"></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-h">Node.js package</h3>
+              <p class="api">Node.js 22.12 or newer</p>
+              <pre id="rt-node"></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="11"></svg>
+
+      <!-- ================= At work ================= -->
+      <section id="work" aria-labelledby="h-work">
+        <div class="axis">
+          <h2 id="h-work">At work in Ardo and Palamedes.</h2>
+          <p>
+            Two applications from the same workshop run on Ferromark. The guides on this site are
+            rendered by Ferromark through Ardo.
+          </p>
+          <div class="wide apps">
+            <div class="app">
+              <img src="../../../../packages/family/icons/ardo.svg" alt="Ardo logo" />
+              <div>
+                <h3>Ardo</h3>
+                <p>The React documentation framework renders its pages with Ferromark.</p>
+                <span class="runs">runs on Ferromark, Ferriki and Ferrolink</span>
+              </div>
+            </div>
+            <div class="app">
+              <img src="../../2026-10/assets/palamedes.svg" alt="Palamedes logo" />
+              <div>
+                <h3>Palamedes</h3>
+                <p>Internationalization for TypeScript apps.</p>
+                <span class="runs">runs on Ferrocat, Ferromark and Ferralk</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <svg class="engraving" data-seed="12"></svg>
+
+      <section aria-label="Origin">
+        <div class="axis">
+          <p class="colophon">
+            Ferromark carries forward the features and experience of Ferromark v1 and builds on the
+            MIT-licensed OX-Content core. Its source provenance records the imported revision and
+            keeps the attribution. It is one of the Ferramenta engines, made by Sebastian Software
+            in Mainz, Germany.
+          </p>
+        </div>
+      </section>
+
+      <section class="closing" aria-labelledby="h-close">
+        <h2 id="h-close">Your next document deserves this.</h2>
+        <p class="standfirst">
+          Choose your runtime and follow the getting-started guide. Rust gives you the parser and
+          document tree directly, Node.js a typed JavaScript API on the same native engine.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://ferromark.dev/rust/getting-started"
+            >Start with Rust <small>cargo add ferromark</small></a
+          >
+          <a class="btn" href="https://ferromark.dev/node/getting-started"
+            >Start with Node.js <small>npm install ferromark</small></a
+          >
+        </div>
+        <p class="links">
+          <a href="https://github.com/sebastian-software/ferromark">GitHub repository</a>
+          <a href="https://ferromark.dev/guide/getting-started">Documentation</a>
+          <a href="https://sebastian-consulting.com">Integration and support</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="in">
+        <img src="../../../../packages/family/ferra/ferromark/mark-128.png" alt="" />
+        <span>Ferromark, part of <a href="https://ferramenta.dev">Ferramenta</a></span>
+        <a href="https://github.com/sebastian-software/ferromark">GitHub</a>
+        <a href="https://crates.io/crates/ferromark">crates.io</a>
+        <a href="https://www.npmjs.com/package/ferromark">npm</a>
+        <a href="https://sebastian-software.de/imprint">Imprint</a>
+        <a href="https://sebastian-software.de/privacy">Privacy</a>
+        <span class="copy">© 2026 Sebastian Software GmbH</span>
+      </div>
+    </footer>
+
+    <script src="ferromark-data.js"></script>
+    <script src="ferromark-real.js"></script>
+    <script src="monografie.js"></script>
+    <script>
+      (function () {
+        const F = window.FERROMARK;
+        const R = window.FERROMARK_REAL;
+        const $ = (id) => document.getElementById(id);
+        const reduce = Mono.reduce;
+
+        /* ---- Source panes: one span per line, real text ---- */
+        function fillSource(pre, text) {
+          const lines = text.replace(/\n$/, "").split("\n");
+          pre.textContent = "";
+          lines.forEach((line, i) => {
+            const span = document.createElement("span");
+            span.className = "ln";
+            span.dataset.line = i;
+            span.textContent = line;
+            pre.appendChild(span);
+          });
+          return lines;
+        }
+        /* Map each source line to the top-level output block it belongs to:
+           blocks are separated by blank lines in the source, in order. */
+        function linkBlocks(pre, lines, out, extraFold) {
+          const blocks = [...out.children];
+          let block = 0;
+          const map = [];
+          lines.forEach((line, i) => {
+            if (line.trim() === "") {
+              map[i] = -1;
+              if (i > 0 && lines[i - 1].trim() !== "") block++;
+            } else map[i] = block;
+          });
+          if (extraFold) extraFold(map, lines);
+          pre.querySelectorAll(".ln").forEach((ln) => {
+            const b = map[+ln.dataset.line];
+            if (b < 0) return;
+            const on = (v) => {
+              pre.querySelectorAll(".ln").forEach((o) => {
+                o.classList.toggle("on", v && map[+o.dataset.line] === b);
+              });
+              if (blocks[b]) blocks[b].classList.toggle("on", v);
+            };
+            ln.addEventListener("mouseenter", () => on(true));
+            ln.addEventListener("mouseleave", () => on(false));
+          });
+        }
+
+        // Basic sample
+        const bLines = fillSource($("basic-src"), R.basic.markdown);
+        $("basic-out").innerHTML = R.basic.html;
+        linkBlocks($("basic-src"), bLines, $("basic-out"));
+
+        // FFM sample: the caption line after a blank belongs to its block
+        const fLines = fillSource($("ffm-src"), R.ffm.markdown);
+        $("ffm-out").innerHTML = R.ffm.html;
+        $("ffm-opt").textContent = "toHtml(source, " + R.ffm.options + ")";
+        linkBlocks($("ffm-src"), fLines, $("ffm-out"), (map, lines) => {
+          // ": Pricing *per seat*" is the table's caption: same block as the table above it
+          lines.forEach((l, i) => {
+            if (/^: Pricing/.test(l)) {
+              const prev = map
+                .slice(0, i)
+                .filter((x) => x >= 0)
+                .pop();
+              const shift = map[i] - prev;
+              for (let k = i; k < map.length; k++) if (map[k] >= 0) map[k] -= shift;
+            }
+          });
+          // the footnote text renders as its own block at the end
+        });
+        $("ffm-note").textContent =
+          "Real output of ferromark " +
+          R.versions.ferromark +
+          ". Point at a line of the source to see what it became. The technical abbreviation in the note is marked up as well.";
+
+        const FEATURES = [
+          ["Image captions", ": A caption line"],
+          ["Quotation credits", ": Jane Doe, *author*"],
+          ["Table captions", ": Prices *today*"],
+          ["Merged cells", "| Included ||"],
+          ["Marked text", "==important=="],
+          ["Inserted text", "++added++"],
+          ["Inline notes", "^[An explanatory note.]"],
+          ["Spans with language", "[C’est la vie]{lang=fr}"],
+          ["Definition lists", "Term, then : Explanation"],
+          ["Heading IDs", "# Title {#title}"],
+          ["Math notation", "$x^2$"],
+          ["Superscript, subscript", "x^2^, H~2~O"],
+          ["Front matter", "Leading --- or +++ block"],
+          ["Alert boxes", "> [!NOTE]"],
+          ["Technical abbreviations", "The API returns JSON"],
+          ["Line comments", "// note at line start"],
+        ];
+        const fl = $("features");
+        FEATURES.forEach(([t, s]) => {
+          const d = document.createElement("div");
+          const dt = document.createElement("dt");
+          dt.textContent = t;
+          const dd = document.createElement("dd");
+          dd.textContent = s;
+          d.append(dt, dd);
+          fl.appendChild(d);
+        });
+
+        /* ---- Speed chart: the shared bar chart with Ferromark's figures ---- */
+        const byId = (p, id) => F.benchmark.figures.find((f) => f.platform === p && f.id === id);
+        const platformLabel = { "linux-x86-64": "Linux x86-64", "macos-arm64": "macOS arm64" };
+        const state = { platform: "linux-x86-64", runtime: "Native" };
+        const chart = Mono.barChart({
+          list: $("bars"),
+          tip: $("tip"),
+          ticks: $("ticks"),
+          scale: 12,
+          tickValues: [1, 2, 4, 6, 8, 10, 12],
+          rows: () =>
+            [
+              {
+                label: "Ferromark",
+                sub: state.runtime === "Native" ? "Rust" : "Node.js binding",
+                value: 1,
+                own: true,
+              },
+            ].concat(
+              (state.runtime === "Native" ? F.featured.native : F.featured.node).map((id) => {
+                const f = byId(state.platform, id);
+                return {
+                  label: f.label + (f.outputDiffers ? "*" : ""),
+                  sub: f.backend,
+                  value: f.fresh,
+                  differs: f.outputDiffers,
+                };
+              }),
+            ),
+          describe: (r, cut) =>
+            r.own
+              ? "<b>Ferromark</b> is the baseline: 1× on " + platformLabel[state.platform] + "."
+              : "<b>" +
+                r.label.replace("*", "") +
+                "</b> needed " +
+                r.value.toFixed(2) +
+                "× as long as Ferromark for the same 57 documents on " +
+                platformLabel[state.platform] +
+                " (" +
+                state.runtime +
+                ", fresh calls)." +
+                (cut ? " The bar is cut at 12×." : "") +
+                (r.differs ? " Some of its outputs differ." : ""),
+        });
+        Mono.segmented($("speed"), (key, value) => {
+          state[key] = value;
+          chart.redraw();
+        });
+        (function renderTable() {
+          const t = $("bench-table");
+          let html =
+            '<thead><tr><th scope="col">Library</th><th scope="col">Runtime</th><th scope="col" class="num">Linux fresh</th><th scope="col" class="num">macOS fresh</th><th scope="col" class="num">Linux reuse</th><th scope="col" class="num">macOS reuse</th></tr></thead><tbody>';
+          F.featured.native.concat(F.featured.node).forEach((id) => {
+            const l = byId("linux-x86-64", id);
+            const m = byId("macos-arm64", id);
+            html += `<tr><td>${l.label}${l.outputDiffers ? "*" : ""}</td><td>${l.runtime}</td><td class="num">${l.fresh.toFixed(2)}×</td><td class="num">${m.fresh.toFixed(2)}×</td><td class="num">${l.reuse.toFixed(2)}×</td><td class="num">${m.reuse.toFixed(2)}×</td></tr>`;
+          });
+          t.innerHTML = html + "</tbody>";
+        })();
+
+        /* ---- Conformance ---- */
+        const tb = document.querySelector("#agree tbody");
+        F.conformance.rows
+          .filter((r) => F.featured.conformance.includes(r.label))
+          .forEach((r) => {
+            const tr = document.createElement("tr");
+            if (r.label === "Ferromark") tr.className = "own";
+            const meter = (pair) => {
+              if (pair[0] == null)
+                return '<div class="meter"><span class="none">not offered</span></div>';
+              return `<div class="meter"><span class="m"><i style="width:${(pair[0] / pair[1]) * 100}%"></i></span><b>${pair[0]} / ${pair[1]}</b></div>`;
+            };
+            tr.innerHTML = `<td>${r.label}<small>${r.runtime}</small></td><td>${meter(r.commonmark)}</td><td>${meter(r.gfm)}</td>`;
+            tb.appendChild(tr);
+          });
+
+        /* ---- Typography: real output per language ---- */
+        const LANGS = {
+          en: "English",
+          de: "German",
+          fr: "French",
+          da: "Danish",
+          sv: "Swedish",
+          pl: "Polish",
+          cs: "Czech",
+          ru: "Russian",
+        };
+        $("typo-in").textContent = R.typography.markdown;
+        const langs = $("langs");
+        let current = "en";
+        let timer = null;
+        let userPicked = false;
+        function quotes(html) {
+          const tmp = document.createElement("div");
+          tmp.innerHTML = html;
+          const t = tmp.textContent;
+          const m = /^(.*?)Ready,(.*?) she/.exec(t);
+          return m ? [m[1].trim(), m[2].trim()] : ["“", "”"];
+        }
+        function show(code, animate) {
+          current = code;
+          langs
+            .querySelectorAll("button")
+            .forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === code));
+          const html = R.typography.outputs[code];
+          const [o, c] = quotes(html);
+          const g = $("glyphs");
+          const apply = () => {
+            g.children[0].textContent = o;
+            g.children[1].textContent = c;
+            $("loupe-lang").textContent = LANGS[code];
+            $("typo-out").innerHTML = html;
+            $("typo-opt").textContent = `typography: { language: "${code}" }`;
+            g.classList.remove("swap");
+          };
+          if (animate && !reduce) {
+            g.classList.add("swap");
+            setTimeout(apply, 250);
+          } else apply();
+        }
+        Object.entries(LANGS).forEach(([code, name]) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.dataset.lang = code;
+          b.textContent = code;
+          b.title = name;
+          b.setAttribute("aria-label", name);
+          b.addEventListener("click", () => {
+            userPicked = true;
+            stop();
+            show(code, true);
+          });
+          langs.appendChild(b);
+        });
+        show("en", false);
+        const order = Object.keys(LANGS);
+        function stop() {
+          clearInterval(timer);
+          timer = null;
+        }
+        function start() {
+          if (reduce || userPicked || timer) return;
+          timer = setInterval(
+            () => show(order[(order.indexOf(current) + 1) % order.length], true),
+            2600,
+          );
+        }
+        const typoSec = $("typography");
+        new IntersectionObserver((e) => (e[0].isIntersecting ? start() : stop()), {
+          threshold: 0.35,
+        }).observe(typoSec);
+        typoSec.addEventListener("mouseenter", stop);
+        typoSec.addEventListener("mouseleave", start);
+        typoSec.addEventListener("focusin", stop);
+
+        /* ---- Trust: real outputs, the difference marked ---- */
+        function markDiff(pre, text, other) {
+          const otherLines = new Set(other.replace(/\n$/, "").split("\n"));
+          pre.textContent = "";
+          text
+            .replace(/\n$/, "")
+            .split("\n")
+            .forEach((line, i, arr) => {
+              const span = document.createElement("span");
+              span.textContent = line;
+              if (!otherLines.has(line)) span.className = "hit";
+              pre.appendChild(span);
+              if (i < arr.length - 1) pre.appendChild(document.createTextNode("\n"));
+            });
+        }
+        $("trust-in").textContent = R.trust.markdown.replace(/\n$/, "");
+        markDiff($("trust-un"), R.trust.untrusted, R.trust.trusted);
+        markDiff($("trust-tr"), R.trust.trusted, R.trust.untrusted);
+
+        /* ---- Code and diagrams ---- */
+        $("code-src").textContent = R.code.markdown.replace(/\n$/, "");
+        $("code-out").innerHTML = R.code.html;
+        $("code-meta").textContent =
+          "@ferriki/core " + R.versions["@ferriki/core"] + ", theme " + R.code.theme;
+        $("mm-src").textContent = R.mermaid.markdown.replace(/\n$/, "");
+        $("mm-out").innerHTML = R.mermaid.html;
+        $("mm-meta").textContent =
+          "@ferrigura/core " + R.versions["@ferrigura/core"] + ", static SVG";
+        $("code-credit").textContent =
+          "Both outputs are real: ferromark " +
+          R.versions.ferromark +
+          " handed each fence to its hook (createLineHighlighter, createDiagramCodeRenderer).";
+
+        /* ---- MDX and analysis ---- */
+        $("mdx-src").textContent = R.mdx.markdown.replace(/\n$/, "");
+        $("mdx-out").textContent = R.mdx.jsx;
+        $("an-src").textContent = R.analysis.markdown.replace(/\n$/, "");
+        const li = (ul, a, b) => {
+          const x = document.createElement("li");
+          const s1 = document.createElement("span");
+          s1.textContent = a;
+          const s2 = document.createElement("span");
+          s2.textContent = b;
+          x.append(s1, s2);
+          $(ul).appendChild(x);
+        };
+        R.analysis.references.forEach((r) =>
+          li("an-refs", r.kind + "  " + r.destination, "bytes " + r.span.start + "–" + r.span.end),
+        );
+        R.analysis.text.sections.forEach((s) =>
+          li("an-sec", "#".repeat(s.level) + " " + s.heading, "id " + s.id),
+        );
+        R.analysis.projection.diagnostics.forEach((d) =>
+          li("an-diag", d.code, "bytes " + d.start + "–" + d.end),
+        );
+
+        /* ---- Runtimes ---- */
+        $("rt-rust").textContent =
+          "$ cargo add ferromark\n\nlet html = ferromark::to_html(" +
+          JSON.stringify(R.rust.input) +
+          ")?;\n// " +
+          R.rust.html.replace(/\n$/, "");
+        $("rt-node").textContent =
+          '$ npm install ferromark\n\nimport { toHtml } from "ferromark";\nconst html = toHtml(' +
+          JSON.stringify(R.rust.input) +
+          ");\n// " +
+          R.rust.html.replace(/\n$/, "");
+
+        /* ---- Inside the engine: six thin plates, drawn in the instrument's materials ---- */
+        (function iso() {
+          const svg = $("iso");
+          const NS = "http://www.w3.org/2000/svg";
+          const el = (n, a, p) => {
+            const e = document.createElementNS(NS, n);
+            for (const k in a) e.setAttribute(k, a[k]);
+            (p || svg).appendChild(e);
+            return e;
+          };
+          const defs = el("defs", {});
+          const grad = (id, stops) => {
+            const g = el("linearGradient", { id, x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
+            stops.forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, g));
+          };
+          grad("gSteel", [
+            [0, "#fbfaf8"],
+            [0.55, "#e4e2dd"],
+            [1, "#cfccc5"],
+          ]);
+          grad("gOx", [
+            [0, "#f6ece6"],
+            [0.6, "#ead6cb"],
+            [1, "#dcbfae"],
+          ]);
+          const sh = el(
+            "filter",
+            { id: "soft", x: "-20%", y: "-20%", width: "140%", height: "160%" },
+            defs,
+          );
+          el(
+            "feDropShadow",
+            { dx: 0, dy: 10, stdDeviation: 8, "flood-color": "#26231f", "flood-opacity": 0.12 },
+            sh,
+          );
+          const W = 138,
+            D = 96,
+            T = 7,
+            dx = 58,
+            dy = 44,
+            STEP = 204,
+            y0 = 62;
+          const stages = [
+            ["Source bytes", "The Markdown text as written"],
+            ["Parser", "Specialized byte scans, SIMD where offered"],
+            ["Arena", "One block of memory for every node"],
+            ["Tree", "Nodes keep byte offsets into the source"],
+            ["Renderer", "HTML out; hooks for code and diagrams"],
+            ["HTML", "An owned string, or appended to yours"],
+          ];
+          const srcLines = R.basic.markdown.split("\n").filter((l) => l.trim());
+          const outLines = R.basic.html.split("\n").filter((l) => l.trim());
+          stages.forEach((s, i) => {
+            const x0 = 18 + i * STEP;
+            const hot = i === 2 || i === 3;
+            const g = el("g", { filter: "url(#soft)" });
+            // edge (thin side) and top face
+            el(
+              "path",
+              {
+                d: `M${x0} ${y0} H${x0 + W} L${x0 + W + dx} ${y0 - dy} V${y0 - dy + T} L${x0 + W} ${y0 + T} H${x0} Z`,
+                fill: hot ? "#b98e79" : "#b6b2aa",
+              },
+              g,
+            );
+            el(
+              "path",
+              {
+                d: `M${x0 + dx} ${y0 - dy} H${x0 + W + dx} L${x0 + W} ${y0} H${x0} Z`,
+                fill: hot ? "url(#gOx)" : "url(#gSteel)",
+                stroke: hot ? "#8e4a2c" : "#8d897f",
+                "stroke-width": 0.75,
+              },
+              g,
+            );
+            // crisp edge highlight
+            el(
+              "path",
+              {
+                d: `M${x0} ${y0 + 0.5} H${x0 + W}`,
+                stroke: "#ffffff",
+                "stroke-width": 0.8,
+                opacity: 0.9,
+              },
+              g,
+            );
+            // engraved content in the plate's plane
+            const c = el(
+              "g",
+              { transform: `matrix(1 0 -${dx / D} ${dy / D} ${x0 + dx} ${y0 - dy})` },
+              g,
+            );
+            const ink = hot ? "#7a3a22" : "#57534c";
+            const mono = { "font-family": "IBM Plex Mono, monospace", fill: ink };
+            if (i === 0) {
+              srcLines.slice(0, 4).forEach((l, j) => {
+                const t = el("text", { x: 10, y: 22 + j * 20, "font-size": 9.5, ...mono }, c);
+                t.textContent = l.length > 22 ? l.slice(0, 21) + "…" : l;
+              });
+            } else if (i === 1) {
+              for (let r = 0; r < 3; r++)
+                for (let q = 0; q < 9; q++)
+                  el(
+                    "rect",
+                    {
+                      x: 10 + q * 13.4,
+                      y: 12 + r * 27,
+                      width: 10,
+                      height: 20,
+                      fill:
+                        (r === 0 && q === 0) || (r === 1 && q === 5) || (r === 2 && q === 2)
+                          ? "#8e4a2c"
+                          : "none",
+                      stroke: "#8d897f",
+                      "stroke-width": 0.6,
+                    },
+                    c,
+                  );
+            } else if (i === 2) {
+              let n = 0;
+              for (let r = 0; r < 4; r++)
+                for (let q = 0; q < 9; q++) {
+                  el(
+                    "rect",
+                    {
+                      x: 8 + q * 13.6,
+                      y: 8 + r * 21,
+                      width: 11.5,
+                      height: 17,
+                      fill: n < 19 ? "#8e4a2c" : "none",
+                      "fill-opacity": n < 19 ? 0.78 : 0,
+                      stroke: "#8e4a2c",
+                      "stroke-width": 0.55,
+                    },
+                    c,
+                  );
+                  n++;
+                }
+            } else if (i === 3) {
+              const P = [
+                [68, 14],
+                [34, 46],
+                [102, 46],
+                [18, 80],
+                [52, 80],
+                [102, 80],
+              ];
+              [
+                [0, 1],
+                [0, 2],
+                [1, 3],
+                [1, 4],
+                [2, 5],
+              ].forEach(([a, b]) =>
+                el(
+                  "line",
+                  {
+                    x1: P[a][0],
+                    y1: P[a][1],
+                    x2: P[b][0],
+                    y2: P[b][1],
+                    stroke: "#8e4a2c",
+                    "stroke-width": 0.9,
+                  },
+                  c,
+                ),
+              );
+              P.forEach(([x, y], j) =>
+                el(
+                  "circle",
+                  {
+                    cx: x,
+                    cy: y,
+                    r: j ? 6 : 8,
+                    fill: j ? "#fbf4ef" : "#8e4a2c",
+                    stroke: "#7a3a22",
+                    "stroke-width": 0.9,
+                  },
+                  c,
+                ),
+              );
+            } else if (i === 4) {
+              ["code", "highlight", "diagram"].forEach((l, j) => {
+                el(
+                  "rect",
+                  {
+                    x: 10,
+                    y: 10 + j * 28,
+                    width: 58,
+                    height: 18,
+                    fill: "none",
+                    stroke: "#8d897f",
+                    "stroke-width": 0.6,
+                  },
+                  c,
+                );
+                const t = el("text", { x: 15, y: 23 + j * 28, "font-size": 9, ...mono }, c);
+                t.textContent = l;
+                el(
+                  "line",
+                  {
+                    x1: 76,
+                    y1: 19 + j * 28,
+                    x2: 126,
+                    y2: 19 + j * 28,
+                    stroke: "#8d897f",
+                    "stroke-width": 0.8,
+                  },
+                  c,
+                );
+              });
+            } else {
+              outLines.slice(0, 4).forEach((l, j) => {
+                const t = el("text", { x: 8, y: 22 + j * 20, "font-size": 8.6, ...mono }, c);
+                t.textContent = l.length > 25 ? l.slice(0, 24) + "…" : l;
+              });
+            }
+            const label = el("text", {
+              x: x0,
+              y: y0 + T + 40,
+              "font-family": "Source Serif 4, serif",
+              "font-weight": 600,
+              "font-size": 19,
+              fill: hot ? "#7a3a22" : "#26231f",
+            });
+            label.textContent = i + 1 + "  " + s[0];
+            const fo = el("foreignObject", { x: x0, y: y0 + T + 50, width: 184, height: 44 });
+            const cap = document.createElement("div");
+            cap.style.cssText = "font: 400 13px/1.4 'IBM Plex Sans', sans-serif; color: #57534c;";
+            cap.textContent = s[1];
+            fo.appendChild(cap);
+          });
+          // one fine bracket under arena and tree: what the arena means in practice
+          const xa = 18 + 2 * STEP,
+            xb = 18 + 3 * STEP + W + dx;
+          const yb = y0 + T + 112;
+          el("path", {
+            d: `M${xa} ${yb - 8} V${yb} H${xb} V${yb - 8}`,
+            stroke: "#8e4a2c",
+            "stroke-width": 0.8,
+            fill: "none",
+          });
+          const bt = el("text", {
+            x: (xa + xb) / 2,
+            y: yb + 22,
+            "text-anchor": "middle",
+            "font-family": "IBM Plex Sans, sans-serif",
+            "font-size": 13.5,
+            fill: "#7a3a22",
+          });
+          bt.textContent = "filled, used and released at once";
+        })();
+      })();
+    </script>
+  </body>
+</html>

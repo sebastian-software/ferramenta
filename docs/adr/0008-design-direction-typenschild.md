@@ -1,6 +1,6 @@
 # ADR-0008: Design direction "Typenschild", one authored scheme, the plate as the one prop
 
-- Status: accepted
+- Status: superseded by ADR-0012 (the Typenschild entry was removed on 2026-11-07)
 - Date: 2026-09-30
 - Deciders: Sebastian Werner
 - Supersedes: ADR-0005 (and with it the direction of ADR-0003)
@@ -186,7 +186,7 @@ not sit together.
 ## References
 
 - [DESIGN.md](../../DESIGN.md) — the system this direction produced
-- [design/comp/2026-10/](../../design/comp/2026-10/) — the three direction comps;
+- `design/comp/2026-10/` (removed on 2026-11-07, in Git history) — the three direction comps;
   `typenschild-home.html` and `typenschild-tool.html` are the approved ones
 - [ADR-0009](0009-generated-member-icons.md) — the icons
 - [ADR-0001, amendment of 2026-09-30](0001-decentralized-homepages-with-shared-family-package.md#amendment-2026-09-30) — the two tiers
