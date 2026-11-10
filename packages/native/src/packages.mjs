@@ -52,7 +52,7 @@ export async function generateRuntime(config, { check = false } = {}) {
   else await writeFile(types, declarations);
 }
 
-export async function verifyPlatform(config, id) {
+export async function verifyPlatform(config, id, { releaseAbi = true } = {}) {
   const target = nativePackages(config).find((entry) => entry.id === id);
   assert.ok(target, `Unsupported platform: ${id}`);
   const directory = path.join(config.platformDir, id);
@@ -67,7 +67,7 @@ export async function verifyPlatform(config, id) {
     `Empty or unexpectedly small addon: ${binary}`,
   );
   for (const filename of config.licenses) await stat(path.join(directory, filename));
-  if (target.libc === "glibc" && process.platform === "linux") verifyGlibc(binary);
+  if (releaseAbi && target.libc === "glibc" && process.platform === "linux") verifyGlibc(binary);
   return { name: target.packageName, version: main.version, path: directory };
 }
 

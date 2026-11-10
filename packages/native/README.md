@@ -57,6 +57,10 @@ Run from the product's Node workspace. Each command reads
 | `ferramenta-native publish --directory artifacts`           | Publish the validated archives in sidecar, facade, then adapter order                                                |
 | `ferramenta-native verify-public`                           | Observe versions, provenance and dist-tags, verify source attestations, and exercise public installations            |
 
+Host-only packing accepts a locally compiled addon with the host's libc requirements.
+`pack --all-targets`, release metadata verification and `platform <id>` still enforce
+the published glibc 2.17 floor. A local package check cannot opt a release out of it.
+
 Release commands use `NATIVE_SOURCE_SHA`, `NATIVE_RELEASE_TAG` and the GitHub
 workflow environment. Publishing requires an explicit command with npm OIDC
 permissions; installation never publishes anything. Registry observation allows
