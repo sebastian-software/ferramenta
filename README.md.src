@@ -33,8 +33,8 @@ pnpm dev      # local dev server
 pnpm build    # static build into build/client
 ```
 
-The release model lives in
-[`@sebastian-software/standards`](https://github.com/sebastian-software/standards/tree/main/reference/release-please).
+The release model follows the
+[project-infra release guidance](https://github.com/sebastian-software/project-infra/blob/main/skills/project-infra/references/ci-and-releases.md).
 
 ## License
 
