@@ -5,7 +5,7 @@
  * source of truth (ADR-0001), so a job string or a new member changes in one
  * place and every README follows. It reaches a README as an mdtheme frame
  * (`markdown/<name>/`, written by `scripts/native-theme.mjs`). The company
- * footer is not rendered here: that is the standards-owned outer theme.
+ * footer is not rendered here: it comes from the outer Sebastian theme.
  */
 
 /** The family's two tiers (ADR-0008), in the order the block lists them. */

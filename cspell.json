@@ -1,6 +1,5 @@
 {
   "version": "0.2",
-  "ignorePaths": [".standards/"],
   "words": [
     "ardo",
     "corten",
@@ -36,7 +35,6 @@
     "palamedes",
     "pnpm",
     "prerendered",
-    "repometa",
     "schattenwand",
     "standfirst",
     "turbopack",

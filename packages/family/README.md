@@ -41,8 +41,8 @@ Node and theme dependencies are not required in the consuming Rust project.
 Keep project prose in `README.md.src`, then run `mise run readme:write` and
 `mise run readme:check`. Remove any old `ferramenta-family` block from the
 source during migration. Include company branding once, through the outer
-Sebastian theme; migrate standards-owned branding through standards rather
-than editing its markers manually.
+Sebastian theme. Keep project prose in the source and theme configuration in
+`mdtheme.yaml`; regenerate the README instead of editing generated branding.
 
 The central catalog includes family engines and applications. It supplies all
 names, descriptions, and links. Maintainers run `pnpm theme:write` after edits;
@@ -73,7 +73,7 @@ few shared rules so the family reads as one:
   No static badges for test totals or compatibility percentages, and no
   invented social proof; figures live in an evidence section with a link to
   what produced them.
-- The family footer comes last, before the standards-owned company footer.
+- The family footer comes last, before the company footer from the outer Sebastian theme.
 
 ## Requirements
 

@@ -128,13 +128,9 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
   `.mono-footer` and `.mono-ardo` (a test checks the scope).
 - Code style is whatever `oxfmt` produces — run `pnpm format`, never hand-tune
   formatting. Conventional commits; releases via release-please.
-- This repository is onboarded to
-  [`@sebastian-software/standards`](https://github.com/sebastian-software/standards)
-  (`.repometa.json`). `.oxfmtrc.json` is **managed**: never hand-edit it, and
-  never add repo-specific ignores there. `eslint.config.ts`, `oxlint.config.ts`,
-  `cspell.json` and `.github/workflows/ci.yml` are seeded — repo-specific
-  overrides on top of them are fine and carry a comment saying why. CI runs
-  `standards check`, so managed drift fails the build.
+- Repository configuration and validation are project-owned. Shared infrastructure
+  guidance lives in `sebastian-software/project-infra`. Keep the native tooling,
+  generated README/theme checks and committed family dist checks intact.
 - Use US English for code, comments, commits, documentation, and site copy.
   German design proper names and historical German working artifacts are
   intentional exceptions; see [design/comp/README.md](design/comp/README.md).
@@ -185,32 +181,3 @@ scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - **Preview paths**: Ardo's preview serves the prerendered documents. Use
   trailing slashes for page captures, as the public static host does.
 - The dev/preview/comps server ports live in `.claude/launch.json` (gitignored).
-
----
-
-<!-- sebastian-software-consumer-agents:start -->
-
-# Standards-managed repo guardrails
-
-- Do not hand-edit managed files or standards-owned marker sections.
-- If `standards check` reports drift, run `standards apply` or update standards.
-- The repository's own gate may omit `standards check`; CI can still fail on it.
-
-Node repositories:
-
-- Fix or format every file reported by `oxfmt` whenever practical.
-- For generated files, prefer formatting in the generator step.
-- If formatting is not viable, use repo-local `.prettierignore`.
-- Never add repo-specific ignores to managed `.oxfmtrc.json`.
-
-Rust repositories:
-
-- Keep `cargo fmt --all --check` and
-  `cargo clippy --workspace --all-targets --all-features -- -D warnings` green.
-- Lint levels belong in `[workspace.lints]`, never in managed `rustfmt.toml`.
-- `rust-version` in `Cargo.toml` is the only MSRV; every other mention is a
-  derived copy.
-- Record a cargo-deny finding as a narrow, commented exception in `deny.toml` —
-  never by widening the org allow-list.
-
-<!-- sebastian-software-consumer-agents:end -->
