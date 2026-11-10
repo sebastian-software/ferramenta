@@ -12,6 +12,15 @@ minimumReleaseAgeExclude:
   - ardo
   - js-yaml@3.15.2
   - toml@4.2.0
+  - "@ferrolink/darwin-arm64@0.2.2"
+  - "@ferrolink/darwin-x64@0.2.2"
+  - "@ferrolink/linux-arm64-gnu@0.2.2"
+  - "@ferrolink/linux-arm64-musl@0.2.2"
+  - "@ferrolink/linux-x64-gnu@0.2.2"
+  - "@ferrolink/linux-x64-musl@0.2.2"
+  - "@ferrolink/win32-arm64-msvc@0.2.2"
+  - "@ferrolink/win32-x64-msvc@0.2.2"
+  - ferrolink@0.2.2
 
 # remark-mdx-frontmatter still declares toml ^3; toml 4 retains its parse API
 # and includes the fixes for GHSA-v5mp-jgw5-2x6j and GHSA-82x6-q7mm-w9cf.

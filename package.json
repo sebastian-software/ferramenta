@@ -28,7 +28,7 @@
     "social:write": "node scripts/render-social.mjs"
   },
   "dependencies": {
-    "ardo": "^6.4.1",
+    "ardo": "^6.6.0",
     "ferramenta-family": "workspace:*"
   },
   "devDependencies": {

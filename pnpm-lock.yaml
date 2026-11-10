@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       ardo:
-        specifier: ^6.4.1
-        version: 6.4.1(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)
+        specifier: ^6.6.0
+        version: 6.6.0(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)
       ferramenta-family:
         specifier: workspace:*
         version: link:packages/family
@@ -48,7 +48,7 @@ importers:
         version: 19.3.0
       ardo:
         specifier: ^6.4.1
-        version: 6.4.1(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)
+        version: 6.6.0(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)
       react-dom:
         specifier: ^19.3.1
         version: 19.3.1(react@19.3.1)
@@ -777,54 +777,54 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@ferrolink/darwin-arm64@0.2.1':
-    resolution: {integrity: sha512-A/6k9TM0UQ0eJpdERYEm08JJF7AirJoSo/vrIk370s9s2A24Dq7AzzVCSqTre14Rs5Cham17CGLfYVKbEKfz1A==}
+  '@ferrolink/darwin-arm64@0.2.2':
+    resolution: {integrity: sha512-prKzB/z2FTxblbJBuxwJykJE+TB+rPNHeBru/TkFZYzkVl+0cwZQssU90k9uNaBbRkGOVlEg26N3LPf+N4aExA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [darwin]
 
-  '@ferrolink/darwin-x64@0.2.1':
-    resolution: {integrity: sha512-KbfdFcsjdWSzzMuuchQdJHrTl3FFVSeA9xYxqWqhjpIARRDmoU0uFjj5z6QIS0YBgbzPCGH19P8ofhXXnfkwDg==}
+  '@ferrolink/darwin-x64@0.2.2':
+    resolution: {integrity: sha512-DJ0v/I0gnNLnOp9LUbpJHuHOTAupqAvk8N5CvD8xIdqNn7fXxqpQMeOSapgRZjVkqLmpd+Rysq6e36WrV5XKEA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [darwin]
 
-  '@ferrolink/linux-arm64-gnu@0.2.1':
-    resolution: {integrity: sha512-P0kUNyIM/IWIqDJ1qp2eZy+7WwuXhoGaP+yOimIhhLbnZoZgYBUzYZ1stusy4+rZbyRsTC7f1QRQDUtqcIJ5QA==}
+  '@ferrolink/linux-arm64-gnu@0.2.2':
+    resolution: {integrity: sha512-UmaeXQPPkzgU2nIY5sm3he0wY+4adybppt4SXfIxnDXwd85OApOKV3/dk75rLEa7VoK/O1W6jd/qvRZ1u0XUZg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@ferrolink/linux-arm64-musl@0.2.1':
-    resolution: {integrity: sha512-YR0BlgYh1oRU2igtGOSeW+2Vk/2KxJ4IqPpKtlPuPeWRENJo0xOUiYhBeeMu1lUbRK8pcYmgGaFp32uXy1MA7w==}
+  '@ferrolink/linux-arm64-musl@0.2.2':
+    resolution: {integrity: sha512-B2G96um+5RyoJoplrMpOb47KSoJyPrYOip2zy16KMf2roqnzwAXYfMX9B7Vo4FreZyc0SVhnSugsgzAQvaBOLw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@ferrolink/linux-x64-gnu@0.2.1':
-    resolution: {integrity: sha512-Vxy6wc2SLUp+wXwhr4B1RdYDW+4UzPF9z73ngE8vEYEdt1pHgc6ZftZNsfL5GaT2p8D1GIfOPQ0hmQYNsOblTg==}
+  '@ferrolink/linux-x64-gnu@0.2.2':
+    resolution: {integrity: sha512-BszIuNbJqmSNLCzTeNPs0Tbl4W5OU95xcPp0VdB7M7D1UnjbKe3ceW4+DilOOH9heM8jzpKN0FYmH/Bq5YZH+g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@ferrolink/linux-x64-musl@0.2.1':
-    resolution: {integrity: sha512-P59AjGdgzw5P3oe8FM2LeASiyWWpxuDSxbeqQWQYg6YqGum+JR4ONIIgpqupPmI+9EYix75FIJ4JI33v+7VB/Q==}
+  '@ferrolink/linux-x64-musl@0.2.2':
+    resolution: {integrity: sha512-+6Sn0N6TFbV7pJAzSSa80mzCLV3sgNBx+JODjgx6rvWGqcUXGDxvz95LRRe7RIK0kGIHAJJRbY6wocAzY7GV2A==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@ferrolink/win32-arm64-msvc@0.2.1':
-    resolution: {integrity: sha512-A91X0dLS+TCvaXh992izUs+BBYmeBvL0gurpH56zY73eaFX0EnP5QUJ4LL4bBBCYguR16eUaNOr/FMaEBrDrPA==}
+  '@ferrolink/win32-arm64-msvc@0.2.2':
+    resolution: {integrity: sha512-QI0Lrgev3fN5gXYlxsgCArTZzMDytSmhS5VTpGNAzhlVWzh//AaeZCUx6Rtngc9fjuJfqK4jwhrNQ6kEj0QgWQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [win32]
 
-  '@ferrolink/win32-x64-msvc@0.2.1':
-    resolution: {integrity: sha512-XhpXMJWYrH7mDbA9OJcDI8fyUM938Tc9DJQxBfvY8FigvABUXRiayKaEFMAd4i+qBZ2J8vV+f538fdwKB54/lA==}
+  '@ferrolink/win32-x64-msvc@0.2.2':
+    resolution: {integrity: sha512-gt/u0aQ8xOvudWYPhQWrXpdbXxpFTcW1bMtqalYCvmEZ4NgeOeKEmE2pHQEG66Eg+OESH7bRb/LeWYM0F/p7vg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
@@ -2009,14 +2009,17 @@ packages:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
     engines: {node: '>=12'}
 
-  ardo@6.4.1:
-    resolution: {integrity: sha512-CS3WJgpwZEh8dkKKNbd0m5YzqpZJryujoLvOEYZRQPI7zPUuV7PW3DFmS0BUX40zcaZAvM/cMqkWAJTK3EpcxA==}
+  ardo@6.6.0:
+    resolution: {integrity: sha512-F3Mn7y9S9KIjBw8Sv0q2pf4pqXJaOOYK+8qAPopsilu+YYoulAYs5xZoewV78XBxRbG8eVtghwCepZrDGcebAA==}
     engines: {node: '>=22.22.0'}
     hasBin: true
     peerDependencies:
+      '@ferrigura/core': ^0.6.0
       oxc-parser: ^0.155.0 || ^0.156.0
       typescript: '>=6.0.0 || ^7.1.0-dev.20261011.1'
     peerDependenciesMeta:
+      '@ferrigura/core':
+        optional: true
       oxc-parser:
         optional: true
       typescript:
@@ -2781,8 +2784,8 @@ packages:
       picomatch:
         optional: true
 
-  ferrolink@0.2.1:
-    resolution: {integrity: sha512-sJqZxSv/61bqnWqU2dG4emm3k40Kb0JXLT+WKuoQXGhsnknqqV5FeW12BioOLvNKosTBnmdY24ImqTAqsRP+KQ==}
+  ferrolink@0.2.2:
+    resolution: {integrity: sha512-uu1x32qA72oLh99MkgEeaxetyWyvosW9/9UOEYQLUC13fZst9sOiqNIRtKY60LENvCYgLr51jBuOXoDpmyCl3Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^7.0.0 || ^8.0.0
@@ -2790,54 +2793,54 @@ packages:
       vite:
         optional: true
 
-  ferromark-darwin-arm64@3.7.0:
-    resolution: {integrity: sha512-qN6WG8SIz4njau5/HTresVihVIL4eHQyYZNwFhoB/XTD9lQrlmgmaBrpS4WmwG9+B/irdk9Cjy+mdL9VrKJR9g==}
+  ferromark-darwin-arm64@4.0.0:
+    resolution: {integrity: sha512-Ke78qnT1ek+Jfg6S54A6DwM7awtZuSUdqToDK4dhTNnuo8iGMAN+IQtl6CVboleowWoUvNp6zT+2OZQCkyMRcg==}
     engines: {node: '>=22.12.0'}
     cpu: [arm64]
     os: [darwin]
 
-  ferromark-linux-arm64-gnu@3.7.0:
-    resolution: {integrity: sha512-SljkYBoa9VWPiDWUVI/GOcG1iVBuOo1CCTTZGwdoa2F7bAgyQOEfNfVWsyZo2xn9trq7nnI2NmntKb/ZloTFvA==}
+  ferromark-linux-arm64-gnu@4.0.0:
+    resolution: {integrity: sha512-JLmgKldouFAxtsF6MA3vb9aLfWH+T8YH8ZnB0AjTb/fLNviudfimoubZ+tvSrRJsPCzSLsdwdBzfBe78wAXh4w==}
     engines: {node: '>=22.12.0'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  ferromark-linux-arm64-musl@3.7.0:
-    resolution: {integrity: sha512-3qlmX8OgfQsGNOzwd4A94keg3Dv/TG5HJ9jjU5Cxnv8UVa/FtQlOk84QZdC94CyRhiQqLwkUTRfDbWFf4V7xXw==}
+  ferromark-linux-arm64-musl@4.0.0:
+    resolution: {integrity: sha512-X4i6V4v/o7ljZIuaiWjpIyZ+NiIeP/kVXzTWncopaAj1oHHJa8avfZtEDsOAbe0NS6QpHMojxCJlCOlUK0cCQA==}
     engines: {node: '>=22.12.0'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  ferromark-linux-x64-gnu@3.7.0:
-    resolution: {integrity: sha512-fAhwTzV0LefYTy9W5Ang9EIhXaXesH8vWPKpPntyzNHSORROivSBb0KEGYA5ckezJCs3vDSU+K9DBwtwC6X+CQ==}
+  ferromark-linux-x64-gnu@4.0.0:
+    resolution: {integrity: sha512-cXLbSkiiKTXKMnygVu4WEpPqMt+ddqntOk5WUFyPZwtXmRtGv8zjg5PISNoN3giPc0NMdYt0AI8kFqYDsw1I7A==}
     engines: {node: '>=22.12.0'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  ferromark-linux-x64-musl@3.7.0:
-    resolution: {integrity: sha512-gN9PlX66+W05r5H3h5cNV6UrvSNupx/LxynpNUc2KkFS6XC+4F3u6OxW3+HxmsB5WZnvSZka6/gC00qrNm/+qQ==}
+  ferromark-linux-x64-musl@4.0.0:
+    resolution: {integrity: sha512-IRbhbuSa86ecSXAoL3rf996Ckf7v9v0gteKrNSCv9JSs8fRitbyd8MgZerKEx0R5aW2LgdR15ftRLeVIrRo32g==}
     engines: {node: '>=22.12.0'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  ferromark-win32-arm64-msvc@3.7.0:
-    resolution: {integrity: sha512-Cw6M1bQtsvaxrknPUSZPuzgOQT7aJU6U2Wd/Zq8Lf5tIUNqJ2ESNy9PXoIHprrMqrZaf7YQjo+ii/vWr7speaw==}
+  ferromark-win32-arm64-msvc@4.0.0:
+    resolution: {integrity: sha512-bHd1vEgjvfWC7ltaU/5haEdyej18WIwUh45jGDbPxNGINRVA+6LiT/noptveM7xe6FFoBzmCRVkvS1YSrTQTOQ==}
     engines: {node: '>=22.12.0'}
     cpu: [arm64]
     os: [win32]
 
-  ferromark-win32-x64-msvc@3.7.0:
-    resolution: {integrity: sha512-JwUmTmSqehJeYibbudvtxgqc5Fxk2vBlx0nT9eGNtAZsEVfA5PrhCZqMq9IISyaBHWHl+ZRUWgranLoUrOmmnQ==}
+  ferromark-win32-x64-msvc@4.0.0:
+    resolution: {integrity: sha512-LEnzjSbI2aetobVEJbuU/Tq9lCK8E4i1MAOvAGd1Z+8YeUyP/rCiHnrLJtqjxGpCnmQA1YCsRDtavdiRuyG9sw==}
     engines: {node: '>=22.12.0'}
     cpu: [x64]
     os: [win32]
 
-  ferromark@3.7.0:
-    resolution: {integrity: sha512-cHXt+rc97cdvIxqaSm8knF4qrzxioGP1RjHCBjkzUdOKje7tckYyEE6zpuYyhGxmwyHjS10rynJ8d8/Qcij+rQ==}
+  ferromark@4.0.0:
+    resolution: {integrity: sha512-S6I1ZnOInKVMZx5HIkhS+XACeEz4Hul6unTIUL2NMfU3ynvGGHJ8fsS8PlIBkAYm5YQ9Nyk77qomwcpFsLLN0A==}
     engines: {node: '>=22.12.0'}
 
   file-entry-cache@11.1.5:
@@ -3760,6 +3763,13 @@ packages:
     resolution: {integrity: sha512-Y3NoRtprEEZQD8RfxMCfS0ZTqc4e+i18OrXEXAvpM6TfC/3y+0L5rNbZiSnbBBEkDfFzbpd8o+cE8q3/anjMGA==}
     engines: {node: '>=22'}
 
+  react-compare-slider@4.0.0:
+    resolution: {integrity: sha512-XNpwfWa8OHvJZIsC+ywhjpRWX8VCY8fIavQ82R63Tever1pQndhicr0ecDuU69GjA+YjesoV7LX3QnKsECtMDw==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+
   react-dom@19.3.1:
     resolution: {integrity: sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ==}
     peerDependencies:
@@ -3868,10 +3878,6 @@ packages:
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
-
-  semver@6.3.1:
-    resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
-    hasBin: true
 
   semver@6.3.2:
     resolution: {integrity: sha512-GYrCADwpu6yV5OAvchkQ27Z5wwMxWAEMg5NNWjyHh/5DboFFqbdbvYNIvZouQpxXyeMPoTOh0vdPYKlf0ZswdQ==}
@@ -4379,7 +4385,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.13
       '@babel/helper-compilation-targets': 7.29.13
-      '@babel/helper-module-transforms': 7.29.13(@babel/core@7.29.13(supports-color@9.4.0))
+      '@babel/helper-module-transforms': 7.29.13(@babel/core@7.29.13)
       '@babel/helpers': 7.29.13
       '@babel/parser': 7.29.13
       '@babel/template': 7.29.7
@@ -4403,14 +4409,14 @@ snapshots:
       '@babel/helpers': 7.29.7
       '@babel/parser': 7.29.7
       '@babel/template': 7.29.7
-      '@babel/traverse': 7.29.7
+      '@babel/traverse': 7.29.7(supports-color@9.4.0)
       '@babel/types': 7.29.7
       '@jridgewell/remapping': 2.3.5
       convert-source-map: 2.0.0
       debug: 4.4.3(supports-color@9.4.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
-      semver: 6.3.1
+      semver: 6.3.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4444,18 +4450,18 @@ snapshots:
       '@babel/helper-validator-option': 7.29.7
       browserslist: 4.28.9
       lru-cache: 5.1.1
-      semver: 6.3.1
+      semver: 6.3.2
 
   '@babel/helper-globals@7.29.7': {}
 
   '@babel/helper-module-imports@7.29.7':
     dependencies:
-      '@babel/traverse': 7.29.7
-      '@babel/types': 7.29.7
+      '@babel/traverse': 7.29.13(supports-color@9.4.0)
+      '@babel/types': 7.29.11
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.29.13(@babel/core@7.29.13(supports-color@9.4.0))':
+  '@babel/helper-module-transforms@7.29.13(@babel/core@7.29.13)':
     dependencies:
       '@babel/core': 7.29.13(supports-color@9.4.0)
       '@babel/helper-module-imports': 7.29.7
@@ -4469,7 +4475,7 @@ snapshots:
       '@babel/core': 7.29.7(supports-color@9.4.0)
       '@babel/helper-module-imports': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-      '@babel/traverse': 7.29.7
+      '@babel/traverse': 7.29.7(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -4528,7 +4534,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/traverse@7.29.7':
+  '@babel/traverse@7.29.7(supports-color@9.4.0)':
     dependencies:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.7
@@ -5076,28 +5082,28 @@ snapshots:
   '@ferriki/win32-x64-msvc@1.3.0':
     optional: true
 
-  '@ferrolink/darwin-arm64@0.2.1':
+  '@ferrolink/darwin-arm64@0.2.2':
     optional: true
 
-  '@ferrolink/darwin-x64@0.2.1':
+  '@ferrolink/darwin-x64@0.2.2':
     optional: true
 
-  '@ferrolink/linux-arm64-gnu@0.2.1':
+  '@ferrolink/linux-arm64-gnu@0.2.2':
     optional: true
 
-  '@ferrolink/linux-arm64-musl@0.2.1':
+  '@ferrolink/linux-arm64-musl@0.2.2':
     optional: true
 
-  '@ferrolink/linux-x64-gnu@0.2.1':
+  '@ferrolink/linux-x64-gnu@0.2.2':
     optional: true
 
-  '@ferrolink/linux-x64-musl@0.2.1':
+  '@ferrolink/linux-x64-musl@0.2.2':
     optional: true
 
-  '@ferrolink/win32-arm64-msvc@0.2.1':
+  '@ferrolink/win32-arm64-msvc@0.2.2':
     optional: true
 
-  '@ferrolink/win32-x64-msvc@0.2.1':
+  '@ferrolink/win32-x64-msvc@0.2.2':
     optional: true
 
   '@floating-ui/core@1.8.0':
@@ -5296,7 +5302,7 @@ snapshots:
       ini: 4.1.3
       nopt: 7.2.1
       proc-log: 4.2.0
-      semver: 7.8.5
+      semver: 7.8.6
       walk-up-path: 3.0.1
     transitivePeerDependencies:
       - bluebird
@@ -5310,7 +5316,7 @@ snapshots:
       proc-log: 4.2.0
       promise-inflight: 1.0.1
       promise-retry: 2.0.1
-      semver: 7.8.5
+      semver: 7.8.6
       which: 4.0.0
     transitivePeerDependencies:
       - bluebird
@@ -5332,7 +5338,7 @@ snapshots:
       json-parse-even-better-errors: 3.0.2
       normalize-package-data: 6.0.2
       proc-log: 4.2.0
-      semver: 7.8.5
+      semver: 7.8.6
     transitivePeerDependencies:
       - bluebird
 
@@ -5995,7 +6001,7 @@ snapshots:
 
   ansi-styles@6.2.3: {}
 
-  ardo@6.4.1(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3):
+  ardo@6.6.0(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3):
     dependencies:
       '@base-ui/react': 1.9.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@ferriki/core': 1.3.0
@@ -6008,11 +6014,12 @@ snapshots:
       '@vanilla-extract/recipes': 0.5.7(@vanilla-extract/css@1.21.3)
       '@vanilla-extract/vite-plugin': 5.2.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(yaml@2.9.1)
       '@vitejs/plugin-react': 6.2.1(oxc-transform-react@0.156.0)(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
-      ferrolink: 0.2.1(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
-      ferromark: 3.7.0
+      ferrolink: 0.2.2(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      ferromark: 4.0.0
       minisearch: 7.2.0
       oxc-transform-react: 0.156.0
       react: 19.3.1
+      react-compare-slider: 4.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react-dom: 19.3.1(react@19.3.1)
       read-package-up: 12.0.0
       sharp: 0.35.5(@types/node@26.6.6)
@@ -6540,7 +6547,7 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0)):
     dependencies:
       eslint: 10.11.0(jiti@2.7.0)(supports-color@9.4.0)
-      semver: 7.8.5
+      semver: 7.8.6
 
   eslint-config-prettier@10.1.8(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0)):
     dependencies:
@@ -7077,48 +7084,48 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.7
 
-  ferrolink@0.2.1(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)):
+  ferrolink@0.2.2(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)):
     optionalDependencies:
-      '@ferrolink/darwin-arm64': 0.2.1
-      '@ferrolink/darwin-x64': 0.2.1
-      '@ferrolink/linux-arm64-gnu': 0.2.1
-      '@ferrolink/linux-arm64-musl': 0.2.1
-      '@ferrolink/linux-x64-gnu': 0.2.1
-      '@ferrolink/linux-x64-musl': 0.2.1
-      '@ferrolink/win32-arm64-msvc': 0.2.1
-      '@ferrolink/win32-x64-msvc': 0.2.1
+      '@ferrolink/darwin-arm64': 0.2.2
+      '@ferrolink/darwin-x64': 0.2.2
+      '@ferrolink/linux-arm64-gnu': 0.2.2
+      '@ferrolink/linux-arm64-musl': 0.2.2
+      '@ferrolink/linux-x64-gnu': 0.2.2
+      '@ferrolink/linux-x64-musl': 0.2.2
+      '@ferrolink/win32-arm64-msvc': 0.2.2
+      '@ferrolink/win32-x64-msvc': 0.2.2
       vite: 8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
 
-  ferromark-darwin-arm64@3.7.0:
+  ferromark-darwin-arm64@4.0.0:
     optional: true
 
-  ferromark-linux-arm64-gnu@3.7.0:
+  ferromark-linux-arm64-gnu@4.0.0:
     optional: true
 
-  ferromark-linux-arm64-musl@3.7.0:
+  ferromark-linux-arm64-musl@4.0.0:
     optional: true
 
-  ferromark-linux-x64-gnu@3.7.0:
+  ferromark-linux-x64-gnu@4.0.0:
     optional: true
 
-  ferromark-linux-x64-musl@3.7.0:
+  ferromark-linux-x64-musl@4.0.0:
     optional: true
 
-  ferromark-win32-arm64-msvc@3.7.0:
+  ferromark-win32-arm64-msvc@4.0.0:
     optional: true
 
-  ferromark-win32-x64-msvc@3.7.0:
+  ferromark-win32-x64-msvc@4.0.0:
     optional: true
 
-  ferromark@3.7.0:
+  ferromark@4.0.0:
     optionalDependencies:
-      ferromark-darwin-arm64: 3.7.0
-      ferromark-linux-arm64-gnu: 3.7.0
-      ferromark-linux-arm64-musl: 3.7.0
-      ferromark-linux-x64-gnu: 3.7.0
-      ferromark-linux-x64-musl: 3.7.0
-      ferromark-win32-arm64-msvc: 3.7.0
-      ferromark-win32-x64-msvc: 3.7.0
+      ferromark-darwin-arm64: 4.0.0
+      ferromark-linux-arm64-gnu: 4.0.0
+      ferromark-linux-arm64-musl: 4.0.0
+      ferromark-linux-x64-gnu: 4.0.0
+      ferromark-linux-x64-musl: 4.0.0
+      ferromark-win32-arm64-msvc: 4.0.0
+      ferromark-win32-x64-msvc: 4.0.0
 
   file-entry-cache@11.1.5:
     dependencies:
@@ -7949,7 +7956,7 @@ snapshots:
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@8.0.0:
@@ -7960,7 +7967,7 @@ snapshots:
 
   npm-install-checks@6.3.0:
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   npm-normalize-package-bin@3.0.1: {}
 
@@ -7968,14 +7975,14 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.2
       proc-log: 4.2.0
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-name: 5.0.1
 
   npm-package-arg@13.0.2:
     dependencies:
       hosted-git-info: 9.0.3
       proc-log: 6.1.0
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-name: 7.0.2
 
   npm-pick-manifest@9.1.0:
@@ -7983,7 +7990,7 @@ snapshots:
       npm-install-checks: 6.3.0
       npm-normalize-package-bin: 3.0.1
       npm-package-arg: 11.0.3
-      semver: 7.8.5
+      semver: 7.8.6
 
   object-deep-merge@2.0.1: {}
 
@@ -8119,7 +8126,7 @@ snapshots:
   package-json-validator@1.6.1:
     dependencies:
       npm-package-arg: 13.0.2
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-license: 3.0.4
       validate-npm-package-name: 7.0.2
 
@@ -8204,6 +8211,11 @@ snapshots:
       hookified: 2.2.0
 
   quote-js-string@0.1.0: {}
+
+  react-compare-slider@4.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   react-dom@19.3.1(react@19.3.1):
     dependencies:
@@ -8360,8 +8372,6 @@ snapshots:
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
 
-  semver@6.3.1: {}
-
   semver@6.3.2: {}
 
   semver@7.8.5: {}
@@ -8469,7 +8479,7 @@ snapshots:
       detect-newline: 4.0.1
       git-hooks-list: 4.2.1
       is-plain-obj: 4.1.0
-      semver: 7.8.5
+      semver: 7.8.6
       sort-object-keys: 2.1.0
       tinyglobby: 0.2.17
 
