@@ -80,8 +80,8 @@ few shared rules so the family reads as one:
 |         |                                                                                                                                      |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | React   | `>=19.0.0 <20.0.0` (peer)                                                                                                            |
-| Ardo    | not required; `monografie-ardo.css` fits Monografie to an Ardo 6 documentation site                                                  |
-| Node    | `>=20.11.0`                                                                                                                          |
+| Ardo    | `^6.4.1` (required peer); the package includes the Ardo shell and its Monografie adapter                                             |
+| Node    | `>=22.22.0` (the minimum required by the Ardo peer)                                                                                  |
 | Theme   | one authored light scheme; an Ardo site sets `colorScheme="light"` on `ArdoRootLayout`                                               |
 | Bundler | for Monografie, anything that resolves package exports and imports CSS (Vite, as Ardo uses). `ferramenta-family/registry` needs none |
 
@@ -89,10 +89,10 @@ few shared rules so the family reads as one:
 
 ```sh
 # Use the published semver release:
-pnpm add ferramenta-family@^2.0.0
+pnpm add ferramenta-family@^3.0.0 ardo@^6.4.1 react@^19 react-dom@^19
 
 # To test an unreleased source snapshot from Git:
-pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family"
+pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" ardo@^6.4.1 react@^19 react-dom@^19
 ```
 
 That is the whole Git contract: **no `allowBuilds` entry, no
@@ -110,7 +110,7 @@ install itself is checked by hand once per pin bump:
 
 ```sh
 cd "$(mktemp -d)" && echo '{"name":"pin-check","private":true,"type":"module"}' > package.json
-pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" react react-dom
+pnpm add "github:sebastian-software/ferramenta#<commit-sha>&path:/packages/family" ardo@^6.4.1 react@^19 react-dom@^19
 node -e 'import("ferramenta-family/monografie").then((m) => console.log(typeof m.MonoHeader))'
 ```
 

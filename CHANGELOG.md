@@ -5,7 +5,8 @@
 
 ### ⚠ BREAKING CHANGES
 
-* **family:** MonoOpening no longer takes a caption, and the package needs ardo ^6 beside it.
+* **family:** MonoOpening no longer takes a caption, and the package requires ardo ^6.4.1 beside it.
+* **family:** Node.js 22.22.0 or newer is required, matching the mandatory Ardo peer.
 * **family:** removes the root entry's chrome and landing kit (SiteHeader, SiteFooter, ToolSwitcher, SiteMenu, Icon, ProjectHero, Plate, EngineCatalog, ApplicationsBand, Principles, ComparisonTable, ComparisonBars, Measured, Relations, Voices, Ledger, WorkWithUs and the rest), the stylesheets tokens.css, fonts.css, theme.css, landing.css, chrome.css and docs.css, the fonts/* and textures/* exports and the member icons (icons/* keeps ardo.svg, dalo.svg and palamedes.svg), and the Ferra entry: ferramenta-family/ferra, ferra.css, ferra-ardo.css, ferra-tokens.css, ferra-fonts.css and every Ferra* component. The ferra-assets/* export, the registry and the README frames stay. Move a site with the Ferra -> Mono table under "Moving from 2.x" in packages/family/README.md.
 
 ### Features
