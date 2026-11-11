@@ -69,6 +69,13 @@
   background-image: url("../ferra/ferrigura/instrument.webp");
   aspect-ratio: 1600 / 800;
 }
+.ferra-mark[data-product="ferrixel"] {
+  background-image: url("../ferra/ferrixel/mark.webp");
+}
+.ferra-instrument[data-product="ferrixel"] {
+  background-image: url("../ferra/ferrixel/instrument.webp");
+  aspect-ratio: 1600 / 800;
+}
 .ferra-workshop-logo[data-brand="software"] {
   background-image: url("../ferra/brands/sebastian-software.svg");
 }

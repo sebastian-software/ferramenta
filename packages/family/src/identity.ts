@@ -14,6 +14,7 @@ export const IDENTITIES = [
   "ferrugo",
   "ferrolink",
   "ferrigura",
+  "ferrixel",
 ] as const;
 export type Identity = (typeof IDENTITIES)[number];
 

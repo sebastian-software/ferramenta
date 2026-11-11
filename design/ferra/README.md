@@ -114,6 +114,19 @@ Ferrigura's rectangular parent, square child and circular child occupy a roughly
 square envelope. Their simple one-to-two topology and substantial shared bus
 remain clear at small icon sizes.
 
+Ferrixel's mark and instrument are built in the Ferrixel repository, where
+`homepage/artwork/ferrixel-mark.py` and `ferrixel-instrument.py` import this
+repository's unmodified `studio.py`, `family_marks.py` and `hero_geometry.py`
+at a pinned commit and check their hashes. The mark is a polished steel picture
+plate with a stepped pixel mountain cut through into a dark graphite bed, a
+crowned copper sun and a graphite registration corner; the stepped outline stays
+legible at 32px. The instrument carries one picture on wagons along a gently
+curved track, past a crop guillotine, a spindle press and a pixel loupe that
+each leave the rails free. The masters here are those renders; their sidecars
+link the recipe at its Ferrixel commit and verify the helper hashes. Re-render
+in Ferrixel, copy the masters into `masters/ferrixel/`, then run
+`node design/ferra/build-assets.mjs ferrixel`.
+
 ## Homepage instrument reconstructions
 
 `blender/hero_instruments.py` reconstructs the nine original Imagegen hero

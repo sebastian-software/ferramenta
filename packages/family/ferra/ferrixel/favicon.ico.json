@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
+  "role": "32/48/64px ICO frames; no 16px frame.",
+  "source": "design/ferra/masters/ferrixel/mark.png",
+  "sourceSha256": "4bda0e0682f3c807f733736e5ffe67a0067ac6ede886571aa82dea2cac4e504d",
+  "prompt": "A polished steel picture plate with a stepped pixel mountain cut through into a graphite bed, a crowned copper sun, and a graphite registration corner.",
+  "geometry": "32x32 48x48 64x64",
+  "sha256": "7a4c7b71cdd76fd25f635d5c3cb4d04a104c3cee907510bc481918737186ea74"
+}

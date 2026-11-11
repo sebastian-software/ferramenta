@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
+  "role": "Optimized transparent instrument; resample and WebP encoding only.",
+  "source": "design/ferra/masters/ferrixel/instrument.png",
+  "sourceSha256": "cf6726024af2c2c27c64cfa569f710199218700b826b7997d30669a93af999f4",
+  "prompt": "An image railway: wagons on a gently curved steel track carry a source picture under a guillotine, a half-size copy under a spindle press, and the motif as square pixels under a loupe. Each tool spans the track.",
+  "geometry": "1600x800",
+  "sha256": "dfd0c9b2c009c3bf6dd38848631c4dc4efda17d06e2b42989240fea3e059269f"
+}
