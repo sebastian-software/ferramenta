@@ -1,0 +1,48 @@
+{
+  "createdAt": "2026-11-11",
+  "generatedWith": "Blender 5.3.0, Cycles",
+  "product": "Ferrixel",
+  "role": "Transparent native Blender product mark master",
+  "meaning": "A polished steel picture plate with a stepped pixel mountain cut through into a graphite bed, a crowned copper sun, and a graphite registration corner.",
+  "prompt": "A polished steel picture plate with a stepped pixel mountain cut through into a graphite bed, a crowned copper sun, and a graphite registration corner.",
+  "source": "https://github.com/sebastian-software/ferrixel/blob/587f4eac073a3347d4df1492aa35a30c1c9f3f74/homepage/artwork/ferrixel-mark.py",
+  "sourceSha256": "f5b315799435c87b98113f54f9f9fd03e958550ce9000fd91f024c289f0b938e",
+  "sourceRepositoryCommit": "587f4eac073a3347d4df1492aa35a30c1c9f3f74",
+  "constructionSources": {
+    "https://github.com/sebastian-software/ferrixel/blob/587f4eac073a3347d4df1492aa35a30c1c9f3f74/homepage/artwork/ferrixel-mark.py": "f5b315799435c87b98113f54f9f9fd03e958550ce9000fd91f024c289f0b938e",
+    "design/ferra/blender/studio.py": "7b0616e4bc8899ccd98f93fb5f61337d21e21da0b8aa90df60bd36f469d824b7",
+    "design/ferra/blender/family_marks.py": "0988b720737796570a01bbb413e264909f449db61672bfd12555876ae722a891"
+  },
+  "familySourceCommit": "5284a1264ed78f71c72387621e63fb997b7a8842",
+  "transparentBackgroundRequested": true,
+  "renderProfile": "AgX Medium High Contrast, sRGB alpha; Cycles 160 samples.",
+  "sha256": "4bda0e0682f3c807f733736e5ffe67a0067ac6ede886571aa82dea2cac4e504d",
+  "geometry": "1600x1600",
+  "geometryVerification": [
+    {
+      "body": "Graphite picture registration corner",
+      "closedManifold": true,
+      "volume": 0.23514,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Recessed graphite picture bed",
+      "closedManifold": true,
+      "volume": 0.294203,
+      "machinedOpenings": 0
+    },
+    {
+      "body": "Polished steel picture plate",
+      "closedManifold": true,
+      "volume": 0.548399,
+      "machinedOpenings": 1
+    },
+    {
+      "body": "Crowned copper sun",
+      "closedManifold": true,
+      "volume": 0.028398,
+      "machinedOpenings": 0
+    }
+  ],
+  "provenanceNote": "Rendered in the Ferrixel repository from the recipe above, which imports this repository's unmodified studio helpers at the recorded family commit and checks their hashes. The editable scene is reproduced by that recipe; no .blend is kept here."
+}

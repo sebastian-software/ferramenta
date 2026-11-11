@@ -471,6 +471,40 @@ export const family: FamilyTool[] = [
     docs: "https://ferrigura.dev",
   },
   {
+    name: "ferrixel",
+    editorial: {
+      order: 10,
+      navigation: "Image processing",
+      subtitle: "Decode, crop, resize and encode, with every step in view.",
+      introduction:
+        "Turn JPEG, WebP, JPEG XL and AVIF images into cropped and resized AVIF in Rust. Ferrixel resamples in linear light, follows the image’s orientation and color data, and reports every intermediate buffer it creates. It is experimental and not yet published.",
+      notes: [
+        {
+          title: "Four codecs in one workspace",
+          body: "Rust ports of libjpeg-turbo, libwebp, libjxl and libavif share one workspace with the engine. Sharing a workspace does not make a port the engine’s backend: each one is adopted only after its own checks against the C and C++ originals.",
+          href: "https://github.com/sebastian-software/ferrixel/blob/587f4eac073a3347d4df1492aa35a30c1c9f3f74/docs/codecs.md",
+        },
+        {
+          title: "Color is part of the contract",
+          body: "An image’s color data decides how its pixels are read. Ferrixel does not guess: unknown or contradictory color data, HDR and unsupported alpha stop with an error instead of being treated as sRGB.",
+          href: "https://github.com/sebastian-software/ferrixel/blob/587f4eac073a3347d4df1492aa35a30c1c9f3f74/docs/status.md",
+        },
+      ],
+    },
+    what: "An image processing pipeline",
+    job: "Image decoding, cropping, resizing and AVIF output in Rust",
+    does: "Decodes JPEG, WebP, JPEG XL and AVIF, crops and resizes in linear light, and encodes AVIF, reporting the intermediate buffers it creates.",
+    audience:
+      "For image services and build tools that need to see how a conversion handles color and memory.",
+    buildsOn: "JPEG / WebP / JPEG XL / AVIF",
+    proof:
+      "JPEG, WebP, JPEG XL and AVIF carry the images of the web, and their reference libraries are written in C and C++. Ferrixel ports those libraries to Rust beside an image pipeline that states its color, orientation and memory decisions, so a conversion can be checked rather than trusted.",
+    evidence: "Differential checks against the C and C++ codecs · explicit color failures",
+    version: "0.1.0",
+    status: "early",
+    repo: "https://github.com/sebastian-software/ferrixel",
+  },
+  {
     name: "palamedes",
     what: "An i18n toolchain for TypeScript apps",
     job: "Internationalization for TypeScript applications",

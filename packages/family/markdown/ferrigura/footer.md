@@ -14,6 +14,7 @@
 | [ferralk](https://ferralk.dev) | Glob matching and parallel filesystem walking |
 | [ferrugo](https://sebastian-software.github.io/ferrugo/) | PDF previews for untrusted files |
 | [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
+| [ferrixel](https://github.com/sebastian-software/ferrixel) | Image decoding, cropping, resizing and AVIF output in Rust |
 
 **Applications**
 

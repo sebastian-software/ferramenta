@@ -1,0 +1,9 @@
+{
+  "generatedWith": "ImageMagick export of Blender 5.3.0, Cycles master",
+  "role": "Transparent mark; padding normalization and Lanczos resize only. Alpha threshold measures bounds and never changes color pixels.",
+  "source": "design/ferra/masters/ferrixel/mark.png",
+  "sourceSha256": "4bda0e0682f3c807f733736e5ffe67a0067ac6ede886571aa82dea2cac4e504d",
+  "prompt": "A polished steel picture plate with a stepped pixel mountain cut through into a graphite bed, a crowned copper sun, and a graphite registration corner.",
+  "geometry": "256x256",
+  "sha256": "0890c1125131bf0926b3f78e247ba290de0976619684402395f936ab1aa90af5"
+}

@@ -15,6 +15,7 @@
 | [ferrugo](https://sebastian-software.github.io/ferrugo/) | PDF previews for untrusted files |
 | [ferrolink](https://ferrolink.dev) | Links, anchors and assets checked against the finished build |
 | [ferrigura](https://ferrigura.dev) | Mermaid diagrams to SVG without a browser |
+| [ferrixel](https://github.com/sebastian-software/ferrixel) | Image decoding, cropping, resizing and AVIF output in Rust |
 
 **Applications**
 

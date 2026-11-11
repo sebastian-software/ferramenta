@@ -14,6 +14,7 @@ export const IDENTITIES = [
     "ferrugo",
     "ferrolink",
     "ferrigura",
+    "ferrixel",
 ];
 export function hasIdentity(value) {
     return IDENTITIES.some((identity) => identity === value);
