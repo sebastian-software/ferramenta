@@ -66,7 +66,7 @@ request, `.github/workflows/deploy.yml` deploys `main` to GitHub Pages.
   a per-SHA allowlist entry. Rebuild it (`pnpm build:package`) and commit it in
   the same change as the source; CI fails on a stale `dist`, and
   `pnpm verify:package` proves the consumer path (`node
-scripts/check-committed-dist.mjs` is the guard CI runs after the build).
+  scripts/check-committed-dist.mjs` is the guard CI runs after the build).
 - Tool facts (names, what a member is and does, proofs, relations, links) come
   from `family.ts` — never hardcode them in components or page copy. Update the
   registry, everything re-renders. That includes the README family block of
