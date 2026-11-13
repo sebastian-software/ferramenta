@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v3.0.0...ferramenta-v3.1.0) (2026-11-11)
+
+
+### Features
+
+* **family:** add Ferrixel, an experimental image pipeline ([#157](https://github.com/sebastian-software/ferramenta/issues/157)) ([d37a095](https://github.com/sebastian-software/ferramenta/commit/d37a09525f01cd996e5110382e2ca21671e11134))
+
 ## [3.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v3.0.0) (2026-11-10)
 
 
