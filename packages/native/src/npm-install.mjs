@@ -111,6 +111,10 @@ export async function runPublicNpmInstall({
     "--ignore-scripts",
     "--no-audit",
     "--no-fund",
+    "--registry=https://registry.npmjs.org/",
+    ...(packageName.startsWith("@")
+      ? [`--${packageName.split("/")[0]}:registry=https://registry.npmjs.org/`]
+      : []),
     `${packageName}@${version}`,
   ];
   const result = await captureCommand(spawnImpl, npmCommand, args, options);
