@@ -2,23 +2,21 @@
 
 /* eslint-disable max-lines-per-function, max-statements -- Keep each registry fixture and its cleanup together. */
 import assert from "node:assert/strict";
-import { execFile, spawn } from "node:child_process";
+import { spawn } from "node:child_process";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import http from "node:http";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { promisify } from "node:util";
 
 import { runPublicNpmInstall } from "../src/npm-install.mjs";
-
-const execFileAsync = promisify(execFile);
+import { command } from "../src/process.mjs";
 
 // Exercise npm itself: the wrapper redirects only the intended public registry
 // to a local stand-in, while npm still reads a competing user configuration.
 for (const packageName of ["registry-proof", "@proof/registry-proof"]) {
   test(`installs the requested ${packageName} version despite registry overrides`, async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "npm-registry-proof-"));
+    const root = await mkdtemp(path.join(tmpdir(), "npm registry proof-"));
     const requests = [];
     const server = http.createServer(async (request, response) => {
       requests.push({ url: request.url, authorization: request.headers.authorization });
@@ -55,11 +53,9 @@ for (const packageName of ["registry-proof", "@proof/registry-proof"]) {
         path.join(root, "package.json"),
         JSON.stringify({ name: packageName, version: "1.0.0" }),
       );
-      const packed = await execFileAsync(
-        "npm",
-        ["pack", "--ignore-scripts", "--pack-destination", root],
-        { cwd: root },
-      );
+      const packed = command("npm", ["pack", "--ignore-scripts", "--pack-destination", root], {
+        cwd: root,
+      });
       const tarball = await readFile(path.join(root, packed.stdout.trim()));
       await writeFile(path.join(root, "package.tgz"), tarball);
       const consumer = path.join(root, "consumer");
