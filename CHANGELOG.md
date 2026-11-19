@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v3.0.0...ferramenta-v3.1.0) (2026-11-19)
+
+
+### Features
+
+* **family:** add Ferrixel, an experimental image pipeline ([#157](https://github.com/sebastian-software/ferramenta/issues/157)) ([d37a095](https://github.com/sebastian-software/ferramenta/commit/d37a09525f01cd996e5110382e2ca21671e11134))
+
+
+### Bug Fixes
+
+* **native:** use public registry for consumer proof ([#165](https://github.com/sebastian-software/ferramenta/issues/165)) ([1ecd192](https://github.com/sebastian-software/ferramenta/commit/1ecd192198f9916abf5911b3b4f98d8223fbd49d))
+* preserve release observation freshness ([#166](https://github.com/sebastian-software/ferramenta/issues/166)) ([e9b1225](https://github.com/sebastian-software/ferramenta/commit/e9b12256405f97c2ec0578a3a3640d9eac6e19b8))
+
 ## [3.0.0](https://github.com/sebastian-software/ferramenta/compare/ferramenta-v2.0.0...ferramenta-v3.0.0) (2026-11-10)
 
 
