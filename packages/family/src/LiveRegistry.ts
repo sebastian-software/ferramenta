@@ -1,6 +1,9 @@
+/* eslint-disable max-lines -- Registry fetching and snapshot policy share one public module. */
+/* oxlint-disable eslint/max-lines -- Registry fetching and snapshot policy share one public module. */
 import { useEffect, useState } from "react";
 
 import { family, type FamilyTool, packageName } from "./family.js";
+import { mergeReleaseFacts } from "./ReleaseFreshness.js";
 
 /*
  * Live registry figures, fetched by the visitor's browser after the page has
@@ -35,7 +38,7 @@ export type LiveRegistryFacts = {
   crates?: { version: string; downloads: number };
   npm?: { version: string; lastMonth: number };
   /** The repository's latest GitHub release: the version of a tool that ships from Git only. */
-  release?: { version: string };
+  release?: { version: string } | null;
 };
 
 /** Parsed JSON, or null when the request failed or did not answer with 2xx. */
@@ -185,6 +188,8 @@ export type RegistryStat = {
   npm: { version: string; lastMonth: number; placeholder?: boolean } | null;
   /** The repository's latest GitHub release, when it has one. */
   release?: { version: string } | null;
+  /** When GitHub last answered for this member, including an absent release. */
+  releaseObservedAt?: string;
 };
 
 /**
@@ -272,7 +277,11 @@ export function toolFacts(
   const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
   const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
   return {
-    version: shippedVersion(tool, crates ?? npm, live.release ?? stat?.release),
+    version: shippedVersion(
+      tool,
+      crates ?? npm,
+      live.release === undefined ? stat?.release : live.release,
+    ),
     crateDownloads: crates === null ? 0 : crates.downloads,
     onCrates: crates !== null,
     adapter: npm !== null,
@@ -293,7 +302,8 @@ export type FamilyMetrics = {
   generatedAt?: string;
   facts: Record<string, LiveRegistryFacts>;
   /** Which registries the service answered for; the rest need a direct request. */
-  answered: { crates: boolean; npm: boolean };
+  answered: { crates: boolean; npm: boolean; releases?: boolean };
+  legacyReleases?: boolean;
 };
 
 function metricsEntry(section: unknown, name: string): Record<string, unknown> {
@@ -321,6 +331,7 @@ function metricsFacts(doc: Record<string, unknown>, tool: FamilyTool): LiveRegis
   const repo = metricsEntry(doc.github, tool.name);
   const release = isRecord(repo.release) ? textAt(repo.release, "version") : undefined;
   if (release !== undefined) facts.release = { version: release };
+  else if (repo.release === null) facts.release = null;
   return facts;
 }
 
@@ -336,7 +347,12 @@ export async function fetchFamilyMetrics(url: string = METRICS_URL): Promise<Fam
   return {
     generatedAt: textAt(doc, "generatedAt"),
     facts,
-    answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
+    answered: {
+      crates: doc.sources.crates === "ok",
+      npm: doc.sources.npm === "ok",
+      releases: doc.sources.releases === "ok",
+    },
+    legacyReleases: doc.sources.releases === undefined,
   };
 }
 
@@ -371,7 +387,12 @@ export async function fetchFamilyFacts(
     direct.crates.length + direct.npm.length > 0
       ? byMember(await fetchLiveRegistry(direct, endpoints))
       : {};
-  return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+  return mergeReleaseFacts(
+    mergeFacts(fromMetrics?.facts ?? {}, fromRegistries),
+    fetchedMetrics,
+    snapshot,
+    snapshotGeneratedAt,
+  );
 }
 
 function isMetricsFreshEnough(

@@ -1,5 +1,8 @@
+/* eslint-disable max-lines -- Registry fetching and snapshot policy share one public module. */
+/* oxlint-disable eslint/max-lines -- Registry fetching and snapshot policy share one public module. */
 import { useEffect, useState } from "react";
 import { family, packageName } from "./family.js";
+import { mergeReleaseFacts } from "./ReleaseFreshness.js";
 export const REGISTRY_ENDPOINTS = {
     crates: "https://crates.io/api/v1",
     npmRegistry: "https://registry.npmjs.org",
@@ -183,7 +186,7 @@ export function toolFacts(tool, snapshotStat, live = {}) {
     const crates = stat?.crates == null ? null : { ...stat.crates, ...live.crates };
     const npm = hasAdapter(stat) ? { ...stat.npm, ...live.npm } : null;
     return {
-        version: shippedVersion(tool, crates ?? npm, live.release ?? stat?.release),
+        version: shippedVersion(tool, crates ?? npm, live.release === undefined ? stat?.release : live.release),
         crateDownloads: crates === null ? 0 : crates.downloads,
         onCrates: crates !== null,
         adapter: npm !== null,
@@ -223,6 +226,8 @@ function metricsFacts(doc, tool) {
     const release = isRecord(repo.release) ? textAt(repo.release, "version") : undefined;
     if (release !== undefined)
         facts.release = { version: release };
+    else if (repo.release === null)
+        facts.release = null;
     return facts;
 }
 /** The family's facts from the metrics document, or null when it did not answer usefully. */
@@ -239,7 +244,12 @@ export async function fetchFamilyMetrics(url = METRICS_URL) {
     return {
         generatedAt: textAt(doc, "generatedAt"),
         facts,
-        answered: { crates: doc.sources.crates === "ok", npm: doc.sources.npm === "ok" },
+        answered: {
+            crates: doc.sources.crates === "ok",
+            npm: doc.sources.npm === "ok",
+            releases: doc.sources.releases === "ok",
+        },
+        legacyReleases: doc.sources.releases === undefined,
     };
 }
 /**
@@ -256,7 +266,7 @@ export async function fetchFamilyFacts(snapshot, { endpoints = REGISTRY_ENDPOINT
     const fromRegistries = direct.crates.length + direct.npm.length > 0
         ? byMember(await fetchLiveRegistry(direct, endpoints))
         : {};
-    return mergeFacts(fromMetrics?.facts ?? {}, fromRegistries);
+    return mergeReleaseFacts(mergeFacts(fromMetrics?.facts ?? {}, fromRegistries), fetchedMetrics, snapshot, snapshotGeneratedAt);
 }
 function isMetricsFreshEnough(metrics, snapshotGeneratedAt) {
     if (snapshotGeneratedAt === undefined)

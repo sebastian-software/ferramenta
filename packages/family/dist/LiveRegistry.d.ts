@@ -29,7 +29,7 @@ export type LiveRegistryFacts = {
     /** The repository's latest GitHub release: the version of a tool that ships from Git only. */
     release?: {
         version: string;
-    };
+    } | null;
 };
 /**
  * Fetches the current figures for the requested packages, keyed by package
@@ -53,6 +53,8 @@ export type RegistryStat = {
     release?: {
         version: string;
     } | null;
+    /** When GitHub last answered for this member, including an absent release. */
+    releaseObservedAt?: string;
 };
 /**
  * The build-time snapshot, keyed by member name. Only packages the build
@@ -92,7 +94,9 @@ export type FamilyMetrics = {
     answered: {
         crates: boolean;
         npm: boolean;
+        releases?: boolean;
     };
+    legacyReleases?: boolean;
 };
 /** The family's facts from the metrics document, or null when it did not answer usefully. */
 export declare function fetchFamilyMetrics(url?: string): Promise<FamilyMetrics | null>;

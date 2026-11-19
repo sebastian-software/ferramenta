@@ -185,7 +185,7 @@ async function release(name) {
 /** The committed stats, so an unresolved lookup can keep the previous value. */
 async function loadPrevious() {
   try {
-    return JSON.parse(await readFile(OUT, "utf8")).tools ?? {};
+    return JSON.parse(await readFile(OUT, "utf8"));
   } catch {
     return {};
   }
@@ -193,12 +193,16 @@ async function loadPrevious() {
 
 if (family.length === 0) throw new Error("the family registry is empty");
 
-const previous = await loadPrevious();
+const previousSnapshot = await loadPrevious();
+const previous = previousSnapshot.tools ?? {};
 const tools = {};
 for (const tool of family) {
   const { name } = tool;
   const lookup = lookupNames(tool);
   const before = previous[name] ?? { crates: null, npm: null, release: null };
+  const previousObservation =
+    before.releaseObservedAt ??
+    (previous[name] && Object.hasOwn(before, "release") ? previousSnapshot.generatedAt : undefined);
   // Sequential on purpose: the shared fetcher keeps crates.io requests one second apart.
   const crate = await crates(lookup.crate);
   const adapter = await npm(lookup.npm, before.npm);
@@ -206,7 +210,16 @@ for (const tool of family) {
   tools[name] = {
     crates: crate === UNRESOLVED ? before.crates : crate,
     npm: adapter === UNRESOLVED ? before.npm : adapter,
-    release: latest === UNRESOLVED ? (before.release ?? null) : latest,
+    ...(latest === UNRESOLVED
+      ? Object.hasOwn(before, "release") && previous[name]
+        ? { release: before.release }
+        : {}
+      : { release: latest }),
+    ...(latest === UNRESOLVED
+      ? previousObservation
+        ? { releaseObservedAt: previousObservation }
+        : {}
+      : { releaseObservedAt: new Date().toISOString() }),
   };
   const c = tools[name].crates;
   const n = tools[name].npm;

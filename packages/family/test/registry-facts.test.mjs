@@ -223,3 +223,41 @@ test("a scoped npm package is asked for on its own, and its facts land on its me
   assert.equal(facts["@ferriki/core"], undefined, "keyed by member, not by package");
   assert.equal(kit.toolFacts(member("ferriki"), adapter, facts.ferriki).version, "9.4.1");
 });
+
+test("release freshness follows each GitHub observation across refreshes", async (t) => {
+  const monday = "2026-09-21T12:00:00Z";
+  const tuesday = "2026-09-22T12:00:00Z";
+  const wednesday = "2026-09-23T12:00:00Z";
+  let doc = { ...metricsDoc(), generatedAt: tuesday };
+  t.mock.method(globalThis, "fetch", async () => (doc ? body(doc) : { ok: false }));
+  const tool = member("ferriki");
+  const snapshot = {
+    ferriki: { crates: null, npm: null, release: { version: "9.2.0" }, releaseObservedAt: monday },
+  };
+  let facts = await kit.fetchFamilyFacts(snapshot, { snapshotGeneratedAt: wednesday });
+  assert.equal(kit.toolFacts(tool, snapshot.ferriki, facts.ferriki).version, "9.3.0");
+  snapshot.ferriki.releaseObservedAt = wednesday;
+  facts = await kit.fetchFamilyFacts(snapshot, { snapshotGeneratedAt: wednesday });
+  assert.equal(kit.toolFacts(tool, snapshot.ferriki, facts.ferriki).version, "9.2.0");
+  doc = null;
+  facts = await kit.fetchFamilyFacts(snapshot, { snapshotGeneratedAt: wednesday });
+  assert.equal(kit.toolFacts(tool, snapshot.ferriki, facts.ferriki).version, "9.2.0");
+});
+
+test("a confirmed absent release differs from an outage", async (t) => {
+  let doc = {
+    ...metricsDoc(),
+    sources: { ...metricsDoc().sources, releases: "ok" },
+    github: { ferriki: { release: null } },
+  };
+  t.mock.method(globalThis, "fetch", async () => body(doc));
+  const snapshot = { ferriki: { crates: null, npm: null, release: { version: "9.2.0" } } };
+  let facts = await kit.fetchFamilyFacts(snapshot);
+  assert.equal(
+    kit.toolFacts(member("ferriki"), snapshot.ferriki, facts.ferriki).version,
+    member("ferriki").version,
+  );
+  doc = { ...doc, sources: { ...doc.sources, releases: "error" } };
+  facts = await kit.fetchFamilyFacts(snapshot);
+  assert.equal(kit.toolFacts(member("ferriki"), snapshot.ferriki, facts.ferriki).version, "9.2.0");
+});
