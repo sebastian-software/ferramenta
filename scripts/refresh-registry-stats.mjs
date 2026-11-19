@@ -27,6 +27,7 @@ import { join } from "node:path";
 
 import { family } from "../packages/family/dist/family.js";
 import { createRegistryFetcher } from "./lib/registry-fetch.mjs";
+import { releaseObservation } from "./lib/release-observation.mjs";
 import { classifyOwnership, lookupNames, OURS, UNKNOWN } from "./registry-ownership.mjs";
 
 const here = import.meta.dirname;
@@ -185,7 +186,7 @@ async function release(name) {
 /** The committed stats, so an unresolved lookup can keep the previous value. */
 async function loadPrevious() {
   try {
-    return JSON.parse(await readFile(OUT, "utf8")).tools ?? {};
+    return JSON.parse(await readFile(OUT, "utf8"));
   } catch {
     return {};
   }
@@ -193,7 +194,8 @@ async function loadPrevious() {
 
 if (family.length === 0) throw new Error("the family registry is empty");
 
-const previous = await loadPrevious();
+const previousSnapshot = await loadPrevious();
+const previous = previousSnapshot.tools ?? {};
 const tools = {};
 for (const tool of family) {
   const { name } = tool;
@@ -206,7 +208,11 @@ for (const tool of family) {
   tools[name] = {
     crates: crate === UNRESOLVED ? before.crates : crate,
     npm: adapter === UNRESOLVED ? before.npm : adapter,
-    release: latest === UNRESOLVED ? (before.release ?? null) : latest,
+    ...releaseObservation(
+      previous[name],
+      latest === UNRESOLVED ? { resolved: false } : { resolved: true, value: latest },
+      { previousGeneratedAt: previousSnapshot.generatedAt, observedAt: new Date().toISOString() },
+    ),
   };
   const c = tools[name].crates;
   const n = tools[name].npm;
