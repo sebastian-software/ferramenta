@@ -27,6 +27,7 @@ import { join } from "node:path";
 
 import { family } from "../packages/family/dist/family.js";
 import { createRegistryFetcher } from "./lib/registry-fetch.mjs";
+import { releaseObservation } from "./lib/release-observation.mjs";
 import { classifyOwnership, lookupNames, OURS, UNKNOWN } from "./registry-ownership.mjs";
 
 const here = import.meta.dirname;
@@ -200,9 +201,6 @@ for (const tool of family) {
   const { name } = tool;
   const lookup = lookupNames(tool);
   const before = previous[name] ?? { crates: null, npm: null, release: null };
-  const previousObservation =
-    before.releaseObservedAt ??
-    (previous[name] && Object.hasOwn(before, "release") ? previousSnapshot.generatedAt : undefined);
   // Sequential on purpose: the shared fetcher keeps crates.io requests one second apart.
   const crate = await crates(lookup.crate);
   const adapter = await npm(lookup.npm, before.npm);
@@ -210,16 +208,11 @@ for (const tool of family) {
   tools[name] = {
     crates: crate === UNRESOLVED ? before.crates : crate,
     npm: adapter === UNRESOLVED ? before.npm : adapter,
-    ...(latest === UNRESOLVED
-      ? Object.hasOwn(before, "release") && previous[name]
-        ? { release: before.release }
-        : {}
-      : { release: latest }),
-    ...(latest === UNRESOLVED
-      ? previousObservation
-        ? { releaseObservedAt: previousObservation }
-        : {}
-      : { releaseObservedAt: new Date().toISOString() }),
+    ...releaseObservation(
+      previous[name],
+      latest === UNRESOLVED ? { resolved: false } : { resolved: true, value: latest },
+      { previousGeneratedAt: previousSnapshot.generatedAt, observedAt: new Date().toISOString() },
+    ),
   };
   const c = tools[name].crates;
   const n = tools[name].npm;

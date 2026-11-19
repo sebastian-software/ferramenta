@@ -261,3 +261,15 @@ test("a confirmed absent release differs from an outage", async (t) => {
   facts = await kit.fetchFamilyFacts(snapshot);
   assert.equal(kit.toolFacts(member("ferriki"), snapshot.ferriki, facts.ferriki).version, "9.2.0");
 });
+
+test("unknown snapshot members accept older positive metrics, but undated absences do not erase facts", async (t) => {
+  let doc = { ...metricsDoc(), sources: { ...metricsDoc().sources, releases: "ok" } };
+  t.mock.method(globalThis, "fetch", async () => body(doc));
+  const snapshot = { ferriki: { crates: null, npm: null } };
+  let facts = await kit.fetchFamilyFacts(snapshot, { snapshotGeneratedAt: "2026-09-25T12:00:00Z" });
+  assert.equal(facts.ferriki.release.version, "9.3.0");
+  doc = { ...doc, generatedAt: undefined, github: { ferriki: { release: null } } };
+  const known = { ferriki: { ...snapshot.ferriki, release: { version: "9.2.0" } } };
+  facts = await kit.fetchFamilyFacts(known);
+  assert.equal(kit.toolFacts(member("ferriki"), known.ferriki, facts.ferriki).version, "9.2.0");
+});

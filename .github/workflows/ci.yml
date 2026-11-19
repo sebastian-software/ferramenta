@@ -68,3 +68,19 @@ jobs:
       # and the tracked files at HEAD — and imports both entry points the way a
       # sibling site does.
       - run: pnpm run verify:package
+
+  package-consumer:
+    name: Package consumer (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22.22.0", "26"]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ matrix.node }}
+      # The Node 24 job verifies that the tracked dist matches the source.
+      - run: node scripts/verify-package-consumers.mjs
