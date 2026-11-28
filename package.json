@@ -28,10 +28,11 @@
     "social:write": "node scripts/render-social.mjs"
   },
   "dependencies": {
-    "ardo": "^6.6.0",
+    "ardo": "^6.9.1",
     "ferramenta-family": "workspace:*"
   },
   "devDependencies": {
+    "@ferrigura/core": "^0.7.0",
     "eslint": "^10.11.0",
     "eslint-config-setup": "^0.5.2",
     "jiti": "^2.7.0",
