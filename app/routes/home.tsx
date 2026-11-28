@@ -4,11 +4,14 @@ import {
   MonoAction,
   MonoApplications,
   MonoClosing,
+  MonoCodePair,
   MonoColophon,
+  MonoDiagram,
   MonoEngineCatalog,
   MonoEngraving,
   MonoOpening,
   MonoPassage,
+  MonoRenderedCode,
   MonoSection,
   MonoWide,
   MonoWorkshop,
@@ -17,6 +20,7 @@ import {
 import { familyTiers, WORKSHOP } from "ferramenta-family/registry";
 
 import registryStats from "../data/registry-stats.json";
+import mermaidExample from "../data/review.mmd";
 import { SITE_DESCRIPTION } from "../site-metadata";
 
 export const handle = { layout: "bare" };
@@ -135,6 +139,18 @@ export default function HomePage() {
       >
         <MonoWide>
           <MonoEngineCatalog />
+        </MonoWide>
+      </MonoSection>
+      <MonoSection id="mermaid-example" title="From Mermaid text to a diagram.">
+        <MonoWide>
+          <MonoCodePair>
+            <MonoRenderedCode caption="Mermaid source" html={mermaidExample.html} />
+            <MonoDiagram
+              caption="Rendered SVG"
+              label="After review, publish the draft or revise it."
+              svg={mermaidExample.svg}
+            />
+          </MonoCodePair>
         </MonoWide>
       </MonoSection>
       <MonoEngraving seed={3} />
